@@ -33,11 +33,16 @@ Dùng `configs/kaggle_t4.yaml` nếu chỉ có một GPU.
 Phiên Kaggle tối đa 12 giờ, quota GPU 30 giờ/tuần. Pipeline ghi `summary.json`, `report.html`,
 `user_study.csv` **sau mỗi prompt**, nên phiên bị ngắt vẫn giữ được kết quả đã chạy.
 
-Kết quả nằm trong `/kaggle/working/runs/<run_name>/`. Nén rồi tải về:
+Kết quả nằm trong `/kaggle/working/runs/<run_name>/`. Kaggle chỉ cho tải từng file, nên gom thành
+hai file tự chứa:
 
 ```bash
-zip -qr /kaggle/working/ctig_runs.zip /kaggle/working/runs -x "*/_cache/*"
+python -m ctig.bundle /kaggle/working/runs/<run_name>
 ```
+
+ra `bundle.html` (mở bằng trình duyệt, ảnh đã nhúng, ~1–5 MB cho 50 prompt) và `bundle.json`
+(summary, records, bằng chứng đã rút, review chi tiết của 8 prompt mẫu kèm ảnh thu nhỏ). Hai file này
+đủ để người khác đánh giá pipeline. Cần ảnh gốc thì **Save Version** rồi tải zip từ tab Output của version.
 
 ## Sự cố thường gặp
 

@@ -59,6 +59,26 @@ ra `bundle.html` (mở bằng trình duyệt, ảnh đã nhúng, ~1–5 MB cho 5
 | `ddg text ...: RatelimitException` | DuckDuckGo giới hạn tần suất | pipeline bỏ qua web, vẫn có Wikipedia; chạy lại sau hoặc `--set retrieval.web_api=none` |
 | checklist toàn `unsure` | VLM không thấy rõ, hoặc thuộc tính quá dài | xem `stage45_review.json → perception.checklist.note`; giảm `max_spec_entities` |
 
+## Notebook v1.2: xem từng bước
+
+`notebooks/ctig_walkthrough.ipynb` (config `configs/kaggle_walkthrough.yaml` cho 1×T4, `_t4x2.yaml` cho 2×T4): mỗi cell hiện
+đầu ra một bước (keywords → search hai cột → bằng chứng → spec/GenSpec → grid nhiều model → bảng điểm). Badge trên mỗi bảng cho
+biết kết quả lấy từ bộ nhớ, đĩa hay chạy mới; chạy lại cell không đổi gì thì không tốn API/model (cache gọi LLM ở
+`runs/_cache/llm`, cache web ở `runs/_cache/web`, ảnh multigen dùng lại theo hash GenSpec).
+
+## Key (tất cả tuỳ chọn)
+
+| Nguồn | Biến | Lấy ở đâu |
+|---|---|---|
+| DuckDuckGo text + ảnh (mặc định) | không cần | — |
+| LoRA áo dài Civitai (hàng `sdxl_aodai`) | `CIVITAI_TOKEN` | civitai.com → ảnh đại diện → Account settings → API Keys → Add API key |
+| Serper (Google web + Google Images, 2.500 truy vấn trial) | `SERPER_API_KEY` | serper.dev → Sign up → Dashboard → API Key; rồi `--set retrieval.web_api=serper` |
+| Model gated trên Hugging Face (`sd3_medium`) | `HF_TOKEN` | huggingface.co → Settings → Access Tokens; bấm chấp nhận điều khoản trên trang model |
+| Claude API làm agent | `ANTHROPIC_API_KEY` | console.anthropic.com |
+
+Trên Kaggle: Add-ons → Secrets → thêm tên và giá trị; notebook có cell đọc secret vào `os.environ`. Không có token
+Civitai thì hàng `sdxl_aodai` bị bỏ qua với một dòng log rõ, các hàng khác vẫn chạy.
+
 ## Web search
 
 Mặc định DuckDuckGo (`ddgs`, có trong requirements), không cần key, truy vấn tiếng Việt rồi tiếng Anh.

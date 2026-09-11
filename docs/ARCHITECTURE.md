@@ -42,6 +42,27 @@ EvalRecord, RunSummary
   ở nhiều prompt chỉ rút một lần.
 * **Ảnh tham chiếu**: `runs/_cache/ref_images/<sha1(url)>.jpg`.
 
+## v1.2: Session, multigen và ba lớp cache
+
+```
+Session(cfg, prompt)
+  .analysis()  .compare()  .retrieve()  .spec()  .genspec()  .multigen(models)  .review()
+  mỗi method: bộ nhớ (cùng hash đầu vào) -> đĩa (runs/<run>/<pid>/step_*.json) -> chạy mới; trả (value, source)
+  .invalidate(step) xoá bước đó và các bước sau; force=True ép chạy lại một bước
+```
+
+| Lớp cache | Khoá | Nơi lưu |
+|---|---|---|
+| gọi LLM/VLM (`llm/cache.py`) | sha1(backend, model, system, user, sha1 ảnh) | `runs/_cache/llm/` |
+| web (`stages/websearch.py::WebClient`) | sha1(loại, truy vấn, vùng, n) | `runs/_cache/web/`, ảnh `ref_images/` |
+| artefact bước (`session.py`) | sha1(đầu vào bước + hash bước trước + config liên quan) | `runs/<run>/<pid>/step_*.json` |
+| ảnh multigen (`stages/multigen.py`) | (model_key, hash GenSpec, seed) | `runs/<run>/<pid>/<model>/`, `multigen.json` |
+
+Multigen: `adapt_spec` (kích cỡ/bước/guidance/negative theo model, kẹp `max_side`) → nạp một model (`models/loader.py`) →
+sinh N ứng viên (`DiffusersGenerator`) → `score_run` (CLIP identity qua `review.select_candidate`, BLIP-2 ITM qua
+`ITMJudge.itm`, CLIP sim qua `CLIPProbe.similarity`) → `unload`. Model lỗi (OOM, gated, LoRA) thành `ModelRun.error`,
+grid vẫn vẽ. `review.enabled=false` → `review.generate_only`: một vòng, điểm = CLIP fidelity, cùng hình dạng ReviewOutcome.
+
 ## Ba bất biến
 
 1. **Reviewer chỉ nhìn `Perception`.** Với SDXL không có sự thật nội bộ. Với stub, `GenOutput.oracle`

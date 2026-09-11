@@ -1,0 +1,13 @@
+# v1.2 walkthrough, Kaggle 2x T4: Qwen + CLIP + BLIP-2 ở GPU 0, model sinh ảnh ở GPU 1 (không offload, 1024px).
+llm:        {backend: qwen_vl, model: Qwen/Qwen2.5-VL-3B-Instruct, device: "cuda:0", max_new_tokens: 700, temperature: 0.0, cache: true}
+perception: {backend: vlm_clip, clip_model: openai/clip-vit-base-patch32, device: "cuda:0"}
+retrieval:  {backend: wiki, web_api: ddg, web_langs: [vi, en], download_images: true, ref_image_min_clip: 0.75, extract: true}
+search_viz: {k_text: 5, k_images: 6, max_entities: 6}
+max_candidate_entities: 6
+review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
+judge:      {backend: blip2_itm, device: "cuda:0", offload: true}
+models:     [sdxl_turbo, dreamshaper8, sdxl_base, sdxl_aodai, playground25]
+multigen:   {enabled: true, device: "cuda:1", cpu_offload: false, n_candidates: 2, max_side: 1024, itm: true}
+t2i:        {backend: sdxl, device: "cuda:1", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 6.5,
+             n_candidates: 2, ip_adapter: true, ip_adapter_scale: 0.3, init_negatives: true}
+runs_dir: /kaggle/working/runs

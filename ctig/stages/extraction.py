@@ -57,6 +57,9 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
                 cache_file.write_text(json.dumps(extracted, ensure_ascii=False, indent=1), encoding="utf-8")
         for d in extracted.get("dropped_unsourced", []) or []:
             search.notes.append(f"extract {eid}: bỏ '{str(d)[:60]}' vì không có câu gốc trong văn bản")
+        extracted, junk = clean_extracted(extracted, ent)
+        for j in junk[:6]:
+            search.notes.append(f"extract {eid}: loại rác '{j[:60]}'")
         if not extracted.get("must_have"):
             search.notes.append(f"extract {eid}: không rút được must_have nào từ {len(texts)} nguồn")
             continue
@@ -81,6 +84,64 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
             f"{len(extracted.get('must_not', []))} must_not, {len(extracted.get('confusable_with', []))} confusable"
             + (" (cache)" if "_meta" in extracted and cache_file.exists() and extracted["_meta"].get("seconds", 1) == 0 else ""))
     return search
+
+
+#: Từ loại mà model 3B hay chép lại từ hướng dẫn thay vì viết thuộc tính thật (v1.1: "Hình dạng",
+#: "Chất liệu", "cách mặc/bày" chiếm ~40% must_have rút được).
+_CATEGORY_WORDS = {
+    "hình dạng", "chất liệu", "màu sắc", "màu", "cách mặc/bày", "cách mặc", "cách bày", "kích thước",
+    "đặc điểm", "thể loại", "độ phức tạp", "sự kiện", "thời gian", "tên tiếng anh", "tên tiếng việt",
+    "đồ chơi", "trang phục", "giao hưởng", "shape", "color", "material", "ingredients", "cooking method",
+}
+_VIET_MARKERS = ("việt", "viet")
+
+
+def clean_extracted(extracted: dict, ent) -> tuple[dict, list[str]]:
+    """Lọc rác trong kết quả rút: thuộc tính là tên loại, must_not trùng must_have, confusable là chính nó."""
+    from ..kb import normalize, tokens
+
+    junk: list[str] = []
+
+    def ok_attr(a: str) -> bool:
+        low = a.strip().lower()
+        if low in _CATEGORY_WORDS or len(tokens(a)) < 2:
+            return False
+        if any(low.startswith(w) and len(low) <= len(w) + 3 for w in _CATEGORY_WORDS):
+            return False
+        return True
+
+    mh = [a for a in extracted.get("must_have", []) if isinstance(a, str)]
+    keep_mh = [a for a in mh if ok_attr(a)]
+    junk += [a for a in mh if a not in keep_mh]
+
+    mh_tok = [tokens(a) for a in keep_mh]
+    mn = [a for a in extracted.get("must_not", []) if isinstance(a, str)]
+    keep_mn = []
+    for a in mn:
+        if not ok_attr(a):
+            junk.append(a); continue
+        ta = tokens(a)
+        if any(ta and len(ta & t) / len(ta) >= 0.8 for t in mh_tok):
+            junk.append(f"{a} (trùng must_have)"); continue
+        keep_mn.append(a)
+
+    ent_names = {normalize(ent.name_vi), normalize(ent.name_en.split("(")[0])}
+    keep_cf = []
+    for c in extracted.get("confusable_with", []) or []:
+        if not isinstance(c, dict):
+            continue
+        name = normalize(c.get("name") or c.get("name_en") or "")
+        culture = (c.get("culture") or "").lower()
+        if not name or name in ent_names or any(n and (n in name or name in n) for n in ent_names):
+            junk.append(f"confusable '{c.get('name')}' là chính thực thể"); continue
+        if any(m in culture for m in _VIET_MARKERS):
+            junk.append(f"confusable '{c.get('name')}' cùng văn hoá Việt"); continue
+        keep_cf.append(c)
+
+    srcs = {k: v for k, v in (extracted.get("attr_sources") or {}).items() if k in keep_mh or k in keep_mn}
+    out = dict(extracted)
+    out.update({"must_have": keep_mh, "must_not": keep_mn, "confusable_with": keep_cf, "attr_sources": srcs})
+    return out, junk
 
 
 def quote_in_texts(quote: str, texts: list[str]) -> bool:

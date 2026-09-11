@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0-seed",
+  "version": "0.3.0-seed",
   "disclaimer": "KB hạt giống do Claude soạn để chạy demo. MỌI trường must_have/must_not/prior_strength đều cần bạn đối chiếu nguồn thật (Wikipedia, hồ sơ UNESCO, sách văn hoá) trước khi dùng cho paper. prior_strength là ước lượng chủ quan, KHÔNG phải số đo.",
   "entities": [
     {
@@ -50,7 +50,19 @@
       "wiki_title_vi": "Áo dài",
       "notes": "Dạng hiện đại định hình thập niên 1930 (kiểu Le Mur của Nguyễn Cát Tường), sau có biến thể cổ thuyền thời Trần Lệ Xuân.",
       "kind": "object",
-      "clip_label": "a woman wearing a Vietnamese ao dai, a long fitted tunic with high collar split at the hips over wide trousers"
+      "clip_label": "a woman wearing a Vietnamese ao dai, a long fitted tunic with high collar split at the hips over wide trousers",
+      "must_have_en": [
+        "long-sleeved tunic split at the hips into front and back panels",
+        "high stand-up mandarin collar",
+        "worn over wide-legged long trousers",
+        "fitted bodice with flowing loose panels"
+      ],
+      "must_not_en": [
+        "wide obi sash tied at the back",
+        "one-piece dress with no trousers underneath",
+        "diagonal Y-shaped crossed collar",
+        "puffy flared skirt"
+      ]
     },
     {
       "id": "non_la",
@@ -93,7 +105,18 @@
       "wiki_title_vi": "Nón lá",
       "notes": "Nón bài thơ của Huế ép hình và câu thơ giữa hai lớp lá, soi lên sáng mới thấy.",
       "kind": "object",
-      "clip_label": "a Vietnamese non la, a smooth conical palm-leaf hat with a chin strap"
+      "clip_label": "a Vietnamese non la, a smooth conical palm-leaf hat with a chin strap",
+      "must_have_en": [
+        "round conical hat with a pointed tip",
+        "smooth palm-leaf surface stitched over bamboo rings",
+        "silk or cloth chin strap",
+        "flat smooth ivory to light-brown leaf surface"
+      ],
+      "must_not_en": [
+        "very wide curled brim with bright embroidery",
+        "coarse open bamboo weave",
+        "flat almost brimless top"
+      ]
     },
     {
       "id": "ao_tu_than",
@@ -135,7 +158,18 @@
       "wiki_title_vi": "Áo tứ thân",
       "notes": "Trang phục nữ Bắc Bộ trước thế kỷ 20; nay chủ yếu thấy trong hát quan họ và lễ hội.",
       "kind": "object",
-      "clip_label": "a woman in a Vietnamese ao tu than, a four-panel open-front gown with silk sash over a long black skirt"
+      "clip_label": "a woman in a Vietnamese ao tu than, a four-panel open-front gown with silk sash over a long black skirt",
+      "must_have_en": [
+        "four-panel gown with two loose open front panels",
+        "worn over a bodice with a long black skirt underneath",
+        "silk sash tied at the waist with hanging ends",
+        "paired with a flat wide-brimmed hat, not a conical hat"
+      ],
+      "must_not_en": [
+        "one-piece closed robe",
+        "high fitted mandarin collar",
+        "wide obi sash"
+      ]
     },
     {
       "id": "ao_ba_ba",
@@ -176,7 +210,17 @@
       "wiki_title_vi": "Áo bà ba",
       "notes": "Thường đi kèm khăn rằn và nón lá; gắn với hình ảnh miền Tây sông nước.",
       "kind": "object",
-      "clip_label": "a person wearing a Vietnamese ao ba ba, a plain silk button-up blouse with matching loose trousers"
+      "clip_label": "a person wearing a Vietnamese ao ba ba, a plain silk button-up blouse with matching loose trousers",
+      "must_have_en": [
+        "short hip-length blouse buttoned down the front",
+        "low round or small V neckline, no stand-up collar",
+        "matching wide-legged long trousers",
+        "plain silk or cotton in black, brown or muted solid color"
+      ],
+      "must_not_en": [
+        "long tunic panels below the knee",
+        "busy bright printed pattern"
+      ]
     },
     {
       "id": "khan_ran",
@@ -215,7 +259,16 @@
       "wiki_title_vi": "Khăn rằn",
       "notes": "Có giao thoa với văn hoá Khmer Nam Bộ.",
       "kind": "object",
-      "clip_label": "a Vietnamese khan ran, a small black-and-white checkered cotton scarf around the neck"
+      "clip_label": "a Vietnamese khan ran, a small black-and-white checkered cotton scarf around the neck",
+      "must_have_en": [
+        "small two-tone black-and-white or red-and-white checkered scarf",
+        "draped around the neck or wrapped on the head",
+        "medium-length rectangular scarf, not a large square"
+      ],
+      "must_not_en": [
+        "keffiyeh pattern with tassel fringe",
+        "large tartan plaid"
+      ]
     },
     {
       "id": "pho",
@@ -259,7 +312,19 @@
       "wiki_title_vi": "Phở",
       "notes": "Phở Bắc ăn thanh, ít rau thơm; phở Nam kèm đĩa giá, rau quế, ngò gai, chanh, tương đen–tương ớt.",
       "kind": "object",
-      "clip_label": "a bowl of Vietnamese pho, flat rice noodles in clear amber beef broth with sliced beef and green onion"
+      "clip_label": "a bowl of Vietnamese pho, flat rice noodles in clear amber beef broth with sliced beef and green onion",
+      "must_have_en": [
+        "flat soft white rice noodles",
+        "clear light amber broth, not thick",
+        "thin sliced beef or shredded chicken with scallion and thin onion on top",
+        "wide bowl with noodles submerged in broth"
+      ],
+      "must_not_en": [
+        "yellow curly wheat ramen noodles",
+        "milky thick tonkotsu broth",
+        "nori seaweed, halved soft-boiled egg, corn, butter",
+        "thick red spicy Sichuan-style broth"
+      ]
     },
     {
       "id": "banh_chung",
@@ -300,7 +365,18 @@
       "wiki_title_vi": "Bánh chưng",
       "notes": "Gắn truyền thuyết Lang Liêu; bánh chưng vuông tượng Đất, bánh giầy tròn tượng Trời. Luộc 8–12 tiếng.",
       "kind": "object",
-      "clip_label": "Vietnamese banh chung, a thick square sticky rice cake wrapped in green dong leaves tied with bamboo strips"
+      "clip_label": "Vietnamese banh chung, a thick square sticky rice cake wrapped in green dong leaves tied with bamboo strips",
+      "must_have_en": [
+        "thick square block with sharp folded corners",
+        "wrapped in green dong leaves tied with bamboo strips in a grid",
+        "cut open shows white sticky rice, yellow mung bean and pork belly layers",
+        "pale green tinted surface from the leaves"
+      ],
+      "must_not_en": [
+        "pyramid or wedge shape",
+        "narrow long bamboo leaf wrapping",
+        "round flat or cylindrical shape"
+      ]
     },
     {
       "id": "banh_tet",
@@ -340,7 +416,17 @@
       "wiki_title_vi": "Bánh tét",
       "notes": "Bánh Tết của miền Trung và miền Nam, đối ứng với bánh chưng miền Bắc.",
       "kind": "object",
-      "clip_label": "Vietnamese banh tet, a long cylindrical sticky rice cake wrapped in banana leaf, sliced into rounds"
+      "clip_label": "Vietnamese banh tet, a long cylindrical sticky rice cake wrapped in banana leaf, sliced into rounds",
+      "must_have_en": [
+        "long cylinder wrapped in banana leaf tied in many bands",
+        "sliced into round pieces with mung bean and pork center",
+        "white or naturally dyed purple green or red sticky rice"
+      ],
+      "must_not_en": [
+        "square shape",
+        "dong leaf wrapping",
+        "pyramid shape"
+      ]
     },
     {
       "id": "banh_mi",
@@ -382,7 +468,18 @@
       "wiki_title_vi": "Bánh mì",
       "notes": "Ruột rỗng và vỏ mỏng là điểm khác cốt lõi so với baguette Pháp, do công thức pha bột gạo/bột nở.",
       "kind": "object",
-      "clip_label": "a Vietnamese banh mi, a short airy baguette sandwich with pate, pickled carrot and daikon, cilantro and chili"
+      "clip_label": "a Vietnamese banh mi, a short airy baguette sandwich with pate, pickled carrot and daikon, cilantro and chili",
+      "must_have_en": [
+        "short baguette with thin crackly crust and airy hollow interior",
+        "split lengthwise with pate and butter or mayonnaise",
+        "pickled shredded carrot and daikon filling",
+        "cilantro, long cucumber slices and fresh chili"
+      ],
+      "must_not_en": [
+        "long dense French baguette",
+        "square sliced sandwich bread",
+        "thick melted cheese, iceberg lettuce, sub sandwich sauce"
+      ]
     },
     {
       "id": "cha_gio",
@@ -418,7 +515,17 @@
       "wiki_title_vi": "Chả giò",
       "notes": "Miền Bắc gọi nem rán, miền Nam gọi chả giò.",
       "kind": "object",
-      "clip_label": "Vietnamese fried spring rolls in blistered rice paper served with lettuce and herbs and dipping sauce"
+      "clip_label": "Vietnamese fried spring rolls in blistered rice paper served with lettuce and herbs and dipping sauce",
+      "must_have_en": [
+        "small fried rolls in blistered golden rice-paper wrapper",
+        "minced pork, wood ear mushroom, glass noodle and carrot filling",
+        "served with lettuce and herbs and a bowl of light dipping sauce"
+      ],
+      "must_not_en": [
+        "smooth flat wheat wrapper large spring roll",
+        "cabbage-dominated filling",
+        "thick red sweet and sour sauce"
+      ]
     },
     {
       "id": "goi_cuon",
@@ -453,7 +560,17 @@
       "wiki_title_vi": "Gỏi cuốn",
       "notes": "Điểm nhận dạng thị giác mạnh nhất: tôm đỏ nhìn xuyên qua vỏ bánh tráng trong.",
       "kind": "object",
-      "clip_label": "Vietnamese fresh summer rolls in translucent rice paper showing pink shrimp inside"
+      "clip_label": "Vietnamese fresh summer rolls in translucent rice paper showing pink shrimp inside",
+      "must_have_en": [
+        "translucent soaked rice paper showing the filling inside",
+        "fresh, not fried",
+        "halved pink boiled shrimp visible through the wrapper with pork, vermicelli and herbs",
+        "peanut hoisin or fish dipping sauce"
+      ],
+      "must_not_en": [
+        "golden fried crispy wrapper",
+        "opaque wrapper hiding the filling"
+      ]
     },
     {
       "id": "ca_phe_sua_da",
@@ -489,7 +606,17 @@
       "wiki_title_vi": "Cà phê Việt Nam",
       "notes": "Cái phin là dấu hiệu nhận dạng thị giác quan trọng nhất.",
       "kind": "object",
-      "clip_label": "a glass of Vietnamese iced coffee with a metal phin drip filter on top and condensed milk at the bottom"
+      "clip_label": "a glass of Vietnamese iced coffee with a metal phin drip filter on top and condensed milk at the bottom",
+      "must_have_en": [
+        "metal phin drip filter sitting on top of the glass",
+        "layer of condensed milk at the bottom with dark coffee on top",
+        "short glass with ice cubes",
+        "dark roasted robusta coffee, almost black"
+      ],
+      "must_not_en": [
+        "espresso machine and latte art",
+        "plastic to-go cup with straw"
+      ]
     },
     {
       "id": "bun_bo_hue",
@@ -530,7 +657,17 @@
       "wiki_title_vi": "Bún bò Huế",
       "notes": "Nền vị là mắm ruốc và sả, khác hoàn toàn phở.",
       "kind": "object",
-      "clip_label": "a bowl of Vietnamese bun bo Hue, thick round rice noodles in spicy red lemongrass broth with pork knuckle"
+      "clip_label": "a bowl of Vietnamese bun bo Hue, thick round rice noodles in spicy red lemongrass broth with pork knuckle",
+      "must_have_en": [
+        "thick round rice noodles, not flat",
+        "red-orange lemongrass chili broth with a chili oil film",
+        "beef shank, pork knuckle slices, blood cubes and pork cake",
+        "shredded banana blossom, pickled onion and herbs"
+      ],
+      "must_not_en": [
+        "flat white pho noodles",
+        "clear colorless broth"
+      ]
     },
     {
       "id": "com_lang_vong",
@@ -571,7 +708,17 @@
       "wiki_title_vi": "Cốm",
       "notes": "Đặc sản mùa thu Hà Nội, nổi tiếng nhất là cốm làng Vòng.",
       "kind": "object",
-      "clip_label": "Vietnamese com, flattened young green rice grains wrapped in a lotus leaf tied with rice straw"
+      "clip_label": "Vietnamese com, flattened young green rice grains wrapped in a lotus leaf tied with rice straw",
+      "must_have_en": [
+        "flattened young rice grains in soft jade green",
+        "wrapped in a lotus leaf tied with yellow rice straw",
+        "loose grains, not pressed into a cake"
+      ],
+      "must_not_en": [
+        "ordinary round white rice",
+        "paper or plastic packaging",
+        "artificial neon green"
+      ]
     },
     {
       "id": "tet_nguyen_dan",
@@ -608,7 +755,18 @@
       "wiki_title_vi": "Tết Nguyên Đán",
       "notes": "Đây là ca thất bại kinh điển của T2I: prompt 'lunar new year' gần như luôn ra cảnh Trung Quốc.",
       "kind": "context",
-      "clip_label": "a Vietnamese Tet celebration with a kumquat tree, peach or yellow apricot blossoms, red envelopes and an ancestral altar with a five-fruit tray"
+      "clip_label": "a Vietnamese Tet celebration with a kumquat tree, peach or yellow apricot blossoms, red envelopes and an ancestral altar with a five-fruit tray",
+      "must_have_en": [
+        "kumquat tree with orange fruit or pink peach blossoms, or yellow apricot blossoms",
+        "small red envelopes with Vietnamese lettering or patterns",
+        "five-fruit tray on an ancestral altar",
+        "banh chung or banh tet on the feast tray"
+      ],
+      "must_not_en": [
+        "streets covered in round red Chinese lanterns",
+        "Chinese characters as the main motif",
+        "Christmas tree and Santa Claus"
+      ]
     },
     {
       "id": "trung_thu",
@@ -644,7 +802,18 @@
       "wiki_title_vi": "Tết Trung thu",
       "notes": "Đèn ông sao năm cánh là dấu hiệu phân biệt Trung Thu Việt rõ nhất.",
       "kind": "context",
-      "clip_label": "Vietnamese Mid-Autumn festival with children carrying five-pointed star lanterns made of colored cellophane on bamboo frames"
+      "clip_label": "Vietnamese Mid-Autumn festival with children carrying five-pointed star lanterns made of colored cellophane on bamboo frames",
+      "must_have_en": [
+        "five-pointed star lantern of colored cellophane on a bamboo frame with a handle",
+        "square molded baked mooncakes and white snowskin cakes",
+        "lion dance with the Ong Dia character holding a fan",
+        "children parading lanterns at night"
+      ],
+      "must_not_en": [
+        "round red Chinese lanterns as the main object",
+        "jade rabbit lanterns",
+        "Japanese paper lanterns with kanji"
+      ]
     },
     {
       "id": "mua_lan",
@@ -678,7 +847,16 @@
       "wiki_title_vi": "Múa lân",
       "notes": "Xuất hiện ở cả Tết Nguyên Đán và Trung Thu.",
       "kind": "context",
-      "clip_label": "a Vietnamese lion dance with a colorful big-eyed lion head and the laughing Ong Dia character with a fan"
+      "clip_label": "a Vietnamese lion dance with a colorful big-eyed lion head and the laughing Ong Dia character with a fan",
+      "must_have_en": [
+        "large colorful lion head with big spring-mounted eyes and a horn",
+        "two performers, one at the head and one at the tail",
+        "the Ong Dia character with a round smiling mask, big belly and palm-leaf fan",
+        "drums and gongs accompanying"
+      ],
+      "must_not_en": [
+        "long dragon on poles carried by many people"
+      ]
     },
     {
       "id": "chua_mot_cot",
@@ -714,7 +892,17 @@
       "wiki_title_vi": "Chùa Một Cột",
       "notes": "Xây năm 1049 thời Lý Thái Tông; đài trên cột gọi là Liên Hoa Đài.",
       "kind": "object",
-      "clip_label": "the One Pillar Pagoda in Hanoi, a small wooden pavilion standing on a single stone pillar in a lotus pond"
+      "clip_label": "the One Pillar Pagoda in Hanoi, a small wooden pavilion standing on a single stone pillar in a lotus pond",
+      "must_have_en": [
+        "a single stone pillar standing in a pond",
+        "small square wooden pavilion on top with a curved roof on four sides",
+        "small wooden staircase from the bank",
+        "lotus pond and greenery around the pillar"
+      ],
+      "must_not_en": [
+        "multi-storey Chinese pagoda tower",
+        "temple on flat ground with many columns"
+      ]
     },
     {
       "id": "van_mieu",
@@ -750,7 +938,17 @@
       "wiki_title_vi": "Văn Miếu – Quốc Tử Giám",
       "notes": "Lập năm 1070; 82 bia tiến sĩ được UNESCO ghi danh Di sản tư liệu.",
       "kind": "object",
-      "clip_label": "the Temple of Literature in Hanoi with the Khue Van Cac pavilion and stone stelae on turtle backs"
+      "clip_label": "the Temple of Literature in Hanoi with the Khue Van Cac pavilion and stone stelae on turtle backs",
+      "must_have_en": [
+        "Khue Van Cac pavilion: four square brick pillars below and a red wooden upper floor with two round windows",
+        "stone doctoral stelae on stone turtles in two long rows",
+        "layered courtyards with old brick walls and a three-arch gate",
+        "curved roofs with hai-tiles"
+      ],
+      "must_not_en": [
+        "dragon-carved stone columns like the Forbidden City",
+        "bright gold paint"
+      ]
     },
     {
       "id": "pho_co_hoi_an",
@@ -785,7 +983,17 @@
       "wiki_title_vi": "Phố cổ Hội An",
       "notes": "Đèn lồng Hội An là lụa căng khung tre, hình cầu/củ tỏi, khác đèn lồng giấy Nhật hay Trung.",
       "kind": "context",
-      "clip_label": "Hoi An ancient town at night with yellow ochre walls, wooden shophouses and colorful silk lanterns"
+      "clip_label": "Hoi An ancient town at night with yellow ochre walls, wooden shophouses and colorful silk lanterns",
+      "must_have_en": [
+        "ochre yellow lime-washed walls with peeling patches",
+        "two-storey wooden shophouses with sliding doors and yin-yang tile roofs",
+        "strings of colorful silk lanterns along the street",
+        "the Japanese Covered Bridge over a small canal"
+      ],
+      "must_not_en": [
+        "modern glass high-rises",
+        "Japanese paper lanterns with kanji"
+      ]
     },
     {
       "id": "nha_rong",
@@ -825,7 +1033,17 @@
       "wiki_title_vi": "Nhà rông",
       "notes": "Nhà sinh hoạt cộng đồng của người Ba Na, Gia Rai, Xơ Đăng ở Tây Nguyên.",
       "kind": "object",
-      "clip_label": "a Vietnamese Central Highlands rong house, a tall stilt house with a very steep towering thatched roof"
+      "clip_label": "a Vietnamese Central Highlands rong house, a tall stilt house with a very steep towering thatched roof",
+      "must_have_en": [
+        "stilt house on tall wooden posts",
+        "very tall steep roof shaped like an axe blade or sail, dominating the house",
+        "thatched grass roof with carved wooden gable decorations",
+        "single-log wooden staircase up to the floor"
+      ],
+      "must_not_en": [
+        "low tiled roof",
+        "ground-level house"
+      ]
     },
     {
       "id": "dinh_lang",
@@ -860,7 +1078,17 @@
       "wiki_title_vi": "Đình làng",
       "notes": "Nơi thờ thành hoàng và hội họp của làng Bắc Bộ; mái võng và cột gỗ mộc là nét riêng.",
       "kind": "object",
-      "clip_label": "a Vietnamese village communal house with a low sagging tiled roof and large wooden columns"
+      "clip_label": "a Vietnamese village communal house with a low sagging tiled roof and large wooden columns",
+      "must_have_en": [
+        "single-storey wooden hall with a large low sagging tiled roof and gently curved corners",
+        "large round wooden columns on stone bases, open sides without full walls",
+        "wide courtyard with a banyan tree and a well",
+        "folk wood carvings on beams and brackets"
+      ],
+      "must_not_en": [
+        "multi-storey tower",
+        "bright red and gold Chinese temple paint"
+      ]
     },
     {
       "id": "thuyen_thung",
@@ -901,7 +1129,17 @@
       "wiki_title_vi": "Thuyền thúng",
       "notes": "Hình dạng tròn là đặc điểm thị giác gần như không thể nhầm, nhưng prior của T2I rất yếu.",
       "kind": "object",
-      "clip_label": "a Vietnamese round woven bamboo basket boat on the sea"
+      "clip_label": "a Vietnamese round woven bamboo basket boat on the sea",
+      "must_have_en": [
+        "round basket-shaped boat of woven bamboo sealed with resin",
+        "no bow, no stern, no rudder",
+        "paddled with a single oar, spinning as it moves",
+        "on a central Vietnam beach next to larger boats or on the sand"
+      ],
+      "must_not_en": [
+        "long boat with a pointed bow",
+        "planked wooden boat with diamond hull"
+      ]
     },
     {
       "id": "xich_lo",
@@ -941,7 +1179,16 @@
       "wiki_title_vi": "Xe xích lô",
       "notes": "Ghế khách đằng trước là điểm phân biệt then chốt với rickshaw.",
       "kind": "object",
-      "clip_label": "a Vietnamese cyclo, a three-wheeled pedicab with the passenger seat in front of the driver"
+      "clip_label": "a Vietnamese cyclo, a three-wheeled pedicab with the passenger seat in front of the driver",
+      "must_have_en": [
+        "passenger seat in FRONT of the pedaling driver",
+        "three wheels: two front wheels under the seat, one rear wheel under the driver",
+        "folding fabric canopy over the passenger seat"
+      ],
+      "must_not_en": [
+        "passenger seated behind the driver like an Indian rickshaw",
+        "motorized enclosed tuk-tuk"
+      ]
     },
     {
       "id": "ganh_hang_rong",
@@ -975,7 +1222,16 @@
       "wiki_title_vi": "Bán hàng rong",
       "notes": "Đòn gánh vắt một vai + nón lá là cặp dấu hiệu thị giác mạnh.",
       "kind": "object",
-      "clip_label": "a Vietnamese street vendor carrying a bamboo shoulder pole with two baskets"
+      "clip_label": "a Vietnamese street vendor carrying a bamboo shoulder pole with two baskets",
+      "must_have_en": [
+        "bamboo shoulder pole over one shoulder with two hanging baskets",
+        "vendor in a simple blouse wearing a conical leaf hat",
+        "baskets of flowers, fruit or street food with a small charcoal stove"
+      ],
+      "must_not_en": [
+        "four-wheeled western food cart",
+        "goods carried on the head"
+      ]
     },
     {
       "id": "ruong_bac_thang",
@@ -1018,7 +1274,17 @@
       "wiki_title_vi": "Ruộng bậc thang",
       "notes": "Nổi tiếng ở Mù Cang Chải (Yên Bái), Sa Pa (Lào Cai), Hoàng Su Phì (Hà Giang).",
       "kind": "context",
-      "clip_label": "terraced rice fields curving along steep mountains in northern Vietnam"
+      "clip_label": "terraced rice fields curving along steep mountains in northern Vietnam",
+      "must_have_en": [
+        "rice terraces curving along mountain contours with soft rounded edges",
+        "flooded terraces mirroring the sky, or golden ripe rice",
+        "steep earthen mountains covered in terraces with scattered stilt houses",
+        "ethnic minority farmers in the fields"
+      ],
+      "must_not_en": [
+        "straight-edged stone terraces like Machu Picchu",
+        "flat plain"
+      ]
     },
     {
       "id": "cho_noi",
@@ -1055,7 +1321,17 @@
       "wiki_title_vi": "Chợ nổi",
       "notes": "Cây bẹo là chi tiết nhận dạng riêng của chợ nổi Việt Nam.",
       "kind": "context",
-      "clip_label": "a Mekong Delta floating market with wooden boats full of fruit and sample poles on brown river water"
+      "clip_label": "a Mekong Delta floating market with wooden boats full of fruit and sample poles on brown river water",
+      "must_have_en": [
+        "many small wooden boats piled with fruit and vegetables on a wide river",
+        "cay beo: a bamboo pole on each boat with sample goods hung on it",
+        "vendors rowing or using long-tail motors, wearing conical hats",
+        "muddy brown Mekong river water"
+      ],
+      "must_not_en": [
+        "long high-prow boats with flower garlands like a Thai floating market",
+        "brick-lined canals like Venice"
+      ]
     },
     {
       "id": "dan_bau",
@@ -1096,7 +1372,17 @@
       "wiki_title_vi": "Đàn bầu",
       "notes": "Nhạc cụ độc dây riêng của Việt Nam; prior T2I gần như bằng không, đây là ca cần LoRA rõ nhất.",
       "kind": "object",
-      "clip_label": "a Vietnamese dan bau, a one-string zither with a flexible rod and gourd resonator played with a bamboo pick"
+      "clip_label": "a Vietnamese dan bau, a one-string zither with a flexible rod and gourd resonator played with a bamboo pick",
+      "must_have_en": [
+        "a single string along a long wooden box body",
+        "flexible rod at one end with a half gourd resonator",
+        "player plucking with a bamboo pick while bending the rod",
+        "flat body lying horizontally"
+      ],
+      "must_not_en": [
+        "many parallel strings like a zither",
+        "long neck and round body like a lute"
+      ]
     },
     {
       "id": "dan_tranh",
@@ -1136,7 +1422,17 @@
       "wiki_title_vi": "Đàn tranh",
       "notes": "Cùng họ với guzheng nhưng nhỏ hơn và ít dây hơn; số dây là dấu hiệu đếm được, tốt cho eval.",
       "kind": "object",
-      "clip_label": "a Vietnamese dan tranh, a sixteen-string zither with movable bridges played with finger picks"
+      "clip_label": "a Vietnamese dan tranh, a sixteen-string zither with movable bridges played with finger picks",
+      "must_have_en": [
+        "horizontal zither with sixteen or seventeen strings",
+        "one inverted-V movable bridge under each string",
+        "long trapezoid wooden box, one end wider",
+        "player wearing finger picks on the right hand"
+      ],
+      "must_not_en": [
+        "twenty-one strings on a very large body",
+        "thirteen strings with tall bridges like a koto"
+      ]
     },
     {
       "id": "mua_roi_nuoc",
@@ -1178,7 +1474,18 @@
       "wiki_title_vi": "Múa rối nước",
       "notes": "Khởi nguồn vùng đồng bằng sông Hồng khoảng thế kỷ 11; nhà hát Thăng Long là nơi diễn nổi tiếng.",
       "kind": "context",
-      "clip_label": "Vietnamese water puppetry, painted wooden puppets performing on a pond in front of a small pavilion"
+      "clip_label": "Vietnamese water puppetry, painted wooden puppets performing on a pond in front of a small pavilion",
+      "must_have_en": [
+        "brightly painted wooden puppets floating on the water surface",
+        "miniature communal-house pavilion with a bamboo screen as backdrop",
+        "puppeteers hidden behind the screen standing in the water",
+        "rippling water surface as the stage"
+      ],
+      "must_not_en": [
+        "string marionettes hanging in the air",
+        "hand puppets on a dry stage",
+        "flat shadow puppets"
+      ]
     },
     {
       "id": "tranh_dong_ho",
@@ -1220,7 +1527,18 @@
       "wiki_title_vi": "Tranh Đông Hồ",
       "notes": "Làng Đông Hồ, Bắc Ninh. Ánh điệp trên giấy dó là đặc trưng khó tái tạo nhất.",
       "kind": "object",
-      "clip_label": "a Vietnamese Dong Ho folk woodblock print with bold black outlines and flat natural colors on shimmering do paper"
+      "clip_label": "a Vietnamese Dong Ho folk woodblock print with bold black outlines and flat natural colors on shimmering do paper",
+      "must_have_en": [
+        "woodblock print with thick black outlines and flat unshaded colors",
+        "shimmering do paper coated with crushed seashell showing streaks",
+        "natural pigments: brick red, sophora yellow, indigo green, bamboo-leaf black",
+        "folk motifs like the mouse wedding, boy with rooster, pig with yin-yang swirl"
+      ],
+      "must_not_en": [
+        "hand-painted picture with shading and depth",
+        "ukiyo-e with fine lines and smooth gradients",
+        "neon or digital gradient colors"
+      ]
     },
     {
       "id": "nha_nhac_hue",
@@ -1261,7 +1579,17 @@
       "wiki_title_vi": "Nhã nhạc cung đình Huế",
       "notes": "UNESCO ghi danh Di sản phi vật thể năm 2003.",
       "kind": "context",
-      "clip_label": "Vietnamese Hue royal court musicians in embroidered robes performing with drums and lutes inside a gilded palace hall"
+      "clip_label": "Vietnamese Hue royal court musicians in embroidered robes performing with drums and lutes inside a gilded palace hall",
+      "must_have_en": [
+        "musicians in embroidered court robes with winged caps or turbans",
+        "ensemble of drums, oboes, moon lutes, two-string fiddles, flutes and clappers",
+        "inside or in front of a Hue palace hall with red lacquered gilded columns",
+        "strictly symmetrical seated or standing rows"
+      ],
+      "must_not_en": [
+        "western instruments",
+        "samurai or Qing dynasty mandarin costumes"
+      ]
     },
     {
       "id": "quan_ho",
@@ -1296,7 +1624,17 @@
       "wiki_title_vi": "Dân ca quan họ",
       "notes": "UNESCO ghi danh năm 2009. Nón quai thao phẳng vành rộng, KHÁC nón lá chóp nhọn.",
       "kind": "context",
-      "clip_label": "Vietnamese quan ho folk singers, women in four-panel dresses and flat wide-brimmed hats, men in gowns and turbans, singing on a boat"
+      "clip_label": "Vietnamese quan ho folk singers, women in four-panel dresses and flat wide-brimmed hats, men in gowns and turbans, singing on a boat",
+      "must_have_en": [
+        "men in dark long gowns and turbans holding black umbrellas",
+        "women in four-panel dresses with sashes and very wide flat-brimmed hats",
+        "male and female pairs singing to each other without instruments",
+        "setting at a communal-house yard, a river landing or on a boat"
+      ],
+      "must_not_en": [
+        "pointed conical leaf hats",
+        "modern backing band"
+      ]
     },
     {
       "id": "cong_chieng_tay_nguyen",
@@ -1331,7 +1669,17 @@
       "wiki_title_vi": "Không gian văn hóa Cồng Chiêng Tây Nguyên",
       "notes": "UNESCO ghi danh năm 2005.",
       "kind": "context",
-      "clip_label": "Vietnamese Central Highlands gong ensemble in woven costumes performing around a fire"
+      "clip_label": "Vietnamese Central Highlands gong ensemble in woven costumes performing around a fire",
+      "must_have_en": [
+        "set of round bronze gongs of many sizes held in hand or hung on a frame",
+        "struck with cloth-wrapped mallets or fists",
+        "players in Central Highlands woven costumes with red and black geometric patterns",
+        "performing around a fire or in front of a rong house"
+      ],
+      "must_not_en": [
+        "gamelan gongs on carved wooden racks",
+        "flat knobbed Thai or Burmese gongs"
+      ]
     },
     {
       "id": "ao_the_khan_xep",
@@ -1373,7 +1721,17 @@
       "wiki_title_vi": "Áo dài",
       "notes": "Trang phục nam trong lễ hội, hát quan họ, cúng tế.",
       "kind": "object",
-      "clip_label": "a Vietnamese man wearing a dark ao the gown and a khan xep pleated turban"
+      "clip_label": "a Vietnamese man wearing a dark ao the gown and a khan xep pleated turban",
+      "must_have_en": [
+        "dark loose men's long gown buttoned at the side",
+        "khan xep pleated turban with a herringbone fold at the front",
+        "white wide-legged trousers underneath",
+        "shoes or bare feet"
+      ],
+      "must_not_en": [
+        "hard round Qing mandarin hat with a knob",
+        "form-fitting women's ao dai cut"
+      ]
     },
     {
       "id": "trang_phuc_hmong",
@@ -1415,7 +1773,17 @@
       "wiki_title_vi": "Người Mông (Việt Nam)",
       "notes": "Có nhiều nhóm (Mông Hoa, Mông Đen, Mông Trắng) với hoa văn khác nhau; đừng gộp làm một.",
       "kind": "object",
-      "clip_label": "a Hmong woman from northern Vietnam in indigo hemp clothing with a pleated batik skirt and silver jewelry"
+      "clip_label": "a Hmong woman from northern Vietnam in indigo hemp clothing with a pleated batik skirt and silver jewelry",
+      "must_have_en": [
+        "indigo-dyed hemp fabric in dark blue-black",
+        "thick pleated skirt with batik bands and colored cross-stitch embroidery",
+        "large silver necklaces and silver earrings",
+        "head wrap or cap with tassels and silver buttons"
+      ],
+      "must_not_en": [
+        "Indian sari",
+        "South American woven patterns"
+      ]
     },
     {
       "id": "trang_phuc_dao_do",
@@ -1450,7 +1818,17 @@
       "wiki_title_vi": "Người Dao (Việt Nam)",
       "notes": "Sắc đỏ trên khăn đội đầu là dấu hiệu phân biệt nhanh nhất với H'Mông.",
       "kind": "object",
-      "clip_label": "a Red Dao woman from northern Vietnam with a large red headdress and black embroidered dress"
+      "clip_label": "a Red Dao woman from northern Vietnam with a large red headdress and black embroidered dress",
+      "must_have_en": [
+        "large red headdress wrapped high or spread wide",
+        "black long dress densely embroidered in red and white on the edges and sleeves",
+        "silver jewelry, rows of silver coins and red pom-poms",
+        "embroidered bib in front of the chest"
+      ],
+      "must_not_en": [
+        "indigo fabric with no red",
+        "white headscarf"
+      ]
     },
     {
       "id": "non_quai_thao",
@@ -1485,7 +1863,17 @@
       "wiki_title_vi": "Nón quai thao",
       "notes": "Ca dễ đánh giá tự động: chóp nhọn hay vành phẳng là nhị phân.",
       "kind": "object",
-      "clip_label": "a Vietnamese non quai thao, a very wide flat-brimmed round hat with long silk tassels"
+      "clip_label": "a Vietnamese non quai thao, a very wide flat-brimmed round hat with long silk tassels",
+      "must_have_en": [
+        "very wide flat brim, almost a flat disc, no pointed tip",
+        "inner ring inside the hat to fit the head",
+        "long multicolor silk tassel straps hanging on both sides",
+        "worn with a four-panel dress in quan ho singing"
+      ],
+      "must_not_en": [
+        "pointed conical shape",
+        "plain thin cloth strap without tassels"
+      ]
     }
   ]
 }

@@ -11,6 +11,15 @@ from . import shared
 from .rules import EXPANSION_RULES, REGION_LEXICON, SCENE_LEXICON
 
 
+def _kb_en(vi_list: list[str], en_list: list[str], attr: str) -> str:
+    """Bản tiếng Anh viết tay trong KB cho một thuộc tính tiếng Việt, hoặc "" nếu không có."""
+    try:
+        i = vi_list.index(attr)
+    except ValueError:
+        return ""
+    return en_list[i] if i < len(en_list) else ""
+
+
 class RuleAgent:
     name = "rule"
 
@@ -52,6 +61,8 @@ class RuleAgent:
     def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:
         merged: dict[str, dict] = {}
         for it in search.items:
+            if it.entity_id == "-":
+                continue  # nhóm truy vấn "prompt gốc": chỉ để hiển thị, không vào spec
             s = merged.setdefault(it.entity_id, {"score": 0.0, "mh": [], "mn": [], "cf": [], "titles": [], "ref": None})
             s["score"] = max(s["score"], it.score)
             for a in it.must_have:
@@ -61,8 +72,8 @@ class RuleAgent:
             for c in it.confusable_with:
                 c in s["cf"] or s["cf"].append(c)
             it.title in s["titles"] or s["titles"].append(it.title)
-            if it.kind == "image" and it.local_path:
-                s["ref"] = it.local_path  # retrieval đã lọc theo ref_image_min_clip và kind
+            if it.kind == "image" and it.local_path and it.is_reference:
+                s["ref"] = it.local_path  # retrieval đã chọn một ảnh tốt nhất đạt ngưỡng, thực thể vật thể
         dropped: list[list[str]] = []
         kept = []
         for eid, s in merged.items():
@@ -76,8 +87,22 @@ class RuleAgent:
             if not s["mh"]:
                 dropped.append([eid, "không có thuộc tính kiểm chứng được"]); continue
             kept.append((eid, s))
+
+        # Xếp hạng: nêu tên thẳng > thực thể bối cảnh có keyword (Tết không bị cắt) > còn lại theo điểm.
         named = {k.term for k in analysis.keywords if k.kind == "entity" and k.source == "surface"}
-        kept.sort(key=lambda p: (0 if kb.get(p[0]).name_vi in named else 1, -p[1]["score"]))
+        mentioned = {k.term for k in analysis.keywords if k.kind == "entity"}
+
+        def rank(p):
+            ent = kb.get(p[0])
+            if ent.name_vi in named:
+                tier = 0
+            elif ent.kind == "context" and ent.name_vi in mentioned:
+                tier = 1
+            else:
+                tier = 2
+            return (tier, -p[1]["score"])
+
+        kept.sort(key=rank)
         for eid, _ in kept[max_entities:]:
             dropped.append([eid, f"vượt giới hạn {max_entities} thực thể"])
         kept = kept[:max_entities]
@@ -85,10 +110,13 @@ class RuleAgent:
         ents = []
         for i, (eid, s) in enumerate(kept):
             ent = kb.get(eid)
+            # Bản tiếng Anh: lấy từ KB viết tay theo đúng vị trí; thuộc tính rút thêm (không có trong KB)
+            # để "" -> PromptAgent dịch nốt, không dịch được thì bỏ khỏi prompt (không đưa tiếng Việt).
+            mh_en = [_kb_en(ent.must_have, ent.must_have_en, a) for a in s["mh"]]
+            mn_en = [_kb_en(ent.must_not, ent.must_not_en, a) for a in s["mn"]]
             ents.append(SpecEntity(eid, ent.name_vi, ent.name_en, s["mh"], s["mn"], s["cf"],
                                    weights[min(i, 3)], s["titles"],
-                                   # Agent luật không dịch được; để rỗng để prompt không nhận tiếng Việt.
-                                   required_attrs_en=[], forbidden_attrs_en=[],
+                                   required_attrs_en=mh_en, forbidden_attrs_en=mn_en,
                                    clip_label=ent.clip_label or f"a photo of Vietnamese {ent.name_en.split('(')[0].strip()}",
                                    kind=ent.kind, reference_image=s["ref"]))
         return CulturalSpec(prompt.id, ents, [k.term for k in analysis.keywords if k.kind == "scene"], dropped)

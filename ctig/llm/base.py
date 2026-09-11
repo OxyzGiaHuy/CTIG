@@ -44,11 +44,22 @@ class LLMBackend(Protocol):
 
 
 class JSONChatMixin:
-    """Cài complete_json cho backend chỉ có chat(): nhắc schema, parse, thử lại."""
+    """Cài complete_json cho backend chỉ có chat(): nhắc schema, parse, thử lại. Có cache trên đĩa."""
 
     json_retries: int = 2
+    name: str = "?"
+    model_id: str = "?"
 
     def complete_json(self, system, user, schema, images=None):
+        from . import cache as llm_cache
+
+        c = llm_cache.current()
+        key = c.key(self.name, getattr(self, "model_id", "?"), system, user, images) if c.enabled else None
+        if key:
+            hit = c.get(key)
+            if hit is not None:
+                return hit
+
         hint = schema_to_hint(schema)
         sys_full = (
             system
@@ -60,7 +71,10 @@ class JSONChatMixin:
         for attempt in range(self.json_retries + 1):
             text = self.chat(sys_full, prompt, images)  # type: ignore[attr-defined]
             try:
-                return extract_json(text)
+                result = extract_json(text)
+                if key:
+                    c.put(key, result, {"backend": self.name, "attempt": attempt})
+                return result
             except JSONExtractError as exc:
                 last_err = exc
                 prompt = (

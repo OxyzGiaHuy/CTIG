@@ -9,6 +9,7 @@ Ghi đè cấu hình: --set t2i.steps=30 --set review.max_iters=1
 from __future__ import annotations
 
 import argparse
+from pathlib import Path
 
 from .config import Config, set_dotted
 from .kb import KnowledgeBase
@@ -70,6 +71,40 @@ Báo cáo: {pipe.run_dir / 'report.html'}
 User study CSV: {pipe.run_dir / 'user_study.csv'}""")
 
 
+def cmd_multigen(args):
+    """So nhiều model trên một hoặc nhiều prompt, không chạy vòng review. Ghi multigen.json, grid.png, multigen.html."""
+    cfg = _cfg(args)
+    prompts = load_prompts(cfg.prompts_path)
+    if args.text:
+        targets = [Prompt("adhoc", args.text, args.text)]
+    else:
+        want = set(args.ids.split(",")) if args.ids else {args.prompt_id}
+        targets = [p for p in prompts if p.id in want]
+        if not targets:
+            raise SystemExit(f"Không có prompt {want}")
+    models = args.models.split(",") if args.models else cfg.models
+    if len(targets) == 1:
+        from . import viz
+        from .session import Session
+
+        s = Session(cfg, targets[0], run_dir=Path(cfg.runs_dir) / (cfg.run_name or "multigen"), log=print)
+        rep = viz.Report(f"CTIG · {targets[0].id}")
+        a, src = s.analysis(); rep.parts.append(viz.keywords_table(a, s.kb, cfg.max_spec_entities, src))
+        sr, src = s.retrieve(); rep.parts.append(viz.evidence_table(sr, s.kb, src))
+        sp, src = s.spec(); rep.parts.append(viz.spec_card(sp, src))
+        gen, src = s.genspec(); rep.parts.append(viz.genspec_card(gen, src))
+        s.free_vlm()
+        res, src = s.multigen(models)
+        rep.parts.append(viz.model_grid(res, sp, source=src)); rep.parts.append(viz.score_table(res, src))
+        out = rep.save(s.out_dir / "multigen.html")
+        print(f"\nGrid: {res.grid_path}\nBáo cáo: {out}")
+    else:
+        pipe = Pipeline(cfg)
+        results = pipe.run_batch_multigen(targets, models)
+        for pid, res in results.items():
+            print(f"{pid}: {res.grid_path}")
+
+
 def cmd_kb(args):
     kb = KnowledgeBase.load(Config().kb_path)
     print(f"KB {kb.version}: {len(kb.all())} thực thể")
@@ -90,6 +125,10 @@ def main(argv=None):
 
     p = sub.add_parser("run"); p.add_argument("prompt_id", nargs="?", default="p001"); p.add_argument("--text"); common(p); p.set_defaults(func=cmd_run)
     p = sub.add_parser("batch"); p.add_argument("--limit", type=int); p.add_argument("--ids"); p.add_argument("--difficulty", choices=["easy", "medium", "hard"]); common(p); p.set_defaults(func=cmd_batch)
+    p = sub.add_parser("multigen", help="so nhiều model sinh ảnh trên cùng GenSpec (không review)")
+    p.add_argument("prompt_id", nargs="?", default="p001"); p.add_argument("--ids"); p.add_argument("--text")
+    p.add_argument("--models", help="khoá trong registry, cách nhau bằng dấu phẩy (mặc định: cfg.models)")
+    common(p); p.set_defaults(func=cmd_multigen)
     p = sub.add_parser("kb"); p.set_defaults(func=cmd_kb)
     args = ap.parse_args(argv)
     args.func(args)

@@ -29,16 +29,30 @@ def _en(se) -> str:
     return se.name_en.split("(")[0].strip()
 
 
+_VIET_CULTURE_MARKERS = ("việt", "viet", "vietnam")
+
+
 def _confusable_negatives(se) -> list[str]:
+    """Tên confusable đưa vào negative prompt.
+
+    Lần chạy v1.1: negative của p050 chứa "áo dài, vietnamese, tunic, trousers, shirt" vì
+    (a) confusable của áo bà ba trong KB là "áo dài" (phân biệt NỘI BỘ Việt, hữu ích cho CLIP
+    nhưng độc hại làm negative), (b) hàm này băm name_en thành từng từ. Nay:
+      * chỉ confusable có culture KHÔNG phải Việt,
+      * chỉ tên ASCII ngắn (kimono, qipao, zongzi, hanfu...), không băm câu mô tả.
+    """
     from ..llm.shared import confusable_labels
 
     out = []
-    for cf in se.confusables[:3]:
-        out.extend(confusable_labels(cf.get("name", "")))
-        # tên ASCII ngắn trong name_en (kimono, qipao, zongzi...) cũng đưa vào
-        for tok in (cf.get("name_en") or "").replace(",", " ").split():
-            if tok.isascii() and tok.isalpha() and len(tok) > 4 and tok.lower() not in ("japanese", "chinese", "korean", "with", "wide"):
-                out.append(tok.lower())
+    for cf in se.confusables[:4]:
+        culture = (cf.get("culture") or "").lower()
+        if any(m in culture for m in _VIET_CULTURE_MARKERS):
+            continue
+        for lab in confusable_labels(cf.get("name", "")):
+            lab = lab.strip()
+            # tên trần ASCII, tối đa 3 từ; bỏ tên có dấu tiếng Việt (SDXL không đọc được, và có thể trùng tên Việt)
+            if lab and lab.isascii() and len(lab.split()) <= 3:
+                out.append(lab.lower())
     return out
 
 
@@ -47,8 +61,9 @@ def build_initial_spec(prompt: Prompt, spec: CulturalSpec, prompt_en: str | None
     terms = [prompt_en or prompt.text_en]
     for se in spec.entities:
         terms.append(f"Vietnamese {_en(se)}")
-        if se.weight >= 0.8 and se.required_attrs_en:
-            terms.extend(se.required_attrs_en[:2])  # CHỈ tiếng Anh; không có bản dịch thì bỏ
+        en_attrs = [a for a in se.required_attrs_en if a]  # CHỈ tiếng Anh; cụm chưa dịch ("") bị bỏ
+        if se.weight >= 0.8 and en_attrs:
+            terms.extend(en_attrs[:2])
     terms.extend(spec.scene_notes[:2])
     terms.append(STYLE_SUFFIX)
 
@@ -226,6 +241,49 @@ class SDXLGenerator:
         return GenOutput(gen.prompt_id, gen.iteration, cands, chosen=0, oracle=None)
 
 
+# =============================================================== bộ sinh diffusers tổng quát (multigen)
+
+class DiffusersGenerator:
+    """Bọc một pipeline diffusers bất kỳ (SDXL, SD1.5, Turbo, Playground) với cùng interface generate().
+
+    Không IP-Adapter, không LCM: đó là đường của SDXLGenerator (vòng review). Ở đây chỉ so
+    model với nhau trên cùng một GenSpec. `trigger` là từ khoá LoRA thêm vào đầu prompt.
+    """
+
+    name = "diffusers"
+    lora_available = False
+    reference_available = False
+    lora_id = None
+
+    def __init__(self, pipe, model_key: str, trigger: str | None = None, negative_ok: bool = True):
+        import torch
+
+        self.torch = torch
+        self.pipe = pipe
+        self.model_key = model_key
+        self.trigger = trigger
+        self.negative_ok = negative_ok
+
+    def generate(self, gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, out_dir: Path) -> GenOutput:
+        out_dir.mkdir(parents=True, exist_ok=True)
+        prompt = f"{self.trigger}, {gen.prompt}" if self.trigger else gen.prompt
+        cands = []
+        for i in range(gen.n_candidates):
+            seed = gen.seed + 1000 * gen.iteration + i
+            g = self.torch.Generator(device="cpu").manual_seed(seed)
+            kwargs = dict(prompt=prompt, num_inference_steps=gen.steps, guidance_scale=gen.guidance,
+                          width=gen.width, height=gen.height, generator=g)
+            if self.negative_ok and gen.negative_prompt:
+                kwargs["negative_prompt"] = gen.negative_prompt
+            img = self.pipe(**kwargs).images[0]
+            path = out_dir / f"{gen.prompt_id}_{self.model_key}_c{i}.png"
+            img.save(path)
+            cands.append(Candidate(str(path), seed, model_id=self.model_key))
+        if self.torch.cuda.is_available():
+            self.torch.cuda.empty_cache()
+        return GenOutput(gen.prompt_id, gen.iteration, cands, chosen=0, oracle=None)
+
+
 # =============================================================== stub
 
 T_CORRECT, T_DRIFT = 0.55, 0.30
@@ -282,9 +340,10 @@ class StubGenerator:
                 oracle[se.entity_id] = cf["name"]
             else:
                 oracle[se.entity_id] = "<không vẽ>"
-        path = out_dir / f"{gen.prompt_id}_iter{gen.iteration}_c0.png"
+        tag = getattr(self, "model_key", None)
+        path = out_dir / (f"{gen.prompt_id}_{tag}_c0.png" if tag else f"{gen.prompt_id}_iter{gen.iteration}_c0.png")
         _draw_card(path, gen, spec, oracle, strengths)
-        return GenOutput(gen.prompt_id, gen.iteration, [Candidate(str(path), gen.seed)], 0, oracle)
+        return GenOutput(gen.prompt_id, gen.iteration, [Candidate(str(path), gen.seed, model_id=tag)], 0, oracle)
 
 
 def _font(size, bold=False):

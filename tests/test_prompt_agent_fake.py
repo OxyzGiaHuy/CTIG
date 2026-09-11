@@ -112,14 +112,18 @@ def test_end_to_end_with_fake_vlm():
     se = res.spec.entity("ao_dai")
     check("spec có Áo dài", se is not None)
     check("cụm dịch nhiễm 'obi' bị loại", se is not None and not any("obi" in a for a in se.required_attrs_en), str(se.required_attrs_en if se else None))
-    check("các cụm còn lại được dịch EN", se is not None and se.required_attrs_en and all(a.startswith("EN:") for a in se.required_attrs_en))
-    check("số cụm VI và EN khớp nhau sau khi loại", se is not None and len(se.required_attrs) == len(se.required_attrs_en))
-    check("forbidden dịch riêng", se is not None and se.forbidden_attrs_en and se.forbidden_attrs_en[0].startswith("NEG:"))
+    # v1.2: KB có bản EN viết tay -> không cần dịch; mọi cụm EN phải không rỗng và không nhiễm confusable
+    check("EN lấy từ KB viết tay, đủ và không rỗng", se is not None and len(se.required_attrs) == len(se.required_attrs_en)
+          and all(se.required_attrs_en), str(se.required_attrs_en if se else None))
+    check("forbidden EN từ KB", se is not None and len(se.forbidden_attrs) == len(se.forbidden_attrs_en) and all(se.forbidden_attrs_en))
+    check("VLM dịch KHÔNG được gọi khi KB đã có EN", not any("Dịch các đặc điểm" in sys_ for sys_, _ in fake.calls))
     it0 = res.outcome.iterations[0]
     check("checklist được hỏi (có gửi ảnh)", any(img for sys_, img in fake.calls if "câu hỏi ĐÓNG" in sys_))
     check("checklist identity=confusable -> finding critical", any(f.severity == "critical" for f in it0.critiques[0].findings))
     check("verdict revise", it0.adjudication.verdict == "revise")
-    check("bản sửa có negative 'kimono'", any("kimono" in n for n in it0.plan.add_negative), str(it0.plan.add_negative))
+    check("negative có 'kimono' (từ vòng 0 hoặc bản sửa)",
+          any("kimono" in n for n in it0.gen_spec.negative_terms + it0.plan.add_negative), str(it0.gen_spec.negative_terms))
+    check("negative KHÔNG chứa 'áo dài' hay 'vietnamese'", not any(("áo dài" in n or "vietnamese" in n.lower()) for n in it0.gen_spec.negative_terms), str(it0.gen_spec.negative_terms))
     check("thuộc tính tiếng Việt gốc không lọt vào prompt", se is not None and not any(a in it0.gen_spec.prompt_terms for a in se.required_attrs), str(it0.gen_spec.prompt_terms))
     it1 = res.outcome.iterations[1] if len(res.outcome.iterations) > 1 else None
     check("nhấn tối đa một lần", it1 is None or it1.gen_spec.prompt_terms.count("Vietnamese Ao dai") <= 1, str(it1.gen_spec.prompt_terms[:4] if it1 else None))

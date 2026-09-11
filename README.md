@@ -4,7 +4,7 @@
 
 Pipeline chạy được **toàn bộ các khối** trên Kaggle GPU và trả về **ảnh thật** cho mỗi prompt. Không cần API key nào, kể cả web search.
 
-**Phiên bản hiện tại: v1.1.** Thay đổi so với v1 sau lần chạy Kaggle đầu tiên: xem [research/research-log.md](research/research-log.md). Tóm tắt: search web tiếng Việt không key (DuckDuckGo), rút bằng chứng có trích đoạn gốc, VLM chỉ trả lời checklist câu đóng, judge BLIP-2 ITM độc lập với reviewer, prompt là danh sách cụm không lặp, IP-Adapter dè hơn.
+**Phiên bản hiện tại: v1.2** (notebook xem từng bước, so nhiều model; review agent tắt mặc định). v1.1: Thay đổi so với v1 sau lần chạy Kaggle đầu tiên: xem [research/research-log.md](research/research-log.md). Tóm tắt: search web tiếng Việt không key (DuckDuckGo), rút bằng chứng có trích đoạn gốc, VLM chỉ trả lời checklist câu đóng, judge BLIP-2 ITM độc lập với reviewer, prompt là danh sách cụm không lặp, IP-Adapter dè hơn.
 
 ```
 Input ─► Analysis Agent ─► Search ─► Summary/Filter/Rank ─► Gen (SDXL ×N) ─► Tri giác (VLM+CLIP) ─► Review ─► Eval
@@ -14,6 +14,25 @@ n=50     keywords mới        wiki      must_have/must_not      IP-Adapter     
 ```
 
 ---
+
+## v1.2: xem từng bước và so nhiều model
+
+Sau hai lần chạy Kaggle, vòng review agent còn lỗi cấu trúc (VLM 3B trả "yes" cho mọi câu cấm, analysis nổ 37 ứng viên).
+v1.2 đổi trọng tâm: **nhìn thấy từng bước** trước khi tối ưu agent.
+
+```
+Prompt ─► [1] keywords ─► [2] search: cột keywords ‖ cột prompt gốc ─► [2b] bằng chứng ─► [3] Spec/GenSpec
+       ─► [4] nhiều model sinh ảnh cùng GenSpec (grid) ─► [5] CLIP identity · BLIP-2 ITM · CLIP sim ─► (5b review, cờ)
+```
+
+* Notebook `notebooks/ctig_walkthrough.ipynb`: mỗi cell một bước, có badge **bộ nhớ / đĩa / chạy mới**. Chạy lại cell không đổi
+  gì thì không tốn API hay model: cache mọi lần gọi LLM (`ctig/llm/cache.py`), cache web (`ctig/stages/websearch.py`),
+  ảnh multigen dùng lại theo hash GenSpec (`ctig/stages/multigen.py`), memo từng bước (`ctig/session.py`).
+* Model so sánh (`ctig/models/registry.py`): `sdxl_turbo`, `dreamshaper8` (SD1.5), `sdxl_base`, `sdxl_aodai` (SDXL + LoRA áo dài
+  Civitai, cần `CIVITAI_TOKEN`), `playground25`; `sd3_medium`, `hunyuan_dit` đánh dấu experimental. Nạp tuần tự, một model một lúc.
+* Dòng lệnh: `python -m ctig.cli multigen p050 --config configs/kaggle_walkthrough.yaml` (một prompt, ra `multigen.html` + `grid.png`)
+  hoặc `--ids p001,p050` (vòng ngoài theo model, mỗi model nạp một lần).
+* Key: xem [docs/KAGGLE.md](docs/KAGGLE.md). Không có key nào thì mọi thứ trừ hàng LoRA vẫn chạy.
 
 ## Chạy nhanh
 

@@ -95,6 +95,12 @@ class EvidenceItem:
     provenance: str = "unknown"
     #: Với bằng chứng do VLM rút từ văn bản: thuộc tính -> trích đoạn gốc làm căn cứ.
     attr_sources: dict[str, str] = field(default_factory=dict)
+    #: Truy vấn đã sinh ra item này (để bảng hiển thị nhóm theo truy vấn). None với KB.
+    query: str | None = None
+    #: "keyword" = truy vấn từ thực thể/keyword; "prompt" = truy vấn từ prompt gốc.
+    query_group: str = "keyword"
+    #: Ảnh này có được chọn làm tham chiếu IP-Adapter không (chỉ một ảnh mỗi thực thể).
+    is_reference: bool = False
 
 
 @dataclass
@@ -190,6 +196,12 @@ class Candidate:
     clip_fidelity: float = 0.0
     #: entity_id -> {nhãn: xác suất} từ CLIP probe.
     clip_probs: dict[str, dict[str, float]] = field(default_factory=dict)
+    #: Model đã sinh ảnh này (multigen).
+    model_id: str | None = None
+    #: BLIP-2 ITM P(ảnh khớp mô tả thực thể), trung bình có trọng số (multigen).
+    itm_score: float | None = None
+    #: Cosine CLIP giữa ảnh và prompt_en (so được giữa ảnh, khác probs softmax).
+    clip_prompt_sim: float | None = None
 
 
 @dataclass
@@ -205,6 +217,74 @@ class GenOutput:
     @property
     def image_path(self) -> str:
         return self.candidates[self.chosen].path
+
+
+# ---------------------------------------------------------------- stage 4b: nhiều model
+
+@dataclass
+class ModelRun:
+    """Một model sinh N ứng viên cho cùng GenSpec (đã điều chỉnh theo model)."""
+
+    model_key: str
+    repo: str
+    gen_spec: GenSpec
+    output: GenOutput | None = None
+    seconds: float = 0.0
+    peak_vram_gb: float | None = None
+    error: str | None = None
+    #: "computed" | "disk" - ảnh lấy lại từ lần chạy trước khi GenSpec và seed không đổi.
+    source: str = "computed"
+
+
+@dataclass
+class MultiGenResult:
+    prompt_id: str
+    runs: list[ModelRun]
+    prompt_en: str = ""
+    grid_path: str | None = None
+    #: sha1 của GenSpec đầu vào; đổi prompt/negative/seed là đổi hash -> ảnh cũ không được dùng lại.
+    genspec_hash: str = ""
+
+
+# ---------------------------------------------------------------- so sánh truy vấn (hiển thị)
+
+@dataclass
+class TextHit:
+    query: str
+    source: str
+    title: str
+    snippet: str
+    url: str | None = None
+
+
+@dataclass
+class ImageHit:
+    query: str
+    source: str
+    title: str
+    url: str
+    local_path: str | None = None
+    #: cosine CLIP(ảnh, prompt_en) - so được giữa các ảnh.
+    clip_prompt_sim: float | None = None
+    #: P(ảnh khớp clip_label của thực thể) nếu truy vấn gắn với một thực thể.
+    clip_entity_prob: float | None = None
+    entity_id: str | None = None
+
+
+@dataclass
+class QueryColumn:
+    label: str
+    queries: list[str]
+    text: list[TextHit] = field(default_factory=list)
+    images: list[ImageHit] = field(default_factory=list)
+    note: str = ""
+
+
+@dataclass
+class QueryComparison:
+    prompt_id: str
+    columns: list[QueryColumn]
+    errors: list[str] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------- tri giác

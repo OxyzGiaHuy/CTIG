@@ -42,6 +42,22 @@ class CLIPProbe:
             out = self.model(**inputs)
         return out.logits_per_image.softmax(dim=-1)[0].tolist()
 
+    def similarity(self, image_path: str, texts: list[str]) -> list[float]:
+        """Cosine(ảnh, câu) trong [-1, 1], KHÔNG softmax -> so được giữa các ảnh khác nhau.
+
+        probs() so các nhãn với nhau trên MỘT ảnh; similarity() so MỘT câu trên nhiều ảnh.
+        Dùng để xếp ảnh search và ảnh sinh theo độ khớp với prompt_en.
+        """
+        from PIL import Image
+
+        img = Image.open(image_path).convert("RGB")
+        inputs = self.proc(text=texts, images=img, return_tensors="pt", padding=True, truncation=True).to(self.device)
+        with self.torch.inference_mode():
+            out = self.model(**inputs)
+            scale = self.model.logit_scale.exp()
+            sims = (out.logits_per_image / scale)[0]
+        return [float(x) for x in sims.tolist()]
+
     def entity_probs(self, image_path: str, spec: CulturalSpec) -> dict[str, dict[str, float]]:
         """entity_id -> {'__target__': p, <confusable name>: p, ...}. Chỉ thực thể kind == object."""
         result = {}

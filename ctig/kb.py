@@ -122,6 +122,10 @@ class Entity:
     clip_label: str = ""
     #: "object" | "context" - context (sự kiện, cảnh) không probe được bằng CLIP danh tính.
     kind: str = "object"
+    #: Bản tiếng Anh viết tay của must_have / must_not, cùng thứ tự. Dùng thẳng cho prompt SDXL,
+    #: không phụ thuộc VLM dịch (v1.1: dịch trả rỗng hoặc nhiễm "wide obi").
+    must_have_en: list[str] = field(default_factory=list)
+    must_not_en: list[str] = field(default_factory=list)
 
     @property
     def search_terms(self) -> list[str]:

@@ -18,6 +18,7 @@ class AnthropicBackend:
         self._anthropic = anthropic
         self.client = anthropic.Anthropic()
         self.model = model
+        self.model_id = model
         self.max_tokens = max(max_tokens, 4096)
         self.effort = effort
         self.calls = 0
@@ -55,10 +56,21 @@ class AnthropicBackend:
         )
 
     def complete_json(self, system, user, schema, images=None):
+        from . import cache as llm_cache
+
+        c = llm_cache.current()
+        key = c.key(self.name, self.model, system, user, images) if c.enabled else None
+        if key:
+            hit = c.get(key)
+            if hit is not None:
+                return hit
         text = self._create(
             model=self.model, max_tokens=self.max_tokens, system=system,
             messages=[{"role": "user", "content": self._content(user, images)}],
             output_config={"effort": self.effort,
                            "format": {"type": "json_schema", "schema": schema}},
         )
-        return extract_json(text)
+        result = extract_json(text)
+        if key:
+            c.put(key, result, {"backend": self.name, "model": self.model})
+        return result

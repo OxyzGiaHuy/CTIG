@@ -21,3 +21,23 @@
 - Judge: BLIP-2 ITM + CLIP, độc lập với reviewer; lùi về CLIP nếu không tải được.
 - Gen: prompt danh sách cụm, nhấn tối đa 1 lần; IP-Adapter 0,3; LCM-LoRA tuỳ chọn (fast_iters) + render đủ bước.
 - Chưa chạy trên GPU. Bước tiếp: smoke v1.1 → dev10 với max_iters=0 (baseline) và max_iters=2 (H1).
+
+## 2026-09-11 — Smoke v1.1 và quyết định đổi trọng tâm sang v1.2
+- Smoke v1.1 (2 prompt, 2×T4, 12,4 phút): 0/2 đạt. CLIP fidelity vòng 0 → cuối 0,60 → 0,74; ảnh p050 vòng 2 đúng văn hoá
+  (áo dài + nón lá) nhưng bộ chấm không nhận ra vì spec hỏng.
+- 5 lỗi mới: (1) analysis trả 37/37 thực thể KB cho "mừng năm mới âm lịch" → spec giữ áo bà ba, cắt Tết; (2) negative chứa
+  "áo dài, vietnamese, tunic" do confusable nội bộ Việt và băm token; (3) dịch EN trả rỗng không log; (4) VLM trả "yes" cho
+  mọi câu cấm trên áo dài đúng → 4 critical → điểm 0; (5) ~40% thuộc tính rút được là tên loại ("Hình dạng", "Chất liệu").
+- Bằng chứng tốt: rút bằng chứng chạy được (36 thực thể, có câu gốc); BLIP-2 ITM nạp được và chấm 0,94 khớp mắt người ở p001
+  trong khi reviewer chấm 0.
+- **Quyết định:** v1.2 đổi trọng tâm sang notebook hiển thị từng bước + so nhiều model; review agent thành cờ, mặc định tắt.
+
+## 2026-09-11 — v1.2
+- `Session` memo từng bước (bộ nhớ → đĩa → chạy mới) + cache mọi lần gọi LLM (`runs/_cache/llm`) + cache web (`runs/_cache/web`):
+  chạy lại cell không tốn API/model.
+- Search so sánh hai cột: truy vấn từ keywords vs từ prompt gốc, top-K text/ảnh với CLIP sim.
+- Multigen: registry (sdxl_turbo, dreamshaper8, sdxl_base, sdxl_aodai [Civitai LoRA 590793], playground25; sd3/hunyuan
+  experimental), nạp tuần tự, ảnh dùng lại theo hash GenSpec, grid + CLIP identity + BLIP-2 ITM + CLIP sim.
+- Sửa 5 lỗi v1.1: cap 6 ứng viên có căn cứ (context ưu tiên), negative chỉ confusable khác văn hoá và tên ASCII,
+  KB thêm must_have_en/must_not_en viết tay (KB 0.3.0), lọc rác rút bằng chứng, forbidden-yes khi identity=target hạ mức.
+- Chưa chạy GPU. Kế tiếp: walkthrough p001/p050/p012 trên Kaggle, rồi H8 trên dev10.

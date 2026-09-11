@@ -20,6 +20,9 @@ class LLMConfig:
     temperature: float = 0.2
     #: Số lần thử lại khi đầu ra không phải JSON hợp lệ.
     json_retries: int = 2
+    #: Cache mọi lần gọi model theo (backend, model, system, user, ảnh) trên đĩa.
+    #: Chạy lại cell trong notebook không tốn API/VLM. Tắt nếu muốn đầu ra đa dạng.
+    cache: bool = True
 
 
 @dataclass
@@ -108,10 +111,40 @@ class JudgeConfig:
 
 @dataclass
 class ReviewConfig:
+    #: False = chỉ sinh vòng 0 và chọn ứng viên bằng CLIP, không gọi VLM phê bình (v1.2 mặc định trong notebook).
+    enabled: bool = True
     max_iters: int = 2
     pass_threshold: float = 0.75
     #: Trọng số CLIP khi hợp điểm với VLM.
     clip_weight: float = 0.35
+
+
+@dataclass
+class MultiGenConfig:
+    """So nhiều model sinh ảnh trong một lần chạy (v1.2). Model nạp tuần tự, giải phóng sau mỗi model."""
+
+    enabled: bool = False
+    device: str = "cuda:0"
+    cpu_offload: bool = True
+    n_candidates: int = 2
+    #: Kẹp cạnh dài của ảnh (SDXL 1024 -> 768 trên 1xT4 để tránh OOM).
+    max_side: int = 768
+    #: Chấm BLIP-2 ITM cho từng ảnh (dùng judge.blip2_model, offload CPU).
+    itm: bool = True
+    #: Ghi đè tham số theo model: {sdxl_turbo: {steps: 4}}.
+    overrides: dict[str, dict] = field(default_factory=dict)
+    #: Thư mục cache LoRA tải từ Civitai/HF.
+    lora_dir: str | None = None
+
+
+@dataclass
+class SearchVizConfig:
+    """Bước so sánh truy vấn keyword vs prompt gốc trong notebook."""
+
+    k_text: int = 5
+    k_images: int = 6
+    #: Tối đa bao nhiêu thực thể ứng viên tạo truy vấn (chống nổ danh mục).
+    max_entities: int = 6
 
 
 @dataclass
@@ -123,6 +156,12 @@ class Config:
     review: ReviewConfig = field(default_factory=ReviewConfig)
     judge: JudgeConfig = field(default_factory=JudgeConfig)
     cache: CacheConfig = field(default_factory=CacheConfig)
+    multigen: MultiGenConfig = field(default_factory=MultiGenConfig)
+    search_viz: SearchVizConfig = field(default_factory=SearchVizConfig)
+    #: Khoá model trong ctig/models/registry.py dùng cho multigen.
+    models: list[str] = field(default_factory=lambda: ["sdxl_base"])
+    #: Tối đa số thực thể ứng viên stage 1 giữ lại (chống nổ danh mục như p050 v1.1: 37 ứng viên).
+    max_candidate_entities: int = 6
     seed: int = 1234
     max_spec_entities: int = 4
     min_entity_score: float = 0.30

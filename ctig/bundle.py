@@ -80,10 +80,15 @@ def make_bundle(run_dir: Path, max_side: int, detail_ids: set[str], out_html: Pa
               <details><summary>prompt</summary><pre>{html.escape(_join(it['gen_spec'], 'prompt_terms', 'prompt')[:600])}</pre><pre class='neg'>NEG: {html.escape(_join(it['gen_spec'], 'negative_terms', 'negative_prompt')[:400])}</pre></details></div></div>""")
         ents = ", ".join(f"{e['name_vi']}" + (" <i>(ad-hoc)</i>" if e["entity_id"].startswith("x_") else "") for e in spec.get("entities", []))
         rec_r = "n/a" if rec["retrieval_recall"] < 0 else f"{rec['retrieval_recall']:.2f}"
+        grid_p = run_dir / pid / "grid.png"
+        grid_html = ""
+        if grid_p.exists():
+            gth = thumb_b64(str(grid_p), max_side * 2)
+            grid_html = f"<h4>So nhiều model</h4><img src='{gth}' style='max-width:100%'>" if gth else ""
         sections.append(f"""<section class='{'ok' if rec['passed'] else 'fail'}'>
           <h2>{pid} — {html.escape(rec['prompt_text'])}</h2>
           <div class='s'>thực thể: {ents or '<i>spec rỗng</i>'} · đạt <b>{'Y' if rec['passed'] else 'n'}</b> · review {rec['review_score']:.2f} · CLIP {rec['clip_fidelity']:.2f} · judge {rec['judge_score']:.2f} · recall {rec_r} · {rec['iterations']} vòng</div>
-          <div class='row'>{''.join(cards)}</div>
+          <div class='row'>{''.join(cards)}</div>{grid_html}
           <details><summary>judge</summary>{html.escape(rec.get('judge_reasoning', '')[:800])}</details></section>""")
 
         if pid in detail_ids:

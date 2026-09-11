@@ -29,6 +29,31 @@ def select_candidate(out: GenOutput, spec: CulturalSpec, clip) -> None:
     out.chosen = best
 
 
+def generate_only(generator, clip, prompt: Prompt, spec: CulturalSpec, kb: KnowledgeBase,
+                  prompt_en: str | None, cfg, out_dir: Path, log=print) -> ReviewOutcome:
+    """review.enabled = false: một vòng sinh, chọn ứng viên bằng CLIP, không gọi VLM.
+
+    Cùng hình dạng ReviewOutcome nên eval, báo cáo, bundle không đổi. Điểm = CLIP fidelity.
+    """
+    from ..schema import Adjudication, Critique, Perception
+
+    gen = build_initial_spec(prompt, spec, prompt_en, cfg.t2i, cfg.seed,
+                             init_negatives=getattr(cfg.t2i, "init_negatives", True))
+    out = generator.generate(gen, spec, kb, out_dir)
+    select_candidate(out, spec, clip)
+    chosen = out.candidates[out.chosen]
+    perception = Perception(out.image_path, [], caption="(review tắt, không gọi VLM)",
+                            clip_probs=chosen.clip_probs, perceiver="clip-only")
+    score = chosen.clip_fidelity if chosen.clip_probs else 0.0
+    verdict = "pass" if score >= cfg.review.pass_threshold else "revise"
+    critique = Critique(reviewer="clip-only", score=score, verdict=verdict,
+                        reasoning="review tắt; điểm = CLIP fidelity của ứng viên được chọn")
+    adj = Adjudication(score=score, verdict=verdict, reasoning="review tắt; điểm = CLIP fidelity")
+    log(f"  [4] sinh 1 vòng, không review: CLIP {score:.2f} -> {verdict}")
+    it = ReviewIteration(0, gen, out, perception, [critique], adj, RevisionPlan(rationale="review tắt"))
+    return ReviewOutcome(prompt.id, [it], verdict == "pass", out.image_path, score)
+
+
 def run(agent, generator, perceiver, clip, prompt: Prompt, spec: CulturalSpec, kb: KnowledgeBase,
         prompt_en: str | None, cfg, out_dir: Path, log=print) -> ReviewOutcome:
     gen = build_initial_spec(prompt, spec, prompt_en, cfg.t2i, cfg.seed,

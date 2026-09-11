@@ -147,10 +147,20 @@ class PromptAgent:
         # Lần chạy đầu: một lần gọi dịch cả bắt buộc lẫn cấm, model 3B trộn "wide obi at back"
         # (đặc điểm kimono, nằm trong CẤM) vào bản dịch của BẮT BUỘC -> prompt tích cực kéo ảnh
         # về kimono. Nay: hai lần gọi riêng, và bản dịch bắt buộc chứa tên confusable thì bị loại.
+        # v1.2: KB có bản tiếng Anh viết tay (must_have_en) nên RuleAgent đã điền sẵn phần lớn; chỉ dịch
+        # các cụm còn "" (thuộc tính rút thêm từ web, thực thể ad-hoc). Dịch thất bại -> cụm đó bị bỏ khỏi
+        # prompt (giữ "" để không đưa tiếng Việt vào SDXL), có ghi chú.
         for field_vi, field_en, label in (("required_attrs", "required_attrs_en", "bắt buộc phải có"),
                                           ("forbidden_attrs", "forbidden_attrs_en", "KHÔNG được có")):
-            payload = {e.entity_id: {"name_en": e.name_en, "attrs": getattr(e, field_vi)} for e in spec.entities
-                       if getattr(e, field_vi)}
+            payload = {}
+            for e in spec.entities:
+                vi = getattr(e, field_vi)
+                en = list(getattr(e, field_en) or [])
+                en += [""] * (len(vi) - len(en))
+                setattr(e, field_en, en)
+                todo = [a for a, b in zip(vi, en) if not b]
+                if todo:
+                    payload[e.entity_id] = {"name_en": e.name_en, "attrs": todo}
             if not payload:
                 continue
             system = (
@@ -165,13 +175,19 @@ class PromptAgent:
             except RuntimeError as exc:
                 spec.dropped.append(["-", f"dịch {label} thất bại: {exc}"])
                 continue
-            for row in d.get("entities", []):
-                se = spec.entity(row.get("entity_id", ""))
-                if se is None:
+            rows = {r.get("entity_id"): r for r in d.get("entities", []) if isinstance(r, dict)}
+            if not rows:
+                spec.dropped.append(["-", f"dịch {label}: model trả về 0 thực thể, giữ cụm chưa dịch ngoài prompt"])
+            for eid, want in payload.items():
+                se = spec.entity(eid)
+                row = rows.get(eid)
+                if se is None or row is None:
+                    if se is not None:
+                        spec.dropped.append(["-", f"dịch {label} của {se.name_vi}: không có kết quả"])
                     continue
                 out = [str(x).strip() for x in row.get("attrs_en", [])]
-                if len(out) != len(getattr(se, field_vi)):
-                    spec.dropped.append(["-", f"dịch {label} của {se.name_vi}: số cụm lệch, bỏ bản dịch"])
+                if len(out) != len(want["attrs"]):
+                    spec.dropped.append(["-", f"dịch {label} của {se.name_vi}: số cụm lệch ({len(out)} vs {len(want['attrs'])}), bỏ"])
                     continue
                 if field_en == "required_attrs_en":
                     bad = {t.lower() for c in se.confusables for t in shared.confusable_labels(c.get("name", ""))}
@@ -179,11 +195,15 @@ class PromptAgent:
                     poisoned = [a for a in out if any(b and b in a.lower() for b in bad)]
                     if poisoned:
                         spec.dropped.append(["-", f"dịch {se.name_vi}: loại cụm nhiễm confusable {poisoned}"])
-                        out = [a for a in out if a not in poisoned]
-                        # số cụm không còn khớp -> giữ phần sạch nhưng cắt tương ứng ở tiếng Việt
-                        keep_idx = [i for i, a in enumerate(row.get("attrs_en", [])) if str(a).strip() not in poisoned]
-                        se.required_attrs = [se.required_attrs[i] for i in keep_idx]
-                setattr(se, field_en, out)
+                        out = ["" if a in poisoned else a for a in out]
+                # Điền vào đúng vị trí còn trống.
+                en = list(getattr(se, field_en))
+                vi = getattr(se, field_vi)
+                it = iter(out)
+                for i, (a, b) in enumerate(zip(vi, en)):
+                    if not b and a in want["attrs"]:
+                        en[i] = next(it, "")
+                setattr(se, field_en, en)
         return spec
 
     # ------------------------------------------------------------ stage 5

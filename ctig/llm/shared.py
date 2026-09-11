@@ -77,9 +77,16 @@ def checklist_critique(spec: CulturalSpec, perception: Perception) -> Critique |
         missing = [a for a, ans in zip(se.required_attrs, attrs) if ans == "no"]
         unsure = [a for a, ans in zip(se.required_attrs, attrs) if ans == "unsure"]
         violated = [a for a, ans in zip(se.forbidden_attrs, forb) if ans == "yes"]
+        # v1.1: VLM 3B trả "yes" cho MỌI câu cấm trên một áo dài đúng (đai obi, không quần, cổ chéo,
+        # váy hanbok) trong khi identity=target -> 4 critical, điểm 0, ba vòng y hệt. Khi VLM tự mâu
+        # thuẫn (nói là áo dài nhưng có obi) thì tin danh tính, hạ vi phạm xuống minor.
+        contradictory = ident == "target" and len(violated) >= max(2, len(se.forbidden_attrs) // 2 + 1)
         for a in violated:
-            findings.append(Finding(se.entity_id, "critical", a, f"không được có: {a}",
-                                    f"'{se.name_vi}' mang chi tiết bị cấm: {a}", ev))
+            sev = "minor" if contradictory else ("major" if ident == "target" else "critical")
+            findings.append(Finding(se.entity_id, sev, a, f"không được có: {a}",
+                                    f"'{se.name_vi}' mang chi tiết bị cấm: {a}"
+                                    + (" (VLM tự mâu thuẫn với danh tính, hạ mức)" if contradictory else ""), ev))
+        violated_penalty = 0.0 if contradictory else (0.25 if ident == "target" else 0.5)
         ratio = (len(missing) + 0.5 * len(unsure)) / n_req
         for a in missing:
             findings.append(Finding(se.entity_id, "major" if ratio > 0.5 else "minor", "thiếu", a,
@@ -88,7 +95,7 @@ def checklist_critique(spec: CulturalSpec, perception: Perception) -> Critique |
         if ident == "unsure":
             findings.append(Finding(se.entity_id, "minor", "không rõ danh tính", se.name_vi,
                                     f"VLM không chắc đối tượng có phải '{se.name_vi}'.", ev))
-        ws += se.weight * max(0.0, ident_factor * (1.0 - 0.45 * ratio) - 0.5 * len(violated))
+        ws += se.weight * max(0.0, ident_factor * (1.0 - 0.45 * ratio) - violated_penalty * len(violated))
     score = ws / wt if wt else 0.0
     crit = any(f.severity == "critical" for f in findings)
     return Critique(reviewer=PERSONA, findings=findings, score=score,
@@ -203,13 +210,13 @@ def plan_revision(
         if se is None:
             continue
         ent = kb.get(se.entity_id)
-        attrs_en = se.required_attrs_en  # rỗng nếu chưa dịch được -> không đưa tiếng Việt vào prompt
+        attrs_en = [a for a in se.required_attrs_en if a]  # bỏ cụm chưa dịch -> không đưa tiếng Việt vào prompt
         low_prior = ent is not None and ent.prior_strength < 0.20
 
         if f.severity == "critical":
             for cf in se.confusables:
                 neg.extend(confusable_labels(cf.get("name", "")))
-            neg.extend(se.forbidden_attrs_en[:2])
+            neg.extend([a for a in se.forbidden_attrs_en if a][:2])
             pos.append(f"authentic Vietnamese {se.name_en.split('(')[0].strip()}")
             pos.extend(attrs_en[:2])
             boost[se.entity_id] = boost.get(se.entity_id, 0.0) + 0.35
@@ -237,7 +244,7 @@ def plan_revision(
             # f.expected là thuộc tính tiếng Việt; chỉ đưa vào prompt nếu có bản tiếng Anh
             # (SDXL không đọc tiếng Việt, đưa vào chỉ thành nhiễu).
             idx = next((i for i, a in enumerate(se.required_attrs) if a == f.expected), None)
-            if idx is not None and se.required_attrs_en and idx < len(se.required_attrs_en):
+            if idx is not None and idx < len(se.required_attrs_en) and se.required_attrs_en[idx]:
                 pos.append(se.required_attrs_en[idx])
             boost[se.entity_id] = boost.get(se.entity_id, 0.0) + 0.15
             why.append(f"bổ sung thuộc tính cho {se.name_vi}")

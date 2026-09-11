@@ -7,9 +7,11 @@ Prompt
   │  stage 1  agent.analyze
   ▼
 AnalysisResult   keywords[surface|expanded], candidate_entity_ids, region_hint, prompt_en
-  │  stage 2  retriever.search        (kb / wiki_text / image; ảnh Commons tải về, CLIP kiểm)
+  │  stage 2  retriever.search        (Wikipedia tìm bài + toàn văn; Commons; Serper tuỳ chọn; ảnh tải về, CLIP kiểm)
+  │  stage 2b extraction.run           (VLM: văn bản -> must_have/must_not/confusable, mỗi thuộc tính kèm trích đoạn;
+  │                                     cache theo entity_id; thực thể ad-hoc được nạp thuộc tính vào KB bộ nhớ)
   ▼
-SearchResult     EvidenceItem[] với must_have, must_not, confusable_with, local_path, clip_match
+SearchResult     EvidenceItem[] với must_have, must_not, confusable_with, attr_sources, local_path, clip_match
   │  stage 3  agent.build_spec        (luật: gộp, lọc vùng, xếp hạng; LLM: dịch thuộc tính EN)
   ▼
 CulturalSpec     SpecEntity[]: required_attrs(_en), forbidden_attrs(_en), confusables, weight, reference_image
@@ -29,6 +31,15 @@ ReviewOutcome
   ▼
 EvalRecord, RunSummary
 ```
+
+## Cache
+
+* **Stage 1–3 theo prompt**: key = sha1(prompt, llm backend/model, retrieval backend/extract/web_api/wiki_chars,
+  max_spec_entities, min_entity_score, KB version). Lưu `runs/_cache/stages/<key>/{analysis,search,spec}.json`.
+  Gen và review luôn chạy. `cache.refresh` bỏ qua, `cache.enabled=false` tắt hẳn.
+* **Bằng chứng theo thực thể**: `runs/_cache/evidence/<entity_id>.json`, không phụ thuộc prompt. Cùng một thực thể
+  ở nhiều prompt chỉ rút một lần.
+* **Ảnh tham chiếu**: `runs/_cache/ref_images/<sha1(url)>.jpg`.
 
 ## Ba bất biến
 

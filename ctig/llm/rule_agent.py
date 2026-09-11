@@ -91,6 +91,10 @@ class RuleAgent:
                                    reference_image=s["ref"]))
         return CulturalSpec(prompt.id, ents, [k.term for k in analysis.keywords if k.kind == "scene"], dropped)
 
+    def extract_evidence(self, ent, texts):
+        """Agent luật không đọc hiểu được văn bản. Trả rỗng để stage extraction bỏ qua."""
+        return {"must_have": [], "must_not": [], "confusable_with": [], "attr_sources": {}}
+
     def critique(self, prompt, spec, perception) -> Critique:
         return shared.rule_critique(spec, perception)
 

@@ -50,11 +50,23 @@ class Keyword:
 
 
 @dataclass
+class NewEntity:
+    """Thực thể văn hoá agent thấy cần nhưng KB chưa có. Sẽ được dựng bằng chứng lúc chạy."""
+
+    name_vi: str
+    name_en: str
+    category: str = "other"
+    region: str = "toan_quoc"
+    rationale: str | None = None
+
+
+@dataclass
 class AnalysisResult:
     prompt_id: str
     keywords: list[Keyword]
     candidate_entity_ids: list[str]
     region_hint: str | None = None
+    new_entities: list[NewEntity] = field(default_factory=list)
     #: Prompt tiếng Anh do agent viết lại cho bộ sinh (T2I hiểu tiếng Anh tốt hơn).
     prompt_en: str | None = None
     notes: str | None = None
@@ -81,6 +93,8 @@ class EvidenceItem:
     clip_match: float | None = None
     score: float = 0.0
     provenance: str = "unknown"
+    #: Với bằng chứng do VLM rút từ văn bản: thuộc tính -> trích đoạn gốc làm căn cứ.
+    attr_sources: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
@@ -302,6 +316,43 @@ class RunSummary:
     mean_judge_score: float
     mean_oracle_fidelity: float | None = None
     wall_seconds: float = 0.0
+
+
+def from_dict(cls, data: Any) -> Any:
+    """Dựng lại dataclass (lồng nhau) từ dict do to_dict() ghi ra. Dùng cho cache stage."""
+    import typing
+    from dataclasses import fields, is_dataclass
+
+    if data is None or not is_dataclass(cls):
+        return data
+    hints = typing.get_type_hints(cls)
+    kwargs = {}
+    for f in fields(cls):
+        if f.name not in data:
+            continue
+        kwargs[f.name] = _coerce(hints[f.name], data[f.name])
+    return cls(**kwargs)
+
+
+def _coerce(hint, value):
+    import types
+    import typing
+    from dataclasses import is_dataclass
+
+    if value is None:
+        return None
+    origin = typing.get_origin(hint)
+    args = typing.get_args(hint)
+    if origin in (types.UnionType, typing.Union):
+        non_none = [a for a in args if a is not type(None)]
+        return _coerce(non_none[0], value) if len(non_none) == 1 else value
+    if origin is list:
+        return [_coerce(args[0], v) for v in value] if args else list(value)
+    if origin is dict:
+        return {k: _coerce(args[1], v) for k, v in value.items()} if args else dict(value)
+    if is_dataclass(hint):
+        return from_dict(hint, value)
+    return value
 
 
 def to_dict(obj: Any) -> Any:

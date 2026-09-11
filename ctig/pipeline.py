@@ -12,9 +12,11 @@ from .config import Config
 from .kb import KnowledgeBase
 from .llm.base import get_agent
 from .schema import (AnalysisResult, CulturalSpec, EvalRecord, Prompt, ReviewOutcome, RunSummary,
-                     SearchResult, to_dict)
+                     SearchResult, from_dict, to_dict)
+import hashlib
 from .stages import analysis as st_analysis
 from .stages import evaluation as st_eval
+from .stages import extraction as st_extract
 from .stages import review as st_review
 from .stages import spec as st_spec
 from .stages.generation import get_generator
@@ -60,8 +62,9 @@ class Pipeline:
         llm = getattr(self.agent, "llm", None)
         log(f"[init] perception: {cfg.perception.backend}")
         self.perceiver, self.clip = get_perceiver(cfg.perception, llm)
-        log(f"[init] retrieval: {cfg.retrieval.backend}")
-        self.retriever = get_retriever(cfg.retrieval, self.clip, Path(cfg.runs_dir) / "_cache" / "ref_images")
+        self.cache_dir = Path(cfg.cache.dir) if cfg.cache.dir else Path(cfg.runs_dir) / "_cache"
+        log(f"[init] retrieval: {cfg.retrieval.backend} | extract: {cfg.retrieval.extract} | web_api: {cfg.retrieval.web_api}")
+        self.retriever = get_retriever(cfg.retrieval, self.clip, self.cache_dir / "ref_images")
         log(f"[init] t2i: {cfg.t2i.backend} ({cfg.t2i.model})")
         self.generator = get_generator(cfg.t2i)
         log(f"[init] xong. run_dir = {self.run_dir}")
@@ -71,20 +74,36 @@ class Pipeline:
         cfg, log = self.cfg, self.log
         t0 = time.time()
 
-        analysis = st_analysis.run(self.agent, prompt, self.kb)
+        # --- Stage 1-3 có cache theo (prompt, cấu hình liên quan). Gen luôn chạy. ---
+        cached = self._load_stage_cache(prompt)
+        if cached:
+            analysis, search, spec = cached
+            log(f"  [1-3] dùng cache (prompt và cấu hình không đổi): "
+                f"spec {', '.join(e.name_vi for e in spec.entities) or '(rỗng)'}")
+            # Thực thể ad-hoc trong cache phải được nạp lại vào KB bộ nhớ.
+            for se in spec.entities:
+                if self.kb.get(se.entity_id) is None:
+                    ent = self.kb.add_adhoc(se.name_vi, se.name_en)
+                    ent.must_have, ent.must_not, ent.confusable_with = se.required_attrs, se.forbidden_attrs, se.confusables
+        else:
+            analysis = st_analysis.run(self.agent, prompt, self.kb)
+            log(f"  [1] ứng viên: {analysis.candidate_entity_ids} | vùng: {analysis.region_hint or '-'}"
+                + (f" | mới: {[n.name_vi for n in analysis.new_entities]}" if analysis.new_entities else ""))
+
+            search = self.retriever.search(analysis, self.kb)
+            n_img = sum(1 for i in search.items if i.kind == "image" and i.local_path)
+            n_txt = sum(1 for i in search.items if i.kind == "wiki_text" and i.provenance != "kb.notes (offline)")
+            log(f"  [2] {len(search.items)} bằng chứng: {n_txt} văn bản online, {n_img} ảnh tham chiếu đạt CLIP"
+                + (f" | lỗi: {search.retrieval_errors[:2]}" if search.retrieval_errors else ""))
+            search = st_extract.run(self.agent, search, self.kb, cfg.retrieval, self.cache_dir / "evidence", log=log)
+
+            spec = st_spec.run(self.agent, prompt, analysis, search, self.kb, cfg.max_spec_entities, cfg.min_entity_score)
+            log(f"  [3] spec: {', '.join(e.name_vi for e in spec.entities) or '(rỗng)'}"
+                + (f" | bỏ {len(spec.dropped)}" if spec.dropped else ""))
+            self._save_stage_cache(prompt, analysis, search, spec)
         _write(out / "stage1_analysis.json", analysis)
-        log(f"  [1] ứng viên: {analysis.candidate_entity_ids} | vùng: {analysis.region_hint or '-'}")
-
-        search = self.retriever.search(analysis, self.kb)
         _write(out / "stage2_search.json", search)
-        n_img = sum(1 for i in search.items if i.kind == "image" and i.local_path)
-        log(f"  [2] {len(search.items)} bằng chứng, {n_img} ảnh tham chiếu đạt CLIP"
-            + (f" | lỗi mạng: {len(search.retrieval_errors)}" if search.retrieval_errors else ""))
-
-        spec = st_spec.run(self.agent, prompt, analysis, search, self.kb, cfg.max_spec_entities, cfg.min_entity_score)
         _write(out / "stage3_spec.json", spec)
-        log(f"  [3] spec: {', '.join(e.name_vi for e in spec.entities) or '(rỗng)'}"
-            + (f" | bỏ {len(spec.dropped)}" if spec.dropped else ""))
 
         outcome = st_review.run(self.agent, self.generator, self.perceiver, self.clip, prompt, spec, self.kb,
                                 analysis.prompt_en, cfg, out, log=log)
@@ -95,6 +114,38 @@ class Pipeline:
         log(f"  [6] {'ĐẠT' if record.passed else 'chưa đạt'} | CLIP {record.clip_fidelity:.2f} | judge {record.judge_score:.2f}"
             f" | {time.time() - t0:.0f}s | {record.final_image_path}")
         return PipelineResult(prompt, analysis, search, spec, outcome, record)
+
+    # ------------------------------------------------------------ cache stage 1-3
+    def _cache_key(self, prompt: Prompt) -> str:
+        c = self.cfg
+        sig = json.dumps({
+            "text": prompt.text_vi, "en": prompt.text_en,
+            "llm": [c.llm.backend, c.llm.model],
+            "retrieval": [c.retrieval.backend, c.retrieval.extract, c.retrieval.web_api, c.retrieval.wiki_chars],
+            "spec": [c.max_spec_entities, c.min_entity_score], "kb": self.kb.version,
+        }, ensure_ascii=False, sort_keys=True)
+        return hashlib.sha1(sig.encode()).hexdigest()[:16]
+
+    def _load_stage_cache(self, prompt: Prompt):
+        if not self.cfg.cache.enabled or self.cfg.cache.refresh:
+            return None
+        d = self.cache_dir / "stages" / self._cache_key(prompt)
+        try:
+            a = from_dict(AnalysisResult, json.loads((d / "analysis.json").read_text(encoding="utf-8")))
+            s = from_dict(SearchResult, json.loads((d / "search.json").read_text(encoding="utf-8")))
+            sp = from_dict(CulturalSpec, json.loads((d / "spec.json").read_text(encoding="utf-8")))
+            return a, s, sp
+        except (OSError, json.JSONDecodeError, TypeError, KeyError):
+            return None
+
+    def _save_stage_cache(self, prompt, analysis, search, spec):
+        if not self.cfg.cache.enabled:
+            return
+        d = self.cache_dir / "stages" / self._cache_key(prompt)
+        _write(d / "analysis.json", analysis)
+        _write(d / "search.json", search)
+        _write(d / "spec.json", spec)
+        (d / "prompt.txt").write_text(prompt.text_vi, encoding="utf-8")
 
     def run_batch(self, prompts: list[Prompt]) -> tuple[list[PipelineResult], RunSummary]:
         t0 = time.time()

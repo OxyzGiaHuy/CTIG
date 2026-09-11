@@ -23,6 +23,10 @@ def _cfg(args) -> Config:
         set_dotted(over, k, v)
     if getattr(args, "run_name", None):
         over["run_name"] = args.run_name
+    if getattr(args, "refresh", False):
+        over.setdefault("cache", {})["refresh"] = True
+    if getattr(args, "no_cache", False):
+        over.setdefault("cache", {})["enabled"] = False
     return Config.load(args.config, over)
 
 
@@ -81,6 +85,8 @@ def main(argv=None):
         p.add_argument("--config", default=None, help="file YAML trong configs/")
         p.add_argument("--set", action="append", help="ghi đè: key.sub=value")
         p.add_argument("--run-name", dest="run_name")
+        p.add_argument("--refresh", action="store_true", help="bỏ cache stage 1-3, chạy lại analysis/search/spec")
+        p.add_argument("--no-cache", dest="no_cache", action="store_true", help="không đọc và không ghi cache")
 
     p = sub.add_parser("run"); p.add_argument("prompt_id", nargs="?", default="p001"); p.add_argument("--text"); common(p); p.set_defaults(func=cmd_run)
     p = sub.add_parser("batch"); p.add_argument("--limit", type=int); p.add_argument("--ids"); p.add_argument("--difficulty", choices=["easy", "medium", "hard"]); common(p); p.set_defaults(func=cmd_batch)

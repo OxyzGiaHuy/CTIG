@@ -33,6 +33,8 @@ python -m ctig.cli run p050 --config configs/kaggle_t4.yaml --set runs_dir=runs
 python -m ctig.cli batch --config configs/kaggle_t4.yaml --set runs_dir=runs --limit 10
 ```
 
+**Cache:** stage 1–3 (analysis, search, spec) được cache theo hash của prompt và cấu hình liên quan. Chạy lại cùng prompt thì bỏ qua ba stage đó, chỉ sinh ảnh và review. `--refresh` để chạy lại, `--no-cache` để tắt. Bằng chứng rút được cache riêng theo thực thể trong `runs/_cache/evidence/<entity_id>.json`, có thể mở ra đọc và duyệt.
+
 Mỗi lần chạy tạo `runs/<run_id>/` gồm `report.html` (mọi prompt, mọi vòng, ảnh và phán quyết), `user_study.csv`, `summary.json`, và với mỗi prompt một thư mục có log JSON từng stage cùng ảnh từng vòng.
 
 ---
@@ -43,7 +45,7 @@ Mỗi lần chạy tạo `runs/<run_id>/` gồm `report.html` (mọi prompt, m�
 |---|---|---|
 | Input n=50 | `data/prompts_vi.jsonl` | 50 prompt tiếng Việt, có nhãn vàng chỉ dùng để đo recall |
 | Analysis Agent → Keywords → Keywords mới | `ctig/stages/analysis.py`, `ctig/llm/prompt_agent.py` | Qwen2.5-VL-3B: tách surface / expanded, viết prompt tiếng Anh; KB alias bù thực thể nêu tên |
-| Search: Image / API / text wiki | `ctig/stages/retrieval.py` | KB có kiểm duyệt (38 thực thể) + Wikipedia VI + ảnh Commons **tải về và kiểm bằng CLIP** |
+| Search: Image / API / text wiki | `ctig/stages/retrieval.py`, `ctig/stages/extraction.py` | Gọi API lúc chạy: Wikipedia VI (tìm bài, lấy toàn văn), Commons (ảnh tải về, CLIP kiểm), Serper tuỳ chọn. **VLM rút must_have / must_not / confusable_with từ văn bản, mỗi thuộc tính kèm trích đoạn gốc.** Thực thể chưa có trong KB được dựng bằng chứng ngay lúc chạy. KB tay chỉ là bằng chứng bổ sung. |
 | 1 Summary 2 Filter 3 Rank | `ctig/stages/spec.py`, `ctig/llm/rule_agent.py` | Luật deterministic: gộp, lọc vùng miền, xếp hạng; LLM chỉ dịch thuộc tính sang tiếng Anh |
 | Gen: D D LoRA | `ctig/stages/generation.py` | SDXL base + VAE fp16-fix, **N ứng viên** chọn bằng CLIP, negative prompt, IP-Adapter với ảnh tham chiếu, LoRA nếu có |
 | *(chưa có trong draft)* Tri giác | `ctig/stages/perception.py` | VLM liệt kê thứ nhìn thấy (hỏi mở) + CLIP probe P(mục tiêu) vs P(confusable) |
@@ -114,9 +116,23 @@ tests/test_offline.py
 docs/ARCHITECTURE.md  docs/KAGGLE.md
 ```
 
+## Bằng chứng đến từ đâu
+
+Hai lớp, được gộp ở stage 3 và phân biệt bằng `provenance`:
+
+| Lớp | Nguồn | Khi nào |
+|---|---|---|
+| `extracted` | VLM đọc văn bản Wikipedia / web truy hồi lúc chạy, rút thuộc tính thị giác, **chỉ giữ thuộc tính có trích đoạn gốc** (`attr_sources`) | mọi thực thể, kể cả thực thể chưa có trong KB |
+| `kb@...` | file `data/kb/entities.json` do người viết code soạn tay | chỉ 38 thực thể có sẵn |
+
+Mở `runs/_cache/evidence/<entity_id>.json` để xem máy rút ra gì và dựa vào câu nào. So với KB tay là cách rẻ nhất để đánh giá chất lượng bước rút: máy có tìm ra "cổ đứng cao, xẻ tà từ hông" từ bài Wikipedia không, hay chỉ ra được lịch sử.
+
+Web search API: đặt `SERPER_API_KEY` (Kaggle Secrets) và `retrieval.web_api: serper` để thêm snippets Google và Google Images khi Wikipedia không đủ. Không có key thì chỉ dùng Wikipedia + Commons, không cần key nào.
+
 ## Hạn chế của v1
 
-* **KB là hạt giống** do người viết code soạn, chưa được kiểm định bởi chuyên gia văn hoá. `prior_strength` là ước lượng, không phải số đo. Đây là điểm yếu lớn nhất và rẻ nhất để sửa.
+* **KB tay chưa được kiểm định** và `prior_strength` là ước lượng. Bằng chứng rút lúc chạy giảm phụ thuộc vào KB nhưng chất lượng phụ thuộc VLM 3B đọc tiếng Việt; hãy đọc vài file trong `runs/_cache/evidence/` trước khi tin.
+* **Wikipedia cho ngữ cảnh nhiều hơn thuộc tính thị giác.** Bước rút có thể trả về ít must_have cho thực thể mà bài viết thiên về lịch sử. Serper giúp phần này.
 * **Judge không độc lập với reviewer**: cùng một VLM. CLIP là tín hiệu độc lập duy nhất.
 * **Qwen2.5-VL-3B nhận dạng văn hoá Việt còn yếu**, đặc biệt các thực thể prior thấp (đàn bầu, nón quai thao). Khi VLM không nhận ra thứ nó đang nhìn, vòng review không thể sửa đúng. Config `kaggle_claude.yaml` là cách kiểm xem giới hạn nằm ở VLM hay ở kiến trúc.
 * **Không có LoRA văn hoá Việt sẵn.** Huấn luyện một LoRA (20–50 ảnh/khái niệm, có giấy phép) là công việc thu thập dữ liệu và có thể là đóng góp chính của đề tài.

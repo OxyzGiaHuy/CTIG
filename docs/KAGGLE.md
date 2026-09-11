@@ -51,6 +51,18 @@ zip -qr /kaggle/working/ctig_runs.zip /kaggle/working/runs -x "*/_cache/*"
 | Qwen2.5-VL lỗi import | transformers cũ | `pip install -U "transformers>=4.51"` rồi restart kernel |
 | NaN / rác từ Qwen fp16 | T4 không có bf16 gốc | `--set llm.model=Qwen/Qwen2-VL-2B-Instruct` |
 
+## Web search API (tuỳ chọn)
+
+Add-ons → Secrets → `SERPER_API_KEY` (serper.dev, 2.500 truy vấn/tháng miễn phí), rồi
+`--set retrieval.web_api=serper`. Một lần chạy 50 prompt tốn khoảng 200–300 truy vấn. Không có key thì
+pipeline dùng Wikipedia + Commons, vẫn chạy đủ.
+
+## Chạy lại nhanh
+
+Stage 1–3 được cache theo prompt. Đổi tham số sinh ảnh (`t2i.*`, `review.*`) rồi chạy lại thì bỏ qua
+analysis/search, chỉ sinh và review. Đổi model agent hoặc cấu hình truy hồi thì cache tự vô hiệu.
+`--refresh` để ép chạy lại toàn bộ.
+
 ## Dùng Claude API thay Qwen
 
 Add-ons → Secrets → thêm `ANTHROPIC_API_KEY`, rồi trong notebook:

@@ -65,6 +65,24 @@ class RetrievalConfig:
     #: CLIP tối thiểu để ảnh Commons được dùng làm tham chiếu.
     ref_image_min_clip: float = 0.55
     timeout: float = 10.0
+    #: Số ký tự văn bản Wikipedia lấy về cho bước rút thuộc tính (0 = chỉ tóm tắt).
+    wiki_chars: int = 3000
+    #: Dùng VLM rút must_have / must_not / confusable_with từ văn bản truy hồi được.
+    extract: bool = True
+    #: Cache bằng chứng đã rút theo entity_id để không rút lại (không phụ thuộc prompt).
+    evidence_cache: bool = True
+    #: Web search API. "none" | "serper". Key đọc từ biến môi trường SERPER_API_KEY.
+    web_api: str = "none"
+    web_results: int = 5
+
+
+@dataclass
+class CacheConfig:
+    #: Bỏ qua analysis / search / spec khi prompt và cấu hình liên quan không đổi.
+    enabled: bool = True
+    #: Bỏ cache, chạy lại tất cả.
+    refresh: bool = False
+    dir: str | None = None  # mặc định <runs_dir>/_cache
 
 
 @dataclass
@@ -82,6 +100,7 @@ class Config:
     perception: PerceptionConfig = field(default_factory=PerceptionConfig)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
     review: ReviewConfig = field(default_factory=ReviewConfig)
+    cache: CacheConfig = field(default_factory=CacheConfig)
     seed: int = 1234
     max_spec_entities: int = 4
     min_entity_score: float = 0.30

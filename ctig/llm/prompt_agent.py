@@ -17,7 +17,7 @@ from typing import Any
 from ..kb import KnowledgeBase
 from ..schema import (
     Adjudication, AnalysisResult, Critique, CulturalSpec, Finding, GenSpec, Keyword,
-    Perception, Prompt, RevisionPlan, SearchResult,
+    NewEntity, Perception, Prompt, RevisionPlan, SearchResult,
 )
 from . import shared
 from .base import LLMBackend
@@ -63,7 +63,10 @@ class PromptAgent:
             "độ phủ: đừng thêm thực thể chỉ vì 'có thể có'.\n"
             "region_hint là một trong: bac_bo, trung_bo, nam_bo, tay_bac, tay_nguyen, hoặc chuỗi rỗng.\n"
             "prompt_en: viết lại prompt thành một câu tiếng Anh tả cảnh cho model sinh ảnh, giữ "
-            "nguyên tên riêng Việt (ao dai, non la, banh chung...), không thêm thực thể chưa suy ra."
+            "nguyên tên riêng Việt (ao dai, non la, banh chung...), không thêm thực thể chưa suy ra.\n"
+            "new_entities: thực thể văn hoá Việt Nam RÕ RÀNG cần cho ảnh nhưng KHÔNG có trong danh mục "
+            "(ví dụ 'gốm Bát Tràng', 'khèn H'Mông'). Ghi name_vi, name_en, category, region. "
+            "Để rỗng nếu danh mục đã đủ. Không đưa thứ chung chung như 'con người', 'cây'."
         )
         user = (f"Prompt tiếng Việt: {prompt.text_vi}\nPrompt tiếng Anh gốc: {prompt.text_en}\n\n"
                 f"Danh mục (id | tên | tên EN | loại | vùng):\n{catalog}")
@@ -72,8 +75,14 @@ class PromptAgent:
                              source={"type": "string", "enum": ["surface", "expanded"]},
                              confidence=NUM, rationale=STR)),
             candidate_entity_ids=_arr(STR), region_hint=STR, prompt_en=STR, notes=STR,
+            new_entities=_arr(_s(name_vi=STR, name_en=STR, category=STR, region=STR, rationale=STR)),
         )
         d = self.llm.complete_json(system, user, schema)
+        new_entities = []
+        for ne in d.get("new_entities", []) or []:
+            if isinstance(ne, dict) and ne.get("name_vi") and ne.get("name_en"):
+                new_entities.append(NewEntity(str(ne["name_vi"]), str(ne["name_en"]), str(ne.get("category") or "other"),
+                                              str(ne.get("region") or "toan_quoc"), ne.get("rationale")))
         kws = []
         for k in d.get("keywords", []):
             try:
@@ -85,8 +94,38 @@ class PromptAgent:
         region = d.get("region_hint") or None
         if region not in ("bac_bo", "trung_bo", "nam_bo", "tay_bac", "tay_nguyen"):
             region = None
-        return AnalysisResult(prompt.id, kws, ids, region,
+        return AnalysisResult(prompt.id, kws, ids, region, new_entities=new_entities,
                               prompt_en=d.get("prompt_en") or prompt.text_en, notes=d.get("notes") or None)
+
+    # ------------------------------------------------------------ stage 2b
+    def extract_evidence(self, ent, texts: list[dict]) -> dict:
+        """Văn bản -> thuộc tính thị giác kiểm chứng được, mỗi thuộc tính kèm trích đoạn gốc."""
+        numbered = "\n\n".join(f"[{i}] {t.get('title', '')}\n{t.get('text', '')[:2500]}" for i, t in enumerate(texts))
+        system = (
+            f"Bạn đọc các đoạn văn bản về '{ent.name_vi}' ({ent.name_en}) và rút ra bằng chứng cho hệ "
+            "kiểm tra ảnh sinh bởi AI.\n"
+            "must_have: 3-6 đặc điểm THỊ GIÁC (hình dạng, chất liệu, màu, cách mặc/bày, bối cảnh) mà một "
+            "ảnh PHẢI có để được coi là đúng thực thể này. Mỗi đặc điểm một cụm tiếng Việt ngắn, cụ thể, "
+            "kiểm được bằng mắt. KHÔNG lấy lịch sử, nguồn gốc, ý nghĩa.\n"
+            "must_not: 2-4 đặc điểm mà nếu xuất hiện là ảnh đã sai (thường là đặc điểm của thứ dễ nhầm).\n"
+            "confusable_with: 1-3 thứ của văn hoá KHÁC dễ bị nhầm sang, có name, culture, why.\n"
+            "attr_sources: với MỖI cụm trong must_have và must_not, trích đúng câu gốc trong văn bản làm "
+            "căn cứ (kèm chỉ số nguồn, ví dụ '[0] ...'). Không có câu gốc thì KHÔNG đưa cụm đó vào. "
+            "Đây là quy tắc quan trọng nhất: chỉ rút từ văn bản, không dùng kiến thức riêng.\n"
+            "Văn bản không đủ thì trả về ít, thậm chí rỗng."
+        )
+        schema = _s(must_have=_arr(STR), must_not=_arr(STR),
+                    confusable_with=_arr(_s(name=STR, culture=STR, why=STR)),
+                    attr_sources={"type": "object", "additionalProperties": STR})
+        d = self.llm.complete_json(system, f"Văn bản:\n\n{numbered}", schema)
+        srcs = d.get("attr_sources") or {}
+        # Bỏ thuộc tính không có trích đoạn gốc: đó là thứ model bịa.
+        mh = [a for a in d.get("must_have", []) if isinstance(a, str) and a in srcs and srcs[a]]
+        mn = [a for a in d.get("must_not", []) if isinstance(a, str) and a in srcs and srcs[a]]
+        cf = [c for c in d.get("confusable_with", []) if isinstance(c, dict) and c.get("name")]
+        return {"must_have": mh, "must_not": mn, "confusable_with": cf,
+                "attr_sources": {k: v for k, v in srcs.items() if k in mh or k in mn},
+                "dropped_unsourced": [a for a in d.get("must_have", []) + d.get("must_not", []) if a not in srcs]}
 
     # ------------------------------------------------------------ stage 3
     def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:

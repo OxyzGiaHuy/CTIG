@@ -145,6 +145,23 @@ class KnowledgeBase:
     def get(self, entity_id: str) -> Entity | None:
         return self.entities.get(entity_id)
 
+    def add_adhoc(self, name_vi: str, name_en: str, category: str = "other",
+                  region: str = "toan_quoc") -> Entity:
+        """Đăng ký thực thể agent đề xuất, chưa có bằng chứng. Bằng chứng sẽ do stage extraction dựng."""
+        slug = re.sub(r"[^a-z0-9]+", "_", normalize(name_vi)).strip("_")[:40]
+        eid = f"x_{slug}"
+        if eid in self.entities:
+            return self.entities[eid]
+        ent = Entity(
+            id=eid, name_vi=name_vi, name_en=name_en, aliases=[name_vi, name_en],
+            category=category, region=region,
+            prior_strength=0.15,  # chưa biết -> coi là thấp, để vòng review sẵn sàng can thiệp mạnh
+            must_have=[], must_not=[], confusable_with=[], wiki_title_vi=None,
+            notes="thực thể do agent đề xuất lúc chạy, chưa có trong KB gốc",
+        )
+        self.entities[eid] = ent
+        return ent
+
     def all(self) -> list[Entity]:
         return list(self.entities.values())
 

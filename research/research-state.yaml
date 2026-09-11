@@ -90,19 +90,6 @@ experiments:
       change_summary: "v1: findings tự do, dịch một lần gọi, prompt chuỗi, judge Qwen"
       notes: "7 lỗi phát hiện -> v1.1. Xem research/research-log.md"
       timestamp: "2026-09-11"
-
-outer_loop:
-  cycle: 1
-  last_direction: deepen
-  last_reflection: >
-    Smoke v1 cho thấy phần lớn thất bại là lỗi code (khớp nguyên văn, dịch nhiễm, prompt lặp),
-    không phải giới hạn model. Sửa xong (v1.1) rồi mới đo H1-H7 trên dev10.
-
-workspace:
-  findings: "research/findings.md"
-  log: "research/research-log.md"
-  experiments_dir: "research/experiments/"
-  dev_subset: "data/dev10.txt"
     - run_id: "walkthrough-v1.2-p001"
       hypothesis: "H8"
       config: "kaggle_walkthrough_t4x2 (v1.2)"
@@ -123,3 +110,17 @@ workspace:
       change_summary: "6/6 model ra ảnh (LoRA gắn sau khi gỡ torchao; sdxl_ref IP-Adapter 0,3, đỉnh 11,2 GB)"
       notes: "4/12 ảnh không quần -> H9; phương sai theo seed > phương sai giữa model -> cần n>=4. Xem research-log"
       timestamp: "2026-09-11"
+
+outer_loop:
+  cycle: 1
+  last_direction: deepen
+  last_reflection: >
+    v1.2.1 p001: hạ tầng đã chạy trọn (6 model, LoRA, IP-Adapter). Thước đo danh tính bão hoà; thước đo
+    thuộc tính mới là cái tách được lỗi "qipao hoá". Phương sai seed > phương sai model ở n=2.
+    Hướng kế tiếp: A/B negative must_not (H9) cùng seed trên p001/p031, rồi p050/p012 với n=4.
+
+workspace:
+  findings: "research/findings.md"
+  log: "research/research-log.md"
+  experiments_dir: "research/experiments/"
+  dev_subset: "data/dev10.txt"

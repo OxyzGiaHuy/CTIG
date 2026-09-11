@@ -73,8 +73,9 @@ REGISTRY: dict[str, ModelSpec] = {
         notes="SDXL + IP-Adapter với ảnh tham chiếu Commons đã qua CLIP (kiểm H4). Bỏ qua nếu spec không có ảnh tham chiếu."),
     "playground25": ModelSpec(
         "playground25", "playgroundai/playground-v2.5-1024px-aesthetic", "playground", 1024, 1024, steps=30, guidance=3.0,
-        vae=None, est_vram_gb=7.0,
-        notes="Kiến trúc SDXL, huấn luyện lại theo thẩm mỹ; scheduler EDM có sẵn trong repo, guidance thấp (3). KHÔNG thay VAE."),
+        vae="madebyollin/sdxl-vae-fp16-fix", est_vram_gb=7.0,
+        notes="Kiến trúc SDXL, huấn luyện lại theo thẩm mỹ; scheduler EDM có sẵn trong repo, guidance thấp (3). "
+              "VAE fp16-fix để khỏi upcast fp32 khi giải mã 1024px trên T4 (cùng không gian latent SDXL)."),
     "sd3_medium": ModelSpec(
         "sd3_medium", "stabilityai/stable-diffusion-3-medium-diffusers", "sd3", 1024, 1024, steps=28, guidance=7.0,
         variant=None, load_kwargs={"text_encoder_3": None, "tokenizer_3": None}, est_vram_gb=8.0, experimental=True,

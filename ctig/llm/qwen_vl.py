@@ -67,7 +67,8 @@ class QwenVLBackend(JSONChatMixin):
         if self.temperature > 0:
             gen_kwargs.update(do_sample=True, temperature=self.temperature, top_p=0.9)
         else:
-            gen_kwargs.update(do_sample=False)
+            # temperature/top_p/top_k trong generation_config gây cảnh báo khi do_sample=False
+            gen_kwargs.update(do_sample=False, temperature=None, top_p=None, top_k=None)
         with self.torch.inference_mode():
             out = self.model.generate(**inputs, **gen_kwargs)
         trimmed = out[:, inputs.input_ids.shape[1]:]

@@ -36,6 +36,7 @@ retrieval:
 judge:
   backend: blip2_itm         # độc lập với reviewer; lỗi tải thì tự lùi về clip
   device: cuda:0
+  offload: true              # BLIP-2 nằm ở CPU, chỉ lên GPU lúc chấm
 review:
   max_iters: 2
   pass_threshold: 0.75

@@ -102,6 +102,8 @@ class JudgeConfig:
     backend: str = "blip2_itm"
     blip2_model: str = "Salesforce/blip2-itm-vit-g"
     device: str = "cuda:0"
+    #: Giữ BLIP-2 ở CPU, chỉ chuyển lên GPU khi chấm (mỗi prompt một lần, ~2 giây chuyển). Tiết kiệm 2.5 GB VRAM.
+    offload: bool = True
 
 
 @dataclass

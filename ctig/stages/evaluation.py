@@ -51,10 +51,21 @@ class ITMJudge:
         self.torch = torch
         self.clip = clip
         self.device = cfg.device if torch.cuda.is_available() else "cpu"
+        self.offload = bool(getattr(cfg, "offload", True)) and self.device.startswith("cuda")
         dt = torch.float16 if self.device.startswith("cuda") else torch.float32
-        self.model = Blip2ForImageTextRetrieval.from_pretrained(cfg.blip2_model, torch_dtype=dt).to(self.device).eval()
+        self.model = Blip2ForImageTextRetrieval.from_pretrained(cfg.blip2_model, torch_dtype=dt).eval()
+        self.model.to("cpu" if self.offload else self.device)
         self.proc = Blip2Processor.from_pretrained(cfg.blip2_model)
         self.dt = dt
+
+    def _on_gpu(self):
+        if self.offload:
+            self.model.to(self.device)
+
+    def _off_gpu(self):
+        if self.offload:
+            self.model.to("cpu")
+            self.torch.cuda.empty_cache()
 
     def itm(self, image_path: str, texts: list[str]) -> list[float]:
         from PIL import Image
@@ -74,6 +85,13 @@ class ITMJudge:
             return 0.0, "spec rỗng"
         from ..llm.shared import confusable_clip_label
 
+        self._on_gpu()
+        try:
+            return self._judge(spec, perception, confusable_clip_label)
+        finally:
+            self._off_gpu()
+
+    def _judge(self, spec, perception, confusable_clip_label):
         wt, ident, comp, pur, notes = 0.0, 0.0, 0.0, 0.0, []
         for se in spec.entities:
             target = se.clip_label or f"a photo of Vietnamese {se.name_en.split('(')[0].strip()}"

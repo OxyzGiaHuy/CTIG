@@ -1,9 +1,11 @@
-# Kaggle, 2x T4. VLM trên GPU 0; SDXL, CLIP, BLIP-2 ITM trên GPU 1.
+# Kaggle, 2x T4 (14.5 GB mỗi GPU).
+# GPU 0: Qwen2.5-VL-3B (~7 GB) + CLIP (0.6 GB) + BLIP-2 ITM (2.5 GB, chỉ lên GPU khi chấm).
+# GPU 1: chỉ SDXL 1024px (~10 GB đỉnh lúc giải mã VAE). Lần đầu dồn cả ba lên GPU 1 -> OOM.
 llm:        {backend: qwen_vl, model: Qwen/Qwen2.5-VL-3B-Instruct, device: "cuda:0", max_new_tokens: 700, temperature: 0.0}
 t2i:        {backend: sdxl, device: "cuda:1", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 6.5,
              n_candidates: 2, ip_adapter: true, ip_adapter_scale: 0.3, init_negatives: true, fast_iters: false}
-perception: {backend: vlm_clip, device: "cuda:1", drift_margin: 0.15}
+perception: {backend: vlm_clip, device: "cuda:0", drift_margin: 0.15}
 retrieval:  {backend: wiki, web_api: ddg, web_langs: [vi, en], download_images: true, ref_image_min_clip: 0.75, extract: true}
-judge:      {backend: blip2_itm, device: "cuda:1"}
+judge:      {backend: blip2_itm, device: "cuda:0", offload: true}
 review:     {max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
 runs_dir: /kaggle/working/runs

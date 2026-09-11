@@ -49,6 +49,10 @@ def _write(path: Path, obj) -> None:
 
 class Pipeline:
     def __init__(self, cfg: Config, log=print):
+        import os
+
+        # Giảm phân mảnh VRAM (gợi ý trong chính thông báo OOM của PyTorch). Phải đặt trước khi CUDA khởi tạo.
+        os.environ.setdefault("PYTORCH_ALLOC_CONF", "expandable_segments:True")
         self.cfg, self.log = cfg, log
         self.kb = KnowledgeBase.load(cfg.kb_path)
         stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -71,6 +75,16 @@ class Pipeline:
         self.judge = (st_eval.AgentJudge(self.agent) if cfg.t2i.backend == "stub" or cfg.judge.backend in ("vlm", "rule")
                       else st_eval.get_judge(cfg.judge, self.agent, self.clip))
         log(f"[init] xong. run_dir = {self.run_dir}")
+        try:
+            import torch
+
+            if torch.cuda.is_available():
+                for i in range(torch.cuda.device_count()):
+                    used = torch.cuda.memory_allocated(i) / 2**30
+                    total = torch.cuda.get_device_properties(i).total_memory / 2**30
+                    log(f"[init] GPU {i}: {used:.1f} / {total:.1f} GB đã cấp sau khi nạp model")
+        except Exception:  # noqa: BLE001
+            pass
 
     def run_one(self, prompt: Prompt) -> PipelineResult:
         out = self.run_dir / prompt.id

@@ -135,6 +135,12 @@ class SDXLGenerator:
         else:
             self.pipe.to(cfg.device)
         self.pipe.set_progress_bar_config(disable=True)
+        # Giải mã VAE ở 1024px là đỉnh VRAM của SDXL; slicing/tiling hạ đỉnh này đáng kể.
+        for fn in ("enable_vae_slicing", "enable_vae_tiling"):
+            try:
+                getattr(self.pipe, fn)()
+            except Exception:  # noqa: BLE001
+                pass
 
         self.has_ip = False
         if cfg.ip_adapter:
@@ -215,6 +221,8 @@ class SDXLGenerator:
             path = out_dir / f"{gen.prompt_id}_iter{gen.iteration}_c{i}.png"
             img.save(path)
             cands.append(Candidate(str(path), seed))
+        if self.torch.cuda.is_available():
+            self.torch.cuda.empty_cache()
         return GenOutput(gen.prompt_id, gen.iteration, cands, chosen=0, oracle=None)
 
 

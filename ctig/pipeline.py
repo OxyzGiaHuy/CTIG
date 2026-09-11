@@ -65,8 +65,11 @@ class Pipeline:
         self.cache_dir = Path(cfg.cache.dir) if cfg.cache.dir else Path(cfg.runs_dir) / "_cache"
         log(f"[init] retrieval: {cfg.retrieval.backend} | extract: {cfg.retrieval.extract} | web_api: {cfg.retrieval.web_api}")
         self.retriever = get_retriever(cfg.retrieval, self.clip, self.cache_dir / "ref_images")
-        log(f"[init] t2i: {cfg.t2i.backend} ({cfg.t2i.model})")
+        log(f"[init] t2i: {cfg.t2i.backend} ({cfg.t2i.model})" + (" | LCM vòng nhanh" if cfg.t2i.fast_iters else ""))
         self.generator = get_generator(cfg.t2i)
+        log(f"[init] judge: {cfg.judge.backend}")
+        self.judge = (st_eval.AgentJudge(self.agent) if cfg.t2i.backend == "stub" or cfg.judge.backend in ("vlm", "rule")
+                      else st_eval.get_judge(cfg.judge, self.agent, self.clip))
         log(f"[init] xong. run_dir = {self.run_dir}")
 
     def run_one(self, prompt: Prompt) -> PipelineResult:
@@ -92,10 +95,12 @@ class Pipeline:
 
             search = self.retriever.search(analysis, self.kb)
             n_img = sum(1 for i in search.items if i.kind == "image" and i.local_path)
-            n_txt = sum(1 for i in search.items if i.kind == "wiki_text" and i.provenance != "kb.notes (offline)")
+            n_txt = sum(1 for i in search.items if i.kind in ("wiki_text", "web_text") and i.provenance != "kb.notes (offline)")
             log(f"  [2] {len(search.items)} bằng chứng: {n_txt} văn bản online, {n_img} ảnh tham chiếu đạt CLIP"
                 + (f" | lỗi: {search.retrieval_errors[:2]}" if search.retrieval_errors else ""))
             search = st_extract.run(self.agent, search, self.kb, cfg.retrieval, self.cache_dir / "evidence", log=log)
+            for note in search.notes[:4]:
+                log(f"  [2b] {note}")
 
             spec = st_spec.run(self.agent, prompt, analysis, search, self.kb, cfg.max_spec_entities, cfg.min_entity_score)
             log(f"  [3] spec: {', '.join(e.name_vi for e in spec.entities) or '(rỗng)'}"
@@ -109,7 +114,7 @@ class Pipeline:
                                 analysis.prompt_en, cfg, out, log=log)
         _write(out / "stage45_review.json", outcome)
 
-        record = st_eval.run(self.agent, prompt, spec, search, outcome)
+        record = st_eval.run(self.judge, prompt, spec, search, outcome)
         _write(out / "stage6_eval.json", record)
         log(f"  [6] {'ĐẠT' if record.passed else 'chưa đạt'} | CLIP {record.clip_fidelity:.2f} | judge {record.judge_score:.2f}"
             f" | {time.time() - t0:.0f}s | {record.final_image_path}")

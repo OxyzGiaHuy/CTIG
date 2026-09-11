@@ -61,8 +61,8 @@ class RuleAgent:
             for c in it.confusable_with:
                 c in s["cf"] or s["cf"].append(c)
             it.title in s["titles"] or s["titles"].append(it.title)
-            if it.kind == "image" and it.local_path and (it.clip_match or 0) >= 0.5:
-                s["ref"] = it.local_path
+            if it.kind == "image" and it.local_path:
+                s["ref"] = it.local_path  # retrieval đã lọc theo ref_image_min_clip và kind
         dropped: list[list[str]] = []
         kept = []
         for eid, s in merged.items():
@@ -87,8 +87,10 @@ class RuleAgent:
             ent = kb.get(eid)
             ents.append(SpecEntity(eid, ent.name_vi, ent.name_en, s["mh"], s["mn"], s["cf"],
                                    weights[min(i, 3)], s["titles"],
-                                   required_attrs_en=list(s["mh"]), forbidden_attrs_en=list(s["mn"]),
-                                   reference_image=s["ref"]))
+                                   # Agent luật không dịch được; để rỗng để prompt không nhận tiếng Việt.
+                                   required_attrs_en=[], forbidden_attrs_en=[],
+                                   clip_label=ent.clip_label or f"a photo of Vietnamese {ent.name_en.split('(')[0].strip()}",
+                                   kind=ent.kind, reference_image=s["ref"]))
         return CulturalSpec(prompt.id, ents, [k.term for k in analysis.keywords if k.kind == "scene"], dropped)
 
     def extract_evidence(self, ent, texts):
@@ -96,7 +98,7 @@ class RuleAgent:
         return {"must_have": [], "must_not": [], "confusable_with": [], "attr_sources": {}}
 
     def critique(self, prompt, spec, perception) -> Critique:
-        return shared.rule_critique(spec, perception)
+        return shared.checklist_critique(spec, perception) or shared.rule_critique(spec, perception)
 
     def adjudicate(self, critique, perception, spec, threshold, clip_weight, drift_margin) -> Adjudication:
         return shared.adjudicate(critique, perception, spec, threshold, clip_weight, drift_margin)

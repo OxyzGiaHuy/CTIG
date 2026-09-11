@@ -1,0 +1,92 @@
+# Trạng thái nghiên cứu CTIG - theo mẫu skill autoresearch (hai vòng: inner thí nghiệm, outer tổng hợp).
+# Cập nhật sau MỖI lần chạy Kaggle: thêm một dòng vào experiments.trajectory.
+project:
+  title: "CTIG - Cultural Text-to-Image Generation cho miền Việt Nam"
+  question: >
+    Một pipeline agentic có truy hồi bằng chứng và vòng review VLM+CLIP có làm SDXL vẽ đúng
+    thực thể văn hoá Việt Nam hơn so với sinh trực tiếp không, và khối nào đóng góp bao nhiêu?
+  status: active
+  started: "2026-09-11"
+  domain: "cultural text-to-image, agentic review"
+
+literature:
+  key_papers: []          # điền khi làm literature/ (chưa làm)
+  open_problems:
+    - "T2I thay thực thể văn hoá ít dữ liệu bằng thực thể tương tự của văn hoá đông dữ liệu hơn"
+    - "Bằng chứng văn hoá kiểm chứng được bằng mắt gần như không có trong Wikipedia"
+  evidence_gaps:
+    - "Không có bộ prompt và nhãn vàng cho văn hoá Việt; bộ 50 prompt hiện tại do người viết code soạn"
+
+hypotheses:
+  - id: H1
+    statement: "Vòng review (checklist VLM + CLIP) nâng CLIP fidelity và tỉ lệ đạt so với vòng 0"
+    status: active
+    motivation: "Lần smoke v1: p050 vòng 0 không có áo dài, vòng 1 có. Chưa đo trên tập dev."
+    priority: high
+    prediction: "CLIP fidelity cuối > vòng 0 ít nhất 0.10 trên dev10; tỉ lệ đạt cuối > vòng 0"
+  - id: H2
+    statement: "Bước rút bằng chứng từ web tiếng Việt (DuckDuckGo) cho nhiều must_have thị giác hơn Wikipedia"
+    status: pending
+    motivation: "Wikipedia thiên lịch sử; blog tiếng Việt mô tả 'sườn nón là nan tre, quai buộc đối xứng'"
+    priority: high
+    prediction: "Số must_have rút được có câu gốc >= 3 cho >= 70% thực thể trong dev10 khi bật ddg; < 50% khi chỉ Wikipedia"
+  - id: H3
+    statement: "Judge BLIP-2 ITM tương quan với người chấm tốt hơn judge Qwen"
+    status: pending
+    motivation: "Judge Qwen chấm 0.98 khi reviewer fail và trả lời bằng tiếng Trung"
+    priority: medium
+    prediction: "Spearman(judge, người) của BLIP-2 ITM > của Qwen trên user_study.csv"
+  - id: H4
+    statement: "IP-Adapter với ảnh tham chiếu đã kiểm CLIP >= 0.75, scale 0.3, không làm ảnh tệ hơn"
+    status: pending
+    motivation: "v1 scale 0.45, ref CLIP 0.64: nón lá neon khổng lồ"
+    priority: medium
+    prediction: "CLIP fidelity có IP-Adapter >= không IP-Adapter trên các prompt có thực thể object"
+  - id: H5
+    statement: "Prompt engineering không cứu được thực thể prior thấp (đàn bầu, thuyền thúng); cần LoRA"
+    status: pending
+    motivation: "Ablation mô phỏng: bỏ LoRA tụt fidelity 0.89 -> 0.64. Chưa có LoRA thật để kiểm."
+    priority: high
+    prediction: "p009, p012 không đạt sau 2 vòng dù negative và nhấn; cần dữ liệu LoRA"
+  - id: H6
+    statement: "Qwen2.5-VL-3B trả lời checklist đóng ổn định hơn viết findings tự do"
+    status: active
+    motivation: "v1 findings lặp 'không có thông tin về...', điểm 0.6 cố định"
+    priority: high
+    prediction: "Tỉ lệ đáp án 'unsure' < 30%; identity khớp CLIP >= 70% trên thực thể object"
+  - id: H7
+    statement: "Thực thể bối cảnh (Tết, chợ nổi) chỉ kiểm được bằng checklist VLM, CLIP vô dụng"
+    status: pending
+    motivation: "v1: Tết vắng cả 3 vòng, CLIP 0.99, không ai bắt"
+    priority: medium
+    prediction: "Với kind=context, checklist identity=absent được bắt ở >= 80% ca ảnh không có dấu hiệu Tết"
+
+experiments:
+  proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
+  baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0
+  best_value: null
+  total_runs: 1
+  trajectory:
+    - run_id: "smoke-v1"
+      hypothesis: "H1"
+      config: "kaggle_t4x2 (v1)"
+      metric_value: 0.894    # mean CLIP fidelity cuối, 2 prompt, chưa phải dev10
+      pass_rate: 0.0
+      delta: null
+      wall_time_min: 13.4
+      change_summary: "v1: findings tự do, dịch một lần gọi, prompt chuỗi, judge Qwen"
+      notes: "7 lỗi phát hiện -> v1.1. Xem research/research-log.md"
+      timestamp: "2026-09-11"
+
+outer_loop:
+  cycle: 1
+  last_direction: deepen
+  last_reflection: >
+    Smoke v1 cho thấy phần lớn thất bại là lỗi code (khớp nguyên văn, dịch nhiễm, prompt lặp),
+    không phải giới hạn model. Sửa xong (v1.1) rồi mới đo H1-H7 trên dev10.
+
+workspace:
+  findings: "research/findings.md"
+  log: "research/research-log.md"
+  experiments_dir: "research/experiments/"
+  dev_subset: "data/dev10.txt"

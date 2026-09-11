@@ -104,28 +104,39 @@ class PromptAgent:
         system = (
             f"Bạn đọc các đoạn văn bản về '{ent.name_vi}' ({ent.name_en}) và rút ra bằng chứng cho hệ "
             "kiểm tra ảnh sinh bởi AI.\n"
-            "must_have: 3-6 đặc điểm THỊ GIÁC (hình dạng, chất liệu, màu, cách mặc/bày, bối cảnh) mà một "
-            "ảnh PHẢI có để được coi là đúng thực thể này. Mỗi đặc điểm một cụm tiếng Việt ngắn, cụ thể, "
-            "kiểm được bằng mắt. KHÔNG lấy lịch sử, nguồn gốc, ý nghĩa.\n"
-            "must_not: 2-4 đặc điểm mà nếu xuất hiện là ảnh đã sai (thường là đặc điểm của thứ dễ nhầm).\n"
-            "confusable_with: 1-3 thứ của văn hoá KHÁC dễ bị nhầm sang, có name, culture, why.\n"
-            "attr_sources: với MỖI cụm trong must_have và must_not, trích đúng câu gốc trong văn bản làm "
-            "căn cứ (kèm chỉ số nguồn, ví dụ '[0] ...'). Không có câu gốc thì KHÔNG đưa cụm đó vào. "
-            "Đây là quy tắc quan trọng nhất: chỉ rút từ văn bản, không dùng kiến thức riêng.\n"
-            "Văn bản không đủ thì trả về ít, thậm chí rỗng."
+            "must_have: 3-6 đặc điểm THỊ GIÁC (hình dạng, chất liệu, màu, cách mặc/bày) mà một ảnh PHẢI có "
+            "để được coi là đúng thực thể này. Mỗi mục gồm attr (cụm tiếng Việt ngắn, kiểm được bằng mắt) "
+            "và quote (CHÉP NGUYÊN VĂN câu trong văn bản làm căn cứ, kèm chỉ số nguồn như [0]). "
+            "KHÔNG lấy lịch sử, nguồn gốc, ý nghĩa.\n"
+            "must_not: 2-4 đặc điểm mà nếu xuất hiện là ảnh đã sai, cùng cấu trúc attr + quote.\n"
+            "confusable_with: 1-3 thứ của văn hoá KHÁC dễ bị nhầm sang: name (tiếng Việt), name_en "
+            "(cụm tiếng Anh mô tả, ví dụ 'a Japanese kimono with wide obi sash'), culture, why.\n"
+            "Quy tắc quan trọng nhất: chỉ rút từ văn bản, không dùng kiến thức riêng. Không có câu gốc thì "
+            "KHÔNG đưa mục đó vào. Văn bản không đủ thì trả về ít, thậm chí rỗng."
         )
-        schema = _s(must_have=_arr(STR), must_not=_arr(STR),
-                    confusable_with=_arr(_s(name=STR, culture=STR, why=STR)),
-                    attr_sources={"type": "object", "additionalProperties": STR})
+        item = _s(attr=STR, quote=STR)
+        schema = _s(must_have=_arr(item), must_not=_arr(item),
+                    confusable_with=_arr(_s(name=STR, name_en=STR, culture=STR, why=STR)))
         d = self.llm.complete_json(system, f"Văn bản:\n\n{numbered}", schema)
-        srcs = d.get("attr_sources") or {}
-        # Bỏ thuộc tính không có trích đoạn gốc: đó là thứ model bịa.
-        mh = [a for a in d.get("must_have", []) if isinstance(a, str) and a in srcs and srcs[a]]
-        mn = [a for a in d.get("must_not", []) if isinstance(a, str) and a in srcs and srcs[a]]
-        cf = [c for c in d.get("confusable_with", []) if isinstance(c, dict) and c.get("name")]
-        return {"must_have": mh, "must_not": mn, "confusable_with": cf,
-                "attr_sources": {k: v for k, v in srcs.items() if k in mh or k in mn},
-                "dropped_unsourced": [a for a in d.get("must_have", []) + d.get("must_not", []) if a not in srcs]}
+
+        from ..stages.extraction import quote_in_texts
+
+        raw_texts = [t.get("text", "") for t in texts]
+        mh, mn, srcs, dropped = [], [], {}, []
+        for key, out in (("must_have", mh), ("must_not", mn)):
+            for it in d.get(key, []) or []:
+                if not isinstance(it, dict) or not it.get("attr"):
+                    continue
+                attr, quote = str(it["attr"]).strip(), str(it.get("quote") or "").strip()
+                if quote and quote_in_texts(quote, raw_texts):
+                    out.append(attr)
+                    srcs[attr] = quote
+                else:
+                    dropped.append(attr)
+        cf = [{"name": c.get("name") or c.get("name_en"), "name_en": c.get("name_en") or c.get("name"),
+               "culture": c.get("culture", ""), "why": c.get("why", "")}
+              for c in d.get("confusable_with", []) or [] if isinstance(c, dict) and (c.get("name") or c.get("name_en"))]
+        return {"must_have": mh, "must_not": mn, "confusable_with": cf, "attr_sources": srcs, "dropped_unsourced": dropped}
 
     # ------------------------------------------------------------ stage 3
     def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:
@@ -133,33 +144,59 @@ class PromptAgent:
         spec = self._rule.build_spec(prompt, analysis, search, kb, max_entities, min_score)
         if not spec.entities:
             return spec
-        payload = {e.entity_id: {"name_en": e.name_en, "required": e.required_attrs,
-                                 "forbidden": e.forbidden_attrs} for e in spec.entities}
-        system = (
-            "Dịch các thuộc tính thị giác sang cụm tiếng Anh NGẮN (3-8 từ mỗi cụm) để ghép vào "
-            "prompt cho model sinh ảnh. Giữ tên riêng Việt dạng không dấu (ao dai, non la). "
-            "Dịch sát nghĩa, không thêm ý, giữ đúng số lượng và thứ tự cụm. "
-            "Với 'forbidden', dịch thành cụm ngắn dùng được làm negative prompt."
-        )
-        schema = _s(entities=_arr(_s(entity_id=STR, required_en=_arr(STR), forbidden_en=_arr(STR))))
-        try:
-            d = self.llm.complete_json(system, json.dumps(payload, ensure_ascii=False, indent=1), schema)
+        # Lần chạy đầu: một lần gọi dịch cả bắt buộc lẫn cấm, model 3B trộn "wide obi at back"
+        # (đặc điểm kimono, nằm trong CẤM) vào bản dịch của BẮT BUỘC -> prompt tích cực kéo ảnh
+        # về kimono. Nay: hai lần gọi riêng, và bản dịch bắt buộc chứa tên confusable thì bị loại.
+        for field_vi, field_en, label in (("required_attrs", "required_attrs_en", "bắt buộc phải có"),
+                                          ("forbidden_attrs", "forbidden_attrs_en", "KHÔNG được có")):
+            payload = {e.entity_id: {"name_en": e.name_en, "attrs": getattr(e, field_vi)} for e in spec.entities
+                       if getattr(e, field_vi)}
+            if not payload:
+                continue
+            system = (
+                f"Dịch các đặc điểm thị giác ({label}) sang cụm tiếng Anh NGẮN, 3-8 từ mỗi cụm, để ghép "
+                "vào prompt cho model sinh ảnh. Giữ tên riêng Việt dạng không dấu (ao dai, non la, banh chung). "
+                "Dịch sát nghĩa từng cụm, KHÔNG thêm ý, KHÔNG nhắc tới thứ của văn hoá khác, giữ đúng số lượng "
+                "và thứ tự cụm."
+            )
+            schema = _s(entities=_arr(_s(entity_id=STR, attrs_en=_arr(STR))))
+            try:
+                d = self.llm.complete_json(system, json.dumps(payload, ensure_ascii=False, indent=1), schema)
+            except RuntimeError as exc:
+                spec.dropped.append(["-", f"dịch {label} thất bại: {exc}"])
+                continue
             for row in d.get("entities", []):
                 se = spec.entity(row.get("entity_id", ""))
                 if se is None:
                     continue
-                req = [str(x) for x in row.get("required_en", [])]
-                forb = [str(x) for x in row.get("forbidden_en", [])]
-                if len(req) == len(se.required_attrs):
-                    se.required_attrs_en = req
-                if len(forb) == len(se.forbidden_attrs):
-                    se.forbidden_attrs_en = forb
-        except RuntimeError as exc:
-            spec.dropped.append(["-", f"dịch thuộc tính thất bại, dùng tiếng Việt: {exc}"])
+                out = [str(x).strip() for x in row.get("attrs_en", [])]
+                if len(out) != len(getattr(se, field_vi)):
+                    spec.dropped.append(["-", f"dịch {label} của {se.name_vi}: số cụm lệch, bỏ bản dịch"])
+                    continue
+                if field_en == "required_attrs_en":
+                    bad = {t.lower() for c in se.confusables for t in shared.confusable_labels(c.get("name", ""))}
+                    bad |= {"obi", "kimono", "qipao", "cheongsam", "hanbok", "hanfu", "sari", "sombrero"}
+                    poisoned = [a for a in out if any(b and b in a.lower() for b in bad)]
+                    if poisoned:
+                        spec.dropped.append(["-", f"dịch {se.name_vi}: loại cụm nhiễm confusable {poisoned}"])
+                        out = [a for a in out if a not in poisoned]
+                        # số cụm không còn khớp -> giữ phần sạch nhưng cắt tương ứng ở tiếng Việt
+                        keep_idx = [i for i, a in enumerate(row.get("attrs_en", [])) if str(a).strip() not in poisoned]
+                        se.required_attrs = [se.required_attrs[i] for i in keep_idx]
+                setattr(se, field_en, out)
         return spec
 
     # ------------------------------------------------------------ stage 5
     def critique(self, prompt: Prompt, spec: CulturalSpec, perception: Perception) -> Critique:
+        # v1.1: điểm và findings suy ra bằng luật từ checklist mà perceiver đã hỏi VLM.
+        # VLM không tự viết findings, không tự chấm điểm - hai việc nó làm kém nhất.
+        det = shared.checklist_critique(spec, perception)
+        if det is not None:
+            return det
+        return self._critique_freeform(prompt, spec, perception)
+
+    def _critique_freeform(self, prompt: Prompt, spec: CulturalSpec, perception: Perception) -> Critique:
+        """Đường cũ (v1): VLM viết findings tự do. Chỉ dùng khi không có checklist."""
         spec_json = json.dumps([{
             "entity_id": e.entity_id, "name_vi": e.name_vi, "name_en": e.name_en, "weight": e.weight,
             "must_have": e.required_attrs, "must_not": e.forbidden_attrs,

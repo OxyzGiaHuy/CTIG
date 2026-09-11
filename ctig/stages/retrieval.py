@@ -6,7 +6,9 @@ Nguồn (tất cả không cần key trừ Serper):
   * Wikipedia tiếng Việt: tìm bài (list=search) khi chưa biết tên bài, rồi lấy văn bản dài
     (prop=extracts) để stage extraction rút thuộc tính.
   * Wikimedia Commons: ảnh tham chiếu, tải về, CLIP kiểm trước khi dùng cho IP-Adapter.
-  * Serper (tuỳ chọn, SERPER_API_KEY): web snippets + Google Images khi Wikipedia không đủ.
+  * DuckDuckGo (mặc định, KHÔNG cần key, gói `ddgs`): web tiếng Việt và tiếng Anh + ảnh.
+    Wikipedia cho lịch sử; bài blog / báo tiếng Việt mới cho "sườn nón là nan tre, quai buộc đối xứng".
+  * Serper (tuỳ chọn, SERPER_API_KEY): Google web + images.
 
 Stage này chỉ THU văn bản. Việc biến văn bản thành must_have/must_not nằm ở stages/extraction.py.
 """
@@ -80,6 +82,14 @@ class WikiRetriever(LocalRetriever):
         self.serper_key = os.getenv("SERPER_API_KEY") if cfg.web_api == "serper" else None
         if cfg.web_api == "serper" and not self.serper_key:
             print("[retrieval] web_api=serper nhưng không có SERPER_API_KEY, chỉ dùng Wikipedia")
+        self._ddg = None
+        if cfg.web_api == "ddg":
+            try:
+                from ddgs import DDGS
+
+                self._ddg = DDGS()
+            except ImportError:
+                print("[retrieval] web_api=ddg nhưng chưa cài gói ddgs (pip install ddgs); chỉ dùng Wikipedia")
 
     def _s(self):
         if self._session is None:
@@ -109,20 +119,24 @@ class WikiRetriever(LocalRetriever):
                     if not ent.wiki_title_vi:
                         ent.wiki_title_vi = title
 
-            # --- Web search (tuỳ chọn) ---
-            if self.serper_key:
-                for r in self._serper("search", f"{ent.name_vi} {ent.name_en.split('(')[0]} đặc điểm", self.cfg.web_results):
-                    if r.get("snippet"):
-                        res.items.append(EvidenceItem(eid, "wiki_text", f"Web: {r.get('title', '')[:60]}",
-                                                      r["snippet"], url=r.get("link"), score=0.5,
-                                                      provenance="serper.dev/search"))
+            # --- Web search: tiếng Việt trước, tiếng Anh sau ---
+            en = ent.name_en.split("(")[0].strip()
+            web_queries = []
+            if "vi" in self.cfg.web_langs:
+                web_queries.append((f"{ent.name_vi} đặc điểm cấu tạo hình dáng", "vn-vi"))
+            if "en" in self.cfg.web_langs:
+                web_queries.append((f"Vietnamese {en} what it looks like characteristics", "wt-wt"))
+            for q, region in web_queries:
+                for r in self._web_text(q, region, self.cfg.web_results):
+                    if r.get("body"):
+                        res.items.append(EvidenceItem(eid, "web_text", f"Web: {r.get('title', '')[:60]}",
+                                                      r["body"][:1500], url=r.get("href"), score=0.5,
+                                                      provenance=r.get("provenance", "web")))
 
-            # --- Ảnh tham chiếu ---
+            # --- Ảnh tham chiếu: Commons (EN + VI) rồi web images ---
             if self.cfg.download_images:
-                cands = self._commons(ent.name_en.split("(")[0].strip(), n=3)
-                if self.serper_key:
-                    cands += [(r["imageUrl"], r.get("title", ent.name_vi)) for r in
-                              self._serper("images", f"{ent.name_vi} Việt Nam", 3) if r.get("imageUrl")]
+                cands = self._commons(en, n=3) + self._commons(ent.name_vi, n=2)
+                cands += self._web_images(f"{ent.name_vi} Việt Nam", 3)
                 for img_url, ititle in cands:
                     local = self._download(img_url)
                     if not local:
@@ -130,14 +144,18 @@ class WikiRetriever(LocalRetriever):
                     match = None
                     if self.clip is not None:
                         try:
-                            match = self.clip.image_matches(local, ent.name_en.split("(")[0].strip(),
-                                                            [c["name"] for c in ent.confusable_with])
+                            match = self.clip.image_matches(
+                                local, ent.clip_label or f"a photo of Vietnamese {en}",
+                                [c.get("name_en") or c["name"] for c in ent.confusable_with])
                         except Exception as exc:  # noqa: BLE001
                             self.errors.append(f"clip: {type(exc).__name__}")
-                    ok = match is None or match >= self.cfg.ref_image_min_clip
+                    # Thực thể "context" (sự kiện, cảnh) không dùng làm ảnh tham chiếu IP-Adapter:
+                    # tham chiếu một bức pháo hoa sẽ kéo cả ảnh về pháo hoa.
+                    ok = (match is None or match >= self.cfg.ref_image_min_clip) and ent.kind == "object"
                     res.items.append(EvidenceItem(
                         eid, "image", f"Ảnh: {ititle[:60]}",
-                        "Ảnh tham chiếu đã qua CLIP" if ok else "Bị CLIP loại: không đúng chủ thể",
+                        "Ảnh tham chiếu đã qua CLIP" if ok else
+                        ("Thực thể bối cảnh, không dùng làm tham chiếu" if ent.kind != "object" else "Bị CLIP loại: không đúng chủ thể"),
                         must_have=list(ent.must_have[:2]) if ok else [], url=img_url,
                         local_path=local if ok else None, clip_match=match,
                         score=0.65 if ok else 0.1, provenance="image-search",
@@ -180,6 +198,33 @@ class WikiRetriever(LocalRetriever):
         except Exception as exc:  # noqa: BLE001
             self.errors.append(f"wiki {title}: {type(exc).__name__}")
         return None, None
+
+    # ------------------------------------------------------------------ Web (DDG / Serper)
+    def _web_text(self, q: str, region: str, n: int) -> list[dict]:
+        if self._ddg is not None:
+            try:
+                out = self._ddg.text(q, region=region, max_results=n) or []
+                return [{"title": r.get("title"), "body": r.get("body"), "href": r.get("href"),
+                         "provenance": "duckduckgo"} for r in out]
+            except Exception as exc:  # noqa: BLE001
+                self.errors.append(f"ddg text '{q[:30]}': {type(exc).__name__}")
+                return []
+        if self.serper_key:
+            return [{"title": r.get("title"), "body": r.get("snippet"), "href": r.get("link"), "provenance": "serper"}
+                    for r in self._serper("search", q, n)]
+        return []
+
+    def _web_images(self, q: str, n: int) -> list[tuple[str, str]]:
+        if self._ddg is not None:
+            try:
+                out = self._ddg.images(q, region="vn-vi", max_results=n) or []
+                return [(r["image"], r.get("title", q)) for r in out if r.get("image")]
+            except Exception as exc:  # noqa: BLE001
+                self.errors.append(f"ddg images '{q[:30]}': {type(exc).__name__}")
+                return []
+        if self.serper_key:
+            return [(r["imageUrl"], r.get("title", q)) for r in self._serper("images", q, n) if r.get("imageUrl")]
+        return []
 
     # ------------------------------------------------------------------ Commons / Serper
     def _commons(self, query, n=3):

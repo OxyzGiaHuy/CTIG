@@ -43,7 +43,15 @@ class T2IConfig:
     ip_adapter: bool = True
     ip_adapter_repo: str = "h94/IP-Adapter"
     ip_adapter_weight: str = "ip-adapter_sdxl.bin"
-    ip_adapter_scale: float = 0.45
+    #: Skill SD để 0.6 cho style transfer; ta giữ danh tính vật thể trong cảnh phức tạp nên thấp hơn.
+    ip_adapter_scale: float = 0.3
+    #: Có thêm negative confusable ngay từ vòng 0 không (tắt để đo tác dụng của vòng review).
+    init_negatives: bool = True
+    #: Vòng sửa dùng LCM-LoRA ít bước; chỉ ảnh đạt mới render đủ bước.
+    fast_iters: bool = False
+    lcm_lora: str = "latent-consistency/lcm-lora-sdxl"
+    fast_steps: int = 8
+    fast_guidance: float = 1.5
 
 
 @dataclass
@@ -62,8 +70,9 @@ class RetrievalConfig:
     backend: str = "wiki"
     max_evidence_per_entity: int = 3
     download_images: bool = True
-    #: CLIP tối thiểu để ảnh Commons được dùng làm tham chiếu.
-    ref_image_min_clip: float = 0.55
+    #: CLIP tối thiểu để ảnh tìm được dùng làm tham chiếu IP-Adapter. Thấp hơn thì
+    #: ảnh vẫn được ghi lại làm bằng chứng nhưng không đưa vào bộ sinh.
+    ref_image_min_clip: float = 0.75
     timeout: float = 10.0
     #: Số ký tự văn bản Wikipedia lấy về cho bước rút thuộc tính (0 = chỉ tóm tắt).
     wiki_chars: int = 3000
@@ -71,9 +80,11 @@ class RetrievalConfig:
     extract: bool = True
     #: Cache bằng chứng đã rút theo entity_id để không rút lại (không phụ thuộc prompt).
     evidence_cache: bool = True
-    #: Web search API. "none" | "serper". Key đọc từ biến môi trường SERPER_API_KEY.
-    web_api: str = "none"
+    #: Web search. "ddg" (DuckDuckGo, không cần key, mặc định) | "serper" (SERPER_API_KEY) | "none".
+    web_api: str = "ddg"
     web_results: int = 5
+    #: Tìm web bằng cả tiếng Việt và tiếng Anh.
+    web_langs: list[str] = field(default_factory=lambda: ["vi", "en"])
 
 
 @dataclass
@@ -83,6 +94,14 @@ class CacheConfig:
     #: Bỏ cache, chạy lại tất cả.
     refresh: bool = False
     dir: str | None = None  # mặc định <runs_dir>/_cache
+
+
+@dataclass
+class JudgeConfig:
+    #: "blip2_itm" (BLIP-2 ITM + CLIP, độc lập với reviewer) | "clip" | "vlm" | "rule"
+    backend: str = "blip2_itm"
+    blip2_model: str = "Salesforce/blip2-itm-vit-g"
+    device: str = "cuda:0"
 
 
 @dataclass
@@ -100,6 +119,7 @@ class Config:
     perception: PerceptionConfig = field(default_factory=PerceptionConfig)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
     review: ReviewConfig = field(default_factory=ReviewConfig)
+    judge: JudgeConfig = field(default_factory=JudgeConfig)
     cache: CacheConfig = field(default_factory=CacheConfig)
     seed: int = 1234
     max_spec_entities: int = 4

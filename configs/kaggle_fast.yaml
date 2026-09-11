@@ -1,0 +1,9 @@
+# Kaggle 1x T4, ưu tiên tốc độ: LCM-LoRA 8 bước cho vòng sửa, render đủ bước khi đạt, không IP-Adapter.
+llm:        {backend: qwen_vl, model: Qwen/Qwen2.5-VL-3B-Instruct, device: "cuda:0", max_new_tokens: 700, temperature: 0.0}
+t2i:        {backend: sdxl, device: "cuda:0", cpu_offload: true, width: 768, height: 768, steps: 25, guidance: 6.5,
+             n_candidates: 2, ip_adapter: false, fast_iters: true, fast_steps: 8, fast_guidance: 1.5}
+perception: {backend: vlm_clip, device: "cuda:0"}
+retrieval:  {backend: wiki, web_api: ddg, extract: true}
+judge:      {backend: clip}
+review:     {max_iters: 2, pass_threshold: 0.75}
+runs_dir: /kaggle/working/runs

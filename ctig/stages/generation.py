@@ -29,58 +29,83 @@ def _en(se) -> str:
     return se.name_en.split("(")[0].strip()
 
 
+def _confusable_negatives(se) -> list[str]:
+    from ..llm.shared import confusable_labels
+
+    out = []
+    for cf in se.confusables[:3]:
+        out.extend(confusable_labels(cf.get("name", "")))
+        # tên ASCII ngắn trong name_en (kimono, qipao, zongzi...) cũng đưa vào
+        for tok in (cf.get("name_en") or "").replace(",", " ").split():
+            if tok.isascii() and tok.isalpha() and len(tok) > 4 and tok.lower() not in ("japanese", "chinese", "korean", "with", "wide"):
+                out.append(tok.lower())
+    return out
+
+
 def build_initial_spec(prompt: Prompt, spec: CulturalSpec, prompt_en: str | None,
                        cfg, seed: int, init_negatives: bool = True) -> GenSpec:
-    parts = [prompt_en or prompt.text_en]
+    terms = [prompt_en or prompt.text_en]
     for se in spec.entities:
-        parts.append(f"Vietnamese {_en(se)}")
-        attrs = se.required_attrs_en or []
-        if se.weight >= 0.8 and attrs:
-            parts.extend(attrs[:2])
-    parts.extend(spec.scene_notes[:2])
-    parts.append(STYLE_SUFFIX)
+        terms.append(f"Vietnamese {_en(se)}")
+        if se.weight >= 0.8 and se.required_attrs_en:
+            terms.extend(se.required_attrs_en[:2])  # CHỈ tiếng Anh; không có bản dịch thì bỏ
+    terms.extend(spec.scene_notes[:2])
+    terms.append(STYLE_SUFFIX)
 
-    neg = [GENERIC_NEGATIVE]
+    neg = GENERIC_NEGATIVE.split(", ")
     if init_negatives:
-        from ..llm.shared import confusable_labels
-
         for se in spec.entities:
-            for cf in se.confusables[:2]:
-                neg.extend(confusable_labels(cf.get("name", "")))
-    ref = next((se.reference_image for se in spec.entities if se.reference_image), None)
+            neg.extend(_confusable_negatives(se))
+    fast = bool(getattr(cfg, "fast_iters", False))
     return GenSpec(
-        prompt_id=prompt.id, prompt=", ".join(dict.fromkeys(p for p in parts if p)),
-        negative_prompt=", ".join(dict.fromkeys(n for n in neg if n)),
+        prompt_id=prompt.id, prompt_terms=list(dict.fromkeys(t for t in terms if t)),
+        negative_terms=list(dict.fromkeys(n for n in neg if n)), emphasis={},
         conditioning={se.entity_id: 0.0 for se in spec.entities},
-        lora=None, lora_scale=cfg.lora_scale,
-        ip_adapter_image=ref if cfg.ip_adapter and getattr(cfg, "ip_adapter_from_start", False) else None,
-        ip_adapter_scale=cfg.ip_adapter_scale,
-        seed=seed, steps=cfg.steps, guidance=cfg.guidance,
-        width=cfg.width, height=cfg.height, n_candidates=cfg.n_candidates, iteration=0,
+        lora=None, lora_scale=cfg.lora_scale, ip_adapter_image=None, ip_adapter_scale=cfg.ip_adapter_scale,
+        seed=seed, steps=(cfg.fast_steps if fast else cfg.steps),
+        guidance=(cfg.fast_guidance if fast else cfg.guidance),
+        width=cfg.width, height=cfg.height, n_candidates=cfg.n_candidates, iteration=0, fast=fast,
     )
 
 
 def apply_plan(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, cfg, lora_id: str | None = None) -> GenSpec:
-    """`lora_id` là LoRA mà bộ sinh thực sự có (SDXL: cfg.lora_path đã nạp; stub: LoRA ảo)."""
+    """`lora_id` là LoRA mà bộ sinh thực sự có (SDXL: cfg.lora_path đã nạp; stub: LoRA ảo).
+
+    v1 nối chuỗi nên mỗi vòng lại thêm "Vietnamese Ao dai, Ao dai" -> nhấn quá tay, nón lá neon
+    khổng lồ. v1.1 giữ danh sách cụm, mỗi thực thể chỉ được đẩy lên đầu MỘT lần.
+    """
     cond = dict(gen.conditioning)
     for eid, d in plan.boost.items():
         cond[eid] = min(1.0, cond.get(eid, 0.0) + d)
-    # Thực thể được nhấn mạnh đi lên đầu prompt và được lặp lại.
-    emphasised = [spec.entity(eid) for eid, v in sorted(cond.items(), key=lambda kv: -kv[1]) if v >= 0.3]
-    head = [f"Vietnamese {_en(se)}, {_en(se)}" for se in emphasised if se]
-    prompt = ", ".join(dict.fromkeys(head + [gen.prompt] + plan.add_positive))
-    negative = ", ".join(dict.fromkeys([gen.negative_prompt] + plan.add_negative))
+    emphasis = dict(gen.emphasis)
+    head: list[str] = []
+    for eid, v in sorted(cond.items(), key=lambda kv: -kv[1]):
+        se = spec.entity(eid)
+        if se and v >= 0.3 and emphasis.get(eid, 0) < 1:
+            head.append(f"Vietnamese {_en(se)}")
+            emphasis[eid] = 1
+    # Cụm đã nhấn được rút khỏi vị trí cũ rồi đặt lên đầu, không nhân đôi.
+    body = [t for t in gen.prompt_terms if t not in head]
+    terms = list(dict.fromkeys(head + body + [p for p in plan.add_positive if p]))
+    negative = list(dict.fromkeys(gen.negative_terms + [n for n in plan.add_negative if n]))
     ref = gen.ip_adapter_image
     if plan.use_reference_image and cfg.ip_adapter:
-        ref = next((se.reference_image for se in spec.entities if se.reference_image), None)
+        ref = next((se.reference_image for se in spec.entities if se.reference_image and se.kind == "object"), None)
+    guidance = gen.guidance if gen.fast else min(12.0, gen.guidance + plan.guidance_delta + 0.5 * max(cond.values(), default=0))
     return GenSpec(
-        prompt_id=gen.prompt_id, prompt=prompt, negative_prompt=negative, conditioning=cond,
+        prompt_id=gen.prompt_id, prompt_terms=terms, negative_terms=negative, emphasis=emphasis, conditioning=cond,
         lora=(lora_id if (plan.attach_lora and lora_id) else gen.lora),
         lora_scale=gen.lora_scale, ip_adapter_image=ref, ip_adapter_scale=gen.ip_adapter_scale,
-        seed=gen.seed, steps=gen.steps,
-        guidance=min(12.0, gen.guidance + plan.guidance_delta + 0.5 * max(cond.values(), default=0)),
-        width=gen.width, height=gen.height, n_candidates=gen.n_candidates, iteration=gen.iteration + 1,
+        seed=gen.seed, steps=gen.steps, guidance=guidance,
+        width=gen.width, height=gen.height, n_candidates=gen.n_candidates, iteration=gen.iteration + 1, fast=gen.fast,
     )
+
+
+def to_final_render(gen: GenSpec, cfg) -> GenSpec:
+    """Cùng prompt, render đủ bước với scheduler chuẩn (sau khi vòng nhanh đã đạt)."""
+    from dataclasses import replace
+
+    return replace(gen, fast=False, steps=cfg.steps, guidance=cfg.guidance, n_candidates=1)
 
 
 # =============================================================== SDXL
@@ -121,14 +146,31 @@ class SDXLGenerator:
             except Exception as exc:  # noqa: BLE001
                 print(f"[gen] không tải được IP-Adapter, tắt: {type(exc).__name__}: {exc}")
 
+        self.adapters: list[str] = []
         self.has_lora = False
         if cfg.lora_path:
             try:
                 self.pipe.load_lora_weights(cfg.lora_path, adapter_name="culture")
-                self.pipe.set_adapters(["culture"], adapter_weights=[0.0])
+                self.adapters.append("culture")
                 self.has_lora = True
             except Exception as exc:  # noqa: BLE001
                 print(f"[gen] không tải được LoRA, tắt: {type(exc).__name__}: {exc}")
+
+        # LCM-LoRA (skill SD, Workflow 2 "fast prototyping"): 4-8 bước cho vòng sửa.
+        self.has_lcm = False
+        self._default_scheduler = self.pipe.scheduler
+        if getattr(cfg, "fast_iters", False):
+            try:
+                from diffusers import LCMScheduler
+
+                self.pipe.load_lora_weights(cfg.lcm_lora, adapter_name="lcm")
+                self.adapters.append("lcm")
+                self._lcm_scheduler = LCMScheduler.from_config(self.pipe.scheduler.config)
+                self.has_lcm = True
+            except Exception as exc:  # noqa: BLE001
+                print(f"[gen] không tải được LCM-LoRA, chạy đủ bước: {type(exc).__name__}: {exc}")
+        if self.adapters:
+            self.pipe.set_adapters(self.adapters, adapter_weights=[0.0] * len(self.adapters))
 
     @property
     def lora_available(self) -> bool:
@@ -146,8 +188,11 @@ class SDXLGenerator:
         from PIL import Image
 
         out_dir.mkdir(parents=True, exist_ok=True)
-        if self.has_lora:
-            self.pipe.set_adapters(["culture"], adapter_weights=[gen.lora_scale if gen.lora else 0.0])
+        use_lcm = gen.fast and self.has_lcm
+        if self.adapters:
+            weights = {"culture": (gen.lora_scale if (gen.lora and self.has_lora) else 0.0), "lcm": (1.0 if use_lcm else 0.0)}
+            self.pipe.set_adapters(self.adapters, adapter_weights=[weights[a] for a in self.adapters])
+        self.pipe.scheduler = self._lcm_scheduler if use_lcm else self._default_scheduler
         ip_kwargs = {}
         if self.has_ip:
             if gen.ip_adapter_image:
@@ -198,6 +243,7 @@ class StubGenerator:
         out_dir.mkdir(parents=True, exist_ok=True)
         neg = normalize(gen.negative_prompt)
         pos = normalize(gen.prompt)
+        # Nhấn (emphasis) trong stub tính như +0.15 conditioning một lần.
         oracle: dict[str, str] = {}
         strengths: dict[str, float] = {}
         for se in spec.entities:
@@ -211,6 +257,8 @@ class StubGenerator:
                 s += 0.25
             if normalize(_en(se)) in pos:
                 s += 0.10
+            if gen.emphasis.get(se.entity_id):
+                s += 0.15
             cf = ent.primary_confusable
             if cf:
                 from ..llm.shared import confusable_labels

@@ -74,7 +74,7 @@ class AnalysisResult:
 
 # ---------------------------------------------------------------- stage 2
 
-EvidenceKind = Literal["kb", "wiki_text", "image"]
+EvidenceKind = Literal["kb", "wiki_text", "web_text", "image"]
 
 
 @dataclass
@@ -104,6 +104,8 @@ class SearchResult:
     queries_used: list[str] = field(default_factory=list)
     misses: list[str] = field(default_factory=list)
     retrieval_errors: list[str] = field(default_factory=list)
+    #: Ghi chú không phải lỗi: thuộc tính bị loại vì không có câu gốc, nguồn bị bỏ, v.v.
+    notes: list[str] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------- stage 3
@@ -121,6 +123,12 @@ class SpecEntity:
     #: Bản tiếng Anh của thuộc tính, để ghép vào prompt T2I (T2I hiểu tiếng Anh tốt hơn).
     required_attrs_en: list[str] = field(default_factory=list)
     forbidden_attrs_en: list[str] = field(default_factory=list)
+    #: Nhãn tiếng Anh MÔ TẢ cho CLIP (không phải tên trần). Ví dụ
+    #: "a woman wearing a Vietnamese ao dai, a long split tunic over wide trousers".
+    clip_label: str = ""
+    #: Loại thực thể: "object" (vật thể, CLIP và IP-Adapter dùng được) hay "context"
+    #: (sự kiện, cảnh; chỉ VLM checklist mới kiểm được).
+    kind: str = "object"
     #: Ảnh tham chiếu đã qua kiểm CLIP, dùng cho IP-Adapter.
     reference_image: str | None = None
 
@@ -141,8 +149,12 @@ class CulturalSpec:
 @dataclass
 class GenSpec:
     prompt_id: str
-    prompt: str
-    negative_prompt: str = ""
+    #: Prompt là DANH SÁCH cụm, render bằng .prompt. Giữ danh sách để dedupe và
+    #: giới hạn nhấn được; bản v1 dùng chuỗi nên lặp "Ao dai, Ao dai, Ao dai".
+    prompt_terms: list[str] = field(default_factory=list)
+    negative_terms: list[str] = field(default_factory=list)
+    #: entity_id -> số lần đã nhấn (đẩy lên đầu prompt). Tối đa 1.
+    emphasis: dict[str, int] = field(default_factory=dict)
     #: entity_id -> mức nhấn 0..1. Bộ sinh thật hiện thực bằng thứ tự từ trong
     #: prompt và guidance; bộ sinh stub dùng thẳng con số.
     conditioning: dict[str, float] = field(default_factory=dict)
@@ -158,6 +170,16 @@ class GenSpec:
     height: int = 768
     n_candidates: int = 2
     iteration: int = 0
+    #: Vòng nhanh (LCM-LoRA, ít bước) hay render đủ bước.
+    fast: bool = False
+
+    @property
+    def prompt(self) -> str:
+        return ", ".join(dict.fromkeys(t for t in self.prompt_terms if t))
+
+    @property
+    def negative_prompt(self) -> str:
+        return ", ".join(dict.fromkeys(t for t in self.negative_terms if t))
 
 
 @dataclass
@@ -204,6 +226,11 @@ class Perception:
     caption: str = ""
     #: entity_id -> {nhãn: xác suất} từ CLIP. Tín hiệu độc lập với VLM.
     clip_probs: dict[str, dict[str, float]] = field(default_factory=dict)
+    #: entity_id -> {"identity": "target"|"confusable:<tên>"|"absent"|"unsure",
+    #:               "attrs": ["yes"|"no"|"unsure" theo thứ tự required_attrs],
+    #:               "forbidden": ["yes"|"no"|"unsure" theo thứ tự forbidden_attrs]}
+    #: VLM chỉ trả lời câu hỏi đóng. Điểm và findings suy ra bằng luật từ đây.
+    checklist: dict[str, dict[str, Any]] = field(default_factory=dict)
     perceiver: str = "unknown"
 
 
@@ -264,6 +291,8 @@ class ReviewIteration:
     critiques: list[Critique]
     adjudication: Adjudication
     plan: RevisionPlan
+    #: True nếu đây là lần render đủ bước sau khi vòng nhanh đã đạt.
+    final_render: bool = False
 
 
 @dataclass
@@ -294,6 +323,8 @@ class EvalRecord:
     clip_fidelity: float = 0.0
     judge_score: float = 0.0
     judge_reasoning: str = ""
+    #: Judge theo model gì ("blip2_itm+clip" | "clip" | "vlm" | "rule").
+    judge_backend: str = ""
     #: Chỉ có với stub.
     oracle_fidelity: float | None = None
     evidence_summary: list[str] = field(default_factory=list)

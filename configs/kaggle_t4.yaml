@@ -1,10 +1,10 @@
-# Kaggle, 1x T4 16GB. VLM và SDXL dùng chung GPU nên SDXL bật cpu_offload.
+# Kaggle, 1x T4 16GB. VLM, SDXL, CLIP, BLIP-2 ITM dùng chung GPU nên SDXL bật cpu_offload.
 llm:
   backend: qwen_vl
   model: Qwen/Qwen2.5-VL-3B-Instruct
   device: cuda:0
-  max_new_tokens: 900
-  temperature: 0.1
+  max_new_tokens: 700
+  temperature: 0.0
 t2i:
   backend: sdxl
   model: stabilityai/stable-diffusion-xl-base-1.0
@@ -17,7 +17,9 @@ t2i:
   guidance: 6.5
   n_candidates: 2
   ip_adapter: true
-  ip_adapter_scale: 0.45
+  ip_adapter_scale: 0.3
+  init_negatives: true
+  fast_iters: false          # true = LCM-LoRA 8 bước cho vòng sửa, render đủ bước khi đạt
   lora_path: null
 perception:
   backend: vlm_clip
@@ -26,8 +28,14 @@ perception:
   drift_margin: 0.15
 retrieval:
   backend: wiki
+  web_api: ddg               # DuckDuckGo, không cần key
+  web_langs: [vi, en]
   download_images: true
-  ref_image_min_clip: 0.55
+  ref_image_min_clip: 0.75
+  extract: true
+judge:
+  backend: blip2_itm         # độc lập với reviewer; lỗi tải thì tự lùi về clip
+  device: cuda:0
 review:
   max_iters: 2
   pass_threshold: 0.75

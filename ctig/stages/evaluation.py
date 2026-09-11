@@ -32,11 +32,110 @@ def oracle_fidelity(outcome: ReviewOutcome, spec: CulturalSpec, n: int = -1) -> 
     return sum(1 for se in spec.entities if o.get(se.entity_id) == se.name_vi) / len(spec.entities)
 
 
-def run(agent, prompt: Prompt, spec: CulturalSpec, search: SearchResult, outcome: ReviewOutcome) -> EvalRecord:
+class ITMJudge:
+    """Judge ĐỘC LẬP với reviewer: BLIP-2 ITM (họ model khác Qwen) + CLIP, không LLM.
+
+    Skill blip-2: đầu ITM trả xác suất ảnh khớp một câu. Ta chấm ba nhóm câu:
+      identity     "a photo of <clip_label>"                       so với câu của từng confusable
+      completeness "<name_en> with <attr_en>" cho từng must_have   (chỉ khi có bản dịch)
+      purity       1 - max P(câu confusable)
+    Lần chạy đầu judge là chính Qwen: chấm 0.98 khi reviewer fail, trả lời bằng tiếng Trung.
+    """
+
+    name = "blip2_itm+clip"
+
+    def __init__(self, cfg, clip=None):
+        import torch
+        from transformers import Blip2ForImageTextRetrieval, Blip2Processor
+
+        self.torch = torch
+        self.clip = clip
+        self.device = cfg.device if torch.cuda.is_available() else "cpu"
+        dt = torch.float16 if self.device.startswith("cuda") else torch.float32
+        self.model = Blip2ForImageTextRetrieval.from_pretrained(cfg.blip2_model, torch_dtype=dt).to(self.device).eval()
+        self.proc = Blip2Processor.from_pretrained(cfg.blip2_model)
+        self.dt = dt
+
+    def itm(self, image_path: str, texts: list[str]) -> list[float]:
+        from PIL import Image
+
+        img = Image.open(image_path).convert("RGB")
+        out: list[float] = []
+        for t in texts:
+            inputs = self.proc(images=img, text=t, return_tensors="pt").to(self.device, self.dt)
+            with self.torch.inference_mode():
+                res = self.model(**inputs, use_image_text_matching_head=True)
+            logits = res.logits_per_image if hasattr(res, "logits_per_image") else res[0]
+            out.append(float(logits.softmax(dim=-1)[0, 1]))
+        return out
+
+    def judge(self, prompt: Prompt, spec: CulturalSpec, perception) -> tuple[float, str]:
+        if not spec.entities:
+            return 0.0, "spec rỗng"
+        from ..llm.shared import confusable_clip_label
+
+        wt, ident, comp, pur, notes = 0.0, 0.0, 0.0, 0.0, []
+        for se in spec.entities:
+            target = se.clip_label or f"a photo of Vietnamese {se.name_en.split('(')[0].strip()}"
+            p_t = self.itm(perception.image_path, [target])[0]
+            cf_labels = [confusable_clip_label(c) for c in se.confusables[:3]]
+            p_cf = max(self.itm(perception.image_path, cf_labels)) if cf_labels else 0.0
+            attrs = se.required_attrs_en[:4]
+            p_attr = (sum(self.itm(perception.image_path, [f"{se.name_en.split('(')[0].strip()} with {a}" for a in attrs])) / len(attrs)
+                      if attrs else p_t)
+            wt += se.weight
+            ident += se.weight * p_t
+            comp += se.weight * p_attr
+            pur += se.weight * (1.0 - p_cf)
+            notes.append(f"{se.name_vi}: itm {p_t:.2f}, attrs {p_attr:.2f}, confusable {p_cf:.2f}")
+        a, b, c = ident / wt, comp / wt, pur / wt
+        return (a + b + c) / 3, f"identity {a:.2f} | completeness {b:.2f} | purity {c:.2f} | " + "; ".join(notes)
+
+
+class CLIPJudge:
+    name = "clip"
+
+    def __init__(self, clip):
+        self.clip = clip
+
+    def judge(self, prompt, spec, perception) -> tuple[float, str]:
+        if not spec.entities or self.clip is None:
+            return 0.0, "không có CLIP hoặc spec rỗng"
+        probs = perception.clip_probs or self.clip.entity_probs(perception.image_path, spec)
+        objs = [se for se in spec.entities if se.entity_id in probs]
+        if not objs:
+            return 0.0, "không có thực thể object để CLIP chấm"
+        wt = sum(se.weight for se in objs)
+        s = sum(se.weight * probs[se.entity_id].get("__target__", 0.0) for se in objs) / wt
+        return s, "CLIP target prob có trọng số: " + "; ".join(f"{se.name_vi} {probs[se.entity_id].get('__target__', 0):.2f}" for se in objs)
+
+
+class AgentJudge:
+    def __init__(self, agent):
+        self.agent = agent
+        self.name = f"vlm:{getattr(agent, 'name', '?')}"
+
+    def judge(self, prompt, spec, perception):
+        return self.agent.judge(prompt, spec, perception)
+
+
+def get_judge(cfg, agent, clip):
+    if cfg.backend == "blip2_itm":
+        try:
+            return ITMJudge(cfg, clip)
+        except Exception as exc:  # noqa: BLE001
+            print(f"[judge] không tải được BLIP-2 ITM ({type(exc).__name__}: {exc}); dùng CLIP")
+            return CLIPJudge(clip)
+    if cfg.backend == "clip":
+        return CLIPJudge(clip)
+    return AgentJudge(agent)
+
+
+def run(judge, prompt: Prompt, spec: CulturalSpec, search: SearchResult, outcome: ReviewOutcome) -> EvalRecord:
     last = outcome.iterations[-1]
     if spec.entities:
         try:
-            judge_score, judge_reason = agent.judge(prompt, spec, last.perception)
+            judge_score, judge_reason = judge.judge(prompt, spec, last.perception)
         except Exception as exc:  # noqa: BLE001
             judge_score, judge_reason = 0.0, f"judge lỗi: {type(exc).__name__}: {exc}"
     else:
@@ -46,6 +145,7 @@ def run(agent, prompt: Prompt, spec: CulturalSpec, search: SearchResult, outcome
         passed=outcome.passed, iterations=outcome.n_iterations, verifiable=bool(spec.entities),
         retrieval_recall=retrieval_recall(prompt, search), review_score=outcome.final_score,
         clip_fidelity=clip_fidelity(outcome, spec), judge_score=judge_score, judge_reasoning=judge_reason,
+        judge_backend=getattr(judge, "name", "?"),
         oracle_fidelity=oracle_fidelity(outcome, spec),
         evidence_summary=[f"[{i.kind}] {i.title}" + (f" <{i.url}>" if i.url else "") for i in search.items],
         residual_findings=[f"({f.severity}) {f.message}" for f in last.adjudication.merged_findings

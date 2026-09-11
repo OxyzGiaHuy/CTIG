@@ -18,6 +18,7 @@ from ctig.llm.prompt_agent import PromptAgent
 from ctig.pipeline import Pipeline, load_prompts
 from ctig.schema import Candidate, GenOutput
 from ctig.stages.perception import VLMClipPerceiver
+from ctig.stages.evaluation import AgentJudge
 
 FAILED = []
 
@@ -48,24 +49,27 @@ class FakeBackend(JSONChatMixin):
                                   "region": "bac_bo", "rationale": "test"}],
             }, ensure_ascii=False)
         if "rút ra bằng chứng" in system:
+            # attr thứ hai có quote KHÔNG nằm trong văn bản -> phải bị loại
             return json.dumps({
-                "must_have": ["cổ đứng cao", "thuộc tính bịa không nguồn"],
-                "must_not": ["đai obi"],
-                "confusable_with": [{"name": "kimono", "culture": "Nhật", "why": "gần giống"}],
-                "attr_sources": {"cổ đứng cao": "[0] áo dài có cổ đứng cao", "đai obi": "[0] khác kimono ở đai obi"},
+                "must_have": [{"attr": "cổ đứng cao", "quote": "[0] áo dài có cổ đứng cao ôm sát cổ"},
+                              {"attr": "thuộc tính bịa", "quote": "câu này không có trong văn bản nào cả"}],
+                "must_not": [{"attr": "đai obi", "quote": "[0] khác kimono ở chỗ không có đai obi"}],
+                "confusable_with": [{"name": "kimono", "name_en": "a Japanese kimono with obi", "culture": "Nhật", "why": "gần giống"}],
             }, ensure_ascii=False)
-        if "Dịch các thuộc tính" in system:
+        if "Dịch các đặc điểm thị giác (bắt buộc" in system:
             d = json.loads(user)
-            return json.dumps({"entities": [{"entity_id": k, "required_en": [f"EN:{a}" for a in v["required"]],
-                                             "forbidden_en": [f"EN:{a}" for a in v["forbidden"]]} for k, v in d.items()]})
-        if "mô tả một ảnh" in system:
+            # cố ý nhiễm 'wide obi' vào cụm đầu để kiểm bộ lọc
+            return json.dumps({"entities": [{"entity_id": k, "attrs_en": ["long tunic with wide obi at back"] +
+                                             [f"EN:{a}" for a in v["attrs"][1:]]} for k, v in d.items()]})
+        if "Dịch các đặc điểm thị giác (KHÔNG" in system:
+            d = json.loads(user)
+            return json.dumps({"entities": [{"entity_id": k, "attrs_en": [f"NEG:{a}" for a in v["attrs"]]} for k, v in d.items()]})
+        if "Mô tả ảnh cho hệ thống kiểm tra" in system:
             return json.dumps({"caption": "a woman in a kimono", "elements": [
                 {"label": "kimono", "category": "trang_phuc", "attrs": ["đai obi bản rộng"], "confidence": 0.8}]}, ensure_ascii=False)
-        if "chuyên gia văn hoá vật chất" in system:
-            return json.dumps({"findings": [
-                {"entity_id": "ao_dai", "severity": "critical", "observed": "kimono có obi", "expected": "Áo dài", "message": "vẽ kimono"},
-                {"entity_id": "khong_ton_tai", "severity": "minor", "observed": "x", "expected": "y", "message": "phải bị lọc"},
-            ], "score": 0.2, "verdict": "revise", "reasoning": "fake"}, ensure_ascii=False)
+        if "trả lời các câu hỏi ĐÓNG" in system:
+            n_req = user.count("\n  R"); n_forb = user.count("\n  F")
+            return json.dumps({"identity": "confusable:kimono", "attrs": ["no"] * n_req, "forbidden": ["yes"] + ["no"] * (n_forb - 1), "note": "fake"})
         if "trọng tài đánh giá" in system:
             return json.dumps({"identity": 0.0, "completeness": 0.0, "purity": 0.0, "score": 0.0, "reasoning": "fake judge"})
         return "{}"
@@ -86,9 +90,11 @@ def test_analyze_filters():
 def test_extract_drops_unsourced():
     kb = KnowledgeBase.load(Config().kb_path)
     agent = PromptAgent(FakeBackend())
-    d = agent.extract_evidence(kb.get("ao_dai"), [{"title": "t", "url": "u", "text": "x" * 100}])
-    check("thuộc tính không có nguồn bị bỏ", d["must_have"] == ["cổ đứng cao"], str(d["must_have"]))
-    check("ghi lại thứ đã bỏ", "thuộc tính bịa không nguồn" in d["dropped_unsourced"])
+    text = "Áo dài có cổ đứng cao ôm sát cổ và xẻ tà hai bên. Nó khác kimono ở chỗ không có đai obi."
+    d = agent.extract_evidence(kb.get("ao_dai"), [{"title": "t", "url": "u", "text": text}])
+    check("thuộc tính có câu gốc được giữ", d["must_have"] == ["cổ đứng cao"], str(d["must_have"]))
+    check("thuộc tính có quote bịa bị bỏ", "thuộc tính bịa" in d["dropped_unsourced"], str(d["dropped_unsourced"]))
+    check("confusable có name_en", d["confusable_with"][0].get("name_en", "").startswith("a Japanese"))
 
 
 def test_end_to_end_with_fake_vlm():
@@ -100,17 +106,23 @@ def test_end_to_end_with_fake_vlm():
     fake = FakeBackend()
     pipe.agent = PromptAgent(fake)
     pipe.perceiver = VLMClipPerceiver(fake, clip=None)
+    pipe.judge = AgentJudge(pipe.agent)
     p = load_prompts(cfg.prompts_path)[0]
     res = pipe.run_one(p)
     se = res.spec.entity("ao_dai")
     check("spec có Áo dài", se is not None)
-    check("thuộc tính được dịch EN", se is not None and se.required_attrs_en and se.required_attrs_en[0].startswith("EN:"),
-          str(se.required_attrs_en if se else None))
+    check("cụm dịch nhiễm 'obi' bị loại", se is not None and not any("obi" in a for a in se.required_attrs_en), str(se.required_attrs_en if se else None))
+    check("các cụm còn lại được dịch EN", se is not None and se.required_attrs_en and all(a.startswith("EN:") for a in se.required_attrs_en))
+    check("số cụm VI và EN khớp nhau sau khi loại", se is not None and len(se.required_attrs) == len(se.required_attrs_en))
+    check("forbidden dịch riêng", se is not None and se.forbidden_attrs_en and se.forbidden_attrs_en[0].startswith("NEG:"))
     it0 = res.outcome.iterations[0]
-    check("finding với entity_id lạ bị lọc", all(f.entity_id != "khong_ton_tai" for f in it0.critiques[0].findings))
-    check("VLM critique critical -> revise", it0.adjudication.verdict == "revise")
+    check("checklist được hỏi (có gửi ảnh)", any(img for sys_, img in fake.calls if "câu hỏi ĐÓNG" in sys_))
+    check("checklist identity=confusable -> finding critical", any(f.severity == "critical" for f in it0.critiques[0].findings))
+    check("verdict revise", it0.adjudication.verdict == "revise")
     check("bản sửa có negative 'kimono'", any("kimono" in n for n in it0.plan.add_negative), str(it0.plan.add_negative))
-    check("critique có nhận ảnh", any(img for sys_, img in fake.calls if "chuyên gia" in sys_))
+    check("thuộc tính tiếng Việt gốc không lọt vào prompt", se is not None and not any(a in it0.gen_spec.prompt_terms for a in se.required_attrs), str(it0.gen_spec.prompt_terms))
+    it1 = res.outcome.iterations[1] if len(res.outcome.iterations) > 1 else None
+    check("nhấn tối đa một lần", it1 is None or it1.gen_spec.prompt_terms.count("Vietnamese Ao dai") <= 1, str(it1.gen_spec.prompt_terms[:4] if it1 else None))
     check("ra ảnh cuối", Path(res.record.final_image_path).exists())
 
 

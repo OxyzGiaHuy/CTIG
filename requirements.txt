@@ -9,3 +9,4 @@ diffusers>=0.30
 qwen-vl-utils>=0.0.8
 sentencepiece
 safetensors
+ddgs>=9.0          # DuckDuckGo search, không cần key

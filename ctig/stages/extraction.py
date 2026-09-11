@@ -30,7 +30,8 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
     cache_dir.mkdir(parents=True, exist_ok=True)
     by_entity: dict[str, list[EvidenceItem]] = {}
     for it in search.items:
-        if it.kind == "wiki_text" and it.snippet and len(it.snippet) > 80:
+        if it.kind in ("wiki_text", "web_text") and it.snippet and len(it.snippet) > 80 \
+                and not it.provenance.startswith("kb.notes") and it.provenance != "extracted":
             by_entity.setdefault(it.entity_id, []).append(it)
 
     for eid, texts in by_entity.items():
@@ -54,7 +55,10 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
             extracted["_meta"] = {"entity_id": eid, "n_sources": len(texts), "seconds": round(time.time() - t0, 1)}
             if cfg.evidence_cache:
                 cache_file.write_text(json.dumps(extracted, ensure_ascii=False, indent=1), encoding="utf-8")
+        for d in extracted.get("dropped_unsourced", []) or []:
+            search.notes.append(f"extract {eid}: bỏ '{str(d)[:60]}' vì không có câu gốc trong văn bản")
         if not extracted.get("must_have"):
+            search.notes.append(f"extract {eid}: không rút được must_have nào từ {len(texts)} nguồn")
             continue
         srcs = "; ".join(t.title for t in texts)
         search.items.append(EvidenceItem(
@@ -70,7 +74,24 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
             ent.must_have = list(extracted.get("must_have", []))
             ent.must_not = list(extracted.get("must_not", []))
             ent.confusable_with = list(extracted.get("confusable_with", []))
+        elif extracted.get("confusable_with"):
+            known = {c["name"] for c in ent.confusable_with}
+            ent.confusable_with += [c for c in extracted["confusable_with"] if c.get("name") not in known]
         log(f"  [2b] {ent.name_vi}: rút {len(extracted.get('must_have', []))} must_have, "
             f"{len(extracted.get('must_not', []))} must_not, {len(extracted.get('confusable_with', []))} confusable"
             + (" (cache)" if "_meta" in extracted and cache_file.exists() and extracted["_meta"].get("seconds", 1) == 0 else ""))
     return search
+
+
+def quote_in_texts(quote: str, texts: list[str]) -> bool:
+    """Câu trích có thật trong văn bản không. So mờ theo token vì model hay sửa dấu câu."""
+    from ..kb import tokens
+
+    q = tokens(quote)
+    if len(q) < 3:
+        return False
+    for t in texts:
+        tt = tokens(t)
+        if len(q & tt) / len(q) >= 0.7:
+            return True
+    return False

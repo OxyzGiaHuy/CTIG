@@ -2,7 +2,9 @@
 
 > **Abstract (EN).** Off-the-shelf text-to-image models fail on under-represented cultures not by producing nonsense but by substituting *visually similar artefacts from better-represented cultures*: an áo dài becomes a kimono, bánh chưng becomes zongzi, Tết becomes a Chinese lantern street. CTIG is a retrieval-grounded, agentic pipeline for the Vietnamese domain: an analysis agent expands the prompt into cultural entities, a retriever collects verifiable visual evidence (curated KB + Wikipedia + Commons reference images), the evidence is distilled into a *cultural contract* (must-have / must-not attributes), SDXL generates candidates conditioned on that contract (negative prompts, IP-Adapter reference, optional LoRA), and a VLM + CLIP review loop detects cultural substitution and revises the generation spec. Runs end-to-end on a single Kaggle T4 with no API keys.
 
-Pipeline v1 chạy được **toàn bộ các khối** trên Kaggle GPU và trả về **ảnh thật** cho mỗi prompt. Không cần API key.
+Pipeline chạy được **toàn bộ các khối** trên Kaggle GPU và trả về **ảnh thật** cho mỗi prompt. Không cần API key nào, kể cả web search.
+
+**Phiên bản hiện tại: v1.1.** Thay đổi so với v1 sau lần chạy Kaggle đầu tiên: xem [research/research-log.md](research/research-log.md). Tóm tắt: search web tiếng Việt không key (DuckDuckGo), rút bằng chứng có trích đoạn gốc, VLM chỉ trả lời checklist câu đóng, judge BLIP-2 ITM độc lập với reviewer, prompt là danh sách cụm không lặp, IP-Adapter dè hơn.
 
 ```
 Input ─► Analysis Agent ─► Search ─► Summary/Filter/Rank ─► Gen (SDXL ×N) ─► Tri giác (VLM+CLIP) ─► Review ─► Eval
@@ -45,16 +47,18 @@ Mỗi lần chạy tạo `runs/<run_id>/` gồm `report.html` (mọi prompt, m�
 |---|---|---|
 | Input n=50 | `data/prompts_vi.jsonl` | 50 prompt tiếng Việt, có nhãn vàng chỉ dùng để đo recall |
 | Analysis Agent → Keywords → Keywords mới | `ctig/stages/analysis.py`, `ctig/llm/prompt_agent.py` | Qwen2.5-VL-3B: tách surface / expanded, viết prompt tiếng Anh; KB alias bù thực thể nêu tên |
-| Search: Image / API / text wiki | `ctig/stages/retrieval.py`, `ctig/stages/extraction.py` | Gọi API lúc chạy: Wikipedia VI (tìm bài, lấy toàn văn), Commons (ảnh tải về, CLIP kiểm), Serper tuỳ chọn. **VLM rút must_have / must_not / confusable_with từ văn bản, mỗi thuộc tính kèm trích đoạn gốc.** Thực thể chưa có trong KB được dựng bằng chứng ngay lúc chạy. KB tay chỉ là bằng chứng bổ sung. |
+| Search: Image / API / text wiki | `ctig/stages/retrieval.py`, `ctig/stages/extraction.py` | Gọi API lúc chạy, không key: Wikipedia VI (tìm bài, toàn văn), **DuckDuckGo web tiếng Việt và tiếng Anh**, Commons + web images (tải về, CLIP kiểm với nhãn mô tả). **VLM rút must_have / must_not / confusable_with từ văn bản, mỗi mục phải kèm câu gốc có thật trong văn bản**, không thì bị loại và ghi lại. Thực thể chưa có trong KB được dựng bằng chứng lúc chạy. |
 | 1 Summary 2 Filter 3 Rank | `ctig/stages/spec.py`, `ctig/llm/rule_agent.py` | Luật deterministic: gộp, lọc vùng miền, xếp hạng; LLM chỉ dịch thuộc tính sang tiếng Anh |
 | Gen: D D LoRA | `ctig/stages/generation.py` | SDXL base + VAE fp16-fix, **N ứng viên** chọn bằng CLIP, negative prompt, IP-Adapter với ảnh tham chiếu, LoRA nếu có |
-| *(chưa có trong draft)* Tri giác | `ctig/stages/perception.py` | VLM liệt kê thứ nhìn thấy (hỏi mở) + CLIP probe P(mục tiêu) vs P(confusable) |
-| Agent Loop Review, Debate, Reasoning | `ctig/stages/review.py`, `ctig/llm/shared.py` | VLM phê bình theo must_have/must_not; **CLIP làm ý kiến thứ hai**; hoà giải và lập bản sửa bằng luật; ≤ 2 vòng sửa |
-| Prompt / Kết quả / Evidence; User study; LLM | `ctig/stages/evaluation.py` | VLM judge 3 trục, CLIP fidelity, retrieval recall, CSV user study, báo cáo HTML |
+| *(chưa có trong draft)* Tri giác | `ctig/stages/perception.py` | CLIP với **nhãn tiếng Anh mô tả** (chỉ danh tính, chỉ thực thể vật thể) + VLM trả lời **checklist câu đóng** cho từng thực thể: là X / là confusable nào / không có; từng must_have có-không-không rõ; từng must_not có xuất hiện |
+| Agent Loop Review, Debate, Reasoning | `ctig/stages/review.py`, `ctig/llm/shared.py` | Điểm và findings suy **bằng luật từ checklist**, VLM không tự chấm; CLIP làm ý kiến thứ hai về danh tính; bất đồng được ghi; ≤ 2 vòng sửa |
+| Prompt / Kết quả / Evidence; User study; LLM | `ctig/stages/evaluation.py` | **Judge BLIP-2 ITM + CLIP, không LLM, khác họ model với reviewer**; CLIP fidelity; retrieval recall; CSV user study; báo cáo HTML |
 
 **Khối tri giác là mũi tên sơ đồ draft chưa có.** Bộ sinh thật chỉ trả pixel; phải có bước biến pixel thành thứ đọc được thì review mới làm việc. Xem [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-**Debate trong v1** không phải hai LLM tranh luận, mà là **VLM đối chiếu CLIP**: hai tín hiệu độc lập về cùng câu hỏi "ảnh này giống áo dài hay kimono". Bất đồng được ghi vào `adjudication.disagreements` và hiện trong báo cáo.
+**Debate** không phải hai LLM tranh luận, mà là **VLM đối chiếu CLIP**: hai tín hiệu độc lập về cùng câu hỏi "ảnh này giống áo dài hay kimono". Bất đồng được ghi vào `adjudication.disagreements` và hiện trong báo cáo.
+
+**Vì sao VLM chỉ trả lời câu hỏi đóng.** Lần chạy đầu cho thấy Qwen2.5-VL-3B viết findings tự do rất kém: điểm cố định 0,6, lý giải lặp, judge trả lời bằng tiếng Trung. Nhưng nó trả lời "có / không / không rõ" được. Nên v1.1 để VLM làm đúng việc đó, còn điểm số, findings và bản sửa là luật deterministic. Chi tiết trong [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
 
@@ -68,6 +72,7 @@ Mọi thứ trong `configs/*.yaml`, ghi đè bằng `--set key.sub=value`.
 | `kaggle_t4.yaml` | Kaggle 1×T4. VLM + SDXL chung GPU, SDXL bật cpu_offload. ~2–3 phút/prompt/vòng. |
 | `kaggle_t4x2.yaml` | Kaggle 2×T4. VLM GPU 0, SDXL GPU 1, ảnh 1024. Nhanh gấp đôi. |
 | `kaggle_claude.yaml` | Dùng Claude API làm agent + tri giác (cần `ANTHROPIC_API_KEY`). |
+| `kaggle_fast.yaml` | 1×T4 ưu tiên tốc độ: LCM-LoRA 8 bước cho vòng sửa, render đủ bước khi đạt, judge CLIP. |
 
 Ba đòn can thiệp của vòng review, ánh xạ sang SDXL:
 
@@ -81,11 +86,18 @@ Ba đòn can thiệp của vòng review, ánh xạ sang SDXL:
 
 ---
 
-## Kết quả
+## Kết quả và cách chạy thí nghiệm
 
-Chưa có số thật. Số duy nhất tồn tại là từ bộ sinh mô phỏng (config `offline.yaml`) và **không nói gì về SDXL**. Lần chạy Kaggle đầu tiên trên 50 prompt sẽ cho: tỉ lệ đạt, CLIP fidelity ở vòng 0 so với vòng cuối (đo tác dụng của vòng review), retrieval recall, và `user_study.csv` để người chấm.
+Một lần smoke v1 trên Kaggle (2 prompt, 2×T4, 13 phút) đã chạy; kết quả và 7 lỗi tìm được ghi ở [research/research-log.md](research/research-log.md). v1.1 chưa chạy trên GPU.
 
-Đọc `report.html` trước khi tin bất kỳ số nào. Nó cho thấy từng vòng đã sửa gì và VLM với CLIP bất đồng ở đâu.
+Thí nghiệm được quản lý theo skill autoresearch, hai vòng: vòng trong chạy một thay đổi trên tập dev 10 prompt (`data/dev10.txt`) và đo, vòng ngoài tổng hợp vào `research/findings.md`. Bảy giả thuyết H1–H7 với dự đoán khoá trước trong [research/research-state.yaml](research/research-state.yaml).
+
+```bash
+python scripts/run_experiment.py H1 --config configs/kaggle_t4x2.yaml --set review.max_iters=0 --tag baseline
+python scripts/run_experiment.py H1 --config configs/kaggle_t4x2.yaml --set review.max_iters=2 --tag review2
+```
+
+Script từ chối chạy nếu chưa có `research/experiments/H1-*/protocol.md`, và ghi kết quả vào trajectory. Đọc `report.html` hoặc `bundle.html` trước khi tin số: chúng cho thấy từng vòng đã sửa gì và checklist VLM trả lời gì.
 
 ---
 
@@ -109,10 +121,13 @@ ctig/
   stages/
     analysis.py  retrieval.py  spec.py  generation.py  perception.py  review.py  evaluation.py
 data/prompts_vi.jsonl     50 prompt
-data/kb/entities.json     38 thực thể: must_have / must_not / confusable_with / prior_strength
-configs/                  offline, kaggle_t4, kaggle_t4x2, kaggle_claude
+data/kb/entities.json     38 thực thể: must_have / must_not / confusable_with / prior_strength / clip_label / kind
+data/dev10.txt            tập dev 10 prompt cho thí nghiệm
+configs/                  offline, kaggle_t4, kaggle_t4x2, kaggle_fast, kaggle_claude
 notebooks/kaggle_run.ipynb
-tests/test_offline.py
+research/                 research-state.yaml (H1–H7), research-log.md, findings.md, experiments/<H>/protocol.md
+scripts/run_experiment.py chạy một giả thuyết trên dev10, ghi trajectory
+tests/                    test_offline.py, test_prompt_agent_fake.py
 docs/ARCHITECTURE.md  docs/KAGGLE.md
 ```
 
@@ -127,14 +142,15 @@ Hai lớp, được gộp ở stage 3 và phân biệt bằng `provenance`:
 
 Mở `runs/_cache/evidence/<entity_id>.json` để xem máy rút ra gì và dựa vào câu nào. So với KB tay là cách rẻ nhất để đánh giá chất lượng bước rút: máy có tìm ra "cổ đứng cao, xẻ tà từ hông" từ bài Wikipedia không, hay chỉ ra được lịch sử.
 
-Web search API: đặt `SERPER_API_KEY` (Kaggle Secrets) và `retrieval.web_api: serper` để thêm snippets Google và Google Images khi Wikipedia không đủ. Không có key thì chỉ dùng Wikipedia + Commons, không cần key nào.
+Web search mặc định là **DuckDuckGo** qua gói `ddgs`, không cần key, truy vấn tiếng Việt (`region vn-vi`) rồi tiếng Anh. Ví dụ "nón lá đặc điểm cấu tạo" trả về "sườn nón là các nan tre... quai nón được buộc đối xứng ở hai bên", đúng loại thuộc tính thị giác mà Wikipedia không có. Ảnh từ web nhiễu hơn Commons nên đều qua CLIP lọc. `retrieval.web_api: serper` với `SERPER_API_KEY` là tuỳ chọn thay thế.
 
 ## Hạn chế của v1
 
 * **KB tay chưa được kiểm định** và `prior_strength` là ước lượng. Bằng chứng rút lúc chạy giảm phụ thuộc vào KB nhưng chất lượng phụ thuộc VLM 3B đọc tiếng Việt; hãy đọc vài file trong `runs/_cache/evidence/` trước khi tin.
 * **Wikipedia cho ngữ cảnh nhiều hơn thuộc tính thị giác.** Bước rút có thể trả về ít must_have cho thực thể mà bài viết thiên về lịch sử. Serper giúp phần này.
-* **Judge không độc lập với reviewer**: cùng một VLM. CLIP là tín hiệu độc lập duy nhất.
-* **Qwen2.5-VL-3B nhận dạng văn hoá Việt còn yếu**, đặc biệt các thực thể prior thấp (đàn bầu, nón quai thao). Khi VLM không nhận ra thứ nó đang nhìn, vòng review không thể sửa đúng. Config `kaggle_claude.yaml` là cách kiểm xem giới hạn nằm ở VLM hay ở kiến trúc.
+* **Judge BLIP-2 ITM chưa được kiểm chứng với người chấm** (H3). Nó độc lập với reviewer về mặt model, nhưng ITM cũng có thiên lệch web như CLIP.
+* **Qwen2.5-VL-3B nhận dạng văn hoá Việt còn yếu**, đặc biệt các thực thể prior thấp (đàn bầu, nón quai thao). Checklist câu đóng giảm tác hại nhưng không sửa được việc model không nhận ra thứ nó nhìn. Config `kaggle_claude.yaml` là cách kiểm xem giới hạn nằm ở VLM hay ở kiến trúc.
+* **Thực thể bối cảnh** (Tết, chợ nổi, lễ hội) không probe được bằng CLIP danh tính; chỉ checklist VLM kiểm được, và đó là nơi VLM 3B hay bịa (H7).
 * **Không có LoRA văn hoá Việt sẵn.** Huấn luyện một LoRA (20–50 ảnh/khái niệm, có giấy phép) là công việc thu thập dữ liệu và có thể là đóng góp chính của đề tài.
 * **Ảnh Commons** được kiểm bằng CLIP nhưng CLIP cũng có thiên lệch giống T2I; ngưỡng 0.55 là tuỳ chọn ban đầu.
 * SDXL không có prompt weighting; "tăng conditioning" hiện thực bằng thứ tự token, lặp lại và guidance. Cân nhắc `compel` cho v2.

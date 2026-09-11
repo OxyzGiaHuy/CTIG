@@ -19,8 +19,9 @@ CulturalSpec     SpecEntity[]: required_attrs(_en), forbidden_attrs(_en), confus
   │  ┌──────────────────── vòng lặp (≤ max_iters + 1 lần sinh) ────────────────────┐
   │  │ stage 4  generator.generate(GenSpec)  ->  GenOutput{candidates[N]}           │
   │  │          select_candidate: CLIP fidelity cao nhất                            │
-  │  │ tri giác perceiver.perceive        ->  Perception{elements, caption, clip_probs}
-  │  │ stage 5  agent.critique(Perception) ->  Critique (VLM)                        │
+  │  │ tri giác perceiver.perceive        ->  Perception{elements, caption, clip_probs, checklist}
+  │  │          checklist: VLM trả lời câu ĐÓNG cho từng thực thể                    │
+  │  │ stage 5  shared.checklist_critique  ->  Critique (LUẬT từ checklist)          │
   │  │          shared.adjudicate          ->  Adjudication (VLM ⊕ CLIP, bất đồng)   │
   │  │          shared.plan_revision       ->  RevisionPlan                          │
   │  │          apply_plan                 ->  GenSpec mới                            │
@@ -51,6 +52,28 @@ EvalRecord, RunSummary
 3. **Spec rỗng không phải đạt.** Prompt mà stage 3 không giữ thực thể nào bị đánh dấu `verifiable=False`
    và loại khỏi mọi trung bình.
 
+## Checklist thay cho findings tự do (v1.1)
+
+Với mỗi thực thể, VLM nhận ảnh và ba câu hỏi đóng (`perception.py::_checklist`):
+
+1. `identity`: `target` | `absent` | `unsure` | `confusable:<tên>` (tên lấy từ confusable_with)
+2. `attrs`: với từng `required_attrs`, `yes` | `no` | `unsure`
+3. `forbidden`: với từng `forbidden_attrs`, `yes` | `no` | `unsure`
+
+`shared.checklist_critique` biến đáp án thành findings và điểm: confusable → critical; absent → major;
+`no` → thiếu (major nếu quá nửa, không thì minor); forbidden `yes` → critical; `unsure` tính nửa.
+Điểm thực thể = danh_tính × (1 − 0,45 × tỉ lệ thiếu) − 0,5 × số vi phạm, có trọng số.
+
+Lý do: VLM 3B viết findings tự do và tự chấm điểm kém (lần chạy đầu: điểm 0,6 cố định, lý giải lặp), nhưng
+chọn đáp án cho sẵn thì ổn. Đường cũ giữ ở `PromptAgent._critique_freeform`, chỉ dùng khi không có checklist.
+
+## Judge độc lập (v1.1)
+
+`evaluation.ITMJudge`: BLIP-2 ITM (`Salesforce/blip2-itm-vit-g`) chấm ba nhóm câu: `clip_label` của thực thể
+(identity), `"<name_en> with <attr_en>"` cho từng must_have (completeness), câu confusable (purity → 1 − max).
+Không dùng LLM, khác họ model với reviewer Qwen. Không tải được thì lùi về `CLIPJudge`. `judge.backend: vlm`
+để quay về judge bằng agent nếu muốn so.
+
 ## Khối tri giác và vì sao có hai tín hiệu
 
 Sơ đồ draft đi thẳng từ Gen sang Review. Với bộ sinh thật, giữa hai khối đó phải có bước "nhìn":
@@ -80,9 +103,10 @@ strength = prior + 0.55·conditioning + 0.40·[LoRA phủ] + 0.25·[có ảnh th
 
 | RevisionPlan | GenSpec | SDXL |
 |---|---|---|
-| add_negative | negative_prompt += | `negative_prompt` |
-| add_positive | prompt += | prompt |
-| boost[e] | conditioning[e] += ; thực thể ≥ 0.3 lên đầu prompt và lặp; guidance += 0.5·max | thứ tự token, `guidance_scale` |
+| add_negative | negative_terms += (dedupe) | `negative_prompt` |
+| add_positive | prompt_terms += (dedupe; chỉ tiếng Anh) | prompt |
+| boost[e] | conditioning[e] += ; thực thể ≥ 0.3 được đẩy lên đầu **một lần duy nhất** (emphasis); guidance += 0.5·max | thứ tự token, `guidance_scale` |
+| fast_iters | vòng sửa dùng LCM-LoRA `fast_steps` bước, guidance `fast_guidance`; khi đạt → `to_final_render` đủ bước và kiểm lại | `LCMScheduler`, `set_adapters` |
 | use_reference_image | ip_adapter_image = ảnh Commons đã kiểm | `ip_adapter_image`, `set_ip_adapter_scale` |
 | attach_lora | lora = generator.lora_id | `set_adapters(["culture"], [scale])` |
 | guidance_delta | guidance += | `guidance_scale` |

@@ -10,7 +10,7 @@ from pathlib import Path
 
 from ..kb import KnowledgeBase
 from ..schema import CulturalSpec, GenOutput, Prompt, ReviewIteration, ReviewOutcome, RevisionPlan
-from .generation import apply_plan, build_initial_spec
+from .generation import apply_plan, build_initial_spec, to_final_render
 
 
 def select_candidate(out: GenOutput, spec: CulturalSpec, clip) -> None:
@@ -47,12 +47,28 @@ def run(agent, generator, perceiver, clip, prompt: Prompt, spec: CulturalSpec, k
         plan = (RevisionPlan(rationale="đạt") if adj.verdict == "pass" else
                 agent.plan_revision(adj, spec, gen, kb, generator.lora_available, generator.reference_available))
         iterations.append(ReviewIteration(n, gen, out, perception, [critique], adj, plan))
-        log(f"  [4/5] vòng {n}: VLM {critique.score:.2f} | hợp {adj.score:.2f} -> {adj.verdict}"
-            + (f" | {len(adj.merged_findings)} phát hiện" if adj.merged_findings else "")
+        ids = {e: c.get("identity") for e, c in perception.checklist.items()}
+        log(f"  [4/5] vòng {n}{' (nhanh)' if gen.fast else ''}: checklist {critique.score:.2f} | hợp {adj.score:.2f} -> {adj.verdict}"
+            + (f" | danh tính {ids}" if ids else "")
             + (f" | LoRA" if gen.lora else "") + (f" | ref" if gen.ip_adapter_image else ""))
         if adj.verdict == "pass" or not spec.entities or n == cfg.review.max_iters or plan.is_empty():
             break
         gen = apply_plan(gen, plan, spec, cfg.t2i, getattr(generator, "lora_id", None))
+
+    # Vòng nhanh (LCM) đã xong -> render đủ bước cùng prompt và kiểm lại một lần.
+    if iterations[-1].gen_spec.fast and spec.entities:
+        gen_hq = to_final_render(iterations[-1].gen_spec, cfg.t2i)
+        out = generator.generate(gen_hq, spec, kb, out_dir)
+        perception = perceiver.perceive(out, spec)
+        if not perception.clip_probs and clip is not None:
+            select_candidate(out, spec, clip)
+            perception.clip_probs = out.candidates[out.chosen].clip_probs
+        critique = agent.critique(prompt, spec, perception)
+        adj = agent.adjudicate(critique, perception, spec, cfg.review.pass_threshold,
+                               cfg.review.clip_weight, cfg.perception.drift_margin)
+        iterations.append(ReviewIteration(len(iterations), gen_hq, out, perception, [critique], adj,
+                                          RevisionPlan(rationale="render đủ bước"), final_render=True))
+        log(f"  [4/5] render đủ bước: hợp {adj.score:.2f} -> {adj.verdict}")
     last = iterations[-1]
     return ReviewOutcome(prompt.id, iterations, last.adjudication.verdict == "pass",
                          last.gen_output.image_path, last.adjudication.score)

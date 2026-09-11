@@ -32,6 +32,70 @@ def confusable_labels(name: str) -> list[str]:
     return [p.strip() for p in base.split("/") if p.strip()]
 
 
+def confusable_clip_label(cf: dict) -> str:
+    """Nhãn CLIP mô tả tiếng Anh cho một confusable; lùi về tên trần nếu KB chưa có name_en."""
+    return cf.get("name_en") or " or ".join(confusable_labels(cf.get("name", ""))) or "something else"
+
+
+def checklist_critique(spec: CulturalSpec, perception: Perception) -> Critique | None:
+    """Phê bình DETERMINISTIC từ checklist câu hỏi đóng mà VLM đã trả lời.
+
+    VLM 3B viết findings tự do và tự chấm điểm rất kém (lần chạy đầu: điểm 0.6 cố định,
+    findings lặp "không có thông tin về..."). Nhưng nó trả lời "có / không / không rõ" ổn.
+    Nên VLM chỉ trả lời câu hỏi, điểm và findings suy ra ở đây.
+    Trả None nếu perception không có checklist (để lùi về rule_critique).
+    """
+    if not perception.checklist:
+        return None
+    if not spec.entities:
+        return Critique(reviewer=PERSONA, score=0.0, verdict="revise",
+                        findings=[Finding("-", "major", "spec rỗng", "ít nhất một thực thể", "Không kiểm chứng được.")],
+                        reasoning="spec rỗng")
+    findings: list[Finding] = []
+    wt, ws = 0.0, 0.0
+    for se in spec.entities:
+        ck = perception.checklist.get(se.entity_id)
+        wt += se.weight
+        ev = se.evidence_titles[0] if se.evidence_titles else None
+        if not ck:
+            findings.append(Finding(se.entity_id, "major", "không có câu trả lời", se.name_vi,
+                                    f"VLM không trả lời checklist cho '{se.name_vi}'.", ev))
+            continue
+        ident = str(ck.get("identity", "unsure"))
+        if ident.startswith("confusable"):
+            what = ident.split(":", 1)[1] if ":" in ident else "thực thể văn hoá khác"
+            findings.append(Finding(se.entity_id, "critical", what, se.name_vi,
+                                    f"Ảnh vẽ '{what}' thay vì '{se.name_vi}'.", ev))
+            continue
+        if ident == "absent":
+            findings.append(Finding(se.entity_id, "major", "không thấy", se.name_vi,
+                                    f"'{se.name_vi}' không xuất hiện trong ảnh.", ev))
+            continue
+        attrs = list(ck.get("attrs", []))
+        forb = list(ck.get("forbidden", []))
+        n_req = max(1, len(se.required_attrs))
+        missing = [a for a, ans in zip(se.required_attrs, attrs) if ans == "no"]
+        unsure = [a for a, ans in zip(se.required_attrs, attrs) if ans == "unsure"]
+        violated = [a for a, ans in zip(se.forbidden_attrs, forb) if ans == "yes"]
+        for a in violated:
+            findings.append(Finding(se.entity_id, "critical", a, f"không được có: {a}",
+                                    f"'{se.name_vi}' mang chi tiết bị cấm: {a}", ev))
+        ratio = (len(missing) + 0.5 * len(unsure)) / n_req
+        for a in missing:
+            findings.append(Finding(se.entity_id, "major" if ratio > 0.5 else "minor", "thiếu", a,
+                                    f"'{se.name_vi}' thiếu: {a}", ev))
+        ident_factor = 1.0 if ident == "target" else 0.6  # "unsure" về danh tính
+        if ident == "unsure":
+            findings.append(Finding(se.entity_id, "minor", "không rõ danh tính", se.name_vi,
+                                    f"VLM không chắc đối tượng có phải '{se.name_vi}'.", ev))
+        ws += se.weight * max(0.0, ident_factor * (1.0 - 0.45 * ratio) - 0.5 * len(violated))
+    score = ws / wt if wt else 0.0
+    crit = any(f.severity == "critical" for f in findings)
+    return Critique(reviewer=PERSONA, findings=findings, score=score,
+                    verdict="revise" if (crit or score < 0.8) else "pass",
+                    reasoning=f"checklist: {len(findings)} phát hiện trên {len(spec.entities)} thực thể")
+
+
 def locate(se: SpecEntity, elements: list[VisualElement]) -> tuple[VisualElement | None, str]:
     """Tìm thực thể trong danh sách quan sát: 'match' | 'drift' | 'missing'."""
     targets = {normalize(se.name_vi), normalize(se.name_en.split("(")[0])}
@@ -139,19 +203,19 @@ def plan_revision(
         if se is None:
             continue
         ent = kb.get(se.entity_id)
-        attrs_en = se.required_attrs_en or se.required_attrs
+        attrs_en = se.required_attrs_en  # rỗng nếu chưa dịch được -> không đưa tiếng Việt vào prompt
         low_prior = ent is not None and ent.prior_strength < 0.20
 
         if f.severity == "critical":
             for cf in se.confusables:
                 neg.extend(confusable_labels(cf.get("name", "")))
-            neg.extend((se.forbidden_attrs_en or se.forbidden_attrs)[:2])
+            neg.extend(se.forbidden_attrs_en[:2])
             pos.append(f"authentic Vietnamese {se.name_en.split('(')[0].strip()}")
             pos.extend(attrs_en[:2])
             boost[se.entity_id] = boost.get(se.entity_id, 0.0) + 0.35
             guidance = max(guidance, 1.0)
             why.append(f"chặn thực thể văn hoá khác cho {se.name_vi}, tăng guidance")
-            if reference_available and se.reference_image and not gen_spec.ip_adapter_image:
+            if reference_available and se.reference_image and not gen_spec.ip_adapter_image and se.kind == "object":
                 ref = True
                 why.append(f"dùng ảnh tham chiếu cho {se.name_vi} qua IP-Adapter")
             if low_prior and lora_available and not gen_spec.lora:
@@ -163,21 +227,25 @@ def plan_revision(
             pos.extend(attrs_en[:2])
             boost[se.entity_id] = boost.get(se.entity_id, 0.0) + 0.30
             why.append(f"thêm {se.name_vi} vào prompt vì ảnh bỏ sót")
-            if reference_available and se.reference_image and not gen_spec.ip_adapter_image:
+            if reference_available and se.reference_image and not gen_spec.ip_adapter_image and se.kind == "object":
                 ref = True
             if low_prior and lora_available and not gen_spec.lora:
                 lora = True
                 why.append(f"{se.name_vi} prior thấp và bị bỏ qua, gắn LoRA")
 
-        else:  # thiếu thuộc tính
-            # f.expected là thuộc tính tiếng Việt; tìm bản tiếng Anh tương ứng.
+        elif f.observed == "thiếu":
+            # f.expected là thuộc tính tiếng Việt; chỉ đưa vào prompt nếu có bản tiếng Anh
+            # (SDXL không đọc tiếng Việt, đưa vào chỉ thành nhiễu).
             idx = next((i for i, a in enumerate(se.required_attrs) if a == f.expected), None)
-            pos.append(attrs_en[idx] if idx is not None and idx < len(attrs_en) else f.expected)
+            if idx is not None and se.required_attrs_en and idx < len(se.required_attrs_en):
+                pos.append(se.required_attrs_en[idx])
             boost[se.entity_id] = boost.get(se.entity_id, 0.0) + 0.15
             why.append(f"bổ sung thuộc tính cho {se.name_vi}")
 
-    pos = list(dict.fromkeys(p for p in pos if p and p not in gen_spec.prompt))
-    neg = list(dict.fromkeys(n for n in neg if n and n not in gen_spec.negative_prompt))
+    existing_pos = set(gen_spec.prompt_terms)
+    existing_neg = set(gen_spec.negative_terms)
+    pos = list(dict.fromkeys(p for p in pos if p and p not in existing_pos))
+    neg = list(dict.fromkeys(n for n in neg if n and n not in existing_neg))
     return RevisionPlan(add_positive=pos, add_negative=neg, boost=boost,
                         attach_lora=lora, use_reference_image=ref,
                         guidance_delta=guidance,

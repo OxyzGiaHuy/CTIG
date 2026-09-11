@@ -33,6 +33,13 @@ def thumb_b64(path: str, max_side: int, quality: int = 78) -> str | None:
         return None
 
 
+def _join(g: dict, list_key: str, str_key: str) -> str:
+    """GenSpec v1.1 lưu danh sách cụm; v1 lưu chuỗi. Đọc được cả hai."""
+    if isinstance(g.get(list_key), list):
+        return ", ".join(dict.fromkeys(t for t in g[list_key] if t))
+    return str(g.get(str_key, ""))
+
+
 def load(p: Path):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
@@ -65,11 +72,12 @@ def make_bundle(run_dir: Path, max_side: int, detail_ids: set[str], out_html: Pa
                 + ", ".join(f"{html.escape('mục tiêu' if k == '__target__' else k)} {v:.2f}" for k, v in p.items())
                 for eid, p in it["perception"].get("clip_probs", {}).items())
             elems = ", ".join(html.escape(e["label"]) for e in it["perception"].get("elements", [])[:6])
+            ck = "; ".join(f"{eid}: {c.get('identity')}" for eid, c in (it['perception'].get('checklist') or {}).items())
             cards.append(f"""<div class='it {adj['verdict']}'>{f"<img src='{th}'>" if th else '<div class=noimg>không có ảnh</div>'}
-              <div class='m'><b>vòng {it['n']}</b> · {adj['score']:.2f} · <b>{adj['verdict']}</b>{' · LoRA' if it['gen_spec'].get('lora') else ''}{' · ref' if it['gen_spec'].get('ip_adapter_image') else ''}
-              <div class='cap'>VLM thấy: {elems or '—'}</div><div class='clip'>{clip}</div>
+              <div class='m'><b>vòng {it['n']}{' · render đủ bước' if it.get('final_render') else ''}</b> · {adj['score']:.2f} · <b>{adj['verdict']}</b>{' · LoRA' if it['gen_spec'].get('lora') else ''}{' · ref' if it['gen_spec'].get('ip_adapter_image') else ''}
+              <div class='cap'>VLM thấy: {elems or '—'}</div><div class='clip'>{clip}</div>{f"<div class='cap'>checklist: {html.escape(ck)}</div>" if ck else ''}
               <ul>{finds}</ul>{f"<div class='dis'>{dis}</div>" if dis else ''}
-              <details><summary>prompt</summary><pre>{html.escape(it['gen_spec']['prompt'][:600])}</pre><pre class='neg'>NEG: {html.escape(it['gen_spec']['negative_prompt'][:400])}</pre></details></div></div>""")
+              <details><summary>prompt</summary><pre>{html.escape(_join(it['gen_spec'], 'prompt_terms', 'prompt')[:600])}</pre><pre class='neg'>NEG: {html.escape(_join(it['gen_spec'], 'negative_terms', 'negative_prompt')[:400])}</pre></details></div></div>""")
         ents = ", ".join(f"{e['name_vi']}" + (" <i>(ad-hoc)</i>" if e["entity_id"].startswith("x_") else "") for e in spec.get("entities", []))
         rec_r = "n/a" if rec["retrieval_recall"] < 0 else f"{rec['retrieval_recall']:.2f}"
         sections.append(f"""<section class='{'ok' if rec['passed'] else 'fail'}'>

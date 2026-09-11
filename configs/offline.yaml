@@ -2,5 +2,6 @@
 llm:        {backend: rule}
 t2i:        {backend: stub, n_candidates: 1}
 perception: {backend: stub}
-retrieval:  {backend: local, download_images: false}
+retrieval:  {backend: local, download_images: false, web_api: none, extract: false}
+judge:      {backend: rule}
 review:     {max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}

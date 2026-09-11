@@ -118,6 +118,10 @@ class Entity:
     confusable_with: list[dict[str, str]]
     wiki_title_vi: str | None = None
     notes: str | None = None
+    #: Nhãn CLIP tiếng Anh mô tả (xem docs/ARCHITECTURE.md, CLIP cần nhãn mô tả, không phải tên trần).
+    clip_label: str = ""
+    #: "object" | "context" - context (sự kiện, cảnh) không probe được bằng CLIP danh tính.
+    kind: str = "object"
 
     @property
     def search_terms(self) -> list[str]:
@@ -158,6 +162,7 @@ class KnowledgeBase:
             prior_strength=0.15,  # chưa biết -> coi là thấp, để vòng review sẵn sàng can thiệp mạnh
             must_have=[], must_not=[], confusable_with=[], wiki_title_vi=None,
             notes="thực thể do agent đề xuất lúc chạy, chưa có trong KB gốc",
+            clip_label=f"a photo of Vietnamese {name_en}", kind="object",
         )
         self.entities[eid] = ent
         return ent

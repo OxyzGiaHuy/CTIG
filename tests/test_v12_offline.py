@@ -95,7 +95,7 @@ def test_registry_and_adapt():
     for k, m in REGISTRY.items():
         check(f"registry {k} hợp lệ", m.width % 8 == 0 and m.height % 8 == 0 and m.steps > 0 and m.repo)
     check("sdxl_turbo không negative, guidance 0", not get("sdxl_turbo").negative_ok and get("sdxl_turbo").guidance == 0.0)
-    check("playground giữ VAE repo", get("playground25").vae is None)
+    check("playground dùng VAE fp16-fix (tránh upcast fp32 trên T4)", get("playground25").vae == "madebyollin/sdxl-vae-fp16-fix")
     check("sdxl_aodai chỉ chạy khi có ao_dai", get("sdxl_aodai").only_if_entity == ["ao_dai"])
     cfg = Config().multigen
     cfg.max_side = 768

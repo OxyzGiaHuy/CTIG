@@ -1,0 +1,35 @@
+# Kaggle, 1x T4 16GB. VLM và SDXL dùng chung GPU nên SDXL bật cpu_offload.
+llm:
+  backend: qwen_vl
+  model: Qwen/Qwen2.5-VL-3B-Instruct
+  device: cuda:0
+  max_new_tokens: 900
+  temperature: 0.1
+t2i:
+  backend: sdxl
+  model: stabilityai/stable-diffusion-xl-base-1.0
+  vae: madebyollin/sdxl-vae-fp16-fix
+  device: cuda:0
+  cpu_offload: true
+  width: 768
+  height: 768
+  steps: 25
+  guidance: 6.5
+  n_candidates: 2
+  ip_adapter: true
+  ip_adapter_scale: 0.45
+  lora_path: null
+perception:
+  backend: vlm_clip
+  clip_model: openai/clip-vit-base-patch32
+  device: cuda:0
+  drift_margin: 0.15
+retrieval:
+  backend: wiki
+  download_images: true
+  ref_image_min_clip: 0.55
+review:
+  max_iters: 2
+  pass_threshold: 0.75
+  clip_weight: 0.35
+runs_dir: /kaggle/working/runs

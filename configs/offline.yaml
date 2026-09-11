@@ -1,0 +1,6 @@
+# Chạy không cần GPU, không cần mạng: agent luật + bộ sinh stub. Dùng để test pipeline.
+llm:        {backend: rule}
+t2i:        {backend: stub, n_candidates: 1}
+perception: {backend: stub}
+retrieval:  {backend: local, download_images: false}
+review:     {max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}

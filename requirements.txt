@@ -1,0 +1,11 @@
+# Cài trên Kaggle: pip install -q -r requirements.txt
+# torch đã có sẵn trên Kaggle; KHÔNG pin để tránh cài lại CUDA.
+pyyaml>=6.0
+pillow>=10.0
+requests>=2.31
+transformers>=4.51
+accelerate>=0.30
+diffusers>=0.30
+qwen-vl-utils>=0.0.8
+sentencepiece
+safetensors

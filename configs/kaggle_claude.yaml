@@ -1,0 +1,7 @@
+# Kaggle + Claude API làm agent/tri giác (cần ANTHROPIC_API_KEY trong Secrets). SDXL vẫn local.
+llm:        {backend: anthropic, model: claude-opus-5}
+t2i:        {backend: sdxl, device: "cuda:0", cpu_offload: false, width: 1024, height: 1024, steps: 30, n_candidates: 2, ip_adapter: true}
+perception: {backend: vlm_clip, device: "cuda:0"}
+retrieval:  {backend: wiki}
+review:     {max_iters: 2}
+runs_dir: /kaggle/working/runs

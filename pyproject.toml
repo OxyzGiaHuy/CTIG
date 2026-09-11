@@ -1,0 +1,22 @@
+[project]
+name = "ctig"
+version = "0.1.0"
+description = "Cultural Text-to-Image Generation pipeline for the Vietnamese domain: retrieval-grounded, agentic review loop"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = ["pyyaml>=6.0", "pillow>=10.0", "requests>=2.31"]
+
+[project.optional-dependencies]
+gpu = ["torch>=2.2", "transformers>=4.51", "accelerate>=0.30", "diffusers>=0.30", "qwen-vl-utils>=0.0.8", "sentencepiece", "safetensors"]
+claude = ["anthropic>=1.0"]
+
+[project.scripts]
+ctig = "ctig.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ctig*"]

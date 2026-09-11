@@ -110,3 +110,7 @@ os.environ["ANTHROPIC_API_KEY"] = UserSecretsClient().get_secret("ANTHROPIC_API_
 
 và chạy với `configs/kaggle_claude.yaml` (`pip install anthropic` trước). Khi đó VLM local không được nạp,
 SDXL có thể chạy 1024px không offload trên một T4.
+
+## Khôi phục cache từ Dataset
+
+Kaggle tự giải nén zip khi upload thành Dataset; trong dataset là thư mục `runs/_cache/...`. Cell khôi phục trong `ctig_walkthrough.ipynb` xử cả zip lẫn thư mục.

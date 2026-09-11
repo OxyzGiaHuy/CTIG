@@ -193,6 +193,10 @@ def test_session_memo(tmp):
     r1, m1 = s.multigen(["stub"])
     r2, m2 = s.multigen(["stub"])
     check("multigen memo", m1 == "computed" and m2 == "memory" and r1.runs[0].output is not None)
+    r3, m3 = s.multigen(["stub", "khong_co"])
+    r4, m4 = s.multigen(["stub", "khong_co"])
+    check("multigen có hàng lỗi -> KHÔNG dùng lại cache bước", m3 == "computed" and m4 == "computed" and r4.runs[1].error)
+    check("hàng stub tốt vẫn tái dùng ảnh từ đĩa khi chạy lại", r4.runs[0].source == "disk")
     s.invalidate("spec")
     check("invalidate xoá spec và các bước sau", "spec" not in s.steps and "multigen" not in s.steps and "analysis" in s.steps)
 

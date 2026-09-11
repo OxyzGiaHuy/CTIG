@@ -73,9 +73,12 @@ class Session:
             llm_cache.configure(self.cache_dir / "llm")
 
     # ------------------------------------------------------------------ hạ tầng memo
-    def _memo(self, name: str, key: str, cls, compute: Callable[[], Any], force: bool = False):
+    def _memo(self, name: str, key: str, cls, compute: Callable[[], Any], force: bool = False, reusable=None):
+        """`reusable(val) -> bool`: kết quả cũ có đáng dùng lại không. Mặc định có; multigen từ chối kết quả
+        có hàng lỗi (v1.2 p001: LoraError bị đóng băng trong step_multigen.json nên sửa môi trường xong vẫn thấy lỗi)."""
+        ok = reusable or (lambda v: True)
         st = self.steps.get(name)
-        if st and st.key == key and not force:
+        if st and st.key == key and not force and ok(st.value):
             st.source = "memory"
             return st.value, "memory"
         path = self.out_dir / f"step_{name}.json"
@@ -84,8 +87,10 @@ class Session:
                 raw = json.loads(path.read_text(encoding="utf-8"))
                 if raw.get("_key") == key:
                     val = from_dict(cls, raw["value"]) if cls else raw["value"]
-                    self.steps[name] = _Step(val, key, "disk")
-                    return val, "disk"
+                    if ok(val):
+                        self.steps[name] = _Step(val, key, "disk")
+                        return val, "disk"
+                    self.log(f"  [{name}] cache đĩa có hàng lỗi/thiếu -> chạy lại bước (ảnh của hàng tốt vẫn tái dùng)")
             except Exception:  # noqa: BLE001
                 pass
         val = compute()
@@ -247,7 +252,11 @@ class Session:
                              prompt_en=a.prompt_en or self.prompt.text_en, log=self.log, on_model_done=on_model_done,
                              lora_dir=lora_dir)
 
-        val, src = self._memo("multigen", key, MultiGenResult, compute, force)
+        def reusable(v: MultiGenResult) -> bool:
+            # hàng "bỏ qua: ..." (only_if_entity) là chủ ý, rẻ, không cần chạy lại; hàng lỗi thật thì phải thử lại
+            return bool(v.runs) and all(r.output is not None or (r.error or "").startswith("bỏ qua") for r in v.runs)
+
+        val, src = self._memo("multigen", key, MultiGenResult, compute, force, reusable=reusable)
         if src != "computed" and on_model_done:
             for r in val.runs:
                 on_model_done(r)

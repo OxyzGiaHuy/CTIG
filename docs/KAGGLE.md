@@ -55,12 +55,20 @@ ra `bundle.html` (mở bằng trình duyệt, ảnh đã nhúng, ~1–5 MB cho 5
 | `retrieval_errors` không rỗng | Internet tắt hoặc Wikipedia chặn | bật Internet; pipeline vẫn chạy với KB offline |
 | Qwen2.5-VL lỗi import | transformers cũ | `pip install -U "transformers>=4.51"` rồi restart kernel |
 | NaN / rác từ Qwen fp16 | T4 không có bf16 gốc | `--set llm.model=Qwen/Qwen2-VL-2B-Instruct` |
+| `[judge] không tải được BLIP-2 ITM` | transformers thiếu `Blip2ForImageTextRetrieval` hoặc hết VRAM | pipeline tự lùi về CLIP; hoặc `--set judge.backend=clip`; nâng transformers |
+| `ddg text ...: RatelimitException` | DuckDuckGo giới hạn tần suất | pipeline bỏ qua web, vẫn có Wikipedia; chạy lại sau hoặc `--set retrieval.web_api=none` |
+| checklist toàn `unsure` | VLM không thấy rõ, hoặc thuộc tính quá dài | xem `stage45_review.json → perception.checklist.note`; giảm `max_spec_entities` |
 
-## Web search API (tuỳ chọn)
+## Web search
 
-Add-ons → Secrets → `SERPER_API_KEY` (serper.dev, 2.500 truy vấn/tháng miễn phí), rồi
-`--set retrieval.web_api=serper`. Một lần chạy 50 prompt tốn khoảng 200–300 truy vấn. Không có key thì
-pipeline dùng Wikipedia + Commons, vẫn chạy đủ.
+Mặc định DuckDuckGo (`ddgs`, có trong requirements), không cần key, truy vấn tiếng Việt rồi tiếng Anh.
+Tuỳ chọn Serper: Add-ons → Secrets → `SERPER_API_KEY`, rồi `--set retrieval.web_api=serper`.
+
+## Ước lượng VRAM v1.1 trên một T4 16 GB
+
+Qwen2.5-VL-3B fp16 ~7 GB, SDXL fp16 ~7 GB (cpu_offload nên chỉ giữ một phần trên GPU), CLIP ViT-B/32 0,6 GB,
+BLIP-2 ITM ViT-g ~2,5 GB. Chật. Nếu OOM: `--set judge.backend=clip` trước, rồi giảm ảnh về 768.
+Trên 2×T4 dùng `kaggle_t4x2.yaml`: Qwen ở GPU 0, mọi thứ khác ở GPU 1.
 
 ## Chạy lại nhanh
 

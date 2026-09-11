@@ -14,7 +14,7 @@ Notebook có sẵn các cell theo thứ tự: clone → pip install → smoke 2 
 Dòng lệnh tương đương:
 
 ```bash
-git clone https://github.com/<user>/CTIG.git && cd CTIG
+git clone https://github.com/OxyzGiaHuy/CTIG.git && cd CTIG
 pip install -q -r requirements.txt
 python -m ctig.cli batch --config configs/kaggle_t4x2.yaml --limit 2 --run-name smoke
 python -m ctig.cli batch --config configs/kaggle_t4x2.yaml --run-name v1-full

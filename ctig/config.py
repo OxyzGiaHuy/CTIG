@@ -55,6 +55,8 @@ class T2IConfig:
     lcm_lora: str = "latent-consistency/lcm-lora-sdxl"
     fast_steps: int = 8
     fast_guidance: float = 1.5
+    #: số must_have_en của mỗi thực thể chính đưa vào prompt (v1.2.1: 2 -> 3 để giữ 'quần dài')
+    attrs_in_prompt: int = 3
 
 
 @dataclass

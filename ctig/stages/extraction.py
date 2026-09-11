@@ -62,8 +62,11 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
         extracted, junk = clean_extracted(extracted, ent)
         for j in junk[:6]:
             search.notes.append(f"extract {eid}: loại rác '{j[:60]}'")
+        for c in extracted.get("confirms_kb", [])[:4]:
+            search.notes.append(f"extract {eid}: '{c[:60]}' khớp KB viết tay (xác nhận, không thêm)")
         if not extracted.get("must_have"):
-            search.notes.append(f"extract {eid}: không rút được must_have nào từ {len(texts)} nguồn")
+            search.notes.append(f"extract {eid}: không rút được must_have MỚI từ {len(texts)} nguồn"
+                                + (f" ({len(extracted.get('confirms_kb', []))} câu xác nhận KB)" if extracted.get("confirms_kb") else ""))
             continue
         srcs = "; ".join(t.title for t in texts)
         search.items.append(EvidenceItem(
@@ -112,12 +115,18 @@ def clean_extracted(extracted: dict, ent) -> tuple[dict, list[str]]:
             return False
         return True
 
+    kb_tok = [tokens(a) for a in (ent.must_have or [])]
+    confirms: list[str] = []
     mh = [a for a in extracted.get("must_have", []) if isinstance(a, str)]
     keep_mh: list[str] = []
     for a in mh:
         if not ok_attr(a):
             junk.append(a); continue
         ta = tokens(a)
+        # v1.2.1 p001: "thân áo xẻ làm hai tà" rút được chỉ nói lại KB rồi được dịch tệ ("cut into two parts")
+        # và lọt vào spec. Thuộc tính trùng KB là XÁC NHẬN KB (đếm riêng), không phải thuộc tính mới.
+        if any(ta and len(ta & kt) / len(ta) >= 0.5 for kt in kb_tok):
+            confirms.append(a); continue
         # bỏ trùng bên trong must_have (v1.2 p001: 3 mục thì 2 mục y chữ, 1 mục diễn đạt lại)
         if any(ta and len(ta & tokens(b)) / len(ta) >= 0.7 for b in keep_mh):
             junk.append(f"{a} (trùng must_have khác)"); continue
@@ -149,7 +158,8 @@ def clean_extracted(extracted: dict, ent) -> tuple[dict, list[str]]:
 
     srcs = {k: v for k, v in (extracted.get("attr_sources") or {}).items() if k in keep_mh or k in keep_mn}
     out = dict(extracted)
-    out.update({"must_have": keep_mh, "must_not": keep_mn, "confusable_with": keep_cf, "attr_sources": srcs})
+    out.update({"must_have": keep_mh, "must_not": keep_mn, "confusable_with": keep_cf, "attr_sources": srcs,
+                "confirms_kb": confirms})
     return out, junk
 
 

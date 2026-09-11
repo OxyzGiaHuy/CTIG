@@ -35,6 +35,12 @@ from .schema import (
 )
 
 
+#: Phiên bản LOGIC của từng bước. Tăng số khi đổi code làm đầu ra bước khác đi dù đầu vào không đổi,
+#: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
+#: của chúng chứa hash đầu ra bước trước.
+STEP_LOGIC = {"analysis": 1, "compare": 1, "retrieve": 2, "spec": 1, "genspec": 2, "multigen": 1, "review": 1}
+
+
 def _h(obj: Any) -> str:
     return hashlib.sha1(json.dumps(obj, ensure_ascii=False, sort_keys=True, default=str).encode()).hexdigest()[:12]
 
@@ -77,6 +83,7 @@ class Session:
         """`reusable(val) -> bool`: kết quả cũ có đáng dùng lại không. Mặc định có; multigen từ chối kết quả
         có hàng lỗi (v1.2 p001: LoraError bị đóng băng trong step_multigen.json nên sửa môi trường xong vẫn thấy lỗi)."""
         ok = reusable or (lambda v: True)
+        key = f"{key}-L{STEP_LOGIC.get(name, 1)}"
         st = self.steps.get(name)
         if st and st.key == key and not force and ok(st.value):
             st.source = "memory"

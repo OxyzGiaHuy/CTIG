@@ -55,3 +55,28 @@
 - **v1.2.1:** LoRA có fallback fuse + giữ lỗi gốc + `peft` vào requirements; nhận cả hai dạng JSON dịch; tải toàn văn top-3 trang
   web thay snippet, bỏ trùng thuộc tính, cap 6 nguồn; thêm điểm mức thuộc tính (CLIP tương phản must_have/must_not, ITM
   thuộc tính) và điểm tổng; thêm hàng `sdxl_ref` (SDXL + IP-Adapter ảnh Commons) để kiểm H4 trên cùng grid.
+
+## 2026-09-11 — Walkthrough v1.2.1 trên Kaggle (p001, 2×T4)
+- Hai lỗi hạ tầng trước khi chạy được: (1) Kaggle tự giải nén `runs_cache.zip` khi upload Dataset → cell khôi phục
+  phải copy thư mục, không `zipfile`; (2) `torchao 0.10` có sẵn trên ảnh Kaggle làm `peft` import chết → LoRA lỗi
+  lần hai với lý do khác lần một. Gỡ torchao là gắn được. Bài học: cache bước (`step_multigen.json`) đã đóng băng hàng
+  lỗi nên sửa xong vẫn thấy lỗi → Session nay từ chối dùng lại bước có hàng lỗi.
+- **6/6 model ra ảnh.** LoRA áo dài gắn qua peft (84 s, 7,15 GB). `sdxl_ref` IP-Adapter 0,3 với ảnh Commons đạt CLIP 0,99
+  (94 s, đỉnh 11,2 GB — sát T4). Playground 91 s, 7,1 GB sau khi dùng VAE fp16-fix.
+- **Thước đo mức thuộc tính tách được ảnh mà danh tính không tách được.** CLIP identity 0,92–1,00 và ITM 0,92–1,00 cho cả
+  12 ảnh. CLIP attr 0,14–0,67: các ảnh váy xẻ tà KHÔNG QUẦN (dreamshaper c1 0,18; sdxl_base c1 0,40; sdxl_ref c1 0,33;
+  playground cả hai 0,14/0,18) đều thấp hơn ảnh có quần cùng model (0,67; 0,45; 0,51). Đối chiếu bằng mắt khớp.
+- **Lỗi văn hoá thực tế của p001 không phải kimono mà là "qipao hoá": váy liền xẻ tà cao, không quần** (4/12 ảnh) và
+  đai đỏ (turbo c1). Negative hiện chỉ có tên confusable (kimono, qipao, hanbok) không chặn được. → H9: đưa must_not_en
+  ("one-piece dress with no trousers underneath") vào negative; đồng thời prompt chỉ lấy 2 must_have nên "worn over
+  wide-legged long trousers" (thứ 3) bị cắt → mặc định 3.
+- **Phương sai theo seed lớn hơn phương sai giữa model.** Cùng sdxl_ref: attr 0,51 vs 0,33; ITM attr 0,87 vs 0,33.
+  Với n=2 không kết luận được model nào tốt hơn; so model cần n ≥ 4 và nhiều prompt (H8 sửa prediction).
+- Rút bằng chứng từ toàn văn 3 trang: 2 must_have rút được đều chỉ nói lại KB ("xẻ hai tà") rồi được Qwen dịch tệ
+  ("cut into two parts") và lọt vào spec. → thuộc tính trùng KB được đếm là "xác nhận KB", không thành thuộc tính mới.
+- Nhỏ: grid.png ra ô vuông thay dấu tiếng Việt (Kaggle không có DejaVu hệ thống) → dùng font của matplotlib;
+  `cổng trường` (tiếng Việt) lọt vào prompt SDXL qua scene_notes → chỉ giữ ghi chú ASCII.
+- **v1.2.1 (code):** must_not_en vào negative, 3 thuộc tính/thực thể, lọc xác nhận KB, font grid, khoá cache bước có
+  số phiên bản logic (đổi code → bước chạy lại, không cần xoá cache tay).
+- Kế tiếp: chạy lại p001 (so cùng seed: có/không negative must_not → H9), rồi p050, p012, p031.
+

@@ -11,10 +11,18 @@
 - **CLIP identity và BLIP-2 ITM bão hoà (0,95–1,00) trên prompt dễ**, không phân biệt được áo dài có quần với váy liền hay có đai
   đỏ. Cần thước đo mức thuộc tính (v1.2.1 thêm CLIP tương phản must_have/must_not).
 
+- **CLIP tương phản must_have/must_not tách được "áo dài có quần" với "váy liền xẻ tà"** trong khi identity và ITM
+  bão hoà (p001 v1.2.1, 12 ảnh, đối chiếu mắt người khớp). Chưa kiểm trên thực thể khác trang phục.
+- **Lỗi thay thế văn hoá của áo dài trong SDXL-family là "qipao hoá" (váy liền không quần), không phải kimono** (4/12 ảnh
+  p001; đai obi chỉ 1/12). Negative theo tên confusable không chặn được vì model không "gọi" nó là qipao.
+- **Phương sai theo seed lớn hơn phương sai giữa model ở n=2** (sdxl_ref attr 0,51 vs 0,33). So model cần n ≥ 4.
+
 ## Chưa có bằng chứng (đang là giả thuyết)
 - Vòng review nâng CLIP fidelity trên tập dev (H1). Smoke v1 cho thấy vòng 0 cao hơn vòng cuối, nhưng do bug prompt.
 - Web tiếng Việt cho must_have thị giác nhiều hơn Wikipedia (H2). Đã thấy ví dụ định tính với "nón lá", chưa đo.
 - BLIP-2 ITM làm judge tốt hơn Qwen (H3). Chưa có user study để so.
+- Negative theo must_not_en giảm "qipao hoá" (H9). Code v1.2.1 đã bật mặc định; chưa có lần chạy A/B cùng seed.
+- LoRA áo dài tốt hơn SDXL gốc (H8). p001 n=2: 0,40/0,52 vs 0,45/0,40, không phân biệt được.
 
 ## Kết quả âm đáng giữ
 - Từ bản mô phỏng: reviewer thứ hai (VisualCritic) gần như không đổi kết quả (0,857 → 0,837). Chưa kiểm trên model thật.

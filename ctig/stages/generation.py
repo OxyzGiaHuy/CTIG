@@ -32,6 +32,20 @@ def _en(se) -> str:
 _VIET_CULTURE_MARKERS = ("việt", "viet", "vietnam")
 
 
+def _forbidden_negatives(se, max_words: int = 8, limit: int = 3) -> list[str]:
+    """must_not_en (KB viết tay) đưa vào negative prompt: "one-piece dress with no trousers underneath".
+
+    Chỉ cụm tiếng Anh ngắn, ASCII. Đây là giả thuyết H9: negative theo thuộc tính giảm lỗi
+    "áo dài không quần" mà tên confusable (kimono, qipao) không chặn được (v1.2.1 p001: 4/12 ảnh).
+    """
+    out = []
+    for a in se.forbidden_attrs_en:
+        a = (a or "").strip()
+        if a and a.isascii() and len(a.split()) <= max_words:
+            out.append(a)
+    return out[:limit]
+
+
 def _confusable_negatives(se) -> list[str]:
     """Tên confusable đưa vào negative prompt.
 
@@ -58,19 +72,25 @@ def _confusable_negatives(se) -> list[str]:
 
 def build_initial_spec(prompt: Prompt, spec: CulturalSpec, prompt_en: str | None,
                        cfg, seed: int, init_negatives: bool = True) -> GenSpec:
+    n_attrs = int(getattr(cfg, "attrs_in_prompt", 3))
     terms = [prompt_en or prompt.text_en]
     for se in spec.entities:
         terms.append(f"Vietnamese {_en(se)}")
         en_attrs = [a for a in se.required_attrs_en if a]  # CHỈ tiếng Anh; cụm chưa dịch ("") bị bỏ
         if se.weight >= 0.8 and en_attrs:
-            terms.extend(en_attrs[:2])
-    terms.extend(spec.scene_notes[:2])
+            # v1.2.1 p001: chỉ 2 thuộc tính nên "worn over wide-legged trousers" (thứ 3) bị cắt,
+            # và 4/12 ảnh ra váy xẻ tà không quần. Mặc định 3.
+            terms.extend(en_attrs[:n_attrs])
+    # scene_notes là tiếng Việt (từ analysis); SDXL không đọc được, prompt_en đã chứa bối cảnh.
+    terms.extend(n for n in spec.scene_notes[:2] if n.isascii())
     terms.append(STYLE_SUFFIX)
 
     neg = GENERIC_NEGATIVE.split(", ")
     if init_negatives:
         for se in spec.entities:
             neg.extend(_confusable_negatives(se))
+            if se.weight >= 0.8:
+                neg.extend(_forbidden_negatives(se))
     fast = bool(getattr(cfg, "fast_iters", False))
     return GenSpec(
         prompt_id=prompt.id, prompt_terms=list(dict.fromkeys(t for t in terms if t)),
@@ -355,12 +375,20 @@ class StubGenerator:
 def _font(size, bold=False):
     from PIL import ImageFont
 
-    for p in ("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else
-              "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-              "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf"):
+    name = "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf"
+    cands = [f"/usr/share/fonts/truetype/dejavu/{name}", "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf"]
+    try:  # Kaggle không có font hệ thống có dấu tiếng Việt (grid v1.2.1 ra ô vuông); matplotlib kèm DejaVu
+        import matplotlib
+        cands.insert(0, str(Path(matplotlib.get_data_path()) / "fonts" / "ttf" / name))
+    except Exception:  # noqa: BLE001
+        pass
+    for p in cands:
         if Path(p).exists():
             return ImageFont.truetype(p, size)
-    return ImageFont.load_default()
+    try:
+        return ImageFont.load_default(size=size)
+    except TypeError:
+        return ImageFont.load_default()
 
 
 def _draw_card(path, gen, spec, oracle, strengths):

@@ -61,11 +61,24 @@ hypotheses:
     priority: medium
     prediction: "Với kind=context, checklist identity=absent được bắt ở >= 80% ca ảnh không có dấu hiệu Tết"
 
+  - id: H8
+    statement: "SDXL + LoRA áo dài cho CLIP attr / ITM attr cao hơn SDXL gốc trên prompt có áo dài"
+    status: active
+    motivation: "v1.2.1 p001: LoRA gắn được; attr 0,40/0,52 vs SDXL gốc 0,45/0,40 — chưa phân biệt với n=2"
+    priority: medium
+    prediction: "Trên >= 5 prompt áo dài × 4 seed, sdxl_aodai > sdxl_base về CLIP attr trung bình ít nhất 0,10"
+  - id: H9
+    statement: "Negative prompt theo must_not_en (KB) giảm lỗi 'áo dài không quần' mà tên confusable không chặn được"
+    status: active
+    motivation: "v1.2.1 p001: negative chỉ có kimono/qipao/hanbok, 4/12 ảnh là váy xẻ tà không quần; CLIP attr bắt đúng (0,18–0,40)"
+    priority: high
+    prediction: "Cùng seed, cùng model: tỉ lệ ảnh có quần dài tăng, CLIP attr trung bình tăng >= 0,10 trên p001, p031"
+
 experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0
   best_value: null
-  total_runs: 1
+  total_runs: 3
   trajectory:
     - run_id: "smoke-v1"
       hypothesis: "H1"
@@ -90,3 +103,23 @@ workspace:
   log: "research/research-log.md"
   experiments_dir: "research/experiments/"
   dev_subset: "data/dev10.txt"
+    - run_id: "walkthrough-v1.2-p001"
+      hypothesis: "H8"
+      config: "kaggle_walkthrough_t4x2 (v1.2)"
+      metric_value: null
+      pass_rate: null
+      delta: null
+      wall_time_min: 6
+      change_summary: "Notebook từng bước, search 2 cột, 5 model; LoRA lỗi (nuốt thông điệp)"
+      notes: "CLIP identity/ITM bão hoà 0,95–1,00; thêm điểm mức thuộc tính -> v1.2.1"
+      timestamp: "2026-09-11"
+    - run_id: "walkthrough-v1.2.1-p001"
+      hypothesis: "H8, H9"
+      config: "kaggle_walkthrough_t4x2 (v1.2.1)"
+      metric_value: 0.856    # điểm tổng tốt nhất (dreamshaper8 c0); attr trung bình 12 ảnh = 0,37
+      pass_rate: null
+      delta: null
+      wall_time_min: 7
+      change_summary: "6/6 model ra ảnh (LoRA gắn sau khi gỡ torchao; sdxl_ref IP-Adapter 0,3, đỉnh 11,2 GB)"
+      notes: "4/12 ảnh không quần -> H9; phương sai theo seed > phương sai giữa model -> cần n>=4. Xem research-log"
+      timestamp: "2026-09-11"

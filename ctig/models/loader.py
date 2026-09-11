@@ -49,30 +49,54 @@ def load_pipeline(spec: ModelSpec, device: str = "cuda:0", cpu_offload: bool = T
     return pipe
 
 
-def attach_lora(pipe, lora: dict, lora_dir: Path | str, log=print) -> bool:
-    """Gắn LoRA theo mô tả trong ModelSpec.lora. Trả False nếu không tải được (không raise)."""
-    path = None
-    src = lora.get("source")
-    try:
-        if src == "civitai":
-            from .civitai import download_civitai
+class LoraError(RuntimeError):
+    pass
 
-            path = download_civitai(lora["version_id"], lora_dir, lora.get("file"), log=log)
-        elif src == "hf":
-            pipe.load_lora_weights(lora["repo"], weight_name=lora.get("file"), adapter_name="culture")
-            pipe.set_adapters(["culture"], adapter_weights=[float(lora.get("scale", 0.8))])
-            return True
-        elif src == "path":
-            path = Path(lora["path"])
-        if not path or not Path(path).exists():
-            return False
-        pipe.load_lora_weights(str(Path(path).parent), weight_name=Path(path).name, adapter_name="culture")
-        pipe.set_adapters(["culture"], adapter_weights=[float(lora.get("scale", 0.8))])
-        return True
+
+def attach_lora(pipe, lora: dict, lora_dir: Path | str, log=print) -> str:
+    """Gắn LoRA theo mô tả trong ModelSpec.lora. Trả về mô tả cách đã gắn; raise LoraError kèm lý do gốc.
+
+    Lần chạy v1.2 đầu: file Civitai tải đúng (80 MB, 2166 tensor kohya) nhưng gắn thất bại và thông
+    điệp gốc bị nuốt. Nay: (1) thử đường PEFT (adapter_name + set_adapters), (2) không có peft thì
+    load_lora_weights không adapter_name rồi fuse_lora(lora_scale), (3) lỗi gì cũng ném ra nguyên văn.
+    """
+    src = lora.get("source")
+    scale = float(lora.get("scale", 0.8))
+    if src == "civitai":
+        from .civitai import download_civitai
+
+        path = download_civitai(lora["version_id"], lora_dir, lora.get("file"), log=log)
+        if not path:
+            raise LoraError("không tải được file từ Civitai (cần CIVITAI_TOKEN hợp lệ, xem log [civitai])")
+        folder, name = str(Path(path).parent), Path(path).name
+    elif src == "path":
+        path = Path(lora["path"])
+        if not path.exists():
+            raise LoraError(f"không thấy file LoRA {path}")
+        folder, name = str(path.parent), path.name
+    elif src == "hf":
+        folder, name = lora["repo"], lora.get("file")
+    else:
+        raise LoraError(f"source LoRA không rõ: {src!r}")
+
+    errors = []
+    try:
+        pipe.load_lora_weights(folder, weight_name=name, adapter_name="culture")
+        pipe.set_adapters(["culture"], adapter_weights=[scale])
+        return f"peft adapter, scale {scale}"
     except Exception as exc:  # noqa: BLE001
-        log(f"[loader] không gắn được LoRA {lora.get('version_id') or lora.get('repo') or lora.get('path')}: "
-            f"{type(exc).__name__}: {exc}")
-        return False
+        errors.append(f"peft: {type(exc).__name__}: {str(exc)[:160]}")
+        try:
+            pipe.unload_lora_weights()
+        except Exception:  # noqa: BLE001
+            pass
+    try:
+        pipe.load_lora_weights(folder, weight_name=name)
+        pipe.fuse_lora(lora_scale=scale)
+        return f"fused, scale {scale} (không có peft)"
+    except Exception as exc:  # noqa: BLE001
+        errors.append(f"fuse: {type(exc).__name__}: {str(exc)[:160]}")
+    raise LoraError(" | ".join(errors))
 
 
 def unload(pipe) -> None:

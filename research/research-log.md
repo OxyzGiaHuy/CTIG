@@ -41,3 +41,17 @@
 - Sửa 5 lỗi v1.1: cap 6 ứng viên có căn cứ (context ưu tiên), negative chỉ confusable khác văn hoá và tên ASCII,
   KB thêm must_have_en/must_not_en viết tay (KB 0.3.0), lọc rác rút bằng chứng, forbidden-yes khi identity=target hạ mức.
 - Chưa chạy GPU. Kế tiếp: walkthrough p001/p050/p012 trên Kaggle, rồi H8 trên dev10.
+
+## 2026-09-11 — Walkthrough v1.2 lần đầu trên Kaggle (p001, 2×T4)
+- Chạy trọn vẹn: 4/5 model ra ảnh (turbo 48s/7,1 GB, dreamshaper 20s/2,6 GB, sdxl 86s/7,1 GB, playground 100s/9,6 GB).
+  Cache: 3 lần gọi Qwen, 14 truy vấn web. Hàng `sdxl_aodai` lỗi ở bước GẮN LoRA dù file tải đúng (80 MB, 2166 tensor kohya):
+  nghi thiếu gói `peft`; code nuốt thông điệp gốc.
+- Search hai cột: truy vấn từ keywords ra Wikipedia + bài "Cấu tạo của áo dài"; truy vấn từ prompt gốc ra tin lá cải và
+  Shutterstock. Ngược lại với ẢNH: cột prompt gốc ra ảnh nữ sinh áo dài trắng khớp hơn (sim 0,37 vs 0,32).
+- Grid: SDXL c0 và DreamShaper c0 là áo dài đúng có quần; Turbo c1 có đai đỏ (nghiêng qipao); Playground ra váy liền.
+  Nhưng CLIP identity 0,95–1,00 và ITM 0,92–1,00 cho tất cả → **thước đo danh tính bão hoà** trên prompt dễ.
+- Rút bằng chứng: 3 must_have thì 2 trùng y chữ; DDG chỉ trả snippet 100–340 ký tự nên model chỉ có một câu Wikipedia để rút; 73 s.
+- Dịch: Qwen trả dict `{"ao_dai": {...}}` thay vì `{"entities": [...]}` → "0 thực thể".
+- **v1.2.1:** LoRA có fallback fuse + giữ lỗi gốc + `peft` vào requirements; nhận cả hai dạng JSON dịch; tải toàn văn top-3 trang
+  web thay snippet, bỏ trùng thuộc tính, cap 6 nguồn; thêm điểm mức thuộc tính (CLIP tương phản must_have/must_not, ITM
+  thuộc tính) và điểm tổng; thêm hàng `sdxl_ref` (SDXL + IP-Adapter ảnh Commons) để kiểm H4 trên cùng grid.

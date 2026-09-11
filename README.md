@@ -29,7 +29,7 @@ Prompt ─► [1] keywords ─► [2] search: cột keywords ‖ cột prompt g�
   gì thì không tốn API hay model: cache mọi lần gọi LLM (`ctig/llm/cache.py`), cache web (`ctig/stages/websearch.py`),
   ảnh multigen dùng lại theo hash GenSpec (`ctig/stages/multigen.py`), memo từng bước (`ctig/session.py`).
 * Model so sánh (`ctig/models/registry.py`): `sdxl_turbo`, `dreamshaper8` (SD1.5), `sdxl_base`, `sdxl_aodai` (SDXL + LoRA áo dài
-  Civitai, cần `CIVITAI_TOKEN`), `playground25`; `sd3_medium`, `hunyuan_dit` đánh dấu experimental. Nạp tuần tự, một model một lúc.
+  Civitai, cần `CIVITAI_TOKEN`), `sdxl_ref` (SDXL + IP-Adapter với ảnh tham chiếu Commons), `playground25`; `sd3_medium`, `hunyuan_dit` đánh dấu experimental. Nạp tuần tự, một model một lúc.
 * Dòng lệnh: `python -m ctig.cli multigen p050 --config configs/kaggle_walkthrough.yaml` (một prompt, ra `multigen.html` + `grid.png`)
   hoặc `--ids p001,p050` (vòng ngoài theo model, mỗi model nạp một lần).
 * Key: xem [docs/KAGGLE.md](docs/KAGGLE.md). Không có key nào thì mọi thứ trừ hàng LoRA vẫn chạy.

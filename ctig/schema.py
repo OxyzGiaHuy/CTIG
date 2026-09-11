@@ -202,6 +202,11 @@ class Candidate:
     itm_score: float | None = None
     #: Cosine CLIP giữa ảnh và prompt_en (so được giữa ảnh, khác probs softmax).
     clip_prompt_sim: float | None = None
+    #: CLIP tương phản mức THUỘC TÍNH: phần xác suất rơi vào các câu "<thực thể> with <must_have_en>"
+    #: so với các câu "<thực thể> with <must_not_en>". Phân biệt được "áo dài có quần" với "váy liền".
+    attr_contrast: float | None = None
+    #: BLIP-2 ITM trung bình trên các câu must_have_en (độ đầy đủ thuộc tính).
+    itm_attrs: float | None = None
 
 
 @dataclass

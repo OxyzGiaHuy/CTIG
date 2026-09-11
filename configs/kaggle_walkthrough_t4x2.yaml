@@ -6,7 +6,7 @@ search_viz: {k_text: 5, k_images: 6, max_entities: 6}
 max_candidate_entities: 6
 review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
 judge:      {backend: blip2_itm, device: "cuda:0", offload: true}
-models:     [sdxl_turbo, dreamshaper8, sdxl_base, sdxl_aodai, playground25]
+models:     [sdxl_turbo, dreamshaper8, sdxl_base, sdxl_aodai, sdxl_ref, playground25]
 multigen:   {enabled: true, device: "cuda:1", cpu_offload: false, n_candidates: 2, max_side: 1024, itm: true}
 t2i:        {backend: sdxl, device: "cuda:1", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 6.5,
              n_candidates: 2, ip_adapter: true, ip_adapter_scale: 0.3, init_negatives: true}

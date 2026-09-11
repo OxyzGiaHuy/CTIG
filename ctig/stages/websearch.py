@@ -136,6 +136,21 @@ class WebClient:
 
         return self._cached({"kind": "images", "api": self.cfg.web_api, "q": q, "region": region, "n": n}, fetch)
 
+    def page_text(self, url: str, max_chars: int = 4000) -> str:
+        """Toàn văn một trang web dạng text thô (bỏ script/style/tag), có cache. Rỗng nếu lỗi."""
+        def fetch():
+            try:
+                r = self._s().get(url, timeout=self.cfg.timeout, headers={"Accept": "text/html"})
+                if r.status_code != 200 or "html" not in r.headers.get("Content-Type", "html"):
+                    return []
+                return [_html_to_text(r.text)[: max_chars * 3]]
+            except Exception as exc:  # noqa: BLE001
+                self.errors.append(f"page {url[:40]}: {type(exc).__name__}")
+                return []
+
+        out = self._cached({"kind": "page", "url": url}, fetch)
+        return out[0][:max_chars] if out else ""
+
     def commons(self, q: str, n: int = 3) -> list[dict]:
         """[{image, title, provenance:'commons'}] từ Wikimedia Commons."""
         def fetch():
@@ -194,6 +209,30 @@ class WebClient:
     def drain_errors(self) -> list[str]:
         e, self.errors = list(self.errors), []
         return e
+
+
+def _html_to_text(raw: str) -> str:
+    """HTML -> text: bỏ script/style/nav, gộp khoảng trắng. Đủ cho VLM đọc, không cần thư viện ngoài."""
+    import html as _h
+    import re
+
+    raw = re.sub(r"(?is)<(script|style|noscript|nav|footer|header|form)[^>]*>.*?</\1>", " ", raw)
+    raw = re.sub(r"(?s)<!--.*?-->", " ", raw)
+    raw = re.sub(r"(?i)<br\s*/?>|</p>|</div>|</li>|</h[1-6]>", "\n", raw)
+    txt = re.sub(r"<[^>]+>", " ", raw)
+    txt = _h.unescape(txt)
+    txt = re.sub(r"[ \t\r\f\v]+", " ", txt)
+    txt = re.sub(r"\n\s*\n+", "\n", txt)
+    # Bỏ dòng quá ngắn (menu, nút) và dòng là JSON/script sót lại - giữ đoạn văn
+    lines = []
+    for l in txt.split("\n"):
+        l = l.strip()
+        if len(l) < 40:
+            continue
+        if sum(l.count(ch) for ch in "{}[]\"=") > 0.08 * len(l):
+            continue
+        lines.append(l)
+    return "\n".join(lines)
 
 
 # ======================================================================

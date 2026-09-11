@@ -38,6 +38,8 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
         ent = kb.get(eid)
         if ent is None:
             continue
+        # Ưu tiên nguồn dài (toàn văn trang) hơn snippet; giới hạn số nguồn để VLM 3B không loạn và không tốn 70s.
+        texts = sorted(texts, key=lambda t: -len(t.snippet))[: getattr(cfg, "extract_max_sources", 6)]
         cache_file = cache_dir / f"{eid}.json"
         extracted = None
         if cfg.evidence_cache and cache_file.exists():
@@ -111,8 +113,15 @@ def clean_extracted(extracted: dict, ent) -> tuple[dict, list[str]]:
         return True
 
     mh = [a for a in extracted.get("must_have", []) if isinstance(a, str)]
-    keep_mh = [a for a in mh if ok_attr(a)]
-    junk += [a for a in mh if a not in keep_mh]
+    keep_mh: list[str] = []
+    for a in mh:
+        if not ok_attr(a):
+            junk.append(a); continue
+        ta = tokens(a)
+        # bỏ trùng bên trong must_have (v1.2 p001: 3 mục thì 2 mục y chữ, 1 mục diễn đạt lại)
+        if any(ta and len(ta & tokens(b)) / len(ta) >= 0.7 for b in keep_mh):
+            junk.append(f"{a} (trùng must_have khác)"); continue
+        keep_mh.append(a)
 
     mh_tok = [tokens(a) for a in keep_mh]
     mn = [a for a in extracted.get("must_not", []) if isinstance(a, str)]

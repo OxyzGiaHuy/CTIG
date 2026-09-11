@@ -255,7 +255,8 @@ class DiffusersGenerator:
     reference_available = False
     lora_id = None
 
-    def __init__(self, pipe, model_key: str, trigger: str | None = None, negative_ok: bool = True):
+    def __init__(self, pipe, model_key: str, trigger: str | None = None, negative_ok: bool = True,
+                 ip_adapter_image: str | None = None):
         import torch
 
         self.torch = torch
@@ -263,6 +264,7 @@ class DiffusersGenerator:
         self.model_key = model_key
         self.trigger = trigger
         self.negative_ok = negative_ok
+        self.ip_adapter_image = ip_adapter_image
 
     def generate(self, gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, out_dir: Path) -> GenOutput:
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -275,6 +277,10 @@ class DiffusersGenerator:
                           width=gen.width, height=gen.height, generator=g)
             if self.negative_ok and gen.negative_prompt:
                 kwargs["negative_prompt"] = gen.negative_prompt
+            if self.ip_adapter_image:
+                from PIL import Image
+
+                kwargs["ip_adapter_image"] = Image.open(self.ip_adapter_image).convert("RGB")
             img = self.pipe(**kwargs).images[0]
             path = out_dir / f"{gen.prompt_id}_{self.model_key}_c{i}.png"
             img.save(path)

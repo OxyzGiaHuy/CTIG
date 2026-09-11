@@ -58,21 +58,33 @@ def score_run(run: ModelRun, spec: CulturalSpec, clip, itm, prompt_en: str) -> N
 
     if clip is not None:
         select_candidate(run.output, spec, clip)  # clip_fidelity + clip_probs, chọn ứng viên tốt nhất
-        if prompt_en:
-            for c in run.output.candidates:
+        pairs = attribute_labels(spec)
+        for c in run.output.candidates:
+            if prompt_en:
                 try:
                     c.clip_prompt_sim = round(clip.similarity(c.path, [prompt_en])[0], 4)
                 except Exception:  # noqa: BLE001
                     c.clip_prompt_sim = None
+            # v1.2 p001: CLIP identity 0.95-1.00 cho MỌI model, kể cả ảnh không có quần hay có đai đỏ.
+            # Danh tính bão hoà trên prompt dễ; cần đối chiếu ở mức thuộc tính.
+            if pairs:
+                try:
+                    c.attr_contrast = round(_attr_contrast(clip, c.path, pairs), 4)
+                except Exception:  # noqa: BLE001
+                    c.attr_contrast = None
     if itm is not None and spec.entities:
         objs = [se for se in spec.entities if se.kind == "object"] or list(spec.entities)
         labels = [se.clip_label or f"a photo of Vietnamese {se.name_en.split('(')[0].strip()}" for se in objs]
         wt = sum(se.weight for se in objs) or 1.0
+        attr_sents = [f"{se.name_en.split('(')[0].strip()} with {a}" for se in objs for a in se.required_attrs_en if a][:8]
         try:
             itm._on_gpu()
             for c in run.output.candidates:
                 ps = itm.itm(c.path, labels)
                 c.itm_score = round(sum(se.weight * p for se, p in zip(objs, ps)) / wt, 4)
+                if attr_sents:
+                    pa = itm.itm(c.path, attr_sents)
+                    c.itm_attrs = round(sum(pa) / len(pa), 4)
         except Exception:  # noqa: BLE001
             pass
         finally:
@@ -80,6 +92,43 @@ def score_run(run: ModelRun, spec: CulturalSpec, clip, itm, prompt_en: str) -> N
                 itm._off_gpu()
             except Exception:  # noqa: BLE001
                 pass
+
+
+def attribute_labels(spec: CulturalSpec) -> list[tuple[list[str], list[str]]]:
+    """Với mỗi thực thể vật thể: (câu must_have_en, câu must_not_en) để CLIP tương phản."""
+    pairs = []
+    for se in spec.entities:
+        if se.kind != "object":
+            continue
+        name = se.name_en.split("(")[0].strip()
+        pos = [f"a photo of a Vietnamese {name} with {a}" for a in se.required_attrs_en if a][:4]
+        neg = [f"a photo of a {name} with {a}" for a in se.forbidden_attrs_en if a][:4]
+        if pos and neg:
+            pairs.append((pos, neg))
+    return pairs
+
+
+def _attr_contrast(clip, path: str, pairs: list[tuple[list[str], list[str]]]) -> float:
+    """Trung bình trên thực thể: tổng P(câu must_have) trong softmax chung với câu must_not."""
+    vals = []
+    for pos, neg in pairs:
+        p = clip.probs(path, pos + neg)
+        vals.append(sum(p[: len(pos)]))
+    return sum(vals) / len(vals)
+
+
+def combined_score(c: Candidate) -> float:
+    """Điểm xếp hạng: danh tính CLIP + thuộc tính (CLIP tương phản, ITM thuộc tính) nếu có."""
+    parts = []
+    if c.clip_probs:
+        parts.append(c.clip_fidelity)
+    if c.attr_contrast is not None:
+        parts.append(c.attr_contrast)
+    if c.itm_attrs is not None:
+        parts.append(c.itm_attrs)
+    if not parts and c.itm_score is not None:
+        parts.append(c.itm_score)
+    return sum(parts) / len(parts) if parts else 0.0
 
 
 def _load_previous(out_dir: Path, key: str, ghash: str, n: int) -> ModelRun | None:
@@ -131,7 +180,7 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
         if prev is not None:
             log(f"  [4b] {key}: dùng lại ảnh trên đĩa (GenSpec không đổi)")
             prev.gen_spec = gspec
-            if any(c.itm_score is None for c in prev.output.candidates) or any(
+            if any(c.itm_score is None or c.attr_contrast is None for c in prev.output.candidates) or any(
                     not c.clip_probs for c in prev.output.candidates):
                 score_run(prev, spec, clip, itm, prompt_en)
             result.runs.append(prev)
@@ -153,11 +202,18 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 pipe = loader(mspec, cfg.device, cfg.cpu_offload)
                 trigger = None
                 if mspec.lora:
-                    ok = model_loader.attach_lora(pipe, mspec.lora, lora_dir or (out_dir.parent.parent / "_cache" / "lora"), log=log)
-                    if not ok:
-                        raise RuntimeError("không tải/gắn được LoRA (xem log [civitai]/[loader])")
+                    how = model_loader.attach_lora(pipe, mspec.lora, lora_dir or (out_dir.parent.parent / "_cache" / "lora"), log=log)
+                    log(f"  [4b] {key}: LoRA gắn xong ({how})")
                     trigger = mspec.lora.get("trigger")
-                g = DiffusersGenerator(pipe, key, trigger=trigger, negative_ok=mspec.negative_ok)
+                ref_img = None
+                if mspec.ip_adapter:
+                    ref_img = next((se.reference_image for se in spec.entities if se.reference_image and se.kind == "object"), None)
+                    if not ref_img:
+                        raise RuntimeError("bỏ qua: spec không có ảnh tham chiếu đạt CLIP cho thực thể vật thể")
+                    pipe.load_ip_adapter("h94/IP-Adapter", subfolder="sdxl_models", weight_name="ip-adapter_sdxl.bin")
+                    pipe.set_ip_adapter_scale(mspec.ip_adapter_scale)
+                    log(f"  [4b] {key}: IP-Adapter scale {mspec.ip_adapter_scale}, ảnh tham chiếu {Path(ref_img).name}")
+                g = DiffusersGenerator(pipe, key, trigger=trigger, negative_ok=mspec.negative_ok, ip_adapter_image=ref_img)
             run_rec.output = g.generate(gspec, spec, kb, out_dir / key)
             run_rec.seconds = round(time.time() - t0, 1)
             run_rec.peak_vram_gb = model_loader.peak_gb(cfg.device)
@@ -166,7 +222,7 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 + (f", đỉnh {run_rec.peak_vram_gb} GB" if run_rec.peak_vram_gb else "")
                 + (f", CLIP {max(c.clip_fidelity for c in run_rec.output.candidates):.2f}" if clip else ""))
         except Exception as exc:  # noqa: BLE001 - một model lỗi (OOM, gated, LoRA) không được làm hỏng grid
-            run_rec.error = f"{type(exc).__name__}: {str(exc)[:200]}"
+            run_rec.error = f"{type(exc).__name__}: {str(exc)[:400]}"
             run_rec.seconds = round(time.time() - t0, 1)
             log(f"  [4b] {key}: LỖI {run_rec.error}")
         finally:
@@ -189,13 +245,13 @@ def _save(result: MultiGenResult, out_dir: Path) -> None:
 
 
 def best_run(result: MultiGenResult) -> ModelRun | None:
-    """Model có ứng viên CLIP fidelity cao nhất (rơi về ITM nếu không có CLIP)."""
+    """Model có ứng viên điểm tổng (danh tính + thuộc tính) cao nhất."""
     best, best_s = None, -1.0
     for r in result.runs:
         if not r.output:
             continue
         for c in r.output.candidates:
-            s = c.clip_fidelity if c.clip_probs else (c.itm_score or 0.0)
+            s = combined_score(c)
             if s > best_s:
                 best, best_s = r, s
     return best
@@ -240,8 +296,12 @@ def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int 
                 parts = []
                 if c.clip_probs:
                     parts.append(f"CLIP id {c.clip_fidelity:.2f}")
+                if c.attr_contrast is not None:
+                    parts.append(f"attr {c.attr_contrast:.2f}")
                 if c.itm_score is not None:
                     parts.append(f"ITM {c.itm_score:.2f}")
+                if c.itm_attrs is not None:
+                    parts.append(f"ITMattr {c.itm_attrs:.2f}")
                 if c.clip_prompt_sim is not None:
                     parts.append(f"sim {c.clip_prompt_sim:.2f}")
                 d.text((x, y + cell + 4), " · ".join(parts) or f"seed {c.seed}", font=f_s, fill=(28, 30, 34))

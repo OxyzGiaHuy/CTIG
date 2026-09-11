@@ -79,6 +79,11 @@ class RetrievalConfig:
     timeout: float = 10.0
     #: Số ký tự văn bản Wikipedia lấy về cho bước rút thuộc tính (0 = chỉ tóm tắt).
     wiki_chars: int = 3000
+    #: Tải TOÀN VĂN trang web của top-k kết quả DuckDuckGo (snippet chỉ 100-300 ký tự, không đủ để rút thuộc tính).
+    fetch_pages: int = 3
+    page_chars: int = 4000
+    #: Số nguồn văn bản tối đa đưa vào VLM rút bằng chứng cho một thực thể.
+    extract_max_sources: int = 6
     #: Dùng VLM rút must_have / must_not / confusable_with từ văn bản truy hồi được.
     extract: bool = True
     #: Cache bằng chứng đã rút theo entity_id để không rút lại (không phụ thuộc prompt).

@@ -6,6 +6,7 @@ requests>=2.31
 transformers>=4.51
 accelerate>=0.30
 diffusers>=0.30
+peft>=0.10          # load_lora_weights(adapter_name)/set_adapters cần backend PEFT
 qwen-vl-utils>=0.0.8
 sentencepiece
 safetensors

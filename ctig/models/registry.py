@@ -35,6 +35,9 @@ class ModelSpec:
     lora: dict | None = None
     #: Chỉ chạy hàng này khi spec có ít nhất một trong các thực thể (vd LoRA áo dài).
     only_if_entity: list[str] | None = None
+    #: Dùng ảnh tham chiếu (từ Search, đã qua CLIP) qua IP-Adapter. Chỉ family sdxl.
+    ip_adapter: bool = False
+    ip_adapter_scale: float = 0.3
     est_vram_gb: float = 0.0
     experimental: bool = False
     notes: str = ""
@@ -64,6 +67,10 @@ REGISTRY: dict[str, ModelSpec] = {
               "trigger": "aodaixl", "scale": 0.8, "license": "CreativeML Open RAIL++-M, tác giả ghi 'no commercial use'"},
         only_if_entity=["ao_dai"],
         notes="SDXL + LoRA áo dài 'JAY - AO DAI XL' (Civitai model 531599). Cần CIVITAI_TOKEN để tải."),
+    "sdxl_ref": ModelSpec(
+        "sdxl_ref", "stabilityai/stable-diffusion-xl-base-1.0", "sdxl", 1024, 1024, steps=30, guidance=6.5,
+        vae=SDXL_VAE_FIX, est_vram_gb=8.0, ip_adapter=True, ip_adapter_scale=0.3,
+        notes="SDXL + IP-Adapter với ảnh tham chiếu Commons đã qua CLIP (kiểm H4). Bỏ qua nếu spec không có ảnh tham chiếu."),
     "playground25": ModelSpec(
         "playground25", "playgroundai/playground-v2.5-1024px-aesthetic", "playground", 1024, 1024, steps=30, guidance=3.0,
         vae=None, est_vram_gb=7.0,

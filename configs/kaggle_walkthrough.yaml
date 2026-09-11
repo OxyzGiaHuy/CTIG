@@ -7,7 +7,7 @@ search_viz: {k_text: 5, k_images: 6, max_entities: 6}
 max_candidate_entities: 6
 review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
 judge:      {backend: blip2_itm, device: "cuda:0", offload: true}
-models:     [sdxl_turbo, dreamshaper8, sdxl_base, sdxl_aodai, playground25]
+models:     [sdxl_turbo, dreamshaper8, sdxl_base, sdxl_aodai, sdxl_ref, playground25]
 multigen:   {enabled: true, device: "cuda:0", cpu_offload: true, n_candidates: 2, max_side: 768, itm: true,
              overrides: {}}
 # t2i chỉ dùng khi bật lại vòng review (RUN_REVIEW=True trong notebook)

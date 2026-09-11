@@ -175,7 +175,10 @@ class PromptAgent:
             except RuntimeError as exc:
                 spec.dropped.append(["-", f"dịch {label} thất bại: {exc}"])
                 continue
-            rows = {r.get("entity_id"): r for r in d.get("entities", []) if isinstance(r, dict)}
+            # Qwen 3B hay trả {"ao_dai": {"attrs_en": [...]}} thay vì {"entities": [{"entity_id": ..}]}; nhận cả hai.
+            rows = {r.get("entity_id"): r for r in d.get("entities", []) if isinstance(r, dict) and r.get("entity_id")}
+            if not rows:
+                rows = {k: v for k, v in d.items() if isinstance(v, dict) and "attrs_en" in v and k in payload}
             if not rows:
                 spec.dropped.append(["-", f"dịch {label}: model trả về 0 thực thể, giữ cụm chưa dịch ngoài prompt"])
             for eid, want in payload.items():

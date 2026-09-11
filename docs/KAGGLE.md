@@ -55,6 +55,8 @@ ra `bundle.html` (mở bằng trình duyệt, ảnh đã nhúng, ~1–5 MB cho 5
 | `retrieval_errors` không rỗng | Internet tắt hoặc Wikipedia chặn | bật Internet; pipeline vẫn chạy với KB offline |
 | Qwen2.5-VL lỗi import | transformers cũ | `pip install -U "transformers>=4.51"` rồi restart kernel |
 | NaN / rác từ Qwen fp16 | T4 không có bf16 gốc | `--set llm.model=Qwen/Qwen2-VL-2B-Instruct` |
+| `sdxl_aodai: LoraError ... peft:` | thiếu gói `peft` (đã thêm vào requirements) | `pip install -U peft` rồi chạy lại; code tự lùi về `fuse_lora` nếu peft vẫn lỗi |
+| `sdxl_ref: bỏ qua: spec không có ảnh tham chiếu` | không ảnh Commons nào đạt CLIP ≥ 0.75 cho thực thể vật thể | hạ `retrieval.ref_image_min_clip` hoặc bỏ hàng này |
 | `[judge] không tải được BLIP-2 ITM` | transformers thiếu `Blip2ForImageTextRetrieval` hoặc hết VRAM | pipeline tự lùi về CLIP; hoặc `--set judge.backend=clip`; nâng transformers |
 | `ddg text ...: RatelimitException` | DuckDuckGo giới hạn tần suất | pipeline bỏ qua web, vẫn có Wikipedia; chạy lại sau hoặc `--set retrieval.web_api=none` |
 | checklist toàn `unsure` | VLM không thấy rõ, hoặc thuộc tính quá dài | xem `stage45_review.json → perception.checklist.note`; giảm `max_spec_entities` |

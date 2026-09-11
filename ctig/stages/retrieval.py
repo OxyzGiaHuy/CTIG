@@ -109,13 +109,20 @@ class WikiRetriever(LocalRetriever):
                         ent.wiki_title_vi = title
 
             # --- Web text: tiếng Việt trước, tiếng Anh sau ---
+            fetched = 0
             for q, region in entity_queries(ent, self.cfg.web_langs):
                 for r in self.web.text(q, region, self.cfg.web_results):
-                    if r.get("body"):
-                        res.items.append(EvidenceItem(eid, "web_text", f"Web: {(r.get('title') or '')[:60]}",
-                                                      r["body"][:1500], url=r.get("href"), score=0.5,
-                                                      provenance=r.get("provenance", "web"), query=q,
-                                                      query_group="keyword"))
+                    if not r.get("body"):
+                        continue
+                    body, prov = r["body"][:1500], r.get("provenance", "web")
+                    # Snippet DDG chỉ 100-300 ký tự -> tải toàn văn top-k trang để VLM có gì mà rút.
+                    if fetched < self.cfg.fetch_pages and r.get("href"):
+                        full = self.web.page_text(r["href"], self.cfg.page_chars)
+                        if len(full) > len(body) + 200:
+                            body, prov, fetched = full, prov + "+page", fetched + 1
+                    res.items.append(EvidenceItem(eid, "web_text", f"Web: {(r.get('title') or '')[:60]}",
+                                                  body, url=r.get("href"), score=0.55 if prov.endswith("+page") else 0.5,
+                                                  provenance=prov, query=q, query_group="keyword"))
 
             # --- Ảnh: Commons (EN, VI) + web images; tải và chấm tối đa k ảnh ---
             if self.cfg.download_images:

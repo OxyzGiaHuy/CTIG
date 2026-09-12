@@ -336,7 +336,7 @@ def best_run(result: MultiGenResult) -> ModelRun | None:
     return best
 
 
-def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int = 320) -> Path:
+def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int = 512) -> Path:
     """PNG: hàng = model, cột = ứng viên, nhãn điểm dưới mỗi ảnh."""
     from PIL import Image, ImageDraw
 

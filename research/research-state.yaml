@@ -74,6 +74,25 @@ hypotheses:
     priority: high
     prediction: "Cùng seed, cùng model: tỉ lệ ảnh có quần dài tăng, CLIP attr trung bình tăng >= 0,10 trên p001, p031"
 
+  - id: H10
+    statement: "Best-of-N (N=4) chọn theo điểm tổng (attr + ITM attr + PickScore) cho ảnh cuối đúng thuộc tính hơn ảnh seed đầu"
+    status: active
+    motivation: "p001 v1.2.1: cùng model, attr 0,51 vs 0,33 theo seed; chọn được là tăng chắc chắn nhất, rẻ nhất"
+    priority: high
+    prediction: "Trên dev10, CLIP attr của ứng viên được chọn > ứng viên c0 trung bình >= 0,10; đối chiếu mắt người đồng ý >= 70%"
+  - id: H11
+    statement: "Hires fix ×1.5 strength 0.3 tăng PickScore mà không giảm CLIP attr"
+    status: active
+    motivation: "Mặt và hoa văn vải là chỗ SDXL hỏng nhất trên ảnh toàn thân (grid p001)"
+    priority: medium
+    prediction: "Cùng seed: PickScore(hires) > PickScore(gốc) ở >= 70% ảnh; CLIP attr đổi < 0,05"
+  - id: H12
+    statement: "RealVisXL V4 cho PickScore và CLIP attr cao hơn SDXL base trên cùng GenSpec và seed"
+    status: active
+    motivation: "SDXL base là điểm yếu nhất về thẩm mỹ; fine-tune thực ảnh cùng gốc nên LoRA áo dài dùng được"
+    priority: medium
+    prediction: "Trên >= 4 prompt trang phục, realvis_xl > sdxl_base về PickScore thô >= 0,5 và không thấp hơn về attr"
+
 experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0

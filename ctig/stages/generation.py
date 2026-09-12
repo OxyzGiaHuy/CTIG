@@ -264,10 +264,14 @@ class SDXLGenerator:
 # =============================================================== bộ sinh diffusers tổng quát (multigen)
 
 class DiffusersGenerator:
-    """Bọc một pipeline diffusers bất kỳ (SDXL, SD1.5, Turbo, Playground) với cùng interface generate().
+    """Bọc một pipeline diffusers bất kỳ (SDXL, SD1.5, Turbo, Playground, SD3) với cùng interface generate().
 
-    Không IP-Adapter, không LCM: đó là đường của SDXLGenerator (vòng review). Ở đây chỉ so
-    model với nhau trên cùng một GenSpec. `trigger` là từ khoá LoRA thêm vào đầu prompt.
+    v1.3 thêm ba việc cho "ảnh cuối đẹp và chuẩn", tất cả có đường lùi để một lỗi không làm hỏng hàng:
+      * prompt dài: SDXL/SD1.5 cắt ở 77 token CLIP mà không báo; >75 token thì nối embedding bằng `compel`
+        (không có compel hoặc lỗi -> dùng prompt thô và ghi chú "bị cắt").
+      * hires fix: phóng ảnh `scale` lần rồi img2img `strength` thấp cùng prompt (OOM -> giữ ảnh gốc).
+      * IP-Adapter nhiều ảnh tham chiếu (Plus): truyền list lồng [[img1, img2, ...]] cho một adapter.
+    `trigger` là từ khoá LoRA thêm vào đầu prompt.
     """
 
     name = "diffusers"
@@ -276,7 +280,8 @@ class DiffusersGenerator:
     lora_id = None
 
     def __init__(self, pipe, model_key: str, trigger: str | None = None, negative_ok: bool = True,
-                 ip_adapter_image: str | None = None):
+                 ip_adapter_image: str | list[str] | None = None, family: str = "sdxl",
+                 long_prompt: bool = True, hires=None, log=print):
         import torch
 
         self.torch = torch
@@ -285,29 +290,169 @@ class DiffusersGenerator:
         self.trigger = trigger
         self.negative_ok = negative_ok
         self.ip_adapter_image = ip_adapter_image
+        self.family = family
+        self.long_prompt = long_prompt
+        self.hires = hires
+        self.log = log
+        self.notes: list[str] = []
+        self.prompt_tokens: int | None = None
+        self._compel = None
 
+    # ---- prompt ------------------------------------------------------------------------
+    def count_tokens(self, text: str) -> int | None:
+        tok = getattr(self.pipe, "tokenizer", None)
+        if tok is None:
+            return None
+        try:
+            return len(tok(text, truncation=False)["input_ids"])
+        except Exception:  # noqa: BLE001
+            return None
+
+    def _compel_embeds(self, prompt: str, negative: str | None):
+        """Trả kwargs prompt_embeds(+pooled) cho SDXL / SD1.5 qua compel; None nếu không làm được."""
+        if self.family not in ("sdxl", "sd15"):
+            return None
+        try:
+            from compel import Compel, ReturnedEmbeddingsType
+        except ImportError:
+            self.notes.append("prompt > 75 token nhưng thiếu gói compel -> pipeline cắt bớt cuối prompt")
+            return None
+        try:
+            if self._compel is None:
+                if self.family == "sdxl":
+                    self._compel = Compel(
+                        tokenizer=[self.pipe.tokenizer, self.pipe.tokenizer_2],
+                        text_encoder=[self.pipe.text_encoder, self.pipe.text_encoder_2],
+                        returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED,
+                        requires_pooled=[False, True], truncate_long_prompts=False)
+                else:
+                    self._compel = Compel(tokenizer=self.pipe.tokenizer, text_encoder=self.pipe.text_encoder,
+                                          truncate_long_prompts=False)
+            esc = lambda s: s.replace("(", "\\(").replace(")", "\\)")  # compel coi () là trọng số
+            neg = negative or ""
+            if self.family == "sdxl":
+                cond, pooled = self._compel(esc(prompt))
+                ncond, npooled = self._compel(esc(neg) if neg else "")
+                cond, ncond = self._compel.pad_conditioning_tensors_to_same_length([cond, ncond])
+                return {"prompt_embeds": cond, "pooled_prompt_embeds": pooled,
+                        "negative_prompt_embeds": ncond, "negative_pooled_prompt_embeds": npooled}
+            cond = self._compel(esc(prompt))
+            ncond = self._compel(esc(neg) if neg else "")
+            cond, ncond = self._compel.pad_conditioning_tensors_to_same_length([cond, ncond])
+            return {"prompt_embeds": cond, "negative_prompt_embeds": ncond}
+        except Exception as exc:  # noqa: BLE001
+            self.notes.append(f"compel lỗi ({type(exc).__name__}: {str(exc)[:80]}) -> dùng prompt thô, có thể bị cắt")
+            self._compel = None
+            return None
+
+    def _raw_prompt_kwargs(self, gen: GenSpec) -> dict:
+        prompt = f"{self.trigger}, {gen.prompt}" if self.trigger else gen.prompt
+        kw = {"prompt": prompt}
+        if self.negative_ok and gen.negative_prompt:
+            kw["negative_prompt"] = gen.negative_prompt
+        return kw
+
+    def _prompt_kwargs(self, gen: GenSpec) -> dict:
+        prompt = f"{self.trigger}, {gen.prompt}" if self.trigger else gen.prompt
+        negative = gen.negative_prompt if (self.negative_ok and gen.negative_prompt) else None
+        n = self.count_tokens(prompt)
+        self.prompt_tokens = n
+        if n is not None and n > 75 and self.long_prompt:
+            emb = self._compel_embeds(prompt, negative)
+            if emb is not None:
+                if not any(x.startswith("prompt dài") for x in self.notes):
+                    self.notes.append(f"prompt dài ({n} token) -> nối embedding bằng compel")
+                return emb
+        elif n is not None and n > 75:
+            self.notes.append(f"prompt {n} token > 75, pipeline sẽ cắt phần cuối (multigen.long_prompt=false)")
+        kw = {"prompt": prompt}
+        if negative:
+            kw["negative_prompt"] = negative
+        return kw
+
+    def _ip_kwargs(self) -> dict:
+        if not self.ip_adapter_image:
+            return {}
+        from PIL import Image
+
+        paths = self.ip_adapter_image if isinstance(self.ip_adapter_image, list) else [self.ip_adapter_image]
+        imgs = [Image.open(p).convert("RGB") for p in paths]
+        # Một adapter, nhiều ảnh: diffusers nhận list lồng [[...]]; một ảnh thì truyền thẳng.
+        return {"ip_adapter_image": imgs[0] if len(imgs) == 1 else [imgs]}
+
+    # ---- sinh --------------------------------------------------------------------------
     def generate(self, gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, out_dir: Path) -> GenOutput:
         out_dir.mkdir(parents=True, exist_ok=True)
-        prompt = f"{self.trigger}, {gen.prompt}" if self.trigger else gen.prompt
+        pk = self._prompt_kwargs(gen)
+        ipk = self._ip_kwargs()
+        if isinstance(ipk.get("ip_adapter_image"), list):
+            self.notes.append(f"IP-Adapter {len(ipk['ip_adapter_image'][0])} ảnh tham chiếu")
+        hires_pipe = None
         cands = []
         for i in range(gen.n_candidates):
             seed = gen.seed + 1000 * gen.iteration + i
             g = self.torch.Generator(device="cpu").manual_seed(seed)
-            kwargs = dict(prompt=prompt, num_inference_steps=gen.steps, guidance_scale=gen.guidance,
-                          width=gen.width, height=gen.height, generator=g)
-            if self.negative_ok and gen.negative_prompt:
-                kwargs["negative_prompt"] = gen.negative_prompt
-            if self.ip_adapter_image:
-                from PIL import Image
-
-                kwargs["ip_adapter_image"] = Image.open(self.ip_adapter_image).convert("RGB")
-            img = self.pipe(**kwargs).images[0]
+            kwargs = dict(num_inference_steps=gen.steps, guidance_scale=gen.guidance,
+                          width=gen.width, height=gen.height, generator=g, **pk, **ipk)
+            try:
+                img = self.pipe(**kwargs).images[0]
+            except Exception as exc:  # noqa: BLE001 - hai đường lùi trước khi coi là lỗi hàng
+                if isinstance(ipk.get("ip_adapter_image"), list):
+                    # Nhiều ảnh IP-Adapter không được pipeline này nhận -> lùi về ảnh đầu, thử lại.
+                    self.notes.append(f"nhiều ảnh IP-Adapter bị từ chối ({type(exc).__name__}: {str(exc)[:60]}) -> dùng 1 ảnh")
+                    ipk = {"ip_adapter_image": ipk["ip_adapter_image"][0][0]}
+                elif "prompt_embeds" in pk:
+                    # Embedding compel bị pipeline từ chối (device/dtype/độ dài) -> prompt thô.
+                    self.notes.append(f"prompt_embeds bị từ chối ({type(exc).__name__}: {str(exc)[:60]}) -> prompt thô, có thể bị cắt")
+                    pk = self._raw_prompt_kwargs(gen)
+                else:
+                    raise
+                if self.torch.cuda.is_available():
+                    self.torch.cuda.empty_cache()
+                kwargs = dict(num_inference_steps=gen.steps, guidance_scale=gen.guidance, width=gen.width, height=gen.height,
+                              generator=self.torch.Generator(device="cpu").manual_seed(seed), **pk, **ipk)
+                img = self.pipe(**kwargs).images[0]
             path = out_dir / f"{gen.prompt_id}_{self.model_key}_c{i}.png"
             img.save(path)
-            cands.append(Candidate(str(path), seed, model_id=self.model_key))
+            cand = Candidate(str(path), seed, model_id=self.model_key)
+            if self.hires is not None and getattr(self.hires, "enabled", False) and not getattr(self, "_hires_failed", False):
+                hires_pipe, hr_path = self._hires(img, path, seed, pk, ipk, hires_pipe)
+                if hr_path is not None:
+                    cand.base_path = str(path)
+                    cand.path = str(hr_path)
+            cands.append(cand)
         if self.torch.cuda.is_available():
             self.torch.cuda.empty_cache()
         return GenOutput(gen.prompt_id, gen.iteration, cands, chosen=0, oracle=None)
+
+    def _hires(self, img, path: Path, seed: int, pk: dict, ipk: dict, hires_pipe):
+        """Phóng to + img2img strength thấp. Trả (pipe img2img để dùng lại, đường dẫn ảnh hires hoặc None)."""
+        from PIL import Image
+
+        h = self.hires
+        try:
+            if hires_pipe is None:
+                from ..models.loader import img2img_from
+
+                hires_pipe = img2img_from(self.pipe)
+            W = max(8, int(img.width * h.scale) // 8 * 8)
+            H = max(8, int(img.height * h.scale) // 8 * 8)
+            up = img.resize((W, H), Image.LANCZOS)
+            g = self.torch.Generator(device="cpu").manual_seed(seed)
+            out = hires_pipe(image=up, strength=h.strength, num_inference_steps=h.steps, generator=g, **pk, **ipk).images[0]
+            hr_path = path.with_name(path.stem + "_hr.png")
+            out.save(hr_path)
+            if not any(x.startswith("hires") for x in self.notes):
+                self.notes.append(f"hires fix x{h.scale:g} strength {h.strength:g} -> {W}px")
+            return hires_pipe, hr_path
+        except Exception as exc:  # noqa: BLE001 - OOM ở bước phụ không được làm mất ảnh gốc
+            self._hires_failed = True  # một lần OOM là đủ, các ứng viên sau không thử lại (tiết kiệm thời gian)
+            msg = f"hires bỏ qua ({type(exc).__name__}: {str(exc)[:80]}), giữ ảnh gốc cho các ứng viên còn lại"
+            if msg not in self.notes:
+                self.notes.append(msg)
+            if self.torch.cuda.is_available():
+                self.torch.cuda.empty_cache()
+            return hires_pipe, None
 
 
 # =============================================================== stub
@@ -367,9 +512,12 @@ class StubGenerator:
             else:
                 oracle[se.entity_id] = "<không vẽ>"
         tag = getattr(self, "model_key", None)
-        path = out_dir / (f"{gen.prompt_id}_{tag}_c0.png" if tag else f"{gen.prompt_id}_iter{gen.iteration}_c0.png")
-        _draw_card(path, gen, spec, oracle, strengths)
-        return GenOutput(gen.prompt_id, gen.iteration, [Candidate(str(path), gen.seed, model_id=tag)], 0, oracle)
+        cands = []
+        for i in range(max(1, gen.n_candidates)):  # stub tôn trọng n_candidates để test best-of-N/cache đĩa
+            path = out_dir / (f"{gen.prompt_id}_{tag}_c{i}.png" if tag else f"{gen.prompt_id}_iter{gen.iteration}_c{i}.png")
+            _draw_card(path, gen, spec, oracle, strengths)
+            cands.append(Candidate(str(path), gen.seed + 1000 * gen.iteration + i, model_id=tag))
+        return GenOutput(gen.prompt_id, gen.iteration, cands, 0, oracle)
 
 
 def _font(size, bold=False):

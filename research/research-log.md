@@ -80,3 +80,17 @@
   số phiên bản logic (đổi code → bước chạy lại, không cần xoá cache tay).
 - Kế tiếp: chạy lại p001 (so cùng seed: có/không negative must_not → H9), rồi p050, p012, p031.
 
+## 2026-09-12 — v1.3: tối ưu ảnh cuối trên T4 (chưa chạy GPU)
+- Người dùng hỏi "tối ưu nhất có thể trên Kaggle để ảnh cuối đẹp và chuẩn, chưa xét agentic". Quyết định theo thứ tự hiệu quả
+  trên chi phí: (1) best-of-N + bộ chấm thẩm mỹ, (2) scheduler/guidance/compel, (3) checkpoint tốt hơn, (4) hires fix,
+  (5) IP-Adapter Plus nhiều ảnh + sweep LoRA scale. Mỗi thứ là một cờ hoặc một hàng riêng để so cùng seed (H10–H12).
+- Thêm PickScore v1 (CLIP-H tinh chỉnh theo sở thích người) làm cột "đẹp", chuẩn hoá min-max trong lần chạy; nó đo "thích",
+  không đo đúng văn hoá, nên đứng cạnh CLIP attr chứ không thay.
+- Phát hiện lỗi cũ khi viết test: `multigen.json` bị ghi đè sau mỗi hàng rồi đọc lại cho hàng kế → chỉ hàng đầu tiên được dùng
+  lại ảnh trên đĩa; các hàng sau sinh lại dù GenSpec không đổi (log v1.2.1 xác nhận: chỉ turbo "ảnh từ lần trước"). Sửa: đọc
+  một lần ở đầu run(). Đây là lý do lần chạy v1.2.1 tốn 6 phút thay vì ~3.
+- Rủi ro chưa kiểm trên GPU và đường lùi tương ứng: compel + cpu offload (embeds bị từ chối → prompt thô); nhiều ảnh cho một
+  IP-Adapter (bị từ chối → một ảnh); img2img 1536px OOM (→ ảnh gốc, tắt hires cho hàng đó); SD3.5 fp16 trên T4 (experimental).
+- Kế tiếp: chạy p001 với config t4x2 v1.3; so grid cùng seed với v1.2.1 (H9 negative must_not, H11 hires, H12 RealVisXL);
+  rồi p031, p050, p012.
+

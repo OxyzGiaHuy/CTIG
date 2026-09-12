@@ -22,6 +22,26 @@ python -m ctig.cli batch --config configs/kaggle_t4x2.yaml --run-name v1-full
 
 Dùng `configs/kaggle_t4.yaml` nếu chỉ có một GPU.
 
+## v1.3: tối ưu ảnh cuối, thời gian và VRAM
+
+Config `configs/kaggle_walkthrough_t4x2.yaml` mặc định 7 hàng × 4 ứng viên, hires fix bật: **~35–45 phút một prompt** sau khi
+model đã tải (lần đầu tải thêm RealVisXL 7 GB, PickScore 3,9 GB, IP-Adapter Plus 1 GB + ViT-H 2,5 GB). Muốn nhanh: bỏ
+`realvis_aodai`/`playground25` khỏi `models:`, hoặc `hires.enabled: false` (−40%), hoặc `n_candidates: 2`.
+
+| việc | VRAM đỉnh ước lượng (GPU sinh ảnh) | ghi chú |
+|---|---|---|
+| SDXL 1024, 30 bước, không offload | ~7 GB | như v1.2 |
+| + hires ×1.5 (img2img 1536px) | ~10–12 GB | OOM → code giữ ảnh gốc và tắt hires cho các ứng viên còn lại của hàng đó |
+| `sdxl_refplus` (IP-Adapter Plus + ViT-H) | ~9–10 GB, +hires có thể chạm 14 GB | nếu OOM: `hires.enabled: false` hoặc `ref_images: 1` |
+| PickScore | ~2 GB trên GPU 0 chỉ lúc chấm | offload CPU, không đụng GPU sinh ảnh |
+
+Trên 1×T4 dùng `configs/kaggle_walkthrough.yaml`: offload, 3 ứng viên, hires tắt, `ref_images: 2`.
+
+Sweep LoRA scale: thêm vào `models:` các khoá `sdxl_aodai@0.6, sdxl_aodai@0.8, sdxl_aodai@1.0` (mỗi khoá một hàng, cùng seed).
+
+`sd35_medium` (SD3.5 Medium) là repo gated: vào trang model trên Hugging Face bấm chấp nhận điều khoản, tạo token Read,
+đặt Secret `HF_TOKEN`. T4 không có bf16 nên chạy fp16; ra ảnh nhiễu/đen là do giới hạn số, không phải lỗi code.
+
 ## Ước lượng thời gian và dung lượng
 
 | | 1×T4 (offload) | 2×T4 |
@@ -57,6 +77,10 @@ ra `bundle.html` (mở bằng trình duyệt, ảnh đã nhúng, ~1–5 MB cho 5
 | NaN / rác từ Qwen fp16 | T4 không có bf16 gốc | `--set llm.model=Qwen/Qwen2-VL-2B-Instruct` |
 | `sdxl_aodai: LoraError ... peft:` | thiếu gói `peft` (đã thêm vào requirements) | `pip install -U peft` rồi chạy lại; code tự lùi về `fuse_lora` nếu peft vẫn lỗi |
 | `LoraError ... Found an incompatible version of torchao. Found version 0.10.0` | ảnh Kaggle có sẵn torchao 0.10, transformers mới đòi ≥ 0.16 nên peft import chết | `pip uninstall -y torchao` (cell cài đặt đã làm) rồi restart kernel |
+| hàng ghi `prompt N token > 75, pipeline sẽ cắt` hoặc `thiếu gói compel` | prompt dài hơn 77 token CLIP | `pip install compel` (đã trong requirements) và `multigen.long_prompt: true` |
+| hàng ghi `hires bỏ qua (OutOfMemoryError ...)` | img2img 1536px không vừa VRAM | ảnh gốc vẫn có; `hires.scale: 1.25` hoặc tắt hires |
+| `[aesthetic] không nạp được PickScore` | mạng / VRAM | các cột khác vẫn có; `multigen.aesthetic.enabled: false` để tắt hẳn |
+| `sdxl_refplus: bỏ qua: spec không có ảnh tham chiếu` | không ảnh Commons nào đạt `ref_image_min_clip` 0.75 | hạ ngưỡng xuống 0.7 hoặc chấp nhận hàng bị bỏ |
 | `playground25` treo/OOM sau cảnh báo `upcast_vae` | model ép VAE fp32 khi giải mã 1024px | registry đã dùng VAE fp16-fix cho hàng này; hoặc giảm `multigen.max_side` xuống 768 |
 | `sdxl_ref: bỏ qua: spec không có ảnh tham chiếu` | không ảnh Commons nào đạt CLIP ≥ 0.75 cho thực thể vật thể | hạ `retrieval.ref_image_min_clip` hoặc bỏ hàng này |
 | `[judge] không tải được BLIP-2 ITM` | transformers thiếu `Blip2ForImageTextRetrieval` hoặc hết VRAM | pipeline tự lùi về CLIP; hoặc `--set judge.backend=clip`; nâng transformers |

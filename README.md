@@ -34,6 +34,24 @@ Prompt ─► [1] keywords ─► [2] search: cột keywords ‖ cột prompt g�
   hoặc `--ids p001,p050` (vòng ngoài theo model, mỗi model nạp một lần).
 * Key: xem [docs/KAGGLE.md](docs/KAGGLE.md). Không có key nào thì mọi thứ trừ hàng LoRA vẫn chạy.
 
+## v1.3: ảnh cuối đẹp và chuẩn nhất có thể trên T4 (chưa xét agent)
+
+Từ p001 v1.2.1: phương sai theo seed lớn hơn phương sai giữa model, và lỗi thật của áo dài là "qipao hoá" (váy liền không quần)
+mà chỉ điểm mức thuộc tính bắt được. v1.3 tối ưu ảnh cuối theo thứ tự hiệu quả trên chi phí:
+
+| việc | ở đâu | mặc định (2×T4) |
+|---|---|---|
+| best-of-N: 4 ứng viên/model, xếp theo điểm tổng | `multigen.n_candidates` | 4 |
+| thẩm mỹ theo sở thích người: PickScore v1, chuẩn hoá trong lần chạy, vào điểm tổng | `ctig/stages/aesthetic.py`, `multigen.aesthetic` | bật, offload CPU |
+| scheduler DPM++ 2M Karras cho SDXL/SD1.5 | `multigen.scheduler`, `models/loader.py::set_scheduler` | `dpmpp_2m_karras` |
+| prompt > 75 token: nối embedding bằng `compel` thay vì bị cắt lặng lẽ; số token hiện trên grid | `multigen.long_prompt` | bật |
+| hires fix: phóng ×1.5 rồi img2img strength 0.3 (OOM → giữ ảnh gốc) | `multigen.hires` | bật (2×T4), tắt (1×T4) |
+| checkpoint tốt hơn: `realvis_xl` (RealVisXL V4), `realvis_aodai` (+LoRA áo dài), `sdxl_refplus` (IP-Adapter Plus, ≤3 ảnh tham chiếu); `sd35_medium` experimental (gated) | `models/registry.py` | trong `models:` |
+| sweep LoRA scale bằng hậu tố: `sdxl_aodai@0.6`, `sdxl_aodai@1.0` | `models:` | tay |
+
+Mọi đường mới đều có đường lùi để một lỗi không làm hỏng hàng: thiếu compel → prompt thô + ghi chú; hires OOM → ảnh gốc;
+nhiều ảnh IP-Adapter bị từ chối → một ảnh; PickScore không nạp được → bỏ cột "đẹp". Ghi chú hiện ngay dưới tên model trên grid.
+
 ## Chạy nhanh
 
 **Trên Kaggle** (khuyến nghị, xem [docs/KAGGLE.md](docs/KAGGLE.md)): mở `notebooks/kaggle_run.ipynb`, bật GPU T4 và Internet, chạy lần lượt.

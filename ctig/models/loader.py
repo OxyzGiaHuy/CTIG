@@ -13,7 +13,36 @@ from pathlib import Path
 from .registry import ModelSpec
 
 
-def load_pipeline(spec: ModelSpec, device: str = "cuda:0", cpu_offload: bool = True, log=print):
+SCHEDULERS = {
+    # DPM++ 2M Karras: mặc định của phần lớn checkpoint SDXL thực ảnh; hội tụ ở 25-35 bước.
+    "dpmpp_2m_karras": ("DPMSolverMultistepScheduler", {"use_karras_sigmas": True, "algorithm_type": "dpmsolver++"}),
+    "dpmpp_2m": ("DPMSolverMultistepScheduler", {"algorithm_type": "dpmsolver++"}),
+    "euler": ("EulerDiscreteScheduler", {}),
+    "euler_a": ("EulerAncestralDiscreteScheduler", {}),
+    "unipc": ("UniPCMultistepScheduler", {}),
+}
+
+
+def set_scheduler(pipe, name: str | None, log=print) -> str | None:
+    """Đổi scheduler theo tên trong SCHEDULERS. None/"keep" = giữ của repo. Lỗi thì giữ nguyên và báo."""
+    if not name or name == "keep":
+        return None
+    if name not in SCHEDULERS:
+        log(f"[loader] scheduler '{name}' không biết, giữ {type(pipe.scheduler).__name__}")
+        return None
+    cls_name, kwargs = SCHEDULERS[name]
+    try:
+        import diffusers
+
+        cls = getattr(diffusers, cls_name)
+        pipe.scheduler = cls.from_config(pipe.scheduler.config, **kwargs)
+        return name
+    except Exception as exc:  # noqa: BLE001
+        log(f"[loader] không đổi được scheduler sang {name}: {type(exc).__name__}: {exc}")
+        return None
+
+
+def load_pipeline(spec: ModelSpec, device: str = "cuda:0", cpu_offload: bool = True, log=print, scheduler: str | None = None):
     import torch
     from diffusers import AutoPipelineForText2Image
 
@@ -46,14 +75,41 @@ def load_pipeline(spec: ModelSpec, device: str = "cuda:0", cpu_offload: bool = T
             getattr(pipe, fn)()
         except Exception:  # noqa: BLE001
             pass
+    # Scheduler: model ghi "keep" thì giữ; None thì theo config multigen.scheduler.
+    want = spec.scheduler if spec.scheduler is not None else scheduler
+    if spec.family in ("sdxl", "sd15") and want and want != "keep":
+        set_scheduler(pipe, want, log=log)
     return pipe
+
+
+def img2img_from(pipe):
+    """Pipeline img2img dùng CHUNG trọng số với pipe text2img (không tốn thêm VRAM) cho hires fix."""
+    from diffusers import AutoPipelineForImage2Image
+
+    p2 = AutoPipelineForImage2Image.from_pipe(pipe)
+    p2.set_progress_bar_config(disable=True)
+    return p2
+
+
+def load_ip_adapter(pipe, kind: str, scale: float, log=print) -> str:
+    """Gắn IP-Adapter SDXL. kind="base": ip-adapter_sdxl.bin (encoder ViT-bigG đi kèm sdxl_models);
+    kind="plus": ip-adapter-plus_sdxl_vit-h (encoder ViT-H nằm ở models/image_encoder, PHẢI chỉ rõ)."""
+    if kind == "plus":
+        pipe.load_ip_adapter("h94/IP-Adapter", subfolder="sdxl_models", weight_name="ip-adapter-plus_sdxl_vit-h.safetensors",
+                             image_encoder_folder="models/image_encoder")
+        name = "IP-Adapter Plus (ViT-H)"
+    else:
+        pipe.load_ip_adapter("h94/IP-Adapter", subfolder="sdxl_models", weight_name="ip-adapter_sdxl.bin")
+        name = "IP-Adapter (ViT-bigG)"
+    pipe.set_ip_adapter_scale(scale)
+    return f"{name} scale {scale}"
 
 
 class LoraError(RuntimeError):
     pass
 
 
-def attach_lora(pipe, lora: dict, lora_dir: Path | str, log=print) -> str:
+def attach_lora(pipe, lora: dict, lora_dir: Path | str, log=print, scale: float | None = None) -> str:
     """Gắn LoRA theo mô tả trong ModelSpec.lora. Trả về mô tả cách đã gắn; raise LoraError kèm lý do gốc.
 
     Lần chạy v1.2 đầu: file Civitai tải đúng (80 MB, 2166 tensor kohya) nhưng gắn thất bại và thông
@@ -61,7 +117,7 @@ def attach_lora(pipe, lora: dict, lora_dir: Path | str, log=print) -> str:
     load_lora_weights không adapter_name rồi fuse_lora(lora_scale), (3) lỗi gì cũng ném ra nguyên văn.
     """
     src = lora.get("source")
-    scale = float(lora.get("scale", 0.8))
+    scale = float(lora.get("scale", 0.8)) if scale is None else float(scale)
     if src == "civitai":
         from .civitai import download_civitai
 

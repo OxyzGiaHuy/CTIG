@@ -207,6 +207,12 @@ class Candidate:
     attr_contrast: float | None = None
     #: BLIP-2 ITM trung bình trên các câu must_have_en (độ đầy đủ thuộc tính).
     itm_attrs: float | None = None
+    #: PickScore (CLIP-H tinh chỉnh theo sở thích người) thô, ~19-23; so được giữa ảnh cùng prompt (v1.3).
+    pick_score: float | None = None
+    #: PickScore chuẩn hoá min-max trong cùng một lần multigen (0..1), để vào điểm tổng.
+    aesthetic: float | None = None
+    #: Ảnh gốc trước hires fix (path trỏ tới ảnh cuối).
+    base_path: str | None = None
 
 
 @dataclass
@@ -239,6 +245,10 @@ class ModelRun:
     error: str | None = None
     #: "computed" | "disk" - ảnh lấy lại từ lần chạy trước khi GenSpec và seed không đổi.
     source: str = "computed"
+    #: Số token CLIP của prompt cuối (giới hạn 77; >75 thì cần compel, không thì bị cắt lặng lẽ).
+    prompt_tokens: int | None = None
+    #: Ghi chú không phải lỗi: "prompt dài, dùng compel", "hires bỏ qua vì OOM", "LoRA scale 0.6"...
+    notes: list[str] = field(default_factory=list)
 
 
 @dataclass

@@ -38,7 +38,7 @@ from .schema import (
 #: Phiên bản LOGIC của từng bước. Tăng số khi đổi code làm đầu ra bước khác đi dù đầu vào không đổi,
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
-STEP_LOGIC = {"analysis": 1, "compare": 1, "retrieve": 2, "spec": 1, "genspec": 2, "multigen": 1, "review": 1}
+STEP_LOGIC = {"analysis": 1, "compare": 1, "retrieve": 2, "spec": 1, "genspec": 2, "multigen": 2, "review": 1}
 
 
 def _h(obj: Any) -> str:
@@ -65,6 +65,7 @@ class Session:
     _agent: Any = None
     _clip: Any = None
     _itm: Any = None
+    _aesthetic: Any = None
     _web: Any = None
 
     def __post_init__(self):
@@ -148,6 +149,37 @@ class Session:
                 self.log(f"[session] không nạp được BLIP-2 ITM ({type(exc).__name__}); bỏ điểm ITM")
                 self._itm = False
         return self._itm or None
+
+    @property
+    def aesthetic(self):
+        """PickScore (v1.3), nạp lười, offload CPU. None nếu tắt hoặc không nạp được."""
+        if self._aesthetic is None:
+            if self.cfg.t2i.backend == "stub" or not self.cfg.multigen.aesthetic.enabled:
+                self._aesthetic = False
+            else:
+                from .stages.aesthetic import get_scorer
+
+                self._aesthetic = get_scorer(self.cfg.multigen.aesthetic, log=self.log) or False
+        return self._aesthetic or None
+
+    def reference_images(self, k: int | None = None) -> list[str]:
+        """Ảnh tham chiếu cho IP-Adapter: ảnh vật thể đã tải, CLIP >= ngưỡng, tốt nhất trước (v1.3: nhiều ảnh)."""
+        s, _ = self.retrieve()
+        sp, _ = self.spec()
+        obj_ids = {se.entity_id for se in sp.entities if se.kind == "object"}
+        thr = self.cfg.retrieval.ref_image_min_clip
+        items = [it for it in s.items if it.kind == "image" and it.local_path and it.entity_id in obj_ids
+                 and it.clip_match is not None and it.clip_match >= thr]
+        items.sort(key=lambda it: (-int(it.is_reference), -(it.clip_match or 0)))
+        out: list[str] = []
+        for it in items:
+            if it.local_path not in out and Path(it.local_path).exists():
+                out.append(it.local_path)
+        for se in sp.entities:  # ảnh tham chiếu của spec luôn đứng đầu nếu có
+            if se.reference_image and se.reference_image in out:
+                out.remove(se.reference_image); out.insert(0, se.reference_image)
+        k = k or self.cfg.multigen.ref_images
+        return out[:max(1, k)]
 
     @property
     def web(self):
@@ -250,18 +282,29 @@ class Session:
         sp, _ = self.spec()
         a, _ = self.analysis()
         c = self.cfg
-        key = _h({"gen": st_mg.genspec_hash(gen), "models": models, "n": c.multigen.n_candidates, "side": c.multigen.max_side,
+        key = _h({"gen": st_mg.genspec_hash(gen, st_mg.render_settings(c.multigen)), "models": models,
+                  "n": c.multigen.n_candidates, "side": c.multigen.max_side, "aes": c.multigen.aesthetic.enabled,
                   "ov": c.multigen.overrides})
         lora_dir = Path(c.multigen.lora_dir) if c.multigen.lora_dir else self.cache_dir / "lora"
 
         def compute():
+            refs = self.reference_images() if any(get_model(m).ip_adapter for m in models if _known(m)) else []
             return st_mg.run(gen, sp, self.kb, models, c.multigen, self.out_dir, clip=self.clip, itm=self.itm,
+                             ref_images=refs, aesthetic=self.aesthetic,
                              prompt_en=a.prompt_en or self.prompt.text_en, log=self.log, on_model_done=on_model_done,
                              lora_dir=lora_dir)
 
         def reusable(v: MultiGenResult) -> bool:
             # hàng "bỏ qua: ..." (only_if_entity) là chủ ý, rẻ, không cần chạy lại; hàng lỗi thật thì phải thử lại
             return bool(v.runs) and all(r.output is not None or (r.error or "").startswith("bỏ qua") for r in v.runs)
+
+        from .models.registry import get as get_model
+
+        def _known(m: str) -> bool:
+            try:
+                get_model(m); return True
+            except KeyError:
+                return False
 
         val, src = self._memo("multigen", key, MultiGenResult, compute, force, reusable=reusable)
         if src != "computed" and on_model_done:

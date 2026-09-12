@@ -223,6 +223,101 @@ def test_llm_cache(tmp):
     lc.configure(None)
 
 
+def test_v13_offline(tmp):
+    """v1.3: hậu tố @scale, hash render, chuẩn hoá thẩm mỹ, điểm tổng có 'đẹp', prompt dài không cần torch."""
+    from ctig.models.registry import REGISTRY, get, parse_key
+    from ctig.stages import multigen as mg
+    from ctig.stages.aesthetic import normalize
+    from ctig.schema import Candidate, GenSpec, ModelRun, MultiGenResult, from_dict, to_dict
+    from ctig.stages.generation import build_initial_spec
+    from ctig.llm.rule_agent import RuleAgent
+    from ctig.stages import analysis as st_a, spec as st_s
+    from ctig.stages.retrieval import LocalRetriever
+
+    check("parse_key sdxl_aodai@0.6", parse_key("sdxl_aodai@0.6") == ("sdxl_aodai", 0.6) and get("sdxl_aodai@0.6").key == "sdxl_aodai")
+    try:
+        parse_key("sdxl_aodai@abc"); check("parse_key hậu tố sai -> KeyError", False)
+    except KeyError:
+        check("parse_key hậu tố sai -> KeyError", True)
+    for k in ("realvis_xl", "realvis_aodai", "sdxl_refplus", "sd35_medium"):
+        check(f"registry có {k}", k in REGISTRY)
+    check("sdxl_refplus dùng IP-Adapter Plus", get("sdxl_refplus").ip_adapter and get("sdxl_refplus").ip_adapter_kind == "plus")
+    check("turbo/sd3 không hires, scheduler keep", not get("sdxl_turbo").hires_ok and get("sd35_medium").scheduler == "keep")
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    g = GenSpec("t", prompt_terms=["a"], negative_terms=[], seed=1, steps=25, guidance=6.5, width=1024, height=1024, n_candidates=2)
+    h0 = mg.genspec_hash(g, mg.render_settings(cfg.multigen))
+    cfg.multigen.hires.enabled = True
+    h1 = mg.genspec_hash(g, mg.render_settings(cfg.multigen))
+    cfg.multigen.hires.enabled = False
+    cfg.multigen.scheduler = "euler"
+    h2 = mg.genspec_hash(g, mg.render_settings(cfg.multigen))
+    check("bật hires / đổi scheduler -> hash ảnh đổi", len({h0, h1, h2}) == 3)
+    check("không render -> hash cũ giữ nguyên", mg.genspec_hash(g) == mg.genspec_hash(g, None))
+
+    check("normalize min-max", normalize([20.0, 22.0, None, 21.0]) == [0.0, 1.0, None, 0.5] and normalize([5.0, 5.0]) == [0.5, 0.5])
+
+    class FakeScorer:
+        calls = 0
+        def _on_gpu(self): pass
+        def _off_gpu(self): pass
+        def score(self, prompt, paths):
+            FakeScorer.calls += 1
+            return [20.0 + i for i in range(len(paths))]
+
+    kb = KnowledgeBase.load(cfg.kb_path)
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p001")
+    ag = RuleAgent()
+    a = st_a.run(ag, p, kb, 6)
+    s = LocalRetriever(cfg.retrieval, None, tmp / "_cache").search(a, kb)
+    sp = st_s.run(ag, p, a, s, kb, 4, 0.3)
+    gen = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, cfg.seed)
+    cfg.multigen.n_candidates = 2
+    res = mg.run(gen, sp, kb, ["stub", "stub@0.6"], cfg.multigen, tmp / "mg13" / p.id, clip=FakeClip(), itm=None,
+                 prompt_en=p.text_en, log=lambda *a: None, aesthetic=FakeScorer())
+    check("hàng stub@0.6 chạy được, model_key giữ hậu tố", [r.model_key for r in res.runs] == ["stub", "stub@0.6"] and all(r.output for r in res.runs))
+    check("thư mục hàng sweep không chứa '@'", all("@" not in c.path for r in res.runs for c in r.output.candidates))
+    cands = [c for r in res.runs for c in r.output.candidates]
+    check("PickScore thô và chuẩn hoá cho mọi ứng viên", all(c.pick_score is not None and c.aesthetic is not None for c in cands)
+          and min(c.aesthetic for c in cands) == 0.0 and max(c.aesthetic for c in cands) == 1.0)
+    c0 = Candidate("x", 1, clip_fidelity=1.0, clip_probs={"e": {"a": 1.0}}, attr_contrast=0.5, aesthetic=0.0)
+    c1 = Candidate("y", 2, clip_fidelity=1.0, clip_probs={"e": {"a": 1.0}}, attr_contrast=0.5, aesthetic=1.0)
+    check("điểm tổng có 'đẹp'", mg.combined_score(c1) > mg.combined_score(c0))
+    back = from_dict(MultiGenResult, json.loads(json.dumps(to_dict(res))))
+    check("multigen.json v1.3 load lại được (notes, pick_score, base_path)", back.runs[0].output.candidates[0].pick_score is not None
+          and isinstance(back.runs[0].notes, list))
+    # chạy lại: ảnh từ đĩa, PickScore KHÔNG gọi lại (đã có trong multigen.json)
+    n = FakeScorer.calls
+    res2 = mg.run(gen, sp, kb, ["stub", "stub@0.6"], cfg.multigen, tmp / "mg13" / p.id, clip=FakeClip(), itm=None,
+                  prompt_en=p.text_en, log=lambda *a: None, aesthetic=FakeScorer())
+    check("chạy lại: ảnh từ đĩa, không chấm PickScore lại", all(r.source == "disk" for r in res2.runs) and FakeScorer.calls == n)
+
+    # Prompt dài: đếm token với tokenizer giả, không có compel -> ghi chú "bị cắt"; không cần torch
+    import sys, types
+    from ctig.stages import generation as gmod
+    fake_torch = types.ModuleType("torch")
+    saved = sys.modules.get("torch")
+    sys.modules["torch"] = fake_torch
+    try:
+        class Tok:
+            def __call__(self, text, truncation=False):
+                return {"input_ids": text.split()}
+        pipe = types.SimpleNamespace(tokenizer=Tok())
+        dg = gmod.DiffusersGenerator(pipe, "m", family="sdxl", long_prompt=True)
+        long_gen = GenSpec("t", prompt_terms=[f"w{i}" for i in range(90)], negative_terms=["n"], seed=1, steps=1, guidance=1, width=8, height=8, n_candidates=1)
+        kw = dg._prompt_kwargs(long_gen)
+        check("prompt 90 token: đếm được, thiếu compel -> prompt thô + ghi chú", dg.prompt_tokens == 90 and "prompt" in kw
+              and any("compel" in n for n in dg.notes), str(dg.notes))
+        short = GenSpec("t", prompt_terms=[f"w{i}" for i in range(10)], negative_terms=[], seed=1, steps=1, guidance=1, width=8, height=8, n_candidates=1)
+        dg2 = gmod.DiffusersGenerator(pipe, "m", family="sdxl", long_prompt=True)
+        check("prompt ngắn: không ghi chú", dg2._prompt_kwargs(short)["prompt"] and not dg2.notes)
+    finally:
+        if saved is not None:
+            sys.modules["torch"] = saved
+        else:
+            sys.modules.pop("torch", None)
+
+
 if __name__ == "__main__":
     import shutil
     tmp = Path("runs/_test/v12")
@@ -233,5 +328,6 @@ if __name__ == "__main__":
     print("\ntest_viz"); test_viz(res, sp, a, s, gen)
     print("\ntest_session_memo"); test_session_memo(tmp)
     print("\ntest_llm_cache"); test_llm_cache(tmp)
+    test_v13_offline(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

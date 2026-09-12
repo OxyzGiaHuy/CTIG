@@ -38,6 +38,12 @@ class ModelSpec:
     #: Dùng ảnh tham chiếu (từ Search, đã qua CLIP) qua IP-Adapter. Chỉ family sdxl.
     ip_adapter: bool = False
     ip_adapter_scale: float = 0.3
+    #: "base" = ip-adapter_sdxl (1 ảnh, encoder ViT-bigG) | "plus" = ip-adapter-plus_sdxl_vit-h (nhiều ảnh, chi tiết hơn).
+    ip_adapter_kind: str = "base"
+    #: Ghi đè scheduler của multigen.scheduler cho riêng model này (None = theo config; "keep" = giữ của repo).
+    scheduler: str | None = None
+    #: Có chạy hires fix (img2img phóng to) được không. Turbo/SD3 không.
+    hires_ok: bool = True
     est_vram_gb: float = 0.0
     experimental: bool = False
     notes: str = ""
@@ -50,7 +56,7 @@ class ModelSpec:
 REGISTRY: dict[str, ModelSpec] = {
     "sdxl_turbo": ModelSpec(
         "sdxl_turbo", "stabilityai/sdxl-turbo", "sdxl_turbo", 512, 512, steps=4, guidance=0.0,
-        negative_ok=False, vae=SDXL_VAE_FIX, est_vram_gb=5.5,
+        negative_ok=False, vae=SDXL_VAE_FIX, est_vram_gb=5.5, scheduler="keep", hires_ok=False,
         notes="Chưng cất từ SDXL; 1-4 bước, guidance 0 nên KHÔNG dùng negative prompt. Nhanh nhất."),
     "dreamshaper8": ModelSpec(
         "dreamshaper8", "Lykon/dreamshaper-8", "sd15", 512, 512, steps=30, guidance=7.0,
@@ -71,26 +77,60 @@ REGISTRY: dict[str, ModelSpec] = {
         "sdxl_ref", "stabilityai/stable-diffusion-xl-base-1.0", "sdxl", 1024, 1024, steps=30, guidance=6.5,
         vae=SDXL_VAE_FIX, est_vram_gb=8.0, ip_adapter=True, ip_adapter_scale=0.3,
         notes="SDXL + IP-Adapter với ảnh tham chiếu Commons đã qua CLIP (kiểm H4). Bỏ qua nếu spec không có ảnh tham chiếu."),
+    "realvis_xl": ModelSpec(
+        "realvis_xl", "SG161222/RealVisXL_V4.0", "sdxl", 1024, 1024, steps=30, guidance=5.0,
+        vae=SDXL_VAE_FIX, est_vram_gb=7.0,
+        notes="SDXL fine-tune ảnh thực (người, vải, ánh sáng) - ứng viên thay sdxl_base làm baseline chất lượng (v1.3)."),
+    "realvis_aodai": ModelSpec(
+        "realvis_aodai", "SG161222/RealVisXL_V4.0", "sdxl", 1024, 1024, steps=30, guidance=5.0,
+        vae=SDXL_VAE_FIX, est_vram_gb=7.0,
+        lora={"source": "civitai", "version_id": 590793, "file": "jay_ao_dai_xl.safetensors",
+              "trigger": "aodaixl", "scale": 0.8, "license": "CreativeML Open RAIL++-M, tác giả ghi 'no commercial use'"},
+        only_if_entity=["ao_dai"],
+        notes="RealVisXL + LoRA áo dài (cùng gốc SDXL nên LoRA dùng được). Đối chứng sdxl_aodai trên nền tốt hơn."),
+    "sdxl_refplus": ModelSpec(
+        "sdxl_refplus", "SG161222/RealVisXL_V4.0", "sdxl", 1024, 1024, steps=30, guidance=5.0,
+        vae=SDXL_VAE_FIX, est_vram_gb=9.0, ip_adapter=True, ip_adapter_kind="plus", ip_adapter_scale=0.5,
+        notes="RealVisXL + IP-Adapter Plus (ViT-H) với tối đa multigen.ref_images ảnh Commons đã qua CLIP, scale 0.5 (v1.3, H4)."),
     "playground25": ModelSpec(
         "playground25", "playgroundai/playground-v2.5-1024px-aesthetic", "playground", 1024, 1024, steps=30, guidance=3.0,
-        vae="madebyollin/sdxl-vae-fp16-fix", est_vram_gb=7.0,
+        vae="madebyollin/sdxl-vae-fp16-fix", est_vram_gb=7.0, scheduler="keep",
         notes="Kiến trúc SDXL, huấn luyện lại theo thẩm mỹ; scheduler EDM có sẵn trong repo, guidance thấp (3). "
               "VAE fp16-fix để khỏi upcast fp32 khi giải mã 1024px trên T4 (cùng không gian latent SDXL)."),
+    "sd35_medium": ModelSpec(
+        "sd35_medium", "stabilityai/stable-diffusion-3.5-medium", "sd3", 1024, 1024, steps=28, guidance=4.5,
+        variant=None, load_kwargs={"text_encoder_3": None, "tokenizer_3": None}, est_vram_gb=9.0, experimental=True,
+        scheduler="keep", hires_ok=False,
+        notes="SD3.5 Medium (2,5B MMDiT), bám prompt tốt hơn SDXL. Repo gated: cần HF_TOKEN + chấp nhận điều khoản. "
+              "Bỏ T5 để vừa T4; T4 không có bf16 nên chạy fp16 - có thể ra ảnh lỗi số, vì vậy experimental."),
     "sd3_medium": ModelSpec(
         "sd3_medium", "stabilityai/stable-diffusion-3-medium-diffusers", "sd3", 1024, 1024, steps=28, guidance=7.0,
         variant=None, load_kwargs={"text_encoder_3": None, "tokenizer_3": None}, est_vram_gb=8.0, experimental=True,
+        scheduler="keep", hires_ok=False,
         notes="Repo gated: cần HF_TOKEN và chấp nhận điều khoản. Bỏ T5 để vừa T4."),
     "hunyuan_dit": ModelSpec(
         "hunyuan_dit", "Tencent-Hunyuan/HunyuanDiT-v1.2-Diffusers", "hunyuan", 1024, 1024, steps=30, guidance=5.0,
-        variant=None, est_vram_gb=12.0, experimental=True,
+        variant=None, est_vram_gb=12.0, experimental=True, scheduler="keep", hires_ok=False,
         notes="Model Trung Quốc song ngữ; đối chứng 'có kéo ảnh về Trung Quốc không'. Nặng (mT5), chỉ với offload."),
     "stub": ModelSpec(
-        "stub", "-", "stub", 512, 512, steps=1, guidance=0.0, variant=None, est_vram_gb=0.0,
+        "stub", "-", "stub", 512, 512, steps=1, guidance=0.0, variant=None, est_vram_gb=0.0, scheduler="keep", hires_ok=False,
         notes="StubGenerator (thẻ chẩn đoán) cho test offline."),
 }
 
 
+def parse_key(key: str) -> tuple[str, float | None]:
+    """'sdxl_aodai@0.6' -> ('sdxl_aodai', 0.6): sweep LoRA scale bằng cách liệt kê nhiều hàng trong `models:`."""
+    base, _, tail = key.partition("@")
+    if not tail:
+        return base, None
+    try:
+        return base, float(tail)
+    except ValueError as exc:
+        raise KeyError(f"Hậu tố '@{tail}' của '{key}' phải là số (LoRA scale)") from exc
+
+
 def get(key: str) -> ModelSpec:
+    key, _ = parse_key(key)
     if key not in REGISTRY:
         raise KeyError(f"Model '{key}' không có trong registry. Có: {', '.join(REGISTRY)}")
     return REGISTRY[key]

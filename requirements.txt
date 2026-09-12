@@ -11,3 +11,4 @@ qwen-vl-utils>=0.0.8
 sentencepiece
 safetensors
 ddgs>=9.0          # DuckDuckGo search, không cần key
+compel>=2.0         # nối embedding cho prompt > 77 token CLIP (SDXL/SD1.5), v1.3

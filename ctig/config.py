@@ -127,13 +127,51 @@ class ReviewConfig:
 
 
 @dataclass
+class HiresConfig:
+    """Hires fix (v1.3): sinh ở kích cỡ gốc, phóng `scale` lần rồi img2img `strength` thấp cùng prompt.
+
+    Tăng nét vải, hoa văn, mặt. Tốn thêm ~60% thời gian và VRAM đỉnh cao hơn (SDXL 1536px ~10 GB không offload).
+    Chỉ family sdxl/sd15; OOM ở bước này thì giữ ảnh gốc, không làm hỏng hàng.
+    """
+
+    enabled: bool = False
+    scale: float = 1.5
+    strength: float = 0.3
+    steps: int = 20
+
+
+@dataclass
+class AestheticConfig:
+    """Bộ chấm thẩm mỹ theo sở thích người (v1.3): PickScore v1 (CLIP-H tinh chỉnh trên 500k so sánh Pick-a-Pic).
+
+    Nạp lười, để CPU và chỉ lên GPU khi chấm (offload) như BLIP-2. Tải ~3,9 GB lần đầu.
+    """
+
+    enabled: bool = True
+    model: str = "yuvalkirstain/PickScore_v1"
+    processor: str = "laion/CLIP-ViT-H-14-laion2B-s32B-b79K"
+    device: str = "cuda:0"
+    offload: bool = True
+
+
+@dataclass
 class MultiGenConfig:
     """So nhiều model sinh ảnh trong một lần chạy (v1.2). Model nạp tuần tự, giải phóng sau mỗi model."""
 
     enabled: bool = False
     device: str = "cuda:0"
     cpu_offload: bool = True
-    n_candidates: int = 2
+    #: v1.3: 4 thay vì 2. p001 cho thấy phương sai theo seed > phương sai giữa model; best-of-N với điểm
+    #: thuộc tính là cách rẻ nhất để ảnh cuối "chuẩn".
+    n_candidates: int = 4
+    #: Scheduler cho family sdxl/sd15: "dpmpp_2m_karras" | "euler" | None (giữ của repo). Turbo/Playground/SD3 giữ nguyên.
+    scheduler: str | None = "dpmpp_2m_karras"
+    #: Prompt > 75 token CLIP: nối embedding bằng compel thay vì để pipeline cắt lặng lẽ (SDXL/SD1.5).
+    long_prompt: bool = True
+    #: Số ảnh tham chiếu (đã qua CLIP) đưa vào IP-Adapter Plus cho hàng *_refplus.
+    ref_images: int = 3
+    hires: HiresConfig = field(default_factory=HiresConfig)
+    aesthetic: AestheticConfig = field(default_factory=AestheticConfig)
     #: Kẹp cạnh dài của ảnh (SDXL 1024 -> 768 trên 1xT4 để tránh OOM).
     max_side: int = 768
     #: Chấm BLIP-2 ITM cho từng ảnh (dùng judge.blip2_model, offload CPU).

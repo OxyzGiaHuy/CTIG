@@ -229,7 +229,7 @@ def genspec_card(gen: GenSpec, source: str | None = None) -> str:
 
 # ---------------------------------------------------------------- bước 4/5
 def model_grid(res: MultiGenResult, spec: CulturalSpec, side: int = 220, source: str | None = None) -> str:
-    rows = ["<table class='mg'><tr><th>model</th><th colspan='8'>ứng viên (viền xanh = CLIP chọn)</th></tr>"]
+    rows = ["<table class='mg'><tr><th>model</th><th colspan='8'>ứng viên (viền xanh = điểm tổng cao nhất trong hàng)</th></tr>"]
     for r in res.runs:
         meta = (f"<b>{_e(r.model_key)}</b><div class='muted'>{_e(r.repo.split('/')[-1])}</div>"
                 f"<div class='muted'>{r.gen_spec.steps} bước · g{r.gen_spec.guidance:g} · {r.gen_spec.width}px</div>"

@@ -174,6 +174,14 @@ def score_aesthetic(result: MultiGenResult, scorer, prompt_en: str, log=print) -
                 pass
     for c, a in zip(cands, normalize([c.pick_score for c in cands])):
         c.aesthetic = a
+    rechoose(result)
+
+
+def rechoose(result: MultiGenResult) -> None:
+    """Viền xanh = ứng viên ĐIỂM TỔNG cao nhất trong hàng (v1.3: CLIP id bão hoà nên chọn theo nó gần như ngẫu nhiên)."""
+    for r in result.runs:
+        if r.output and len(r.output.candidates) > 1:
+            r.output.chosen = max(range(len(r.output.candidates)), key=lambda i: combined_score(r.output.candidates[i]))
 
 
 def _read_previous(out_dir: Path) -> MultiGenResult | None:
@@ -291,6 +299,7 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
             for n in getattr(g, "notes", []):
                 log(f"  [4b] {key}: {n}")
             score_run(run_rec, spec, clip, itm, prompt_en)
+            rechoose(MultiGenResult(gen.prompt_id, [run_rec]))
             log(f"  [4b] {key}: {len(run_rec.output.candidates)} ảnh, {run_rec.seconds}s"
                 + (f", đỉnh {run_rec.peak_vram_gb} GB" if run_rec.peak_vram_gb else "")
                 + (f", CLIP {max(c.clip_fidelity for c in run_rec.output.candidates):.2f}" if clip else ""))
@@ -314,6 +323,7 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
         from .aesthetic import LAST_ERROR
 
         result.notes.append("PickScore không nạp được" + (f": {LAST_ERROR}" if LAST_ERROR else " (xem log cell bước 4)") + " -> cột 'đẹp' trống")
+    rechoose(result)
     result.grid_path = str(draw_grid(result, spec, out_dir / "grid.png"))
     _save(result, out_dir)
     return result

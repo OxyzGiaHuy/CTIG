@@ -337,17 +337,39 @@ def best_run(result: MultiGenResult) -> ModelRun | None:
 
 
 def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int = 512) -> Path:
-    """PNG: hàng = model, cột = ứng viên, nhãn điểm dưới mỗi ảnh."""
+    """PNG: hàng = model, cột = ứng viên, nhãn điểm dưới mỗi ảnh (tự xuống dòng theo bề rộng ô)."""
     from PIL import Image, ImageDraw
 
     rows = result.runs
     ncol = max([len(r.output.candidates) for r in rows if r.output] + [1])
-    label_h, pad, left = 40, 10, 190
+    pad, left, line_h = 10, 200, 15
+    f_b, f_s, f_h = _font(14, True), _font(11), _font(16, True)
+
+    def caption(c) -> list[str]:
+        parts = []
+        if c.clip_probs:
+            parts.append(f"CLIP id {c.clip_fidelity:.2f}")
+        if c.attr_contrast is not None:
+            parts.append(f"attr {c.attr_contrast:.2f}")
+        if c.itm_score is not None:
+            parts.append(f"ITM {c.itm_score:.2f}")
+        if c.itm_attrs is not None:
+            parts.append(f"ITMattr {c.itm_attrs:.2f}")
+        if c.aesthetic is not None:
+            parts.append(f"đẹp {c.aesthetic:.2f}")
+        if c.clip_prompt_sim is not None:
+            parts.append(f"sim {c.clip_prompt_sim:.2f}")
+        if c.base_path:
+            parts.append("hires")
+        return _fit_lines(parts or [f"seed {c.seed}"], f_s, cell - 4)
+
+    caps = {id(c): caption(c) for r in rows if r.output for c in r.output.candidates}
+    max_lines = max([len(v) for v in caps.values()] + [1])
+    label_h = line_h * max_lines + 10
     W = left + ncol * (cell + pad) + pad
-    H = pad + len(rows) * (cell + label_h + pad) + 30
+    H = pad + 28 + len(rows) * (cell + label_h + pad) + 10
     img = Image.new("RGB", (W, H), (250, 249, 246))
     d = ImageDraw.Draw(img)
-    f_b, f_s, f_h = _font(14, True), _font(11), _font(16, True)
     d.text((pad, pad), f"{result.prompt_id} · {len(rows)} model", font=f_h, fill=(28, 30, 34))
     y = pad + 28
     for r in rows:
@@ -355,11 +377,17 @@ def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int 
         meta = f"{r.gen_spec.steps} bước · g{r.gen_spec.guidance:g} · {r.gen_spec.width}px"
         d.text((pad, y + 24), meta, font=f_s, fill=(120, 124, 132))
         d.text((pad, y + 40), f"{r.seconds:.0f}s" + (f" · {r.peak_vram_gb} GB" if r.peak_vram_gb else ""), font=f_s, fill=(120, 124, 132))
+        yy = y + 56
         if r.source == "disk":
-            d.text((pad, y + 56), "ảnh từ lần trước", font=f_s, fill=(120, 124, 132))
+            d.text((pad, yy), "ảnh từ lần trước", font=f_s, fill=(120, 124, 132)); yy += 16
+        for n in (r.notes or [])[:4]:
+            if n.startswith("scheduler"):
+                continue
+            for line in _fit_lines(n.split(), f_s, left - 2 * pad)[:2]:
+                d.text((pad, yy), line, font=f_s, fill=(120, 124, 132)); yy += 14
         if r.error or not r.output:
             d.rectangle([left, y, left + cell, y + cell], fill=(238, 236, 230))
-            for i, line in enumerate(_wrap(r.error or "không có ảnh", 40)[:6]):
+            for i, line in enumerate(_wrap(r.error or "không có ảnh", max(20, cell // 8))[:8]):
                 d.text((left + 8, y + 8 + 16 * i), line, font=f_s, fill=(196, 48, 43))
         else:
             for j, c in enumerate(r.output.candidates):
@@ -372,26 +400,31 @@ def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int 
                     d.rectangle([x, y, x + cell, y + cell], fill=(238, 236, 230))
                 if j == r.output.chosen and len(r.output.candidates) > 1:
                     d.rectangle([x - 2, y - 2, x + cell + 1, y + cell + 1], outline=(22, 128, 82), width=3)
-                parts = []
-                if c.clip_probs:
-                    parts.append(f"CLIP id {c.clip_fidelity:.2f}")
-                if c.attr_contrast is not None:
-                    parts.append(f"attr {c.attr_contrast:.2f}")
-                if c.itm_score is not None:
-                    parts.append(f"ITM {c.itm_score:.2f}")
-                if c.itm_attrs is not None:
-                    parts.append(f"ITMattr {c.itm_attrs:.2f}")
-                if c.aesthetic is not None:
-                    parts.append(f"đẹp {c.aesthetic:.2f}")
-                if c.clip_prompt_sim is not None:
-                    parts.append(f"sim {c.clip_prompt_sim:.2f}")
-                d.text((x, y + cell + 4), " · ".join(parts) or f"seed {c.seed}", font=f_s, fill=(28, 30, 34))
-                if c.base_path:
-                    d.text((x, y + cell + 20), "hires", font=f_s, fill=(120, 124, 132))
+                for k, line in enumerate(caps[id(c)]):
+                    d.text((x, y + cell + 4 + k * line_h), line, font=f_s, fill=(28, 30, 34))
         y += cell + label_h + pad
     path.parent.mkdir(parents=True, exist_ok=True)
     img.save(path)
     return path
+
+
+def _fit_lines(parts: list[str], font, max_w: int, sep: str = " · ") -> list[str]:
+    """Ghép các mảnh bằng ` · ` thành các dòng không rộng quá max_w (đo bằng font thật)."""
+    def width(s: str) -> float:
+        try:
+            return font.getlength(s)
+        except Exception:  # noqa: BLE001
+            return 6.5 * len(s)
+    lines, cur = [], ""
+    for ptxt in parts:
+        cand = f"{cur}{sep}{ptxt}" if cur else ptxt
+        if cur and width(cand) > max_w:
+            lines.append(cur); cur = ptxt
+        else:
+            cur = cand
+    if cur:
+        lines.append(cur)
+    return lines
 
 
 def _wrap(text: str, n: int) -> list[str]:

@@ -139,4 +139,6 @@ SDXL có thể chạy 1024px không offload trên một T4.
 
 ## Khôi phục cache từ Dataset
 
+**Ảnh đã sinh cũng phải nằm trong zip.** Kaggle xoá `/kaggle/working` giữa hai phiên; `multigen` chỉ dùng lại ảnh khi `runs/walkthrough/<pid>/multigen.json` và các PNG còn đó. Cell export từ v1.3.1 zip cả `runs/walkthrough`; upload zip đó thành version mới của Dataset. Chỉ zip `_cache` thì lần sau bước 4 sinh lại toàn bộ (v1.3 → v1.3.1 p001: 25 phút thay vì ~8).
+
 Kaggle tự giải nén zip khi upload thành Dataset; trong dataset là thư mục `runs/_cache/...`. Cell khôi phục trong `ctig_walkthrough.ipynb` xử cả zip lẫn thư mục.

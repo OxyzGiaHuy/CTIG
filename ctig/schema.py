@@ -259,6 +259,8 @@ class MultiGenResult:
     grid_path: str | None = None
     #: sha1 của GenSpec đầu vào; đổi prompt/negative/seed là đổi hash -> ảnh cũ không được dùng lại.
     genspec_hash: str = ""
+    #: Cảnh báo mức cả lần chạy (vd PickScore không nạp được) để hiện trong báo cáo, không chỉ trong log cell.
+    notes: list[str] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------- so sánh truy vấn (hiển thị)

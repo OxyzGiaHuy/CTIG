@@ -90,13 +90,14 @@ REGISTRY: dict[str, ModelSpec] = {
         notes="RealVisXL + LoRA áo dài (cùng gốc SDXL nên LoRA dùng được). Đối chứng sdxl_aodai trên nền tốt hơn."),
     "sdxl_refplus": ModelSpec(
         "sdxl_refplus", "SG161222/RealVisXL_V4.0", "sdxl", 1024, 1024, steps=30, guidance=5.0,
-        vae=SDXL_VAE_FIX, est_vram_gb=9.0, ip_adapter=True, ip_adapter_kind="plus", ip_adapter_scale=0.5,
-        notes="RealVisXL + IP-Adapter Plus (ViT-H) với tối đa multigen.ref_images ảnh Commons đã qua CLIP, scale 0.5 (v1.3, H4)."),
+        vae=SDXL_VAE_FIX, est_vram_gb=9.0, ip_adapter=True, ip_adapter_kind="plus", ip_adapter_scale=0.4,
+        notes="RealVisXL + IP-Adapter Plus (ViT-H) với tối đa multigen.ref_images ảnh Commons đã qua CLIP (v1.3, H4). "
+              "Scale 0.5 kéo cả bố cục ảnh tham chiếu (ảnh nhóm -> nhiều người); 0.4 và xếp ảnh theo độ khớp prompt."),
     "playground25": ModelSpec(
         "playground25", "playgroundai/playground-v2.5-1024px-aesthetic", "playground", 1024, 1024, steps=30, guidance=3.0,
-        vae="madebyollin/sdxl-vae-fp16-fix", est_vram_gb=7.0, scheduler="keep",
-        notes="Kiến trúc SDXL, huấn luyện lại theo thẩm mỹ; scheduler EDM có sẵn trong repo, guidance thấp (3). "
-              "VAE fp16-fix để khỏi upcast fp32 khi giải mã 1024px trên T4 (cùng không gian latent SDXL)."),
+        vae=None, est_vram_gb=9.5, scheduler="keep",
+        notes="Kiến trúc SDXL, huấn luyện lại theo thẩm mỹ; scheduler EDM có sẵn trong repo, guidance thấp (3). GIỮ VAE repo: "
+              "VAE của Playground mang latents_mean/std riêng, thay bằng fp16-fix (v1.3) ra ảnh bạc màu, mờ sương. Giải mã fp32 ~9,5 GB."),
     "sd35_medium": ModelSpec(
         "sd35_medium", "stabilityai/stable-diffusion-3.5-medium", "sd3", 1024, 1024, steps=28, guidance=4.5,
         variant=None, load_kwargs={"text_encoder_3": None, "tokenizer_3": None}, est_vram_gb=9.0, experimental=True,

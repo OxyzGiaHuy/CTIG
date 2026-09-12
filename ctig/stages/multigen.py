@@ -164,7 +164,9 @@ def score_aesthetic(result: MultiGenResult, scorer, prompt_en: str, log=print) -
                 for c, s in zip(chunk, scorer.score(prompt_en, [c.path for c in chunk])):
                     c.pick_score = s
         except Exception as exc:  # noqa: BLE001
-            log(f"  [4c] PickScore lỗi ({type(exc).__name__}: {str(exc)[:100]}), bỏ cột thẩm mỹ")
+            msg = f"PickScore lỗi khi chấm: {type(exc).__name__}: {str(exc)[:120]} -> cột 'đẹp' trống"
+            log(f"  [4c] {msg}")
+            result.notes.append(msg)
         finally:
             try:
                 scorer._off_gpu()
@@ -308,6 +310,10 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
 
     if aesthetic is not None or any(c.pick_score is not None for r in result.runs if r.output for c in r.output.candidates):
         score_aesthetic(result, aesthetic, prompt_en, log=log)
+    elif getattr(cfg, "aesthetic", None) is not None and getattr(cfg.aesthetic, "enabled", False):
+        from .aesthetic import LAST_ERROR
+
+        result.notes.append("PickScore không nạp được" + (f": {LAST_ERROR}" if LAST_ERROR else " (xem log cell bước 4)") + " -> cột 'đẹp' trống")
     result.grid_path = str(draw_grid(result, spec, out_dir / "grid.png"))
     _save(result, out_dir)
     return result

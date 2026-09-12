@@ -69,7 +69,7 @@ hypotheses:
     prediction: "Trên >= 5 prompt áo dài × 4 seed, sdxl_aodai > sdxl_base về CLIP attr trung bình ít nhất 0,10"
   - id: H9
     statement: "Negative prompt theo must_not_en (KB) giảm lỗi 'áo dài không quần' mà tên confusable không chặn được"
-    status: active
+    status: supported   # p001 v1.3: ~28/28 có quần (trước 8/12); cần thêm p031 để chắc
     motivation: "v1.2.1 p001: negative chỉ có kimono/qipao/hanbok, 4/12 ảnh là váy xẻ tà không quần; CLIP attr bắt đúng (0,18–0,40)"
     priority: high
     prediction: "Cùng seed, cùng model: tỉ lệ ảnh có quần dài tăng, CLIP attr trung bình tăng >= 0,10 trên p001, p031"
@@ -97,7 +97,7 @@ experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0
   best_value: null
-  total_runs: 3
+  total_runs: 4
   trajectory:
     - run_id: "smoke-v1"
       hypothesis: "H1"
@@ -129,6 +129,16 @@ experiments:
       change_summary: "6/6 model ra ảnh (LoRA gắn sau khi gỡ torchao; sdxl_ref IP-Adapter 0,3, đỉnh 11,2 GB)"
       notes: "4/12 ảnh không quần -> H9; phương sai theo seed > phương sai giữa model -> cần n>=4. Xem research-log"
       timestamp: "2026-09-11"
+    - run_id: "walkthrough-v1.3-p001"
+      hypothesis: "H9, H10, H11, H12"
+      config: "kaggle_walkthrough_t4x2 (v1.3): 7 model x 4 ứng viên, DPM++ Karras, compel, hires x1.5"
+      metric_value: 0.863    # CLIP attr tốt nhất (realvis_aodai c2); attr TB mọi ảnh 0,56
+      pass_rate: null
+      delta: null
+      wall_time_min: 25
+      change_summary: "Best-of-4, hires, RealVisXL, IP-Adapter Plus 3 ảnh, PickScore (trống - lỗi chưa rõ)"
+      notes: "H9 ủng hộ; H12 ủng hộ (0,73 vs 0,56); refplus kéo bố cục ảnh nhóm; Playground bạc màu do VAE. Xem research-log"
+      timestamp: "2026-09-12"
 
 outer_loop:
   cycle: 1

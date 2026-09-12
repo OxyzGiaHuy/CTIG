@@ -170,14 +170,24 @@ class Session:
         thr = self.cfg.retrieval.ref_image_min_clip
         items = [it for it in s.items if it.kind == "image" and it.local_path and it.entity_id in obj_ids
                  and it.clip_match is not None and it.clip_match >= thr]
-        items.sort(key=lambda it: (-int(it.is_reference), -(it.clip_match or 0)))
+        # v1.3 p001: ảnh tham chiếu là ảnh NHÓM nữ sinh -> IP-Adapter Plus kéo ra 3-4 người dù prompt "một cô gái".
+        # Xếp theo P(thực thể) + độ khớp prompt (bố cục, số người) thay vì chỉ P(thực thể).
+        a, _ = self.analysis()
+        pe = a.prompt_en or self.prompt.text_en
+        def rank(it):
+            sim = 0.0
+            if pe:
+                try:
+                    sim = self.clip.similarity(it.local_path, [pe])[0]
+                except Exception:  # noqa: BLE001
+                    sim = 0.0
+            return -(0.5 * (it.clip_match or 0) + sim)
+        items = [it for it in items if Path(it.local_path).exists()]
+        items.sort(key=rank)
         out: list[str] = []
         for it in items:
-            if it.local_path not in out and Path(it.local_path).exists():
+            if it.local_path not in out:
                 out.append(it.local_path)
-        for se in sp.entities:  # ảnh tham chiếu của spec luôn đứng đầu nếu có
-            if se.reference_image and se.reference_image in out:
-                out.remove(se.reference_image); out.insert(0, se.reference_image)
         k = k or self.cfg.multigen.ref_images
         return out[:max(1, k)]
 
@@ -269,10 +279,16 @@ class Session:
         a, _ = self.analysis()
         sp, _ = self.spec()
         c = self.cfg
+        n = c.multigen.n_candidates if c.multigen.enabled else c.t2i.n_candidates
         key = _h({"spec": _h(to_dict(sp)), "pe": a.prompt_en, "t2i": [c.t2i.steps, c.t2i.guidance, c.t2i.width, c.t2i.height,
-                                                                          c.t2i.n_candidates, c.t2i.init_negatives], "seed": c.seed})
-        return self._memo("genspec", key, GenSpec,
-                          lambda: build_initial_spec(self.prompt, sp, a.prompt_en, c.t2i, c.seed, c.t2i.init_negatives), force)
+                                                                          n, c.t2i.init_negatives, c.t2i.attrs_in_prompt], "seed": c.seed})
+
+        def compute():
+            g = build_initial_spec(self.prompt, sp, a.prompt_en, c.t2i, c.seed, c.t2i.init_negatives)
+            g.n_candidates = n  # thẻ GenSpec hiện đúng số ứng viên multigen sẽ sinh (v1.3: thẻ ghi 2, grid ra 4)
+            return g
+
+        return self._memo("genspec", key, GenSpec, compute, force)
 
     def multigen(self, models: list[str] | None = None, on_model_done=None, force: bool = False) -> tuple[MultiGenResult, str]:
         from .stages import multigen as st_mg

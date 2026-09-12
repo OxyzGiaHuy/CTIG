@@ -95,7 +95,7 @@ def test_registry_and_adapt():
     for k, m in REGISTRY.items():
         check(f"registry {k} hợp lệ", m.width % 8 == 0 and m.height % 8 == 0 and m.steps > 0 and m.repo)
     check("sdxl_turbo không negative, guidance 0", not get("sdxl_turbo").negative_ok and get("sdxl_turbo").guidance == 0.0)
-    check("playground dùng VAE fp16-fix (tránh upcast fp32 trên T4)", get("playground25").vae == "madebyollin/sdxl-vae-fp16-fix")
+    check("playground GIỮ VAE repo (latents_mean/std riêng; fp16-fix làm bạc màu, v1.3)", get("playground25").vae is None)
     check("sdxl_aodai chỉ chạy khi có ao_dai", get("sdxl_aodai").only_if_entity == ["ao_dai"])
     cfg = Config().multigen
     cfg.max_side = 768
@@ -318,6 +318,31 @@ def test_v13_offline(tmp):
             sys.modules.pop("torch", None)
 
 
+def test_progress_report(tmp):
+    """v1.3: báo cáo tiến độ dựng được từ thư mục run của Session (offline, stub)."""
+    from ctig.progress_report import bar_chart_svg, build, md_to_html
+    from ctig.session import Session
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    cfg.multigen.n_candidates = 2
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p001")
+    s = Session(cfg, p, tmp / "rep", log=lambda *a: None)
+    s.multigen(["stub", "stub@0.5"])
+    out = build(tmp / "rep", tmp / "rep" / "progress_report.html", title="t", log=lambda *a: None)
+    h = out.read_text(encoding="utf-8")
+    check("báo cáo có prompt, model, ảnh gốc JPEG, SVG biểu đồ, bảng", all(x in h for x in ("Prompt p001", "stub@0.5", "data:image/jpeg", "<svg", "Tóm tắt theo model")))
+    check("báo cáo có phần research (findings + giả thuyết)", "Kết luận đến nay" in h and "Giả thuyết đang kiểm" in h)
+    check("grid_hires.png được vẽ", (tmp / "rep" / "p001" / "grid_hires.png").exists())
+    svg = bar_chart_svg({"a": [("m1", 0.5), ("m2", None)], "b": [("m1", 0.9), ("m2", 0.1)]})
+    check("bar_chart_svg bỏ qua None, có nhãn", "m2" in svg and svg.count("<rect") >= 3)
+    check("md_to_html", "<li><b>x</b> y</li>" in md_to_html("## T\n- **x** y\n"))
+    # Report dedupe
+    from ctig import viz
+    r = viz.Report("t")
+    r.show(viz._wrap("Bước 5 · Bảng điểm", "<p>a</p>", "computed")); r.show(viz._wrap("Bước 5 · Bảng điểm", "<p>b</p>", "disk"))
+    check("Report: cùng tiêu đề thì thay, không nhân đôi", len(r.parts) == 1 and "<p>b</p>" in r.parts[0])
+
+
 if __name__ == "__main__":
     import shutil
     tmp = Path("runs/_test/v12")
@@ -329,5 +354,6 @@ if __name__ == "__main__":
     print("\ntest_session_memo"); test_session_memo(tmp)
     print("\ntest_llm_cache"); test_llm_cache(tmp)
     test_v13_offline(tmp)
+    print("\ntest_progress_report"); test_progress_report(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

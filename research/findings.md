@@ -17,11 +17,18 @@
   p001; đai obi chỉ 1/12). Negative theo tên confusable không chặn được vì model không "gọi" nó là qipao.
 - **Phương sai theo seed lớn hơn phương sai giữa model ở n=2** (sdxl_ref attr 0,51 vs 0,33). So model cần n ≥ 4.
 
+- **Negative theo must_not_en chặn được "qipao hoá"** (p001 v1.3: ~28/28 ảnh có quần, trước đó 8/12), nhưng đẩy một số model
+  sang "vest/áo khoác + quần"; điểm thuộc tính vẫn xếp đúng các ca này thấp. (n=1 prompt)
+- **RealVisXL V4 > SDXL base về đúng thuộc tính trên cùng GenSpec/seed** (attr TB 0,73 vs 0,56, p001). (n=1 prompt)
+- **IP-Adapter Plus với ảnh tham chiếu nhóm kéo theo số người/bố cục**, không chỉ trang phục. Chọn ảnh tham chiếu phải xét
+  độ khớp prompt, không chỉ P(thực thể).
+- **Thay VAE của Playground v2.5 làm ảnh bạc màu** (latents_mean/std riêng). Kết quả âm đáng nhớ khi "sửa OOM" bằng cách đổi VAE.
+
 ## Chưa có bằng chứng (đang là giả thuyết)
 - Vòng review nâng CLIP fidelity trên tập dev (H1). Smoke v1 cho thấy vòng 0 cao hơn vòng cuối, nhưng do bug prompt.
 - Web tiếng Việt cho must_have thị giác nhiều hơn Wikipedia (H2). Đã thấy ví dụ định tính với "nón lá", chưa đo.
 - BLIP-2 ITM làm judge tốt hơn Qwen (H3). Chưa có user study để so.
-- Negative theo must_not_en giảm "qipao hoá" (H9). Code v1.2.1 đã bật mặc định; chưa có lần chạy A/B cùng seed.
+- Hires fix ×1,5 tăng PickScore mà không giảm attr (H11): chưa đo vì PickScore trống ở lần chạy v1.3.
 - LoRA áo dài tốt hơn SDXL gốc (H8). p001 n=2: 0,40/0,52 vs 0,45/0,40, không phân biệt được.
 
 ## Kết quả âm đáng giữ

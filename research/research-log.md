@@ -94,3 +94,24 @@
 - Kế tiếp: chạy p001 với config t4x2 v1.3; so grid cùng seed với v1.2.1 (H9 negative must_not, H11 hires, H12 RealVisXL);
   rồi p031, p050, p012.
 
+## 2026-09-12 — Walkthrough v1.3 trên Kaggle (p001, 2×T4): 7 model × 4 ứng viên, hires, ~25 phút
+- **H9 (negative must_not) có tác dụng rõ:** 28 ảnh thì gần như tất cả có quần dài (v1.2.1: 4/12 không quần). Tác dụng phụ:
+  dreamshaper8 c3/c4 thành bộ vest trắng cổ đứng + quần (quá tay), sdxl_base ra "áo khoác dài + quần" thay áo dài ôm. CLIP attr
+  vẫn xếp đúng các ca này xuống dưới (0,42; 0,46).
+- **H12 (RealVisXL > SDXL base) được ủng hộ trên p001:** attr trung bình 0,73 vs 0,56, cả 4 ảnh RealVis là áo dài đúng có quần;
+  SDXL base 2/4 nghiêng "áo khoác". realvis_aodai c2 đạt attr 0,86, cao nhất grid; nhìn cũng là ảnh chuẩn nhất.
+- **sdxl_refplus (IP-Adapter Plus, 3 ảnh) kéo bố cục ảnh tham chiếu:** ảnh Commons là ảnh NHÓM nữ sinh → 3/4 ảnh sinh có 3–4
+  người dù prompt "một cô gái"; attr cao (0,76–0,89) nhưng ITM attr thấp (0,54–0,76). Sửa: scale 0,5 → 0,4 và xếp ảnh tham chiếu
+  theo P(thực thể) + độ khớp prompt thay vì chỉ P(thực thể).
+- **Playground bạc màu, mờ sương ở cả 4 ảnh** — hồi quy do tôi thay VAE fp16-fix ở v1.2.1: VAE của Playground v2.5 mang
+  `latents_mean/std` riêng, VAE khác không giải mã đúng. Hoàn lại VAE repo (fp32 khi giải mã, ~9,5 GB).
+- **Cột PickScore trống** trong bảng: bộ chấm không nạp hoặc lỗi khi chấm, nhưng thông điệp chỉ ra stdout của cell nên không
+  thấy trong HTML. Sửa: lỗi được ghi vào `MultiGenResult.notes` và hiện đỏ trong bảng điểm. Cần log cell bước 4 để biết lý do.
+- Hires ×1,5 chạy được ở 1536 px không offload: đỉnh 13,4 GB trên T4 15 GB (sát), 230–260 s mỗi hàng 4 ảnh. Chưa so được với
+  ảnh gốc vì PickScore trống → H11 chờ.
+- Lỗi nhỏ: Bước 5 lặp 3 lần trong walkthrough.html (bấm lại cell) → Report thay mục cùng tiêu đề; thẻ GenSpec ghi "2 ứng viên"
+  trong khi grid 4 → Session gán n_candidates của multigen vào GenSpec.
+- Thêm `ctig/progress_report.py`: báo cáo HTML tự chứa cho người hướng dẫn (ảnh gốc, bảng/biểu đồ vector, kết luận + giả thuyết
+  từ research/), `grid_hires.png`.
+- Kế tiếp: chạy lại p001 (kiểm PickScore, Playground, refplus), rồi p031, p050, p012; báo cáo tiến độ gom cả 4 prompt.
+

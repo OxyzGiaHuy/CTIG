@@ -282,6 +282,8 @@ def score_table(res: MultiGenResult, source: str | None = None) -> str:
                         f"<td>{r.seconds:.0f}</td><td>{'' if r.peak_vram_gb is None else f'{r.peak_vram_gb} GB'}</td></tr>")
     rows.append("</table>")
     note = (f"<div><b>Tốt nhất theo điểm tổng:</b> {_e(best.model_key)}</div>" if best else "")
+    for n in (getattr(res, "notes", None) or []):
+        note += f"<div class='bad'>⚠ {_e(n)}</div>"
     note += ("<div class='muted'>CLIP identity = P(giống mô tả thực thể Việt) so với confusable; bão hoà ~1.0 trên prompt dễ. "
              "<b>CLIP attr</b> = phần xác suất rơi vào câu 'thực thể with &lt;must_have&gt;' so với 'with &lt;must_not&gt;' "
              "(vd có quần vs váy liền). ITM attr = BLIP-2 trung bình trên câu must_have. "
@@ -332,6 +334,18 @@ class Report:
         self.parts: list[str] = []
 
     def show(self, html: str) -> None:
+        """Cùng tiêu đề (<h3>) thì THAY phần cũ: bấm lại một cell không nhân đôi mục trong file (v1.3 p001: Bước 5 lặp 3 lần)."""
+        import re
+
+        m = re.search(r"<h3>(.*?)(?:<span|</h3>)", html, re.S)
+        title = m.group(1).strip() if m else None
+        if title:
+            for i, old in enumerate(self.parts):
+                mo = re.search(r"<h3>(.*?)(?:<span|</h3>)", old, re.S)
+                if mo and mo.group(1).strip() == title:
+                    self.parts[i] = html
+                    show(html)
+                    return
         self.parts.append(html)
         show(html)
 

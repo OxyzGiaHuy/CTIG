@@ -52,6 +52,18 @@ mà chỉ điểm mức thuộc tính bắt được. v1.3 tối ưu ảnh cuố
 Mọi đường mới đều có đường lùi để một lỗi không làm hỏng hàng: thiếu compel → prompt thô + ghi chú; hires OOM → ảnh gốc;
 nhiều ảnh IP-Adapter bị từ chối → một ảnh; PickScore không nạp được → bỏ cột "đẹp". Ghi chú hiện ngay dưới tên model trên grid.
 
+## Báo cáo tiến độ gửi người hướng dẫn
+
+```bash
+python -m ctig.progress_report /kaggle/working/runs/walkthrough --out /kaggle/working/progress_report.html --author "Tên bạn"
+```
+
+`ctig/progress_report.py` dựng một file HTML **tự chứa** từ mọi prompt trong thư mục run: sơ đồ pipeline (SVG), tổng quan,
+mỗi prompt một mục (keywords → spec → prompt cuối → top-3 ảnh → bảng tóm tắt theo model → biểu đồ SVG → toàn bộ ứng viên),
+rồi phần "kết luận đến nay" và "giả thuyết đang kiểm" lấy từ `research/`. Ảnh nhúng ở độ phân giải gốc (JPEG chất lượng 90,
+cạnh dài 1024), bảng và biểu đồ là vector nên in hay zoom vẫn nét; kèm `grid_hires.png` (ô 768 px) cho slide. Mở bằng trình
+duyệt, Ctrl+P → Save as PDF nếu cần PDF. Cell cuối notebook cũng gọi hàm này.
+
 ## Chạy nhanh
 
 **Trên Kaggle** (khuyến nghị, xem [docs/KAGGLE.md](docs/KAGGLE.md)): mở `notebooks/kaggle_run.ipynb`, bật GPU T4 và Internet, chạy lần lượt.

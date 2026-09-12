@@ -58,14 +58,20 @@ class PickScorer:
         return [round(float(v), 3) for v in s[0].tolist()]
 
 
+LAST_ERROR: str | None = None
+
+
 def get_scorer(cfg, log=print):
-    """PickScorer hoặc None nếu tắt / không nạp được (log lý do)."""
+    """PickScorer hoặc None nếu tắt / không nạp được (log lý do, giữ trong LAST_ERROR để báo cáo hiện được)."""
+    global LAST_ERROR
+    LAST_ERROR = None
     if not getattr(cfg, "enabled", False):
         return None
     try:
         return PickScorer(cfg, log=log)
     except Exception as exc:  # noqa: BLE001
-        log(f"[aesthetic] không nạp được PickScore ({type(exc).__name__}: {str(exc)[:120]}) -> bỏ cột thẩm mỹ")
+        LAST_ERROR = f"{type(exc).__name__}: {str(exc)[:160]}"
+        log(f"[aesthetic] không nạp được PickScore ({LAST_ERROR}) -> bỏ cột thẩm mỹ")
         return None
 
 

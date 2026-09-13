@@ -74,12 +74,13 @@ def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_k
     g2 = apply_plan(gen, plan, spec, cfg.t2i)
     g2 = replace(g2, iteration=1, fast=False, steps=gen.steps, guidance=min(gen.guidance + plan.guidance_delta, 9.0))
     try:
-        fam = get_model(model_key).family
+        base = get_model(model_key)
+        fam, has_ip = base.family, base.ip_adapter
     except KeyError:
-        fam = ""
+        fam, has_ip = "", False
     force = False
     if plan.use_reference_image and ref_images and fam == "sdxl":
-        if "ref" not in parse_flags(model_key):
+        if "ref" not in parse_flags(model_key) and not has_ip:
             model_key = model_key + "+ref"
         force = True  # Filter đã nói model vẽ thiếu -> ảnh tham chiếu được phép bất kể auto_ref (ImageRAG: sinh trước, thiếu mới truy hồi)
         log(f"  [4d] sinh lại với ảnh tham chiếu: {model_key}")

@@ -123,6 +123,24 @@ def garment_rules(desc: ImageDescriptor, attr: str) -> str | None:
     return None
 
 
+def compact_text(desc: ImageDescriptor, max_chars: int = 700) -> str:
+    """Mô tả gọn cho agent văn bản: dict trang phục -> 'type=dress, fit=loose, ...'; cắt ở max_chars.
+    (Mô tả thô có dict dài -> Qwen chép nguyên vào JSON -> vượt max_new_tokens -> không parse được.)"""
+    parts = [f"people: {desc.people_count}"] if desc.people_count is not None else []
+    if desc.subjects:
+        parts.append("subjects: " + "; ".join(desc.subjects[:4]))
+    for i, g in enumerate(_garment_fields(desc)[:3]):
+        if "text" in g:
+            parts.append(f"garment{i + 1}: {g['text'][:120]}")
+        else:
+            parts.append(f"garment{i + 1}: " + ", ".join(f"{k}={v}" for k, v in g.items() if v and v not in _NONE)[:160])
+    if desc.objects:
+        parts.append("objects: " + "; ".join(str(o)[:60] for o in desc.objects[:4]))
+    if desc.background:
+        parts.append("background: " + desc.background[:120])
+    return " | ".join(parts)[:max_chars]
+
+
 def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_people: int | None) -> FilterVerdict:
     have_all: list[str] = []
     not_all: list[str] = []
@@ -134,7 +152,11 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
     have_all, not_all = have_all[:8], not_all[:6]
     matched_have, matched_not, reasons = [], [], []
     if have_all or not_all:
-        m = agent.match_descriptors(desc.text(), have_all, not_all)
+        try:
+            m = agent.match_descriptors(compact_text(desc), have_all, not_all)
+        except Exception as exc:  # noqa: BLE001 - v1.5.1 p001: Qwen trả JSON quá dài bị cắt -> RuntimeError làm dừng cả bước
+            m = {}
+            reasons.append(f"agent văn bản lỗi ({type(exc).__name__}), chỉ dùng luật")
         matched_have = [a for a in m.get("present_must_have", []) if a in have_all]
         matched_not = [a for a in m.get("present_must_not", []) if a in not_all]
         # luật cứng trên trường trang phục ghi đè agent văn bản (cả hai chiều)

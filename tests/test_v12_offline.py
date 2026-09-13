@@ -606,6 +606,29 @@ def test_v151_offline(tmp):
     check("hàng gốc stub chạy", r2.runs[0].output is not None)
 
 
+def test_filter_agent_failure_tolerant(tmp):
+    """v1.5.2: agent văn bản ném lỗi (JSON cắt) -> Filter vẫn ra verdict bằng luật, không làm dừng bước."""
+    from ctig.agents import describe as ag_desc
+    from ctig.schema import CulturalSpec, ImageDescriptor, SpecEntity
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    kb = KnowledgeBase.load(cfg.kb_path); e = kb.get("ao_dai")
+    sp = CulturalSpec("t", [SpecEntity("ao_dai", e.name_vi, e.name_en, e.must_have, e.must_not, [], 1.0, kind="object",
+                                       required_attrs_en=e.must_have_en, forbidden_attrs_en=e.must_not_en)], [], [])
+    class Boom:
+        def describe_image(self, path):
+            return {"people_count": 1, "subjects": ["woman"], "garments": ["{'type': 'tunic', 'collar': 'stand-up', 'lower_body': 'trousers', 'slits': 'yes', 'sash_or_belt': 'none'}"],
+                    "objects": [], "background": "gate", "watermark_or_text": False}
+        def match_descriptors(self, description, have, notv):
+            raise RuntimeError("Không lấy được JSON sau 3 lần")
+    flt = ag_desc.run(Boom(), ["x.png"], sp, "A young woman", kind="candidate", log=lambda *a: None)
+    v = flt.verdicts[0]
+    check("agent lỗi -> vẫn có verdict, luật khớp collar/trousers/slits", v.keep and len(v.matched_must_have) >= 3 and any("agent văn bản lỗi" in r for r in v.reasons), str(v))
+    d = ImageDescriptor("x", people_count=2, subjects=["woman walking"], garments=["{'type': 'dress', 'fit': 'loose', 'collar': 'round', 'lower_body': 'not visible', 'color': 'white'}"], objects=["bag"], background="street")
+    ct = ag_desc.compact_text(d)
+    check("compact_text gọn, không còn dấu ngoặc dict", "{" not in ct and "type=dress" in ct and len(ct) <= 700, ct)
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -688,5 +711,6 @@ if __name__ == "__main__":
     print("\ntest_garment_rules"); test_garment_rules()
     print("\ntest_v15_offline"); test_v15_offline(tmp)
     print("\ntest_v151_offline"); test_v151_offline(tmp)
+    print("\ntest_filter_agent_failure_tolerant"); test_filter_agent_failure_tolerant(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

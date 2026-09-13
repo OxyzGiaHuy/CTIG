@@ -316,8 +316,10 @@ class PromptAgent:
         system = (
             "You compare an IMAGE DESCRIPTION with a list of visual attributes. For each attribute decide: "
             "'present' only if the description explicitly states it (paraphrase allowed), 'absent' if the description "
-            "states something contradicting it, otherwise 'unsure'. For 'present' copy the exact phrase of the description "
-            "that supports it into quote. Never infer from culture knowledge; use the description only."
+            "states something contradicting it, otherwise 'unsure'. Never infer from culture knowledge; use the description only.\n"
+            "OUTPUT RULES: attr = copy the attribute text EXACTLY as listed (do not rewrite, do not copy description text into attr); "
+            "quote = at most 10 words copied from the description, empty string when not 'present'. One item per listed attribute, "
+            "no extra items. Keep the whole answer short."
         )
         user = ("DESCRIPTION:\n" + description + "\n\nMUST_HAVE attributes:\n" + "\n".join(f"- {a}" for a in must_have_en)
                 + "\n\nMUST_NOT attributes:\n" + "\n".join(f"- {a}" for a in must_not_en))

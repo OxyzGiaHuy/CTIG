@@ -13,13 +13,25 @@ from pathlib import Path
 from ..schema import CulturalSpec, FilterVerdict, GenSpec, RevisionPlan
 
 
+def _prompt_form(attr_en: str, spec: CulturalSpec, gen: GenSpec) -> str:
+    """Dạng của must_have_en trong prompt hiện tại: render 'tags' dùng thẻ ngắn cùng vị trí trong KB, còn lại dùng nguyên câu."""
+    if gen.render == "tags":
+        for se in spec.entities:
+            if attr_en in se.required_attrs_en:
+                i = se.required_attrs_en.index(attr_en)
+                if i < len(se.tags_en) and se.tags_en[i]:
+                    return se.tags_en[i]
+    return attr_en
+
+
 def plan_from_verdict(v: FilterVerdict, spec: CulturalSpec, gen: GenSpec) -> RevisionPlan:
-    pos = [a for a in v.missing_must_have[:2] if a and a not in gen.prompt_terms]
+    forms = [_prompt_form(a, spec, gen) for a in v.missing_must_have[:3] if a]
+    pos = [f for f in forms if f not in gen.prompt_terms][:2]
     neg = [a for a in v.matched_must_not[:2] if a and a not in gen.negative_terms]
     boost = {}
-    # thuộc tính thiếu nhưng ĐÃ có trong prompt (attrs_in_prompt=3): không thêm lại được (trùng), thay bằng nhấn thực thể
-    # lên đầu prompt + tăng guidance; thuộc tính thiếu chưa có trong prompt thì thêm thẳng.
-    already = [a for a in v.missing_must_have if a in gen.prompt_terms]
+    # thuộc tính thiếu nhưng ĐÃ có trong prompt: không thêm lại được (trùng) -> nhấn bằng trọng số compel, đẩy thực thể lên
+    # đầu prompt và tăng guidance; thuộc tính thiếu chưa có trong prompt thì thêm thẳng (dạng thẻ nếu render tags).
+    already = [f for f in forms if f in gen.prompt_terms]
     if v.matched_must_not or len(v.missing_must_have) >= 2:
         for se in spec.entities:
             if se.kind == "object" and se.weight >= 0.8:
@@ -34,7 +46,10 @@ def plan_from_verdict(v: FilterVerdict, spec: CulturalSpec, gen: GenSpec) -> Rev
         why.append("thiếu must_have: " + "; ".join(v.missing_must_have[:2]))
     if already and not pos:
         why.append("thuộc tính thiếu đã có trong prompt -> nhấn thực thể lên đầu, tăng guidance")
-    return RevisionPlan(add_positive=pos, add_negative=neg, boost=boost,
+    weights = {a: 1.3 for a in already[:2]}
+    if weights:
+        why.append("nhấn compel ×1.3: " + "; ".join(a[:40] for a in weights))
+    return RevisionPlan(add_positive=pos, add_negative=neg, boost=boost, weights=weights,
                         guidance_delta=1.0 if (neg or already) else 0.0,
                         rationale="; ".join(why) or "không có gì để sửa")
 
@@ -54,5 +69,5 @@ def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_k
     g2 = apply_plan(gen, plan, spec, cfg.t2i)
     g2 = replace(g2, iteration=1, fast=False, steps=gen.steps, guidance=min(gen.guidance + plan.guidance_delta, 9.0))
     res = mg.run(g2, spec, kb, [model_key], cfg.multigen, Path(out_dir) / "revision", clip=clip, itm=itm,
-                 prompt_en=prompt_en, log=log, ref_images=ref_images, aesthetic=aesthetic)
+                 prompt_en=prompt_en, log=log, ref_images=ref_images, aesthetic=aesthetic, t2i_cfg=cfg.t2i)
     return res.runs[0] if res.runs else None, g2

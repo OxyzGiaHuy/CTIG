@@ -126,6 +126,10 @@ class Entity:
     #: không phụ thuộc VLM dịch (v1.1: dịch trả rỗng hoặc nhiễm "wide obi").
     must_have_en: list[str] = field(default_factory=list)
     must_not_en: list[str] = field(default_factory=list)
+    #: v1.4.1: thẻ NGẮN cho prompt họ SDXL (thẻ phân biệt đứng đầu) và negative KHÔNG dùng danh từ của must_have
+    #: (CLIP không hiểu phủ định: "dress with no trousers" trong negative đẩy ảnh xa "trousers").
+    tags_en: list[str] = field(default_factory=list)
+    neg_tags_en: list[str] = field(default_factory=list)
 
     @property
     def search_terms(self) -> list[str]:

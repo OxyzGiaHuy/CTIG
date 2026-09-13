@@ -129,3 +129,14 @@
 - Kế tiếp: chạy p001 và p031 với agents bật; đo H13 (Filter bắt đúng?) và H14 (Rank đồng thuận metric?); nếu mô tả của Qwen 3B
   quá chung (không nhắc collar/trousers) thì thử Qwen2.5-VL-7B cho riêng bước mô tả.
 
+## 2026-09-13 — v1.4.1: rà GenSpec, chốt định nghĩa bài toán
+- Rà 38 thực thể: 50 câu must_not_en chứa danh từ của must_have (trousers, collar, sash, noodles, broth, boat, lanterns...).
+  Dùng thẳng làm negative là phản tác dụng vì CLIP không hiểu phủ định. Tách hai vai: must_not_en giữ cho CHẤM và Filter
+  (so văn bản), negative cho SINH dùng neg_tags_en mới (viết tay, không danh từ must_have). Thêm tags_en ngắn, thẻ phân biệt
+  đứng đầu, trọng số compel 1.2. Ba cách render (tags / legacy / sentence) chọn theo họ model hoặc hậu tố '#variant' để A/B
+  cùng grid (H15). Negative riêng theo checkpoint từ model card.
+- Chốt định nghĩa: bài toán là **retrieval-augmented T2I**: đầu vào người dùng chỉ là text; ảnh tham chiếu là tri thức hệ thống
+  tự truy hồi, đưa vào qua ba kênh (text thuộc tính, ảnh IP-Adapter, trọng số LoRA). Không phải I2I vì người dùng không có ảnh
+  thật để đưa; baseline là T2I thuần cùng model cùng seed. Rủi ro riêng của kênh ảnh: chép bố cục (v1.3 ảnh nhóm) -> phải đo
+  và phạt "chép" (độ giống ảnh tham chiếu quá cao), không chỉ thưởng "đúng".
+

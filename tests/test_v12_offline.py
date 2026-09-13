@@ -343,6 +343,49 @@ def test_progress_report(tmp):
     check("Report: cùng tiêu đề thì thay, không nhân đôi", len(r.parts) == 1 and "<p>b</p>" in r.parts[0])
 
 
+def test_render_variants(tmp):
+    """v1.4.1: ba cách render prompt, hậu tố #variant, negative riêng theo model, thẻ không chứa danh từ must_have."""
+    from ctig.models.registry import get, parse_key, parse_variant
+    from ctig.stages import multigen as mg
+    from ctig.stages.generation import build_initial_spec, render_terms
+    from ctig.llm.rule_agent import RuleAgent
+    from ctig.stages import analysis as st_a, spec as st_s
+    from ctig.stages.retrieval import LocalRetriever
+    from ctig.kb import tokens
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    kb = KnowledgeBase.load(cfg.kb_path)
+    check("KB 0.4.0: mọi thực thể có tags_en và neg_tags_en", all(e.tags_en and e.neg_tags_en for e in kb.all()) and kb.version.startswith("0.4"))
+    NOUNS = {"trousers", "collar", "sash", "noodles", "broth", "boat", "lanterns", "gongs", "strings", "puppets", "wrapper"}
+    leaks = [(e.id, n) for e in kb.all() for n in e.neg_tags_en if tokens(n) & NOUNS & set().union(*[tokens(a) for a in e.must_have_en])]
+    check("neg_tags_en không chứa danh từ chính của must_have", not leaks, str(leaks[:5]))
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p001")
+    ag = RuleAgent(); a = st_a.run(ag, p, kb, 6)
+    s = LocalRetriever(cfg.retrieval, None, tmp / "_cache").search(a, kb); sp = st_s.run(ag, p, a, s, kb, 4, 0.3)
+    g_tags = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1, render="tags")
+    g_leg = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1, render="legacy")
+    g_sen = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1, render="sentence")
+    check("tags: thực thể lên đầu, thẻ ngắn, có trọng số thẻ đầu", g_tags.prompt_terms[0].startswith("Vietnamese") and "fitted long tunic" in g_tags.prompt_terms
+          and g_tags.term_weights.get("fitted long tunic") == cfg.t2i.emphasis_weight, str(g_tags.prompt_terms[:4]))
+    check("tags: negative dùng neg_tags, không có 'trousers'", "obi sash" in g_tags.negative_terms and not any("trousers" in n for n in g_tags.negative_terms), str(g_tags.negative_terms))
+    check("legacy: cảnh trước, câu dài, negative must_not_en", g_leg.prompt_terms[0] == a.prompt_en and any("no trousers" in n for n in g_leg.negative_terms))
+    check("sentence: một đoạn văn", len(g_sen.prompt_terms) == 1 and g_sen.prompt_terms[0].startswith(a.prompt_en.rstrip(".")) and "has" in g_sen.prompt_terms[0])
+    check("mặc định config = tags", build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1).render == "tags")
+    check("parse_variant", parse_variant("realvis_xl#legacy") == "legacy" and parse_variant("realvis_xl@0.6") is None and parse_key("sdxl_aodai@0.6#tags") == ("sdxl_aodai", 0.6))
+    try:
+        parse_variant("x#bogus"); check("parse_variant sai -> KeyError", False)
+    except KeyError:
+        check("parse_variant sai -> KeyError", True)
+    ad = mg.adapt_spec(g_tags, get("realvis_xl"), cfg.multigen, spec=sp, prompt_en=a.prompt_en, variant="legacy", t2i_cfg=cfg.t2i)
+    check("adapt_spec #legacy render lại + nối negative riêng RealVis", ad.render == "legacy" and ad.prompt_terms[0] == a.prompt_en and "open mouth" in ad.negative_terms)
+    ad2 = mg.adapt_spec(g_tags, get("sd35_medium"), cfg.multigen, spec=sp, prompt_en=a.prompt_en, t2i_cfg=cfg.t2i)
+    check("sd3 tự chuyển sentence", ad2.render == "sentence")
+    cfg.multigen.n_candidates = 1
+    res = mg.run(g_tags, sp, kb, ["stub", "stub#legacy"], cfg.multigen, tmp / "rv" / p.id, clip=FakeClip(), itm=None, prompt_en=a.prompt_en,
+                 log=lambda *a: None, t2i_cfg=cfg.t2i)
+    check("hàng stub#legacy chạy, thư mục không chứa '#'", [r.model_key for r in res.runs] == ["stub", "stub#legacy"] and all("#" not in c.path for r in res.runs for c in r.output.candidates))
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -368,8 +411,8 @@ def test_agents_offline(tmp):
           and all(v.matched_must_have for v in cr.filter.verdicts), str(cr.filter.verdicts[0]))
     # stub mô tả chỉ khớp 1-2/4 must_have -> có kế hoạch sửa (nhấn thực thể, tăng guidance vì thuộc tính đã trong prompt),
     # sinh lại bằng stub cho điểm bằng nhau -> KHÔNG đổi ảnh (hoà thì giữ ảnh gốc)
-    check("thiếu >=2 must_have -> có plan (boost + guidance), không thêm thuộc tính trùng", cr.revision is not None
-          and cr.revision.boost and cr.revision.guidance_delta > 0 and not cr.revision.add_positive, str(cr.revision))
+    check("thiếu >=2 must_have -> plan: boost + guidance + nhấn compel thẻ đã có trong prompt, không thêm trùng", cr.revision is not None
+          and cr.revision.boost and cr.revision.guidance_delta > 0 and cr.revision.weights and not cr.revision.add_positive, str(cr.revision))
     check("sinh lại chạy nhưng hoà điểm -> giữ ảnh multigen", cr.regen is not None and cr.regen.output and cr.final_source == "multigen"
           and any("không tốt hơn" in n for n in cr.notes), str(cr.notes))
     cr2, src2 = s.candidate_review()
@@ -418,5 +461,6 @@ if __name__ == "__main__":
     test_v13_offline(tmp)
     print("\ntest_progress_report"); test_progress_report(tmp)
     print("\ntest_agents_offline"); test_agents_offline(tmp)
+    print("\ntest_render_variants"); test_render_variants(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

@@ -1,1879 +1,2373 @@
 {
-  "version": "0.3.0-seed",
-  "disclaimer": "KB hạt giống do Claude soạn để chạy demo. MỌI trường must_have/must_not/prior_strength đều cần bạn đối chiếu nguồn thật (Wikipedia, hồ sơ UNESCO, sách văn hoá) trước khi dùng cho paper. prior_strength là ước lượng chủ quan, KHÔNG phải số đo.",
-  "entities": [
+ "version": "0.4.0-seed",
+ "disclaimer": "KB hạt giống do Claude soạn để chạy demo. MỌI trường must_have/must_not/prior_strength đều cần bạn đối chiếu nguồn thật (Wikipedia, hồ sơ UNESCO, sách văn hoá) trước khi dùng cho paper. prior_strength là ước lượng chủ quan, KHÔNG phải số đo.",
+ "entities": [
+  {
+   "id": "ao_dai",
+   "name_vi": "Áo dài",
+   "name_en": "Ao dai (Vietnamese long dress)",
+   "aliases": [
+    "áo dài",
+    "ao dai",
+    "aodai",
+    "long dress vietnam"
+   ],
+   "category": "trang_phuc",
+   "region": "toan_quoc",
+   "prior_strength": 0.55,
+   "must_have": [
+    "áo dài tay, thân áo xẻ hai bên từ ngang hông xuống thành hai tà trước và sau",
+    "cổ đứng cao (cổ trụ), ôm sát cổ",
+    "mặc cùng quần dài ống rộng, cùng hoặc khác màu",
+    "phần thân trên ôm sát, tà áo buông tự do"
+   ],
+   "must_not": [
+    "đai lưng rộng buộc bản to sau lưng (obi của kimono)",
+    "áo liền thân không có quần dài bên trong",
+    "cổ chéo vắt chữ Y kiểu kimono/hanfu",
+    "váy xoè phồng chân váy kiểu hanbok"
+   ],
+   "confusable_with": [
     {
-      "id": "ao_dai",
-      "name_vi": "Áo dài",
-      "name_en": "Ao dai (Vietnamese long dress)",
-      "aliases": [
-        "áo dài",
-        "ao dai",
-        "aodai",
-        "long dress vietnam"
-      ],
-      "category": "trang_phuc",
-      "region": "toan_quoc",
-      "prior_strength": 0.55,
-      "must_have": [
-        "áo dài tay, thân áo xẻ hai bên từ ngang hông xuống thành hai tà trước và sau",
-        "cổ đứng cao (cổ trụ), ôm sát cổ",
-        "mặc cùng quần dài ống rộng, cùng hoặc khác màu",
-        "phần thân trên ôm sát, tà áo buông tự do"
-      ],
-      "must_not": [
-        "đai lưng rộng buộc bản to sau lưng (obi của kimono)",
-        "áo liền thân không có quần dài bên trong",
-        "cổ chéo vắt chữ Y kiểu kimono/hanfu",
-        "váy xoè phồng chân váy kiểu hanbok"
-      ],
-      "confusable_with": [
-        {
-          "name": "kimono",
-          "culture": "Nhật",
-          "why": "cùng là áo dài tay phủ thân; model hay thêm obi và cổ vắt chéo",
-          "name_en": "a Japanese kimono with a wide obi sash"
-        },
-        {
-          "name": "qipao / cheongsam",
-          "culture": "Trung",
-          "why": "cùng cổ đứng và thân ôm; nhưng qipao là áo liền, xẻ tà thấp, không mặc với quần",
-          "name_en": "a Chinese qipao cheongsam dress"
-        },
-        {
-          "name": "hanbok",
-          "culture": "Hàn",
-          "why": "cùng phối áo + phần dưới rời, nhưng hanbok là chân váy xoè cạp cao",
-          "name_en": "a Korean hanbok with a full skirt"
-        }
-      ],
-      "wiki_title_vi": "Áo dài",
-      "notes": "Dạng hiện đại định hình thập niên 1930 (kiểu Le Mur của Nguyễn Cát Tường), sau có biến thể cổ thuyền thời Trần Lệ Xuân.",
-      "kind": "object",
-      "clip_label": "a woman wearing a Vietnamese ao dai, a long fitted tunic with high collar split at the hips over wide trousers",
-      "must_have_en": [
-        "long-sleeved tunic split at the hips into front and back panels",
-        "high stand-up mandarin collar",
-        "worn over wide-legged long trousers",
-        "fitted bodice with flowing loose panels"
-      ],
-      "must_not_en": [
-        "wide obi sash tied at the back",
-        "one-piece dress with no trousers underneath",
-        "diagonal Y-shaped crossed collar",
-        "puffy flared skirt"
-      ]
+     "name": "kimono",
+     "culture": "Nhật",
+     "why": "cùng là áo dài tay phủ thân; model hay thêm obi và cổ vắt chéo",
+     "name_en": "a Japanese kimono with a wide obi sash"
     },
     {
-      "id": "non_la",
-      "name_vi": "Nón lá",
-      "name_en": "Conical leaf hat",
-      "aliases": [
-        "nón lá",
-        "non la",
-        "nón",
-        "conical hat"
-      ],
-      "category": "trang_phuc",
-      "region": "toan_quoc",
-      "prior_strength": 0.6,
-      "must_have": [
-        "hình chóp nón tròn, đỉnh nhọn",
-        "lợp lá (lá buông/lá palm) khâu trên vành tre đồng tâm",
-        "có quai (dây vải hoặc lụa) buộc dưới cằm",
-        "mặt lá phẳng mịn màu ngà tới nâu nhạt"
-      ],
-      "must_not": [
-        "vành cực rộng có mép uốn lượn và hoa văn thêu rực rỡ (sombrero)",
-        "đan bằng nan tre thô để lộ mắt đan lớn kiểu nón đấu",
-        "chóp bẹt gần như phẳng"
-      ],
-      "confusable_with": [
-        {
-          "name": "đấu lạp (dǒulì)",
-          "culture": "Trung",
-          "why": "cùng hình nón nhưng đan nan tre thô, không có quai lụa",
-          "name_en": "a Chinese coarse woven bamboo douli hat"
-        },
-        {
-          "name": "sombrero",
-          "culture": "Mexico",
-          "why": "model gộp mọi 'mũ nón rộng vành' vào sombrero",
-          "name_en": "a Mexican sombrero with a wide curled brim"
-        }
-      ],
-      "wiki_title_vi": "Nón lá",
-      "notes": "Nón bài thơ của Huế ép hình và câu thơ giữa hai lớp lá, soi lên sáng mới thấy.",
-      "kind": "object",
-      "clip_label": "a Vietnamese non la, a smooth conical palm-leaf hat with a chin strap",
-      "must_have_en": [
-        "round conical hat with a pointed tip",
-        "smooth palm-leaf surface stitched over bamboo rings",
-        "silk or cloth chin strap",
-        "flat smooth ivory to light-brown leaf surface"
-      ],
-      "must_not_en": [
-        "very wide curled brim with bright embroidery",
-        "coarse open bamboo weave",
-        "flat almost brimless top"
-      ]
+     "name": "qipao / cheongsam",
+     "culture": "Trung",
+     "why": "cùng cổ đứng và thân ôm; nhưng qipao là áo liền, xẻ tà thấp, không mặc với quần",
+     "name_en": "a Chinese qipao cheongsam dress"
     },
     {
-      "id": "ao_tu_than",
-      "name_vi": "Áo tứ thân",
-      "name_en": "Four-panel traditional dress",
-      "aliases": [
-        "áo tứ thân",
-        "ao tu than",
-        "tứ thân"
-      ],
-      "category": "trang_phuc",
-      "region": "bac_bo",
-      "prior_strength": 0.12,
-      "must_have": [
-        "áo gồm bốn thân (hai thân sau khâu liền, hai thân trước rời buông hoặc thắt vạt)",
-        "mặc ngoài yếm, bên trong là váy đen dài",
-        "thắt lưng (dải lụa) buộc ngang eo, thả đuôi xuống",
-        "thường đội nón quai thao, không đội nón lá chóp"
-      ],
-      "must_not": [
-        "thân áo liền một khối không chia vạt",
-        "cổ trụ cao ôm sát kiểu áo dài hiện đại",
-        "đai obi bản rộng"
-      ],
-      "confusable_with": [
-        {
-          "name": "hanfu",
-          "culture": "Trung",
-          "why": "cùng nhiều lớp vạt buông; model dễ trả về hanfu",
-          "name_en": "a Chinese hanfu robe"
-        },
-        {
-          "name": "áo dài",
-          "culture": "Việt",
-          "why": "cùng là áo dài thân Việt nhưng tứ thân chia vạt và đi với váy, không đi với quần",
-          "name_en": "a Vietnamese ao dai tunic over trousers"
-        }
-      ],
-      "wiki_title_vi": "Áo tứ thân",
-      "notes": "Trang phục nữ Bắc Bộ trước thế kỷ 20; nay chủ yếu thấy trong hát quan họ và lễ hội.",
-      "kind": "object",
-      "clip_label": "a woman in a Vietnamese ao tu than, a four-panel open-front gown with silk sash over a long black skirt",
-      "must_have_en": [
-        "four-panel gown with two loose open front panels",
-        "worn over a bodice with a long black skirt underneath",
-        "silk sash tied at the waist with hanging ends",
-        "paired with a flat wide-brimmed hat, not a conical hat"
-      ],
-      "must_not_en": [
-        "one-piece closed robe",
-        "high fitted mandarin collar",
-        "wide obi sash"
-      ]
-    },
-    {
-      "id": "ao_ba_ba",
-      "name_vi": "Áo bà ba",
-      "name_en": "Ba ba shirt (southern Vietnamese blouse)",
-      "aliases": [
-        "áo bà ba",
-        "ao ba ba",
-        "ba ba"
-      ],
-      "category": "trang_phuc",
-      "region": "nam_bo",
-      "prior_strength": 0.15,
-      "must_have": [
-        "áo cánh ngắn tới ngang hông, xẻ giữa cài khuy hoặc nút bấm",
-        "cổ tròn thấp hoặc cổ tim nhỏ, không có cổ trụ cao",
-        "mặc cùng quần dài ống rộng cùng màu",
-        "chất liệu lụa/vải trơn, màu đen, nâu hoặc màu trơn nhã"
-      ],
-      "must_not": [
-        "tà áo dài buông quá đầu gối (thành áo dài)",
-        "hoa văn in kín rực rỡ kiểu áo hoa hiện đại"
-      ],
-      "confusable_with": [
-        {
-          "name": "áo ngủ pyjama trơn",
-          "culture": "phương Tây",
-          "why": "hình dạng gần giống nên model trả về áo pyjama",
-          "name_en": "plain pajamas"
-        },
-        {
-          "name": "áo dài",
-          "culture": "Việt",
-          "why": "model gộp mọi trang phục Việt thành áo dài",
-          "name_en": "a Vietnamese ao dai tunic over trousers"
-        }
-      ],
-      "wiki_title_vi": "Áo bà ba",
-      "notes": "Thường đi kèm khăn rằn và nón lá; gắn với hình ảnh miền Tây sông nước.",
-      "kind": "object",
-      "clip_label": "a person wearing a Vietnamese ao ba ba, a plain silk button-up blouse with matching loose trousers",
-      "must_have_en": [
-        "short hip-length blouse buttoned down the front",
-        "low round or small V neckline, no stand-up collar",
-        "matching wide-legged long trousers",
-        "plain silk or cotton in black, brown or muted solid color"
-      ],
-      "must_not_en": [
-        "long tunic panels below the knee",
-        "busy bright printed pattern"
-      ]
-    },
-    {
-      "id": "khan_ran",
-      "name_vi": "Khăn rằn",
-      "name_en": "Checkered scarf (southern Vietnam)",
-      "aliases": [
-        "khăn rằn",
-        "khan ran"
-      ],
-      "category": "trang_phuc",
-      "region": "nam_bo",
-      "prior_strength": 0.1,
-      "must_have": [
-        "khăn dệt ô vuông nhỏ hai màu (đen–trắng hoặc nâu đỏ–trắng)",
-        "vắt qua cổ hoặc quấn đầu",
-        "kích thước khăn dài vừa, không phải khăn vuông lớn"
-      ],
-      "must_not": [
-        "hoa văn keffiyeh với đường viền tua rua đặc trưng Trung Đông",
-        "ô vuông lớn kiểu khăn tartan Scotland"
-      ],
-      "confusable_with": [
-        {
-          "name": "keffiyeh",
-          "culture": "Trung Đông",
-          "why": "cùng là khăn ô vuông hai màu",
-          "name_en": "a Middle Eastern keffiyeh scarf"
-        },
-        {
-          "name": "khăn tartan",
-          "culture": "Scotland",
-          "why": "cùng mô-típ kẻ ô",
-          "name_en": "a Scottish tartan scarf"
-        }
-      ],
-      "wiki_title_vi": "Khăn rằn",
-      "notes": "Có giao thoa với văn hoá Khmer Nam Bộ.",
-      "kind": "object",
-      "clip_label": "a Vietnamese khan ran, a small black-and-white checkered cotton scarf around the neck",
-      "must_have_en": [
-        "small two-tone black-and-white or red-and-white checkered scarf",
-        "draped around the neck or wrapped on the head",
-        "medium-length rectangular scarf, not a large square"
-      ],
-      "must_not_en": [
-        "keffiyeh pattern with tassel fringe",
-        "large tartan plaid"
-      ]
-    },
-    {
-      "id": "pho",
-      "name_vi": "Phở",
-      "name_en": "Pho (Vietnamese noodle soup)",
-      "aliases": [
-        "phở",
-        "pho",
-        "phở bò",
-        "phở gà"
-      ],
-      "category": "am_thuc",
-      "region": "toan_quoc",
-      "prior_strength": 0.65,
-      "must_have": [
-        "bánh phở là sợi gạo dẹt, trắng đục, mềm",
-        "nước dùng trong, màu hổ phách nhạt, không sánh đặc",
-        "thịt bò lát mỏng (hoặc thịt gà xé), hành lá và hành tây thái mỏng trên mặt",
-        "tô rộng miệng, nước ngập sợi"
-      ],
-      "must_not": [
-        "sợi mì lúa mì vàng xoăn (mì ramen)",
-        "nước dùng đục trắng sánh kiểu tonkotsu",
-        "lá rong biển nori, trứng luộc lòng đào cắt nửa, ngô ngọt, bơ",
-        "nước dùng đỏ sánh cay kiểu mì Tứ Xuyên"
-      ],
-      "confusable_with": [
-        {
-          "name": "ramen",
-          "culture": "Nhật",
-          "why": "cùng là mì nước; model thêm nori, trứng, chashu",
-          "name_en": "a bowl of Japanese ramen with wheat noodles, egg and nori"
-        },
-        {
-          "name": "mì bò Lan Châu",
-          "culture": "Trung",
-          "why": "cùng mì bò nước trong",
-          "name_en": "a bowl of Chinese Lanzhou beef noodle soup"
-        }
-      ],
-      "wiki_title_vi": "Phở",
-      "notes": "Phở Bắc ăn thanh, ít rau thơm; phở Nam kèm đĩa giá, rau quế, ngò gai, chanh, tương đen–tương ớt.",
-      "kind": "object",
-      "clip_label": "a bowl of Vietnamese pho, flat rice noodles in clear amber beef broth with sliced beef and green onion",
-      "must_have_en": [
-        "flat soft white rice noodles",
-        "clear light amber broth, not thick",
-        "thin sliced beef or shredded chicken with scallion and thin onion on top",
-        "wide bowl with noodles submerged in broth"
-      ],
-      "must_not_en": [
-        "yellow curly wheat ramen noodles",
-        "milky thick tonkotsu broth",
-        "nori seaweed, halved soft-boiled egg, corn, butter",
-        "thick red spicy Sichuan-style broth"
-      ]
-    },
-    {
-      "id": "banh_chung",
-      "name_vi": "Bánh chưng",
-      "name_en": "Banh chung (square sticky rice cake)",
-      "aliases": [
-        "bánh chưng",
-        "banh chung"
-      ],
-      "category": "am_thuc",
-      "region": "bac_bo",
-      "prior_strength": 0.15,
-      "must_have": [
-        "khối VUÔNG dày, các cạnh gấp vuông vắn",
-        "gói bằng lá dong xanh, buộc lạt tre chia mặt bánh thành ô",
-        "cắt ra thấy ba lớp: gạo nếp trắng ngoài, đậu xanh vàng, thịt lợn ba chỉ giữa",
-        "mặt bánh sau luộc ngả màu xanh nhạt do lá dong"
-      ],
-      "must_not": [
-        "hình chóp tam giác hoặc hình nêm (zongzi Trung Quốc)",
-        "gói bằng lá tre hẹp dài",
-        "hình tròn dẹt hoặc hình trụ (đó là bánh tét)"
-      ],
-      "confusable_with": [
-        {
-          "name": "zongzi (bánh ú Trung Quốc)",
-          "culture": "Trung",
-          "why": "cùng gạo nếp gói lá luộc; nhưng zongzi gói hình chóp bằng lá tre",
-          "name_en": "Chinese zongzi, a pyramid-shaped sticky rice dumpling wrapped in bamboo leaves"
-        },
-        {
-          "name": "chimaki",
-          "culture": "Nhật",
-          "why": "cùng nếp gói lá hình nêm",
-          "name_en": "Japanese chimaki rice dumpling wrapped in bamboo leaf"
-        }
-      ],
-      "wiki_title_vi": "Bánh chưng",
-      "notes": "Gắn truyền thuyết Lang Liêu; bánh chưng vuông tượng Đất, bánh giầy tròn tượng Trời. Luộc 8–12 tiếng.",
-      "kind": "object",
-      "clip_label": "Vietnamese banh chung, a thick square sticky rice cake wrapped in green dong leaves tied with bamboo strips",
-      "must_have_en": [
-        "thick square block with sharp folded corners",
-        "wrapped in green dong leaves tied with bamboo strips in a grid",
-        "cut open shows white sticky rice, yellow mung bean and pork belly layers",
-        "pale green tinted surface from the leaves"
-      ],
-      "must_not_en": [
-        "pyramid or wedge shape",
-        "narrow long bamboo leaf wrapping",
-        "round flat or cylindrical shape"
-      ]
-    },
-    {
-      "id": "banh_tet",
-      "name_vi": "Bánh tét",
-      "name_en": "Banh tet (cylindrical sticky rice cake)",
-      "aliases": [
-        "bánh tét",
-        "banh tet"
-      ],
-      "category": "am_thuc",
-      "region": "nam_bo",
-      "prior_strength": 0.08,
-      "must_have": [
-        "hình TRỤ dài, gói bằng lá chuối, buộc dây quanh thân thành nhiều khoanh",
-        "cắt thành khoanh tròn, nhân đậu xanh và thịt nằm giữa mặt cắt",
-        "vỏ nếp trắng hoặc nhuộm màu (lá cẩm tím, lá dứa xanh, gấc đỏ) tuỳ vùng"
-      ],
-      "must_not": [
-        "hình vuông (đó là bánh chưng)",
-        "gói lá dong",
-        "hình chóp tam giác"
-      ],
-      "confusable_with": [
-        {
-          "name": "bánh chưng",
-          "culture": "Việt",
-          "why": "cùng chức năng bánh Tết, model hay trả về bánh vuông",
-          "name_en": "Vietnamese square banh chung cake"
-        },
-        {
-          "name": "zongzi",
-          "culture": "Trung",
-          "why": "cùng nếp gói lá",
-          "name_en": "Chinese zongzi, a pyramid-shaped sticky rice dumpling"
-        }
-      ],
-      "wiki_title_vi": "Bánh tét",
-      "notes": "Bánh Tết của miền Trung và miền Nam, đối ứng với bánh chưng miền Bắc.",
-      "kind": "object",
-      "clip_label": "Vietnamese banh tet, a long cylindrical sticky rice cake wrapped in banana leaf, sliced into rounds",
-      "must_have_en": [
-        "long cylinder wrapped in banana leaf tied in many bands",
-        "sliced into round pieces with mung bean and pork center",
-        "white or naturally dyed purple green or red sticky rice"
-      ],
-      "must_not_en": [
-        "square shape",
-        "dong leaf wrapping",
-        "pyramid shape"
-      ]
-    },
-    {
-      "id": "banh_mi",
-      "name_vi": "Bánh mì",
-      "name_en": "Banh mi (Vietnamese sandwich)",
-      "aliases": [
-        "bánh mì",
-        "banh mi",
-        "bánh mì thịt"
-      ],
-      "category": "am_thuc",
-      "region": "toan_quoc",
-      "prior_strength": 0.5,
-      "must_have": [
-        "ổ bánh ngắn, vỏ mỏng giòn nứt, ruột rỗng xốp nhẹ",
-        "xẻ dọc, phết pa tê và bơ/mayonnaise",
-        "nhân có đồ chua (cà rốt và củ cải trắng thái sợi muối chua)",
-        "rau mùi (ngò rí) và dưa leo thái dài, ớt tươi"
-      ],
-      "must_not": [
-        "baguette dài đặc ruột kiểu Pháp",
-        "bánh mì lát vuông sandwich",
-        "phô mai chảy lớp dày, xà lách iceberg băm, sốt kiểu subway"
-      ],
-      "confusable_with": [
-        {
-          "name": "jambon-beurre",
-          "culture": "Pháp",
-          "why": "gốc baguette thuộc địa; model trả về sandwich Pháp",
-          "name_en": "a French jambon-beurre baguette sandwich"
-        },
-        {
-          "name": "submarine sandwich",
-          "culture": "Mỹ",
-          "why": "model gộp mọi bánh kẹp dài",
-          "name_en": "an American submarine sandwich"
-        }
-      ],
-      "wiki_title_vi": "Bánh mì",
-      "notes": "Ruột rỗng và vỏ mỏng là điểm khác cốt lõi so với baguette Pháp, do công thức pha bột gạo/bột nở.",
-      "kind": "object",
-      "clip_label": "a Vietnamese banh mi, a short airy baguette sandwich with pate, pickled carrot and daikon, cilantro and chili",
-      "must_have_en": [
-        "short baguette with thin crackly crust and airy hollow interior",
-        "split lengthwise with pate and butter or mayonnaise",
-        "pickled shredded carrot and daikon filling",
-        "cilantro, long cucumber slices and fresh chili"
-      ],
-      "must_not_en": [
-        "long dense French baguette",
-        "square sliced sandwich bread",
-        "thick melted cheese, iceberg lettuce, sub sandwich sauce"
-      ]
-    },
-    {
-      "id": "cha_gio",
-      "name_vi": "Chả giò / Nem rán",
-      "name_en": "Fried spring roll",
-      "aliases": [
-        "chả giò",
-        "nem rán",
-        "cha gio",
-        "nem ran"
-      ],
-      "category": "am_thuc",
-      "region": "toan_quoc",
-      "prior_strength": 0.35,
-      "must_have": [
-        "cuốn nhỏ vỏ bánh tráng (gạo) rán vàng, mặt vỏ hơi phồng rộp",
-        "nhân thịt lợn băm, nấm mèo (mộc nhĩ), bún/miến, cà rốt",
-        "ăn kèm rau xà lách, rau thơm để cuốn và bát nước chấm pha loãng"
-      ],
-      "must_not": [
-        "vỏ bột mì mịn phẳng, cuốn to dài kiểu spring roll Trung Quốc",
-        "nhân bắp cải là chủ đạo",
-        "chấm sốt chua ngọt đỏ đặc"
-      ],
-      "confusable_with": [
-        {
-          "name": "spring roll Trung Quốc",
-          "culture": "Trung",
-          "why": "cùng dạng cuốn rán; khác vỏ bột mì và nhân bắp cải",
-          "name_en": "a Chinese spring roll with smooth wheat wrapper"
-        }
-      ],
-      "wiki_title_vi": "Chả giò",
-      "notes": "Miền Bắc gọi nem rán, miền Nam gọi chả giò.",
-      "kind": "object",
-      "clip_label": "Vietnamese fried spring rolls in blistered rice paper served with lettuce and herbs and dipping sauce",
-      "must_have_en": [
-        "small fried rolls in blistered golden rice-paper wrapper",
-        "minced pork, wood ear mushroom, glass noodle and carrot filling",
-        "served with lettuce and herbs and a bowl of light dipping sauce"
-      ],
-      "must_not_en": [
-        "smooth flat wheat wrapper large spring roll",
-        "cabbage-dominated filling",
-        "thick red sweet and sour sauce"
-      ]
-    },
-    {
-      "id": "goi_cuon",
-      "name_vi": "Gỏi cuốn",
-      "name_en": "Fresh summer roll",
-      "aliases": [
-        "gỏi cuốn",
-        "goi cuon",
-        "nem cuốn"
-      ],
-      "category": "am_thuc",
-      "region": "nam_bo",
-      "prior_strength": 0.4,
-      "must_have": [
-        "vỏ bánh tráng nhúng nước, TRONG mờ, thấy rõ nhân bên trong",
-        "KHÔNG rán, ăn tươi",
-        "nhân tôm luộc chẻ đôi (thấy màu đỏ cam qua vỏ), thịt lợn luộc, bún, rau sống",
-        "chấm tương đen pha đậu phộng hoặc nước chấm"
-      ],
-      "must_not": [
-        "vỏ rán vàng giòn",
-        "vỏ đục hoàn toàn không thấy nhân"
-      ],
-      "confusable_with": [
-        {
-          "name": "fresh roll Thái",
-          "culture": "Thái",
-          "why": "gần như đồng dạng, khác nước chấm",
-          "name_en": "Thai fresh spring rolls"
-        }
-      ],
-      "wiki_title_vi": "Gỏi cuốn",
-      "notes": "Điểm nhận dạng thị giác mạnh nhất: tôm đỏ nhìn xuyên qua vỏ bánh tráng trong.",
-      "kind": "object",
-      "clip_label": "Vietnamese fresh summer rolls in translucent rice paper showing pink shrimp inside",
-      "must_have_en": [
-        "translucent soaked rice paper showing the filling inside",
-        "fresh, not fried",
-        "halved pink boiled shrimp visible through the wrapper with pork, vermicelli and herbs",
-        "peanut hoisin or fish dipping sauce"
-      ],
-      "must_not_en": [
-        "golden fried crispy wrapper",
-        "opaque wrapper hiding the filling"
-      ]
-    },
-    {
-      "id": "ca_phe_sua_da",
-      "name_vi": "Cà phê sữa đá",
-      "name_en": "Vietnamese iced milk coffee",
-      "aliases": [
-        "cà phê sữa đá",
-        "ca phe sua da",
-        "cafe sua da",
-        "cà phê phin"
-      ],
-      "category": "am_thuc",
-      "region": "toan_quoc",
-      "prior_strength": 0.3,
-      "must_have": [
-        "phin nhôm/inox đặt trên miệng ly, cà phê nhỏ giọt xuống",
-        "lớp sữa đặc trắng ngà dưới đáy, cà phê nâu đậm trên, ranh giới rõ trước khi quấy",
-        "ly thuỷ tinh thấp, đá viên",
-        "cà phê robusta rang đậm, màu nâu gần đen"
-      ],
-      "must_not": [
-        "máy espresso và ly latte có hoa văn latte art",
-        "ống hút nhựa cắm trong ly nhựa mang đi kiểu chuỗi cà phê Mỹ"
-      ],
-      "confusable_with": [
-        {
-          "name": "iced latte",
-          "culture": "phương Tây",
-          "why": "cùng cà phê sữa đá lạnh; thiếu phin",
-          "name_en": "an iced latte from a coffee chain"
-        }
-      ],
-      "wiki_title_vi": "Cà phê Việt Nam",
-      "notes": "Cái phin là dấu hiệu nhận dạng thị giác quan trọng nhất.",
-      "kind": "object",
-      "clip_label": "a glass of Vietnamese iced coffee with a metal phin drip filter on top and condensed milk at the bottom",
-      "must_have_en": [
-        "metal phin drip filter sitting on top of the glass",
-        "layer of condensed milk at the bottom with dark coffee on top",
-        "short glass with ice cubes",
-        "dark roasted robusta coffee, almost black"
-      ],
-      "must_not_en": [
-        "espresso machine and latte art",
-        "plastic to-go cup with straw"
-      ]
-    },
-    {
-      "id": "bun_bo_hue",
-      "name_vi": "Bún bò Huế",
-      "name_en": "Hue spicy beef noodle soup",
-      "aliases": [
-        "bún bò huế",
-        "bun bo hue",
-        "bún bò"
-      ],
-      "category": "am_thuc",
-      "region": "trung_bo",
-      "prior_strength": 0.12,
-      "must_have": [
-        "sợi bún gạo TRÒN và dày (khác sợi phở dẹt)",
-        "nước dùng đỏ cam do ớt và sả, có màng dầu ớt trên mặt",
-        "bắp bò, giò heo khoanh, huyết heo, chả",
-        "ăn kèm bắp chuối thái mỏng, hành tây ngâm, rau thơm"
-      ],
-      "must_not": [
-        "sợi dẹt trắng kiểu phở",
-        "nước dùng trong không màu"
-      ],
-      "confusable_with": [
-        {
-          "name": "phở",
-          "culture": "Việt",
-          "why": "model gộp mọi món bún nước Việt thành phở",
-          "name_en": "a bowl of Vietnamese pho"
-        },
-        {
-          "name": "laksa",
-          "culture": "Mã Lai",
-          "why": "cùng nước dùng đỏ cay có màng dầu",
-          "name_en": "a bowl of Malaysian laksa"
-        }
-      ],
-      "wiki_title_vi": "Bún bò Huế",
-      "notes": "Nền vị là mắm ruốc và sả, khác hoàn toàn phở.",
-      "kind": "object",
-      "clip_label": "a bowl of Vietnamese bun bo Hue, thick round rice noodles in spicy red lemongrass broth with pork knuckle",
-      "must_have_en": [
-        "thick round rice noodles, not flat",
-        "red-orange lemongrass chili broth with a chili oil film",
-        "beef shank, pork knuckle slices, blood cubes and pork cake",
-        "shredded banana blossom, pickled onion and herbs"
-      ],
-      "must_not_en": [
-        "flat white pho noodles",
-        "clear colorless broth"
-      ]
-    },
-    {
-      "id": "com_lang_vong",
-      "name_vi": "Cốm",
-      "name_en": "Com (young green sticky rice)",
-      "aliases": [
-        "cốm",
-        "com",
-        "cốm làng Vòng"
-      ],
-      "category": "am_thuc",
-      "region": "bac_bo",
-      "prior_strength": 0.05,
-      "must_have": [
-        "hạt nếp non dẹt, màu xanh non tới xanh ngọc",
-        "gói trong lá sen, buộc bằng sợi rơm nếp vàng",
-        "để rời thành nhúm, không kết thành bánh"
-      ],
-      "must_not": [
-        "hạt gạo trắng tròn thông thường",
-        "gói giấy hay hộp nhựa",
-        "màu xanh nhân tạo rực rỡ"
-      ],
-      "confusable_with": [
-        {
-          "name": "edamame",
-          "culture": "Nhật",
-          "why": "model bám vào 'hạt xanh' nên trả về đậu xanh Nhật",
-          "name_en": "Japanese edamame beans"
-        },
-        {
-          "name": "matcha rice",
-          "culture": "Nhật",
-          "why": "cùng sắc xanh trên nền gạo",
-          "name_en": "Japanese matcha rice"
-        }
-      ],
-      "wiki_title_vi": "Cốm",
-      "notes": "Đặc sản mùa thu Hà Nội, nổi tiếng nhất là cốm làng Vòng.",
-      "kind": "object",
-      "clip_label": "Vietnamese com, flattened young green rice grains wrapped in a lotus leaf tied with rice straw",
-      "must_have_en": [
-        "flattened young rice grains in soft jade green",
-        "wrapped in a lotus leaf tied with yellow rice straw",
-        "loose grains, not pressed into a cake"
-      ],
-      "must_not_en": [
-        "ordinary round white rice",
-        "paper or plastic packaging",
-        "artificial neon green"
-      ]
-    },
-    {
-      "id": "tet_nguyen_dan",
-      "name_vi": "Tết Nguyên Đán",
-      "name_en": "Vietnamese Lunar New Year",
-      "aliases": [
-        "tết",
-        "tet",
-        "tết nguyên đán",
-        "năm mới âm lịch"
-      ],
-      "category": "le_hoi",
-      "region": "toan_quoc",
-      "prior_strength": 0.25,
-      "must_have": [
-        "cây quất trĩu quả cam hoặc cành đào hồng (Bắc) / cây mai vàng (Nam)",
-        "bao lì xì ĐỎ nhỏ, chữ Việt hoặc hoa văn, không nhất thiết chữ Hán",
-        "mâm ngũ quả trên bàn thờ gia tiên",
-        "bánh chưng hoặc bánh tét trên mâm cỗ"
-      ],
-      "must_not": [
-        "đèn lồng đỏ tròn treo kín phố kiểu Tết Trung Quốc",
-        "chữ Hán 福 / 春 dán khắp làm mô-típ chính",
-        "cây thông và ông già Noel"
-      ],
-      "confusable_with": [
-        {
-          "name": "Tết Trung Quốc (Xuân Vận)",
-          "culture": "Trung",
-          "why": "cùng Tết âm lịch, cùng màu đỏ; model mặc định đổ về biểu tượng Trung Quốc",
-          "name_en": "Chinese New Year with red round lanterns and Chinese characters"
-        }
-      ],
-      "wiki_title_vi": "Tết Nguyên Đán",
-      "notes": "Đây là ca thất bại kinh điển của T2I: prompt 'lunar new year' gần như luôn ra cảnh Trung Quốc.",
-      "kind": "context",
-      "clip_label": "a Vietnamese Tet celebration with a kumquat tree, peach or yellow apricot blossoms, red envelopes and an ancestral altar with a five-fruit tray",
-      "must_have_en": [
-        "kumquat tree with orange fruit or pink peach blossoms, or yellow apricot blossoms",
-        "small red envelopes with Vietnamese lettering or patterns",
-        "five-fruit tray on an ancestral altar",
-        "banh chung or banh tet on the feast tray"
-      ],
-      "must_not_en": [
-        "streets covered in round red Chinese lanterns",
-        "Chinese characters as the main motif",
-        "Christmas tree and Santa Claus"
-      ]
-    },
-    {
-      "id": "trung_thu",
-      "name_vi": "Tết Trung Thu",
-      "name_en": "Mid-Autumn Festival (Vietnam)",
-      "aliases": [
-        "trung thu",
-        "tết trung thu",
-        "mid autumn"
-      ],
-      "category": "le_hoi",
-      "region": "toan_quoc",
-      "prior_strength": 0.15,
-      "must_have": [
-        "đèn ông sao năm cánh căng giấy bóng màu trên khung tre, có cán cầm",
-        "bánh nướng vuông in khuôn chữ, bánh dẻo trắng",
-        "múa lân và ông Địa quạt mo",
-        "trẻ con rước đèn ban đêm"
-      ],
-      "must_not": [
-        "đèn lồng tròn đỏ kiểu Trung Quốc làm vật thể chính",
-        "đèn lồng hình thỏ ngọc kiểu Đông Á chung",
-        "đèn lồng giấy Nhật (chōchin) có chữ kanji"
-      ],
-      "confusable_with": [
-        {
-          "name": "Trung Thu Trung Quốc",
-          "culture": "Trung",
-          "why": "cùng ngày lễ; nhưng đèn ông sao 5 cánh là nét riêng Việt Nam",
-          "name_en": "Chinese Mid-Autumn festival with round red lanterns and rabbit lanterns"
-        }
-      ],
-      "wiki_title_vi": "Tết Trung thu",
-      "notes": "Đèn ông sao năm cánh là dấu hiệu phân biệt Trung Thu Việt rõ nhất.",
-      "kind": "context",
-      "clip_label": "Vietnamese Mid-Autumn festival with children carrying five-pointed star lanterns made of colored cellophane on bamboo frames",
-      "must_have_en": [
-        "five-pointed star lantern of colored cellophane on a bamboo frame with a handle",
-        "square molded baked mooncakes and white snowskin cakes",
-        "lion dance with the Ong Dia character holding a fan",
-        "children parading lanterns at night"
-      ],
-      "must_not_en": [
-        "round red Chinese lanterns as the main object",
-        "jade rabbit lanterns",
-        "Japanese paper lanterns with kanji"
-      ]
-    },
-    {
-      "id": "mua_lan",
-      "name_vi": "Múa lân sư rồng",
-      "name_en": "Lion-dragon dance (Vietnam)",
-      "aliases": [
-        "múa lân",
-        "mua lan",
-        "lân sư rồng"
-      ],
-      "category": "le_hoi",
-      "region": "toan_quoc",
-      "prior_strength": 0.3,
-      "must_have": [
-        "đầu lân lớn nhiều màu, mắt to lắp lò xo, có sừng giữa đầu",
-        "hai người điều khiển: một đầu một đuôi",
-        "nhân vật ông Địa mặt tròn phúng phính, bụng phệ, cầm quạt mo đi cùng",
-        "trống và thanh la đi kèm"
-      ],
-      "must_not": [
-        "rồng dài nhiều người nâng cột (đó là múa rồng, khác múa lân)"
-      ],
-      "confusable_with": [
-        {
-          "name": "múa lân Trung Quốc",
-          "culture": "Trung",
-          "why": "rất gần nhau; ông Địa là chi tiết đặc trưng của bản Việt",
-          "name_en": "a Chinese lion dance"
-        }
-      ],
-      "wiki_title_vi": "Múa lân",
-      "notes": "Xuất hiện ở cả Tết Nguyên Đán và Trung Thu.",
-      "kind": "context",
-      "clip_label": "a Vietnamese lion dance with a colorful big-eyed lion head and the laughing Ong Dia character with a fan",
-      "must_have_en": [
-        "large colorful lion head with big spring-mounted eyes and a horn",
-        "two performers, one at the head and one at the tail",
-        "the Ong Dia character with a round smiling mask, big belly and palm-leaf fan",
-        "drums and gongs accompanying"
-      ],
-      "must_not_en": [
-        "long dragon on poles carried by many people"
-      ]
-    },
-    {
-      "id": "chua_mot_cot",
-      "name_vi": "Chùa Một Cột",
-      "name_en": "One Pillar Pagoda",
-      "aliases": [
-        "chùa một cột",
-        "chua mot cot",
-        "one pillar pagoda",
-        "liên hoa đài"
-      ],
-      "category": "kien_truc",
-      "region": "bac_bo",
-      "prior_strength": 0.2,
-      "must_have": [
-        "một cột đá trụ duy nhất đứng giữa hồ nước",
-        "trên đỉnh cột là đài gỗ hình vuông nhỏ, mái cong bốn phía",
-        "cầu thang gỗ nhỏ dẫn lên từ bờ",
-        "cây xanh và hồ sen quanh chân cột"
-      ],
-      "must_not": [
-        "chùa nhiều tầng tháp kiểu Trung Quốc",
-        "chùa đặt trên nền đất phẳng nhiều cột"
-      ],
-      "confusable_with": [
-        {
-          "name": "tháp chùa Trung Quốc",
-          "culture": "Trung",
-          "why": "model đổ về kiến trúc chùa Đông Á chung chung",
-          "name_en": "a multi-storey Chinese pagoda tower"
-        }
-      ],
-      "wiki_title_vi": "Chùa Một Cột",
-      "notes": "Xây năm 1049 thời Lý Thái Tông; đài trên cột gọi là Liên Hoa Đài.",
-      "kind": "object",
-      "clip_label": "the One Pillar Pagoda in Hanoi, a small wooden pavilion standing on a single stone pillar in a lotus pond",
-      "must_have_en": [
-        "a single stone pillar standing in a pond",
-        "small square wooden pavilion on top with a curved roof on four sides",
-        "small wooden staircase from the bank",
-        "lotus pond and greenery around the pillar"
-      ],
-      "must_not_en": [
-        "multi-storey Chinese pagoda tower",
-        "temple on flat ground with many columns"
-      ]
-    },
-    {
-      "id": "van_mieu",
-      "name_vi": "Văn Miếu – Quốc Tử Giám",
-      "name_en": "Temple of Literature, Hanoi",
-      "aliases": [
-        "văn miếu",
-        "quốc tử giám",
-        "van mieu",
-        "temple of literature"
-      ],
-      "category": "kien_truc",
-      "region": "bac_bo",
-      "prior_strength": 0.15,
-      "must_have": [
-        "gác Khuê Văn Các: tầng dưới bốn trụ gạch vuông, tầng trên gỗ sơn đỏ với hai cửa sổ tròn",
-        "bia đá tiến sĩ đặt trên lưng rùa đá, xếp thành hai hàng dài",
-        "sân vườn nhiều lớp, tường gạch cổ, cổng tam quan",
-        "mái ngói cong lợp ngói mũi hài"
-      ],
-      "must_not": [
-        "cột đá chạm rồng cuốn kiểu Cấm Thành Bắc Kinh",
-        "sơn vàng kim rực rỡ"
-      ],
-      "confusable_with": [
-        {
-          "name": "Khổng Miếu Trung Quốc",
-          "culture": "Trung",
-          "why": "cùng là văn miếu thờ Khổng Tử; khác ở Khuê Văn Các và bia rùa",
-          "name_en": "a Chinese Confucius temple with dragon-carved pillars"
-        }
-      ],
-      "wiki_title_vi": "Văn Miếu – Quốc Tử Giám",
-      "notes": "Lập năm 1070; 82 bia tiến sĩ được UNESCO ghi danh Di sản tư liệu.",
-      "kind": "object",
-      "clip_label": "the Temple of Literature in Hanoi with the Khue Van Cac pavilion and stone stelae on turtle backs",
-      "must_have_en": [
-        "Khue Van Cac pavilion: four square brick pillars below and a red wooden upper floor with two round windows",
-        "stone doctoral stelae on stone turtles in two long rows",
-        "layered courtyards with old brick walls and a three-arch gate",
-        "curved roofs with hai-tiles"
-      ],
-      "must_not_en": [
-        "dragon-carved stone columns like the Forbidden City",
-        "bright gold paint"
-      ]
-    },
-    {
-      "id": "pho_co_hoi_an",
-      "name_vi": "Phố cổ Hội An",
-      "name_en": "Hoi An Ancient Town",
-      "aliases": [
-        "hội an",
-        "hoi an",
-        "phố cổ hội an"
-      ],
-      "category": "kien_truc",
-      "region": "trung_bo",
-      "prior_strength": 0.35,
-      "must_have": [
-        "tường nhà quét vôi màu vàng nghệ, nhiều chỗ tróc loang",
-        "nhà phố gỗ hai tầng, cửa lùa gỗ, mái ngói âm dương",
-        "đèn lồng lụa nhiều màu treo thành dây dọc phố",
-        "Chùa Cầu: cầu gỗ có mái che bắc qua kênh nhỏ"
-      ],
-      "must_not": [
-        "nhà cao tầng kính hiện đại",
-        "đèn lồng giấy Nhật có chữ kanji"
-      ],
-      "confusable_with": [
-        {
-          "name": "phố cổ Lệ Giang",
-          "culture": "Trung",
-          "why": "cùng phố cổ đèn lồng bên kênh",
-          "name_en": "Lijiang old town in China with lanterns along canals"
-        }
-      ],
-      "wiki_title_vi": "Phố cổ Hội An",
-      "notes": "Đèn lồng Hội An là lụa căng khung tre, hình cầu/củ tỏi, khác đèn lồng giấy Nhật hay Trung.",
-      "kind": "context",
-      "clip_label": "Hoi An ancient town at night with yellow ochre walls, wooden shophouses and colorful silk lanterns",
-      "must_have_en": [
-        "ochre yellow lime-washed walls with peeling patches",
-        "two-storey wooden shophouses with sliding doors and yin-yang tile roofs",
-        "strings of colorful silk lanterns along the street",
-        "the Japanese Covered Bridge over a small canal"
-      ],
-      "must_not_en": [
-        "modern glass high-rises",
-        "Japanese paper lanterns with kanji"
-      ]
-    },
-    {
-      "id": "nha_rong",
-      "name_vi": "Nhà rông",
-      "name_en": "Rong house (Central Highlands communal house)",
-      "aliases": [
-        "nhà rông",
-        "nha rong"
-      ],
-      "category": "kien_truc",
-      "region": "tay_nguyen",
-      "prior_strength": 0.05,
-      "must_have": [
-        "nhà sàn cao trên cột gỗ lớn",
-        "mái RẤT cao và dốc, hình lưỡi búa hoặc cánh buồm, chiếm phần lớn chiều cao nhà",
-        "lợp cỏ tranh hoặc lá, đầu hồi trang trí hoa văn khắc gỗ",
-        "cầu thang gỗ một thân dẫn lên sàn"
-      ],
-      "must_not": [
-        "mái thấp lợp ngói",
-        "nhà trệt trên nền đất"
-      ],
-      "confusable_with": [
-        {
-          "name": "nhà sàn Toraja (tongkonan)",
-          "culture": "Indonesia",
-          "why": "cùng nhà sàn mái dốc lớn",
-          "name_en": "an Indonesian Toraja tongkonan house with a boat-shaped roof"
-        },
-        {
-          "name": "chùa Thái",
-          "culture": "Thái",
-          "why": "model đổ về kiến trúc mái dốc Đông Nam Á chung",
-          "name_en": "a Thai Buddhist temple with steep golden roofs"
-        }
-      ],
-      "wiki_title_vi": "Nhà rông",
-      "notes": "Nhà sinh hoạt cộng đồng của người Ba Na, Gia Rai, Xơ Đăng ở Tây Nguyên.",
-      "kind": "object",
-      "clip_label": "a Vietnamese Central Highlands rong house, a tall stilt house with a very steep towering thatched roof",
-      "must_have_en": [
-        "stilt house on tall wooden posts",
-        "very tall steep roof shaped like an axe blade or sail, dominating the house",
-        "thatched grass roof with carved wooden gable decorations",
-        "single-log wooden staircase up to the floor"
-      ],
-      "must_not_en": [
-        "low tiled roof",
-        "ground-level house"
-      ]
-    },
-    {
-      "id": "dinh_lang",
-      "name_vi": "Đình làng",
-      "name_en": "Village communal house",
-      "aliases": [
-        "đình làng",
-        "dinh lang",
-        "đình"
-      ],
-      "category": "kien_truc",
-      "region": "bac_bo",
-      "prior_strength": 0.08,
-      "must_have": [
-        "nhà gỗ một tầng, mái ngói lớn võng xuống, bốn góc mái cong nhẹ",
-        "hệ cột gỗ tròn lớn kê trên đá tảng, không tường bao kín",
-        "sân đình rộng, có thể có cây đa và giếng nước",
-        "chạm khắc gỗ dân gian ở đầu dư, kẻ, bẩy"
-      ],
-      "must_not": [
-        "nhiều tầng tháp",
-        "sơn đỏ vàng rực kiểu đền Trung Quốc"
-      ],
-      "confusable_with": [
-        {
-          "name": "đền Trung Quốc",
-          "culture": "Trung",
-          "why": "cùng kiến trúc gỗ mái cong",
-          "name_en": "a Chinese temple painted red and gold"
-        }
-      ],
-      "wiki_title_vi": "Đình làng",
-      "notes": "Nơi thờ thành hoàng và hội họp của làng Bắc Bộ; mái võng và cột gỗ mộc là nét riêng.",
-      "kind": "object",
-      "clip_label": "a Vietnamese village communal house with a low sagging tiled roof and large wooden columns",
-      "must_have_en": [
-        "single-storey wooden hall with a large low sagging tiled roof and gently curved corners",
-        "large round wooden columns on stone bases, open sides without full walls",
-        "wide courtyard with a banyan tree and a well",
-        "folk wood carvings on beams and brackets"
-      ],
-      "must_not_en": [
-        "multi-storey tower",
-        "bright red and gold Chinese temple paint"
-      ]
-    },
-    {
-      "id": "thuyen_thung",
-      "name_vi": "Thuyền thúng",
-      "name_en": "Round basket boat (coracle)",
-      "aliases": [
-        "thuyền thúng",
-        "thuyen thung",
-        "basket boat"
-      ],
-      "category": "sinh_hoat",
-      "region": "trung_bo",
-      "prior_strength": 0.07,
-      "must_have": [
-        "thuyền hình TRÒN như cái thúng, đan nan tre trát dầu rái/nhựa đường",
-        "không có mũi và đuôi, không có bánh lái",
-        "người chèo đứng hoặc ngồi dùng một mái, thuyền quay tròn khi chèo",
-        "thường thấy ven biển miền Trung, cạnh thuyền lớn hoặc trên bãi cát"
-      ],
-      "must_not": [
-        "thuyền dài có mũi nhọn",
-        "thuyền gỗ ván ghép hình thoi"
-      ],
-      "confusable_with": [
-        {
-          "name": "coracle xứ Wales",
-          "culture": "Anh",
-          "why": "cùng thuyền tròn nhưng khác vật liệu và bối cảnh",
-          "name_en": "a Welsh coracle boat"
-        },
-        {
-          "name": "thuyền gỗ đánh cá thông thường",
-          "culture": "chung",
-          "why": "model bỏ hình tròn, vẽ thuyền dài",
-          "name_en": "an ordinary long wooden fishing boat"
-        }
-      ],
-      "wiki_title_vi": "Thuyền thúng",
-      "notes": "Hình dạng tròn là đặc điểm thị giác gần như không thể nhầm, nhưng prior của T2I rất yếu.",
-      "kind": "object",
-      "clip_label": "a Vietnamese round woven bamboo basket boat on the sea",
-      "must_have_en": [
-        "round basket-shaped boat of woven bamboo sealed with resin",
-        "no bow, no stern, no rudder",
-        "paddled with a single oar, spinning as it moves",
-        "on a central Vietnam beach next to larger boats or on the sand"
-      ],
-      "must_not_en": [
-        "long boat with a pointed bow",
-        "planked wooden boat with diamond hull"
-      ]
-    },
-    {
-      "id": "xich_lo",
-      "name_vi": "Xích lô",
-      "name_en": "Cyclo (Vietnamese pedicab)",
-      "aliases": [
-        "xích lô",
-        "xich lo",
-        "cyclo"
-      ],
-      "category": "sinh_hoat",
-      "region": "toan_quoc",
-      "prior_strength": 0.18,
-      "must_have": [
-        "ghế khách nằm PHÍA TRƯỚC người đạp",
-        "ba bánh: hai bánh trước đỡ ghế, một bánh sau dưới yên người đạp",
-        "mái che vải gấp được phía trên ghế khách"
-      ],
-      "must_not": [
-        "khách ngồi PHÍA SAU người đạp (rickshaw Ấn Độ, Bangladesh)",
-        "có động cơ và thùng kín kiểu tuk-tuk Thái Lan"
-      ],
-      "confusable_with": [
-        {
-          "name": "cycle rickshaw",
-          "culture": "Ấn Độ",
-          "why": "cùng xe ba bánh chở khách; khác ở vị trí ghế khách",
-          "name_en": "an Indian cycle rickshaw with the passenger behind the driver"
-        },
-        {
-          "name": "tuk-tuk",
-          "culture": "Thái",
-          "why": "model gộp mọi xe ba bánh Đông Nam Á",
-          "name_en": "a Thai tuk-tuk motorized three-wheeler"
-        }
-      ],
-      "wiki_title_vi": "Xe xích lô",
-      "notes": "Ghế khách đằng trước là điểm phân biệt then chốt với rickshaw.",
-      "kind": "object",
-      "clip_label": "a Vietnamese cyclo, a three-wheeled pedicab with the passenger seat in front of the driver",
-      "must_have_en": [
-        "passenger seat in FRONT of the pedaling driver",
-        "three wheels: two front wheels under the seat, one rear wheel under the driver",
-        "folding fabric canopy over the passenger seat"
-      ],
-      "must_not_en": [
-        "passenger seated behind the driver like an Indian rickshaw",
-        "motorized enclosed tuk-tuk"
-      ]
-    },
-    {
-      "id": "ganh_hang_rong",
-      "name_vi": "Gánh hàng rong",
-      "name_en": "Shoulder-pole street vendor",
-      "aliases": [
-        "gánh hàng rong",
-        "ganh hang rong",
-        "hàng rong"
-      ],
-      "category": "sinh_hoat",
-      "region": "toan_quoc",
-      "prior_strength": 0.2,
-      "must_have": [
-        "đòn gánh tre vắt qua một vai, hai đầu treo hai thúng hoặc rổ",
-        "người bán thường mặc áo bà ba hoặc áo giản dị, đội nón lá",
-        "thúng chứa hoa, trái cây, hoặc đồ ăn kèm bếp than nhỏ"
-      ],
-      "must_not": [
-        "xe đẩy bốn bánh kiểu food cart phương Tây",
-        "đội hàng trên đầu (kiểu Nam Á, châu Phi)"
-      ],
-      "confusable_with": [
-        {
-          "name": "gánh hàng Trung Quốc xưa",
-          "culture": "Trung",
-          "why": "cùng đòn gánh hai thúng",
-          "name_en": "an old Chinese street peddler with a shoulder pole"
-        }
-      ],
-      "wiki_title_vi": "Bán hàng rong",
-      "notes": "Đòn gánh vắt một vai + nón lá là cặp dấu hiệu thị giác mạnh.",
-      "kind": "object",
-      "clip_label": "a Vietnamese street vendor carrying a bamboo shoulder pole with two baskets",
-      "must_have_en": [
-        "bamboo shoulder pole over one shoulder with two hanging baskets",
-        "vendor in a simple blouse wearing a conical leaf hat",
-        "baskets of flowers, fruit or street food with a small charcoal stove"
-      ],
-      "must_not_en": [
-        "four-wheeled western food cart",
-        "goods carried on the head"
-      ]
-    },
-    {
-      "id": "ruong_bac_thang",
-      "name_vi": "Ruộng bậc thang",
-      "name_en": "Terraced rice fields",
-      "aliases": [
-        "ruộng bậc thang",
-        "ruong bac thang",
-        "mù cang chải",
-        "sa pa",
-        "terraced field"
-      ],
-      "category": "canh_quan",
-      "region": "tay_bac",
-      "prior_strength": 0.4,
-      "must_have": [
-        "các thửa ruộng uốn theo đường bình độ sườn núi, bờ ruộng cong mềm",
-        "mùa nước đổ: mặt ruộng ngập nước phản chiếu trời; mùa lúa chín: vàng rực",
-        "núi đất dốc phủ kín ruộng, có nhà sàn hoặc bản nhỏ rải rác",
-        "người dân tộc thiểu số (H'Mông, Dao) làm ruộng"
-      ],
-      "must_not": [
-        "ruộng bậc thang đá xếp thẳng cạnh kiểu Machu Picchu",
-        "đồng bằng phẳng"
-      ],
-      "confusable_with": [
-        {
-          "name": "ruộng bậc thang Bali",
-          "culture": "Indonesia",
-          "why": "cùng ruộng bậc thang nhiệt đới",
-          "name_en": "Bali rice terraces in Indonesia"
-        },
-        {
-          "name": "Longji, Quảng Tây",
-          "culture": "Trung",
-          "why": "rất giống về địa hình",
-          "name_en": "Longji rice terraces in Guangxi China"
-        }
-      ],
-      "wiki_title_vi": "Ruộng bậc thang",
-      "notes": "Nổi tiếng ở Mù Cang Chải (Yên Bái), Sa Pa (Lào Cai), Hoàng Su Phì (Hà Giang).",
-      "kind": "context",
-      "clip_label": "terraced rice fields curving along steep mountains in northern Vietnam",
-      "must_have_en": [
-        "rice terraces curving along mountain contours with soft rounded edges",
-        "flooded terraces mirroring the sky, or golden ripe rice",
-        "steep earthen mountains covered in terraces with scattered stilt houses",
-        "ethnic minority farmers in the fields"
-      ],
-      "must_not_en": [
-        "straight-edged stone terraces like Machu Picchu",
-        "flat plain"
-      ]
-    },
-    {
-      "id": "cho_noi",
-      "name_vi": "Chợ nổi",
-      "name_en": "Floating market (Mekong Delta)",
-      "aliases": [
-        "chợ nổi",
-        "cho noi",
-        "cái răng",
-        "cái bè",
-        "floating market"
-      ],
-      "category": "sinh_hoat",
-      "region": "nam_bo",
-      "prior_strength": 0.25,
-      "must_have": [
-        "nhiều thuyền gỗ nhỏ chở đầy trái cây, rau củ tụ trên sông rộng",
-        "cây bẹo: cột tre dựng trên thuyền, treo mẫu hàng lên để khách nhìn từ xa",
-        "người bán chèo hoặc dùng máy đuôi tôm, đội nón lá",
-        "nước sông màu nâu đục kiểu sông Mê Kông"
-      ],
-      "must_not": [
-        "thuyền dài mũi cao có dải hoa kiểu chợ nổi Thái Lan (Damnoen Saduak)",
-        "kênh gạch xây hai bên kiểu Venice"
-      ],
-      "confusable_with": [
-        {
-          "name": "chợ nổi Thái Lan",
-          "culture": "Thái",
-          "why": "model gần như luôn trả về chợ nổi Thái vì phổ biến hơn",
-          "name_en": "a Thai floating market with long-tail boats"
-        }
-      ],
-      "wiki_title_vi": "Chợ nổi",
-      "notes": "Cây bẹo là chi tiết nhận dạng riêng của chợ nổi Việt Nam.",
-      "kind": "context",
-      "clip_label": "a Mekong Delta floating market with wooden boats full of fruit and sample poles on brown river water",
-      "must_have_en": [
-        "many small wooden boats piled with fruit and vegetables on a wide river",
-        "cay beo: a bamboo pole on each boat with sample goods hung on it",
-        "vendors rowing or using long-tail motors, wearing conical hats",
-        "muddy brown Mekong river water"
-      ],
-      "must_not_en": [
-        "long high-prow boats with flower garlands like a Thai floating market",
-        "brick-lined canals like Venice"
-      ]
-    },
-    {
-      "id": "dan_bau",
-      "name_vi": "Đàn bầu",
-      "name_en": "Dan bau (Vietnamese monochord)",
-      "aliases": [
-        "đàn bầu",
-        "dan bau",
-        "monochord"
-      ],
-      "category": "nhac_cu",
-      "region": "toan_quoc",
-      "prior_strength": 0.03,
-      "must_have": [
-        "chỉ có MỘT dây căng dọc thân hộp gỗ dài",
-        "một đầu có cần đàn mềm uốn được, gắn nửa quả bầu khô làm bầu vang",
-        "người chơi gảy bằng que tre, tay kia uốn cần để luyến cao độ",
-        "thân đàn dẹt, đặt nằm ngang"
-      ],
-      "must_not": [
-        "nhiều dây song song (đó là đàn tranh, guzheng, koto)",
-        "có cần dài và thùng tròn kiểu đàn nguyệt hay pipa"
-      ],
-      "confusable_with": [
-        {
-          "name": "guzheng",
-          "culture": "Trung",
-          "why": "model đổ về nhạc cụ dây Đông Á phổ biến nhất",
-          "name_en": "a Chinese guzheng zither with twenty-one strings"
-        },
-        {
-          "name": "koto",
-          "culture": "Nhật",
-          "why": "cùng đàn nằm ngang",
-          "name_en": "a Japanese koto zither"
-        }
-      ],
-      "wiki_title_vi": "Đàn bầu",
-      "notes": "Nhạc cụ độc dây riêng của Việt Nam; prior T2I gần như bằng không, đây là ca cần LoRA rõ nhất.",
-      "kind": "object",
-      "clip_label": "a Vietnamese dan bau, a one-string zither with a flexible rod and gourd resonator played with a bamboo pick",
-      "must_have_en": [
-        "a single string along a long wooden box body",
-        "flexible rod at one end with a half gourd resonator",
-        "player plucking with a bamboo pick while bending the rod",
-        "flat body lying horizontally"
-      ],
-      "must_not_en": [
-        "many parallel strings like a zither",
-        "long neck and round body like a lute"
-      ]
-    },
-    {
-      "id": "dan_tranh",
-      "name_vi": "Đàn tranh",
-      "name_en": "Dan tranh (Vietnamese zither)",
-      "aliases": [
-        "đàn tranh",
-        "dan tranh"
-      ],
-      "category": "nhac_cu",
-      "region": "toan_quoc",
-      "prior_strength": 0.08,
-      "must_have": [
-        "đàn nằm ngang, thường 16 hoặc 17 dây (bản cải tiến có thể nhiều hơn)",
-        "mỗi dây có một con nhạn (ngựa đàn) hình chữ V ngược đỡ ở giữa",
-        "thân hộp gỗ hình thang dài, một đầu rộng hơn",
-        "người chơi gảy bằng móng gảy đeo ở ngón phải"
-      ],
-      "must_not": [
-        "21 dây trên thân rất lớn (guzheng)",
-        "13 dây với con nhạn cao kiểu koto"
-      ],
-      "confusable_with": [
-        {
-          "name": "guzheng",
-          "culture": "Trung",
-          "why": "cùng họ đàn tranh Đông Á, khác số dây và kích thước",
-          "name_en": "a Chinese guzheng zither with twenty-one strings"
-        },
-        {
-          "name": "koto",
-          "culture": "Nhật",
-          "why": "cùng nguyên lý, khác số dây",
-          "name_en": "a Japanese koto zither"
-        }
-      ],
-      "wiki_title_vi": "Đàn tranh",
-      "notes": "Cùng họ với guzheng nhưng nhỏ hơn và ít dây hơn; số dây là dấu hiệu đếm được, tốt cho eval.",
-      "kind": "object",
-      "clip_label": "a Vietnamese dan tranh, a sixteen-string zither with movable bridges played with finger picks",
-      "must_have_en": [
-        "horizontal zither with sixteen or seventeen strings",
-        "one inverted-V movable bridge under each string",
-        "long trapezoid wooden box, one end wider",
-        "player wearing finger picks on the right hand"
-      ],
-      "must_not_en": [
-        "twenty-one strings on a very large body",
-        "thirteen strings with tall bridges like a koto"
-      ]
-    },
-    {
-      "id": "mua_roi_nuoc",
-      "name_vi": "Múa rối nước",
-      "name_en": "Water puppetry",
-      "aliases": [
-        "múa rối nước",
-        "mua roi nuoc",
-        "water puppet"
-      ],
-      "category": "nghe_thuat",
-      "region": "bac_bo",
-      "prior_strength": 0.06,
-      "must_have": [
-        "con rối gỗ sơn màu rực rỡ nổi TRÊN MẶT NƯỚC, phần dưới chìm",
-        "phông sân khấu là mái đình thu nhỏ (thuỷ đình) phía sau, có mành che",
-        "người điều khiển đứng sau mành, ngâm mình dưới nước, không thấy mặt",
-        "mặt nước là sân khấu, có gợn sóng quanh con rối"
-      ],
-      "must_not": [
-        "rối dây treo trên không (marionette)",
-        "rối tay diễn trên sân khấu cạn",
-        "rối bóng phẳng kiểu wayang"
-      ],
-      "confusable_with": [
-        {
-          "name": "marionette",
-          "culture": "phương Tây",
-          "why": "model đổ về rối dây quen thuộc",
-          "name_en": "a string marionette puppet"
-        },
-        {
-          "name": "wayang kulit",
-          "culture": "Indonesia",
-          "why": "cùng nghệ thuật rối Đông Nam Á",
-          "name_en": "Indonesian wayang kulit shadow puppets"
-        }
-      ],
-      "wiki_title_vi": "Múa rối nước",
-      "notes": "Khởi nguồn vùng đồng bằng sông Hồng khoảng thế kỷ 11; nhà hát Thăng Long là nơi diễn nổi tiếng.",
-      "kind": "context",
-      "clip_label": "Vietnamese water puppetry, painted wooden puppets performing on a pond in front of a small pavilion",
-      "must_have_en": [
-        "brightly painted wooden puppets floating on the water surface",
-        "miniature communal-house pavilion with a bamboo screen as backdrop",
-        "puppeteers hidden behind the screen standing in the water",
-        "rippling water surface as the stage"
-      ],
-      "must_not_en": [
-        "string marionettes hanging in the air",
-        "hand puppets on a dry stage",
-        "flat shadow puppets"
-      ]
-    },
-    {
-      "id": "tranh_dong_ho",
-      "name_vi": "Tranh Đông Hồ",
-      "name_en": "Dong Ho folk woodblock prints",
-      "aliases": [
-        "tranh đông hồ",
-        "tranh dong ho",
-        "dong ho print"
-      ],
-      "category": "nghe_thuat",
-      "region": "bac_bo",
-      "prior_strength": 0.04,
-      "must_have": [
-        "in khắc gỗ, nét viền đen thô, mảng màu phẳng không đổ bóng",
-        "giấy dó quét điệp (vỏ sò nghiền) nên nền có ánh lấp lánh và vân sọc",
-        "màu từ chất tự nhiên: đỏ sỏi, vàng hoa hòe, xanh lá tràm, đen than lá tre",
-        "mô-típ dân gian: Đám cưới chuột, Vinh hoa (bé trai bế gà), Lợn ăn lá ráy có xoáy âm dương trên lưng"
-      ],
-      "must_not": [
-        "tranh vẽ tay có đổ bóng và phối cảnh chiều sâu",
-        "ukiyo-e với đường nét mảnh và chuyển màu êm",
-        "màu neon hoặc gradient số hoá"
-      ],
-      "confusable_with": [
-        {
-          "name": "ukiyo-e",
-          "culture": "Nhật",
-          "why": "cùng in khắc gỗ; khác hoàn toàn về nét và bảng màu",
-          "name_en": "a Japanese ukiyo-e woodblock print"
-        },
-        {
-          "name": "tranh dân gian Trung Quốc (niên hoạ)",
-          "culture": "Trung",
-          "why": "cùng dòng tranh Tết dân gian",
-          "name_en": "a Chinese nianhua new year folk print"
-        }
-      ],
-      "wiki_title_vi": "Tranh Đông Hồ",
-      "notes": "Làng Đông Hồ, Bắc Ninh. Ánh điệp trên giấy dó là đặc trưng khó tái tạo nhất.",
-      "kind": "object",
-      "clip_label": "a Vietnamese Dong Ho folk woodblock print with bold black outlines and flat natural colors on shimmering do paper",
-      "must_have_en": [
-        "woodblock print with thick black outlines and flat unshaded colors",
-        "shimmering do paper coated with crushed seashell showing streaks",
-        "natural pigments: brick red, sophora yellow, indigo green, bamboo-leaf black",
-        "folk motifs like the mouse wedding, boy with rooster, pig with yin-yang swirl"
-      ],
-      "must_not_en": [
-        "hand-painted picture with shading and depth",
-        "ukiyo-e with fine lines and smooth gradients",
-        "neon or digital gradient colors"
-      ]
-    },
-    {
-      "id": "nha_nhac_hue",
-      "name_vi": "Nhã nhạc cung đình Huế",
-      "name_en": "Hue royal court music",
-      "aliases": [
-        "nhã nhạc",
-        "nha nhac",
-        "nhã nhạc cung đình huế"
-      ],
-      "category": "nghe_thuat",
-      "region": "trung_bo",
-      "prior_strength": 0.04,
-      "must_have": [
-        "nhạc công mặc áo dài nam có bào phục thêu, đội mũ cánh chuồn hoặc khăn xếp",
-        "dàn nhạc gồm trống, kèn, đàn nguyệt, đàn nhị, sáo, phách",
-        "bối cảnh trong điện hoặc sân điện Huế, cột sơn son thếp vàng, mái ngói men",
-        "ngồi hoặc đứng theo hàng đối xứng nghiêm ngặt"
-      ],
-      "must_not": [
-        "nhạc cụ phương Tây",
-        "trang phục samurai hoặc quan lại nhà Thanh"
-      ],
-      "confusable_with": [
-        {
-          "name": "gagaku",
-          "culture": "Nhật",
-          "why": "cùng nhạc cung đình Đông Á",
-          "name_en": "Japanese gagaku court music"
-        },
-        {
-          "name": "nhạc cung đình nhà Thanh",
-          "culture": "Trung",
-          "why": "model đổ về hình ảnh cung đình Trung Quốc",
-          "name_en": "Qing dynasty Chinese court music"
-        }
-      ],
-      "wiki_title_vi": "Nhã nhạc cung đình Huế",
-      "notes": "UNESCO ghi danh Di sản phi vật thể năm 2003.",
-      "kind": "context",
-      "clip_label": "Vietnamese Hue royal court musicians in embroidered robes performing with drums and lutes inside a gilded palace hall",
-      "must_have_en": [
-        "musicians in embroidered court robes with winged caps or turbans",
-        "ensemble of drums, oboes, moon lutes, two-string fiddles, flutes and clappers",
-        "inside or in front of a Hue palace hall with red lacquered gilded columns",
-        "strictly symmetrical seated or standing rows"
-      ],
-      "must_not_en": [
-        "western instruments",
-        "samurai or Qing dynasty mandarin costumes"
-      ]
-    },
-    {
-      "id": "quan_ho",
-      "name_vi": "Hát quan họ Bắc Ninh",
-      "name_en": "Quan ho folk singing",
-      "aliases": [
-        "quan họ",
-        "quan ho",
-        "hát quan họ"
-      ],
-      "category": "nghe_thuat",
-      "region": "bac_bo",
-      "prior_strength": 0.03,
-      "must_have": [
-        "liền anh mặc áo dài nam, khăn xếp, tay cầm ô đen",
-        "liền chị mặc áo tứ thân, thắt lưng, đội NÓN QUAI THAO (nón ba tầm) vành rất rộng và phẳng",
-        "hát đối đáp theo cặp nam nữ, không nhạc đệm",
-        "bối cảnh sân đình, bến nước, hoặc trên thuyền"
-      ],
-      "must_not": [
-        "đội nón lá chóp nhọn (sai loại nón)",
-        "có dàn nhạc đệm hiện đại"
-      ],
-      "confusable_with": [
-        {
-          "name": "dân ca Trung Quốc",
-          "culture": "Trung",
-          "why": "model đổ về trang phục biểu diễn dân ca Đông Á chung",
-          "name_en": "Chinese folk singers in performance costume"
-        }
-      ],
-      "wiki_title_vi": "Dân ca quan họ",
-      "notes": "UNESCO ghi danh năm 2009. Nón quai thao phẳng vành rộng, KHÁC nón lá chóp nhọn.",
-      "kind": "context",
-      "clip_label": "Vietnamese quan ho folk singers, women in four-panel dresses and flat wide-brimmed hats, men in gowns and turbans, singing on a boat",
-      "must_have_en": [
-        "men in dark long gowns and turbans holding black umbrellas",
-        "women in four-panel dresses with sashes and very wide flat-brimmed hats",
-        "male and female pairs singing to each other without instruments",
-        "setting at a communal-house yard, a river landing or on a boat"
-      ],
-      "must_not_en": [
-        "pointed conical leaf hats",
-        "modern backing band"
-      ]
-    },
-    {
-      "id": "cong_chieng_tay_nguyen",
-      "name_vi": "Cồng chiêng Tây Nguyên",
-      "name_en": "Central Highlands gong culture",
-      "aliases": [
-        "cồng chiêng",
-        "cong chieng",
-        "gong tây nguyên"
-      ],
-      "category": "nhac_cu",
-      "region": "tay_nguyen",
-      "prior_strength": 0.05,
-      "must_have": [
-        "dàn chiêng đồng tròn nhiều cỡ, người chơi mang trên tay hoặc treo trên giá",
-        "gõ bằng dùi bọc vải hoặc bằng nắm tay",
-        "người chơi mặc trang phục thổ cẩm Tây Nguyên, hoa văn hình học đỏ đen trên nền tối",
-        "diễn quanh đống lửa hoặc trước nhà rông"
-      ],
-      "must_not": [
-        "chiêng gamelan xếp trên giàn gỗ chạm trổ (Indonesia)",
-        "chiêng phẳng có núm lớn kiểu Thái/Miến"
-      ],
-      "confusable_with": [
-        {
-          "name": "gamelan",
-          "culture": "Indonesia",
-          "why": "cùng dàn cồng chiêng Đông Nam Á",
-          "name_en": "an Indonesian gamelan orchestra"
-        }
-      ],
-      "wiki_title_vi": "Không gian văn hóa Cồng Chiêng Tây Nguyên",
-      "notes": "UNESCO ghi danh năm 2005.",
-      "kind": "context",
-      "clip_label": "Vietnamese Central Highlands gong ensemble in woven costumes performing around a fire",
-      "must_have_en": [
-        "set of round bronze gongs of many sizes held in hand or hung on a frame",
-        "struck with cloth-wrapped mallets or fists",
-        "players in Central Highlands woven costumes with red and black geometric patterns",
-        "performing around a fire or in front of a rong house"
-      ],
-      "must_not_en": [
-        "gamelan gongs on carved wooden racks",
-        "flat knobbed Thai or Burmese gongs"
-      ]
-    },
-    {
-      "id": "ao_the_khan_xep",
-      "name_vi": "Áo the khăn xếp",
-      "name_en": "Male traditional gown and turban",
-      "aliases": [
-        "áo the",
-        "khăn xếp",
-        "ao the khan xep",
-        "áo dài nam"
-      ],
-      "category": "trang_phuc",
-      "region": "bac_bo",
-      "prior_strength": 0.07,
-      "must_have": [
-        "áo dài nam màu tối, thân rộng không ôm, cài khuy lệch bên",
-        "khăn xếp: khăn vấn sẵn thành nhiều nếp tròn quanh đầu, phía trước có nếp hình chữ nhân",
-        "quần trắng ống rộng bên trong",
-        "có thể mang giày hoặc đi chân đất"
-      ],
-      "must_not": [
-        "mũ cứng tròn kiểu quan lại nhà Thanh có chóp",
-        "áo ôm sát cơ thể như áo dài nữ"
-      ],
-      "confusable_with": [
-        {
-          "name": "trường bào nhà Thanh",
-          "culture": "Trung",
-          "why": "cùng áo dài nam Đông Á",
-          "name_en": "a Qing dynasty Chinese changpao robe"
-        },
-        {
-          "name": "áo dài nữ",
-          "culture": "Việt",
-          "why": "model dựng áo dài nữ cho nhân vật nam",
-          "name_en": "a woman's Vietnamese ao dai"
-        }
-      ],
-      "wiki_title_vi": "Áo dài",
-      "notes": "Trang phục nam trong lễ hội, hát quan họ, cúng tế.",
-      "kind": "object",
-      "clip_label": "a Vietnamese man wearing a dark ao the gown and a khan xep pleated turban",
-      "must_have_en": [
-        "dark loose men's long gown buttoned at the side",
-        "khan xep pleated turban with a herringbone fold at the front",
-        "white wide-legged trousers underneath",
-        "shoes or bare feet"
-      ],
-      "must_not_en": [
-        "hard round Qing mandarin hat with a knob",
-        "form-fitting women's ao dai cut"
-      ]
-    },
-    {
-      "id": "trang_phuc_hmong",
-      "name_vi": "Trang phục người H'Mông",
-      "name_en": "Hmong traditional dress",
-      "aliases": [
-        "h'mông",
-        "hmong",
-        "trang phục hmong",
-        "người mông"
-      ],
-      "category": "trang_phuc",
-      "region": "tay_bac",
-      "prior_strength": 0.1,
-      "must_have": [
-        "vải lanh nhuộm chỉ (indigo) màu xanh đen làm nền",
-        "váy xếp nếp li dày, có băng hoa văn sáp ong (batik) và thêu chữ thập màu",
-        "trang sức bạc: vòng cổ bạc lớn, khoen tai bạc",
-        "khăn hoặc mũ vấn đầu, có thể gắn tua và cúc bạc"
-      ],
-      "must_not": [
-        "sari Ấn Độ",
-        "hoa văn thổ cẩm Nam Mỹ"
-      ],
-      "confusable_with": [
-        {
-          "name": "trang phục Miêu (Trung Quốc)",
-          "culture": "Trung",
-          "why": "cùng nhóm dân tộc xuyên biên giới, hoa văn gần nhau",
-          "name_en": "Chinese Miao ethnic costume with silver headdress"
-        },
-        {
-          "name": "trang phục vùng núi Bắc Thái",
-          "culture": "Thái",
-          "why": "cùng nhóm H'Mông di cư",
-          "name_en": "northern Thai hill tribe costume"
-        }
-      ],
-      "wiki_title_vi": "Người Mông (Việt Nam)",
-      "notes": "Có nhiều nhóm (Mông Hoa, Mông Đen, Mông Trắng) với hoa văn khác nhau; đừng gộp làm một.",
-      "kind": "object",
-      "clip_label": "a Hmong woman from northern Vietnam in indigo hemp clothing with a pleated batik skirt and silver jewelry",
-      "must_have_en": [
-        "indigo-dyed hemp fabric in dark blue-black",
-        "thick pleated skirt with batik bands and colored cross-stitch embroidery",
-        "large silver necklaces and silver earrings",
-        "head wrap or cap with tassels and silver buttons"
-      ],
-      "must_not_en": [
-        "Indian sari",
-        "South American woven patterns"
-      ]
-    },
-    {
-      "id": "trang_phuc_dao_do",
-      "name_vi": "Trang phục người Dao Đỏ",
-      "name_en": "Red Dao traditional dress",
-      "aliases": [
-        "dao đỏ",
-        "dao do",
-        "người dao"
-      ],
-      "category": "trang_phuc",
-      "region": "tay_bac",
-      "prior_strength": 0.05,
-      "must_have": [
-        "khăn đội đầu ĐỎ lớn, thường quấn cao hoặc phủ rộng",
-        "áo dài đen thêu chỉ đỏ và trắng dày ở nẹp và tay",
-        "trang sức bạc, đồng xu bạc đính thành hàng, quả bông đỏ",
-        "yếm thêu trước ngực"
-      ],
-      "must_not": [
-        "nền vải xanh chỉ indigo không có đỏ (đó gần với H'Mông)",
-        "khăn trắng"
-      ],
-      "confusable_with": [
-        {
-          "name": "trang phục H'Mông",
-          "culture": "Việt",
-          "why": "cùng vùng Tây Bắc, model gộp mọi dân tộc thiểu số thành một",
-          "name_en": "Hmong indigo costume with pleated skirt"
-        }
-      ],
-      "wiki_title_vi": "Người Dao (Việt Nam)",
-      "notes": "Sắc đỏ trên khăn đội đầu là dấu hiệu phân biệt nhanh nhất với H'Mông.",
-      "kind": "object",
-      "clip_label": "a Red Dao woman from northern Vietnam with a large red headdress and black embroidered dress",
-      "must_have_en": [
-        "large red headdress wrapped high or spread wide",
-        "black long dress densely embroidered in red and white on the edges and sleeves",
-        "silver jewelry, rows of silver coins and red pom-poms",
-        "embroidered bib in front of the chest"
-      ],
-      "must_not_en": [
-        "indigo fabric with no red",
-        "white headscarf"
-      ]
-    },
-    {
-      "id": "non_quai_thao",
-      "name_vi": "Nón quai thao",
-      "name_en": "Flat-brimmed northern hat",
-      "aliases": [
-        "nón quai thao",
-        "nón ba tầm",
-        "non quai thao"
-      ],
-      "category": "trang_phuc",
-      "region": "bac_bo",
-      "prior_strength": 0.03,
-      "must_have": [
-        "vành nón RẤT rộng và PHẲNG, gần như hình tròn dẹt, không có chóp nhọn",
-        "giữa lòng nón có khua (khung tròn) để đội vừa đầu",
-        "quai thao là dải tua bằng sợi tơ nhiều màu, buông dài hai bên",
-        "thường đi cùng áo tứ thân trong hát quan họ"
-      ],
-      "must_not": [
-        "hình chóp nhọn (đó là nón lá)",
-        "quai vải trơn mảnh không tua"
-      ],
-      "confusable_with": [
-        {
-          "name": "nón lá",
-          "culture": "Việt",
-          "why": "model gộp mọi nón Việt thành nón lá chóp nhọn",
-          "name_en": "a Vietnamese conical non la hat"
-        }
-      ],
-      "wiki_title_vi": "Nón quai thao",
-      "notes": "Ca dễ đánh giá tự động: chóp nhọn hay vành phẳng là nhị phân.",
-      "kind": "object",
-      "clip_label": "a Vietnamese non quai thao, a very wide flat-brimmed round hat with long silk tassels",
-      "must_have_en": [
-        "very wide flat brim, almost a flat disc, no pointed tip",
-        "inner ring inside the hat to fit the head",
-        "long multicolor silk tassel straps hanging on both sides",
-        "worn with a four-panel dress in quan ho singing"
-      ],
-      "must_not_en": [
-        "pointed conical shape",
-        "plain thin cloth strap without tassels"
-      ]
+     "name": "hanbok",
+     "culture": "Hàn",
+     "why": "cùng phối áo + phần dưới rời, nhưng hanbok là chân váy xoè cạp cao",
+     "name_en": "a Korean hanbok with a full skirt"
     }
-  ]
+   ],
+   "wiki_title_vi": "Áo dài",
+   "notes": "Dạng hiện đại định hình thập niên 1930 (kiểu Le Mur của Nguyễn Cát Tường), sau có biến thể cổ thuyền thời Trần Lệ Xuân.",
+   "kind": "object",
+   "clip_label": "a woman wearing a Vietnamese ao dai, a long fitted tunic with high collar split at the hips over wide trousers",
+   "must_have_en": [
+    "long-sleeved tunic split at the hips into front and back panels",
+    "high stand-up mandarin collar",
+    "worn over wide-legged long trousers",
+    "fitted bodice with flowing loose panels"
+   ],
+   "must_not_en": [
+    "wide obi sash tied at the back",
+    "one-piece dress with no trousers underneath",
+    "diagonal Y-shaped crossed collar",
+    "puffy flared skirt"
+   ],
+   "tags_en": [
+    "fitted long tunic",
+    "high stand-up collar",
+    "wide-leg trousers",
+    "side slits from the hips",
+    "flowing front and back panels"
+   ],
+   "neg_tags_en": [
+    "obi sash",
+    "bare legs",
+    "floor-length gown",
+    "qipao",
+    "high slit skirt",
+    "crossed v-neck robe"
+   ]
+  },
+  {
+   "id": "non_la",
+   "name_vi": "Nón lá",
+   "name_en": "Conical leaf hat",
+   "aliases": [
+    "nón lá",
+    "non la",
+    "nón",
+    "conical hat"
+   ],
+   "category": "trang_phuc",
+   "region": "toan_quoc",
+   "prior_strength": 0.6,
+   "must_have": [
+    "hình chóp nón tròn, đỉnh nhọn",
+    "lợp lá (lá buông/lá palm) khâu trên vành tre đồng tâm",
+    "có quai (dây vải hoặc lụa) buộc dưới cằm",
+    "mặt lá phẳng mịn màu ngà tới nâu nhạt"
+   ],
+   "must_not": [
+    "vành cực rộng có mép uốn lượn và hoa văn thêu rực rỡ (sombrero)",
+    "đan bằng nan tre thô để lộ mắt đan lớn kiểu nón đấu",
+    "chóp bẹt gần như phẳng"
+   ],
+   "confusable_with": [
+    {
+     "name": "đấu lạp (dǒulì)",
+     "culture": "Trung",
+     "why": "cùng hình nón nhưng đan nan tre thô, không có quai lụa",
+     "name_en": "a Chinese coarse woven bamboo douli hat"
+    },
+    {
+     "name": "sombrero",
+     "culture": "Mexico",
+     "why": "model gộp mọi 'mũ nón rộng vành' vào sombrero",
+     "name_en": "a Mexican sombrero with a wide curled brim"
+    }
+   ],
+   "wiki_title_vi": "Nón lá",
+   "notes": "Nón bài thơ của Huế ép hình và câu thơ giữa hai lớp lá, soi lên sáng mới thấy.",
+   "kind": "object",
+   "clip_label": "a Vietnamese non la, a smooth conical palm-leaf hat with a chin strap",
+   "must_have_en": [
+    "round conical hat with a pointed tip",
+    "smooth palm-leaf surface stitched over bamboo rings",
+    "silk or cloth chin strap",
+    "flat smooth ivory to light-brown leaf surface"
+   ],
+   "must_not_en": [
+    "very wide curled brim with bright embroidery",
+    "coarse open bamboo weave",
+    "flat almost brimless top"
+   ],
+   "tags_en": [
+    "conical palm-leaf hat",
+    "pointed tip",
+    "smooth pale leaf surface",
+    "silk chin strap"
+   ],
+   "neg_tags_en": [
+    "wide curled brim",
+    "embroidery",
+    "open lattice weave",
+    "flat-top hat",
+    "straw boater"
+   ]
+  },
+  {
+   "id": "ao_tu_than",
+   "name_vi": "Áo tứ thân",
+   "name_en": "Four-panel traditional dress",
+   "aliases": [
+    "áo tứ thân",
+    "ao tu than",
+    "tứ thân"
+   ],
+   "category": "trang_phuc",
+   "region": "bac_bo",
+   "prior_strength": 0.12,
+   "must_have": [
+    "áo gồm bốn thân (hai thân sau khâu liền, hai thân trước rời buông hoặc thắt vạt)",
+    "mặc ngoài yếm, bên trong là váy đen dài",
+    "thắt lưng (dải lụa) buộc ngang eo, thả đuôi xuống",
+    "thường đội nón quai thao, không đội nón lá chóp"
+   ],
+   "must_not": [
+    "thân áo liền một khối không chia vạt",
+    "cổ trụ cao ôm sát kiểu áo dài hiện đại",
+    "đai obi bản rộng"
+   ],
+   "confusable_with": [
+    {
+     "name": "hanfu",
+     "culture": "Trung",
+     "why": "cùng nhiều lớp vạt buông; model dễ trả về hanfu",
+     "name_en": "a Chinese hanfu robe"
+    },
+    {
+     "name": "áo dài",
+     "culture": "Việt",
+     "why": "cùng là áo dài thân Việt nhưng tứ thân chia vạt và đi với váy, không đi với quần",
+     "name_en": "a Vietnamese ao dai tunic over trousers"
+    }
+   ],
+   "wiki_title_vi": "Áo tứ thân",
+   "notes": "Trang phục nữ Bắc Bộ trước thế kỷ 20; nay chủ yếu thấy trong hát quan họ và lễ hội.",
+   "kind": "object",
+   "clip_label": "a woman in a Vietnamese ao tu than, a four-panel open-front gown with silk sash over a long black skirt",
+   "must_have_en": [
+    "four-panel gown with two loose open front panels",
+    "worn over a bodice with a long black skirt underneath",
+    "silk sash tied at the waist with hanging ends",
+    "paired with a flat wide-brimmed hat, not a conical hat"
+   ],
+   "must_not_en": [
+    "one-piece closed robe",
+    "high fitted mandarin collar",
+    "wide obi sash"
+   ],
+   "tags_en": [
+    "four-panel gown",
+    "two open front panels",
+    "long black skirt",
+    "silk waist sash with hanging ends",
+    "flat wide-brimmed hat"
+   ],
+   "neg_tags_en": [
+    "closed robe",
+    "obi",
+    "kimono",
+    "hanbok",
+    "conical hat"
+   ]
+  },
+  {
+   "id": "ao_ba_ba",
+   "name_vi": "Áo bà ba",
+   "name_en": "Ba ba shirt (southern Vietnamese blouse)",
+   "aliases": [
+    "áo bà ba",
+    "ao ba ba",
+    "ba ba"
+   ],
+   "category": "trang_phuc",
+   "region": "nam_bo",
+   "prior_strength": 0.15,
+   "must_have": [
+    "áo cánh ngắn tới ngang hông, xẻ giữa cài khuy hoặc nút bấm",
+    "cổ tròn thấp hoặc cổ tim nhỏ, không có cổ trụ cao",
+    "mặc cùng quần dài ống rộng cùng màu",
+    "chất liệu lụa/vải trơn, màu đen, nâu hoặc màu trơn nhã"
+   ],
+   "must_not": [
+    "tà áo dài buông quá đầu gối (thành áo dài)",
+    "hoa văn in kín rực rỡ kiểu áo hoa hiện đại"
+   ],
+   "confusable_with": [
+    {
+     "name": "áo ngủ pyjama trơn",
+     "culture": "phương Tây",
+     "why": "hình dạng gần giống nên model trả về áo pyjama",
+     "name_en": "plain pajamas"
+    },
+    {
+     "name": "áo dài",
+     "culture": "Việt",
+     "why": "model gộp mọi trang phục Việt thành áo dài",
+     "name_en": "a Vietnamese ao dai tunic over trousers"
+    }
+   ],
+   "wiki_title_vi": "Áo bà ba",
+   "notes": "Thường đi kèm khăn rằn và nón lá; gắn với hình ảnh miền Tây sông nước.",
+   "kind": "object",
+   "clip_label": "a person wearing a Vietnamese ao ba ba, a plain silk button-up blouse with matching loose trousers",
+   "must_have_en": [
+    "short hip-length blouse buttoned down the front",
+    "low round or small V neckline, no stand-up collar",
+    "matching wide-legged long trousers",
+    "plain silk or cotton in black, brown or muted solid color"
+   ],
+   "must_not_en": [
+    "long tunic panels below the knee",
+    "busy bright printed pattern"
+   ],
+   "tags_en": [
+    "hip-length blouse",
+    "front buttons",
+    "small round neckline",
+    "wide-leg trousers",
+    "plain dark silk"
+   ],
+   "neg_tags_en": [
+    "knee-length tunic",
+    "high neck",
+    "bright floral print",
+    "cheongsam"
+   ]
+  },
+  {
+   "id": "khan_ran",
+   "name_vi": "Khăn rằn",
+   "name_en": "Checkered scarf (southern Vietnam)",
+   "aliases": [
+    "khăn rằn",
+    "khan ran"
+   ],
+   "category": "trang_phuc",
+   "region": "nam_bo",
+   "prior_strength": 0.1,
+   "must_have": [
+    "khăn dệt ô vuông nhỏ hai màu (đen–trắng hoặc nâu đỏ–trắng)",
+    "vắt qua cổ hoặc quấn đầu",
+    "kích thước khăn dài vừa, không phải khăn vuông lớn"
+   ],
+   "must_not": [
+    "hoa văn keffiyeh với đường viền tua rua đặc trưng Trung Đông",
+    "ô vuông lớn kiểu khăn tartan Scotland"
+   ],
+   "confusable_with": [
+    {
+     "name": "keffiyeh",
+     "culture": "Trung Đông",
+     "why": "cùng là khăn ô vuông hai màu",
+     "name_en": "a Middle Eastern keffiyeh scarf"
+    },
+    {
+     "name": "khăn tartan",
+     "culture": "Scotland",
+     "why": "cùng mô-típ kẻ ô",
+     "name_en": "a Scottish tartan scarf"
+    }
+   ],
+   "wiki_title_vi": "Khăn rằn",
+   "notes": "Có giao thoa với văn hoá Khmer Nam Bộ.",
+   "kind": "object",
+   "clip_label": "a Vietnamese khan ran, a small black-and-white checkered cotton scarf around the neck",
+   "must_have_en": [
+    "small two-tone black-and-white or red-and-white checkered scarf",
+    "draped around the neck or wrapped on the head",
+    "medium-length rectangular scarf, not a large square"
+   ],
+   "must_not_en": [
+    "keffiyeh pattern with tassel fringe",
+    "large tartan plaid"
+   ],
+   "tags_en": [
+    "small checkered scarf",
+    "black-and-white checks",
+    "draped on neck or head",
+    "rectangular cotton scarf"
+   ],
+   "neg_tags_en": [
+    "keffiyeh",
+    "tassel fringe",
+    "tartan",
+    "shawl"
+   ]
+  },
+  {
+   "id": "pho",
+   "name_vi": "Phở",
+   "name_en": "Pho (Vietnamese noodle soup)",
+   "aliases": [
+    "phở",
+    "pho",
+    "phở bò",
+    "phở gà"
+   ],
+   "category": "am_thuc",
+   "region": "toan_quoc",
+   "prior_strength": 0.65,
+   "must_have": [
+    "bánh phở là sợi gạo dẹt, trắng đục, mềm",
+    "nước dùng trong, màu hổ phách nhạt, không sánh đặc",
+    "thịt bò lát mỏng (hoặc thịt gà xé), hành lá và hành tây thái mỏng trên mặt",
+    "tô rộng miệng, nước ngập sợi"
+   ],
+   "must_not": [
+    "sợi mì lúa mì vàng xoăn (mì ramen)",
+    "nước dùng đục trắng sánh kiểu tonkotsu",
+    "lá rong biển nori, trứng luộc lòng đào cắt nửa, ngô ngọt, bơ",
+    "nước dùng đỏ sánh cay kiểu mì Tứ Xuyên"
+   ],
+   "confusable_with": [
+    {
+     "name": "ramen",
+     "culture": "Nhật",
+     "why": "cùng là mì nước; model thêm nori, trứng, chashu",
+     "name_en": "a bowl of Japanese ramen with wheat noodles, egg and nori"
+    },
+    {
+     "name": "mì bò Lan Châu",
+     "culture": "Trung",
+     "why": "cùng mì bò nước trong",
+     "name_en": "a bowl of Chinese Lanzhou beef noodle soup"
+    }
+   ],
+   "wiki_title_vi": "Phở",
+   "notes": "Phở Bắc ăn thanh, ít rau thơm; phở Nam kèm đĩa giá, rau quế, ngò gai, chanh, tương đen–tương ớt.",
+   "kind": "object",
+   "clip_label": "a bowl of Vietnamese pho, flat rice noodles in clear amber beef broth with sliced beef and green onion",
+   "must_have_en": [
+    "flat soft white rice noodles",
+    "clear light amber broth, not thick",
+    "thin sliced beef or shredded chicken with scallion and thin onion on top",
+    "wide bowl with noodles submerged in broth"
+   ],
+   "must_not_en": [
+    "yellow curly wheat ramen noodles",
+    "milky thick tonkotsu broth",
+    "nori seaweed, halved soft-boiled egg, corn, butter",
+    "thick red spicy Sichuan-style broth"
+   ],
+   "tags_en": [
+    "flat rice noodles",
+    "clear amber beef broth",
+    "thin sliced beef",
+    "scallion and onion",
+    "wide bowl"
+   ],
+   "neg_tags_en": [
+    "ramen",
+    "tonkotsu",
+    "soft-boiled egg",
+    "nori",
+    "corn",
+    "chili oil film"
+   ]
+  },
+  {
+   "id": "banh_chung",
+   "name_vi": "Bánh chưng",
+   "name_en": "Banh chung (square sticky rice cake)",
+   "aliases": [
+    "bánh chưng",
+    "banh chung"
+   ],
+   "category": "am_thuc",
+   "region": "bac_bo",
+   "prior_strength": 0.15,
+   "must_have": [
+    "khối VUÔNG dày, các cạnh gấp vuông vắn",
+    "gói bằng lá dong xanh, buộc lạt tre chia mặt bánh thành ô",
+    "cắt ra thấy ba lớp: gạo nếp trắng ngoài, đậu xanh vàng, thịt lợn ba chỉ giữa",
+    "mặt bánh sau luộc ngả màu xanh nhạt do lá dong"
+   ],
+   "must_not": [
+    "hình chóp tam giác hoặc hình nêm (zongzi Trung Quốc)",
+    "gói bằng lá tre hẹp dài",
+    "hình tròn dẹt hoặc hình trụ (đó là bánh tét)"
+   ],
+   "confusable_with": [
+    {
+     "name": "zongzi (bánh ú Trung Quốc)",
+     "culture": "Trung",
+     "why": "cùng gạo nếp gói lá luộc; nhưng zongzi gói hình chóp bằng lá tre",
+     "name_en": "Chinese zongzi, a pyramid-shaped sticky rice dumpling wrapped in bamboo leaves"
+    },
+    {
+     "name": "chimaki",
+     "culture": "Nhật",
+     "why": "cùng nếp gói lá hình nêm",
+     "name_en": "Japanese chimaki rice dumpling wrapped in bamboo leaf"
+    }
+   ],
+   "wiki_title_vi": "Bánh chưng",
+   "notes": "Gắn truyền thuyết Lang Liêu; bánh chưng vuông tượng Đất, bánh giầy tròn tượng Trời. Luộc 8–12 tiếng.",
+   "kind": "object",
+   "clip_label": "Vietnamese banh chung, a thick square sticky rice cake wrapped in green dong leaves tied with bamboo strips",
+   "must_have_en": [
+    "thick square block with sharp folded corners",
+    "wrapped in green dong leaves tied with bamboo strips in a grid",
+    "cut open shows white sticky rice, yellow mung bean and pork belly layers",
+    "pale green tinted surface from the leaves"
+   ],
+   "must_not_en": [
+    "pyramid or wedge shape",
+    "narrow long bamboo leaf wrapping",
+    "round flat or cylindrical shape"
+   ],
+   "tags_en": [
+    "square green rice cake",
+    "dong leaf wrapping",
+    "bamboo string grid",
+    "sticky rice mung bean pork layers"
+   ],
+   "neg_tags_en": [
+    "pyramid dumpling",
+    "zongzi",
+    "cylinder",
+    "round cake"
+   ]
+  },
+  {
+   "id": "banh_tet",
+   "name_vi": "Bánh tét",
+   "name_en": "Banh tet (cylindrical sticky rice cake)",
+   "aliases": [
+    "bánh tét",
+    "banh tet"
+   ],
+   "category": "am_thuc",
+   "region": "nam_bo",
+   "prior_strength": 0.08,
+   "must_have": [
+    "hình TRỤ dài, gói bằng lá chuối, buộc dây quanh thân thành nhiều khoanh",
+    "cắt thành khoanh tròn, nhân đậu xanh và thịt nằm giữa mặt cắt",
+    "vỏ nếp trắng hoặc nhuộm màu (lá cẩm tím, lá dứa xanh, gấc đỏ) tuỳ vùng"
+   ],
+   "must_not": [
+    "hình vuông (đó là bánh chưng)",
+    "gói lá dong",
+    "hình chóp tam giác"
+   ],
+   "confusable_with": [
+    {
+     "name": "bánh chưng",
+     "culture": "Việt",
+     "why": "cùng chức năng bánh Tết, model hay trả về bánh vuông",
+     "name_en": "Vietnamese square banh chung cake"
+    },
+    {
+     "name": "zongzi",
+     "culture": "Trung",
+     "why": "cùng nếp gói lá",
+     "name_en": "Chinese zongzi, a pyramid-shaped sticky rice dumpling"
+    }
+   ],
+   "wiki_title_vi": "Bánh tét",
+   "notes": "Bánh Tết của miền Trung và miền Nam, đối ứng với bánh chưng miền Bắc.",
+   "kind": "object",
+   "clip_label": "Vietnamese banh tet, a long cylindrical sticky rice cake wrapped in banana leaf, sliced into rounds",
+   "must_have_en": [
+    "long cylinder wrapped in banana leaf tied in many bands",
+    "sliced into round pieces with mung bean and pork center",
+    "white or naturally dyed purple green or red sticky rice"
+   ],
+   "must_not_en": [
+    "square shape",
+    "dong leaf wrapping",
+    "pyramid shape"
+   ],
+   "tags_en": [
+    "cylindrical rice cake",
+    "banana leaf wrapping",
+    "round slices",
+    "mung bean pork center"
+   ],
+   "neg_tags_en": [
+    "square cake",
+    "pyramid dumpling",
+    "zongzi"
+   ]
+  },
+  {
+   "id": "banh_mi",
+   "name_vi": "Bánh mì",
+   "name_en": "Banh mi (Vietnamese sandwich)",
+   "aliases": [
+    "bánh mì",
+    "banh mi",
+    "bánh mì thịt"
+   ],
+   "category": "am_thuc",
+   "region": "toan_quoc",
+   "prior_strength": 0.5,
+   "must_have": [
+    "ổ bánh ngắn, vỏ mỏng giòn nứt, ruột rỗng xốp nhẹ",
+    "xẻ dọc, phết pa tê và bơ/mayonnaise",
+    "nhân có đồ chua (cà rốt và củ cải trắng thái sợi muối chua)",
+    "rau mùi (ngò rí) và dưa leo thái dài, ớt tươi"
+   ],
+   "must_not": [
+    "baguette dài đặc ruột kiểu Pháp",
+    "bánh mì lát vuông sandwich",
+    "phô mai chảy lớp dày, xà lách iceberg băm, sốt kiểu subway"
+   ],
+   "confusable_with": [
+    {
+     "name": "jambon-beurre",
+     "culture": "Pháp",
+     "why": "gốc baguette thuộc địa; model trả về sandwich Pháp",
+     "name_en": "a French jambon-beurre baguette sandwich"
+    },
+    {
+     "name": "submarine sandwich",
+     "culture": "Mỹ",
+     "why": "model gộp mọi bánh kẹp dài",
+     "name_en": "an American submarine sandwich"
+    }
+   ],
+   "wiki_title_vi": "Bánh mì",
+   "notes": "Ruột rỗng và vỏ mỏng là điểm khác cốt lõi so với baguette Pháp, do công thức pha bột gạo/bột nở.",
+   "kind": "object",
+   "clip_label": "a Vietnamese banh mi, a short airy baguette sandwich with pate, pickled carrot and daikon, cilantro and chili",
+   "must_have_en": [
+    "short baguette with thin crackly crust and airy hollow interior",
+    "split lengthwise with pate and butter or mayonnaise",
+    "pickled shredded carrot and daikon filling",
+    "cilantro, long cucumber slices and fresh chili"
+   ],
+   "must_not_en": [
+    "long dense French baguette",
+    "square sliced sandwich bread",
+    "thick melted cheese, iceberg lettuce, sub sandwich sauce"
+   ],
+   "tags_en": [
+    "short crackly baguette",
+    "split lengthwise",
+    "pate and mayonnaise",
+    "pickled carrot and daikon",
+    "cilantro and chili"
+   ],
+   "neg_tags_en": [
+    "long dense baguette",
+    "sliced bread",
+    "melted cheese",
+    "iceberg lettuce",
+    "sub sandwich"
+   ]
+  },
+  {
+   "id": "cha_gio",
+   "name_vi": "Chả giò / Nem rán",
+   "name_en": "Fried spring roll",
+   "aliases": [
+    "chả giò",
+    "nem rán",
+    "cha gio",
+    "nem ran"
+   ],
+   "category": "am_thuc",
+   "region": "toan_quoc",
+   "prior_strength": 0.35,
+   "must_have": [
+    "cuốn nhỏ vỏ bánh tráng (gạo) rán vàng, mặt vỏ hơi phồng rộp",
+    "nhân thịt lợn băm, nấm mèo (mộc nhĩ), bún/miến, cà rốt",
+    "ăn kèm rau xà lách, rau thơm để cuốn và bát nước chấm pha loãng"
+   ],
+   "must_not": [
+    "vỏ bột mì mịn phẳng, cuốn to dài kiểu spring roll Trung Quốc",
+    "nhân bắp cải là chủ đạo",
+    "chấm sốt chua ngọt đỏ đặc"
+   ],
+   "confusable_with": [
+    {
+     "name": "spring roll Trung Quốc",
+     "culture": "Trung",
+     "why": "cùng dạng cuốn rán; khác vỏ bột mì và nhân bắp cải",
+     "name_en": "a Chinese spring roll with smooth wheat wrapper"
+    }
+   ],
+   "wiki_title_vi": "Chả giò",
+   "notes": "Miền Bắc gọi nem rán, miền Nam gọi chả giò.",
+   "kind": "object",
+   "clip_label": "Vietnamese fried spring rolls in blistered rice paper served with lettuce and herbs and dipping sauce",
+   "must_have_en": [
+    "small fried rolls in blistered golden rice-paper wrapper",
+    "minced pork, wood ear mushroom, glass noodle and carrot filling",
+    "served with lettuce and herbs and a bowl of light dipping sauce"
+   ],
+   "must_not_en": [
+    "smooth flat wheat wrapper large spring roll",
+    "cabbage-dominated filling",
+    "thick red sweet and sour sauce"
+   ],
+   "tags_en": [
+    "small fried rolls",
+    "blistered golden rice paper",
+    "pork and glass noodle filling",
+    "lettuce and herbs",
+    "light dipping sauce"
+   ],
+   "neg_tags_en": [
+    "thick wheat-skin egg roll",
+    "cabbage",
+    "sweet and sour sauce",
+    "large roll"
+   ]
+  },
+  {
+   "id": "goi_cuon",
+   "name_vi": "Gỏi cuốn",
+   "name_en": "Fresh summer roll",
+   "aliases": [
+    "gỏi cuốn",
+    "goi cuon",
+    "nem cuốn"
+   ],
+   "category": "am_thuc",
+   "region": "nam_bo",
+   "prior_strength": 0.4,
+   "must_have": [
+    "vỏ bánh tráng nhúng nước, TRONG mờ, thấy rõ nhân bên trong",
+    "KHÔNG rán, ăn tươi",
+    "nhân tôm luộc chẻ đôi (thấy màu đỏ cam qua vỏ), thịt lợn luộc, bún, rau sống",
+    "chấm tương đen pha đậu phộng hoặc nước chấm"
+   ],
+   "must_not": [
+    "vỏ rán vàng giòn",
+    "vỏ đục hoàn toàn không thấy nhân"
+   ],
+   "confusable_with": [
+    {
+     "name": "fresh roll Thái",
+     "culture": "Thái",
+     "why": "gần như đồng dạng, khác nước chấm",
+     "name_en": "Thai fresh spring rolls"
+    }
+   ],
+   "wiki_title_vi": "Gỏi cuốn",
+   "notes": "Điểm nhận dạng thị giác mạnh nhất: tôm đỏ nhìn xuyên qua vỏ bánh tráng trong.",
+   "kind": "object",
+   "clip_label": "Vietnamese fresh summer rolls in translucent rice paper showing pink shrimp inside",
+   "must_have_en": [
+    "translucent soaked rice paper showing the filling inside",
+    "fresh, not fried",
+    "halved pink boiled shrimp visible through the wrapper with pork, vermicelli and herbs",
+    "peanut hoisin or fish dipping sauce"
+   ],
+   "must_not_en": [
+    "golden fried crispy wrapper",
+    "opaque wrapper hiding the filling"
+   ],
+   "tags_en": [
+    "translucent rice paper roll",
+    "fresh not fried",
+    "pink shrimp visible",
+    "vermicelli and herbs",
+    "peanut hoisin sauce"
+   ],
+   "neg_tags_en": [
+    "fried",
+    "golden crispy",
+    "opaque skin"
+   ]
+  },
+  {
+   "id": "ca_phe_sua_da",
+   "name_vi": "Cà phê sữa đá",
+   "name_en": "Vietnamese iced milk coffee",
+   "aliases": [
+    "cà phê sữa đá",
+    "ca phe sua da",
+    "cafe sua da",
+    "cà phê phin"
+   ],
+   "category": "am_thuc",
+   "region": "toan_quoc",
+   "prior_strength": 0.3,
+   "must_have": [
+    "phin nhôm/inox đặt trên miệng ly, cà phê nhỏ giọt xuống",
+    "lớp sữa đặc trắng ngà dưới đáy, cà phê nâu đậm trên, ranh giới rõ trước khi quấy",
+    "ly thuỷ tinh thấp, đá viên",
+    "cà phê robusta rang đậm, màu nâu gần đen"
+   ],
+   "must_not": [
+    "máy espresso và ly latte có hoa văn latte art",
+    "ống hút nhựa cắm trong ly nhựa mang đi kiểu chuỗi cà phê Mỹ"
+   ],
+   "confusable_with": [
+    {
+     "name": "iced latte",
+     "culture": "phương Tây",
+     "why": "cùng cà phê sữa đá lạnh; thiếu phin",
+     "name_en": "an iced latte from a coffee chain"
+    }
+   ],
+   "wiki_title_vi": "Cà phê Việt Nam",
+   "notes": "Cái phin là dấu hiệu nhận dạng thị giác quan trọng nhất.",
+   "kind": "object",
+   "clip_label": "a glass of Vietnamese iced coffee with a metal phin drip filter on top and condensed milk at the bottom",
+   "must_have_en": [
+    "metal phin drip filter sitting on top of the glass",
+    "layer of condensed milk at the bottom with dark coffee on top",
+    "short glass with ice cubes",
+    "dark roasted robusta coffee, almost black"
+   ],
+   "must_not_en": [
+    "espresso machine and latte art",
+    "plastic to-go cup with straw"
+   ],
+   "tags_en": [
+    "metal phin drip filter",
+    "condensed milk layer",
+    "short glass with ice",
+    "black robusta coffee"
+   ],
+   "neg_tags_en": [
+    "espresso machine",
+    "latte art",
+    "plastic to-go cup",
+    "straw"
+   ]
+  },
+  {
+   "id": "bun_bo_hue",
+   "name_vi": "Bún bò Huế",
+   "name_en": "Hue spicy beef noodle soup",
+   "aliases": [
+    "bún bò huế",
+    "bun bo hue",
+    "bún bò"
+   ],
+   "category": "am_thuc",
+   "region": "trung_bo",
+   "prior_strength": 0.12,
+   "must_have": [
+    "sợi bún gạo TRÒN và dày (khác sợi phở dẹt)",
+    "nước dùng đỏ cam do ớt và sả, có màng dầu ớt trên mặt",
+    "bắp bò, giò heo khoanh, huyết heo, chả",
+    "ăn kèm bắp chuối thái mỏng, hành tây ngâm, rau thơm"
+   ],
+   "must_not": [
+    "sợi dẹt trắng kiểu phở",
+    "nước dùng trong không màu"
+   ],
+   "confusable_with": [
+    {
+     "name": "phở",
+     "culture": "Việt",
+     "why": "model gộp mọi món bún nước Việt thành phở",
+     "name_en": "a bowl of Vietnamese pho"
+    },
+    {
+     "name": "laksa",
+     "culture": "Mã Lai",
+     "why": "cùng nước dùng đỏ cay có màng dầu",
+     "name_en": "a bowl of Malaysian laksa"
+    }
+   ],
+   "wiki_title_vi": "Bún bò Huế",
+   "notes": "Nền vị là mắm ruốc và sả, khác hoàn toàn phở.",
+   "kind": "object",
+   "clip_label": "a bowl of Vietnamese bun bo Hue, thick round rice noodles in spicy red lemongrass broth with pork knuckle",
+   "must_have_en": [
+    "thick round rice noodles, not flat",
+    "red-orange lemongrass chili broth with a chili oil film",
+    "beef shank, pork knuckle slices, blood cubes and pork cake",
+    "shredded banana blossom, pickled onion and herbs"
+   ],
+   "must_not_en": [
+    "flat white pho noodles",
+    "clear colorless broth"
+   ],
+   "tags_en": [
+    "thick round rice noodles",
+    "red-orange lemongrass broth",
+    "chili oil film",
+    "beef shank and pork knuckle",
+    "banana blossom"
+   ],
+   "neg_tags_en": [
+    "flat noodles",
+    "pale clear soup",
+    "pho"
+   ]
+  },
+  {
+   "id": "com_lang_vong",
+   "name_vi": "Cốm",
+   "name_en": "Com (young green sticky rice)",
+   "aliases": [
+    "cốm",
+    "com",
+    "cốm làng Vòng"
+   ],
+   "category": "am_thuc",
+   "region": "bac_bo",
+   "prior_strength": 0.05,
+   "must_have": [
+    "hạt nếp non dẹt, màu xanh non tới xanh ngọc",
+    "gói trong lá sen, buộc bằng sợi rơm nếp vàng",
+    "để rời thành nhúm, không kết thành bánh"
+   ],
+   "must_not": [
+    "hạt gạo trắng tròn thông thường",
+    "gói giấy hay hộp nhựa",
+    "màu xanh nhân tạo rực rỡ"
+   ],
+   "confusable_with": [
+    {
+     "name": "edamame",
+     "culture": "Nhật",
+     "why": "model bám vào 'hạt xanh' nên trả về đậu xanh Nhật",
+     "name_en": "Japanese edamame beans"
+    },
+    {
+     "name": "matcha rice",
+     "culture": "Nhật",
+     "why": "cùng sắc xanh trên nền gạo",
+     "name_en": "Japanese matcha rice"
+    }
+   ],
+   "wiki_title_vi": "Cốm",
+   "notes": "Đặc sản mùa thu Hà Nội, nổi tiếng nhất là cốm làng Vòng.",
+   "kind": "object",
+   "clip_label": "Vietnamese com, flattened young green rice grains wrapped in a lotus leaf tied with rice straw",
+   "must_have_en": [
+    "flattened young rice grains in soft jade green",
+    "wrapped in a lotus leaf tied with yellow rice straw",
+    "loose grains, not pressed into a cake"
+   ],
+   "must_not_en": [
+    "ordinary round white rice",
+    "paper or plastic packaging",
+    "artificial neon green"
+   ],
+   "tags_en": [
+    "young green rice flakes",
+    "jade green loose grains",
+    "lotus leaf wrapping",
+    "rice straw tie"
+   ],
+   "neg_tags_en": [
+    "white rice",
+    "plastic packaging",
+    "neon green",
+    "pressed cake"
+   ]
+  },
+  {
+   "id": "tet_nguyen_dan",
+   "name_vi": "Tết Nguyên Đán",
+   "name_en": "Vietnamese Lunar New Year",
+   "aliases": [
+    "tết",
+    "tet",
+    "tết nguyên đán",
+    "năm mới âm lịch"
+   ],
+   "category": "le_hoi",
+   "region": "toan_quoc",
+   "prior_strength": 0.25,
+   "must_have": [
+    "cây quất trĩu quả cam hoặc cành đào hồng (Bắc) / cây mai vàng (Nam)",
+    "bao lì xì ĐỎ nhỏ, chữ Việt hoặc hoa văn, không nhất thiết chữ Hán",
+    "mâm ngũ quả trên bàn thờ gia tiên",
+    "bánh chưng hoặc bánh tét trên mâm cỗ"
+   ],
+   "must_not": [
+    "đèn lồng đỏ tròn treo kín phố kiểu Tết Trung Quốc",
+    "chữ Hán 福 / 春 dán khắp làm mô-típ chính",
+    "cây thông và ông già Noel"
+   ],
+   "confusable_with": [
+    {
+     "name": "Tết Trung Quốc (Xuân Vận)",
+     "culture": "Trung",
+     "why": "cùng Tết âm lịch, cùng màu đỏ; model mặc định đổ về biểu tượng Trung Quốc",
+     "name_en": "Chinese New Year with red round lanterns and Chinese characters"
+    }
+   ],
+   "wiki_title_vi": "Tết Nguyên Đán",
+   "notes": "Đây là ca thất bại kinh điển của T2I: prompt 'lunar new year' gần như luôn ra cảnh Trung Quốc.",
+   "kind": "context",
+   "clip_label": "a Vietnamese Tet celebration with a kumquat tree, peach or yellow apricot blossoms, red envelopes and an ancestral altar with a five-fruit tray",
+   "must_have_en": [
+    "kumquat tree with orange fruit or pink peach blossoms, or yellow apricot blossoms",
+    "small red envelopes with Vietnamese lettering or patterns",
+    "five-fruit tray on an ancestral altar",
+    "banh chung or banh tet on the feast tray"
+   ],
+   "must_not_en": [
+    "streets covered in round red Chinese lanterns",
+    "Chinese characters as the main motif",
+    "Christmas tree and Santa Claus"
+   ],
+   "tags_en": [
+    "kumquat tree",
+    "peach blossom branch",
+    "red lucky envelopes",
+    "five-fruit tray",
+    "ancestral altar",
+    "banh chung"
+   ],
+   "neg_tags_en": [
+    "chinese lanterns",
+    "chinese characters",
+    "christmas tree",
+    "santa claus",
+    "dragon dance"
+   ]
+  },
+  {
+   "id": "trung_thu",
+   "name_vi": "Tết Trung Thu",
+   "name_en": "Mid-Autumn Festival (Vietnam)",
+   "aliases": [
+    "trung thu",
+    "tết trung thu",
+    "mid autumn"
+   ],
+   "category": "le_hoi",
+   "region": "toan_quoc",
+   "prior_strength": 0.15,
+   "must_have": [
+    "đèn ông sao năm cánh căng giấy bóng màu trên khung tre, có cán cầm",
+    "bánh nướng vuông in khuôn chữ, bánh dẻo trắng",
+    "múa lân và ông Địa quạt mo",
+    "trẻ con rước đèn ban đêm"
+   ],
+   "must_not": [
+    "đèn lồng tròn đỏ kiểu Trung Quốc làm vật thể chính",
+    "đèn lồng hình thỏ ngọc kiểu Đông Á chung",
+    "đèn lồng giấy Nhật (chōchin) có chữ kanji"
+   ],
+   "confusable_with": [
+    {
+     "name": "Trung Thu Trung Quốc",
+     "culture": "Trung",
+     "why": "cùng ngày lễ; nhưng đèn ông sao 5 cánh là nét riêng Việt Nam",
+     "name_en": "Chinese Mid-Autumn festival with round red lanterns and rabbit lanterns"
+    }
+   ],
+   "wiki_title_vi": "Tết Trung thu",
+   "notes": "Đèn ông sao năm cánh là dấu hiệu phân biệt Trung Thu Việt rõ nhất.",
+   "kind": "context",
+   "clip_label": "Vietnamese Mid-Autumn festival with children carrying five-pointed star lanterns made of colored cellophane on bamboo frames",
+   "must_have_en": [
+    "five-pointed star lantern of colored cellophane on a bamboo frame with a handle",
+    "square molded baked mooncakes and white snowskin cakes",
+    "lion dance with the Ong Dia character holding a fan",
+    "children parading lanterns at night"
+   ],
+   "must_not_en": [
+    "round red Chinese lanterns as the main object",
+    "jade rabbit lanterns",
+    "Japanese paper lanterns with kanji"
+   ],
+   "tags_en": [
+    "star lantern",
+    "colored cellophane on bamboo frame",
+    "square mooncakes",
+    "lion dance",
+    "children with lanterns at night"
+   ],
+   "neg_tags_en": [
+    "red paper globes",
+    "jade rabbit",
+    "kanji",
+    "japanese festival"
+   ]
+  },
+  {
+   "id": "mua_lan",
+   "name_vi": "Múa lân sư rồng",
+   "name_en": "Lion-dragon dance (Vietnam)",
+   "aliases": [
+    "múa lân",
+    "mua lan",
+    "lân sư rồng"
+   ],
+   "category": "le_hoi",
+   "region": "toan_quoc",
+   "prior_strength": 0.3,
+   "must_have": [
+    "đầu lân lớn nhiều màu, mắt to lắp lò xo, có sừng giữa đầu",
+    "hai người điều khiển: một đầu một đuôi",
+    "nhân vật ông Địa mặt tròn phúng phính, bụng phệ, cầm quạt mo đi cùng",
+    "trống và thanh la đi kèm"
+   ],
+   "must_not": [
+    "rồng dài nhiều người nâng cột (đó là múa rồng, khác múa lân)"
+   ],
+   "confusable_with": [
+    {
+     "name": "múa lân Trung Quốc",
+     "culture": "Trung",
+     "why": "rất gần nhau; ông Địa là chi tiết đặc trưng của bản Việt",
+     "name_en": "a Chinese lion dance"
+    }
+   ],
+   "wiki_title_vi": "Múa lân",
+   "notes": "Xuất hiện ở cả Tết Nguyên Đán và Trung Thu.",
+   "kind": "context",
+   "clip_label": "a Vietnamese lion dance with a colorful big-eyed lion head and the laughing Ong Dia character with a fan",
+   "must_have_en": [
+    "large colorful lion head with big spring-mounted eyes and a horn",
+    "two performers, one at the head and one at the tail",
+    "the Ong Dia character with a round smiling mask, big belly and palm-leaf fan",
+    "drums and gongs accompanying"
+   ],
+   "must_not_en": [
+    "long dragon on poles carried by many people"
+   ],
+   "tags_en": [
+    "colorful lion head",
+    "big spring eyes and horn",
+    "two performers",
+    "Ong Dia round smiling mask",
+    "palm-leaf fan",
+    "drums and gongs"
+   ],
+   "neg_tags_en": [
+    "long dragon on poles",
+    "many carriers",
+    "chinese dragon parade"
+   ]
+  },
+  {
+   "id": "chua_mot_cot",
+   "name_vi": "Chùa Một Cột",
+   "name_en": "One Pillar Pagoda",
+   "aliases": [
+    "chùa một cột",
+    "chua mot cot",
+    "one pillar pagoda",
+    "liên hoa đài"
+   ],
+   "category": "kien_truc",
+   "region": "bac_bo",
+   "prior_strength": 0.2,
+   "must_have": [
+    "một cột đá trụ duy nhất đứng giữa hồ nước",
+    "trên đỉnh cột là đài gỗ hình vuông nhỏ, mái cong bốn phía",
+    "cầu thang gỗ nhỏ dẫn lên từ bờ",
+    "cây xanh và hồ sen quanh chân cột"
+   ],
+   "must_not": [
+    "chùa nhiều tầng tháp kiểu Trung Quốc",
+    "chùa đặt trên nền đất phẳng nhiều cột"
+   ],
+   "confusable_with": [
+    {
+     "name": "tháp chùa Trung Quốc",
+     "culture": "Trung",
+     "why": "model đổ về kiến trúc chùa Đông Á chung chung",
+     "name_en": "a multi-storey Chinese pagoda tower"
+    }
+   ],
+   "wiki_title_vi": "Chùa Một Cột",
+   "notes": "Xây năm 1049 thời Lý Thái Tông; đài trên cột gọi là Liên Hoa Đài.",
+   "kind": "object",
+   "clip_label": "the One Pillar Pagoda in Hanoi, a small wooden pavilion standing on a single stone pillar in a lotus pond",
+   "must_have_en": [
+    "a single stone pillar standing in a pond",
+    "small square wooden pavilion on top with a curved roof on four sides",
+    "small wooden staircase from the bank",
+    "lotus pond and greenery around the pillar"
+   ],
+   "must_not_en": [
+    "multi-storey Chinese pagoda tower",
+    "temple on flat ground with many columns"
+   ],
+   "tags_en": [
+    "single stone pillar in a pond",
+    "small square wooden pavilion",
+    "curved roof on four sides",
+    "wooden staircase",
+    "lotus pond"
+   ],
+   "neg_tags_en": [
+    "multi-storey pagoda tower",
+    "many columns",
+    "temple on flat ground"
+   ]
+  },
+  {
+   "id": "van_mieu",
+   "name_vi": "Văn Miếu – Quốc Tử Giám",
+   "name_en": "Temple of Literature, Hanoi",
+   "aliases": [
+    "văn miếu",
+    "quốc tử giám",
+    "van mieu",
+    "temple of literature"
+   ],
+   "category": "kien_truc",
+   "region": "bac_bo",
+   "prior_strength": 0.15,
+   "must_have": [
+    "gác Khuê Văn Các: tầng dưới bốn trụ gạch vuông, tầng trên gỗ sơn đỏ với hai cửa sổ tròn",
+    "bia đá tiến sĩ đặt trên lưng rùa đá, xếp thành hai hàng dài",
+    "sân vườn nhiều lớp, tường gạch cổ, cổng tam quan",
+    "mái ngói cong lợp ngói mũi hài"
+   ],
+   "must_not": [
+    "cột đá chạm rồng cuốn kiểu Cấm Thành Bắc Kinh",
+    "sơn vàng kim rực rỡ"
+   ],
+   "confusable_with": [
+    {
+     "name": "Khổng Miếu Trung Quốc",
+     "culture": "Trung",
+     "why": "cùng là văn miếu thờ Khổng Tử; khác ở Khuê Văn Các và bia rùa",
+     "name_en": "a Chinese Confucius temple with dragon-carved pillars"
+    }
+   ],
+   "wiki_title_vi": "Văn Miếu – Quốc Tử Giám",
+   "notes": "Lập năm 1070; 82 bia tiến sĩ được UNESCO ghi danh Di sản tư liệu.",
+   "kind": "object",
+   "clip_label": "the Temple of Literature in Hanoi with the Khue Van Cac pavilion and stone stelae on turtle backs",
+   "must_have_en": [
+    "Khue Van Cac pavilion: four square brick pillars below and a red wooden upper floor with two round windows",
+    "stone doctoral stelae on stone turtles in two long rows",
+    "layered courtyards with old brick walls and a three-arch gate",
+    "curved roofs with hai-tiles"
+   ],
+   "must_not_en": [
+    "dragon-carved stone columns like the Forbidden City",
+    "bright gold paint"
+   ],
+   "tags_en": [
+    "Khue Van Cac pavilion",
+    "four square brick pillars",
+    "red wooden upper floor with round windows",
+    "stone stelae on stone turtles",
+    "three-arch gate",
+    "old brick walls"
+   ],
+   "neg_tags_en": [
+    "forbidden city",
+    "dragon-carved columns",
+    "gold paint"
+   ]
+  },
+  {
+   "id": "pho_co_hoi_an",
+   "name_vi": "Phố cổ Hội An",
+   "name_en": "Hoi An Ancient Town",
+   "aliases": [
+    "hội an",
+    "hoi an",
+    "phố cổ hội an"
+   ],
+   "category": "kien_truc",
+   "region": "trung_bo",
+   "prior_strength": 0.35,
+   "must_have": [
+    "tường nhà quét vôi màu vàng nghệ, nhiều chỗ tróc loang",
+    "nhà phố gỗ hai tầng, cửa lùa gỗ, mái ngói âm dương",
+    "đèn lồng lụa nhiều màu treo thành dây dọc phố",
+    "Chùa Cầu: cầu gỗ có mái che bắc qua kênh nhỏ"
+   ],
+   "must_not": [
+    "nhà cao tầng kính hiện đại",
+    "đèn lồng giấy Nhật có chữ kanji"
+   ],
+   "confusable_with": [
+    {
+     "name": "phố cổ Lệ Giang",
+     "culture": "Trung",
+     "why": "cùng phố cổ đèn lồng bên kênh",
+     "name_en": "Lijiang old town in China with lanterns along canals"
+    }
+   ],
+   "wiki_title_vi": "Phố cổ Hội An",
+   "notes": "Đèn lồng Hội An là lụa căng khung tre, hình cầu/củ tỏi, khác đèn lồng giấy Nhật hay Trung.",
+   "kind": "context",
+   "clip_label": "Hoi An ancient town at night with yellow ochre walls, wooden shophouses and colorful silk lanterns",
+   "must_have_en": [
+    "ochre yellow lime-washed walls with peeling patches",
+    "two-storey wooden shophouses with sliding doors and yin-yang tile roofs",
+    "strings of colorful silk lanterns along the street",
+    "the Japanese Covered Bridge over a small canal"
+   ],
+   "must_not_en": [
+    "modern glass high-rises",
+    "Japanese paper lanterns with kanji"
+   ],
+   "tags_en": [
+    "ochre yellow lime-washed walls",
+    "two-storey wooden shophouses",
+    "yin-yang tile roofs",
+    "colorful silk lanterns",
+    "Japanese Covered Bridge"
+   ],
+   "neg_tags_en": [
+    "glass high-rises",
+    "kanji signs",
+    "japanese town"
+   ]
+  },
+  {
+   "id": "nha_rong",
+   "name_vi": "Nhà rông",
+   "name_en": "Rong house (Central Highlands communal house)",
+   "aliases": [
+    "nhà rông",
+    "nha rong"
+   ],
+   "category": "kien_truc",
+   "region": "tay_nguyen",
+   "prior_strength": 0.05,
+   "must_have": [
+    "nhà sàn cao trên cột gỗ lớn",
+    "mái RẤT cao và dốc, hình lưỡi búa hoặc cánh buồm, chiếm phần lớn chiều cao nhà",
+    "lợp cỏ tranh hoặc lá, đầu hồi trang trí hoa văn khắc gỗ",
+    "cầu thang gỗ một thân dẫn lên sàn"
+   ],
+   "must_not": [
+    "mái thấp lợp ngói",
+    "nhà trệt trên nền đất"
+   ],
+   "confusable_with": [
+    {
+     "name": "nhà sàn Toraja (tongkonan)",
+     "culture": "Indonesia",
+     "why": "cùng nhà sàn mái dốc lớn",
+     "name_en": "an Indonesian Toraja tongkonan house with a boat-shaped roof"
+    },
+    {
+     "name": "chùa Thái",
+     "culture": "Thái",
+     "why": "model đổ về kiến trúc mái dốc Đông Nam Á chung",
+     "name_en": "a Thai Buddhist temple with steep golden roofs"
+    }
+   ],
+   "wiki_title_vi": "Nhà rông",
+   "notes": "Nhà sinh hoạt cộng đồng của người Ba Na, Gia Rai, Xơ Đăng ở Tây Nguyên.",
+   "kind": "object",
+   "clip_label": "a Vietnamese Central Highlands rong house, a tall stilt house with a very steep towering thatched roof",
+   "must_have_en": [
+    "stilt house on tall wooden posts",
+    "very tall steep roof shaped like an axe blade or sail, dominating the house",
+    "thatched grass roof with carved wooden gable decorations",
+    "single-log wooden staircase up to the floor"
+   ],
+   "must_not_en": [
+    "low tiled roof",
+    "ground-level house"
+   ],
+   "tags_en": [
+    "stilt house on tall posts",
+    "very tall steep axe-blade roof",
+    "thatched grass roof",
+    "carved gable decorations",
+    "single-log staircase"
+   ],
+   "neg_tags_en": [
+    "low tiled roof",
+    "ground-level house",
+    "brick house"
+   ]
+  },
+  {
+   "id": "dinh_lang",
+   "name_vi": "Đình làng",
+   "name_en": "Village communal house",
+   "aliases": [
+    "đình làng",
+    "dinh lang",
+    "đình"
+   ],
+   "category": "kien_truc",
+   "region": "bac_bo",
+   "prior_strength": 0.08,
+   "must_have": [
+    "nhà gỗ một tầng, mái ngói lớn võng xuống, bốn góc mái cong nhẹ",
+    "hệ cột gỗ tròn lớn kê trên đá tảng, không tường bao kín",
+    "sân đình rộng, có thể có cây đa và giếng nước",
+    "chạm khắc gỗ dân gian ở đầu dư, kẻ, bẩy"
+   ],
+   "must_not": [
+    "nhiều tầng tháp",
+    "sơn đỏ vàng rực kiểu đền Trung Quốc"
+   ],
+   "confusable_with": [
+    {
+     "name": "đền Trung Quốc",
+     "culture": "Trung",
+     "why": "cùng kiến trúc gỗ mái cong",
+     "name_en": "a Chinese temple painted red and gold"
+    }
+   ],
+   "wiki_title_vi": "Đình làng",
+   "notes": "Nơi thờ thành hoàng và hội họp của làng Bắc Bộ; mái võng và cột gỗ mộc là nét riêng.",
+   "kind": "object",
+   "clip_label": "a Vietnamese village communal house with a low sagging tiled roof and large wooden columns",
+   "must_have_en": [
+    "single-storey wooden hall with a large low sagging tiled roof and gently curved corners",
+    "large round wooden columns on stone bases, open sides without full walls",
+    "wide courtyard with a banyan tree and a well",
+    "folk wood carvings on beams and brackets"
+   ],
+   "must_not_en": [
+    "multi-storey tower",
+    "bright red and gold Chinese temple paint"
+   ],
+   "tags_en": [
+    "single-storey wooden hall",
+    "large low tiled roof with curved corners",
+    "round wooden columns on stone bases",
+    "open sides",
+    "banyan tree and well",
+    "folk wood carvings"
+   ],
+   "neg_tags_en": [
+    "multi-storey tower",
+    "red and gold paint",
+    "chinese temple"
+   ]
+  },
+  {
+   "id": "thuyen_thung",
+   "name_vi": "Thuyền thúng",
+   "name_en": "Round basket boat (coracle)",
+   "aliases": [
+    "thuyền thúng",
+    "thuyen thung",
+    "basket boat"
+   ],
+   "category": "sinh_hoat",
+   "region": "trung_bo",
+   "prior_strength": 0.07,
+   "must_have": [
+    "thuyền hình TRÒN như cái thúng, đan nan tre trát dầu rái/nhựa đường",
+    "không có mũi và đuôi, không có bánh lái",
+    "người chèo đứng hoặc ngồi dùng một mái, thuyền quay tròn khi chèo",
+    "thường thấy ven biển miền Trung, cạnh thuyền lớn hoặc trên bãi cát"
+   ],
+   "must_not": [
+    "thuyền dài có mũi nhọn",
+    "thuyền gỗ ván ghép hình thoi"
+   ],
+   "confusable_with": [
+    {
+     "name": "coracle xứ Wales",
+     "culture": "Anh",
+     "why": "cùng thuyền tròn nhưng khác vật liệu và bối cảnh",
+     "name_en": "a Welsh coracle boat"
+    },
+    {
+     "name": "thuyền gỗ đánh cá thông thường",
+     "culture": "chung",
+     "why": "model bỏ hình tròn, vẽ thuyền dài",
+     "name_en": "an ordinary long wooden fishing boat"
+    }
+   ],
+   "wiki_title_vi": "Thuyền thúng",
+   "notes": "Hình dạng tròn là đặc điểm thị giác gần như không thể nhầm, nhưng prior của T2I rất yếu.",
+   "kind": "object",
+   "clip_label": "a Vietnamese round woven bamboo basket boat on the sea",
+   "must_have_en": [
+    "round basket-shaped boat of woven bamboo sealed with resin",
+    "no bow, no stern, no rudder",
+    "paddled with a single oar, spinning as it moves",
+    "on a central Vietnam beach next to larger boats or on the sand"
+   ],
+   "must_not_en": [
+    "long boat with a pointed bow",
+    "planked wooden boat with diamond hull"
+   ],
+   "tags_en": [
+    "round woven bamboo basket boat",
+    "resin-sealed weave",
+    "no bow no stern",
+    "single oar",
+    "central Vietnam beach"
+   ],
+   "neg_tags_en": [
+    "pointed bow",
+    "planked hull",
+    "canoe",
+    "kayak",
+    "rowboat"
+   ]
+  },
+  {
+   "id": "xich_lo",
+   "name_vi": "Xích lô",
+   "name_en": "Cyclo (Vietnamese pedicab)",
+   "aliases": [
+    "xích lô",
+    "xich lo",
+    "cyclo"
+   ],
+   "category": "sinh_hoat",
+   "region": "toan_quoc",
+   "prior_strength": 0.18,
+   "must_have": [
+    "ghế khách nằm PHÍA TRƯỚC người đạp",
+    "ba bánh: hai bánh trước đỡ ghế, một bánh sau dưới yên người đạp",
+    "mái che vải gấp được phía trên ghế khách"
+   ],
+   "must_not": [
+    "khách ngồi PHÍA SAU người đạp (rickshaw Ấn Độ, Bangladesh)",
+    "có động cơ và thùng kín kiểu tuk-tuk Thái Lan"
+   ],
+   "confusable_with": [
+    {
+     "name": "cycle rickshaw",
+     "culture": "Ấn Độ",
+     "why": "cùng xe ba bánh chở khách; khác ở vị trí ghế khách",
+     "name_en": "an Indian cycle rickshaw with the passenger behind the driver"
+    },
+    {
+     "name": "tuk-tuk",
+     "culture": "Thái",
+     "why": "model gộp mọi xe ba bánh Đông Nam Á",
+     "name_en": "a Thai tuk-tuk motorized three-wheeler"
+    }
+   ],
+   "wiki_title_vi": "Xe xích lô",
+   "notes": "Ghế khách đằng trước là điểm phân biệt then chốt với rickshaw.",
+   "kind": "object",
+   "clip_label": "a Vietnamese cyclo, a three-wheeled pedicab with the passenger seat in front of the driver",
+   "must_have_en": [
+    "passenger seat in FRONT of the pedaling driver",
+    "three wheels: two front wheels under the seat, one rear wheel under the driver",
+    "folding fabric canopy over the passenger seat"
+   ],
+   "must_not_en": [
+    "passenger seated behind the driver like an Indian rickshaw",
+    "motorized enclosed tuk-tuk"
+   ],
+   "tags_en": [
+    "three-wheel pedicab",
+    "passenger seat in front",
+    "driver pedaling behind",
+    "folding fabric canopy"
+   ],
+   "neg_tags_en": [
+    "rickshaw",
+    "tuk-tuk",
+    "motorized",
+    "rear passenger seat"
+   ]
+  },
+  {
+   "id": "ganh_hang_rong",
+   "name_vi": "Gánh hàng rong",
+   "name_en": "Shoulder-pole street vendor",
+   "aliases": [
+    "gánh hàng rong",
+    "ganh hang rong",
+    "hàng rong"
+   ],
+   "category": "sinh_hoat",
+   "region": "toan_quoc",
+   "prior_strength": 0.2,
+   "must_have": [
+    "đòn gánh tre vắt qua một vai, hai đầu treo hai thúng hoặc rổ",
+    "người bán thường mặc áo bà ba hoặc áo giản dị, đội nón lá",
+    "thúng chứa hoa, trái cây, hoặc đồ ăn kèm bếp than nhỏ"
+   ],
+   "must_not": [
+    "xe đẩy bốn bánh kiểu food cart phương Tây",
+    "đội hàng trên đầu (kiểu Nam Á, châu Phi)"
+   ],
+   "confusable_with": [
+    {
+     "name": "gánh hàng Trung Quốc xưa",
+     "culture": "Trung",
+     "why": "cùng đòn gánh hai thúng",
+     "name_en": "an old Chinese street peddler with a shoulder pole"
+    }
+   ],
+   "wiki_title_vi": "Bán hàng rong",
+   "notes": "Đòn gánh vắt một vai + nón lá là cặp dấu hiệu thị giác mạnh.",
+   "kind": "object",
+   "clip_label": "a Vietnamese street vendor carrying a bamboo shoulder pole with two baskets",
+   "must_have_en": [
+    "bamboo shoulder pole over one shoulder with two hanging baskets",
+    "vendor in a simple blouse wearing a conical leaf hat",
+    "baskets of flowers, fruit or street food with a small charcoal stove"
+   ],
+   "must_not_en": [
+    "four-wheeled western food cart",
+    "goods carried on the head"
+   ],
+   "tags_en": [
+    "bamboo shoulder pole",
+    "two hanging baskets",
+    "conical leaf hat",
+    "simple blouse",
+    "baskets of fruit or flowers",
+    "small charcoal stove"
+   ],
+   "neg_tags_en": [
+    "food cart",
+    "wheels",
+    "goods carried on the head",
+    "market stall"
+   ]
+  },
+  {
+   "id": "ruong_bac_thang",
+   "name_vi": "Ruộng bậc thang",
+   "name_en": "Terraced rice fields",
+   "aliases": [
+    "ruộng bậc thang",
+    "ruong bac thang",
+    "mù cang chải",
+    "sa pa",
+    "terraced field"
+   ],
+   "category": "canh_quan",
+   "region": "tay_bac",
+   "prior_strength": 0.4,
+   "must_have": [
+    "các thửa ruộng uốn theo đường bình độ sườn núi, bờ ruộng cong mềm",
+    "mùa nước đổ: mặt ruộng ngập nước phản chiếu trời; mùa lúa chín: vàng rực",
+    "núi đất dốc phủ kín ruộng, có nhà sàn hoặc bản nhỏ rải rác",
+    "người dân tộc thiểu số (H'Mông, Dao) làm ruộng"
+   ],
+   "must_not": [
+    "ruộng bậc thang đá xếp thẳng cạnh kiểu Machu Picchu",
+    "đồng bằng phẳng"
+   ],
+   "confusable_with": [
+    {
+     "name": "ruộng bậc thang Bali",
+     "culture": "Indonesia",
+     "why": "cùng ruộng bậc thang nhiệt đới",
+     "name_en": "Bali rice terraces in Indonesia"
+    },
+    {
+     "name": "Longji, Quảng Tây",
+     "culture": "Trung",
+     "why": "rất giống về địa hình",
+     "name_en": "Longji rice terraces in Guangxi China"
+    }
+   ],
+   "wiki_title_vi": "Ruộng bậc thang",
+   "notes": "Nổi tiếng ở Mù Cang Chải (Yên Bái), Sa Pa (Lào Cai), Hoàng Su Phì (Hà Giang).",
+   "kind": "context",
+   "clip_label": "terraced rice fields curving along steep mountains in northern Vietnam",
+   "must_have_en": [
+    "rice terraces curving along mountain contours with soft rounded edges",
+    "flooded terraces mirroring the sky, or golden ripe rice",
+    "steep earthen mountains covered in terraces with scattered stilt houses",
+    "ethnic minority farmers in the fields"
+   ],
+   "must_not_en": [
+    "straight-edged stone terraces like Machu Picchu",
+    "flat plain"
+   ],
+   "tags_en": [
+    "curving rice terraces",
+    "soft rounded edges",
+    "flooded mirror terraces or golden rice",
+    "steep mountains",
+    "scattered stilt houses"
+   ],
+   "neg_tags_en": [
+    "stone terraces",
+    "straight walls",
+    "machu picchu",
+    "flat plain"
+   ]
+  },
+  {
+   "id": "cho_noi",
+   "name_vi": "Chợ nổi",
+   "name_en": "Floating market (Mekong Delta)",
+   "aliases": [
+    "chợ nổi",
+    "cho noi",
+    "cái răng",
+    "cái bè",
+    "floating market"
+   ],
+   "category": "sinh_hoat",
+   "region": "nam_bo",
+   "prior_strength": 0.25,
+   "must_have": [
+    "nhiều thuyền gỗ nhỏ chở đầy trái cây, rau củ tụ trên sông rộng",
+    "cây bẹo: cột tre dựng trên thuyền, treo mẫu hàng lên để khách nhìn từ xa",
+    "người bán chèo hoặc dùng máy đuôi tôm, đội nón lá",
+    "nước sông màu nâu đục kiểu sông Mê Kông"
+   ],
+   "must_not": [
+    "thuyền dài mũi cao có dải hoa kiểu chợ nổi Thái Lan (Damnoen Saduak)",
+    "kênh gạch xây hai bên kiểu Venice"
+   ],
+   "confusable_with": [
+    {
+     "name": "chợ nổi Thái Lan",
+     "culture": "Thái",
+     "why": "model gần như luôn trả về chợ nổi Thái vì phổ biến hơn",
+     "name_en": "a Thai floating market with long-tail boats"
+    }
+   ],
+   "wiki_title_vi": "Chợ nổi",
+   "notes": "Cây bẹo là chi tiết nhận dạng riêng của chợ nổi Việt Nam.",
+   "kind": "context",
+   "clip_label": "a Mekong Delta floating market with wooden boats full of fruit and sample poles on brown river water",
+   "must_have_en": [
+    "many small wooden boats piled with fruit and vegetables on a wide river",
+    "cay beo: a bamboo pole on each boat with sample goods hung on it",
+    "vendors rowing or using long-tail motors, wearing conical hats",
+    "muddy brown Mekong river water"
+   ],
+   "must_not_en": [
+    "long high-prow boats with flower garlands like a Thai floating market",
+    "brick-lined canals like Venice"
+   ],
+   "tags_en": [
+    "many small wooden boats piled with fruit",
+    "wide muddy brown river",
+    "bamboo pole with sample goods",
+    "vendors in conical hats",
+    "long-tail motors"
+   ],
+   "neg_tags_en": [
+    "high-prow boats",
+    "flower garlands",
+    "thai floating market",
+    "venice canals"
+   ]
+  },
+  {
+   "id": "dan_bau",
+   "name_vi": "Đàn bầu",
+   "name_en": "Dan bau (Vietnamese monochord)",
+   "aliases": [
+    "đàn bầu",
+    "dan bau",
+    "monochord"
+   ],
+   "category": "nhac_cu",
+   "region": "toan_quoc",
+   "prior_strength": 0.03,
+   "must_have": [
+    "chỉ có MỘT dây căng dọc thân hộp gỗ dài",
+    "một đầu có cần đàn mềm uốn được, gắn nửa quả bầu khô làm bầu vang",
+    "người chơi gảy bằng que tre, tay kia uốn cần để luyến cao độ",
+    "thân đàn dẹt, đặt nằm ngang"
+   ],
+   "must_not": [
+    "nhiều dây song song (đó là đàn tranh, guzheng, koto)",
+    "có cần dài và thùng tròn kiểu đàn nguyệt hay pipa"
+   ],
+   "confusable_with": [
+    {
+     "name": "guzheng",
+     "culture": "Trung",
+     "why": "model đổ về nhạc cụ dây Đông Á phổ biến nhất",
+     "name_en": "a Chinese guzheng zither with twenty-one strings"
+    },
+    {
+     "name": "koto",
+     "culture": "Nhật",
+     "why": "cùng đàn nằm ngang",
+     "name_en": "a Japanese koto zither"
+    }
+   ],
+   "wiki_title_vi": "Đàn bầu",
+   "notes": "Nhạc cụ độc dây riêng của Việt Nam; prior T2I gần như bằng không, đây là ca cần LoRA rõ nhất.",
+   "kind": "object",
+   "clip_label": "a Vietnamese dan bau, a one-string zither with a flexible rod and gourd resonator played with a bamboo pick",
+   "must_have_en": [
+    "a single string along a long wooden box body",
+    "flexible rod at one end with a half gourd resonator",
+    "player plucking with a bamboo pick while bending the rod",
+    "flat body lying horizontally"
+   ],
+   "must_not_en": [
+    "many parallel strings like a zither",
+    "long neck and round body like a lute"
+   ],
+   "tags_en": [
+    "one-string monochord",
+    "long wooden box body",
+    "flexible rod with half gourd",
+    "bamboo pick",
+    "horizontal flat body"
+   ],
+   "neg_tags_en": [
+    "many strings",
+    "zither",
+    "lute",
+    "guitar neck"
+   ]
+  },
+  {
+   "id": "dan_tranh",
+   "name_vi": "Đàn tranh",
+   "name_en": "Dan tranh (Vietnamese zither)",
+   "aliases": [
+    "đàn tranh",
+    "dan tranh"
+   ],
+   "category": "nhac_cu",
+   "region": "toan_quoc",
+   "prior_strength": 0.08,
+   "must_have": [
+    "đàn nằm ngang, thường 16 hoặc 17 dây (bản cải tiến có thể nhiều hơn)",
+    "mỗi dây có một con nhạn (ngựa đàn) hình chữ V ngược đỡ ở giữa",
+    "thân hộp gỗ hình thang dài, một đầu rộng hơn",
+    "người chơi gảy bằng móng gảy đeo ở ngón phải"
+   ],
+   "must_not": [
+    "21 dây trên thân rất lớn (guzheng)",
+    "13 dây với con nhạn cao kiểu koto"
+   ],
+   "confusable_with": [
+    {
+     "name": "guzheng",
+     "culture": "Trung",
+     "why": "cùng họ đàn tranh Đông Á, khác số dây và kích thước",
+     "name_en": "a Chinese guzheng zither with twenty-one strings"
+    },
+    {
+     "name": "koto",
+     "culture": "Nhật",
+     "why": "cùng nguyên lý, khác số dây",
+     "name_en": "a Japanese koto zither"
+    }
+   ],
+   "wiki_title_vi": "Đàn tranh",
+   "notes": "Cùng họ với guzheng nhưng nhỏ hơn và ít dây hơn; số dây là dấu hiệu đếm được, tốt cho eval.",
+   "kind": "object",
+   "clip_label": "a Vietnamese dan tranh, a sixteen-string zither with movable bridges played with finger picks",
+   "must_have_en": [
+    "horizontal zither with sixteen or seventeen strings",
+    "one inverted-V movable bridge under each string",
+    "long trapezoid wooden box, one end wider",
+    "player wearing finger picks on the right hand"
+   ],
+   "must_not_en": [
+    "twenty-one strings on a very large body",
+    "thirteen strings with tall bridges like a koto"
+   ],
+   "tags_en": [
+    "horizontal zither",
+    "sixteen or seventeen strings",
+    "inverted-V movable bridges",
+    "long trapezoid box",
+    "finger picks on right hand"
+   ],
+   "neg_tags_en": [
+    "guzheng",
+    "koto",
+    "tall bridges",
+    "very large body"
+   ]
+  },
+  {
+   "id": "mua_roi_nuoc",
+   "name_vi": "Múa rối nước",
+   "name_en": "Water puppetry",
+   "aliases": [
+    "múa rối nước",
+    "mua roi nuoc",
+    "water puppet"
+   ],
+   "category": "nghe_thuat",
+   "region": "bac_bo",
+   "prior_strength": 0.06,
+   "must_have": [
+    "con rối gỗ sơn màu rực rỡ nổi TRÊN MẶT NƯỚC, phần dưới chìm",
+    "phông sân khấu là mái đình thu nhỏ (thuỷ đình) phía sau, có mành che",
+    "người điều khiển đứng sau mành, ngâm mình dưới nước, không thấy mặt",
+    "mặt nước là sân khấu, có gợn sóng quanh con rối"
+   ],
+   "must_not": [
+    "rối dây treo trên không (marionette)",
+    "rối tay diễn trên sân khấu cạn",
+    "rối bóng phẳng kiểu wayang"
+   ],
+   "confusable_with": [
+    {
+     "name": "marionette",
+     "culture": "phương Tây",
+     "why": "model đổ về rối dây quen thuộc",
+     "name_en": "a string marionette puppet"
+    },
+    {
+     "name": "wayang kulit",
+     "culture": "Indonesia",
+     "why": "cùng nghệ thuật rối Đông Nam Á",
+     "name_en": "Indonesian wayang kulit shadow puppets"
+    }
+   ],
+   "wiki_title_vi": "Múa rối nước",
+   "notes": "Khởi nguồn vùng đồng bằng sông Hồng khoảng thế kỷ 11; nhà hát Thăng Long là nơi diễn nổi tiếng.",
+   "kind": "context",
+   "clip_label": "Vietnamese water puppetry, painted wooden puppets performing on a pond in front of a small pavilion",
+   "must_have_en": [
+    "brightly painted wooden puppets floating on the water surface",
+    "miniature communal-house pavilion with a bamboo screen as backdrop",
+    "puppeteers hidden behind the screen standing in the water",
+    "rippling water surface as the stage"
+   ],
+   "must_not_en": [
+    "string marionettes hanging in the air",
+    "hand puppets on a dry stage",
+    "flat shadow puppets"
+   ],
+   "tags_en": [
+    "painted wooden puppets on water",
+    "rippling water stage",
+    "miniature pavilion with bamboo screen",
+    "puppeteers hidden behind screen"
+   ],
+   "neg_tags_en": [
+    "marionette strings",
+    "dry stage",
+    "shadow theater silhouettes",
+    "hand puppets"
+   ]
+  },
+  {
+   "id": "tranh_dong_ho",
+   "name_vi": "Tranh Đông Hồ",
+   "name_en": "Dong Ho folk woodblock prints",
+   "aliases": [
+    "tranh đông hồ",
+    "tranh dong ho",
+    "dong ho print"
+   ],
+   "category": "nghe_thuat",
+   "region": "bac_bo",
+   "prior_strength": 0.04,
+   "must_have": [
+    "in khắc gỗ, nét viền đen thô, mảng màu phẳng không đổ bóng",
+    "giấy dó quét điệp (vỏ sò nghiền) nên nền có ánh lấp lánh và vân sọc",
+    "màu từ chất tự nhiên: đỏ sỏi, vàng hoa hòe, xanh lá tràm, đen than lá tre",
+    "mô-típ dân gian: Đám cưới chuột, Vinh hoa (bé trai bế gà), Lợn ăn lá ráy có xoáy âm dương trên lưng"
+   ],
+   "must_not": [
+    "tranh vẽ tay có đổ bóng và phối cảnh chiều sâu",
+    "ukiyo-e với đường nét mảnh và chuyển màu êm",
+    "màu neon hoặc gradient số hoá"
+   ],
+   "confusable_with": [
+    {
+     "name": "ukiyo-e",
+     "culture": "Nhật",
+     "why": "cùng in khắc gỗ; khác hoàn toàn về nét và bảng màu",
+     "name_en": "a Japanese ukiyo-e woodblock print"
+    },
+    {
+     "name": "tranh dân gian Trung Quốc (niên hoạ)",
+     "culture": "Trung",
+     "why": "cùng dòng tranh Tết dân gian",
+     "name_en": "a Chinese nianhua new year folk print"
+    }
+   ],
+   "wiki_title_vi": "Tranh Đông Hồ",
+   "notes": "Làng Đông Hồ, Bắc Ninh. Ánh điệp trên giấy dó là đặc trưng khó tái tạo nhất.",
+   "kind": "object",
+   "clip_label": "a Vietnamese Dong Ho folk woodblock print with bold black outlines and flat natural colors on shimmering do paper",
+   "must_have_en": [
+    "woodblock print with thick black outlines and flat unshaded colors",
+    "shimmering do paper coated with crushed seashell showing streaks",
+    "natural pigments: brick red, sophora yellow, indigo green, bamboo-leaf black",
+    "folk motifs like the mouse wedding, boy with rooster, pig with yin-yang swirl"
+   ],
+   "must_not_en": [
+    "hand-painted picture with shading and depth",
+    "ukiyo-e with fine lines and smooth gradients",
+    "neon or digital gradient colors"
+   ],
+   "tags_en": [
+    "woodblock print",
+    "thick black outlines",
+    "flat unshaded colors",
+    "shimmering seashell-coated do paper",
+    "folk motifs mouse wedding boy with rooster"
+   ],
+   "neg_tags_en": [
+    "shading and depth",
+    "ukiyo-e",
+    "smooth gradients",
+    "neon"
+   ]
+  },
+  {
+   "id": "nha_nhac_hue",
+   "name_vi": "Nhã nhạc cung đình Huế",
+   "name_en": "Hue royal court music",
+   "aliases": [
+    "nhã nhạc",
+    "nha nhac",
+    "nhã nhạc cung đình huế"
+   ],
+   "category": "nghe_thuat",
+   "region": "trung_bo",
+   "prior_strength": 0.04,
+   "must_have": [
+    "nhạc công mặc áo dài nam có bào phục thêu, đội mũ cánh chuồn hoặc khăn xếp",
+    "dàn nhạc gồm trống, kèn, đàn nguyệt, đàn nhị, sáo, phách",
+    "bối cảnh trong điện hoặc sân điện Huế, cột sơn son thếp vàng, mái ngói men",
+    "ngồi hoặc đứng theo hàng đối xứng nghiêm ngặt"
+   ],
+   "must_not": [
+    "nhạc cụ phương Tây",
+    "trang phục samurai hoặc quan lại nhà Thanh"
+   ],
+   "confusable_with": [
+    {
+     "name": "gagaku",
+     "culture": "Nhật",
+     "why": "cùng nhạc cung đình Đông Á",
+     "name_en": "Japanese gagaku court music"
+    },
+    {
+     "name": "nhạc cung đình nhà Thanh",
+     "culture": "Trung",
+     "why": "model đổ về hình ảnh cung đình Trung Quốc",
+     "name_en": "Qing dynasty Chinese court music"
+    }
+   ],
+   "wiki_title_vi": "Nhã nhạc cung đình Huế",
+   "notes": "UNESCO ghi danh Di sản phi vật thể năm 2003.",
+   "kind": "context",
+   "clip_label": "Vietnamese Hue royal court musicians in embroidered robes performing with drums and lutes inside a gilded palace hall",
+   "must_have_en": [
+    "musicians in embroidered court robes with winged caps or turbans",
+    "ensemble of drums, oboes, moon lutes, two-string fiddles, flutes and clappers",
+    "inside or in front of a Hue palace hall with red lacquered gilded columns",
+    "strictly symmetrical seated or standing rows"
+   ],
+   "must_not_en": [
+    "western instruments",
+    "samurai or Qing dynasty mandarin costumes"
+   ],
+   "tags_en": [
+    "court musicians in embroidered robes",
+    "winged caps or turbans",
+    "drums oboes moon lutes fiddles flutes",
+    "red lacquered gilded palace columns",
+    "symmetrical rows"
+   ],
+   "neg_tags_en": [
+    "western orchestra",
+    "samurai",
+    "qing mandarin costume",
+    "electric instruments"
+   ]
+  },
+  {
+   "id": "quan_ho",
+   "name_vi": "Hát quan họ Bắc Ninh",
+   "name_en": "Quan ho folk singing",
+   "aliases": [
+    "quan họ",
+    "quan ho",
+    "hát quan họ"
+   ],
+   "category": "nghe_thuat",
+   "region": "bac_bo",
+   "prior_strength": 0.03,
+   "must_have": [
+    "liền anh mặc áo dài nam, khăn xếp, tay cầm ô đen",
+    "liền chị mặc áo tứ thân, thắt lưng, đội NÓN QUAI THAO (nón ba tầm) vành rất rộng và phẳng",
+    "hát đối đáp theo cặp nam nữ, không nhạc đệm",
+    "bối cảnh sân đình, bến nước, hoặc trên thuyền"
+   ],
+   "must_not": [
+    "đội nón lá chóp nhọn (sai loại nón)",
+    "có dàn nhạc đệm hiện đại"
+   ],
+   "confusable_with": [
+    {
+     "name": "dân ca Trung Quốc",
+     "culture": "Trung",
+     "why": "model đổ về trang phục biểu diễn dân ca Đông Á chung",
+     "name_en": "Chinese folk singers in performance costume"
+    }
+   ],
+   "wiki_title_vi": "Dân ca quan họ",
+   "notes": "UNESCO ghi danh năm 2009. Nón quai thao phẳng vành rộng, KHÁC nón lá chóp nhọn.",
+   "kind": "context",
+   "clip_label": "Vietnamese quan ho folk singers, women in four-panel dresses and flat wide-brimmed hats, men in gowns and turbans, singing on a boat",
+   "must_have_en": [
+    "men in dark long gowns and turbans holding black umbrellas",
+    "women in four-panel dresses with sashes and very wide flat-brimmed hats",
+    "male and female pairs singing to each other without instruments",
+    "setting at a communal-house yard, a river landing or on a boat"
+   ],
+   "must_not_en": [
+    "pointed conical leaf hats",
+    "modern backing band"
+   ],
+   "tags_en": [
+    "men in dark long gowns and turbans with black umbrellas",
+    "women in four-panel dresses with sashes",
+    "very wide flat-brimmed hats",
+    "male-female pairs singing",
+    "communal-house yard or boat"
+   ],
+   "neg_tags_en": [
+    "conical hats",
+    "backing band",
+    "microphones",
+    "stage lights"
+   ]
+  },
+  {
+   "id": "cong_chieng_tay_nguyen",
+   "name_vi": "Cồng chiêng Tây Nguyên",
+   "name_en": "Central Highlands gong culture",
+   "aliases": [
+    "cồng chiêng",
+    "cong chieng",
+    "gong tây nguyên"
+   ],
+   "category": "nhac_cu",
+   "region": "tay_nguyen",
+   "prior_strength": 0.05,
+   "must_have": [
+    "dàn chiêng đồng tròn nhiều cỡ, người chơi mang trên tay hoặc treo trên giá",
+    "gõ bằng dùi bọc vải hoặc bằng nắm tay",
+    "người chơi mặc trang phục thổ cẩm Tây Nguyên, hoa văn hình học đỏ đen trên nền tối",
+    "diễn quanh đống lửa hoặc trước nhà rông"
+   ],
+   "must_not": [
+    "chiêng gamelan xếp trên giàn gỗ chạm trổ (Indonesia)",
+    "chiêng phẳng có núm lớn kiểu Thái/Miến"
+   ],
+   "confusable_with": [
+    {
+     "name": "gamelan",
+     "culture": "Indonesia",
+     "why": "cùng dàn cồng chiêng Đông Nam Á",
+     "name_en": "an Indonesian gamelan orchestra"
+    }
+   ],
+   "wiki_title_vi": "Không gian văn hóa Cồng Chiêng Tây Nguyên",
+   "notes": "UNESCO ghi danh năm 2005.",
+   "kind": "context",
+   "clip_label": "Vietnamese Central Highlands gong ensemble in woven costumes performing around a fire",
+   "must_have_en": [
+    "set of round bronze gongs of many sizes held in hand or hung on a frame",
+    "struck with cloth-wrapped mallets or fists",
+    "players in Central Highlands woven costumes with red and black geometric patterns",
+    "performing around a fire or in front of a rong house"
+   ],
+   "must_not_en": [
+    "gamelan gongs on carved wooden racks",
+    "flat knobbed Thai or Burmese gongs"
+   ],
+   "tags_en": [
+    "set of round bronze gongs of many sizes",
+    "gongs held in hand or hung on a frame",
+    "cloth-wrapped mallets",
+    "woven costume with red and black geometry",
+    "fire in front of a rong house"
+   ],
+   "neg_tags_en": [
+    "gamelan",
+    "carved wooden racks",
+    "knobbed thai gongs",
+    "burmese gongs"
+   ]
+  },
+  {
+   "id": "ao_the_khan_xep",
+   "name_vi": "Áo the khăn xếp",
+   "name_en": "Male traditional gown and turban",
+   "aliases": [
+    "áo the",
+    "khăn xếp",
+    "ao the khan xep",
+    "áo dài nam"
+   ],
+   "category": "trang_phuc",
+   "region": "bac_bo",
+   "prior_strength": 0.07,
+   "must_have": [
+    "áo dài nam màu tối, thân rộng không ôm, cài khuy lệch bên",
+    "khăn xếp: khăn vấn sẵn thành nhiều nếp tròn quanh đầu, phía trước có nếp hình chữ nhân",
+    "quần trắng ống rộng bên trong",
+    "có thể mang giày hoặc đi chân đất"
+   ],
+   "must_not": [
+    "mũ cứng tròn kiểu quan lại nhà Thanh có chóp",
+    "áo ôm sát cơ thể như áo dài nữ"
+   ],
+   "confusable_with": [
+    {
+     "name": "trường bào nhà Thanh",
+     "culture": "Trung",
+     "why": "cùng áo dài nam Đông Á",
+     "name_en": "a Qing dynasty Chinese changpao robe"
+    },
+    {
+     "name": "áo dài nữ",
+     "culture": "Việt",
+     "why": "model dựng áo dài nữ cho nhân vật nam",
+     "name_en": "a woman's Vietnamese ao dai"
+    }
+   ],
+   "wiki_title_vi": "Áo dài",
+   "notes": "Trang phục nam trong lễ hội, hát quan họ, cúng tế.",
+   "kind": "object",
+   "clip_label": "a Vietnamese man wearing a dark ao the gown and a khan xep pleated turban",
+   "must_have_en": [
+    "dark loose men's long gown buttoned at the side",
+    "khan xep pleated turban with a herringbone fold at the front",
+    "white wide-legged trousers underneath",
+    "shoes or bare feet"
+   ],
+   "must_not_en": [
+    "hard round Qing mandarin hat with a knob",
+    "form-fitting women's ao dai cut"
+   ],
+   "tags_en": [
+    "dark loose men's long gown",
+    "side buttons",
+    "pleated turban with herringbone fold",
+    "white wide-leg trousers"
+   ],
+   "neg_tags_en": [
+    "qing hat with knob",
+    "women's fitted cut",
+    "changshan",
+    "hanfu"
+   ]
+  },
+  {
+   "id": "trang_phuc_hmong",
+   "name_vi": "Trang phục người H'Mông",
+   "name_en": "Hmong traditional dress",
+   "aliases": [
+    "h'mông",
+    "hmong",
+    "trang phục hmong",
+    "người mông"
+   ],
+   "category": "trang_phuc",
+   "region": "tay_bac",
+   "prior_strength": 0.1,
+   "must_have": [
+    "vải lanh nhuộm chỉ (indigo) màu xanh đen làm nền",
+    "váy xếp nếp li dày, có băng hoa văn sáp ong (batik) và thêu chữ thập màu",
+    "trang sức bạc: vòng cổ bạc lớn, khoen tai bạc",
+    "khăn hoặc mũ vấn đầu, có thể gắn tua và cúc bạc"
+   ],
+   "must_not": [
+    "sari Ấn Độ",
+    "hoa văn thổ cẩm Nam Mỹ"
+   ],
+   "confusable_with": [
+    {
+     "name": "trang phục Miêu (Trung Quốc)",
+     "culture": "Trung",
+     "why": "cùng nhóm dân tộc xuyên biên giới, hoa văn gần nhau",
+     "name_en": "Chinese Miao ethnic costume with silver headdress"
+    },
+    {
+     "name": "trang phục vùng núi Bắc Thái",
+     "culture": "Thái",
+     "why": "cùng nhóm H'Mông di cư",
+     "name_en": "northern Thai hill tribe costume"
+    }
+   ],
+   "wiki_title_vi": "Người Mông (Việt Nam)",
+   "notes": "Có nhiều nhóm (Mông Hoa, Mông Đen, Mông Trắng) với hoa văn khác nhau; đừng gộp làm một.",
+   "kind": "object",
+   "clip_label": "a Hmong woman from northern Vietnam in indigo hemp clothing with a pleated batik skirt and silver jewelry",
+   "must_have_en": [
+    "indigo-dyed hemp fabric in dark blue-black",
+    "thick pleated skirt with batik bands and colored cross-stitch embroidery",
+    "large silver necklaces and silver earrings",
+    "head wrap or cap with tassels and silver buttons"
+   ],
+   "must_not_en": [
+    "Indian sari",
+    "South American woven patterns"
+   ],
+   "tags_en": [
+    "indigo-dyed hemp dress",
+    "thick pleated skirt",
+    "batik bands and cross-stitch embroidery",
+    "large silver necklaces",
+    "tasseled head wrap"
+   ],
+   "neg_tags_en": [
+    "sari",
+    "andean woven poncho",
+    "kimono"
+   ]
+  },
+  {
+   "id": "trang_phuc_dao_do",
+   "name_vi": "Trang phục người Dao Đỏ",
+   "name_en": "Red Dao traditional dress",
+   "aliases": [
+    "dao đỏ",
+    "dao do",
+    "người dao"
+   ],
+   "category": "trang_phuc",
+   "region": "tay_bac",
+   "prior_strength": 0.05,
+   "must_have": [
+    "khăn đội đầu ĐỎ lớn, thường quấn cao hoặc phủ rộng",
+    "áo dài đen thêu chỉ đỏ và trắng dày ở nẹp và tay",
+    "trang sức bạc, đồng xu bạc đính thành hàng, quả bông đỏ",
+    "yếm thêu trước ngực"
+   ],
+   "must_not": [
+    "nền vải xanh chỉ indigo không có đỏ (đó gần với H'Mông)",
+    "khăn trắng"
+   ],
+   "confusable_with": [
+    {
+     "name": "trang phục H'Mông",
+     "culture": "Việt",
+     "why": "cùng vùng Tây Bắc, model gộp mọi dân tộc thiểu số thành một",
+     "name_en": "Hmong indigo costume with pleated skirt"
+    }
+   ],
+   "wiki_title_vi": "Người Dao (Việt Nam)",
+   "notes": "Sắc đỏ trên khăn đội đầu là dấu hiệu phân biệt nhanh nhất với H'Mông.",
+   "kind": "object",
+   "clip_label": "a Red Dao woman from northern Vietnam with a large red headdress and black embroidered dress",
+   "must_have_en": [
+    "large red headdress wrapped high or spread wide",
+    "black long dress densely embroidered in red and white on the edges and sleeves",
+    "silver jewelry, rows of silver coins and red pom-poms",
+    "embroidered bib in front of the chest"
+   ],
+   "must_not_en": [
+    "indigo fabric with no red",
+    "white headscarf"
+   ],
+   "tags_en": [
+    "large red headdress",
+    "black long dress with red and white embroidery",
+    "silver coins and red pom-poms",
+    "embroidered chest bib"
+   ],
+   "neg_tags_en": [
+    "indigo-only outfit",
+    "white headscarf",
+    "plain black"
+   ]
+  },
+  {
+   "id": "non_quai_thao",
+   "name_vi": "Nón quai thao",
+   "name_en": "Flat-brimmed northern hat",
+   "aliases": [
+    "nón quai thao",
+    "nón ba tầm",
+    "non quai thao"
+   ],
+   "category": "trang_phuc",
+   "region": "bac_bo",
+   "prior_strength": 0.03,
+   "must_have": [
+    "vành nón RẤT rộng và PHẲNG, gần như hình tròn dẹt, không có chóp nhọn",
+    "giữa lòng nón có khua (khung tròn) để đội vừa đầu",
+    "quai thao là dải tua bằng sợi tơ nhiều màu, buông dài hai bên",
+    "thường đi cùng áo tứ thân trong hát quan họ"
+   ],
+   "must_not": [
+    "hình chóp nhọn (đó là nón lá)",
+    "quai vải trơn mảnh không tua"
+   ],
+   "confusable_with": [
+    {
+     "name": "nón lá",
+     "culture": "Việt",
+     "why": "model gộp mọi nón Việt thành nón lá chóp nhọn",
+     "name_en": "a Vietnamese conical non la hat"
+    }
+   ],
+   "wiki_title_vi": "Nón quai thao",
+   "notes": "Ca dễ đánh giá tự động: chóp nhọn hay vành phẳng là nhị phân.",
+   "kind": "object",
+   "clip_label": "a Vietnamese non quai thao, a very wide flat-brimmed round hat with long silk tassels",
+   "must_have_en": [
+    "very wide flat brim, almost a flat disc, no pointed tip",
+    "inner ring inside the hat to fit the head",
+    "long multicolor silk tassel straps hanging on both sides",
+    "worn with a four-panel dress in quan ho singing"
+   ],
+   "must_not_en": [
+    "pointed conical shape",
+    "plain thin cloth strap without tassels"
+   ],
+   "tags_en": [
+    "very wide flat disc hat",
+    "no pointed tip",
+    "inner head ring",
+    "long multicolor silk tassel straps",
+    "worn with four-panel dress"
+   ],
+   "neg_tags_en": [
+    "conical hat",
+    "pointed tip",
+    "plain thin strap",
+    "straw boater"
+   ]
+  }
+ ],
+ "changelog": [
+  {
+   "version": "0.4.0-seed",
+   "date": "2026-09-13",
+   "note": "Thêm tags_en (thẻ ngắn cho họ SDXL, thẻ phân biệt đứng đầu) và neg_tags_en (negative KHÔNG dùng danh từ của must_have, vì CLIP không hiểu phủ định: 'dress with no trousers' đẩy ảnh xa 'trousers'). must_have_en/must_not_en giữ nguyên cho chấm điểm và Filter agent."
+  }
+ ]
 }

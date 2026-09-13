@@ -70,36 +70,83 @@ def _confusable_negatives(se) -> list[str]:
     return out
 
 
-def build_initial_spec(prompt: Prompt, spec: CulturalSpec, prompt_en: str | None,
-                       cfg, seed: int, init_negatives: bool = True) -> GenSpec:
-    n_attrs = int(getattr(cfg, "attrs_in_prompt", 3))
-    terms = [prompt_en or prompt.text_en]
-    for se in spec.entities:
-        terms.append(f"Vietnamese {_en(se)}")
-        en_attrs = [a for a in se.required_attrs_en if a]  # CHỈ tiếng Anh; cụm chưa dịch ("") bị bỏ
-        if se.weight >= 0.8 and en_attrs:
-            # v1.2.1 p001: chỉ 2 thuộc tính nên "worn over wide-legged trousers" (thứ 3) bị cắt,
-            # và 4/12 ảnh ra váy xẻ tà không quần. Mặc định 3.
-            terms.extend(en_attrs[:n_attrs])
-    # scene_notes là tiếng Việt (từ analysis); SDXL không đọc được, prompt_en đã chứa bối cảnh.
-    terms.extend(n for n in spec.scene_notes[:2] if n.isascii())
-    terms.append(STYLE_SUFFIX)
+RENDERS = ("legacy", "tags", "sentence")
 
-    neg = GENERIC_NEGATIVE.split(", ")
-    if init_negatives:
+
+def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_negatives: bool = True):
+    """Prompt/negative theo cách render. Trả (prompt_terms, negative_terms, term_weights).
+
+    legacy   v1.3: cảnh trước, tên thực thể, 3 must_have_en câu dài; negative = generic + tên confusable + must_not_en câu.
+    tags     v1.4.1 (mặc định cho SDXL/SD1.5): tên thực thể + thẻ ngắn LÊN ĐẦU (token đầu được chú ý nhiều nhất), cảnh sau,
+             thẻ phân biệt đầu tiên mang trọng số compel; negative = generic + tên confusable + neg_tags_en (không chứa danh từ
+             của must_have vì CLIP không hiểu phủ định).
+    sentence SD3/FLUX (huấn luyện trên caption dài): một đoạn văn tự nhiên, không thẻ; negative ngắn.
+    """
+    n_attrs = int(getattr(cfg, "attrs_in_prompt", 3))
+    w_emph = float(getattr(cfg, "emphasis_weight", 1.0))
+    main = [se for se in spec.entities if se.weight >= 0.8]
+    weights: dict[str, float] = {}
+    scene = [n for n in spec.scene_notes[:2] if n.isascii()]
+    if variant == "tags":
+        terms: list[str] = []
         for se in spec.entities:
-            neg.extend(_confusable_negatives(se))
-            if se.weight >= 0.8:
-                neg.extend(_forbidden_negatives(se))
+            tags = [a for a in (se.tags_en or se.required_attrs_en) if a]
+            terms.append(f"Vietnamese {_en(se)}")
+            if se.weight >= 0.8 and tags:
+                terms.extend(tags[:max(n_attrs, 4)])
+                if w_emph and abs(w_emph - 1.0) > 1e-6:
+                    weights[tags[0]] = w_emph
+        terms += [prompt_en] + scene + [STYLE_SUFFIX]
+        neg = GENERIC_NEGATIVE.split(", ")
+        if init_negatives:
+            for se in spec.entities:
+                neg.extend(_confusable_negatives(se))
+                if se.weight >= 0.8:
+                    neg.extend([a for a in (se.neg_tags_en or _forbidden_negatives(se)) if a][:5])
+    elif variant == "sentence":
+        parts = [prompt_en.rstrip(".") + "."]
+        for se in main:
+            attrs = [a for a in se.required_attrs_en if a][:n_attrs]
+            if attrs:
+                parts.append(f"The Vietnamese {_en(se).lower()} has {', '.join(attrs[:-1])}{' and ' if len(attrs) > 1 else ''}{attrs[-1]}.")
+        parts.append("A realistic photograph with natural lighting and fine detail.")
+        terms = [" ".join(parts)]
+        neg = GENERIC_NEGATIVE.split(", ")
+        if init_negatives:
+            for se in main:
+                neg.extend(_confusable_negatives(se)[:3])
+    else:  # legacy
+        terms = [prompt_en]
+        for se in spec.entities:
+            terms.append(f"Vietnamese {_en(se)}")
+            en_attrs = [a for a in se.required_attrs_en if a]
+            if se.weight >= 0.8 and en_attrs:
+                terms.extend(en_attrs[:n_attrs])
+        terms += scene + [STYLE_SUFFIX]
+        neg = GENERIC_NEGATIVE.split(", ")
+        if init_negatives:
+            for se in spec.entities:
+                neg.extend(_confusable_negatives(se))
+                if se.weight >= 0.8:
+                    neg.extend(_forbidden_negatives(se))
+    return list(dict.fromkeys(x for x in terms if x)), list(dict.fromkeys(n for n in neg if n)), weights
+
+
+def build_initial_spec(prompt: Prompt, spec: CulturalSpec, prompt_en: str | None,
+                       cfg, seed: int, init_negatives: bool = True, render: str | None = None) -> GenSpec:
+    variant = render or getattr(cfg, "render", "legacy")
+    if variant not in RENDERS:
+        variant = "legacy"
+    terms, neg, weights = render_terms(prompt_en or prompt.text_en, spec, cfg, variant, init_negatives)
     fast = bool(getattr(cfg, "fast_iters", False))
     return GenSpec(
-        prompt_id=prompt.id, prompt_terms=list(dict.fromkeys(t for t in terms if t)),
-        negative_terms=list(dict.fromkeys(n for n in neg if n)), emphasis={},
+        prompt_id=prompt.id, prompt_terms=terms, negative_terms=neg, emphasis={},
         conditioning={se.entity_id: 0.0 for se in spec.entities},
         lora=None, lora_scale=cfg.lora_scale, ip_adapter_image=None, ip_adapter_scale=cfg.ip_adapter_scale,
         seed=seed, steps=(cfg.fast_steps if fast else cfg.steps),
         guidance=(cfg.fast_guidance if fast else cfg.guidance),
         width=cfg.width, height=cfg.height, n_candidates=cfg.n_candidates, iteration=0, fast=fast,
+        render=variant, term_weights=weights,
     )
 
 
@@ -129,6 +176,7 @@ def apply_plan(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, cfg, lora_i
     guidance = gen.guidance if gen.fast else min(12.0, gen.guidance + plan.guidance_delta + 0.5 * max(cond.values(), default=0))
     return GenSpec(
         prompt_id=gen.prompt_id, prompt_terms=terms, negative_terms=negative, emphasis=emphasis, conditioning=cond,
+        render=gen.render, term_weights={**gen.term_weights, **(plan.weights or {})},
         lora=(lora_id if (plan.attach_lora and lora_id) else gen.lora),
         lora_scale=gen.lora_scale, ip_adapter_image=ref, ip_adapter_scale=gen.ip_adapter_scale,
         seed=gen.seed, steps=gen.steps, guidance=guidance,
@@ -308,7 +356,7 @@ class DiffusersGenerator:
         except Exception:  # noqa: BLE001
             return None
 
-    def _compel_embeds(self, prompt: str, negative: str | None):
+    def _compel_embeds(self, prompt: str, negative: str | None, pre_escaped: bool = False):
         """Trả kwargs prompt_embeds(+pooled) cho SDXL / SD1.5 qua compel; None nếu không làm được."""
         if self.family not in ("sdxl", "sd15"):
             return None
@@ -328,7 +376,7 @@ class DiffusersGenerator:
                 else:
                     self._compel = Compel(tokenizer=self.pipe.tokenizer, text_encoder=self.pipe.text_encoder,
                                           truncate_long_prompts=False)
-            esc = lambda s: s.replace("(", "\\(").replace(")", "\\)")  # compel coi () là trọng số
+            esc = (lambda s: s) if pre_escaped else (lambda s: s.replace("(", "\\(").replace(")", "\\)"))  # compel coi () là trọng số
             neg = negative or ""
             if self.family == "sdxl":
                 cond, pooled = self._compel(esc(prompt))
@@ -352,11 +400,31 @@ class DiffusersGenerator:
             kw["negative_prompt"] = gen.negative_prompt
         return kw
 
+    def _weighted_prompt(self, gen: GenSpec) -> str | None:
+        """Chuỗi compel '(cụm)1.2' nếu GenSpec có trọng số và họ model dùng được compel."""
+        if not gen.term_weights or self.family not in ("sdxl", "sd15"):
+            return None
+        parts = []
+        for term in gen.prompt_terms:
+            w = gen.term_weights.get(term)
+            esc = term.replace("(", "\\(").replace(")", "\\)")
+            parts.append(f"({esc}){w:g}" if w and abs(w - 1.0) > 1e-6 else esc)
+        s = ", ".join(dict.fromkeys(parts))
+        return f"{self.trigger}, {s}" if self.trigger else s
+
     def _prompt_kwargs(self, gen: GenSpec) -> dict:
         prompt = f"{self.trigger}, {gen.prompt}" if self.trigger else gen.prompt
         negative = gen.negative_prompt if (self.negative_ok and gen.negative_prompt) else None
         n = self.count_tokens(prompt)
         self.prompt_tokens = n
+        weighted = self._weighted_prompt(gen) if self.long_prompt else None
+        if weighted is not None:
+            emb = self._compel_embeds(weighted, negative, pre_escaped=True)
+            if emb is not None:
+                ws = ", ".join(f"{k[:30]}×{v:g}" for k, v in gen.term_weights.items())
+                if not any(x.startswith("nhấn") for x in self.notes):
+                    self.notes.append(f"nhấn compel: {ws}")
+                return emb
         if n is not None and n > 75 and self.long_prompt:
             emb = self._compel_embeds(prompt, negative)
             if emb is not None:

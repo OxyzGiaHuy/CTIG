@@ -137,6 +137,9 @@ class SpecEntity:
     kind: str = "object"
     #: Ảnh tham chiếu đã qua kiểm CLIP, dùng cho IP-Adapter.
     reference_image: str | None = None
+    #: Thẻ ngắn cho prompt (họ SDXL) và negative không chứa danh từ must_have (v1.4.1, từ KB).
+    tags_en: list[str] = field(default_factory=list)
+    neg_tags_en: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -178,6 +181,11 @@ class GenSpec:
     iteration: int = 0
     #: Vòng nhanh (LCM-LoRA, ít bước) hay render đủ bước.
     fast: bool = False
+    #: Cách render prompt (v1.4.1): "legacy" (v1.3: cảnh trước, thuộc tính câu dài), "tags" (thực thể + thẻ ngắn lên đầu,
+    #: negative thẻ), "sentence" (một đoạn văn tự nhiên cho SD3/FLUX huấn luyện trên caption dài).
+    render: str = "legacy"
+    #: cụm -> trọng số compel, vd {"wide-leg trousers": 1.2}; rỗng = không nhấn.
+    term_weights: dict[str, float] = field(default_factory=dict)
 
     @property
     def prompt(self) -> str:
@@ -373,9 +381,11 @@ class RevisionPlan:
     use_reference_image: bool = False
     guidance_delta: float = 0.0
     rationale: str = ""
+    #: cụm đã có trong prompt nhưng ảnh còn thiếu -> nhấn bằng trọng số compel thay vì thêm trùng (v1.4.1)
+    weights: dict[str, float] = field(default_factory=dict)
 
     def is_empty(self) -> bool:
-        return not (self.add_positive or self.add_negative or self.boost
+        return not (self.add_positive or self.add_negative or self.boost or self.weights
                     or self.attach_lora or self.use_reference_image or self.guidance_delta)
 
 

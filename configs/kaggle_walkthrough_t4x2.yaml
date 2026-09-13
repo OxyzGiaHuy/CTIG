@@ -8,7 +8,8 @@ max_candidate_entities: 6
 review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
 judge:      {backend: blip2_itm, device: "cuda:0", offload: true}
 # Thứ tự nhỏ -> lớn. sd35_medium (gated, fp16 trên T4) và sweep LoRA (sdxl_aodai@0.6 ...) thêm tay khi cần.
-models:     [dreamshaper8, sdxl_base, realvis_xl, sdxl_aodai, realvis_aodai, sdxl_refplus, playground25]
+# realvis_xl#legacy = cùng model, prompt render kiểu v1.3 (cảnh trước, câu dài, negative có 'no trousers') để A/B với render 'tags' mặc định.
+models:     [dreamshaper8, sdxl_base, realvis_xl, realvis_xl#legacy, sdxl_aodai, realvis_aodai, sdxl_refplus, playground25]
 # v1.4 agent loop review: Summary (2c) · Filter ảnh tham chiếu (3b) · Filter+Rank ứng viên (4c) · một vòng sửa (4d)
 agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 1}
 multigen:
@@ -23,6 +24,6 @@ multigen:
   ref_images: 3
   hires:     {enabled: true, scale: 1.5, strength: 0.3, steps: 20}
   aesthetic: {enabled: true, device: "cuda:0", offload: true}
-t2i:        {backend: sdxl, device: "cuda:1", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 6.5,
+t2i:        {backend: sdxl, render: tags, emphasis_weight: 1.2, device: "cuda:1", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 6.5,
              n_candidates: 2, ip_adapter: true, ip_adapter_scale: 0.3, init_negatives: true}
 runs_dir: /kaggle/working/runs

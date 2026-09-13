@@ -39,7 +39,7 @@ from .schema import (
 #: Phiên bản LOGIC của từng bước. Tăng số khi đổi code làm đầu ra bước khác đi dù đầu vào không đổi,
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
-STEP_LOGIC = {"analysis": 1, "compare": 1, "retrieve": 2, "spec": 1, "genspec": 3, "multigen": 2, "review": 1,
+STEP_LOGIC = {"analysis": 1, "compare": 1, "retrieve": 2, "spec": 1, "genspec": 4, "multigen": 3, "review": 1,
               "brief": 1, "ref_filter": 1, "candidate_review": 1}
 
 
@@ -371,7 +371,8 @@ class Session:
         c = self.cfg
         n = c.multigen.n_candidates if c.multigen.enabled else c.t2i.n_candidates
         key = _h({"spec": _h(to_dict(sp)), "pe": a.prompt_en, "t2i": [c.t2i.steps, c.t2i.guidance, c.t2i.width, c.t2i.height,
-                                                                          n, c.t2i.init_negatives, c.t2i.attrs_in_prompt], "seed": c.seed,
+                                                                          n, c.t2i.init_negatives, c.t2i.attrs_in_prompt, c.t2i.render,
+                                                                          c.t2i.emphasis_weight], "seed": c.seed,
                   "enrich": bool(c.agents.enabled and c.agents.summary and c.agents.enrich_prompt)})
 
         def compute():
@@ -405,7 +406,7 @@ class Session:
         def compute():
             refs = self.reference_images() if any(get_model(m).ip_adapter for m in models if _known(m)) else []
             return st_mg.run(gen, sp, self.kb, models, c.multigen, self.out_dir, clip=self.clip, itm=self.itm,
-                             ref_images=refs, aesthetic=self.aesthetic,
+                             ref_images=refs, aesthetic=self.aesthetic, t2i_cfg=c.t2i,
                              prompt_en=a.prompt_en or self.prompt.text_en, log=self.log, on_model_done=on_model_done,
                              lora_dir=lora_dir)
 

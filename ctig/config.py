@@ -57,6 +57,11 @@ class T2IConfig:
     fast_guidance: float = 1.5
     #: số must_have_en của mỗi thực thể chính đưa vào prompt (v1.2.1: 2 -> 3 để giữ 'quần dài')
     attrs_in_prompt: int = 3
+    #: v1.4.1: cách render prompt mặc định: "tags" (thực thể + thẻ ngắn lên đầu, negative thẻ) | "legacy" (v1.3) | "sentence".
+    #: Model họ sd3 luôn dùng "sentence". Hậu tố '#legacy' trong models: cho hàng A/B.
+    render: str = "tags"
+    #: trọng số compel cho thẻ phân biệt đầu tiên của thực thể chính (1.0 = không nhấn)
+    emphasis_weight: float = 1.2
 
 
 @dataclass

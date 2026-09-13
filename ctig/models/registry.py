@@ -44,6 +44,10 @@ class ModelSpec:
     scheduler: str | None = None
     #: Có chạy hires fix (img2img phóng to) được không. Turbo/SD3 không.
     hires_ok: bool = True
+    #: Negative khuyến nghị riêng của checkpoint (model card), nối sau negative chung (v1.4.1).
+    extra_negative: list[str] = field(default_factory=list)
+    #: Cách render prompt mặc định của model: None = theo t2i.render; sd3 -> "sentence".
+    render: str | None = None
     est_vram_gb: float = 0.0
     experimental: bool = False
     notes: str = ""
@@ -61,6 +65,7 @@ REGISTRY: dict[str, ModelSpec] = {
     "dreamshaper8": ModelSpec(
         "dreamshaper8", "Lykon/dreamshaper-8", "sd15", 512, 512, steps=30, guidance=7.0,
         est_vram_gb=2.5, load_kwargs={"safety_checker": None, "requires_safety_checker": False},
+        extra_negative=["bad anatomy", "bad hands", "extra fingers", "poorly drawn face", "mutated", "lowres"],
         notes="SD 1.5 fine-tune phổ biến; nhẹ, hỗ trợ negative. Đại diện thế hệ SD1.5."),
     "sdxl_base": ModelSpec(
         "sdxl_base", "stabilityai/stable-diffusion-xl-base-1.0", "sdxl", 1024, 1024, steps=30, guidance=6.5,
@@ -80,10 +85,12 @@ REGISTRY: dict[str, ModelSpec] = {
     "realvis_xl": ModelSpec(
         "realvis_xl", "SG161222/RealVisXL_V4.0", "sdxl", 1024, 1024, steps=30, guidance=5.0,
         vae=SDXL_VAE_FIX, est_vram_gb=7.0,
+        extra_negative=["worst quality", "low quality", "illustration", "3d", "2d", "painting", "cartoons", "sketch", "open mouth"],
         notes="SDXL fine-tune ảnh thực (người, vải, ánh sáng) - ứng viên thay sdxl_base làm baseline chất lượng (v1.3)."),
     "realvis_aodai": ModelSpec(
         "realvis_aodai", "SG161222/RealVisXL_V4.0", "sdxl", 1024, 1024, steps=30, guidance=5.0,
         vae=SDXL_VAE_FIX, est_vram_gb=7.0,
+        extra_negative=["worst quality", "low quality", "illustration", "3d", "painting", "cartoons", "sketch", "open mouth"],
         lora={"source": "civitai", "version_id": 590793, "file": "jay_ao_dai_xl.safetensors",
               "trigger": "aodaixl", "scale": 0.8, "license": "CreativeML Open RAIL++-M, tác giả ghi 'no commercial use'"},
         only_if_entity=["ao_dai"],
@@ -91,6 +98,7 @@ REGISTRY: dict[str, ModelSpec] = {
     "sdxl_refplus": ModelSpec(
         "sdxl_refplus", "SG161222/RealVisXL_V4.0", "sdxl", 1024, 1024, steps=30, guidance=5.0,
         vae=SDXL_VAE_FIX, est_vram_gb=9.0, ip_adapter=True, ip_adapter_kind="plus", ip_adapter_scale=0.4,
+        extra_negative=["worst quality", "low quality", "illustration", "painting", "cartoons", "sketch", "open mouth"],
         notes="RealVisXL + IP-Adapter Plus (ViT-H) với tối đa multigen.ref_images ảnh Commons đã qua CLIP (v1.3, H4). "
               "Scale 0.5 kéo cả bố cục ảnh tham chiếu (ảnh nhóm -> nhiều người); 0.4 và xếp ảnh theo độ khớp prompt."),
     "playground25": ModelSpec(
@@ -101,13 +109,13 @@ REGISTRY: dict[str, ModelSpec] = {
     "sd35_medium": ModelSpec(
         "sd35_medium", "stabilityai/stable-diffusion-3.5-medium", "sd3", 1024, 1024, steps=28, guidance=4.5,
         variant=None, load_kwargs={"text_encoder_3": None, "tokenizer_3": None}, est_vram_gb=9.0, experimental=True,
-        scheduler="keep", hires_ok=False,
+        scheduler="keep", hires_ok=False, render="sentence",
         notes="SD3.5 Medium (2,5B MMDiT), bám prompt tốt hơn SDXL. Repo gated: cần HF_TOKEN + chấp nhận điều khoản. "
               "Bỏ T5 để vừa T4; T4 không có bf16 nên chạy fp16 - có thể ra ảnh lỗi số, vì vậy experimental."),
     "sd3_medium": ModelSpec(
         "sd3_medium", "stabilityai/stable-diffusion-3-medium-diffusers", "sd3", 1024, 1024, steps=28, guidance=7.0,
         variant=None, load_kwargs={"text_encoder_3": None, "tokenizer_3": None}, est_vram_gb=8.0, experimental=True,
-        scheduler="keep", hires_ok=False,
+        scheduler="keep", hires_ok=False, render="sentence",
         notes="Repo gated: cần HF_TOKEN và chấp nhận điều khoản. Bỏ T5 để vừa T4."),
     "hunyuan_dit": ModelSpec(
         "hunyuan_dit", "Tencent-Hunyuan/HunyuanDiT-v1.2-Diffusers", "hunyuan", 1024, 1024, steps=30, guidance=5.0,
@@ -119,15 +127,29 @@ REGISTRY: dict[str, ModelSpec] = {
 }
 
 
+RENDER_VARIANTS = ("legacy", "tags", "sentence")
+
+
 def parse_key(key: str) -> tuple[str, float | None]:
-    """'sdxl_aodai@0.6' -> ('sdxl_aodai', 0.6): sweep LoRA scale bằng cách liệt kê nhiều hàng trong `models:`."""
-    base, _, tail = key.partition("@")
+    """'sdxl_aodai@0.6#legacy' -> ('sdxl_aodai', 0.6). Hậu tố @ = LoRA scale, # = cách render prompt (xem parse_variant)."""
+    base, _, _variant = key.partition("#")
+    base, _, tail = base.partition("@")
     if not tail:
         return base, None
     try:
         return base, float(tail)
     except ValueError as exc:
         raise KeyError(f"Hậu tố '@{tail}' của '{key}' phải là số (LoRA scale)") from exc
+
+
+def parse_variant(key: str) -> str | None:
+    """'realvis_xl#legacy' -> 'legacy'; không có # -> None (theo model/config)."""
+    _, _, v = key.partition("#")
+    if not v:
+        return None
+    if v not in RENDER_VARIANTS:
+        raise KeyError(f"Hậu tố '#{v}' của '{key}' phải là một trong {RENDER_VARIANTS}")
+    return v
 
 
 def get(key: str) -> ModelSpec:

@@ -66,6 +66,21 @@ Marmot (VLM chỉ *mô tả*, việc *phán* làm trên văn bản để tránh 
 
 Bật/tắt từng agent trong `agents:` của config; mọi bước đều memo hoá như các bước khác (`Session.brief / ref_filter / candidate_review`).
 
+## v1.4.1: prompt render theo họ model, negative không phủ định, trọng số, A/B cùng grid
+
+GenSpec giờ có ba cách render (`t2i.render`, hoặc hậu tố `#variant` trên khoá model để so A/B cùng seed):
+
+| render | cho | prompt | negative |
+|---|---|---|---|
+| `tags` (mặc định) | SDXL, SD1.5 (huấn luyện trên alt-text ngắn) | `Vietnamese Ao dai, (fitted long tunic)1.2, high stand-up collar, wide-leg trousers, ..., <cảnh>, <style>`: thực thể và thẻ phân biệt lên đầu | generic + tên confusable + `neg_tags_en` (obi sash, bare legs, floor-length gown...), **không chứa danh từ của must_have** |
+| `legacy` | so sánh với v1.3 | `<cảnh>, Vietnamese Ao dai, <3 câu must_have dài>, <style>` | generic + confusable + `must_not_en` câu dài (`one-piece dress with no trousers underneath`) |
+| `sentence` | SD3 / FLUX (huấn luyện trên caption dài) | một đoạn văn tự nhiên | ngắn |
+
+Vì sao: CLIP không hiểu phủ định nên `no trousers` trong negative đẩy ảnh xa `trousers`; token đầu prompt được chú ý nhất;
+SDXL đọc thẻ ngắn tốt hơn câu dài. KB 0.4.0 thêm `tags_en`/`neg_tags_en` viết tay cho 38 thực thể; `must_have_en`/`must_not_en`
+giữ nguyên cho chấm điểm và Filter agent. Mỗi checkpoint có `extra_negative` riêng (RealVisXL, DreamShaper theo model card).
+Vòng sửa 4d nhấn thẻ còn thiếu bằng trọng số compel ×1.3 thay vì thêm trùng.
+
 ## Báo cáo tiến độ gửi người hướng dẫn
 
 ```bash

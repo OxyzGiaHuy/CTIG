@@ -126,6 +126,13 @@ hypotheses:
     priority: medium
     prediction: "Top-1 trùng >= 60% prompt; trong các ca bất đồng, người đồng ý với agent nhiều hơn metric"
 
+  - id: H15
+    statement: "Render 'tags' (thực thể + thẻ ngắn lên đầu, negative không chứa danh từ must_have, trọng số 1.2) cho CLIP attr cao hơn render 'legacy' v1.3 trên cùng model và seed"
+    status: active
+    motivation: "CLIP không hiểu phủ định ('no trousers' trong negative đẩy xa 'trousers'); SDXL đọc thẻ tốt hơn câu; token đầu được chú ý nhất"
+    priority: high
+    prediction: "realvis_xl vs realvis_xl#legacy trên p001, p031, p050: attr TB tăng >= 0,05 và số ảnh có must_not giảm"
+
 experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0

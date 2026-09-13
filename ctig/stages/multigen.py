@@ -20,7 +20,7 @@ from pathlib import Path
 
 from ..kb import KnowledgeBase
 from ..models import loader as model_loader
-from ..models.registry import ModelSpec, get as get_model, parse_key
+from ..models.registry import ModelSpec, get as get_model, parse_key, parse_variant
 from ..schema import Candidate, CulturalSpec, GenOutput, GenSpec, ModelRun, MultiGenResult, from_dict, to_dict
 from .generation import DiffusersGenerator, StubGenerator, _font
 
@@ -49,13 +49,28 @@ def _clamp(v: int, max_side: int) -> int:
     return max(256, (v // 8) * 8)
 
 
-def adapt_spec(gen: GenSpec, mspec: ModelSpec, cfg) -> GenSpec:
-    """GenSpec chung -> GenSpec cho một model: kích cỡ, bước, guidance, negative, trigger LoRA."""
+def adapt_spec(gen: GenSpec, mspec: ModelSpec, cfg, spec: CulturalSpec | None = None, prompt_en: str = "",
+               variant: str | None = None, t2i_cfg=None) -> GenSpec:
+    """GenSpec chung -> GenSpec cho một model: kích cỡ, bước, guidance, negative, trigger LoRA.
+
+    v1.4.1: cách render prompt có thể khác theo model (sd3 -> sentence) hoặc theo hậu tố '#variant' của khoá; khi đó
+    prompt/negative được render lại từ spec (cần `spec` và `prompt_en`). Negative riêng của checkpoint nối vào cuối.
+    """
     ov = (cfg.overrides or {}).get(mspec.key, {})
     w, h = _clamp(ov.get("width", mspec.width), cfg.max_side), _clamp(ov.get("height", mspec.height), cfg.max_side)
+    want = variant or mspec.render
+    g = gen
+    if want and want != gen.render and spec is not None and t2i_cfg is not None:
+        from .generation import render_terms
+
+        terms, neg, weights = render_terms(prompt_en or "", spec, t2i_cfg, want)
+        g = replace(gen, prompt_terms=terms, negative_terms=neg, term_weights=weights, render=want)
+    neg = list(g.negative_terms) if mspec.negative_ok else []
+    if mspec.negative_ok and mspec.extra_negative:
+        neg = list(dict.fromkeys(neg + list(mspec.extra_negative)))
     return replace(
-        gen,
-        negative_terms=list(gen.negative_terms) if mspec.negative_ok else [],
+        g,
+        negative_terms=neg,
         steps=int(ov.get("steps", mspec.steps)), guidance=float(ov.get("guidance", mspec.guidance)),
         width=w, height=h, n_candidates=int(ov.get("n_candidates", cfg.n_candidates)),
         ip_adapter_image=None, lora=None, fast=False, iteration=0,
@@ -210,7 +225,7 @@ def _load_previous(prev: MultiGenResult | None, key: str, ghash: str, n: int) ->
 def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[str], cfg, out_dir: Path,
         clip=None, itm=None, prompt_en: str = "", log=print, on_model_done=None,
         loader=None, lora_dir: Path | str | None = None, ref_images: list[str] | None = None,
-        aesthetic=None) -> MultiGenResult:
+        aesthetic=None, t2i_cfg=None) -> MultiGenResult:
     """`ref_images`: ảnh tham chiếu đã qua CLIP (tốt nhất trước) cho hàng IP-Adapter; `aesthetic`: PickScorer hoặc None.
     Khoá model có thể mang hậu tố '@<scale>' để ghi đè LoRA scale (sweep: sdxl_aodai@0.6, sdxl_aodai@1.0)."""
     loader = loader or model_loader.load_pipeline
@@ -227,6 +242,7 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
     for key in model_keys:
         try:
             base_key, lora_scale = parse_key(key)
+            variant = parse_variant(key)
             mspec = get_model(base_key)
         except KeyError as exc:
             result.runs.append(ModelRun(key, "-", gen, error=str(exc)))
@@ -241,8 +257,8 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 on_model_done(result.runs[-1])
             continue
 
-        gspec = adapt_spec(gen, mspec, cfg)
-        safe_key = key.replace("@", "_s")  # tên thư mục/file cho hàng sweep
+        gspec = adapt_spec(gen, mspec, cfg, spec=spec, prompt_en=prompt_en, variant=variant, t2i_cfg=t2i_cfg)
+        safe_key = key.replace("@", "_s").replace("#", "_r")  # tên thư mục/file cho hàng sweep / biến thể render
         prev = _load_previous(previous, key, ghash, gspec.n_candidates)
         if prev is not None:
             log(f"  [4b] {key}: dùng lại ảnh trên đĩa (GenSpec không đổi)")
@@ -273,6 +289,8 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 except TypeError:  # loader tiêm từ test có chữ ký cũ
                     pipe = loader(mspec, cfg.device, cfg.cpu_offload)
                 run_rec.notes.append(f"scheduler {type(pipe.scheduler).__name__}" if hasattr(pipe, "scheduler") else "")
+                if gspec.render != gen.render:
+                    run_rec.notes.append(f"render {gspec.render}")
                 trigger = None
                 if mspec.lora:
                     how = model_loader.attach_lora(pipe, mspec.lora, lora_dir or (out_dir.parent.parent / "_cache" / "lora"),
@@ -355,7 +373,7 @@ def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int 
     pad, left, line_h = 10, 200, 15
     f_b, f_s, f_h = _font(14, True), _font(11), _font(16, True)
 
-    def caption(c) -> list[str]:
+    def caption(c) -> list[str]:  # noqa: D401
         parts = []
         if c.clip_probs:
             parts.append(f"CLIP id {c.clip_fidelity:.2f}")

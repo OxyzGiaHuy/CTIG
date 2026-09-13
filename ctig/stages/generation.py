@@ -473,7 +473,8 @@ class DiffusersGenerator:
             return ipk
 
     # ---- sinh --------------------------------------------------------------------------
-    def generate(self, gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, out_dir: Path) -> GenOutput:
+    def generate(self, gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, out_dir: Path, start_index: int = 0) -> GenOutput:
+        """`start_index`: ứng viên bắt đầu từ chỉ số này (best-of-N thích nghi sinh thêm lô sau, seed và tên file không trùng)."""
         out_dir.mkdir(parents=True, exist_ok=True)
         pk = self._prompt_kwargs(gen)
         ipk = self._ip_kwargs()
@@ -482,7 +483,7 @@ class DiffusersGenerator:
         ipk = self._precompute_ip_embeds(ipk, gen)
         hires_pipe = None
         cands = []
-        for i in range(gen.n_candidates):
+        for i in range(start_index, start_index + gen.n_candidates):
             seed = gen.seed + 1000 * gen.iteration + i
             g = self.torch.Generator(device="cpu").manual_seed(seed)
             kwargs = dict(num_inference_steps=gen.steps, guidance_scale=gen.guidance,
@@ -579,7 +580,7 @@ class StubGenerator:
     def __init__(self, cfg):
         self.cfg = cfg
 
-    def generate(self, gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, out_dir: Path) -> GenOutput:
+    def generate(self, gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, out_dir: Path, start_index: int = 0) -> GenOutput:
         out_dir.mkdir(parents=True, exist_ok=True)
         neg = normalize(gen.negative_prompt)
         pos = normalize(gen.prompt)
@@ -616,7 +617,7 @@ class StubGenerator:
                 oracle[se.entity_id] = "<không vẽ>"
         tag = getattr(self, "model_key", None)
         cands = []
-        for i in range(max(1, gen.n_candidates)):  # stub tôn trọng n_candidates để test best-of-N/cache đĩa
+        for i in range(start_index, start_index + max(1, gen.n_candidates)):  # stub tôn trọng n_candidates để test best-of-N
             path = out_dir / (f"{gen.prompt_id}_{tag}_c{i}.png" if tag else f"{gen.prompt_id}_iter{gen.iteration}_c{i}.png")
             _draw_card(path, gen, spec, oracle, strengths)
             cands.append(Candidate(str(path), gen.seed + 1000 * gen.iteration + i, model_id=tag))

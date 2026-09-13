@@ -282,10 +282,13 @@ class PromptAgent:
             "facts_vi: 3-6 câu tiếng Việt, càng gần chữ trong văn bản càng tốt. facts_en: dịch tương ứng.\n"
             "confusions_en: 1-3 câu tiếng Anh nói thực thể này KHÁC gì so với thứ dễ nhầm (kimono, qipao, hanbok, zongzi...) "
             "nếu văn bản có nói; không thì để rỗng.\n"
-            "depiction_en: MỘT câu tiếng Anh <= 18 từ mô tả cách vẽ đúng thực thể, dùng từ trong facts_en."
+            "depiction_en: MỘT câu tiếng Anh <= 18 từ mô tả cách vẽ đúng thực thể, dùng từ trong facts_en.\n"
+            "dimensions: xếp các facts_en vào 4 chiều (CULTIVate): attire (trang phục trên người), objects (vật thể, món ăn, "
+            "nhạc cụ), background (bối cảnh, kiến trúc, cảnh quan), interactions (hành động, cách dùng). Chiều nào không có thì rỗng."
         )
         user = f"Thực thể: {se.name_vi} / {se.name_en}{kb_hint}\n\nVăn bản:\n{corpus}"
-        schema = _s(facts_vi=_arr(STR), facts_en=_arr(STR), confusions_en=_arr(STR), depiction_en=STR)
+        schema = _s(facts_vi=_arr(STR), facts_en=_arr(STR), confusions_en=_arr(STR), depiction_en=STR,
+                    dimensions=_s(attire=_arr(STR), objects=_arr(STR), background=_arr(STR), interactions=_arr(STR)))
         return self.llm.complete_json(system, user, schema)
 
     def describe_image(self, path: str) -> dict:

@@ -31,6 +31,8 @@ def run(agent, search: SearchResult, spec: CulturalSpec, kb: KnowledgeBase, max_
             confusions_en=[str(x) for x in d.get("confusions_en", []) if x][:4],
             depiction_en=str(d.get("depiction_en", "")).strip()[:300],
             sources=[t.title for t in texts], n_sources=len(texts), grounded=grounded,
+            dimensions={k: [str(x) for x in v if x][:6] for k, v in (d.get("dimensions") or {}).items()
+                        if isinstance(v, list) and k in ("attire", "objects", "background", "interactions")},
         )
         briefs[se.entity_id] = b
         log(f"  [2c] {se.name_vi}: brief {len(b.facts_en)} facts EN, {b.grounded}/{len(facts_vi)} câu VI có gốc, {b.n_sources} nguồn")

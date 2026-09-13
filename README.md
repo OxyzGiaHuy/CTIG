@@ -93,6 +93,18 @@ Bài toán là **retrieval-augmented T2I**: đầu vào là text; ảnh tham chi
 - **Số đo chép** `ref_sim`: cosine CLIP ảnh-ảnh lớn nhất với ảnh tham chiếu, tính cho mọi hàng; vượt `copy_threshold` (0,88) bị trừ
   vào điểm tổng, để kênh ảnh không được thưởng vì sao chép bố cục.
 
+## v1.5: bốn thay đổi rút từ khảo sát tài liệu
+
+Danh sách đọc theo khối: [research/literature/README.md](research/literature/README.md).
+
+| thay đổi | từ bài | cấu hình |
+|---|---|---|
+| Ảnh tham chiếu **có điều kiện**: hàng `+ref` chỉ dùng ảnh khi thực thể chính có `prior_strength` ≤ 0,45 hoặc không có trong KB; vòng sửa 4d kèm ảnh khi thiếu ≥ 2 thuộc tính | ImageRAG | `multigen.auto_ref` |
+| **Verifier ensemble**: điểm chọn = 1 − trung bình hạng trên CLIP id, CLIP attr, ITM attr, PickScore (trừ phạt chép); cột "hạng ensemble" | Ma et al. 2025 | `multigen.ensemble` |
+| **Best-of-N thích nghi**: mỗi model sinh 2, attr tốt nhất < 0,70 thì thêm 2 tới 6 | Ma et al. 2025 | `multigen.adaptive` |
+| Cắt ảnh tham chiếu bằng **OWL-ViT** (phát hiện theo chữ), lùi về CLIP quét lưới | OWL-ViT | `multigen.ref_detector` |
+| Brief của Summary agent theo 4 chiều attire / objects / background / interactions | CULTIVate | tự động |
+
 ## Báo cáo tiến độ gửi người hướng dẫn
 
 ```bash

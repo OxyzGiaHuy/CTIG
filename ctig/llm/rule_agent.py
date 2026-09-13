@@ -140,7 +140,9 @@ class RuleAgent:
         mh = list(ent.must_have) if ent is not None else []
         return {"facts_vi": mh[:4], "facts_en": [a for a in (ent.must_have_en if ent is not None else []) if a][:4],
                 "confusions_en": [f"unlike {c.get('name')}" for c in (ent.confusable_with if ent is not None else [])[:2]],
-                "depiction_en": (ent.clip_label or "") if ent is not None else ""}
+                "depiction_en": (ent.clip_label or "") if ent is not None else "",
+                "dimensions": {"attire" if (ent is not None and ent.category == "trang_phuc") else "objects":
+                               [a for a in (ent.must_have_en if ent is not None else []) if a][:4]}}
 
     def describe_image(self, path):
         return {"people_count": 1, "subjects": ["person"], "garments": ["fitted tunic with high stand-up collar over wide trousers"],

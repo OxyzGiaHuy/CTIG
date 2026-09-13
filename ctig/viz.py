@@ -266,18 +266,18 @@ def model_grid(res: MultiGenResult, spec: CulturalSpec, side: int = 220, source:
 
 
 def score_table(res: MultiGenResult, source: str | None = None) -> str:
-    from .stages.multigen import best_run, combined_score
+    from .stages.multigen import best_run, combined_score, score_key
 
     best = best_run(res)
     f3 = lambda v: "" if v is None else f"{v:.3f}"
-    rows = ["<table><tr><th>model</th><th>ứng viên</th><th>tổng</th><th>CLIP identity</th><th>CLIP attr</th><th>ITM</th><th>ITM attr</th><th>đẹp (PickScore)</th><th>sim(prompt)</th><th>giống ref</th><th>giây</th><th>VRAM đỉnh</th></tr>"]
+    rows = ["<table><tr><th>model</th><th>ứng viên</th><th>hạng ensemble</th><th>tổng</th><th>CLIP identity</th><th>CLIP attr</th><th>ITM</th><th>ITM attr</th><th>đẹp (PickScore)</th><th>sim(prompt)</th><th>giống ref</th><th>giây</th><th>VRAM đỉnh</th></tr>"]
     for r in res.runs:
         if not r.output:
-            rows.append(f"<tr><td>{_e(r.model_key)}</td><td colspan='11' class='bad'>{_e(r.error or '')}</td></tr>")
+            rows.append(f"<tr><td>{_e(r.model_key)}</td><td colspan='12' class='bad'>{_e(r.error or '')}</td></tr>")
             continue
         for j, c in enumerate(r.output.candidates):
             hl = " style='background:#dcfce7'" if (best and r.model_key == best.model_key and j == r.output.chosen) else ""
-            rows.append(f"<tr{hl}><td>{_e(r.model_key)}</td><td>{j}</td><td><b>{combined_score(c):.3f}</b></td>"
+            rows.append(f"<tr{hl}><td>{_e(r.model_key)}</td><td>{j}</td><td><b>{f3(c.ensemble)}</b></td><td>{combined_score(c):.3f}</td>"
                         f"<td>{c.clip_fidelity:.3f}</td><td>{f3(c.attr_contrast)}</td><td>{f3(c.itm_score)}</td><td>{f3(c.itm_attrs)}</td>"
                         f"<td>{f3(c.aesthetic)}{'' if c.pick_score is None else f' <span class=muted>({c.pick_score:.1f})</span>'}</td>"
                         f"<td>{f3(c.clip_prompt_sim)}</td>"
@@ -291,6 +291,7 @@ def score_table(res: MultiGenResult, source: str | None = None) -> str:
              "<b>CLIP attr</b> = phần xác suất rơi vào câu 'thực thể with &lt;must_have&gt;' so với 'with &lt;must_not&gt;' "
              "(vd có quần vs váy liền). ITM attr = BLIP-2 trung bình trên câu must_have. "
              "<b>đẹp</b> = PickScore (sở thích người) chuẩn hoá min-max trong lần chạy này, số thô trong ngoặc; đo 'thích', không đo đúng văn hoá. "
+             "<b>hạng ensemble</b> = 1 − trung bình hạng trên các verifier có (CLIP id, attr, ITM attr, đẹp), tính trên mọi ứng viên của lần chạy (Ma et al. 2025: verifier đơn bị 'hack'); dùng để chọn. "
              "sim = cosine CLIP với prompt. <b>giống ref</b> = cosine CLIP ảnh-ảnh lớn nhất với ảnh tham chiếu (đã cắt); > 0,88 coi là chép và bị trừ điểm tổng. "
              "Tổng = trung bình các số có. Không thay được mắt người; dùng để xếp thứ tự rồi nhìn grid.</div>")
     return _wrap("Bước 5 · Bảng điểm", "".join(rows) + note, source)
@@ -311,6 +312,7 @@ def brief_card(briefs: dict, spec: CulturalSpec, source: str | None = None) -> s
                      f"{b.n_sources} nguồn · {b.grounded}/{len(b.facts_vi)} câu VI có gốc</span>"
                      f"<ul>{facts}</ul>" + (f"<div><b>khác với thứ dễ nhầm:</b><ul>{conf}</ul></div>" if conf else "")
                      + (f"<div><b>vẽ thế nào:</b> <i>{_e(b.depiction_en)}</i></div>" if b.depiction_en else "")
+                     + ("<div class='muted small'>chiều CULTIVate: " + " · ".join(f"<b>{_e(k)}</b> {len(v)}" for k, v in b.dimensions.items() if v) + "</div>" if b.dimensions else "")
                      + f"<div class='muted small'>nguồn: {_e('; '.join(b.sources[:4]))}</div></div>")
     note = ("<div class='muted'>Summary agent chỉ được dùng thông tin trong văn bản truy hồi; facts VI được kiểm mờ xem có câu gốc. "
             "'Vẽ thế nào' chỉ vào prompt khi agents.enrich_prompt bật (đang " + "tắt" + " để so A/B).</div>")

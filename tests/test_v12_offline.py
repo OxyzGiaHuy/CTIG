@@ -465,6 +465,87 @@ def test_garment_rules():
     check("garment chuỗi thường -> None", garment_rules(ImageDescriptor("w", garments=["white outfit"]), "high stand-up mandarin collar") is None)
 
 
+def test_v15_offline(tmp):
+    """v1.5: auto_ref theo prior, ensemble hạng, best-of-N thích nghi, OWL-ViT lùi về CLIP, brief có chiều CULTIVate."""
+    from ctig.schema import Candidate, CulturalSpec, GenOutput, ModelRun, MultiGenResult, SpecEntity, GenSpec
+    from ctig.stages import multigen as mg
+    from ctig.stages.refcrop import crop_to_entity
+    from ctig.llm.rule_agent import RuleAgent
+    from ctig.stages import analysis as st_a, spec as st_s
+    from ctig.stages.retrieval import LocalRetriever
+    from ctig.stages.generation import build_initial_spec
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    kb = KnowledgeBase.load(cfg.kb_path)
+    # auto_ref: áo dài prior cao -> không dùng; thuyền thúng prior thấp -> dùng; ad-hoc -> dùng
+    def spec_of(eid):
+        e = kb.get(eid)
+        return CulturalSpec("t", [SpecEntity(eid, e.name_vi, e.name_en, [], [], [], 1.0, kind="object")], [], [])
+    use_ao, why_ao = mg.should_use_refs(spec_of("ao_dai"), kb, cfg.multigen)
+    use_tt, why_tt = mg.should_use_refs(spec_of("thuyen_thung"), kb, cfg.multigen)
+    use_x, _ = mg.should_use_refs(CulturalSpec("t", [SpecEntity("x_la", "lạ", "unknown", [], [], [], 1.0, kind="object")], [], []), kb, cfg.multigen)
+    check("auto_ref: áo dài (prior cao) không dùng ảnh; thuyền thúng và thực thể lạ dùng", not use_ao and use_tt and use_x, f"{why_ao} | {why_tt}")
+    cfg.multigen.auto_ref.enabled = False
+    check("auto_ref tắt -> luôn dùng", mg.should_use_refs(spec_of("ao_dai"), kb, cfg.multigen)[0])
+    cfg.multigen.auto_ref.enabled = True
+
+    # ensemble hạng: ứng viên A cao attr thấp đẹp, B ngược lại, C thấp cả hai; D chép ref
+    mk = lambda p, attr, aes, ref=None: Candidate(p, 1, clip_fidelity=1.0, clip_probs={"e": {"a": 1}}, attr_contrast=attr, itm_attrs=0.9, aesthetic=aes, ref_sim=ref)
+    cs = [mk("A", 0.9, 0.2), mk("B", 0.5, 0.9), mk("C", 0.3, 0.1), mk("D", 0.95, 0.95, ref=0.97)]
+    res = MultiGenResult("t", [ModelRun("m", "-", GenSpec("t"), output=GenOutput("t", 0, cs, 0))])
+    mg.COPY_THRESHOLD = 0.88
+    mg.ensemble_rank(res)
+    e = {c.path: c.ensemble for c in cs}
+    check("ensemble: C thấp nhất; D bị phạt chép dù metric cao nhất", e["C"] < min(e["A"], e["B"]) and e["D"] < max(e["A"], e["B"]), str(e))
+    check("score_key dùng ensemble khi có", mg.score_key(cs[0]) == cs[0].ensemble)
+    mg.rechoose(res)
+    check("rechoose theo ensemble, không chọn D (chép)", res.runs[0].output.chosen != 3)
+
+    # adaptive: FakeClip không có probs -> attr None -> coi là chưa đạt -> sinh tới max
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p001"); ag = RuleAgent(); a = st_a.run(ag, p, kb, 6)
+    s = LocalRetriever(cfg.retrieval, None, tmp / "_cache").search(a, kb); sp = st_s.run(ag, p, a, s, kb, 4, 0.3)
+    gen = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1)
+    cfg.multigen.n_candidates = 6; cfg.multigen.adaptive.enabled = True; cfg.multigen.adaptive.min = 2; cfg.multigen.adaptive.max = 5; cfg.multigen.adaptive.step = 2
+    r1 = mg.run(gen, sp, kb, ["stub"], cfg.multigen, tmp / "ad" / p.id, clip=FakeClip(), itm=None, prompt_en=a.prompt_en, log=lambda *a: None, t2i_cfg=cfg.t2i)
+    n = len(r1.runs[0].output.candidates)
+    check("adaptive: verifier chưa đạt -> 2 -> 4 -> 5 ứng viên (kẹp max), seed/tên file không trùng", n == 5
+          and len({c.seed for c in r1.runs[0].output.candidates}) == 5 and len({c.path for c in r1.runs[0].output.candidates}) == 5
+          and any(n_.startswith("adaptive: 2 -> 5") for n_ in r1.runs[0].notes), str((n, r1.runs[0].notes)))
+    class GoodClip(FakeClip):
+        def probs(self, path, labels): return [0.9] + [0.1 / max(1, len(labels) - 1)] * (len(labels) - 1)
+    r2 = mg.run(gen, sp, kb, ["stub"], cfg.multigen, tmp / "ad2" / p.id, clip=GoodClip(), itm=None, prompt_en=a.prompt_en, log=lambda *a: None, t2i_cfg=cfg.t2i)
+    check("adaptive: verifier đạt ngay -> dừng ở 2", len(r2.runs[0].output.candidates) == 2 and any("đạt với 2" in n_ for n_ in r2.runs[0].notes), str(r2.runs[0].notes))
+    r3 = mg.run(gen, sp, kb, ["stub"], cfg.multigen, tmp / "ad2" / p.id, clip=GoodClip(), itm=None, prompt_en=a.prompt_en, log=lambda *a: None, t2i_cfg=cfg.t2i)
+    check("adaptive: chạy lại dùng lại ảnh đĩa (cần >= min)", r3.runs[0].source == "disk")
+    cfg.multigen.adaptive.enabled = False
+
+    # OWL-ViT không có torch offline -> lùi về CLIP quét lưới
+    from PIL import Image
+    img = Image.new("RGB", (400, 300), (30, 30, 30))
+    for x in range(250, 400):
+        for y in range(150, 300):
+            img.putpixel((x, y), (220, 30, 30))
+    src = tmp / "ref15.jpg"; img.save(src)
+    class CropClip:
+        def similarity_image(self, im, texts):
+            px = list(im.getdata()); red = sum(1 for r, g, b in px if r > 150 and g < 80) / max(1, len(px))
+            return [0.2 + 0.6 * red] + [0.25] * (len(texts) - 1)
+    out, info = crop_to_entity(CropClip(), src, "a red object", tmp / "crops15", detector="owlvit", device="cpu")
+    check("detector owlvit lỗi offline -> lùi về clip và vẫn cắt", info.get("cropped") and info.get("how") == "clip", str(info))
+
+    # brief có chiều
+    from ctig.session import Session
+    sess = Session(cfg, p, tmp / "b15", log=lambda *a: None)
+    briefs, _ = sess.brief()
+    check("brief có dimensions (RuleAgent: attire cho trang phục)", "attire" in briefs["ao_dai"].dimensions and briefs["ao_dai"].dimensions["attire"])
+
+    # plan: thiếu >= 2 -> use_reference_image
+    from ctig.agents import loop as ag_loop
+    from ctig.schema import FilterVerdict
+    v = FilterVerdict("x", True, missing_must_have=["a", "b"])
+    check("plan thiếu >=2 -> sinh lại kèm ảnh tham chiếu", ag_loop.plan_from_verdict(v, sp, gen).use_reference_image)
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -545,5 +626,6 @@ if __name__ == "__main__":
     print("\ntest_render_variants"); test_render_variants(tmp)
     print("\ntest_refcrop_and_copy"); test_refcrop_and_copy(tmp)
     print("\ntest_garment_rules"); test_garment_rules()
+    print("\ntest_v15_offline"); test_v15_offline(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

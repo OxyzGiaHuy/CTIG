@@ -214,13 +214,14 @@ class Session:
         n_crop = 0
         for p in paths:
             try:
-                q, info = crop_to_entity(self.clip, p, label, self.cache_dir / "ref_crops")
+                q, info = crop_to_entity(self.clip, p, label, self.cache_dir / "ref_crops",
+                                         detector=self.cfg.multigen.ref_detector, device=self.cfg.perception.device)
                 n_crop += int(bool(info.get("cropped")) or (info.get("cached") and q != p))
                 out.append(q)
             except Exception as exc:  # noqa: BLE001
                 self.log(f"  [3c] không cắt được {Path(p).name}: {type(exc).__name__}: {str(exc)[:60]}")
                 out.append(p)
-        self.log(f"  [3c] ảnh tham chiếu: cắt {n_crop}/{len(paths)} về vùng '{label[:50]}'")
+        self.log(f"  [3c] ảnh tham chiếu: cắt {n_crop}/{len(paths)} về vùng '{label[:50]}' ({self.cfg.multigen.ref_detector})")
         return out
 
     # ------------------------------------------------------------------ v1.4 agents
@@ -424,7 +425,8 @@ class Session:
         key = _h({"gen": st_mg.genspec_hash(gen, st_mg.render_settings(c.multigen)), "models": models,
                   "n": c.multigen.n_candidates, "side": c.multigen.max_side, "aes": c.multigen.aesthetic.enabled,
                   "reffilter": bool(c.agents.enabled and c.agents.ref_filter), "refcrop": c.multigen.ref_crop,
-                  "refscale": c.multigen.ref_scale,
+                  "refscale": c.multigen.ref_scale, "detector": c.multigen.ref_detector,
+                  "adaptive": to_dict(c.multigen.adaptive), "autoref": to_dict(c.multigen.auto_ref), "ens": c.multigen.ensemble,
                   "ov": c.multigen.overrides})
         lora_dir = Path(c.multigen.lora_dir) if c.multigen.lora_dir else self.cache_dir / "lora"
 

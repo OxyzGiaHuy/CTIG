@@ -163,6 +163,27 @@ class AestheticConfig:
 
 
 @dataclass
+class AdaptiveConfig:
+    """v1.5 best-of-N thích nghi (Ma et al. 2025, inference-time scaling): sinh `min` ứng viên, verifier (CLIP attr tốt nhất)
+    chưa đạt `target_attr` thì sinh thêm `step`, tới `max`. Model đã đạt sớm thì tiết kiệm thời gian cho model yếu."""
+
+    enabled: bool = True
+    min: int = 2
+    max: int = 6
+    step: int = 2
+    target_attr: float = 0.70
+
+
+@dataclass
+class AutoRefConfig:
+    """v1.5 (ImageRAG): ảnh tham chiếu chỉ được cấp cho hàng '+ref' khi thực thể chính có prior thấp (model không tự vẽ được)
+    hoặc không có trong KB. Prior cao thì ảnh chỉ mang rủi ro chép bố cục (v1.3 p001)."""
+
+    enabled: bool = True
+    prior_max: float = 0.45
+
+
+@dataclass
 class MultiGenConfig:
     """So nhiều model sinh ảnh trong một lần chạy (v1.2). Model nạp tuần tự, giải phóng sau mỗi model."""
 
@@ -186,6 +207,12 @@ class MultiGenConfig:
     copy_threshold: float = 0.88
     hires: HiresConfig = field(default_factory=HiresConfig)
     aesthetic: AestheticConfig = field(default_factory=AestheticConfig)
+    adaptive: AdaptiveConfig = field(default_factory=AdaptiveConfig)
+    auto_ref: AutoRefConfig = field(default_factory=AutoRefConfig)
+    #: v1.5: điểm chọn = trung bình hạng các verifier (Ma et al.) thay trung bình giá trị (verifier đơn bị "hack").
+    ensemble: bool = True
+    #: cách tìm vùng thực thể để cắt ảnh tham chiếu: "owlvit" (phát hiện theo chữ, lùi về clip khi lỗi) | "clip" (quét lưới)
+    ref_detector: str = "owlvit"
     #: Kẹp cạnh dài của ảnh (SDXL 1024 -> 768 trên 1xT4 để tránh OOM).
     max_side: int = 768
     #: Chấm BLIP-2 ITM cho từng ảnh (dùng judge.blip2_model, offload CPU).

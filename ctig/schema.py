@@ -223,6 +223,9 @@ class Candidate:
     base_path: str | None = None
     #: Cosine CLIP ảnh-ảnh lớn nhất với các ảnh tham chiếu (v1.4.2): đo "chép". Có cho mọi hàng khi có ảnh tham chiếu.
     ref_sim: float | None = None
+    #: v1.5 (Ma et al.): điểm ensemble = 1 - trung bình hạng chuẩn hoá trên các verifier có (CLIP id, attr, ITM attr, đẹp),
+    #: trừ phạt chép. Tính trên toàn bộ ứng viên của một lần multigen; dùng để chọn thay combined_score.
+    ensemble: float | None = None
 
 
 @dataclass
@@ -433,6 +436,8 @@ class CulturalBrief:
     n_sources: int = 0
     #: số facts_vi có câu gốc trong văn bản (kiểm mờ) / tổng
     grounded: int = 0
+    #: v1.5 (CULTIVate): descriptor theo chiều attire / objects / background / interactions (EN)
+    dimensions: dict[str, list[str]] = field(default_factory=dict)
 
 
 @dataclass

@@ -49,7 +49,10 @@ def plan_from_verdict(v: FilterVerdict, spec: CulturalSpec, gen: GenSpec) -> Rev
     weights = {a: 1.3 for a in already[:2]}
     if weights:
         why.append("nhấn compel ×1.3: " + "; ".join(a[:40] for a in weights))
-    return RevisionPlan(add_positive=pos, add_negative=neg, boost=boost, weights=weights,
+    use_ref = len(v.missing_must_have) >= 2  # ImageRAG: model không tự vẽ được thuộc tính -> lần sinh lại kèm ảnh tham chiếu
+    if use_ref:
+        why.append("thiếu >= 2 thuộc tính -> sinh lại KÈM ảnh tham chiếu (+ref)")
+    return RevisionPlan(add_positive=pos, add_negative=neg, boost=boost, weights=weights, use_reference_image=use_ref,
                         guidance_delta=1.0 if (neg or already) else 0.0,
                         rationale="; ".join(why) or "không có gì để sửa")
 
@@ -66,8 +69,17 @@ def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_k
     from ..stages import multigen as mg
     from ..stages.generation import apply_plan
 
+    from ..models.registry import get as get_model, parse_flags
+
     g2 = apply_plan(gen, plan, spec, cfg.t2i)
     g2 = replace(g2, iteration=1, fast=False, steps=gen.steps, guidance=min(gen.guidance + plan.guidance_delta, 9.0))
+    try:
+        fam = get_model(model_key).family
+    except KeyError:
+        fam = ""
+    if plan.use_reference_image and ref_images and fam == "sdxl" and "ref" not in parse_flags(model_key):
+        model_key = model_key + "+ref"
+        log(f"  [4d] sinh lại với ảnh tham chiếu: {model_key}")
     res = mg.run(g2, spec, kb, [model_key], cfg.multigen, Path(out_dir) / "revision", clip=clip, itm=itm,
                  prompt_en=prompt_en, log=log, ref_images=ref_images, aesthetic=aesthetic, t2i_cfg=cfg.t2i)
     return res.runs[0] if res.runs else None, g2

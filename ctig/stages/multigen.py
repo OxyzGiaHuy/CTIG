@@ -144,6 +144,73 @@ def _attr_contrast(clip, path: str, pairs: list[tuple[list[str], list[str]]]) ->
     return sum(vals) / len(vals)
 
 
+def should_use_refs(spec: CulturalSpec, kb: KnowledgeBase, cfg) -> tuple[bool, str]:
+    """v1.5 (ImageRAG): chỉ cấp ảnh tham chiếu khi thực thể vật thể chính có prior thấp hoặc không có trong KB.
+    Trả (dùng?, lý do)."""
+    ar = getattr(cfg, "auto_ref", None)
+    if ar is None or not getattr(ar, "enabled", False):
+        return True, "auto_ref tắt"
+    objs = [se for se in spec.entities if se.kind == "object"]
+    if not objs:
+        return False, "không có thực thể vật thể"
+    main = max(objs, key=lambda se: se.weight)
+    ent = kb.get(main.entity_id)
+    if ent is None:
+        return True, f"{main.entity_id} không có trong KB -> coi là prior thấp"
+    if ent.prior_strength <= ar.prior_max:
+        return True, f"prior {ent.prior_strength:.2f} <= {ar.prior_max} -> dùng ảnh tham chiếu"
+    return False, f"prior {ent.prior_strength:.2f} > {ar.prior_max} -> model tự vẽ được, không dùng ảnh (tránh chép)"
+
+
+def score_key(c: Candidate) -> float:
+    """Điểm dùng để CHỌN: ensemble hạng (v1.5) nếu đã tính, không thì combined_score."""
+    return c.ensemble if c.ensemble is not None else combined_score(c)
+
+
+def ensemble_rank(result: MultiGenResult, penalty: bool = True) -> None:
+    """Verifier Ensemble (Ma et al. 2025): trung bình hạng KHÔNG trọng số trên các verifier có mặt, tính trên mọi ứng viên
+    của lần chạy. Verifier: CLIP id, CLIP attr, ITM attr, đẹp (PickScore). ensemble = 1 - hạngTB/(n-1), trừ phạt chép."""
+    cands = [c for r in result.runs if r.output for c in r.output.candidates]
+    n = len(cands)
+    if n == 0:
+        return
+    if n == 1:
+        cands[0].ensemble = 1.0
+        return
+    metrics = [
+        lambda c: c.clip_fidelity if c.clip_probs else None,
+        lambda c: c.attr_contrast,
+        lambda c: c.itm_attrs,
+        lambda c: c.aesthetic,
+    ]
+    ranks = {id(c): [] for c in cands}
+    for m in metrics:
+        vals = [(m(c), c) for c in cands]
+        have = [(v, c) for v, c in vals if v is not None]
+        if len(have) < 2:
+            continue
+        order = sorted(have, key=lambda vc: -vc[0])
+        # hạng trung bình cho giá trị bằng nhau
+        i = 0
+        while i < len(order):
+            j = i
+            while j + 1 < len(order) and abs(order[j + 1][0] - order[i][0]) < 1e-9:
+                j += 1
+            r = (i + j) / 2
+            for k in range(i, j + 1):
+                ranks[id(order[k][1])].append(r)
+            i = j + 1
+    for c in cands:
+        rs = ranks[id(c)]
+        if not rs:
+            c.ensemble = None
+            continue
+        e = 1.0 - (sum(rs) / len(rs)) / (n - 1)
+        if penalty and c.ref_sim is not None and c.ref_sim > COPY_THRESHOLD:
+            e -= min(0.5, (c.ref_sim - COPY_THRESHOLD) * 3.0)
+        c.ensemble = round(e, 4)
+
+
 def combined_score(c: Candidate) -> float:
     """Điểm xếp hạng = trung bình các số có: danh tính CLIP, CLIP attr, ITM attr, thẩm mỹ (PickScore chuẩn hoá).
 
@@ -218,7 +285,7 @@ def rechoose(result: MultiGenResult) -> None:
     """Viền xanh = ứng viên ĐIỂM TỔNG cao nhất trong hàng (v1.3: CLIP id bão hoà nên chọn theo nó gần như ngẫu nhiên)."""
     for r in result.runs:
         if r.output and len(r.output.candidates) > 1:
-            r.output.chosen = max(range(len(r.output.candidates)), key=lambda i: combined_score(r.output.candidates[i]))
+            r.output.chosen = max(range(len(r.output.candidates)), key=lambda i: score_key(r.output.candidates[i]))
 
 
 def _read_previous(out_dir: Path) -> MultiGenResult | None:
@@ -267,11 +334,17 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
             variant = parse_variant(key)
             flags = parse_flags(key)
             mspec = get_model(base_key)
+            gate_note = None
             if "ref" in flags:
                 if mspec.family not in ("sdxl",):
                     raise KeyError(f"'+ref' chỉ dùng cho họ sdxl (khoá {key})")
-                mspec = replace(mspec, ip_adapter=True, ip_adapter_kind="plus",
-                                ip_adapter_scale=float(getattr(cfg, "ref_scale", 0.4)))
+                use, why = should_use_refs(spec, kb, cfg)
+                if use:
+                    mspec = replace(mspec, ip_adapter=True, ip_adapter_kind="plus",
+                                    ip_adapter_scale=float(getattr(cfg, "ref_scale", 0.4)))
+                    gate_note = f"auto_ref: {why}"
+                else:
+                    gate_note = f"auto_ref: {why} -> hàng chạy KHÔNG ảnh tham chiếu"
         except KeyError as exc:
             result.runs.append(ModelRun(key, "-", gen, error=str(exc)))
             _save(result, out_dir)
@@ -287,7 +360,10 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
 
         gspec = adapt_spec(gen, mspec, cfg, spec=spec, prompt_en=prompt_en, variant=variant, t2i_cfg=t2i_cfg)
         safe_key = key.replace("@", "_s").replace("#", "_r").replace("+", "_")  # tên thư mục/file an toàn
-        prev = _load_previous(previous, key, ghash, gspec.n_candidates)
+        need = gspec.n_candidates
+        if getattr(cfg, "adaptive", None) is not None and getattr(cfg.adaptive, "enabled", False):
+            need = max(1, min(int(cfg.adaptive.min), gspec.n_candidates))
+        prev = _load_previous(previous, key, ghash, need)
         if prev is not None:
             log(f"  [4b] {key}: dùng lại ảnh trên đĩa (GenSpec không đổi)")
             prev.gen_spec = gspec
@@ -302,6 +378,9 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
 
         t0 = time.time()
         run_rec = ModelRun(key, mspec.repo, gspec)
+        if gate_note:
+            run_rec.notes.append(gate_note)
+            log(f"  [4b] {key}: {gate_note}")
         pipe = None
         g = None
         try:
@@ -349,14 +428,41 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 g = DiffusersGenerator(pipe, safe_key, trigger=trigger, negative_ok=mspec.negative_ok,
                                        ip_adapter_image=ref_imgs, family=mspec.family,
                                        long_prompt=bool(getattr(cfg, "long_prompt", False)), hires=hires, log=log)
-            run_rec.output = g.generate(gspec, spec, kb, out_dir / safe_key)
+            ad = getattr(cfg, "adaptive", None)
+            adaptive = bool(ad is not None and getattr(ad, "enabled", False) and clip is not None and mspec.family != "stub_never")
+            if adaptive:
+                # v1.5 best-of-N thích nghi: sinh `min`, verifier (CLIP attr tốt nhất) chưa đạt thì thêm `step` tới `max`.
+                n_min = max(1, min(int(ad.min), gspec.n_candidates if gspec.n_candidates > 0 else int(ad.min)))
+                first = replace(gspec, n_candidates=n_min)
+                run_rec.output = g.generate(first, spec, kb, out_dir / safe_key)
+                score_run(run_rec, spec, clip, itm, prompt_en)
+                total = len(run_rec.output.candidates)
+                rounds = 0
+                while total < int(ad.max):
+                    best_attr = max([c.attr_contrast for c in run_rec.output.candidates if c.attr_contrast is not None] or [None]) \
+                        if any(c.attr_contrast is not None for c in run_rec.output.candidates) else None
+                    if best_attr is not None and best_attr >= float(ad.target_attr):
+                        break
+                    step = max(1, min(int(ad.step), int(ad.max) - total))
+                    more = g.generate(replace(gspec, n_candidates=step), spec, kb, out_dir / safe_key, start_index=total)
+                    run_rec.output.candidates.extend(more.candidates)
+                    total = len(run_rec.output.candidates)
+                    rounds += 1
+                    score_run(run_rec, spec, clip, itm, prompt_en)
+                    log(f"  [4b] {key}: verifier chưa đạt (attr tốt nhất {best_attr}), sinh thêm {step} -> {total}")
+                if rounds:
+                    run_rec.notes.append(f"adaptive: {n_min} -> {total} ứng viên (mục tiêu attr {ad.target_attr})")
+                else:
+                    run_rec.notes.append(f"adaptive: đạt với {total} ứng viên")
+            else:
+                run_rec.output = g.generate(gspec, spec, kb, out_dir / safe_key)
+                score_run(run_rec, spec, clip, itm, prompt_en)
             run_rec.seconds = round(time.time() - t0, 1)
             run_rec.peak_vram_gb = model_loader.peak_gb(cfg.device)
             run_rec.prompt_tokens = getattr(g, "prompt_tokens", None)
             run_rec.notes = [n for n in run_rec.notes + list(getattr(g, "notes", [])) if n]
             for n in getattr(g, "notes", []):
                 log(f"  [4b] {key}: {n}")
-            score_run(run_rec, spec, clip, itm, prompt_en)
             rechoose(MultiGenResult(gen.prompt_id, [run_rec]))
             log(f"  [4b] {key}: {len(run_rec.output.candidates)} ảnh, {run_rec.seconds}s"
                 + (f", đỉnh {run_rec.peak_vram_gb} GB" if run_rec.peak_vram_gb else "")
@@ -395,6 +501,9 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
     score_ref_sim(result, clip, refs, log=log)
     if aesthetic is not None or any(c.pick_score is not None for r in result.runs if r.output for c in r.output.candidates):
         score_aesthetic(result, aesthetic, prompt_en, log=log)
+    if getattr(cfg, "ensemble", True):
+        ensemble_rank(result)
+        rechoose(result)
     elif getattr(cfg, "aesthetic", None) is not None and getattr(cfg.aesthetic, "enabled", False):
         from .aesthetic import LAST_ERROR
 
@@ -416,7 +525,7 @@ def best_run(result: MultiGenResult) -> ModelRun | None:
         if not r.output:
             continue
         for c in r.output.candidates:
-            s = combined_score(c)
+            s = score_key(c)
             if s > best_s:
                 best, best_s = r, s
     return best
@@ -447,6 +556,8 @@ def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int 
             parts.append(f"sim {c.clip_prompt_sim:.2f}")
         if c.ref_sim is not None:
             parts.append(f"giống ref {c.ref_sim:.2f}" + ("!" if c.ref_sim > COPY_THRESHOLD else ""))
+        if c.ensemble is not None:
+            parts.append(f"hạng {c.ensemble:.2f}")
         if c.base_path:
             parts.append("hires")
         return _fit_lines(parts or [f"seed {c.seed}"], f_s, cell - 4)

@@ -27,6 +27,34 @@ literature:
       title: "Marmot: Multi-Agent Reasoning for Multi-Object Self-Correcting"
       url: "https://arxiv.org/abs/2504.20054"
       takeaway: "Decision-maker / Executor / Verifier với model 8B; hai tầng: MLLM mô tả thuộc tính từng vật thể, LLM so văn bản; giới hạn số vòng. Cơ sở cho Filter hai tầng của CTIG."
+    - id: imagerag-2026
+      title: "ImageRAG: Dynamic Image Retrieval for Reference-Guided Image Generation (ICLR 2026)"
+      url: "https://arxiv.org/abs/2502.09411"
+      takeaway: "Truy hồi ảnh CÓ ĐIỀU KIỆN: VLM báo khái niệm thiếu -> caption -> CLIP lấy ảnh LAION -> IP-Adapter scale 0.5, <= 3 ảnh. 84-92% thành công khái niệm hiếm. Cơ sở cho auto_ref (v1.5)."
+    - id: ma-2025-inference-scaling
+      title: "Inference-Time Scaling for Diffusion Models beyond Scaling Denoising Steps (CVPR 2025)"
+      url: "https://arxiv.org/abs/2501.09732"
+      takeaway: "Best-of-N và tìm nhiễu theo verifier; verifier đơn bị hack (Aesthetic thiên style, CLIP thiên chữ) -> Verifier Ensemble = trung bình hạng. Cơ sở cho ensemble + adaptive N (v1.5)."
+    - id: culturalframes-2025
+      title: "CulturalFrames: Assessing Cultural Expectation Alignment in T2I Models and Evaluation Metrics"
+      url: "https://arxiv.org/html/2506.08835"
+      takeaway: "Model sai kỳ vọng văn hoá 44%; metric tự động tương quan với người chỉ ~0,31 (người-người 0,38); CLIPScore tệ nhất. User study là bắt buộc."
+    - id: scoft-2024
+      title: "SCoFT: Self-Contrastive Fine-Tuning for Equitable Image Generation (CVPR 2024) + CCUB"
+      url: "https://arxiv.org/abs/2401.08053"
+      takeaway: "Fine-tune SD trên bộ ảnh văn hoá nhỏ do cộng đồng chọn, loss tương phản với ảnh thiên lệch của chính model. Đường LoRA cho H5."
+    - id: cultureclip-2025
+      title: "CultureCLIP: Empowering CLIP with Cultural Awareness"
+      url: "https://arxiv.org/abs/2507.06210"
+      takeaway: "CLIP fine-tune trên cặp giống nhau khác văn hoá (+5,5% nhận diện tinh). Ứng viên thay CLIP-B/32 đang bão hoà."
+    - id: mosaig-2025
+      title: "When Cultures Meet: Multicultural Text-to-Image Generation (MosAIG)"
+      url: "https://arxiv.org/abs/2502.15972"
+      takeaway: "Prompt tiếng Việt cho alignment thấp nhất trong 5 ngôn ngữ; đa tác tử viết caption theo khía cạnh cải thiện Knowledge/Fairness."
+    - id: dsg-2024
+      title: "Davidsonian Scene Graph (ICLR 2024); TIFA; VQAScore"
+      url: "https://arxiv.org/abs/2310.18235"
+      takeaway: "Tách prompt thành câu hỏi nguyên tử + DAG phụ thuộc (không hỏi thuộc tính khi vật không có). Checklist CTIG là TIFA-kiểu; DAG chưa làm."
     - id: cultdiff-2025
       title: "CultDiff: benchmark ảnh văn hoá 10 nước, metric image-image similarity học từ phản hồi người"
       url: "https://arxiv.org/abs/2502.08914"
@@ -140,6 +168,25 @@ hypotheses:
     priority: high
     prediction: "realvis_xl+ref (cắt) vs sdxl_refplus v1.3 (nguyên bức): tỉ lệ ảnh đúng số người tăng, ref_sim TB giảm, attr TB không giảm quá 0,03"
 
+  - id: H17
+    statement: "Ảnh tham chiếu chỉ có lợi cho thực thể prior thấp; với prior cao nó không tăng attr mà tăng ref_sim (chép)"
+    status: active
+    motivation: "ImageRAG truy hồi có điều kiện; v1.3 p001 (áo dài, prior cao) refplus kéo bố cục"
+    priority: high
+    prediction: "p001 (áo dài): +ref không tăng attr TB >= 0,03 và ref_sim cao hơn; p012 (thuyền thúng): +ref tăng attr TB >= 0,10"
+  - id: H18
+    statement: "Chọn ảnh theo trung bình hạng nhiều verifier cho ảnh cuối được người đồng ý nhiều hơn chọn theo trung bình giá trị hoặc một verifier"
+    status: active
+    motivation: "Ma et al. 2025: verifier đơn bị hack; v1.3 identity bão hoà kéo mọi ảnh về gần nhau"
+    priority: medium
+    prediction: "Trên dev10, top-1 theo ensemble khác top-1 theo combined_score ở >= 30% prompt; trong các ca khác nhau người chọn ensemble >= 60%"
+  - id: H19
+    statement: "Best-of-N thích nghi (2 -> 6 theo verifier) giữ attr tốt nhất tương đương N=4 cố định với ít thời gian hơn trên model mạnh"
+    status: active
+    motivation: "Inference-time scaling: chi cho model/prompt cần, không chi đều"
+    priority: medium
+    prediction: "Trên p001: realvis_* dừng ở 2-4, dreamshaper/sdxl_base lên 6; attr tốt nhất mỗi model không giảm quá 0,03 so với v1.4 N=4"
+
 experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0
@@ -207,6 +254,7 @@ outer_loop:
 
 workspace:
   findings: "research/findings.md"
+  literature: "research/literature/README.md"
   log: "research/research-log.md"
   experiments_dir: "research/experiments/"
   dev_subset: "data/dev10.txt"

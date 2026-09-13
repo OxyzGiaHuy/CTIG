@@ -161,3 +161,14 @@
   chưa dùng được làm giải thích. PickScore lỗi API (`get_image_features` trả ModelOutput) -> sửa bằng `_feat()`.
 - Điểm sáng: sdxl_aodai c3 attr 0,79 (cao nhất), realvis_xl#legacy 4/4 ảnh 0,63-0,73 đều đúng; ảnh 1536 px trong zip đủ nét.
 
+## 2026-09-13 — v1.5: khảo sát theo khối và bốn thay đổi rút từ bài báo (chưa chạy GPU)
+- Danh sách đọc theo từng khối: `research/literature/README.md` (25 bài, mỗi bài một câu "CTIG lấy gì"). Bốn bài đổi thiết kế:
+  ImageRAG (truy hồi ảnh có điều kiện), Ma et al. 2025 (verifier ensemble theo hạng + best-of-N theo verifier), CULTIVate
+  (descriptor theo 4 chiều), CulturalFrames (metric tự động tương quan yếu với người, 0,31 so với người-người 0,38).
+- v1.5: `auto_ref` gate ảnh tham chiếu theo prior_strength của thực thể chính (H17); `ensemble_rank` = 1 − trung bình hạng
+  trên CLIP id, attr, ITM attr, đẹp, trừ phạt chép, dùng để chọn (H18); best-of-N thích nghi 2→6 theo attr tốt nhất (H19);
+  OWL-ViT phát hiện vùng thực thể để cắt ảnh tham chiếu, lùi về CLIP quét lưới; brief có 4 chiều CULTIVate; vòng sửa kèm
+  ảnh tham chiếu khi thiếu ≥ 2 thuộc tính (đúng cơ chế ImageRAG: sinh trước, thiếu mới truy hồi).
+- Chưa làm, ghi lại: DAG phụ thuộc kiểu DSG (chỉ chấm thuộc tính khi danh tính có); CultureCLIP thay CLIP-B/32 nếu có trọng
+  số; SCoFT/LoRA từ ảnh đã lọc cho thực thể không có LoRA (H5); Exaggeration của CULTIVate; user study theo rubric cộng đồng.
+

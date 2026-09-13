@@ -17,7 +17,7 @@ multigen:
   enabled: true
   device: "cuda:1"
   cpu_offload: false
-  n_candidates: 4
+  n_candidates: 6   # trần khi adaptive bật (adaptive.max); mỗi model bắt đầu từ adaptive.min
   max_side: 1024
   itm: true
   scheduler: dpmpp_2m_karras
@@ -26,6 +26,11 @@ multigen:
   ref_crop: true
   ref_scale: 0.4
   copy_threshold: 0.88
+  # v1.5: best-of-N thích nghi (Ma et al.), ảnh tham chiếu có điều kiện theo prior (ImageRAG), điểm chọn = trung bình hạng verifier
+  adaptive:  {enabled: true, min: 2, max: 6, step: 2, target_attr: 0.70}
+  auto_ref:  {enabled: true, prior_max: 0.45}
+  ensemble: true
+  ref_detector: owlvit
   hires:     {enabled: true, scale: 1.5, strength: 0.3, steps: 20, skip_ip_adapter: true}
   aesthetic: {enabled: true, device: "cuda:0", offload: true}
 t2i:        {backend: sdxl, render: legacy, emphasis_weight: 1.2, device: "cuda:1", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 6.5,

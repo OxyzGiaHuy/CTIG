@@ -126,11 +126,43 @@ class Session:
     @property
     def agent(self):
         if self._agent is None:
+            from dataclasses import replace as _replace
+
             from .llm.base import get_agent
 
-            self.log(f"[session] nạp agent {self.cfg.llm.backend}" + (f" ({self.cfg.llm.model})" if self.cfg.llm.backend != "rule" else ""))
-            self._agent = get_agent(self.cfg.llm)
+            llm_cfg = self.cfg.llm
+            if llm_cfg.backend == "qwen_vl":
+                dev = self._pick_vlm_device(llm_cfg.device, need_gb=8.0)
+                if dev != llm_cfg.device:
+                    llm_cfg = _replace(llm_cfg, device=dev)
+            self.log(f"[session] nạp agent {llm_cfg.backend}" + (f" ({llm_cfg.model}, {llm_cfg.device})" if llm_cfg.backend != "rule" else ""))
+            self._agent = get_agent(llm_cfg)
         return self._agent
+
+    def _pick_vlm_device(self, preferred: str, need_gb: float) -> str:
+        """v1.5.2: nạp lại VLM ở bước 4c bị OOM khi GPU 0 còn giữ Qwen của Session cũ + CLIP + OWL-ViT. Dọn cache rồi
+        chọn GPU còn >= need_gb trống (2xT4: GPU 1 rảnh sau bước 4); không GPU nào đủ thì vẫn trả preferred và ghi cảnh báo."""
+        from .models.loader import free_gb, free_vram
+
+        if not str(preferred).startswith("cuda"):
+            return preferred
+        free_vram()
+        try:
+            import torch
+
+            n = torch.cuda.device_count()
+        except Exception:  # noqa: BLE001
+            return preferred
+        cands = [preferred] + [f"cuda:{i}" for i in range(n) if f"cuda:{i}" != preferred]
+        frees = {d: free_gb(d) for d in cands}
+        for d in cands:
+            if frees.get(d) is not None and frees[d] >= need_gb:
+                if d != preferred:
+                    self.log(f"[session] {preferred} còn {frees[preferred]} GB < {need_gb} GB -> nạp VLM lên {d} ({frees[d]} GB trống)")
+                return d
+        self.log(f"[session] CẢNH BÁO: không GPU nào còn >= {need_gb} GB trống ({frees}); nạp VLM lên {preferred}, có thể OOM. "
+                 "Restart kernel (cache đĩa giữ mọi bước) là cách chắc nhất.")
+        return preferred
 
     @property
     def clip(self):

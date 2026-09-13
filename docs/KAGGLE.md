@@ -106,6 +106,7 @@ ra `bundle.html` (mở bằng trình duyệt, ảnh đã nhúng, ~1–5 MB cho 5
 | hàng ghi `hires bỏ qua (OutOfMemoryError ...)` | img2img 1536px không vừa VRAM | ảnh gốc vẫn có; `hires.scale: 1.25` hoặc tắt hires |
 | `[aesthetic] không nạp được PickScore` | mạng / VRAM | các cột khác vẫn có; `multigen.aesthetic.enabled: false` để tắt hẳn |
 | `sdxl_refplus: bỏ qua: spec không có ảnh tham chiếu` | không ảnh Commons nào đạt `ref_image_min_clip` 0.75 | hạ ngưỡng xuống 0.7 hoặc chấp nhận hàng bị bỏ |
+| `OutOfMemoryError` khi `[session] nạp agent qwen_vl` ở bước 4c | chạy lại cell chọn prompt mà không restart kernel: Session cũ vẫn giữ Qwen trên GPU 0 | restart kernel rồi chạy lại từ đầu (mọi bước lấy từ đĩa, ~2 phút tới bước 4c); từ v1.5.2 Session tự nạp VLM lên GPU còn trống (GPU 1 sau bước 4) |
 | `playground25` treo/OOM sau cảnh báo `upcast_vae` | model ép VAE fp32 khi giải mã 1024px | registry đã dùng VAE fp16-fix cho hàng này; hoặc giảm `multigen.max_side` xuống 768 |
 | `sdxl_ref: bỏ qua: spec không có ảnh tham chiếu` | không ảnh Commons nào đạt CLIP ≥ 0.75 cho thực thể vật thể | hạ `retrieval.ref_image_min_clip` hoặc bỏ hàng này |
 | `[judge] không tải được BLIP-2 ITM` | transformers thiếu `Blip2ForImageTextRetrieval` hoặc hết VRAM | pipeline tự lùi về CLIP; hoặc `--set judge.backend=clip`; nâng transformers |

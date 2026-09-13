@@ -10,7 +10,27 @@ project:
   domain: "cultural text-to-image, agentic review"
 
 literature:
-  key_papers: []          # điền khi làm literature/ (chưa làm)
+  key_papers:
+    - id: culture-trip-2025
+      title: "Culture-TRIP: Culturally-Aware Text-to-Image Generation with Iterative Prompt Refinement (NAACL 2025)"
+      url: "https://arxiv.org/abs/2502.16902"
+      takeaway: "Truy hồi Wikipedia/web về danh từ văn hoá rồi LLM sửa prompt lặp theo bộ tiêu chí; đánh giá bằng khảo sát 66 người 8 nước. Vòng lặp nằm ở VĂN BẢN, không nhìn ảnh."
+    - id: cultivate-2025
+      title: "Culture in Action: Evaluating Text-to-Image Models through Social Activities (CULTIVate)"
+      url: "https://arxiv.org/abs/2511.05681"
+      takeaway: "Đánh giá bằng descriptor: VLM (InternVL3-14B, Qwen2.5-VL-7B) chỉ TRÍCH mô tả ảnh, rồi so với descriptor tham chiếu bằng embedding; đo Alignment/Hallucination/Exaggeration. Tương quan với người cao hơn MLLM-as-judge 27%."
+    - id: cure-2025
+      title: "CuRe: Cultural Gaps in the Long Tail of Text-to-Image Systems"
+      url: "https://arxiv.org/abs/2506.08071"
+      takeaway: "Điểm 'marginal utility of attribute specification': thêm thuộc tính vào prompt thì ảnh đổi bao nhiêu; metric alignment thường tương quan yếu với người."
+    - id: marmot-2025
+      title: "Marmot: Multi-Agent Reasoning for Multi-Object Self-Correcting"
+      url: "https://arxiv.org/abs/2504.20054"
+      takeaway: "Decision-maker / Executor / Verifier với model 8B; hai tầng: MLLM mô tả thuộc tính từng vật thể, LLM so văn bản; giới hạn số vòng. Cơ sở cho Filter hai tầng của CTIG."
+    - id: cultdiff-2025
+      title: "CultDiff: benchmark ảnh văn hoá 10 nước, metric image-image similarity học từ phản hồi người"
+      url: "https://arxiv.org/abs/2502.08914"
+      takeaway: "Ảnh tham chiếu thật làm mốc so sánh; gợi ý dùng ảnh Commons đã lọc làm mốc ngoài CLIP text."
   open_problems:
     - "T2I thay thực thể văn hoá ít dữ liệu bằng thực thể tương tự của văn hoá đông dữ liệu hơn"
     - "Bằng chứng văn hoá kiểm chứng được bằng mắt gần như không có trong Wikipedia"
@@ -92,6 +112,19 @@ hypotheses:
     motivation: "SDXL base là điểm yếu nhất về thẩm mỹ; fine-tune thực ảnh cùng gốc nên LoRA áo dài dùng được"
     priority: medium
     prediction: "Trên >= 4 prompt trang phục, realvis_xl > sdxl_base về PickScore thô >= 0,5 và không thấp hơn về attr"
+
+  - id: H13
+    statement: "Filter agent hai tầng (mô tả rồi so văn bản) bắt được ảnh có must_not / sai số người mà CLIP attr và metric bỏ qua"
+    status: active
+    motivation: "v1.3 p001: sdxl_refplus 3/4 ảnh nhiều người dù prompt một người, attr vẫn 0,76-0,89"
+    priority: high
+    prediction: "Trên p001/p031/p050: >= 80% ảnh bị Filter bỏ được người đồng ý là sai; ảnh tham chiếu sau lọc làm refplus ra đúng số người"
+  - id: H14
+    statement: "Rank agent (từ mô tả + brief) đồng thuận với xếp hạng metric ở top-1 trong đa số prompt; chỗ bất đồng là chỗ metric sai"
+    status: active
+    motivation: "Cần biết có nên tin metric để chọn ảnh cuối hay phải có agent"
+    priority: medium
+    prediction: "Top-1 trùng >= 60% prompt; trong các ca bất đồng, người đồng ý với agent nhiều hơn metric"
 
 experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"

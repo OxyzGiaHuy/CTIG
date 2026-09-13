@@ -183,6 +183,30 @@ class MultiGenConfig:
 
 
 @dataclass
+class AgentsConfig:
+    """v1.4: ba agent cơ bản theo sơ đồ gốc (1 Summary, 2 Filter, 3 Rank) + một vòng sửa.
+
+    Nguyên tắc (từ Culture-TRIP, CULTIVate, Marmot): VLM chỉ MÔ TẢ ảnh; việc 'có thuộc tính X không' là so văn bản
+    mô tả với must_have/must_not (LLM văn bản + kiểm câu trích), không hỏi có/không trên ảnh để tránh thiên lệch 'có'.
+    """
+
+    enabled: bool = True
+    #: Summary agent: tóm tắt tư liệu mỗi thực thể thành brief (facts EN/VI, khác gì với confusable, một câu vẽ thế nào)
+    summary: bool = True
+    #: nối depiction_en của brief vào prompt sinh (Culture-TRIP kiểu refine). Tắt mặc định để so A/B.
+    enrich_prompt: bool = False
+    #: Filter agent lọc ảnh tham chiếu trước IP-Adapter (bỏ ảnh nhóm, ảnh không có thực thể)
+    ref_filter: bool = True
+    #: Filter + Rank trên top-k ứng viên sau multigen
+    candidate_review: bool = True
+    k_candidates: int = 8
+    #: số vòng sửa prompt + sinh lại trên model tốt nhất khi ứng viên đầu còn lỗi (0 = chỉ lọc và xếp)
+    max_revisions: int = 1
+    #: mô tả ảnh cần VLM; trên 1xT4 sau bước 4 phải nạp lại Qwen (~1 phút)
+    reload_vlm: bool = True
+
+
+@dataclass
 class SearchVizConfig:
     """Bước so sánh truy vấn keyword vs prompt gốc trong notebook."""
 
@@ -203,6 +227,7 @@ class Config:
     cache: CacheConfig = field(default_factory=CacheConfig)
     multigen: MultiGenConfig = field(default_factory=MultiGenConfig)
     search_viz: SearchVizConfig = field(default_factory=SearchVizConfig)
+    agents: AgentsConfig = field(default_factory=AgentsConfig)
     #: Khoá model trong ctig/models/registry.py dùng cho multigen.
     models: list[str] = field(default_factory=lambda: ["sdxl_base"])
     #: Tối đa số thực thể ứng viên stage 1 giữ lại (chống nổ danh mục như p050 v1.1: 37 ứng viên).

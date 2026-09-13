@@ -293,6 +293,79 @@ def score_table(res: MultiGenResult, source: str | None = None) -> str:
     return _wrap("Bước 5 · Bảng điểm", "".join(rows) + note, source)
 
 
+# ---------------------------------------------------------------- v1.4 agents
+def brief_card(briefs: dict, spec: CulturalSpec, source: str | None = None) -> str:
+    if not briefs:
+        return _wrap("Bước 2c · Summary agent", "<div class='muted'>tắt (agents.summary=false) hoặc không có tư liệu</div>", source)
+    cells = []
+    for se in spec.entities:
+        b = briefs.get(se.entity_id)
+        if b is None:
+            continue
+        facts = "".join(f"<li>{_e(en)}<div class='muted'>{_e(vi)}</div></li>" for en, vi in zip(b.facts_en, b.facts_vi + [""] * len(b.facts_en)))
+        conf = "".join(f"<li>{_e(x)}</li>" for x in b.confusions_en)
+        cells.append(f"<div class='cell' style='width:420px'><b>{_e(se.name_vi)}</b> <span class='muted'>{_e(se.name_en)} · "
+                     f"{b.n_sources} nguồn · {b.grounded}/{len(b.facts_vi)} câu VI có gốc</span>"
+                     f"<ul>{facts}</ul>" + (f"<div><b>khác với thứ dễ nhầm:</b><ul>{conf}</ul></div>" if conf else "")
+                     + (f"<div><b>vẽ thế nào:</b> <i>{_e(b.depiction_en)}</i></div>" if b.depiction_en else "")
+                     + f"<div class='muted small'>nguồn: {_e('; '.join(b.sources[:4]))}</div></div>")
+    note = ("<div class='muted'>Summary agent chỉ được dùng thông tin trong văn bản truy hồi; facts VI được kiểm mờ xem có câu gốc. "
+            "'Vẽ thế nào' chỉ vào prompt khi agents.enrich_prompt bật (đang " + "tắt" + " để so A/B).</div>")
+    return _wrap("Bước 2c · Summary agent: brief văn hoá từ tư liệu", f"<div class='grid'>{''.join(cells)}</div>{note}", source)
+
+
+def filter_table(flt, title: str = "Filter agent", side: int = 160, source: str | None = None) -> str:
+    desc_by = {d.path: d for d in flt.descriptors}
+    cells = []
+    for v in flt.verdicts:
+        d = desc_by.get(v.path)
+        cls = "" if v.keep else " style='opacity:.55'"
+        badge = "<span class='badge computed'>giữ</span>" if v.keep else "<span class='badge' style='background:#fee2e2;color:#991b1b'>bỏ</span>"
+        have = "".join(f"<li class='ok'>✓ {_e(a[:60])}</li>" for a in v.matched_must_have[:4])
+        notv = "".join(f"<li class='bad'>✗ {_e(a[:60])}</li>" for a in v.matched_must_not[:3])
+        miss = "".join(f"<li class='muted'>? {_e(a[:60])}</li>" for a in v.missing_must_have[:3])
+        dtxt = _e((d.text() if d else "")[:260])
+        cells.append(f"<div class='cell' style='width:{side + 20}px'{cls}>{_img(v.path, side)}<div>{badge} điểm {v.score:+.2f}"
+                     + (f" · {v.people_count} người" if v.people_count is not None else "") + "</div>"
+                     f"<ul>{have}{notv}{miss}</ul><div class='muted small'>{_e('; '.join(v.reasons)[:160])}</div>"
+                     f"<details><summary class='muted small'>mô tả VLM</summary><div class='small'>{dtxt}</div></details></div>")
+    head = (f"giữ <b>{len(flt.kept)}</b>/{len(flt.verdicts)}"
+            + (f" · prompt nói rõ {flt.expected_people} người" if flt.expected_people else " · prompt không ràng buộc số người"))
+    return _wrap(title, f"<div>{head}</div><div class='grid'>{''.join(cells)}</div>", source)
+
+
+def candidate_review_html(cr, side: int = 200, source: str | None = None) -> str:
+    rk = cr.rank
+    parts = [filter_table(cr.filter, title=f"Bước 4c · Filter agent trên top-{cr.k} ứng viên", side=140)]
+    # bảng xếp hạng
+    rows = ["<table><tr><th>#</th><th>ảnh</th><th>hạng metric</th><th>hạng agent</th><th>lý do agent</th></tr>"]
+    for i, p in enumerate(rk.final_order[:8]):
+        rm = rk.order_metric.index(p) + 1 if p in rk.order_metric else "-"
+        ra = rk.order_agent.index(p) + 1 if p in rk.order_agent else "-"
+        rows.append(f"<tr><td>{i + 1}</td><td>{_img(p, 110)}<div class='muted small'>{_e(Path(p).stem)}</div></td><td>{rm}</td><td>{ra}</td>"
+                    f"<td class='small'>{_e(rk.reasons.get(p, ''))}</td></tr>")
+    rows.append("</table>")
+    agree = (f"top-1 <b>{'trùng' if rk.agreement_top1 else 'KHÁC'}</b>" + (f" · Spearman {rk.spearman}" if rk.spearman is not None else "")
+             + "".join(f"<div class='bad'>· {_e(d)}</div>" for d in rk.disagreements))
+    parts.append(_wrap("Bước 4c · Rank agent so với metric", f"<div>{agree}</div>{''.join(rows)}"))
+    # vòng sửa
+    body = ""
+    if cr.revision is not None:
+        body += (f"<div><b>Kế hoạch sửa:</b> {_e(cr.revision.rationale)}<br>+ prompt: {_e(', '.join(cr.revision.add_positive))}"
+                 f"<br>+ negative: {_e(', '.join(cr.revision.add_negative))}</div>")
+        if cr.regen is not None and cr.regen.output:
+            body += "<div class='grid'>" + "".join(_img(c.path, side) for c in cr.regen.output.candidates) + "</div>"
+            if cr.regen_filter is not None:
+                body += filter_table(cr.regen_filter, title="Lọc lại ảnh sinh lại", side=120)
+        elif cr.regen is not None:
+            body += f"<div class='bad'>{_e(cr.regen.error or '')}</div>"
+    body += "".join(f"<div class='muted'>· {_e(n)}</div>" for n in cr.notes)
+    if cr.final_path:
+        body += (f"<h4>Ảnh cuối ({_e(cr.final_source)}, {_e(cr.best_model or '')})</h4>{_img(cr.final_path, 320)}")
+    parts.append(_wrap("Bước 4d · Vòng sửa (tối đa một lần)", body or "<div class='muted'>không chạy</div>", source))
+    return "".join(parts)
+
+
 def review_summary(outcome: ReviewOutcome, spec: CulturalSpec, source: str | None = None) -> str:
     cells = []
     for it in outcome.iterations:

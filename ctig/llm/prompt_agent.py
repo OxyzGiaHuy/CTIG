@@ -267,6 +267,101 @@ class PromptAgent:
         return shared.plan_revision(adjudication, spec, gen_spec, kb, lora_available, reference_available)
 
     # ------------------------------------------------------------ stage 6
+    # ------------------------------------------------------------ v1.4 agents: Summary / Filter / Rank
+    def summarize(self, se, ent, texts: list[dict]) -> dict:
+        """Summary agent: tư liệu -> facts thị giác VI/EN, khác gì với confusable, một câu 'vẽ thế nào'."""
+        corpus = "\n\n".join(f"[{i}] {t['title']}\n{t['text'][:2500]}" for i, t in enumerate(texts)) or "(không có văn bản)"
+        kb_hint = ""
+        if ent is not None:
+            kb_hint = ("\nTri thức viết tay (chỉ để đối chiếu, KHÔNG chép lại nếu văn bản không nói): "
+                       + "; ".join(ent.must_have[:4]))
+        system = (
+            "Bạn là người tóm tắt tư liệu văn hoá cho hệ thống sinh ảnh. Chỉ dùng thông tin CÓ TRONG văn bản; "
+            "không dùng tri thức riêng. Chỉ ghi đặc điểm THỊ GIÁC nhìn thấy được trong ảnh (hình dạng, chất liệu, "
+            "cách mặc/bày, màu, bối cảnh), bỏ lịch sử và ý nghĩa. Mỗi fact một câu ngắn.\n"
+            "facts_vi: 3-6 câu tiếng Việt, càng gần chữ trong văn bản càng tốt. facts_en: dịch tương ứng.\n"
+            "confusions_en: 1-3 câu tiếng Anh nói thực thể này KHÁC gì so với thứ dễ nhầm (kimono, qipao, hanbok, zongzi...) "
+            "nếu văn bản có nói; không thì để rỗng.\n"
+            "depiction_en: MỘT câu tiếng Anh <= 18 từ mô tả cách vẽ đúng thực thể, dùng từ trong facts_en."
+        )
+        user = f"Thực thể: {se.name_vi} / {se.name_en}{kb_hint}\n\nVăn bản:\n{corpus}"
+        schema = _s(facts_vi=_arr(STR), facts_en=_arr(STR), confusions_en=_arr(STR), depiction_en=STR)
+        return self.llm.complete_json(system, user, schema)
+
+    def describe_image(self, path: str) -> dict:
+        """Filter agent tầng 1: MÔ TẢ ảnh có cấu trúc, tiếng Anh, không phán đoán văn hoá."""
+        system = (
+            "Describe the attached image for an automatic checker. Do NOT name any culture, country or garment tradition; "
+            "describe only what is visible.\n"
+            "people_count: number of people visible (0 if none).\n"
+            "subjects: main subjects, e.g. 'young woman standing', 'wooden boat'.\n"
+            "garments: one string per garment or outfit worn by the main person, each covering: type (dress/tunic/shirt/robe), "
+            "fit (fitted/loose), length (knee/ankle/floor), collar (stand-up/round/crossed/v-neck/none), sleeves, "
+            "lower body (trousers/skirt/bare legs/not visible), any sash or belt, slits, patterns, color.\n"
+            "objects: notable objects (hat, boat, food, instrument...) with shape and material.\n"
+            "background: one sentence.\n"
+            "watermark_or_text: true if the image contains visible text, logo or watermark."
+        )
+        schema = _s(people_count=NUM, subjects=_arr(STR), garments=_arr(STR), objects=_arr(STR), background=STR,
+                    watermark_or_text={"type": "boolean"})
+        return self.llm.complete_json(system, "Describe the image.", schema, images=[path])
+
+    def match_descriptors(self, description: str, must_have_en: list[str], must_not_en: list[str]) -> dict:
+        """Filter agent tầng 2 (văn bản): thuộc tính nào được mô tả nói rõ là có. Cụm trích phải nằm trong mô tả."""
+        from ..stages.extraction import quote_in_texts
+
+        system = (
+            "You compare an IMAGE DESCRIPTION with a list of visual attributes. For each attribute decide: "
+            "'present' only if the description explicitly states it (paraphrase allowed), 'absent' if the description "
+            "states something contradicting it, otherwise 'unsure'. For 'present' copy the exact phrase of the description "
+            "that supports it into quote. Never infer from culture knowledge; use the description only."
+        )
+        user = ("DESCRIPTION:\n" + description + "\n\nMUST_HAVE attributes:\n" + "\n".join(f"- {a}" for a in must_have_en)
+                + "\n\nMUST_NOT attributes:\n" + "\n".join(f"- {a}" for a in must_not_en))
+        item = _s(attr=STR, status={"type": "string", "enum": ["present", "absent", "unsure"]}, quote=STR)
+        schema = _s(must_have=_arr(item), must_not=_arr(item))
+        d = self.llm.complete_json(system, user, schema)
+        out = {"present_must_have": [], "present_must_not": [], "unsure": []}
+        for key, pool, dst in (("must_have", must_have_en, "present_must_have"), ("must_not", must_not_en, "present_must_not")):
+            for it in d.get(key, []) or []:
+                if not isinstance(it, dict):
+                    continue
+                attr = self._closest(str(it.get("attr", "")), pool)
+                if attr is None:
+                    continue
+                if it.get("status") == "present" and quote_in_texts(str(it.get("quote", "")), [description]):
+                    out[dst].append(attr)
+                elif it.get("status") == "present":
+                    out["unsure"].append(attr)  # nói 'present' nhưng câu trích không có trong mô tả -> không tin
+        return out
+
+    @staticmethod
+    def _closest(name: str, pool: list[str]) -> str | None:
+        from ..kb import tokens
+
+        if name in pool:
+            return name
+        tn = tokens(name)
+        best, best_s = None, 0.0
+        for a in pool:
+            ta = tokens(a)
+            s = len(tn & ta) / max(1, len(tn | ta))
+            if s > best_s:
+                best, best_s = a, s
+        return best if best_s >= 0.5 else None
+
+    def rank_candidates(self, prompt_en: str, brief_txt: str, items: list[dict]) -> dict:
+        """Rank agent (văn bản): xếp các ứng viên từ mô tả + must_have/must_not đã khớp + brief."""
+        system = (
+            "You rank AI-generated image candidates for cultural correctness against a reference brief. You only see text "
+            "descriptions. Rank by: (1) no must_not_seen, (2) more must_have_seen, (3) description matches the prompt "
+            "(number of people, scene), (4) metric_score as tie-breaker. Return order = list of ids best first, and one short "
+            "reason per id."
+        )
+        user = f"PROMPT: {prompt_en}\n\nREFERENCE BRIEF:\n{brief_txt}\n\nCANDIDATES:\n" + json.dumps(items, ensure_ascii=False, indent=1)
+        schema = _s(order=_arr(STR), reasons={"type": "object"})
+        return self.llm.complete_json(system, user, schema)
+
     def judge(self, prompt: Prompt, spec: CulturalSpec, perception: Perception) -> tuple[float, str]:
         if not spec.entities:
             return 0.0, "Không có thực thể để đánh giá."

@@ -115,3 +115,17 @@
   từ research/), `grid_hires.png`.
 - Kế tiếp: chạy lại p001 (kiểm PickScore, Playground, refplus), rồi p031, p050, p012; báo cáo tiến độ gom cả 4 prompt.
 
+## 2026-09-13 — v1.4: đưa agentic vào review loop ở mức cơ bản (chưa chạy GPU)
+- Yêu cầu: "1 con summary text, 1 con filter top-k ảnh" + cải tiến flow + xem hệ thống văn hoá khác làm gì. Khảo sát nhanh:
+  Culture-TRIP (retrieve → LLM sửa prompt lặp theo tiêu chí, khảo sát 66 người), CULTIVate (VLM chỉ trích descriptor, so
+  embedding với descriptor tham chiếu; tương quan người +27% so với MLLM-judge), CuRe (marginal utility khi thêm thuộc tính),
+  Marmot (3 agent 8B, hai tầng mô tả rồi so văn bản, giới hạn vòng). Bài học chung: **không hỏi VLM có/không trên ảnh**;
+  tách "nhìn" (mô tả) khỏi "phán" (so văn bản). Đúng lỗi v1.1 của CTIG (VLM 3B trả "có" cho mọi câu).
+- Hiện thực: Summary agent (2c), Filter agent hai tầng (3b ảnh tham chiếu, 4c ứng viên), Rank agent + đối chiếu metric (4c),
+  một vòng sửa bằng luật (4d). Luật lọc rẻ và kiểm được: must_not trong mô tả, sai số người khi prompt nói rõ một người.
+- Cải tiến flow kèm theo: ảnh tham chiếu cho IP-Adapter đi qua Filter (sửa gốc lỗi ảnh nhóm ở v1.3); Rank chỉ chạy trên
+  top-k theo metric (k=8) để tiết kiệm VLM; vòng sửa chỉ đổi ảnh cuối khi điểm lọc tốt hơn THẬT (hoà giữ ảnh gốc), plan rỗng
+  thì không sinh lại. Test offline phát hiện hai lỗi này trước khi lên GPU.
+- Kế tiếp: chạy p001 và p031 với agents bật; đo H13 (Filter bắt đúng?) và H14 (Rank đồng thuận metric?); nếu mô tả của Qwen 3B
+  quá chung (không nhắc collar/trousers) thì thử Qwen2.5-VL-7B cho riêng bước mô tả.
+

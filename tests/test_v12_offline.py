@@ -343,6 +343,68 @@ def test_progress_report(tmp):
     check("Report: cùng tiêu đề thì thay, không nhân đôi", len(r.parts) == 1 and "<p>b</p>" in r.parts[0])
 
 
+def test_agents_offline(tmp):
+    """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
+    from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
+    from ctig.schema import Candidate, CulturalSpec, FilterVerdict, GenSpec, SpecEntity
+    from ctig.session import Session
+
+    check("expected_people: 'A young woman' -> 1", ag_desc.expected_people("A young woman in a white ao dai at a gate") == 1)
+    check("expected_people: nhóm -> None", ag_desc.expected_people("A group of students in ao dai") is None)
+    check("expected_people: không nói -> None", ag_desc.expected_people("Ao dai on a mannequin") is None)
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    cfg.multigen.n_candidates = 3
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p001")
+    s = Session(cfg, p, tmp / "ag", log=lambda *a: None)
+    briefs, src = s.brief()
+    check("brief cho ao_dai từ KB (RuleAgent)", "ao_dai" in briefs and briefs["ao_dai"].facts_en and src == "computed")
+    briefs2, src2 = s.brief()
+    check("brief memo", src2 == "memory" and briefs2["ao_dai"].facts_en == briefs["ao_dai"].facts_en)
+    s.multigen(["stub", "stub@0.5"])
+    cr, src = s.candidate_review()
+    check("candidate_review: lọc + xếp trên 6 ứng viên", cr.k == 6 and len(cr.filter.verdicts) == 6 and cr.rank.final_order)
+    check("stub mô tả có 'trousers' -> must_have khớp, không must_not, giữ hết", all(v.keep for v in cr.filter.verdicts)
+          and all(v.matched_must_have for v in cr.filter.verdicts), str(cr.filter.verdicts[0]))
+    # stub mô tả chỉ khớp 1-2/4 must_have -> có kế hoạch sửa (nhấn thực thể, tăng guidance vì thuộc tính đã trong prompt),
+    # sinh lại bằng stub cho điểm bằng nhau -> KHÔNG đổi ảnh (hoà thì giữ ảnh gốc)
+    check("thiếu >=2 must_have -> có plan (boost + guidance), không thêm thuộc tính trùng", cr.revision is not None
+          and cr.revision.boost and cr.revision.guidance_delta > 0 and not cr.revision.add_positive, str(cr.revision))
+    check("sinh lại chạy nhưng hoà điểm -> giữ ảnh multigen", cr.regen is not None and cr.regen.output and cr.final_source == "multigen"
+          and any("không tốt hơn" in n for n in cr.notes), str(cr.notes))
+    cr2, src2 = s.candidate_review()
+    check("candidate_review memo", src2 == "memory")
+
+    # luật lọc với verdict giả
+    sp, _ = s.spec()
+    class FakeDescAgent:
+        def __init__(self, people, garment): self.people, self.garment = people, garment
+        def describe_image(self, path): return {"people_count": self.people, "subjects": ["woman"], "garments": [self.garment], "objects": [], "background": "", "watermark_or_text": False}
+        def match_descriptors(self, description, have, notv):
+            return {"present_must_have": [a for a in have if "trousers" in a and "trousers" in description],
+                    "present_must_not": [a for a in notv if "no trousers" in a and "bare legs" in description], "unsure": []}
+    flt = ag_desc.run(FakeDescAgent(3, "long dress, bare legs"), ["x.png", "y.png"], sp, "A young woman", kind="candidate", log=lambda *a: None)
+    check("ảnh 3 người + must_not -> bỏ nhưng vẫn giữ 1 ảnh tốt nhất", len(flt.kept) == 1 and all(not v.keep or "giữ lại" in "".join(v.reasons) for v in flt.verdicts))
+    v = flt.verdicts[0]
+    check("verdict ghi must_not và số người", v.matched_must_not and v.people_count == 3 and v.score < 0)
+    gen = GenSpec("t", prompt_terms=["a", "style"], negative_terms=["n"], seed=1, steps=1, guidance=5, width=8, height=8, n_candidates=1)
+    plan = ag_loop.plan_from_verdict(v, sp, gen)
+    check("plan từ verdict: thêm must_not vào negative, thêm 'single person'", plan.add_negative and any("single person" in x for x in plan.add_positive) and ag_loop.needs_revision(v))
+    flt_ok = ag_desc.run(FakeDescAgent(1, "fitted tunic over wide-legged long trousers"), ["x.png"], sp, "A young woman", kind="reference", log=lambda *a: None)
+    check("ảnh 1 người có must_have -> giữ", flt_ok.kept == ["x.png"] and flt_ok.verdicts[0].keep)
+    # rank: spearman + đồng thuận
+    cands = [(Candidate(f"c{i}.png", i, clip_fidelity=1.0, clip_probs={"e": {"a": 1}}, attr_contrast=0.9 - 0.1 * i), "m") for i in range(4)]
+    from ctig.schema import FilterResult, ImageDescriptor
+    fr = FilterResult("candidate", 1, [FilterVerdict(c.path, True) for c, _ in cands], [c.path for c, _ in cands], [ImageDescriptor(c.path) for c, _ in cands])
+    class RevAgent:
+        def rank_candidates(self, pe, brief, items): return {"order": [it["id"] for it in reversed(items)], "reasons": {}}
+    rr = ag_rank.run(RevAgent(), cands, fr, {}, sp, "p", log=lambda *a: None)
+    check("rank: agent đảo ngược metric -> Spearman -1, top-1 khác, có disagreement", rr.spearman == -1.0 and not rr.agreement_top1 and rr.disagreements)
+    from ctig import viz
+    h = viz.candidate_review_html(cr) + viz.brief_card(briefs, sp)
+    check("viz agents có bảng lọc, xếp hạng, brief", "Filter agent" in h and "Rank agent" in h and "Summary agent" in h)
+
+
 if __name__ == "__main__":
     import shutil
     tmp = Path("runs/_test/v12")
@@ -355,5 +417,6 @@ if __name__ == "__main__":
     print("\ntest_llm_cache"); test_llm_cache(tmp)
     test_v13_offline(tmp)
     print("\ntest_progress_report"); test_progress_report(tmp)
+    print("\ntest_agents_offline"); test_agents_offline(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

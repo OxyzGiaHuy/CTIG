@@ -405,6 +405,92 @@ class ReviewOutcome:
         return len(self.iterations)
 
 
+# ---------------------------------------------------------------- agents (v1.4: Summary / Filter / Rank)
+@dataclass
+class CulturalBrief:
+    """Summary agent: tóm tắt tư liệu đã truy hồi về MỘT thực thể thành vài dòng thị giác (Culture-TRIP kiểu retrieve→refine)."""
+
+    entity_id: str
+    facts_vi: list[str] = field(default_factory=list)
+    facts_en: list[str] = field(default_factory=list)
+    #: khác gì với các thực thể dễ nhầm (EN, để vào negative / để rank agent đối chiếu)
+    confusions_en: list[str] = field(default_factory=list)
+    #: một câu "vẽ thế nào" bằng tiếng Anh, có thể nối vào prompt (cờ agents.enrich_prompt)
+    depiction_en: str = ""
+    sources: list[str] = field(default_factory=list)
+    n_sources: int = 0
+    #: số facts_vi có câu gốc trong văn bản (kiểm mờ) / tổng
+    grounded: int = 0
+
+
+@dataclass
+class ImageDescriptor:
+    """VLM chỉ MÔ TẢ ảnh (CULTIVate/Marmot: tách 'nhìn' khỏi 'phán'), không trả lời có/không về văn hoá."""
+
+    path: str
+    people_count: int | None = None
+    subjects: list[str] = field(default_factory=list)
+    garments: list[str] = field(default_factory=list)
+    objects: list[str] = field(default_factory=list)
+    background: str = ""
+    watermark_or_text: bool = False
+
+    def text(self) -> str:
+        return " ; ".join(filter(None, [f"people: {self.people_count}", "; ".join(self.subjects),
+                                        "; ".join(self.garments), "; ".join(self.objects), self.background]))
+
+
+@dataclass
+class FilterVerdict:
+    path: str
+    keep: bool
+    matched_must_have: list[str] = field(default_factory=list)
+    matched_must_not: list[str] = field(default_factory=list)
+    missing_must_have: list[str] = field(default_factory=list)
+    people_count: int | None = None
+    reasons: list[str] = field(default_factory=list)
+    #: (#must_have có - #must_not có) / #must_have, kẹp [-1, 1]
+    score: float = 0.0
+
+
+@dataclass
+class FilterResult:
+    kind: Literal["reference", "candidate"]
+    expected_people: int | None
+    verdicts: list[FilterVerdict] = field(default_factory=list)
+    kept: list[str] = field(default_factory=list)
+    descriptors: list[ImageDescriptor] = field(default_factory=list)
+
+
+@dataclass
+class RankResult:
+    order_agent: list[str] = field(default_factory=list)
+    order_metric: list[str] = field(default_factory=list)
+    final_order: list[str] = field(default_factory=list)
+    reasons: dict[str, str] = field(default_factory=dict)
+    agreement_top1: bool = False
+    spearman: float | None = None
+    disagreements: list[str] = field(default_factory=list)
+
+
+@dataclass
+class CandidateReview:
+    """Bước 4c: Filter + Rank trên top-k ứng viên của multigen, và (tuỳ chọn) một vòng sửa prompt + sinh lại."""
+
+    prompt_id: str
+    k: int
+    filter: FilterResult
+    rank: RankResult
+    best_path: str | None = None
+    best_model: str | None = None
+    revision: RevisionPlan | None = None
+    regen: ModelRun | None = None
+    regen_filter: FilterResult | None = None
+    final_path: str | None = None
+    final_source: str = "multigen"   # "multigen" | "regen"
+    notes: list[str] = field(default_factory=list)
+
+
 # ---------------------------------------------------------------- stage 6
 
 @dataclass

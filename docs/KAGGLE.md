@@ -42,6 +42,18 @@ Sweep LoRA scale: thêm vào `models:` các khoá `sdxl_aodai@0.6, sdxl_aodai@0.
 `sd35_medium` (SD3.5 Medium) là repo gated: vào trang model trên Hugging Face bấm chấp nhận điều khoản, tạo token Read,
 đặt Secret `HF_TOKEN`. T4 không có bf16 nên chạy fp16; ra ảnh nhiễu/đen là do giới hạn số, không phải lỗi code.
 
+## v1.4: agent loop review
+
+Cell Bước 2c (Summary) tốn 1 lần gọi Qwen mỗi thực thể. Cell Bước 4c–4d: mô tả `k_candidates` (8) ảnh, mỗi ảnh ~5–8 s trên T4,
+cộng một lần gọi so văn bản mỗi ảnh và một lần xếp hạng; nếu có vòng sửa thì thêm một lần sinh 4 ảnh trên model tốt nhất
+(~4 phút với SDXL 1024 + hires). Trên 1×T4 Qwen được nạp lại sau bước 4 (~1 phút). Tắt bằng `agents.candidate_review: false`.
+
+| hiện tượng | ý nghĩa |
+|---|---|
+| `[filter:candidate] giữ 8/8` và mọi ảnh "0/4 must_have thấy" | mô tả VLM quá chung, không nhắc collar/trousers → so văn bản không khớp; xem "mô tả VLM" trong bảng, cân nhắc model VLM lớn hơn |
+| `[rank] top-1 KHÁC` | agent và metric bất đồng; xem lý do agent trong bảng, đây là dữ liệu cho H14 |
+| `kế hoạch sửa rỗng` | thuộc tính thiếu đã có trong prompt và không có must_not → không sinh lại |
+
 ## Ước lượng thời gian và dung lượng
 
 | | 1×T4 (offload) | 2×T4 |

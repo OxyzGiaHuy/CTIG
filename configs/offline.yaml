@@ -7,3 +7,4 @@ judge:      {backend: rule}
 review:     {enabled: true, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
 models:     [stub, stub]
 multigen:   {enabled: true, device: cpu, cpu_offload: false, n_candidates: 1, itm: false}
+agents:     {enabled: true, summary: true, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 1}

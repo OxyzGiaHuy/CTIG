@@ -52,6 +52,20 @@ mà chỉ điểm mức thuộc tính bắt được. v1.3 tối ưu ảnh cuố
 Mọi đường mới đều có đường lùi để một lỗi không làm hỏng hàng: thiếu compel → prompt thô + ghi chú; hires OOM → ảnh gốc;
 nhiều ảnh IP-Adapter bị từ chối → một ảnh; PickScore không nạp được → bỏ cột "đẹp". Ghi chú hiện ngay dưới tên model trên grid.
 
+## v1.4: agent loop review ở mức cơ bản (Summary · Filter · Rank)
+
+Ba agent đúng ba ô trong sơ đồ gốc, thiết kế theo bài học của Culture-TRIP (retrieve → refine prompt), CULTIVate và
+Marmot (VLM chỉ *mô tả*, việc *phán* làm trên văn bản để tránh thiên lệch "có" của VLM nhỏ):
+
+| agent | ở bước | làm gì | file |
+|---|---|---|---|
+| Summary | 2c | tư liệu truy hồi của mỗi thực thể → brief thị giác (facts EN/VI có kiểm câu gốc, khác gì với confusable, một câu "vẽ thế nào"); nối vào prompt khi `agents.enrich_prompt` | `ctig/agents/summary.py` |
+| Filter | 3b, 4c | VLM mô tả ảnh có cấu trúc → agent văn bản so mô tả với must_have/must_not (phải trích cụm trong mô tả) → luật giữ/bỏ (must_not, sai số người). Dùng cho ảnh tham chiếu IP-Adapter và top-k ứng viên | `ctig/agents/describe.py` |
+| Rank | 4c | xếp ứng viên còn lại từ mô tả + brief; đối chiếu với xếp hạng metric (top-1, Spearman); thứ tự cuối = trung bình hạng | `ctig/agents/rank.py` |
+| vòng sửa | 4d | ứng viên đầu còn must_not hoặc thiếu ≥ 2 must_have → RevisionPlan bằng luật → sinh lại một lần trên model tốt nhất → lọc lại, chỉ đổi ảnh khi sạch hơn thật | `ctig/agents/loop.py` |
+
+Bật/tắt từng agent trong `agents:` của config; mọi bước đều memo hoá như các bước khác (`Session.brief / ref_filter / candidate_review`).
+
 ## Báo cáo tiến độ gửi người hướng dẫn
 
 ```bash

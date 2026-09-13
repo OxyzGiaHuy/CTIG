@@ -134,6 +134,29 @@ class RuleAgent:
     def plan_revision(self, adjudication, spec, gen_spec, kb, lora_available, reference_available) -> RevisionPlan:
         return shared.plan_revision(adjudication, spec, gen_spec, kb, lora_available, reference_available)
 
+    # ------------------------------------------------------------ v1.4 agents (luật, offline)
+    def summarize(self, se, ent, texts):
+        mh = list(ent.must_have) if ent is not None else []
+        return {"facts_vi": mh[:4], "facts_en": [a for a in (ent.must_have_en if ent is not None else []) if a][:4],
+                "confusions_en": [f"unlike {c.get('name')}" for c in (ent.confusable_with if ent is not None else [])[:2]],
+                "depiction_en": (ent.clip_label or "") if ent is not None else ""}
+
+    def describe_image(self, path):
+        return {"people_count": 1, "subjects": ["person"], "garments": ["fitted tunic with high stand-up collar over wide trousers"],
+                "objects": [], "background": "stub card", "watermark_or_text": True}
+
+    def match_descriptors(self, description, must_have_en, must_not_en):
+        from ..kb import tokens
+
+        td = tokens(description)
+        have = [a for a in must_have_en if a and len(tokens(a) & td) / max(1, len(tokens(a))) >= 0.5]
+        not_ = [a for a in must_not_en if a and len(tokens(a) & td) / max(1, len(tokens(a))) >= 0.6]
+        return {"present_must_have": have, "present_must_not": not_, "unsure": []}
+
+    def rank_candidates(self, prompt_en, brief_txt, items):
+        order = sorted(items, key=lambda it: (len(it["must_not_seen"]), -len(it["must_have_seen"]), -it["metric_score"]))
+        return {"order": [it["id"] for it in order], "reasons": {it["id"]: "luật: must_not, must_have, metric" for it in order}}
+
     def judge(self, prompt, spec, perception) -> tuple[float, str]:
         if not spec.entities:
             return 0.0, "Không có thực thể để đánh giá."

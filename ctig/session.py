@@ -30,6 +30,7 @@ from .config import Config
 from .kb import KnowledgeBase
 from .llm import cache as llm_cache
 from .schema import (
+    CandidateReview, CulturalBrief, FilterResult,
     AnalysisResult, CulturalSpec, GenSpec, MultiGenResult, Prompt, QueryComparison, ReviewOutcome, SearchResult,
     from_dict, to_dict,
 )
@@ -38,7 +39,8 @@ from .schema import (
 #: Phiên bản LOGIC của từng bước. Tăng số khi đổi code làm đầu ra bước khác đi dù đầu vào không đổi,
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
-STEP_LOGIC = {"analysis": 1, "compare": 1, "retrieve": 2, "spec": 1, "genspec": 2, "multigen": 2, "review": 1}
+STEP_LOGIC = {"analysis": 1, "compare": 1, "retrieve": 2, "spec": 1, "genspec": 3, "multigen": 2, "review": 1,
+              "brief": 1, "ref_filter": 1, "candidate_review": 1}
 
 
 def _h(obj: Any) -> str:
@@ -111,7 +113,7 @@ class Session:
 
     def invalidate(self, name: str) -> None:
         """Xoá bước `name` và mọi bước sau nó (trong bộ nhớ và trên đĩa)."""
-        order = ["analysis", "compare", "retrieve", "spec", "genspec", "multigen", "review"]
+        order = ["analysis", "compare", "retrieve", "brief", "spec", "genspec", "ref_filter", "multigen", "candidate_review", "review"]
         if name not in order:
             return
         for n in order[order.index(name):]:
@@ -189,7 +191,95 @@ class Session:
             if it.local_path not in out:
                 out.append(it.local_path)
         k = k or self.cfg.multigen.ref_images
+        ag = self.cfg.agents
+        if ag.enabled and ag.ref_filter and out:
+            flt, _ = self.ref_filter(out[: max(k * 2, 4)])
+            kept = [p for p in out if p in set(flt.kept)]
+            if kept:
+                return kept[:max(1, k)]
         return out[:max(1, k)]
+
+    # ------------------------------------------------------------------ v1.4 agents
+    def brief(self, force: bool = False) -> tuple[dict, str]:
+        """Bước 2c - Summary agent: mỗi thực thể trong spec một CulturalBrief (facts thị giác, khác gì confusable)."""
+        from .agents import summary as ag_sum
+
+        s, _ = self.retrieve()
+        sp, _ = self.spec()
+        key = _h({**self._base_key(), "spec": _h(to_dict(sp)), "search": _h([it.url for it in s.items])})
+
+        def compute():
+            if not (self.cfg.agents.enabled and self.cfg.agents.summary):
+                return {}
+            return {k: to_dict(v) for k, v in ag_sum.run(self.agent, s, sp, self.kb, log=self.log).items()}
+
+        val, src = self._memo("brief", key, None, compute, force)
+        return {k: from_dict(CulturalBrief, v) for k, v in (val or {}).items()}, src
+
+    def ref_filter(self, paths: list[str], force: bool = False) -> tuple[FilterResult, str]:
+        """Bước 3b - Filter agent trên ảnh tham chiếu (trước IP-Adapter)."""
+        from .agents import describe as ag_desc
+
+        sp, _ = self.spec()
+        a, _ = self.analysis()
+        pe = a.prompt_en or self.prompt.text_en
+        key = _h({"paths": [Path(p).name for p in paths], "spec": _h(to_dict(sp)), "pe": pe})
+        return self._memo("ref_filter", key, FilterResult,
+                          lambda: ag_desc.run(self.agent, paths, sp, pe, kind="reference", log=self.log), force)
+
+    def candidate_review(self, force: bool = False) -> tuple[CandidateReview, str]:
+        """Bước 4c - Filter + Rank trên top-k ứng viên multigen, rồi (tuỳ chọn) một vòng sửa + sinh lại."""
+        from .agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
+        from .stages.multigen import combined_score
+
+        res, _ = self.multigen()
+        sp, _ = self.spec()
+        gen, _ = self.genspec()
+        a, _ = self.analysis()
+        briefs, _ = self.brief()
+        c = self.cfg.agents
+        pe = a.prompt_en or self.prompt.text_en
+        cands = sorted([(cand, r.model_key) for r in res.runs if r.output for cand in r.output.candidates],
+                       key=lambda cm: -combined_score(cm[0]))[: c.k_candidates]
+        key = _h({"paths": [Path(cand.path).name for cand, _ in cands], "spec": _h(to_dict(sp)), "pe": pe,
+                  "k": c.k_candidates, "rev": c.max_revisions, "gen": _h(to_dict(gen))})
+
+        def compute():
+            flt = ag_desc.run(self.agent, [cand.path for cand, _ in cands], sp, pe, kind="candidate", log=self.log)
+            rk = ag_rank.run(self.agent, cands, flt, briefs, sp, pe, log=self.log)
+            best = rk.final_order[0] if rk.final_order else None
+            model_of = {cand.path: m for cand, m in cands}
+            cr = CandidateReview(prompt_id=self.prompt.id, k=len(cands), filter=flt, rank=rk, best_path=best,
+                                 best_model=model_of.get(best) if best else None, final_path=best)
+            v0 = next((v for v in flt.verdicts if v.path == best), None)
+            if c.max_revisions > 0 and best and ag_loop.needs_revision(v0):
+                plan = ag_loop.plan_from_verdict(v0, sp, gen)
+                cr.revision = plan
+                self.log(f"  [4d] sửa: {plan.rationale} -> +{plan.add_positive} -{plan.add_negative} boost={plan.boost} g+{plan.guidance_delta}")
+                if plan.is_empty():
+                    cr.notes.append("kế hoạch sửa rỗng (không còn gì để thêm) -> giữ ảnh multigen")
+                    return cr
+                run_rec, _ = ag_loop.regenerate(gen, plan, sp, self.kb, cr.best_model, self.cfg, self.out_dir,
+                                                clip=self.clip, itm=self.itm, prompt_en=pe, log=self.log,
+                                                aesthetic=self.aesthetic, ref_images=self.reference_images())
+                cr.regen = run_rec
+                if run_rec is not None and run_rec.output:
+                    flt2 = ag_desc.run(self.agent, [x.path for x in run_rec.output.candidates], sp, pe, kind="candidate", log=self.log)
+                    cr.regen_filter = flt2
+                    good = [v for v in flt2.verdicts if v.keep and not v.matched_must_not]
+                    pick = max(good, key=lambda v: v.score) if good else None
+                    if pick is not None and pick.score > v0.score:  # chỉ đổi khi tốt hơn THẬT, hoà thì giữ ảnh gốc
+                        cr.final_path, cr.final_source = pick.path, "regen"
+                        cr.notes.append(f"vòng sửa cho ảnh sạch hơn ({pick.score:+.2f} so với {v0.score:+.2f})")
+                    else:
+                        cr.notes.append("vòng sửa không tốt hơn ảnh multigen" + (f" ({pick.score:+.2f} so với {v0.score:+.2f})" if pick else "") + " -> giữ ảnh multigen")
+                elif run_rec is not None:
+                    cr.notes.append(f"sinh lại lỗi: {run_rec.error}")
+            elif v0 is not None:
+                cr.notes.append("ứng viên đầu đạt: không cần vòng sửa")
+            return cr
+
+        return self._memo("candidate_review", key, CandidateReview, compute, force)
 
     @property
     def web(self):
@@ -281,11 +371,19 @@ class Session:
         c = self.cfg
         n = c.multigen.n_candidates if c.multigen.enabled else c.t2i.n_candidates
         key = _h({"spec": _h(to_dict(sp)), "pe": a.prompt_en, "t2i": [c.t2i.steps, c.t2i.guidance, c.t2i.width, c.t2i.height,
-                                                                          n, c.t2i.init_negatives, c.t2i.attrs_in_prompt], "seed": c.seed})
+                                                                          n, c.t2i.init_negatives, c.t2i.attrs_in_prompt], "seed": c.seed,
+                  "enrich": bool(c.agents.enabled and c.agents.summary and c.agents.enrich_prompt)})
 
         def compute():
             g = build_initial_spec(self.prompt, sp, a.prompt_en, c.t2i, c.seed, c.t2i.init_negatives)
             g.n_candidates = n  # thẻ GenSpec hiện đúng số ứng viên multigen sẽ sinh (v1.3: thẻ ghi 2, grid ra 4)
+            if c.agents.enabled and c.agents.summary and c.agents.enrich_prompt:
+                from .agents.summary import enrich_terms
+
+                briefs, _ = self.brief()
+                extra = [x for x in enrich_terms(briefs, sp) if x not in g.prompt_terms]
+                if extra:
+                    g.prompt_terms = g.prompt_terms[:-1] + extra + g.prompt_terms[-1:]  # trước STYLE_SUFFIX
             return g
 
         return self._memo("genspec", key, GenSpec, compute, force)
@@ -300,6 +398,7 @@ class Session:
         c = self.cfg
         key = _h({"gen": st_mg.genspec_hash(gen, st_mg.render_settings(c.multigen)), "models": models,
                   "n": c.multigen.n_candidates, "side": c.multigen.max_side, "aes": c.multigen.aesthetic.enabled,
+                  "reffilter": bool(c.agents.enabled and c.agents.ref_filter),
                   "ov": c.multigen.overrides})
         lora_dir = Path(c.multigen.lora_dir) if c.multigen.lora_dir else self.cache_dir / "lora"
 

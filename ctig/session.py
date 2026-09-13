@@ -40,7 +40,7 @@ from .schema import (
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
 STEP_LOGIC = {"analysis": 1, "compare": 1, "retrieve": 2, "spec": 1, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 1, "candidate_review": 1}
+              "brief": 2, "ref_filter": 2, "candidate_review": 2}
 
 
 def _h(obj: Any) -> str:
@@ -282,7 +282,7 @@ class Session:
         pe = a.prompt_en or self.prompt.text_en
         key = _h({"paths": [Path(p).name for p in paths], "spec": _h(to_dict(sp)), "pe": pe})
         return self._memo("ref_filter", key, FilterResult,
-                          lambda: ag_desc.run(self.agent, paths, sp, pe, kind="reference", log=self.log), force)
+                          lambda: ag_desc.run(self.agent, paths, sp, pe, kind="reference", log=self.log, clip=self.clip), force)
 
     def candidate_review(self, force: bool = False) -> tuple[CandidateReview, str]:
         """Bước 4c - Filter + Rank trên top-k ứng viên multigen, rồi (tuỳ chọn) một vòng sửa + sinh lại."""
@@ -296,13 +296,20 @@ class Session:
         briefs, _ = self.brief()
         c = self.cfg.agents
         pe = a.prompt_en or self.prompt.text_en
-        cands = sorted([(cand, r.model_key) for r in res.runs if r.output for cand in r.output.candidates],
-                       key=lambda cm: -combined_score(cm[0]))[: c.k_candidates]
+        seen: set[str] = set()
+        cands = []
+        for cand, m in sorted([(cand, r.model_key) for r in res.runs if r.output for cand in r.output.candidates],
+                              key=lambda cm: -combined_score(cm[0])):
+            if cand.path in seen:
+                continue  # hàng alias dùng lại ảnh của hàng gốc -> không chấm hai lần
+            seen.add(cand.path)
+            cands.append((cand, m))
+        cands = cands[: c.k_candidates]
         key = _h({"paths": [Path(cand.path).name for cand, _ in cands], "spec": _h(to_dict(sp)), "pe": pe,
                   "k": c.k_candidates, "rev": c.max_revisions, "gen": _h(to_dict(gen))})
 
         def compute():
-            flt = ag_desc.run(self.agent, [cand.path for cand, _ in cands], sp, pe, kind="candidate", log=self.log)
+            flt = ag_desc.run(self.agent, [cand.path for cand, _ in cands], sp, pe, kind="candidate", log=self.log, clip=self.clip)
             rk = ag_rank.run(self.agent, cands, flt, briefs, sp, pe, log=self.log)
             best = rk.final_order[0] if rk.final_order else None
             model_of = {cand.path: m for cand, m in cands}
@@ -321,7 +328,7 @@ class Session:
                                                 aesthetic=self.aesthetic, ref_images=self.reference_images())
                 cr.regen = run_rec
                 if run_rec is not None and run_rec.output:
-                    flt2 = ag_desc.run(self.agent, [x.path for x in run_rec.output.candidates], sp, pe, kind="candidate", log=self.log)
+                    flt2 = ag_desc.run(self.agent, [x.path for x in run_rec.output.candidates], sp, pe, kind="candidate", log=self.log, clip=self.clip)
                     cr.regen_filter = flt2
                     good = [v for v in flt2.verdicts if v.keep and not v.matched_must_not]
                     pick = max(good, key=lambda v: v.score) if good else None

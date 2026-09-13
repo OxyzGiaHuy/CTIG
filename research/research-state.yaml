@@ -156,14 +156,14 @@ hypotheses:
 
   - id: H15
     statement: "Render 'tags' (thực thể + thẻ ngắn lên đầu, negative không chứa danh từ must_have, trọng số 1.2) cho CLIP attr cao hơn render 'legacy' v1.3 trên cùng model và seed"
-    status: negative   # v1.4: tags 0,49 vs legacy 0,68; v1.5 tách: tags_w (trọng số 1.2) 0,52 << legacy 0,68, legacy_negtags 0,71 ≈ legacy -> thủ phạm là TRỌNG SỐ, negative thẻ trung tính; tags không trọng số n=2 chưa kết luận
+    status: negative   # KẾT LUẬN p001 (4 ảnh/hàng, cùng seed): tags 0,49 / tags_w 0,52 / legacy 0,68 / legacy_negtags 0,68 -> thẻ ngắn tự nó kém; negative không phủ định trung tính. Bỏ hàng A/B render.
     motivation: "CLIP không hiểu phủ định ('no trousers' trong negative đẩy xa 'trousers'); SDXL đọc thẻ tốt hơn câu; token đầu được chú ý nhất"
     priority: high
     prediction: "realvis_xl vs realvis_xl#legacy trên p001, p031, p050: attr TB tăng >= 0,05 và số ảnh có must_not giảm"
 
   - id: H16
     statement: "Ảnh tham chiếu CẮT theo thực thể (nhiều ảnh) cho IP-Adapter giữ đúng số người và bố cục prompt hơn ảnh nguyên bức, với CLIP attr không giảm"
-    status: active
+    status: supported  # v1.5.1 p001 sdxl_refplus (2 ảnh cắt, scale 0,4): 4/4 ảnh một người (v1.3 nguyên bức: 3/4 nhiều người), attr 0,66-0,81 cao nhất grid, ref_sim 0,74-0,79 = nền
     motivation: "v1.3 p001: ảnh nhóm nguyên bức -> 3/4 ảnh sinh nhiều người; embedding mang theo bố cục"
     priority: high
     prediction: "realvis_xl+ref (cắt) vs sdxl_refplus v1.3 (nguyên bức): tỉ lệ ảnh đúng số người tăng, ref_sim TB giảm, attr TB không giảm quá 0,03"
@@ -191,7 +191,7 @@ experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0
   best_value: null
-  total_runs: 6
+  total_runs: 7
   trajectory:
     - run_id: "smoke-v1"
       hypothesis: "H1"
@@ -252,6 +252,16 @@ experiments:
       wall_time_min: 33
       change_summary: "Rò VRAM hết (0,01 GB sau mỗi hàng); PickScore chạy; adaptive dừng 2-6; Filter luật cứng bắt cổ chéo/váy liền; vòng sửa cho ảnh sạch hơn"
       notes: "H15: trọng số 1.2 là thủ phạm; +ref bị gate rồi sinh lại y hệt (phí 6 phút); refplus lỗi encoder CPU; compel SDXL pad lỗi; gate chặn cả vòng sửa. Sửa ở v1.5.1"
+      timestamp: "2026-09-13"
+    - run_id: "walkthrough-v1.5.1-p001"
+      hypothesis: "H15, H16, H4, H13"
+      config: "kaggle_walkthrough_t4x2 (v1.5.1): 10 hàng, adaptive 4->6, saturated off"
+      metric_value: 0.81     # attr tốt nhất: sdxl_refplus c0 (IP-Adapter Plus, 2 ảnh cắt); ảnh cuối = refplus c0, ensemble 0,87
+      pass_rate: null
+      delta: null
+      wall_time_min: 30
+      change_summary: "IP-Adapter Plus chạy lần đầu; +ref gate dùng lại hàng gốc; CLIP id/ITM ẩn; A/B render đủ 4 ảnh/hàng"
+      notes: "H15 âm dứt điểm (tags 0,49 vs legacy 0,68); H16 ủng hộ (4/4 một người, không chép); Filter loại nhầm 5/8 vì Qwen 3B đọc collar=crossed trên ảnh cổ đứng -> v1.5.2 CLIP phải xác nhận must_not; alias làm top-k trùng ảnh -> khử trùng"
       timestamp: "2026-09-13"
 
 outer_loop:

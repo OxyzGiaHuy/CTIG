@@ -188,3 +188,16 @@
 - **Quyết định:** ẩn và bỏ khỏi điểm chọn CLIP identity và BLIP-2 ITM danh tính (bão hoà 0,95-1,00 ở cả 6 lần chạy), không tính
   ITM danh tính nữa (tiết kiệm ~1/3 thời gian chấm). ref_sim nền 0,66-0,79 khi không dùng ảnh -> ngưỡng chép 0,88 hợp lý.
 
+## 2026-09-13 — Walkthrough v1.5.1 trên Kaggle (p001, 10 hàng, ~30 phút)
+- **IP-Adapter Plus chạy lần đầu** (`sdxl_refplus`, 2 ảnh tham chiếu đã lọc và cắt, scale 0,4): 4/4 ảnh đúng một người (v1.3
+  nguyên bức: 3/4 nhiều người), attr 0,81/0,66/0,72/0,74 cao nhất grid, "giống ref" 0,74-0,79 ngang nền các hàng không ảnh
+  (0,66-0,79) -> không chép. Ảnh cuối = refplus c0. H16 ủng hộ, H4 có bằng chứng đầu (n=1 prompt).
+- **H15 kết luận** với 4 ảnh/hàng cùng seed: tags 0,49, tags_w 0,52, legacy 0,68, legacy_negtags 0,68. Thẻ ngắn tự nó kém trên
+  SDXL fine-tune này; negative không phủ định trung tính. Bỏ ba hàng A/B render khỏi config (tiết kiệm ~15 phút/prompt).
+- `+ref` bị gate đã dùng lại hàng gốc (không phí). Rank agent trùng top-1 với metric, lý do có nội dung.
+- **Lỗi mới: Filter loại nhầm 5/8** vì Qwen 3B mô tả `collar: crossed` cho ảnh cổ đứng rõ (realvis_aodai c0, c3) -> luật cứng
+  tin mô tả -> must_not "cổ chéo". Thiên lệch chuyển từ tầng "phán" sang tầng "mô tả". Sửa v1.5.2: must_not do VLM đọc ra phải
+  được CLIP xác nhận bằng so cặp trên chính ảnh (P(with crossed collar) so với P(with stand-up collar)); không đồng ý thì gỡ và
+  ghi rõ. Cùng lúc khử ảnh trùng trong top-k do hàng alias chia sẻ đường dẫn.
+- Kế tiếp: p012 (thuyền thúng, prior thấp) để thấy +ref hoạt động chiều "dùng ảnh", rồi p031, p050.
+

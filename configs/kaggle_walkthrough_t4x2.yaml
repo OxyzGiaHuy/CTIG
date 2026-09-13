@@ -8,9 +8,9 @@ max_candidate_entities: 6
 review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
 judge:      {backend: blip2_itm, device: "cuda:0", offload: true}
 # Thứ tự nhỏ -> lớn. sd35_medium (gated, fp16 trên T4) và sweep LoRA (sdxl_aodai@0.6 ...) thêm tay khi cần.
-# Mặc định render legacy (thắng ở v1.4 p001). Ba hàng #tags / #tags_w / #legacy_negtags tách thủ phạm của "tags kém hơn".
-# +ref = cùng model + IP-Adapter Plus với ảnh tham chiếu đã lọc và cắt theo thực thể (không hires). 10 hàng ~50 phút.
-models:     [dreamshaper8, realvis_xl, realvis_xl#tags, realvis_xl#tags_w, realvis_xl#legacy_negtags, realvis_xl+ref, sdxl_aodai, realvis_aodai, realvis_aodai+ref, sdxl_refplus]
+# H15 kết luận (p001, 4 ảnh/hàng): tags 0,49 / tags_w 0,52 / legacy 0,68 / legacy_negtags 0,68 -> bỏ hàng A/B render.
+# +ref chỉ dùng ảnh khi prior <= 0,45 (p012 thuyền thúng); với áo dài nó dùng lại hàng gốc. sdxl_refplus = luôn có ảnh (đối chứng).
+models:     [dreamshaper8, realvis_xl, realvis_xl+ref, sdxl_aodai, realvis_aodai, realvis_aodai+ref, sdxl_refplus]
 # v1.4 agent loop review: Summary (2c) · Filter ảnh tham chiếu (3b) · Filter+Rank ứng viên (4c) · một vòng sửa (4d)
 agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 1}
 multigen:
@@ -27,7 +27,7 @@ multigen:
   ref_scale: 0.4
   copy_threshold: 0.88
   # v1.5: best-of-N thích nghi (Ma et al.), ảnh tham chiếu có điều kiện theo prior (ImageRAG), điểm chọn = trung bình hạng verifier
-  adaptive:  {enabled: true, min: 4, max: 6, step: 2, target_attr: 0.70}   # min 4 khi còn hàng A/B: dừng sớm làm trung bình các hàng không so được
+  adaptive:  {enabled: true, min: 2, max: 6, step: 2, target_attr: 0.70}
   auto_ref:  {enabled: true, prior_max: 0.45}
   ensemble: true
   saturated_metrics: false   # ẩn CLIP id / ITM danh tính (bão hoà), không tính ITM danh tính

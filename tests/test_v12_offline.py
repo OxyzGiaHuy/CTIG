@@ -629,6 +629,44 @@ def test_filter_agent_failure_tolerant(tmp):
     check("compact_text gọn, không còn dấu ngoặc dict", "{" not in ct and "type=dress" in ct and len(ct) <= 700, ct)
 
 
+def test_clip_veto_and_dedupe(tmp):
+    """v1.5.2: must_not do VLM đọc ra phải được CLIP xác nhận; Filter không mô tả ảnh trùng đường dẫn."""
+    from ctig.agents import describe as ag_desc
+    from ctig.schema import CulturalSpec, SpecEntity
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    kb = KnowledgeBase.load(cfg.kb_path); e = kb.get("ao_dai")
+    sp = CulturalSpec("t", [SpecEntity("ao_dai", e.name_vi, e.name_en, e.must_have, e.must_not, [], 1.0, kind="object",
+                                       required_attrs_en=e.must_have_en, forbidden_attrs_en=e.must_not_en)], [], [])
+    class WrongCollarVLM:
+        calls = 0
+        def describe_image(self, path):
+            WrongCollarVLM.calls += 1
+            return {"people_count": 1, "subjects": ["woman"], "garments": ["{'type': 'ao dai', 'collar': 'crossed', 'lower_body': 'trousers', 'slits': 'none', 'sash_or_belt': 'none'}"], "objects": [], "background": "", "watermark_or_text": False}
+        def match_descriptors(self, d, h, n): return {"present_must_have": [], "present_must_not": [], "unsure": []}
+    class StandUpClip:  # CLIP thấy cổ đứng
+        def probs(self, path, labels): return [0.85, 0.15]
+    class CrossedClip:
+        def probs(self, path, labels): return [0.3, 0.7]
+    f1 = ag_desc.run(WrongCollarVLM(), ["a.png", "a.png", "b.png"], sp, "A young woman", kind="candidate", log=lambda *a: None, clip=StandUpClip())
+    check("đường dẫn trùng chỉ mô tả một lần", WrongCollarVLM.calls == 2 and len(f1.verdicts) == 2)
+    v = f1.verdicts[0]
+    check("VLM nói cổ chéo nhưng CLIP nghiêng cổ đứng -> gỡ must_not, giữ ảnh", v.keep and not v.matched_must_not and any("CLIP nghiêng" in r for r in v.reasons), str(v.reasons))
+    class CleanVLM(WrongCollarVLM):
+        def describe_image(self, path):
+            d = super().describe_image(path)
+            if path == "clean.png":
+                d["garments"] = ["{'type': 'ao dai', 'collar': 'stand-up', 'lower_body': 'trousers', 'slits': 'yes', 'sash_or_belt': 'none'}"]
+            return d
+    f2 = ag_desc.run(CleanVLM(), ["c.png", "clean.png"], sp, "A young woman", kind="candidate", log=lambda *a: None, clip=CrossedClip())
+    bad = next(v for v in f2.verdicts if v.path == "c.png")
+    check("CLIP đồng ý cổ chéo -> must_not giữ, ảnh bị bỏ (ảnh sạch còn lại được giữ)", bad.matched_must_not and not bad.keep and f2.kept == ["clean.png"])
+    f3 = ag_desc.run(WrongCollarVLM(), ["d.png"], sp, "A young woman", kind="candidate", log=lambda *a: None, clip=None)
+    check("không có CLIP -> giữ phán của luật như cũ", f3.verdicts[0].matched_must_not)
+    check("_counterpart: cổ chéo <-> cổ đứng; 'no trousers' <-> trousers", ag_desc._counterpart("diagonal Y-shaped crossed collar", e.must_have_en) == "high stand-up mandarin collar"
+          and ag_desc._counterpart("one-piece dress with no trousers underneath", e.must_have_en) == "worn over wide-legged long trousers")
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -647,9 +685,10 @@ def test_agents_offline(tmp):
     check("brief cho ao_dai từ KB (RuleAgent)", "ao_dai" in briefs and briefs["ao_dai"].facts_en and src == "computed")
     briefs2, src2 = s.brief()
     check("brief memo", src2 == "memory" and briefs2["ao_dai"].facts_en == briefs["ao_dai"].facts_en)
+    s.cfg.models = ["stub", "stub@0.5"]  # candidate_review lấy multigen theo cfg.models (như notebook)
     s.multigen(["stub", "stub@0.5"])
     cr, src = s.candidate_review()
-    check("candidate_review: lọc + xếp trên 6 ứng viên", cr.k == 6 and len(cr.filter.verdicts) == 6 and cr.rank.final_order)
+    check("candidate_review: lọc + xếp trên 6 ứng viên (khử trùng theo đường dẫn)", cr.k == 6 and len(cr.filter.verdicts) == 6 and cr.rank.final_order, f"k={cr.k}")
     check("stub mô tả có 'trousers' -> must_have khớp, không must_not, giữ hết", all(v.keep for v in cr.filter.verdicts)
           and all(v.matched_must_have for v in cr.filter.verdicts), str(cr.filter.verdicts[0]))
     # stub mô tả chỉ khớp 1-2/4 must_have -> có kế hoạch sửa (nhấn thực thể, tăng guidance vì thuộc tính đã trong prompt),
@@ -712,5 +751,6 @@ if __name__ == "__main__":
     print("\ntest_v15_offline"); test_v15_offline(tmp)
     print("\ntest_v151_offline"); test_v151_offline(tmp)
     print("\ntest_filter_agent_failure_tolerant"); test_filter_agent_failure_tolerant(tmp)
+    print("\ntest_clip_veto_and_dedupe"); test_clip_veto_and_dedupe(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

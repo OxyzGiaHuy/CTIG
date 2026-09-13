@@ -141,7 +141,35 @@ def compact_text(desc: ImageDescriptor, max_chars: int = 700) -> str:
     return " | ".join(parts)[:max_chars]
 
 
-def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_people: int | None) -> FilterVerdict:
+_PAIR_NOUNS = ("collar", "trousers", "pants", "sash", "obi", "skirt", "slit", "sleeve", "hat", "brim", "broth", "noodle")
+
+
+def _counterpart(not_attr: str, have_attrs: list[str]) -> str | None:
+    """must_have nói về cùng bộ phận với must_not (cổ áo, phần dưới, đai...) để CLIP so cặp."""
+    a = not_attr.lower()
+    nouns = [n for n in _PAIR_NOUNS if n in a]
+    if "no trousers" in a or "bare legs" in a or "gown" in a or "one-piece" in a:
+        nouns += ["trousers"]
+    for h in have_attrs:
+        hl = h.lower()
+        if any(n in hl for n in nouns):
+            return h
+    return None
+
+
+def clip_agrees_not(clip, path: str, name_en: str, not_attr: str, have_attr: str, margin: float = 0.60) -> bool | None:
+    """CLIP so cặp trên chính ảnh: P('với must_not') so với P('với must_have'). True = CLIP cũng thấy must_not;
+    False = CLIP nghiêng về must_have (VLM đọc sai); None = không kiểm được."""
+    if clip is None or not hasattr(clip, "probs"):
+        return None
+    try:
+        p = clip.probs(path, [f"a photo of a {name_en} with {have_attr}", f"a photo of a {name_en} with {not_attr}"])
+        return p[1] >= (1.0 - margin)  # must_not phải chiếm >= 40% mới coi là CLIP đồng ý
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_people: int | None, clip=None) -> FilterVerdict:
     have_all: list[str] = []
     not_all: list[str] = []
     for se in spec.entities:
@@ -172,6 +200,19 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                 matched_not.append(a); reasons.append(f"luật: mô tả có '{a[:40]}'")
             elif r == "absent" and a in matched_not:
                 matched_not.remove(a)
+        # v1.5.1 p001: Qwen 3B ghi collar=crossed cho ảnh cổ đứng rõ -> 5/8 ảnh bị loại nhầm. must_not do VLM đọc ra
+        # phải được CLIP xác nhận trên chính ảnh (so cặp với must_have cùng bộ phận); CLIP không đồng ý -> không tính.
+        name_en = next((se.name_en.split("(")[0].strip() for se in spec.entities if se.kind == "object"), "outfit")
+        for a in list(matched_not):
+            h = _counterpart(a, have_all)
+            if h is None:
+                continue
+            ok = clip_agrees_not(clip, desc.path, name_en, a, h)
+            if ok is False:
+                matched_not.remove(a)
+                if h not in matched_have and garment_rules(desc, h) != "absent":
+                    pass  # không tự thêm must_have; chỉ gỡ must_not sai
+                reasons.append(f"VLM nói '{a[:30]}' nhưng CLIP nghiêng về '{h[:30]}' -> bỏ")
     missing = [a for a in have_all if a not in matched_have]
     score = ((len(matched_have) - len(matched_not)) / len(have_all)) if have_all else 0.0
     score = max(-1.0, min(1.0, score))
@@ -191,10 +232,11 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                          missing_must_have=missing, people_count=desc.people_count, reasons=reasons, score=round(score, 3))
 
 
-def run(agent, paths: list[str], spec: CulturalSpec, prompt_en: str, kind: str = "candidate", log=print) -> FilterResult:
+def run(agent, paths: list[str], spec: CulturalSpec, prompt_en: str, kind: str = "candidate", log=print, clip=None) -> FilterResult:
     n_people = expected_people(prompt_en)
+    paths = list(dict.fromkeys(paths))  # hàng alias (+ref bị gate) chia sẻ đường dẫn -> không mô tả hai lần
     descs = describe(agent, paths, log=log)
-    verdicts = [_verdict(agent, d, spec, kind, n_people) for d in descs]
+    verdicts = [_verdict(agent, d, spec, kind, n_people, clip=clip) for d in descs]
     kept = [v.path for v in verdicts if v.keep]
     if not kept and verdicts:
         best = max(verdicts, key=lambda v: v.score)

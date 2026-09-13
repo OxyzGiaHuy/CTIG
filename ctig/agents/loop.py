@@ -77,9 +77,12 @@ def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_k
         fam = get_model(model_key).family
     except KeyError:
         fam = ""
-    if plan.use_reference_image and ref_images and fam == "sdxl" and "ref" not in parse_flags(model_key):
-        model_key = model_key + "+ref"
+    force = False
+    if plan.use_reference_image and ref_images and fam == "sdxl":
+        if "ref" not in parse_flags(model_key):
+            model_key = model_key + "+ref"
+        force = True  # Filter đã nói model vẽ thiếu -> ảnh tham chiếu được phép bất kể auto_ref (ImageRAG: sinh trước, thiếu mới truy hồi)
         log(f"  [4d] sinh lại với ảnh tham chiếu: {model_key}")
     res = mg.run(g2, spec, kb, [model_key], cfg.multigen, Path(out_dir) / "revision", clip=clip, itm=itm,
-                 prompt_en=prompt_en, log=log, ref_images=ref_images, aesthetic=aesthetic, t2i_cfg=cfg.t2i)
+                 prompt_en=prompt_en, log=log, ref_images=ref_images, aesthetic=aesthetic, t2i_cfg=cfg.t2i, force_refs=force)
     return res.runs[0] if res.runs else None, g2

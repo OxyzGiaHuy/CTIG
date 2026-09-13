@@ -102,6 +102,17 @@ def load_ip_adapter(pipe, kind: str, scale: float, log=print) -> str:
         pipe.load_ip_adapter("h94/IP-Adapter", subfolder="sdxl_models", weight_name="ip-adapter_sdxl.bin")
         name = "IP-Adapter (ViT-bigG)"
     pipe.set_ip_adapter_scale(scale)
+    # v1.5 p001: encoder ViT-H của bản Plus nằm lại CPU sau load_ip_adapter -> "index is on cpu, tensors on cuda:1".
+    enc = getattr(pipe, "image_encoder", None)
+    if enc is not None:
+        try:
+            unet = getattr(pipe, "unet", None)
+            dev = next(unet.parameters()).device if unet is not None else None
+            dt = next(unet.parameters()).dtype if unet is not None else None
+            if dev is not None and str(dev) != "cpu":
+                enc.to(dev, dtype=dt)
+        except Exception as exc:  # noqa: BLE001
+            log(f"[loader] không đưa image_encoder lên GPU: {type(exc).__name__}: {exc}")
     return f"{name} scale {scale}"
 
 

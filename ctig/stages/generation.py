@@ -384,12 +384,12 @@ class DiffusersGenerator:
             if self.family == "sdxl":
                 cond, pooled = self._compel(esc(prompt))
                 ncond, npooled = self._compel(esc(neg) if neg else "")
-                cond, ncond = self._compel.pad_conditioning_tensors_to_same_length([cond, ncond])
+                cond, ncond = self._pad_same(cond, ncond)
                 return {"prompt_embeds": cond, "pooled_prompt_embeds": pooled,
                         "negative_prompt_embeds": ncond, "negative_pooled_prompt_embeds": npooled}
             cond = self._compel(esc(prompt))
             ncond = self._compel(esc(neg) if neg else "")
-            cond, ncond = self._compel.pad_conditioning_tensors_to_same_length([cond, ncond])
+            cond, ncond = self._pad_same(cond, ncond)
             return {"prompt_embeds": cond, "negative_prompt_embeds": ncond}
         except Exception as exc:  # noqa: BLE001
             self.notes.append(f"compel lỗi ({type(exc).__name__}: {str(exc)[:80]}) -> dùng prompt thô, có thể bị cắt")
@@ -414,6 +414,23 @@ class DiffusersGenerator:
             parts.append(f"({esc}){w:g}" if w and abs(w - 1.0) > 1e-6 else esc)
         s = ", ".join(dict.fromkeys(parts))
         return f"{self.trigger}, {s}" if self.trigger else s
+
+    def _pad_same(self, a, b):
+        """Đưa hai tensor embedding về cùng số token. compel SDXL (EmbeddingsProviderMulti) không có
+        pad_conditioning_tensors_to_same_length (v1.5 p001: 'no attribute empty_z') -> đệm bằng token cuối."""
+        try:
+            return tuple(self._compel.pad_conditioning_tensors_to_same_length([a, b]))
+        except Exception:  # noqa: BLE001
+            if a.shape[1] == b.shape[1]:
+                return a, b
+            n = max(a.shape[1], b.shape[1])
+
+            def pad(x):
+                if x.shape[1] == n:
+                    return x
+                last = x[:, -1:, :].expand(-1, n - x.shape[1], -1)
+                return self.torch.cat([x, last], dim=1)
+            return pad(a), pad(b)
 
     def _prompt_kwargs(self, gen: GenSpec) -> dict:
         prompt = f"{self.trigger}, {gen.prompt}" if self.trigger else gen.prompt
@@ -458,6 +475,10 @@ class DiffusersGenerator:
             return ipk
         try:
             dev = getattr(self.pipe, "_execution_device", None) or getattr(self.pipe, "device", "cuda")
+            enc0 = getattr(self.pipe, "image_encoder", None)
+            if enc0 is not None and hasattr(self.pipe, "unet"):
+                up = next(self.pipe.unet.parameters())
+                enc0.to(up.device, dtype=up.dtype)
             emb = self.pipe.prepare_ip_adapter_image_embeds(
                 ip_adapter_image=ipk["ip_adapter_image"], ip_adapter_image_embeds=None, device=dev,
                 num_images_per_prompt=1, do_classifier_free_guidance=gen.guidance > 1.0)
@@ -497,7 +518,8 @@ class DiffusersGenerator:
                     enc = getattr(self.pipe, "image_encoder", None)
                     if enc is not None:
                         try:
-                            enc.to(getattr(self.pipe, "_execution_device", "cuda"))
+                            unet = self.pipe.unet
+                            enc.to(next(unet.parameters()).device, dtype=next(unet.parameters()).dtype)
                         except Exception:  # noqa: BLE001
                             pass
                 elif isinstance(ipk.get("ip_adapter_image"), list):

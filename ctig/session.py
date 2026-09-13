@@ -40,7 +40,7 @@ from .schema import (
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
 STEP_LOGIC = {"analysis": 1, "compare": 1, "retrieve": 2, "spec": 1, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 1, "ref_filter": 1, "candidate_review": 1}
+              "brief": 2, "ref_filter": 1, "candidate_review": 1}
 
 
 def _h(obj: Any) -> str:
@@ -427,6 +427,7 @@ class Session:
                   "reffilter": bool(c.agents.enabled and c.agents.ref_filter), "refcrop": c.multigen.ref_crop,
                   "refscale": c.multigen.ref_scale, "detector": c.multigen.ref_detector,
                   "adaptive": to_dict(c.multigen.adaptive), "autoref": to_dict(c.multigen.auto_ref), "ens": c.multigen.ensemble,
+                  "sat": c.multigen.saturated_metrics,
                   "ov": c.multigen.overrides})
         lora_dir = Path(c.multigen.lora_dir) if c.multigen.lora_dir else self.cache_dir / "lora"
 

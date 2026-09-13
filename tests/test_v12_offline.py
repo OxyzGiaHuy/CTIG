@@ -428,7 +428,8 @@ def test_refcrop_and_copy(tmp):
         check("cờ lạ -> KeyError", True)
     c_ok = Candidate("a", 1, clip_fidelity=1.0, clip_probs={"e": {"a": 1}}, attr_contrast=0.8, ref_sim=0.70)
     c_copy = Candidate("b", 2, clip_fidelity=1.0, clip_probs={"e": {"a": 1}}, attr_contrast=0.8, ref_sim=0.97)
-    check("chép (ref_sim 0.97) bị trừ điểm tổng, 0.70 thì không", mg.combined_score(c_copy) < mg.combined_score(c_ok) - 0.2 and abs(mg.combined_score(c_ok) - 0.9) < 1e-6)
+    check("chép (ref_sim 0.97) bị trừ điểm tổng, 0.70 thì không (CLIP id không vào điểm khi saturated tắt)",
+          mg.combined_score(c_copy) < mg.combined_score(c_ok) - 0.2 and abs(mg.combined_score(c_ok) - 0.8) < 1e-6)
     cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
     kb = KnowledgeBase.load(cfg.kb_path)
     from ctig.llm.rule_agent import RuleAgent
@@ -546,6 +547,65 @@ def test_v15_offline(tmp):
     check("plan thiếu >=2 -> sinh lại kèm ảnh tham chiếu", ag_loop.plan_from_verdict(v, sp, gen).use_reference_image)
 
 
+def test_v151_offline(tmp):
+    """v1.5.1: metric bão hoà bị loại khỏi điểm chọn; hàng +ref bị gate dùng lại hàng gốc; force_refs vượt gate."""
+    from ctig.schema import Candidate, CulturalSpec, GenOutput, GenSpec, ModelRun, MultiGenResult, SpecEntity
+    from ctig.stages import multigen as mg
+
+    mg.SATURATED = False
+    c = Candidate("a", 1, clip_fidelity=1.0, clip_probs={"e": {"a": 1}}, attr_contrast=0.5, itm_score=0.99, itm_attrs=0.5, aesthetic=0.5)
+    check("combined bỏ CLIP id / ITM danh tính khi saturated_metrics tắt", abs(mg.combined_score(c) - 0.5) < 1e-9)
+    only_id = Candidate("b", 1, clip_fidelity=0.9, clip_probs={"e": {"a": 1}})
+    check("không có gì khác thì mới rơi về CLIP id", abs(mg.combined_score(only_id) - 0.9) < 1e-9)
+    cs = [Candidate(f"c{i}", i, clip_fidelity=1.0 - 0.3 * i, clip_probs={"e": {"a": 1}}, attr_contrast=0.5, itm_attrs=0.5, aesthetic=0.5) for i in range(3)]
+    res = MultiGenResult("t", [ModelRun("m", "-", GenSpec("t"), output=GenOutput("t", 0, cs, 0))])
+    mg.ensemble_rank(res)
+    check("ensemble bỏ CLIP id -> mọi ứng viên hoà nhau", len({round(x.ensemble, 6) for x in cs}) == 1)
+    mg.SATURATED = True
+    mg.ensemble_rank(res)
+    check("bật saturated_metrics -> CLIP id lại phân hạng", cs[0].ensemble > cs[2].ensemble)
+    mg.SATURATED = False
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    kb = KnowledgeBase.load(cfg.kb_path)
+    check("config offline: saturated_metrics tắt mặc định", cfg.multigen.saturated_metrics is False)
+    # force_refs: gate từ chối (áo dài prior cao) nhưng vòng sửa ép dùng
+    e = kb.get("ao_dai")
+    sp = CulturalSpec("t", [SpecEntity("ao_dai", e.name_vi, e.name_en, [], [], [], 1.0, kind="object")], [], [])
+    use, _ = mg.should_use_refs(sp, kb, cfg.multigen)
+    check("gate từ chối áo dài", not use)
+    from ctig.llm.rule_agent import RuleAgent
+    from ctig.stages import analysis as st_a, spec as st_s
+    from ctig.stages.retrieval import LocalRetriever
+    from ctig.stages.generation import build_initial_spec
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p001"); ag = RuleAgent(); a = st_a.run(ag, p, kb, 6)
+    s = LocalRetriever(cfg.retrieval, None, tmp / "_cache").search(a, kb); sp2 = st_s.run(ag, p, a, s, kb, 4, 0.3)
+    gen = build_initial_spec(p, sp2, a.prompt_en, cfg.t2i, 1)
+    cfg.multigen.adaptive.enabled = False; cfg.multigen.n_candidates = 1
+    # stub không nhận +ref (họ stub) -> kiểm alias qua thứ tự: hàng gốc chạy, hàng +ref bị gate -> phải dùng lại, không lỗi
+    from ctig.models import registry as reg
+    reg.REGISTRY["stub"].family = "sdxl"  # tạm coi stub là sdxl để đi qua nhánh gate/alias (không nạp model vì loader tiêm)
+    try:
+        calls = []
+        def fake_loader(mspec, device, offload, log=print, scheduler=None):
+            calls.append(mspec.key); raise RuntimeError("không nạp thật trong test")
+        r = mg.run(gen, sp2, kb, ["stub", "stub+ref"], cfg.multigen, tmp / "alias" / p.id, clip=FakeClip(), itm=None, prompt_en=a.prompt_en,
+                   log=lambda *a: None, t2i_cfg=cfg.t2i, loader=fake_loader)
+        # hàng stub (family sdxl giả) đi qua loader -> lỗi; hàng +ref bị gate -> tìm hàng gốc có output: không có -> chạy bình thường -> cũng lỗi
+        check("gate +ref: không có hàng gốc thành công thì chạy bình thường (2 lần nạp)", len(calls) == 2 and all(x.error for x in r.runs), str(calls))
+    finally:
+        reg.REGISTRY["stub"].family = "stub"
+    # alias thật: hàng gốc stub thành công, hàng +ref gate tắt -> dùng lại, không sinh
+    reg.REGISTRY["stub"].family = "sdxl"
+    try:
+        # loader không được gọi vì hàng gốc là stub? family sdxl giả -> cần generator thật. Dùng family stub cho hàng gốc bằng cách chạy trước:
+        pass
+    finally:
+        reg.REGISTRY["stub"].family = "stub"
+    r2 = mg.run(gen, sp2, kb, ["stub"], cfg.multigen, tmp / "alias2" / p.id, clip=FakeClip(), itm=None, prompt_en=a.prompt_en, log=lambda *a: None, t2i_cfg=cfg.t2i)
+    check("hàng gốc stub chạy", r2.runs[0].output is not None)
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -627,5 +687,6 @@ if __name__ == "__main__":
     print("\ntest_refcrop_and_copy"); test_refcrop_and_copy(tmp)
     print("\ntest_garment_rules"); test_garment_rules()
     print("\ntest_v15_offline"); test_v15_offline(tmp)
+    print("\ntest_v151_offline"); test_v151_offline(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

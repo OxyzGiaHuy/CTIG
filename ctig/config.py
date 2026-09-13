@@ -213,6 +213,9 @@ class MultiGenConfig:
     ensemble: bool = True
     #: cách tìm vùng thực thể để cắt ảnh tham chiếu: "owlvit" (phát hiện theo chữ, lùi về clip khi lỗi) | "clip" (quét lưới)
     ref_detector: str = "owlvit"
+    #: v1.5.1: CLIP identity và BLIP-2 ITM danh tính bão hoà 0,95-1,00 trên mọi ảnh (p001 v1.3-v1.5) -> mặc định KHÔNG tính
+    #: ITM danh tính, không hiện hai cột này, không đưa vào điểm chọn. True để bật lại cho prompt khó.
+    saturated_metrics: bool = False
     #: Kẹp cạnh dài của ảnh (SDXL 1024 -> 768 trên 1xT4 để tránh OOM).
     max_side: int = 768
     #: Chấm BLIP-2 ITM cho từng ảnh (dùng judge.blip2_model, offload CPU).

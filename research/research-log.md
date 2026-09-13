@@ -172,3 +172,19 @@
 - Chưa làm, ghi lại: DAG phụ thuộc kiểu DSG (chỉ chấm thuộc tính khi danh tính có); CultureCLIP thay CLIP-B/32 nếu có trọng
   số; SCoFT/LoRA từ ảnh đã lọc cho thực thể không có LoRA (H5); Exaggeration của CULTIVate; user study theo rubric cộng đồng.
 
+## 2026-09-13 — Walkthrough v1.5 trên Kaggle (p001, 2×T4, 10 hàng, 33 phút)
+- **Hạ tầng ổn:** mọi hàng "VRAM sau giải phóng 0,01 GB" (rò đã hết); PickScore có số lần đầu; adaptive dừng sớm ở RealVis
+  (2-4) và chạy tới 6 ở dreamshaper, tags_w, sdxl_aodai.
+- **H15 tách được thủ phạm:** cùng RealVis cùng seed: legacy TB 0,68; legacy_negtags 0,71 (negative thẻ trung tính, không hại);
+  tags_w (trọng số 1,2 trên "fitted long tunic") 0,52 — **trọng số là thủ phạm**, nó kéo ảnh về áo dài liền không quần. tags
+  không trọng số 0,75/0,40 (n=2, dừng sớm) chưa kết luận. Bài học phương pháp: adaptive dừng sớm làm trung bình các hàng
+  A/B không so được (chọn lọc) -> khi còn hàng A/B đặt adaptive.min = 4.
+- **Filter agent với luật cứng hoạt động:** 3/8 ứng viên bị bỏ vì mô tả ghi cổ chéo / váy liền không quần; khớp mắt người
+  trên grid. Rank agent vẫn khác metric (Spearman −0,5). Vòng sửa kích hoạt lần đầu và cho ảnh sạch hơn (+0,75 so với +0,25).
+- **Bốn lỗi mới:** (1) hàng +ref bị auto_ref tắt ảnh rồi sinh lại y hệt hàng gốc (phí 6 phút) -> v1.5.1 dùng lại hàng gốc;
+  (2) sdxl_refplus: encoder ViT-H của IP-Adapter Plus nằm lại CPU sau load -> "index on cpu"; hàng Plus chưa từng chạy được;
+  (3) vòng sửa muốn kèm ảnh nhưng bị auto_ref chặn -> force_refs khi Filter báo thiếu (đúng cơ chế ImageRAG);
+  (4) compel SDXL không có pad_conditioning cho EmbeddingsProviderMulti -> trọng số chưa bao giờ được áp thật; tự đệm token.
+- **Quyết định:** ẩn và bỏ khỏi điểm chọn CLIP identity và BLIP-2 ITM danh tính (bão hoà 0,95-1,00 ở cả 6 lần chạy), không tính
+  ITM danh tính nữa (tiết kiệm ~1/3 thời gian chấm). ref_sim nền 0,66-0,79 khi không dùng ảnh -> ngưỡng chép 0,88 hợp lý.
+

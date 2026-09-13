@@ -27,9 +27,10 @@ multigen:
   ref_scale: 0.4
   copy_threshold: 0.88
   # v1.5: best-of-N thích nghi (Ma et al.), ảnh tham chiếu có điều kiện theo prior (ImageRAG), điểm chọn = trung bình hạng verifier
-  adaptive:  {enabled: true, min: 2, max: 6, step: 2, target_attr: 0.70}
+  adaptive:  {enabled: true, min: 4, max: 6, step: 2, target_attr: 0.70}   # min 4 khi còn hàng A/B: dừng sớm làm trung bình các hàng không so được
   auto_ref:  {enabled: true, prior_max: 0.45}
   ensemble: true
+  saturated_metrics: false   # ẩn CLIP id / ITM danh tính (bão hoà), không tính ITM danh tính
   ref_detector: owlvit
   hires:     {enabled: true, scale: 1.5, strength: 0.3, steps: 20, skip_ip_adapter: true}
   aesthetic: {enabled: true, device: "cuda:0", offload: true}

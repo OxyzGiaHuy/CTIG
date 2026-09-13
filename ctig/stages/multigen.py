@@ -107,9 +107,10 @@ def score_run(run: ModelRun, spec: CulturalSpec, clip, itm, prompt_en: str) -> N
         try:
             itm._on_gpu()
             for c in run.output.candidates:
-                ps = itm.itm(c.path, labels)
-                c.itm_score = round(sum(se.weight * p for se, p in zip(objs, ps)) / wt, 4)
-                if attr_sents:
+                if SATURATED and c.itm_score is None:
+                    ps = itm.itm(c.path, labels)
+                    c.itm_score = round(sum(se.weight * p for se, p in zip(objs, ps)) / wt, 4)
+                if attr_sents and c.itm_attrs is None:
                     pa = itm.itm(c.path, attr_sents)
                     c.itm_attrs = round(sum(pa) / len(pa), 4)
         except Exception:  # noqa: BLE001
@@ -178,11 +179,12 @@ def ensemble_rank(result: MultiGenResult, penalty: bool = True) -> None:
         cands[0].ensemble = 1.0
         return
     metrics = [
-        lambda c: c.clip_fidelity if c.clip_probs else None,
         lambda c: c.attr_contrast,
         lambda c: c.itm_attrs,
         lambda c: c.aesthetic,
     ]
+    if SATURATED:
+        metrics.insert(0, lambda c: c.clip_fidelity if c.clip_probs else None)
     ranks = {id(c): [] for c in cands}
     for m in metrics:
         vals = [(m(c), c) for c in cands]
@@ -207,7 +209,7 @@ def ensemble_rank(result: MultiGenResult, penalty: bool = True) -> None:
             continue
         e = 1.0 - (sum(rs) / len(rs)) / (n - 1)
         if penalty and c.ref_sim is not None and c.ref_sim > COPY_THRESHOLD:
-            e -= min(0.5, (c.ref_sim - COPY_THRESHOLD) * 3.0)
+            e -= min(0.6, (c.ref_sim - COPY_THRESHOLD) * 5.0)  # hạng nằm trong [0,1] nên phạt mạnh hơn combined (×3)
         c.ensemble = round(e, 4)
 
 
@@ -217,7 +219,7 @@ def combined_score(c: Candidate) -> float:
     Danh tính bão hoà ~1 trên prompt dễ nên thực chất thứ tự do attr + thẩm mỹ quyết định.
     """
     parts = []
-    if c.clip_probs:
+    if SATURATED and c.clip_probs:
         parts.append(c.clip_fidelity)
     if c.attr_contrast is not None:
         parts.append(c.attr_contrast)
@@ -225,6 +227,8 @@ def combined_score(c: Candidate) -> float:
         parts.append(c.itm_attrs)
     if c.aesthetic is not None:
         parts.append(c.aesthetic)
+    if not parts and c.clip_probs:
+        parts.append(c.clip_fidelity)  # không có gì khác thì mới dùng danh tính
     if not parts and c.itm_score is not None:
         parts.append(c.itm_score)
     base = sum(parts) / len(parts) if parts else 0.0
@@ -235,6 +239,8 @@ def combined_score(c: Candidate) -> float:
 
 
 COPY_THRESHOLD = 0.88
+#: v1.5.1: có tính/hiện/dùng CLIP id và ITM danh tính không (bão hoà). run() đặt theo cfg.saturated_metrics.
+SATURATED = False
 
 
 def score_ref_sim(result: MultiGenResult, clip, refs: list[str], log=print) -> None:
@@ -314,9 +320,11 @@ def _load_previous(prev: MultiGenResult | None, key: str, ghash: str, n: int) ->
 def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[str], cfg, out_dir: Path,
         clip=None, itm=None, prompt_en: str = "", log=print, on_model_done=None,
         loader=None, lora_dir: Path | str | None = None, ref_images: list[str] | None = None,
-        aesthetic=None, t2i_cfg=None) -> MultiGenResult:
+        aesthetic=None, t2i_cfg=None, force_refs: bool = False) -> MultiGenResult:
     """`ref_images`: ảnh tham chiếu đã qua CLIP (tốt nhất trước) cho hàng IP-Adapter; `aesthetic`: PickScorer hoặc None.
     Khoá model có thể mang hậu tố '@<scale>' để ghi đè LoRA scale (sweep: sdxl_aodai@0.6, sdxl_aodai@1.0)."""
+    global SATURATED
+    SATURATED = bool(getattr(cfg, "saturated_metrics", False))
     loader = loader or model_loader.load_pipeline
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -339,12 +347,25 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 if mspec.family not in ("sdxl",):
                     raise KeyError(f"'+ref' chỉ dùng cho họ sdxl (khoá {key})")
                 use, why = should_use_refs(spec, kb, cfg)
+                if force_refs and not use:
+                    use, why = True, "Filter báo model vẽ thiếu -> dùng ảnh tham chiếu bất kể prior (ImageRAG)"
                 if use:
                     mspec = replace(mspec, ip_adapter=True, ip_adapter_kind="plus",
                                     ip_adapter_scale=float(getattr(cfg, "ref_scale", 0.4)))
                     gate_note = f"auto_ref: {why}"
                 else:
                     gate_note = f"auto_ref: {why} -> hàng chạy KHÔNG ảnh tham chiếu"
+                    # v1.5 p001: hàng +ref không ảnh sinh lại y hệt hàng gốc (6 phút phí). Có hàng gốc thì dùng lại.
+                    base_full = key.replace("+ref", "")
+                    twin = next((r for r in result.runs if r.model_key == base_full and r.output and not r.error), None)
+                    if twin is not None:
+                        alias = replace(twin, model_key=key, source="disk", notes=list(twin.notes) + [gate_note, f"dùng lại kết quả hàng {base_full}"])
+                        log(f"  [4b] {key}: {gate_note}; dùng lại {base_full}")
+                        result.runs.append(alias)
+                        _save(result, out_dir)
+                        if on_model_done:
+                            on_model_done(alias)
+                        continue
         except KeyError as exc:
             result.runs.append(ModelRun(key, "-", gen, error=str(exc)))
             _save(result, out_dir)
@@ -470,6 +491,8 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
         except Exception as exc:  # noqa: BLE001 - một model lỗi (OOM, gated, LoRA) không được làm hỏng grid
             run_rec.error = f"{type(exc).__name__}: {str(exc)[:400]}"
             run_rec.seconds = round(time.time() - t0, 1)
+            if g is not None:  # ghi chú của generator (compel, IP-Adapter embeds...) cần có cả khi lỗi để chẩn đoán
+                run_rec.notes = [n for n in run_rec.notes + list(getattr(g, "notes", [])) if n]
             log(f"  [4b] {key}: LỖI {run_rec.error}")
         finally:
             # Gỡ MỌI tham chiếu tới pipeline trước khi unload: generator (pipe, compel giữ text encoder, img2img dùng chung
@@ -542,11 +565,11 @@ def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int 
 
     def caption(c) -> list[str]:  # noqa: D401
         parts = []
-        if c.clip_probs:
+        if SATURATED and c.clip_probs:
             parts.append(f"CLIP id {c.clip_fidelity:.2f}")
         if c.attr_contrast is not None:
             parts.append(f"attr {c.attr_contrast:.2f}")
-        if c.itm_score is not None:
+        if SATURATED and c.itm_score is not None:
             parts.append(f"ITM {c.itm_score:.2f}")
         if c.itm_attrs is not None:
             parts.append(f"ITMattr {c.itm_attrs:.2f}")

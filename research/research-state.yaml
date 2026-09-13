@@ -156,7 +156,7 @@ hypotheses:
 
   - id: H15
     statement: "Render 'tags' (thực thể + thẻ ngắn lên đầu, negative không chứa danh từ must_have, trọng số 1.2) cho CLIP attr cao hơn render 'legacy' v1.3 trên cùng model và seed"
-    status: negative   # v1.4 p001 realvis_xl: tags 0,49 vs legacy 0,68 (n=1). Tách thủ phạm bằng #tags / #tags_w / #legacy_negtags
+    status: negative   # v1.4: tags 0,49 vs legacy 0,68; v1.5 tách: tags_w (trọng số 1.2) 0,52 << legacy 0,68, legacy_negtags 0,71 ≈ legacy -> thủ phạm là TRỌNG SỐ, negative thẻ trung tính; tags không trọng số n=2 chưa kết luận
     motivation: "CLIP không hiểu phủ định ('no trousers' trong negative đẩy xa 'trousers'); SDXL đọc thẻ tốt hơn câu; token đầu được chú ý nhất"
     priority: high
     prediction: "realvis_xl vs realvis_xl#legacy trên p001, p031, p050: attr TB tăng >= 0,05 và số ảnh có must_not giảm"
@@ -191,7 +191,7 @@ experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0
   best_value: null
-  total_runs: 5
+  total_runs: 6
   trajectory:
     - run_id: "smoke-v1"
       hypothesis: "H1"
@@ -242,6 +242,16 @@ experiments:
       wall_time_min: 40
       change_summary: "Summary/Filter/Rank agents, render tags, +ref, cắt ảnh tham chiếu, ref_sim"
       notes: "4 hàng OOM do rò VRAM giữa hàng (14,4 GB còn cấp phát) + hires 1536 quá sát; H15 ÂM (n=1); Filter bỏ đúng ảnh 5 người nhưng tầng văn bản vẫn thiên 'có'; PickScore lỗi API transformers; Rank top-1 khác metric, Spearman 0,83"
+      timestamp: "2026-09-13"
+    - run_id: "walkthrough-v1.5-p001"
+      hypothesis: "H15, H17, H18, H19, H13"
+      config: "kaggle_walkthrough_t4x2 (v1.5): 10 hàng, adaptive 2->6, auto_ref, ensemble, agents"
+      metric_value: 0.75     # attr tốt nhất (realvis_xl#tags c0); legacy TB 0,68, tags_w TB 0,52, legacy_negtags 0,71
+      pass_rate: null
+      delta: null
+      wall_time_min: 33
+      change_summary: "Rò VRAM hết (0,01 GB sau mỗi hàng); PickScore chạy; adaptive dừng 2-6; Filter luật cứng bắt cổ chéo/váy liền; vòng sửa cho ảnh sạch hơn"
+      notes: "H15: trọng số 1.2 là thủ phạm; +ref bị gate rồi sinh lại y hệt (phí 6 phút); refplus lỗi encoder CPU; compel SDXL pad lỗi; gate chặn cả vòng sửa. Sửa ở v1.5.1"
       timestamp: "2026-09-13"
 
 outer_loop:

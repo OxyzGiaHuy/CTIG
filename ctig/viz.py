@@ -242,12 +242,13 @@ def model_grid(res: MultiGenResult, spec: CulturalSpec, side: int = 220, source:
             continue
         cells = []
         for j, c in enumerate(r.output.candidates):
+            from .stages import multigen as _mg
             b = []
-            if c.clip_probs:
+            if _mg.SATURATED and c.clip_probs:
                 b.append(f"CLIP id {c.clip_fidelity:.2f}")
             if c.attr_contrast is not None:
                 b.append(f"<b>attr {c.attr_contrast:.2f}</b>")
-            if c.itm_score is not None:
+            if _mg.SATURATED and c.itm_score is not None:
                 b.append(f"ITM {c.itm_score:.2f}")
             if c.itm_attrs is not None:
                 b.append(f"ITMattr {c.itm_attrs:.2f}")
@@ -266,19 +267,25 @@ def model_grid(res: MultiGenResult, spec: CulturalSpec, side: int = 220, source:
 
 
 def score_table(res: MultiGenResult, source: str | None = None) -> str:
+    from .stages import multigen as mg
     from .stages.multigen import best_run, combined_score, score_key
 
+    sat = mg.SATURATED
     best = best_run(res)
     f3 = lambda v: "" if v is None else f"{v:.3f}"
-    rows = ["<table><tr><th>model</th><th>ứng viên</th><th>hạng ensemble</th><th>tổng</th><th>CLIP identity</th><th>CLIP attr</th><th>ITM</th><th>ITM attr</th><th>đẹp (PickScore)</th><th>sim(prompt)</th><th>giống ref</th><th>giây</th><th>VRAM đỉnh</th></tr>"]
+    sat_h = "<th>CLIP identity</th>" if sat else ""
+    itm_h = "<th>ITM</th>" if sat else ""
+    rows = [f"<table><tr><th>model</th><th>ứng viên</th><th>hạng ensemble</th><th>tổng</th>{sat_h}<th>CLIP attr</th>{itm_h}<th>ITM attr</th><th>đẹp (PickScore)</th><th>sim(prompt)</th><th>giống ref</th><th>giây</th><th>VRAM đỉnh</th></tr>"]
     for r in res.runs:
         if not r.output:
             rows.append(f"<tr><td>{_e(r.model_key)}</td><td colspan='12' class='bad'>{_e(r.error or '')}</td></tr>")
             continue
         for j, c in enumerate(r.output.candidates):
             hl = " style='background:#dcfce7'" if (best and r.model_key == best.model_key and j == r.output.chosen) else ""
+            sat_c = f"<td>{c.clip_fidelity:.3f}</td>" if sat else ""
+            itm_c = f"<td>{f3(c.itm_score)}</td>" if sat else ""
             rows.append(f"<tr{hl}><td>{_e(r.model_key)}</td><td>{j}</td><td><b>{f3(c.ensemble)}</b></td><td>{combined_score(c):.3f}</td>"
-                        f"<td>{c.clip_fidelity:.3f}</td><td>{f3(c.attr_contrast)}</td><td>{f3(c.itm_score)}</td><td>{f3(c.itm_attrs)}</td>"
+                        f"{sat_c}<td>{f3(c.attr_contrast)}</td>{itm_c}<td>{f3(c.itm_attrs)}</td>"
                         f"<td>{f3(c.aesthetic)}{'' if c.pick_score is None else f' <span class=muted>({c.pick_score:.1f})</span>'}</td>"
                         f"<td>{f3(c.clip_prompt_sim)}</td>"
                         f"<td{' class=bad' if (c.ref_sim or 0) > 0.88 else ''}>{f3(c.ref_sim)}</td>"
@@ -287,11 +294,12 @@ def score_table(res: MultiGenResult, source: str | None = None) -> str:
     note = (f"<div><b>Tốt nhất theo điểm tổng:</b> {_e(best.model_key)}</div>" if best else "")
     for n in (getattr(res, "notes", None) or []):
         note += f"<div class='bad'>⚠ {_e(n)}</div>"
-    note += ("<div class='muted'>CLIP identity = P(giống mô tả thực thể Việt) so với confusable; bão hoà ~1.0 trên prompt dễ. "
+    note += ("<div class='muted'>" + ("CLIP identity = P(giống mô tả thực thể Việt) so với confusable; bão hoà ~1.0 trên prompt dễ. " if sat else
+             "CLIP identity và ITM danh tính ẩn vì bão hoà 0,95-1,00 trên mọi ảnh (bật lại bằng multigen.saturated_metrics). ") +
              "<b>CLIP attr</b> = phần xác suất rơi vào câu 'thực thể with &lt;must_have&gt;' so với 'with &lt;must_not&gt;' "
              "(vd có quần vs váy liền). ITM attr = BLIP-2 trung bình trên câu must_have. "
              "<b>đẹp</b> = PickScore (sở thích người) chuẩn hoá min-max trong lần chạy này, số thô trong ngoặc; đo 'thích', không đo đúng văn hoá. "
-             "<b>hạng ensemble</b> = 1 − trung bình hạng trên các verifier có (CLIP id, attr, ITM attr, đẹp), tính trên mọi ứng viên của lần chạy (Ma et al. 2025: verifier đơn bị 'hack'); dùng để chọn. "
+             "<b>hạng ensemble</b> = 1 − trung bình hạng trên các verifier có (attr, ITM attr, đẹp; CLIP id chỉ khi bật saturated_metrics), tính trên mọi ứng viên của lần chạy (Ma et al. 2025: verifier đơn bị 'hack'); dùng để chọn. "
              "sim = cosine CLIP với prompt. <b>giống ref</b> = cosine CLIP ảnh-ảnh lớn nhất với ảnh tham chiếu (đã cắt); > 0,88 coi là chép và bị trừ điểm tổng. "
              "Tổng = trung bình các số có. Không thay được mắt người; dùng để xếp thứ tự rồi nhìn grid.</div>")
     return _wrap("Bước 5 · Bảng điểm", "".join(rows) + note, source)

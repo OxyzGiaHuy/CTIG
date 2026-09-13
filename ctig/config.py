@@ -173,8 +173,14 @@ class MultiGenConfig:
     scheduler: str | None = "dpmpp_2m_karras"
     #: Prompt > 75 token CLIP: nối embedding bằng compel thay vì để pipeline cắt lặng lẽ (SDXL/SD1.5).
     long_prompt: bool = True
-    #: Số ảnh tham chiếu (đã qua CLIP) đưa vào IP-Adapter Plus cho hàng *_refplus.
+    #: Số ảnh tham chiếu (đã qua CLIP) đưa vào IP-Adapter Plus cho hàng *_refplus / +ref.
     ref_images: int = 3
+    #: v1.4.2: cắt ảnh tham chiếu về vùng thực thể (CLIP quét lưới) trước khi đưa vào IP-Adapter.
+    ref_crop: bool = True
+    #: Scale IP-Adapter cho hàng mang cờ '+ref' (hàng sdxl_refplus dùng scale trong registry).
+    ref_scale: float = 0.4
+    #: Ngưỡng "chép": cosine CLIP ảnh sinh - ảnh tham chiếu vượt ngưỡng thì bị trừ vào điểm tổng.
+    copy_threshold: float = 0.88
     hires: HiresConfig = field(default_factory=HiresConfig)
     aesthetic: AestheticConfig = field(default_factory=AestheticConfig)
     #: Kẹp cạnh dài của ảnh (SDXL 1024 -> 768 trên 1xT4 để tránh OOM).

@@ -20,7 +20,7 @@ from pathlib import Path
 
 from ..kb import KnowledgeBase
 from ..models import loader as model_loader
-from ..models.registry import ModelSpec, get as get_model, parse_key, parse_variant
+from ..models.registry import ModelSpec, get as get_model, parse_flags, parse_key, parse_variant
 from ..schema import Candidate, CulturalSpec, GenOutput, GenSpec, ModelRun, MultiGenResult, from_dict, to_dict
 from .generation import DiffusersGenerator, StubGenerator, _font
 
@@ -160,7 +160,29 @@ def combined_score(c: Candidate) -> float:
         parts.append(c.aesthetic)
     if not parts and c.itm_score is not None:
         parts.append(c.itm_score)
-    return sum(parts) / len(parts) if parts else 0.0
+    base = sum(parts) / len(parts) if parts else 0.0
+    # v1.4.2: phạt "chép" ảnh tham chiếu. Cosine ảnh-ảnh > ngưỡng (0,88 mặc định) trừ dần; kênh ảnh không được thưởng vì sao chép.
+    if c.ref_sim is not None and c.ref_sim > COPY_THRESHOLD:
+        base -= min(0.5, (c.ref_sim - COPY_THRESHOLD) * 3.0)
+    return base
+
+
+COPY_THRESHOLD = 0.88
+
+
+def score_ref_sim(result: MultiGenResult, clip, refs: list[str], log=print) -> None:
+    """ref_sim cho mọi ứng viên còn thiếu: max cosine CLIP với các ảnh tham chiếu (ảnh đã cắt nếu có)."""
+    if clip is None or not refs or not hasattr(clip, "image_similarity"):
+        return
+    try:
+        for r in result.runs:
+            if not r.output:
+                continue
+            for c in r.output.candidates:
+                if c.ref_sim is None:
+                    c.ref_sim = round(max(clip.image_similarity(c.path, ref) for ref in refs), 4)
+    except Exception as exc:  # noqa: BLE001
+        log(f"  [4c] ref_sim lỗi ({type(exc).__name__}: {str(exc)[:80]})")
 
 
 def score_aesthetic(result: MultiGenResult, scorer, prompt_en: str, log=print) -> None:
@@ -243,7 +265,13 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
         try:
             base_key, lora_scale = parse_key(key)
             variant = parse_variant(key)
+            flags = parse_flags(key)
             mspec = get_model(base_key)
+            if "ref" in flags:
+                if mspec.family not in ("sdxl",):
+                    raise KeyError(f"'+ref' chỉ dùng cho họ sdxl (khoá {key})")
+                mspec = replace(mspec, ip_adapter=True, ip_adapter_kind="plus",
+                                ip_adapter_scale=float(getattr(cfg, "ref_scale", 0.4)))
         except KeyError as exc:
             result.runs.append(ModelRun(key, "-", gen, error=str(exc)))
             _save(result, out_dir)
@@ -258,7 +286,7 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
             continue
 
         gspec = adapt_spec(gen, mspec, cfg, spec=spec, prompt_en=prompt_en, variant=variant, t2i_cfg=t2i_cfg)
-        safe_key = key.replace("@", "_s").replace("#", "_r")  # tên thư mục/file cho hàng sweep / biến thể render
+        safe_key = key.replace("@", "_s").replace("#", "_r").replace("+", "_")  # tên thư mục/file an toàn
         prev = _load_previous(previous, key, ghash, gspec.n_candidates)
         if prev is not None:
             log(f"  [4b] {key}: dùng lại ảnh trên đĩa (GenSpec không đổi)")
@@ -335,6 +363,9 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
         if on_model_done:
             on_model_done(run_rec)
 
+    global COPY_THRESHOLD
+    COPY_THRESHOLD = float(getattr(cfg, "copy_threshold", 0.88))
+    score_ref_sim(result, clip, refs, log=log)
     if aesthetic is not None or any(c.pick_score is not None for r in result.runs if r.output for c in r.output.candidates):
         score_aesthetic(result, aesthetic, prompt_en, log=log)
     elif getattr(cfg, "aesthetic", None) is not None and getattr(cfg.aesthetic, "enabled", False):
@@ -387,6 +418,8 @@ def draw_grid(result: MultiGenResult, spec: CulturalSpec, path: Path, cell: int 
             parts.append(f"đẹp {c.aesthetic:.2f}")
         if c.clip_prompt_sim is not None:
             parts.append(f"sim {c.clip_prompt_sim:.2f}")
+        if c.ref_sim is not None:
+            parts.append(f"giống ref {c.ref_sim:.2f}" + ("!" if c.ref_sim > COPY_THRESHOLD else ""))
         if c.base_path:
             parts.append("hires")
         return _fit_lines(parts or [f"seed {c.seed}"], f_s, cell - 4)

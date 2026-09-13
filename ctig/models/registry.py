@@ -130,8 +130,27 @@ REGISTRY: dict[str, ModelSpec] = {
 RENDER_VARIANTS = ("legacy", "tags", "sentence")
 
 
+def parse_flags(key: str) -> set[str]:
+    """Cờ '+ref' (bật IP-Adapter Plus với ảnh tham chiếu đã cắt cho hàng bất kỳ họ SDXL). 'realvis_aodai+ref#tags@0.8'."""
+    flags = set()
+    for part in key.split("+")[1:]:
+        f = part.split("#")[0].split("@")[0]
+        if f not in ("ref",):
+            raise KeyError(f"Cờ '+{f}' của '{key}' không biết (chỉ có +ref)")
+        flags.add(f)
+    return flags
+
+
+def _strip_flags(key: str) -> str:
+    head, *rest = key.split("+")
+    # hậu tố @/# có thể đứng sau cờ: gom lại
+    tail = "".join(p[len(p.split("#")[0].split("@")[0]):] for p in rest)
+    return head + tail
+
+
 def parse_key(key: str) -> tuple[str, float | None]:
-    """'sdxl_aodai@0.6#legacy' -> ('sdxl_aodai', 0.6). Hậu tố @ = LoRA scale, # = cách render prompt (xem parse_variant)."""
+    """'sdxl_aodai@0.6#legacy' -> ('sdxl_aodai', 0.6). Hậu tố @ = LoRA scale, # = cách render prompt, +ref = ảnh tham chiếu."""
+    key = _strip_flags(key)
     base, _, _variant = key.partition("#")
     base, _, tail = base.partition("@")
     if not tail:
@@ -144,7 +163,9 @@ def parse_key(key: str) -> tuple[str, float | None]:
 
 def parse_variant(key: str) -> str | None:
     """'realvis_xl#legacy' -> 'legacy'; không có # -> None (theo model/config)."""
+    key = _strip_flags(key)
     _, _, v = key.partition("#")
+    v = v.split("@")[0]
     if not v:
         return None
     if v not in RENDER_VARIANTS:

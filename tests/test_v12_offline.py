@@ -386,6 +386,62 @@ def test_render_variants(tmp):
     check("hàng stub#legacy chạy, thư mục không chứa '#'", [r.model_key for r in res.runs] == ["stub", "stub#legacy"] and all("#" not in c.path for r in res.runs for c in r.output.candidates))
 
 
+def test_refcrop_and_copy(tmp):
+    """v1.4.2: cắt ảnh tham chiếu theo thực thể bằng CLIP giả, cờ +ref, số đo chép trừ điểm tổng."""
+    from PIL import Image
+    from ctig.models.registry import parse_flags
+    from ctig.schema import Candidate
+    from ctig.stages import multigen as mg
+    from ctig.stages.refcrop import crop_to_entity, _boxes
+
+    # ảnh 400x300: vật thể là ô đỏ ở góc phải dưới; CLIP giả chấm ô cắt theo tỉ lệ pixel đỏ
+    img = Image.new("RGB", (400, 300), (30, 30, 30))
+    for x in range(250, 400):
+        for y in range(150, 300):
+            img.putpixel((x, y), (220, 30, 30))
+    src = tmp / "ref.jpg"; img.save(src)
+
+    class CropClip:
+        def similarity_image(self, im, texts):
+            px = list(im.getdata()); red = sum(1 for r, g, b in px if r > 150 and g < 80) / max(1, len(px))
+            return [0.2 + 0.6 * red] + [0.25] * (len(texts) - 1)
+    out, info = crop_to_entity(CropClip(), src, "a red object", tmp / "crops")
+    check("cắt được vùng đỏ, ảnh vuông, có gain", info.get("cropped") and Path(out).exists() and info["gain"] > 0.02 and Image.open(out).size[0] == Image.open(out).size[1], str(info))
+    out2, info2 = crop_to_entity(CropClip(), src, "a red object", tmp / "crops")
+    check("cắt lần hai từ cache", out2 == out and info2.get("cached"))
+    box = info["box"]; check("ô cắt chứa vùng đỏ", box[0] <= 260 and box[1] <= 160 and box[2] >= 390 and box[3] >= 290, str(box))
+    class FlatClip:
+        def similarity_image(self, im, texts): return [0.5] + [0.25] * (len(texts) - 1)
+    out3, info3 = crop_to_entity(FlatClip(), src, "x", tmp / "crops2")
+    check("không hơn cả bức -> giữ ảnh gốc", out3 == str(src) and not info3.get("cropped"))
+    check("_boxes có ô ở góc phải dưới", any(b[2] == 400 and b[3] == 300 for b in _boxes(400, 300)))
+
+    check("parse_flags +ref và lỗi cờ lạ", parse_flags("realvis_xl+ref") == {"ref"})
+    try:
+        parse_flags("realvis_xl+bogus"); check("cờ lạ -> KeyError", False)
+    except KeyError:
+        check("cờ lạ -> KeyError", True)
+    c_ok = Candidate("a", 1, clip_fidelity=1.0, clip_probs={"e": {"a": 1}}, attr_contrast=0.8, ref_sim=0.70)
+    c_copy = Candidate("b", 2, clip_fidelity=1.0, clip_probs={"e": {"a": 1}}, attr_contrast=0.8, ref_sim=0.97)
+    check("chép (ref_sim 0.97) bị trừ điểm tổng, 0.70 thì không", mg.combined_score(c_copy) < mg.combined_score(c_ok) - 0.2 and abs(mg.combined_score(c_ok) - 0.9) < 1e-6)
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    kb = KnowledgeBase.load(cfg.kb_path)
+    from ctig.llm.rule_agent import RuleAgent
+    from ctig.stages import analysis as st_a, spec as st_s
+    from ctig.stages.retrieval import LocalRetriever
+    from ctig.stages.generation import build_initial_spec
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p001"); ag = RuleAgent(); a = st_a.run(ag, p, kb, 6)
+    s = LocalRetriever(cfg.retrieval, None, tmp / "_cache").search(a, kb); sp = st_s.run(ag, p, a, s, kb, 4, 0.3)
+    gen = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1)
+    class RefClip(FakeClip):
+        def image_similarity(self, x, y): return 0.95
+    cfg.multigen.n_candidates = 1
+    res = mg.run(gen, sp, kb, ["stub", "stub+ref"], cfg.multigen, tmp / "rc" / p.id, clip=RefClip(), itm=None, prompt_en=a.prompt_en,
+                 log=lambda *a: None, ref_images=[str(src)], t2i_cfg=cfg.t2i)
+    check("stub+ref: họ stub không nhận +ref -> hàng lỗi rõ, hàng stub vẫn chạy", res.runs[1].error and "sdxl" in res.runs[1].error and res.runs[0].output)
+    check("ref_sim được tính cho mọi ứng viên khi có ảnh tham chiếu", res.runs[0].output.candidates[0].ref_sim == 0.95)
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -462,5 +518,6 @@ if __name__ == "__main__":
     print("\ntest_progress_report"); test_progress_report(tmp)
     print("\ntest_agents_offline"); test_agents_offline(tmp)
     print("\ntest_render_variants"); test_render_variants(tmp)
+    print("\ntest_refcrop_and_copy"); test_refcrop_and_copy(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

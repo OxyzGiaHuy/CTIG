@@ -58,6 +58,29 @@ class CLIPProbe:
             sims = (out.logits_per_image / scale)[0]
         return [float(x) for x in sims.tolist()]
 
+    def image_embed(self, image):
+        """Vector CLIP chuẩn hoá của một ảnh (đường dẫn hoặc PIL)."""
+        from PIL import Image
+
+        img = Image.open(image).convert("RGB") if isinstance(image, (str, bytes)) or hasattr(image, "__fspath__") else image
+        inputs = self.proc(images=img, return_tensors="pt").to(self.device)
+        with self.torch.inference_mode():
+            f = self.model.get_image_features(**inputs)
+        return (f / f.norm(dim=-1, keepdim=True))[0]
+
+    def image_similarity(self, image_a, image_b) -> float:
+        """Cosine ảnh-ảnh (v1.4.2): đo ảnh sinh 'chép' ảnh tham chiếu đến đâu. Ảnh khác nhau cùng chủ đề ~0,6-0,8; gần chép > 0,9."""
+        a, b = self.image_embed(image_a), self.image_embed(image_b)
+        return float((a * b).sum())
+
+    def similarity_image(self, image, texts: list[str]) -> list[float]:
+        """Như similarity() nhưng nhận PIL image (dùng cho các ô cắt khi tìm vùng thực thể)."""
+        inputs = self.proc(text=texts, images=image, return_tensors="pt", padding=True, truncation=True).to(self.device)
+        with self.torch.inference_mode():
+            out = self.model(**inputs)
+            sims = (out.logits_per_image / self.model.logit_scale.exp())[0]
+        return [float(x) for x in sims.tolist()]
+
     def entity_probs(self, image_path: str, spec: CulturalSpec) -> dict[str, dict[str, float]]:
         """entity_id -> {'__target__': p, <confusable name>: p, ...}. Chỉ thực thể kind == object."""
         result = {}

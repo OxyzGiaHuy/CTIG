@@ -255,6 +255,8 @@ def model_grid(res: MultiGenResult, spec: CulturalSpec, side: int = 220, source:
                 b.append(f"đẹp {c.aesthetic:.2f}")
             if c.clip_prompt_sim is not None:
                 b.append(f"sim {c.clip_prompt_sim:.2f}")
+            if c.ref_sim is not None:
+                b.append(f"<span class='{'bad' if c.ref_sim > 0.88 else ''}'>giống ref {c.ref_sim:.2f}</span>")
             cls = "chosen" if (j == r.output.chosen and len(r.output.candidates) > 1) else ""
             hr = " <span class='badge disk'>hires</span>" if c.base_path else ""
             cells.append(f"<td class='{cls}'>{_img(c.path, side)}<div>{' · '.join(b) or f'seed {c.seed}'}{hr}</div></td>")
@@ -268,10 +270,10 @@ def score_table(res: MultiGenResult, source: str | None = None) -> str:
 
     best = best_run(res)
     f3 = lambda v: "" if v is None else f"{v:.3f}"
-    rows = ["<table><tr><th>model</th><th>ứng viên</th><th>tổng</th><th>CLIP identity</th><th>CLIP attr</th><th>ITM</th><th>ITM attr</th><th>đẹp (PickScore)</th><th>sim(prompt)</th><th>giây</th><th>VRAM đỉnh</th></tr>"]
+    rows = ["<table><tr><th>model</th><th>ứng viên</th><th>tổng</th><th>CLIP identity</th><th>CLIP attr</th><th>ITM</th><th>ITM attr</th><th>đẹp (PickScore)</th><th>sim(prompt)</th><th>giống ref</th><th>giây</th><th>VRAM đỉnh</th></tr>"]
     for r in res.runs:
         if not r.output:
-            rows.append(f"<tr><td>{_e(r.model_key)}</td><td colspan='10' class='bad'>{_e(r.error or '')}</td></tr>")
+            rows.append(f"<tr><td>{_e(r.model_key)}</td><td colspan='11' class='bad'>{_e(r.error or '')}</td></tr>")
             continue
         for j, c in enumerate(r.output.candidates):
             hl = " style='background:#dcfce7'" if (best and r.model_key == best.model_key and j == r.output.chosen) else ""
@@ -279,6 +281,7 @@ def score_table(res: MultiGenResult, source: str | None = None) -> str:
                         f"<td>{c.clip_fidelity:.3f}</td><td>{f3(c.attr_contrast)}</td><td>{f3(c.itm_score)}</td><td>{f3(c.itm_attrs)}</td>"
                         f"<td>{f3(c.aesthetic)}{'' if c.pick_score is None else f' <span class=muted>({c.pick_score:.1f})</span>'}</td>"
                         f"<td>{f3(c.clip_prompt_sim)}</td>"
+                        f"<td{' class=bad' if (c.ref_sim or 0) > 0.88 else ''}>{f3(c.ref_sim)}</td>"
                         f"<td>{r.seconds:.0f}</td><td>{'' if r.peak_vram_gb is None else f'{r.peak_vram_gb} GB'}</td></tr>")
     rows.append("</table>")
     note = (f"<div><b>Tốt nhất theo điểm tổng:</b> {_e(best.model_key)}</div>" if best else "")
@@ -288,7 +291,7 @@ def score_table(res: MultiGenResult, source: str | None = None) -> str:
              "<b>CLIP attr</b> = phần xác suất rơi vào câu 'thực thể with &lt;must_have&gt;' so với 'with &lt;must_not&gt;' "
              "(vd có quần vs váy liền). ITM attr = BLIP-2 trung bình trên câu must_have. "
              "<b>đẹp</b> = PickScore (sở thích người) chuẩn hoá min-max trong lần chạy này, số thô trong ngoặc; đo 'thích', không đo đúng văn hoá. "
-             "sim = cosine CLIP với prompt. "
+             "sim = cosine CLIP với prompt. <b>giống ref</b> = cosine CLIP ảnh-ảnh lớn nhất với ảnh tham chiếu (đã cắt); > 0,88 coi là chép và bị trừ điểm tổng. "
              "Tổng = trung bình các số có. Không thay được mắt người; dùng để xếp thứ tự rồi nhìn grid.</div>")
     return _wrap("Bước 5 · Bảng điểm", "".join(rows) + note, source)
 

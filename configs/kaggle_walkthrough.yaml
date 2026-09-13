@@ -21,6 +21,9 @@ multigen:
   scheduler: dpmpp_2m_karras
   long_prompt: true
   ref_images: 2
+  ref_crop: true
+  ref_scale: 0.4
+  copy_threshold: 0.88
   hires:     {enabled: false, scale: 1.5, strength: 0.3, steps: 20}
   aesthetic: {enabled: true, device: "cuda:0", offload: true}
 # t2i chỉ dùng khi bật lại vòng review (RUN_REVIEW=True trong notebook)

@@ -221,6 +221,8 @@ class Candidate:
     aesthetic: float | None = None
     #: Ảnh gốc trước hires fix (path trỏ tới ảnh cuối).
     base_path: str | None = None
+    #: Cosine CLIP ảnh-ảnh lớn nhất với các ảnh tham chiếu (v1.4.2): đo "chép". Có cho mọi hàng khi có ảnh tham chiếu.
+    ref_sim: float | None = None
 
 
 @dataclass

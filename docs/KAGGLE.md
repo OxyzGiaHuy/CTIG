@@ -54,6 +54,12 @@ cộng một lần gọi so văn bản mỗi ảnh và một lần xếp hạng;
 | `[rank] top-1 KHÁC` | agent và metric bất đồng; xem lý do agent trong bảng, đây là dữ liệu cho H14 |
 | `kế hoạch sửa rỗng` | thuộc tính thiếu đã có trong prompt và không có must_not → không sinh lại |
 
+## v1.4.2: hàng +ref và cắt ảnh tham chiếu
+
+Config 2×T4 mặc định 10 hàng × 4 ứng viên (~55–65 phút). Log `[3c] ảnh tham chiếu: cắt k/n về vùng '...'` cho biết bao nhiêu
+ảnh được cắt; ảnh cắt nằm ở `runs/_cache/ref_crops/`. Cột "giống ref" > 0,88 (đỏ) là ảnh sinh chép ảnh tham chiếu.
+Muốn nhanh: bỏ `sdxl_base`, `realvis_xl#legacy` hoặc `playground25`.
+
 ## Ước lượng thời gian và dung lượng
 
 | | 1×T4 (offload) | 2×T4 |

@@ -133,6 +133,13 @@ hypotheses:
     priority: high
     prediction: "realvis_xl vs realvis_xl#legacy trên p001, p031, p050: attr TB tăng >= 0,05 và số ảnh có must_not giảm"
 
+  - id: H16
+    statement: "Ảnh tham chiếu CẮT theo thực thể (nhiều ảnh) cho IP-Adapter giữ đúng số người và bố cục prompt hơn ảnh nguyên bức, với CLIP attr không giảm"
+    status: active
+    motivation: "v1.3 p001: ảnh nhóm nguyên bức -> 3/4 ảnh sinh nhiều người; embedding mang theo bố cục"
+    priority: high
+    prediction: "realvis_xl+ref (cắt) vs sdxl_refplus v1.3 (nguyên bức): tỉ lệ ảnh đúng số người tăng, ref_sim TB giảm, attr TB không giảm quá 0,03"
+
 experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0

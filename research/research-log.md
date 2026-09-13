@@ -139,4 +139,7 @@
   tự truy hồi, đưa vào qua ba kênh (text thuộc tính, ảnh IP-Adapter, trọng số LoRA). Không phải I2I vì người dùng không có ảnh
   thật để đưa; baseline là T2I thuần cùng model cùng seed. Rủi ro riêng của kênh ảnh: chép bố cục (v1.3 ảnh nhóm) -> phải đo
   và phạt "chép" (độ giống ảnh tham chiếu quá cao), không chỉ thưởng "đúng".
+- **v1.4.2 (cùng ngày):** kênh ảnh cho mọi hàng SDXL qua cờ `+ref`; ảnh tham chiếu cắt theo thực thể bằng CLIP quét lưới
+  (không cần detector); `ref_sim` đo chép và trừ điểm tổng khi > 0,88 (H16). Config 2×T4 giờ 10 hàng: realvis_xl / #legacy /
+  +ref, realvis_aodai / +ref, sdxl_refplus, để tách tác dụng của render, LoRA, ảnh, và cắt ảnh trên cùng seed.
 

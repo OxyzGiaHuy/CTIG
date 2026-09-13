@@ -81,6 +81,18 @@ SDXL đọc thẻ ngắn tốt hơn câu dài. KB 0.4.0 thêm `tags_en`/`neg_tag
 giữ nguyên cho chấm điểm và Filter agent. Mỗi checkpoint có `extra_negative` riêng (RealVisXL, DreamShaper theo model card).
 Vòng sửa 4d nhấn thẻ còn thiếu bằng trọng số compel ×1.3 thay vì thêm trùng.
 
+## v1.4.2: kênh ảnh cho mọi hàng SDXL, ảnh tham chiếu cắt theo thực thể, số đo "chép"
+
+Bài toán là **retrieval-augmented T2I**: đầu vào là text; ảnh tham chiếu do Search truy hồi và đưa vào model sinh qua IP-Adapter.
+Để kênh ảnh mang "vật đó trông thế nào" chứ không mang "bức ảnh":
+
+- **Cắt theo thực thể** (`ctig/stages/refcrop.py`, `multigen.ref_crop`): CLIP quét lưới ô vuông ở ba tỉ lệ, chấm sim(ô, nhãn thực thể)
+  trừ sim(ô, nhãn nền/đám đông), lấy ô tốt nhất nới 10 %, cắt vuông, cache theo hash. Không hơn cả bức thì giữ nguyên.
+- **Cờ `+ref`** trên khoá model (`realvis_xl+ref`, `realvis_aodai+ref`): bật IP-Adapter Plus với các ảnh đã lọc và cắt ở `multigen.ref_scale`
+  cho bất kỳ hàng họ SDXL → so được LoRA đơn, ảnh đơn, LoRA cộng ảnh trên cùng seed.
+- **Số đo chép** `ref_sim`: cosine CLIP ảnh-ảnh lớn nhất với ảnh tham chiếu, tính cho mọi hàng; vượt `copy_threshold` (0,88) bị trừ
+  vào điểm tổng, để kênh ảnh không được thưởng vì sao chép bố cục.
+
 ## Báo cáo tiến độ gửi người hướng dẫn
 
 ```bash

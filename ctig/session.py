@@ -196,8 +196,32 @@ class Session:
             flt, _ = self.ref_filter(out[: max(k * 2, 4)])
             kept = [p for p in out if p in set(flt.kept)]
             if kept:
-                return kept[:max(1, k)]
-        return out[:max(1, k)]
+                out = kept
+        out = out[:max(1, k)]
+        if self.cfg.multigen.ref_crop and out:
+            out = self.crop_refs(out, sp)
+        return out
+
+    def crop_refs(self, paths: list[str], sp) -> list[str]:
+        """v1.4.2: cắt từng ảnh tham chiếu về vùng thực thể vật thể chính bằng CLIP quét lưới (cache theo hash)."""
+        from .stages.refcrop import crop_to_entity
+
+        main = next((se for se in sp.entities if se.kind == "object"), None)
+        if main is None or not hasattr(self.clip, "similarity_image"):
+            return paths
+        label = main.clip_label or f"a photo of Vietnamese {main.name_en.split('(')[0].strip()}"
+        out = []
+        n_crop = 0
+        for p in paths:
+            try:
+                q, info = crop_to_entity(self.clip, p, label, self.cache_dir / "ref_crops")
+                n_crop += int(bool(info.get("cropped")) or (info.get("cached") and q != p))
+                out.append(q)
+            except Exception as exc:  # noqa: BLE001
+                self.log(f"  [3c] không cắt được {Path(p).name}: {type(exc).__name__}: {str(exc)[:60]}")
+                out.append(p)
+        self.log(f"  [3c] ảnh tham chiếu: cắt {n_crop}/{len(paths)} về vùng '{label[:50]}'")
+        return out
 
     # ------------------------------------------------------------------ v1.4 agents
     def brief(self, force: bool = False) -> tuple[dict, str]:
@@ -399,7 +423,8 @@ class Session:
         c = self.cfg
         key = _h({"gen": st_mg.genspec_hash(gen, st_mg.render_settings(c.multigen)), "models": models,
                   "n": c.multigen.n_candidates, "side": c.multigen.max_side, "aes": c.multigen.aesthetic.enabled,
-                  "reffilter": bool(c.agents.enabled and c.agents.ref_filter),
+                  "reffilter": bool(c.agents.enabled and c.agents.ref_filter), "refcrop": c.multigen.ref_crop,
+                  "refscale": c.multigen.ref_scale,
                   "ov": c.multigen.overrides})
         lora_dir = Path(c.multigen.lora_dir) if c.multigen.lora_dir else self.cache_dir / "lora"
 

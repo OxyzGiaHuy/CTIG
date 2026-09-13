@@ -60,6 +60,13 @@ Config 2×T4 mặc định 10 hàng × 4 ứng viên (~55–65 phút). Log `[3c]
 ảnh được cắt; ảnh cắt nằm ở `runs/_cache/ref_crops/`. Cột "giống ref" > 0,88 (đỏ) là ảnh sinh chép ảnh tham chiếu.
 Muốn nhanh: bỏ `sdxl_base`, `realvis_xl#legacy` hoặc `playground25`.
 
+## Đổi backbone CLIP (v1.5.1)
+
+`perception.clip_model` nhận CLIP hoặc SigLIP: `openai/clip-vit-base-patch32` (mặc định, 0,6 GB), `openai/clip-vit-large-patch14`
+(1,7 GB, phân biệt chi tiết tốt hơn), `google/siglip-so400m-patch14-384` (3,5 GB fp16 ~1,8 GB, mạnh nhất zero-shot). Đổi rồi
+chạy lại cùng prompt để so cột CLIP attr; các bước 1-3 vẫn lấy từ cache, chỉ ảnh Search và điểm chấm lại. CultureCLIP (COLM 2025)
+chưa công bố trọng số; muốn dùng phải tự fine-tune theo công thức của họ với `confusable_with` trong KB làm cặp twin.
+
 ## Ước lượng thời gian và dung lượng
 
 | | 1×T4 (offload) | 2×T4 |

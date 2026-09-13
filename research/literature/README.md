@@ -45,7 +45,7 @@ Mỗi mục: bài báo, một câu họ làm gì, và **CTIG lấy gì**. Đọc
 | ★ | [SCoFT + CCUB (CVPR 2024)](https://arxiv.org/abs/2401.08053) | Bộ dữ liệu văn hoá nhỏ do cộng đồng chọn (CCUB), fine-tune SD bằng self-contrastive loss dùng chính thiên lệch của model làm âm; khảo sát 51 người / 5 nước. | Con đường LoRA/fine-tune từ ảnh đã lọc (H5): loss tương phản với ảnh "sai kiểu qipao" mà model tự sinh. |
 | | [IP-Adapter (2023)](https://arxiv.org/abs/2308.06721) | Cross-attention tách cho ảnh; Plus dùng ViT-H, nhiều ảnh. | Kênh ảnh hiện tại; scale 0.4; cắt ảnh theo thực thể để tránh chép bố cục. |
 | | [DreamBooth (2022)](https://arxiv.org/abs/2208.12242) + LoRA | Vài ảnh → token mới cho concept. | LoRA áo dài Civitai đang dùng; tự train cho thực thể không có LoRA. |
-| | [CultureCLIP (2025)](https://arxiv.org/abs/2507.06210) | Fine-tune CLIP trên cặp "trông giống nhau nhưng khác văn hoá" (CulTwin) → +5,5 % nhận diện tinh. | CLIP-B/32 của CTIG bão hoà danh tính; CultureCLIP (nếu có trọng số) là ứng viên thay cho CLIP id/attr. |
+| | [CultureCLIP (COLM 2025)](https://arxiv.org/abs/2507.06210), [code](https://github.com/lukahhcm/CultureCLIP) | Fine-tune CLIP (LoRA) trên cặp "trông giống nhau nhưng khác văn hoá" (CulTwin, tự sinh bằng T2I) → +5,5 % nhận diện tinh. **Chưa công bố trọng số và dữ liệu**, chỉ có pipeline. | Không thay trực tiếp được. Công thức trùng với tài sản CTIG (confusable_with = twin, must_have/must_not = caption ngữ cảnh, multigen + Filter = ảnh tổng hợp đã lọc) → có thể tự train "CultureCLIP-VN" nhỏ sau v1.5. Trước đó: đổi backbone zero-shot (ViT-L/14, SigLIP) qua `perception.clip_model`. |
 
 ## 5. Khối Chấm điểm / Đánh giá
 

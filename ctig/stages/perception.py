@@ -22,14 +22,38 @@ ANSWERS = ("yes", "no", "unsure")
 
 
 class CLIPProbe:
+    """Bộ đo ảnh-chữ. v1.5.1: backbone chọn qua `perception.clip_model`, nhận cả CLIP (openai/clip-vit-large-patch14)
+    và SigLIP (google/siglip-so400m-patch14-384) qua AutoModel; SigLIP dùng sigmoid nhưng softmax trên các nhãn vẫn cho
+    thứ tự tương đối đúng. CultureCLIP (COLM 2025) chưa công bố trọng số nên chưa dùng được."""
+
     def __init__(self, model_id: str = "openai/clip-vit-base-patch32", device: str = "cuda:0"):
         import torch
-        from transformers import CLIPModel, CLIPProcessor
 
         self.torch = torch
+        self.model_id = model_id
         self.device = device if torch.cuda.is_available() else "cpu"
-        self.model = CLIPModel.from_pretrained(model_id).to(self.device).eval()
-        self.proc = CLIPProcessor.from_pretrained(model_id)
+        dt = torch.float16 if self.device.startswith("cuda") else torch.float32
+        try:
+            from transformers import AutoModel, AutoProcessor
+
+            self.model = AutoModel.from_pretrained(model_id, torch_dtype=dt).to(self.device).eval()
+            self.proc = AutoProcessor.from_pretrained(model_id)
+        except Exception:  # noqa: BLE001 - checkpoint cũ không có auto_map
+            from transformers import CLIPModel, CLIPProcessor
+
+            self.model = CLIPModel.from_pretrained(model_id, torch_dtype=dt).to(self.device).eval()
+            self.proc = CLIPProcessor.from_pretrained(model_id)
+        self.dtype = dt
+
+    def _inputs(self, texts, img):
+        kw = dict(text=texts, images=img, return_tensors="pt", padding=True, truncation=True)
+        if "siglip" in self.model_id.lower():
+            kw["padding"] = "max_length"  # SigLIP huấn luyện với pad max_length 64
+            kw["max_length"] = 64
+        inputs = self.proc(**kw).to(self.device)
+        if "pixel_values" in inputs:
+            inputs["pixel_values"] = inputs["pixel_values"].to(self.dtype)
+        return inputs
 
     def probs(self, image_path: str, labels: list[str]) -> list[float]:
         from PIL import Image
@@ -37,10 +61,10 @@ class CLIPProbe:
         img = Image.open(image_path).convert("RGB")
         # Nhãn đã là câu mô tả đầy đủ; không bọc "a photo of" lần nữa nếu đã có mạo từ.
         texts = [l if l[:2].lower() in ("a ", "an", "th") else f"a photo of {l}" for l in labels]
-        inputs = self.proc(text=texts, images=img, return_tensors="pt", padding=True, truncation=True).to(self.device)
+        inputs = self._inputs(texts, img)
         with self.torch.inference_mode():
             out = self.model(**inputs)
-        return out.logits_per_image.softmax(dim=-1)[0].tolist()
+        return out.logits_per_image.float().softmax(dim=-1)[0].tolist()
 
     def similarity(self, image_path: str, texts: list[str]) -> list[float]:
         """Cosine(ảnh, câu) trong [-1, 1], KHÔNG softmax -> so được giữa các ảnh khác nhau.
@@ -51,12 +75,20 @@ class CLIPProbe:
         from PIL import Image
 
         img = Image.open(image_path).convert("RGB")
-        inputs = self.proc(text=texts, images=img, return_tensors="pt", padding=True, truncation=True).to(self.device)
+        inputs = self._inputs(texts, img)
         with self.torch.inference_mode():
             out = self.model(**inputs)
-            scale = self.model.logit_scale.exp()
-            sims = (out.logits_per_image / scale)[0]
+            sims = self._cosine_from_logits(out.logits_per_image)[0]
         return [float(x) for x in sims.tolist()]
+
+    def _cosine_from_logits(self, logits):
+        """logits = scale * cos (+ bias với SigLIP) -> cos."""
+        scale = self.model.logit_scale.exp().float()
+        bias = getattr(self.model, "logit_bias", None)
+        x = logits.float()
+        if bias is not None:
+            x = x - bias.float()
+        return x / scale
 
     def image_embed(self, image):
         """Vector CLIP chuẩn hoá của một ảnh (đường dẫn hoặc PIL)."""
@@ -64,12 +96,14 @@ class CLIPProbe:
 
         img = Image.open(image).convert("RGB") if isinstance(image, (str, bytes)) or hasattr(image, "__fspath__") else image
         inputs = self.proc(images=img, return_tensors="pt").to(self.device)
+        inputs["pixel_values"] = inputs["pixel_values"].to(self.dtype)
         with self.torch.inference_mode():
             f = self.model.get_image_features(**inputs)
         for name in ("image_embeds", "pooler_output"):
             if hasattr(f, name) and getattr(f, name) is not None:
                 f = getattr(f, name)
                 break
+        f = f.float()
         return (f / f.norm(dim=-1, keepdim=True))[0]
 
     def image_similarity(self, image_a, image_b) -> float:
@@ -79,10 +113,10 @@ class CLIPProbe:
 
     def similarity_image(self, image, texts: list[str]) -> list[float]:
         """Như similarity() nhưng nhận PIL image (dùng cho các ô cắt khi tìm vùng thực thể)."""
-        inputs = self.proc(text=texts, images=image, return_tensors="pt", padding=True, truncation=True).to(self.device)
+        inputs = self._inputs(texts, image)
         with self.torch.inference_mode():
             out = self.model(**inputs)
-            sims = (out.logits_per_image / self.model.logit_scale.exp())[0]
+            sims = self._cosine_from_logits(out.logits_per_image)[0]
         return [float(x) for x in sims.tolist()]
 
     def entity_probs(self, image_path: str, spec: CulturalSpec) -> dict[str, dict[str, float]]:

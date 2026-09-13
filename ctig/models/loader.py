@@ -155,23 +155,64 @@ def attach_lora(pipe, lora: dict, lora_dir: Path | str, log=print, scale: float 
     raise LoraError(" | ".join(errors))
 
 
-def unload(pipe) -> None:
-    """Giải phóng pipeline (kể cả hook offload của accelerate) và trả VRAM."""
+def unload(pipe, log=None) -> list[str]:
+    """Giải phóng pipeline (kể cả hook offload của accelerate) và trả VRAM. Trả tên component không gỡ được."""
+    failed: list[str] = []
     try:
         if hasattr(pipe, "remove_all_hooks"):
             pipe.remove_all_hooks()
     except Exception:  # noqa: BLE001
         pass
     try:
-        for name in list(getattr(pipe, "components", {}).keys()):
-            try:
-                setattr(pipe, name, None)
-            except Exception:  # noqa: BLE001
-                pass
+        comps = list(getattr(pipe, "components", {}).keys())
     except Exception:  # noqa: BLE001
-        pass
+        comps = []
+    for name in comps + ["image_encoder", "feature_extractor"]:
+        mod = getattr(pipe, name, None)
+        if mod is None:
+            continue
+        try:
+            if hasattr(mod, "to"):
+                mod.to("cpu")  # đưa về CPU trước: dù còn ai giữ tham chiếu, VRAM vẫn được trả
+        except Exception:  # noqa: BLE001
+            pass
+        try:
+            setattr(pipe, name, None)
+        except Exception:  # noqa: BLE001
+            try:
+                object.__setattr__(pipe, name, None)
+            except Exception:  # noqa: BLE001
+                failed.append(name)
     del pipe
     free_vram()
+    if failed and log:
+        log(f"[loader] không gỡ được component: {failed}")
+    return failed
+
+
+def allocated_gb(device: str = "cuda:0") -> float | None:
+    """GB tensor còn sống trên GPU (không tính cache). Dùng để phát hiện rò giữa hai hàng multigen."""
+    try:
+        import torch
+
+        if not torch.cuda.is_available() or not str(device).startswith("cuda"):
+            return None
+        torch.cuda.synchronize(device)
+        return round(torch.cuda.memory_allocated(device) / 1e9, 2)
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def free_gb(device: str = "cuda:0") -> float | None:
+    try:
+        import torch
+
+        if not torch.cuda.is_available() or not str(device).startswith("cuda"):
+            return None
+        free, _total = torch.cuda.mem_get_info(torch.device(device))
+        return round(free / 1e9, 2)
+    except Exception:  # noqa: BLE001
+        return None
 
 
 def free_vram() -> None:

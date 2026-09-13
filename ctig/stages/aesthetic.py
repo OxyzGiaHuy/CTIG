@@ -50,12 +50,23 @@ class PickScorer:
             im = self.proc(images=imgs, return_tensors="pt").to(dev)
             tx = self.proc(text=[prompt], padding=True, truncation=True, max_length=77, return_tensors="pt").to(dev)
             im["pixel_values"] = im["pixel_values"].to(self.model.dtype)
-            ie = self.model.get_image_features(**im)
-            te = self.model.get_text_features(**tx)
+            # transformers mới: get_*_features có thể trả ModelOutput thay tensor (v1.4 p001: 'no attribute norm').
+            ie = _feat(self.model.get_image_features(**im))
+            te = _feat(self.model.get_text_features(**tx))
             ie = ie / ie.norm(dim=-1, keepdim=True)
             te = te / te.norm(dim=-1, keepdim=True)
             s = self.model.logit_scale.exp() * (te.float() @ ie.float().T)
         return [round(float(v), 3) for v in s[0].tolist()]
+
+
+def _feat(x):
+    """Tensor đặc trưng từ đầu ra get_image_features/get_text_features, bất kể phiên bản transformers."""
+    for name in ("image_embeds", "text_embeds", "pooler_output"):
+        if hasattr(x, name) and getattr(x, name) is not None:
+            return getattr(x, name)
+    if isinstance(x, (tuple, list)):
+        return x[0]
+    return x
 
 
 LAST_ERROR: str | None = None

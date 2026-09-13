@@ -143,3 +143,21 @@
   (không cần detector); `ref_sim` đo chép và trừ điểm tổng khi > 0,88 (H16). Config 2×T4 giờ 10 hàng: realvis_xl / #legacy /
   +ref, realvis_aodai / +ref, sdxl_refplus, để tách tác dụng của render, LoRA, ảnh, và cắt ảnh trên cùng seed.
 
+## 2026-09-13 — Walkthrough v1.4.2 trên Kaggle (p001, 2×T4, 10 hàng)
+- **Rò VRAM giữa các hàng:** 4 hàng cuối OOM ngay lúc nạp, "14,4 GB đã cấp phát" trên GPU sinh. `unload()` gỡ component khỏi pipe
+  nhưng generator (`g`, giữ pipe + compel giữ text encoder + img2img dùng chung trọng số) sống tới vòng lặp sau. Sửa: xoá mọi
+  tham chiếu trước unload, đưa module về CPU trước khi gỡ, đo `memory_allocated` trước/sau mỗi hàng và ghi vào notes (lần sau
+  nhìn thấy rò ngay). Kèm: hires 1536 đẩy đỉnh 13,9 GB nên hàng IP-Adapter (+1,3 GB ViT-H) không thể vừa -> tắt hires cho hàng
+  IP-Adapter, tính embedding ảnh tham chiếu một lần rồi đưa encoder về CPU.
+- **H15 ÂM (n=1):** cùng RealVis cùng seed, render `tags` attr TB 0,49 vs `legacy` 0,68; ảnh tags nghiêng "áo khoác dài" che
+  quần; dreamshaper8 và sdxl_base cũng tệ hơn v1.3. Lý thuyết "negative có 'trousers' phản tác dụng" thua thực nghiệm ở đây.
+  Mặc định về `legacy`; tách thủ phạm bằng ba hàng `#tags` (không trọng số), `#tags_w` (trọng số 1,2), `#legacy_negtags`
+  (prompt v1.3 + negative thẻ). Bài học: mỗi thay đổi prompt phải đi kèm hàng A/B trước khi thành mặc định.
+- **H13 một phần:** Filter bỏ đúng ảnh tham chiếu 5 người, giữ ảnh 1-2 người; 2 ảnh được cắt theo thực thể. Nhưng tầng so văn
+  bản (Qwen đọc mô tả) vẫn trả "có" cho `high stand-up collar` khi mô tả ghi `collar: crossed`, `lower_body: not visible`
+  -> mọi ứng viên 4/4, vòng sửa không bao giờ kích hoạt. Sửa: luật cứng trên trường trang phục (collar, lower_body, slits,
+  sash_or_belt, type) ghi đè agent hai chiều; có test.
+- Rank agent: top-1 khác metric (dreamshaper c0 vs sdxl_aodai c3), Spearman 0,83; lý do agent trả cùng một câu cho mọi ảnh ->
+  chưa dùng được làm giải thích. PickScore lỗi API (`get_image_features` trả ModelOutput) -> sửa bằng `_feat()`.
+- Điểm sáng: sdxl_aodai c3 attr 0,79 (cao nhất), realvis_xl#legacy 4/4 ảnh 0,63-0,73 đều đúng; ảnh 1536 px trong zip đủ nét.
+

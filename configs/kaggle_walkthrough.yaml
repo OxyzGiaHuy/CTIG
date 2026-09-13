@@ -27,6 +27,6 @@ multigen:
   hires:     {enabled: false, scale: 1.5, strength: 0.3, steps: 20}
   aesthetic: {enabled: true, device: "cuda:0", offload: true}
 # t2i chỉ dùng khi bật lại vòng review (RUN_REVIEW=True trong notebook)
-t2i:        {backend: sdxl, render: tags, emphasis_weight: 1.2, device: "cuda:0", cpu_offload: true, width: 1024, height: 1024, steps: 25, guidance: 6.5,
+t2i:        {backend: sdxl, render: legacy, emphasis_weight: 1.2, device: "cuda:0", cpu_offload: true, width: 1024, height: 1024, steps: 25, guidance: 6.5,
              n_candidates: 2, ip_adapter: true, ip_adapter_scale: 0.3, init_negatives: true}
 runs_dir: /kaggle/working/runs

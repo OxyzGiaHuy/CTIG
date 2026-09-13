@@ -115,7 +115,7 @@ hypotheses:
 
   - id: H13
     statement: "Filter agent hai tầng (mô tả rồi so văn bản) bắt được ảnh có must_not / sai số người mà CLIP attr và metric bỏ qua"
-    status: active
+    status: partial    # v1.4 p001: bỏ đúng ảnh tham chiếu 5 người; nhưng tầng so văn bản vẫn 'có' khi mô tả nói ngược -> thêm luật cứng trường trang phục
     motivation: "v1.3 p001: sdxl_refplus 3/4 ảnh nhiều người dù prompt một người, attr vẫn 0,76-0,89"
     priority: high
     prediction: "Trên p001/p031/p050: >= 80% ảnh bị Filter bỏ được người đồng ý là sai; ảnh tham chiếu sau lọc làm refplus ra đúng số người"
@@ -128,7 +128,7 @@ hypotheses:
 
   - id: H15
     statement: "Render 'tags' (thực thể + thẻ ngắn lên đầu, negative không chứa danh từ must_have, trọng số 1.2) cho CLIP attr cao hơn render 'legacy' v1.3 trên cùng model và seed"
-    status: active
+    status: negative   # v1.4 p001 realvis_xl: tags 0,49 vs legacy 0,68 (n=1). Tách thủ phạm bằng #tags / #tags_w / #legacy_negtags
     motivation: "CLIP không hiểu phủ định ('no trousers' trong negative đẩy xa 'trousers'); SDXL đọc thẻ tốt hơn câu; token đầu được chú ý nhất"
     priority: high
     prediction: "realvis_xl vs realvis_xl#legacy trên p001, p031, p050: attr TB tăng >= 0,05 và số ảnh có must_not giảm"
@@ -144,7 +144,7 @@ experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0
   best_value: null
-  total_runs: 4
+  total_runs: 5
   trajectory:
     - run_id: "smoke-v1"
       hypothesis: "H1"
@@ -186,6 +186,16 @@ experiments:
       change_summary: "Best-of-4, hires, RealVisXL, IP-Adapter Plus 3 ảnh, PickScore (trống - lỗi chưa rõ)"
       notes: "H9 ủng hộ; H12 ủng hộ (0,73 vs 0,56); refplus kéo bố cục ảnh nhóm; Playground bạc màu do VAE. Xem research-log"
       timestamp: "2026-09-12"
+    - run_id: "walkthrough-v1.4.2-p001"
+      hypothesis: "H13, H14, H15, H16"
+      config: "kaggle_walkthrough_t4x2 (v1.4.2): 10 hàng x 4, render tags mặc định, agents bật"
+      metric_value: 0.787    # attr tốt nhất (sdxl_aodai c3); realvis_xl#legacy TB 0,68 > realvis_xl(tags) TB 0,49
+      pass_rate: null
+      delta: null
+      wall_time_min: 40
+      change_summary: "Summary/Filter/Rank agents, render tags, +ref, cắt ảnh tham chiếu, ref_sim"
+      notes: "4 hàng OOM do rò VRAM giữa hàng (14,4 GB còn cấp phát) + hires 1536 quá sát; H15 ÂM (n=1); Filter bỏ đúng ảnh 5 người nhưng tầng văn bản vẫn thiên 'có'; PickScore lỗi API transformers; Rank top-1 khác metric, Spearman 0,83"
+      timestamp: "2026-09-13"
 
 outer_loop:
   cycle: 1

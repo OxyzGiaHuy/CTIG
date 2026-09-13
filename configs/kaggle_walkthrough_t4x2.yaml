@@ -8,10 +8,9 @@ max_candidate_entities: 6
 review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
 judge:      {backend: blip2_itm, device: "cuda:0", offload: true}
 # Thứ tự nhỏ -> lớn. sd35_medium (gated, fp16 trên T4) và sweep LoRA (sdxl_aodai@0.6 ...) thêm tay khi cần.
-# realvis_xl#legacy = cùng model, prompt render kiểu v1.3 (cảnh trước, câu dài, negative có 'no trousers') để A/B với render 'tags' mặc định.
-# +ref = cùng model + IP-Adapter Plus với ảnh tham chiếu ĐÃ CẮT theo thực thể (multigen.ref_crop) ở scale ref_scale.
-# sdxl_refplus giữ nguyên (RealVis + IP-Adapter, cùng ảnh đã cắt) để so với realvis_xl+ref chỉ khác scale; realvis_aodai+ref = LoRA + ảnh.
-models:     [dreamshaper8, sdxl_base, realvis_xl, realvis_xl#legacy, realvis_xl+ref, sdxl_aodai, realvis_aodai, realvis_aodai+ref, sdxl_refplus, playground25]
+# Mặc định render legacy (thắng ở v1.4 p001). Ba hàng #tags / #tags_w / #legacy_negtags tách thủ phạm của "tags kém hơn".
+# +ref = cùng model + IP-Adapter Plus với ảnh tham chiếu đã lọc và cắt theo thực thể (không hires). 10 hàng ~50 phút.
+models:     [dreamshaper8, realvis_xl, realvis_xl#tags, realvis_xl#tags_w, realvis_xl#legacy_negtags, realvis_xl+ref, sdxl_aodai, realvis_aodai, realvis_aodai+ref, sdxl_refplus]
 # v1.4 agent loop review: Summary (2c) · Filter ảnh tham chiếu (3b) · Filter+Rank ứng viên (4c) · một vòng sửa (4d)
 agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 1}
 multigen:
@@ -27,8 +26,8 @@ multigen:
   ref_crop: true
   ref_scale: 0.4
   copy_threshold: 0.88
-  hires:     {enabled: true, scale: 1.5, strength: 0.3, steps: 20}
+  hires:     {enabled: true, scale: 1.5, strength: 0.3, steps: 20, skip_ip_adapter: true}
   aesthetic: {enabled: true, device: "cuda:0", offload: true}
-t2i:        {backend: sdxl, render: tags, emphasis_weight: 1.2, device: "cuda:1", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 6.5,
+t2i:        {backend: sdxl, render: legacy, emphasis_weight: 1.2, device: "cuda:1", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 6.5,
              n_candidates: 2, ip_adapter: true, ip_adapter_scale: 0.3, init_negatives: true}
 runs_dir: /kaggle/working/runs

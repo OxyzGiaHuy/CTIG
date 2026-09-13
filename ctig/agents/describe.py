@@ -54,6 +54,75 @@ def describe(agent, paths: list[str], log=print) -> list[ImageDescriptor]:
     return out
 
 
+def _garment_fields(desc: ImageDescriptor) -> list[dict]:
+    """VLM hay trả mỗi garment là một dict (dạng chuỗi). Đọc lại thành dict; chuỗi thường thì gói vào {'text': ...}."""
+    import ast
+
+    out = []
+    for g in desc.garments:
+        d = None
+        if isinstance(g, dict):
+            d = g
+        else:
+            s = str(g).strip()
+            if s.startswith("{"):
+                try:
+                    d = ast.literal_eval(s)
+                except Exception:  # noqa: BLE001
+                    d = None
+        out.append({k: str(v).lower() for k, v in d.items()} if isinstance(d, dict) else {"text": s.lower()})
+    return out
+
+
+_NONE = {"", "none", "no", "null", "n/a", "not visible", "unknown"}
+
+
+def garment_rules(desc: ImageDescriptor, attr: str) -> str | None:
+    """Luật cứng trên các trường trang phục VLM đã mô tả (collar / lower_body / slits / sash_or_belt / type).
+    Trả 'present' | 'absent' | None (không có luật -> để agent văn bản quyết). v1.4 p001: agent văn bản tính
+    'high stand-up collar' là có trong khi mô tả ghi collar: crossed, lower_body: not visible."""
+    a = attr.lower()
+    gs = _garment_fields(desc)
+    if not gs:
+        return None
+
+    def vals(field):
+        return [g.get(field, "") for g in gs if g.get(field, "") not in _NONE]
+
+    if "collar" in a:
+        cs = vals("collar")
+        if not cs:
+            return None
+        if any(k in a for k in ("stand", "mandarin", "high")):
+            return "present" if any(("stand" in c or "mandarin" in c or "high" in c) for c in cs) else "absent"
+        if "cross" in a or "y-shaped" in a or "v-neck" in a:
+            return "present" if any(("cross" in c or "v" == c[:1] or "y" in c) for c in cs) else "absent"
+    if "trouser" in a or "pants" in a or "bare legs" in a or "no trousers" in a:
+        lb = vals("lower_body")
+        if not lb:
+            return None
+        has_trousers = any(("trouser" in v or "pant" in v) for v in lb)
+        bare = any(("bare" in v or "skirt" in v or "dress" in v or "gown" in v) for v in lb)
+        if "no trousers" in a or "bare legs" in a or "without trousers" in a:
+            return "present" if (bare and not has_trousers) else "absent"
+        return "present" if has_trousers else ("absent" if bare else None)
+    if "slit" in a or "split" in a:
+        sl = vals("slits")
+        if not sl:
+            return None
+        return "present" if any(v not in ("no", "none") for v in sl) else "absent"
+    if "obi" in a or "sash" in a or "belt" in a:
+        sb = vals("sash_or_belt")
+        return "present" if sb and any(v not in ("no", "none") for v in sb) else "absent"
+    if "one-piece" in a or "gown" in a or "floor-length" in a:
+        ty = vals("type"); ln = vals("length"); lb = vals("lower_body")
+        if any(("dress" in v or "gown" in v) for v in ty) and not any(("trouser" in v or "pant" in v) for v in lb):
+            return "present"
+        if any(("trouser" in v or "pant" in v) for v in lb):
+            return "absent"
+    return None
+
+
 def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_people: int | None) -> FilterVerdict:
     have_all: list[str] = []
     not_all: list[str] = []
@@ -68,6 +137,19 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
         m = agent.match_descriptors(desc.text(), have_all, not_all)
         matched_have = [a for a in m.get("present_must_have", []) if a in have_all]
         matched_not = [a for a in m.get("present_must_not", []) if a in not_all]
+        # luật cứng trên trường trang phục ghi đè agent văn bản (cả hai chiều)
+        for a in have_all:
+            r = garment_rules(desc, a)
+            if r == "present" and a not in matched_have:
+                matched_have.append(a)
+            elif r == "absent" and a in matched_have:
+                matched_have.remove(a); reasons.append(f"luật: mô tả trái với '{a[:40]}'")
+        for a in not_all:
+            r = garment_rules(desc, a)
+            if r == "present" and a not in matched_not:
+                matched_not.append(a); reasons.append(f"luật: mô tả có '{a[:40]}'")
+            elif r == "absent" and a in matched_not:
+                matched_not.remove(a)
     missing = [a for a in have_all if a not in matched_have]
     score = ((len(matched_have) - len(matched_not)) / len(have_all)) if have_all else 0.0
     score = max(-1.0, min(1.0, score))
@@ -81,7 +163,7 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
         keep = False
     if kind == "reference" and desc.watermark_or_text:
         reasons.append("có chữ/watermark")
-    if not reasons:
+    if not any(r.startswith(("có must_not", "prompt", "có chữ")) for r in reasons):
         reasons.append(f"{len(matched_have)}/{len(have_all)} must_have thấy trong mô tả")
     return FilterVerdict(path=desc.path, keep=keep, matched_must_have=matched_have, matched_must_not=matched_not,
                          missing_must_have=missing, people_count=desc.people_count, reasons=reasons, score=round(score, 3))

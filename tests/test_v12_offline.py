@@ -365,13 +365,18 @@ def test_render_variants(tmp):
     g_tags = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1, render="tags")
     g_leg = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1, render="legacy")
     g_sen = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1, render="sentence")
-    check("tags: thực thể lên đầu, thẻ ngắn, có trọng số thẻ đầu", g_tags.prompt_terms[0].startswith("Vietnamese") and "fitted long tunic" in g_tags.prompt_terms
-          and g_tags.term_weights.get("fitted long tunic") == cfg.t2i.emphasis_weight, str(g_tags.prompt_terms[:4]))
+    g_tw = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1, render="tags_w")
+    check("tags: thực thể lên đầu, thẻ ngắn, KHÔNG trọng số; tags_w có trọng số thẻ đầu", g_tags.prompt_terms[0].startswith("Vietnamese")
+          and "fitted long tunic" in g_tags.prompt_terms and not g_tags.term_weights
+          and g_tw.term_weights.get("fitted long tunic") == cfg.t2i.emphasis_weight, str(g_tags.prompt_terms[:4]))
+    g_ln = build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1, render="legacy_negtags")
+    check("legacy_negtags: prompt v1.3 + negative thẻ", g_ln.prompt_terms == g_leg.prompt_terms and "obi sash" in g_ln.negative_terms
+          and not any("no trousers" in n for n in g_ln.negative_terms))
     check("tags: negative dùng neg_tags, không có 'trousers'", "obi sash" in g_tags.negative_terms and not any("trousers" in n for n in g_tags.negative_terms), str(g_tags.negative_terms))
     check("legacy: cảnh trước, câu dài, negative must_not_en", g_leg.prompt_terms[0] == a.prompt_en and any("no trousers" in n for n in g_leg.negative_terms))
     check("sentence: một đoạn văn", len(g_sen.prompt_terms) == 1 and g_sen.prompt_terms[0].startswith(a.prompt_en.rstrip(".")) and "has" in g_sen.prompt_terms[0])
-    check("mặc định config = tags", build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1).render == "tags")
-    check("parse_variant", parse_variant("realvis_xl#legacy") == "legacy" and parse_variant("realvis_xl@0.6") is None and parse_key("sdxl_aodai@0.6#tags") == ("sdxl_aodai", 0.6))
+    check("mặc định config = legacy (v1.4 p001: tags kém hơn)", build_initial_spec(p, sp, a.prompt_en, cfg.t2i, 1).render == "legacy")
+    check("parse_variant", parse_variant("realvis_xl#legacy_negtags") == "legacy_negtags" and parse_variant("realvis_xl@0.6") is None and parse_key("sdxl_aodai@0.6#tags_w") == ("sdxl_aodai", 0.6))
     try:
         parse_variant("x#bogus"); check("parse_variant sai -> KeyError", False)
     except KeyError:
@@ -442,6 +447,24 @@ def test_refcrop_and_copy(tmp):
     check("ref_sim được tính cho mọi ứng viên khi có ảnh tham chiếu", res.runs[0].output.candidates[0].ref_sim == 0.95)
 
 
+def test_garment_rules():
+    """v1.4.3: luật cứng trên trường trang phục ghi đè agent văn bản thiên lệch 'có'."""
+    from ctig.agents.describe import garment_rules
+    from ctig.schema import ImageDescriptor
+
+    d = ImageDescriptor("x", people_count=1, garments=["{'type': 'dress', 'fit': 'loose', 'length': 'floor', 'collar': 'crossed', 'sleeves': 'long', 'lower_body': 'not visible', 'sash_or_belt': '', 'slits': ''}"])
+    check("collar crossed -> stand-up collar ABSENT", garment_rules(d, "high stand-up mandarin collar") == "absent")
+    check("collar crossed -> Y-shaped crossed collar (must_not) PRESENT", garment_rules(d, "diagonal Y-shaped crossed collar") == "present")
+    check("lower_body not visible -> trousers None (unsure)", garment_rules(d, "worn over wide-legged long trousers") is None)
+    d2 = ImageDescriptor("y", garments=["{'type': 'tunic', 'collar': 'stand-up', 'lower_body': 'trousers', 'sash_or_belt': 'none', 'slits': 'yes'}"])
+    check("stand-up + trousers + slits -> present", all(garment_rules(d2, a) == "present" for a in ("high stand-up mandarin collar", "worn over wide-legged long trousers", "tunic split at the hips")))
+    check("obi sash must_not absent khi sash none", garment_rules(d2, "wide obi sash tied at the back") == "absent")
+    d3 = ImageDescriptor("z", garments=["{'type': 'dress', 'length': 'floor', 'lower_body': 'bare legs', 'collar': 'round'}"])
+    check("bare legs -> 'one-piece dress with no trousers' PRESENT, trousers ABSENT", garment_rules(d3, "one-piece dress with no trousers underneath") == "present"
+          and garment_rules(d3, "worn over wide-legged long trousers") == "absent")
+    check("garment chuỗi thường -> None", garment_rules(ImageDescriptor("w", garments=["white outfit"]), "high stand-up mandarin collar") is None)
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -467,8 +490,10 @@ def test_agents_offline(tmp):
           and all(v.matched_must_have for v in cr.filter.verdicts), str(cr.filter.verdicts[0]))
     # stub mô tả chỉ khớp 1-2/4 must_have -> có kế hoạch sửa (nhấn thực thể, tăng guidance vì thuộc tính đã trong prompt),
     # sinh lại bằng stub cho điểm bằng nhau -> KHÔNG đổi ảnh (hoà thì giữ ảnh gốc)
-    check("thiếu >=2 must_have -> plan: boost + guidance + nhấn compel thẻ đã có trong prompt, không thêm trùng", cr.revision is not None
-          and cr.revision.boost and cr.revision.guidance_delta > 0 and cr.revision.weights and not cr.revision.add_positive, str(cr.revision))
+    gen0, _ = s.genspec()
+    check("thiếu >=2 must_have -> plan: boost + guidance + nhấn compel thuộc tính đã có trong prompt; chỉ thêm thuộc tính CHƯA có",
+          cr.revision is not None and cr.revision.boost and cr.revision.guidance_delta > 0 and cr.revision.weights
+          and all(a in gen0.prompt_terms for a in cr.revision.weights) and all(a not in gen0.prompt_terms for a in cr.revision.add_positive), str(cr.revision))
     check("sinh lại chạy nhưng hoà điểm -> giữ ảnh multigen", cr.regen is not None and cr.regen.output and cr.final_source == "multigen"
           and any("không tốt hơn" in n for n in cr.notes), str(cr.notes))
     cr2, src2 = s.candidate_review()
@@ -519,5 +544,6 @@ if __name__ == "__main__":
     print("\ntest_agents_offline"); test_agents_offline(tmp)
     print("\ntest_render_variants"); test_render_variants(tmp)
     print("\ntest_refcrop_and_copy"); test_refcrop_and_copy(tmp)
+    print("\ntest_garment_rules"); test_garment_rules()
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

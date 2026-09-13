@@ -70,7 +70,7 @@ def _confusable_negatives(se) -> list[str]:
     return out
 
 
-RENDERS = ("legacy", "tags", "sentence")
+RENDERS = ("legacy", "tags", "tags_w", "legacy_negtags", "sentence")
 
 
 def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_negatives: bool = True):
@@ -87,14 +87,14 @@ def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_neg
     main = [se for se in spec.entities if se.weight >= 0.8]
     weights: dict[str, float] = {}
     scene = [n for n in spec.scene_notes[:2] if n.isascii()]
-    if variant == "tags":
+    if variant in ("tags", "tags_w"):
         terms: list[str] = []
         for se in spec.entities:
             tags = [a for a in (se.tags_en or se.required_attrs_en) if a]
             terms.append(f"Vietnamese {_en(se)}")
             if se.weight >= 0.8 and tags:
                 terms.extend(tags[:max(n_attrs, 4)])
-                if w_emph and abs(w_emph - 1.0) > 1e-6:
+                if variant == "tags_w" and w_emph and abs(w_emph - 1.0) > 1e-6:
                     weights[tags[0]] = w_emph
         terms += [prompt_en] + scene + [STYLE_SUFFIX]
         neg = GENERIC_NEGATIVE.split(", ")
@@ -115,7 +115,7 @@ def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_neg
         if init_negatives:
             for se in main:
                 neg.extend(_confusable_negatives(se)[:3])
-    else:  # legacy
+    else:  # legacy | legacy_negtags
         terms = [prompt_en]
         for se in spec.entities:
             terms.append(f"Vietnamese {_en(se)}")
@@ -128,7 +128,10 @@ def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_neg
             for se in spec.entities:
                 neg.extend(_confusable_negatives(se))
                 if se.weight >= 0.8:
-                    neg.extend(_forbidden_negatives(se))
+                    if variant == "legacy_negtags":
+                        neg.extend([a for a in (se.neg_tags_en or _forbidden_negatives(se)) if a][:5])
+                    else:
+                        neg.extend(_forbidden_negatives(se))
     return list(dict.fromkeys(x for x in terms if x)), list(dict.fromkeys(n for n in neg if n)), weights
 
 
@@ -448,6 +451,27 @@ class DiffusersGenerator:
         # Một adapter, nhiều ảnh: diffusers nhận list lồng [[...]]; một ảnh thì truyền thẳng.
         return {"ip_adapter_image": imgs[0] if len(imgs) == 1 else [imgs]}
 
+    def _precompute_ip_embeds(self, ipk: dict, gen: GenSpec) -> dict:
+        """Mã hoá ảnh tham chiếu MỘT lần rồi đưa image encoder (ViT-H ~1,3 GB) về CPU; các ứng viên dùng lại embedding.
+        Không làm được thì giữ ảnh (pipeline tự mã hoá mỗi lần)."""
+        if "ip_adapter_image" not in ipk or not hasattr(self.pipe, "prepare_ip_adapter_image_embeds"):
+            return ipk
+        try:
+            dev = getattr(self.pipe, "_execution_device", None) or getattr(self.pipe, "device", "cuda")
+            emb = self.pipe.prepare_ip_adapter_image_embeds(
+                ip_adapter_image=ipk["ip_adapter_image"], ip_adapter_image_embeds=None, device=dev,
+                num_images_per_prompt=1, do_classifier_free_guidance=gen.guidance > 1.0)
+            enc = getattr(self.pipe, "image_encoder", None)
+            if enc is not None:
+                enc.to("cpu")
+                if self.torch.cuda.is_available():
+                    self.torch.cuda.empty_cache()
+            self.notes.append("IP-Adapter: embedding tính trước, encoder về CPU")
+            return {"ip_adapter_image_embeds": emb}
+        except Exception as exc:  # noqa: BLE001
+            self.notes.append(f"không tính trước được embedding IP-Adapter ({type(exc).__name__}) -> mã hoá mỗi lần")
+            return ipk
+
     # ---- sinh --------------------------------------------------------------------------
     def generate(self, gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, out_dir: Path) -> GenOutput:
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -455,6 +479,7 @@ class DiffusersGenerator:
         ipk = self._ip_kwargs()
         if isinstance(ipk.get("ip_adapter_image"), list):
             self.notes.append(f"IP-Adapter {len(ipk['ip_adapter_image'][0])} ảnh tham chiếu")
+        ipk = self._precompute_ip_embeds(ipk, gen)
         hires_pipe = None
         cands = []
         for i in range(gen.n_candidates):
@@ -465,7 +490,16 @@ class DiffusersGenerator:
             try:
                 img = self.pipe(**kwargs).images[0]
             except Exception as exc:  # noqa: BLE001 - hai đường lùi trước khi coi là lỗi hàng
-                if isinstance(ipk.get("ip_adapter_image"), list):
+                if "ip_adapter_image_embeds" in ipk:
+                    self.notes.append(f"embedding IP-Adapter tính trước bị từ chối ({type(exc).__name__}) -> mã hoá lại từ ảnh")
+                    ipk = self._ip_kwargs()
+                    enc = getattr(self.pipe, "image_encoder", None)
+                    if enc is not None:
+                        try:
+                            enc.to(getattr(self.pipe, "_execution_device", "cuda"))
+                        except Exception:  # noqa: BLE001
+                            pass
+                elif isinstance(ipk.get("ip_adapter_image"), list):
                     # Nhiều ảnh IP-Adapter không được pipeline này nhận -> lùi về ảnh đầu, thử lại.
                     self.notes.append(f"nhiều ảnh IP-Adapter bị từ chối ({type(exc).__name__}: {str(exc)[:60]}) -> dùng 1 ảnh")
                     ipk = {"ip_adapter_image": ipk["ip_adapter_image"][0][0]}
@@ -485,6 +519,7 @@ class DiffusersGenerator:
             cand = Candidate(str(path), seed, model_id=self.model_key)
             if self.hires is not None and getattr(self.hires, "enabled", False) and not getattr(self, "_hires_failed", False):
                 hires_pipe, hr_path = self._hires(img, path, seed, pk, ipk, hires_pipe)
+                self._hires_pipe = hires_pipe
                 if hr_path is not None:
                     cand.base_path = str(path)
                     cand.path = str(hr_path)

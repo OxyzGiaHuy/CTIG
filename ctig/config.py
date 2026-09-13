@@ -57,9 +57,10 @@ class T2IConfig:
     fast_guidance: float = 1.5
     #: số must_have_en của mỗi thực thể chính đưa vào prompt (v1.2.1: 2 -> 3 để giữ 'quần dài')
     attrs_in_prompt: int = 3
-    #: v1.4.1: cách render prompt mặc định: "tags" (thực thể + thẻ ngắn lên đầu, negative thẻ) | "legacy" (v1.3) | "sentence".
-    #: Model họ sd3 luôn dùng "sentence". Hậu tố '#legacy' trong models: cho hàng A/B.
-    render: str = "tags"
+    #: Cách render prompt mặc định. v1.4 p001: "tags" KÉM hơn "legacy" (attr 0,49 vs 0,68 trên RealVis cùng seed) nên mặc định
+    #: trở lại "legacy"; các biến thể "tags" (thẻ, không trọng số), "tags_w" (thẻ + trọng số), "legacy_negtags" (prompt v1.3 +
+    #: negative thẻ) dùng qua hậu tố '#variant' để tách thủ phạm. Model họ sd3 luôn dùng "sentence".
+    render: str = "legacy"
     #: trọng số compel cho thẻ phân biệt đầu tiên của thực thể chính (1.0 = không nhấn)
     emphasis_weight: float = 1.2
 
@@ -143,6 +144,8 @@ class HiresConfig:
     scale: float = 1.5
     strength: float = 0.3
     steps: int = 20
+    #: hàng IP-Adapter bỏ hires: encoder ViT-H + img2img 1536 px vượt T4 (v1.4 p001 OOM)
+    skip_ip_adapter: bool = True
 
 
 @dataclass

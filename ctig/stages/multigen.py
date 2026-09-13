@@ -303,7 +303,16 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
         t0 = time.time()
         run_rec = ModelRun(key, mspec.repo, gspec)
         pipe = None
+        g = None
         try:
+            # v1.4.3: kiểm VRAM trước khi nạp. v1.4 p001: 14,4 GB còn cấp phát từ hàng trước -> 4 hàng OOM ngay lúc nạp.
+            held = model_loader.allocated_gb(cfg.device)
+            if held is not None and held > 1.0:
+                model_loader.free_vram()
+                held2 = model_loader.allocated_gb(cfg.device)
+                msg = f"VRAM còn giữ {held} GB trước khi nạp" + (f", sau gc {held2} GB" if held2 != held else "") + " (rò từ hàng trước?)"
+                log(f"  [4b] {key}: {msg}")
+                run_rec.notes.append(msg)
             model_loader.reset_peak(cfg.device)
             if mspec.family == "stub":
                 g = StubGenerator(cfg)
@@ -334,6 +343,9 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                     log(f"  [4b] {key}: {how}, {len(ref_imgs)} ảnh tham chiếu: " + ", ".join(Path(r).name for r in ref_imgs))
                     run_rec.notes.append(f"{how}, {len(ref_imgs)} ảnh tham chiếu")
                 hires = getattr(cfg, "hires", None) if mspec.hires_ok else None
+                if hires is not None and mspec.ip_adapter and getattr(hires, "skip_ip_adapter", True):
+                    hires = None  # IP-Adapter (+1,3 GB encoder) cộng img2img 1536 px vượt T4 15 GB (v1.4 p001)
+                    run_rec.notes.append("hires tắt cho hàng IP-Adapter (VRAM)")
                 g = DiffusersGenerator(pipe, safe_key, trigger=trigger, negative_ok=mspec.negative_ok,
                                        ip_adapter_image=ref_imgs, family=mspec.family,
                                        long_prompt=bool(getattr(cfg, "long_prompt", False)), hires=hires, log=log)
@@ -354,10 +366,25 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
             run_rec.seconds = round(time.time() - t0, 1)
             log(f"  [4b] {key}: LỖI {run_rec.error}")
         finally:
+            # Gỡ MỌI tham chiếu tới pipeline trước khi unload: generator (pipe, compel giữ text encoder, img2img dùng chung
+            # trọng số). Biến `g` sống tới vòng lặp sau nếu không xoá -> UNet 5 GB không bao giờ được trả.
+            if g is not None:
+                for attr in ("pipe", "_compel", "_hires_pipe"):
+                    try:
+                        setattr(g, attr, None)
+                    except Exception:  # noqa: BLE001
+                        pass
+                g = None
             if pipe is not None:
-                model_loader.unload(pipe)
+                model_loader.unload(pipe, log=log)
+                pipe = None
             else:
                 model_loader.free_vram()
+            held = model_loader.allocated_gb(cfg.device)
+            if held is not None:
+                run_rec.notes.append(f"VRAM sau giải phóng {held} GB")
+                if held > 1.0:
+                    log(f"  [4b] {key}: CẢNH BÁO còn {held} GB cấp phát sau khi giải phóng")
         result.runs.append(run_rec)
         _save(result, out_dir)
         if on_model_done:

@@ -66,6 +66,10 @@ class CLIPProbe:
         inputs = self.proc(images=img, return_tensors="pt").to(self.device)
         with self.torch.inference_mode():
             f = self.model.get_image_features(**inputs)
+        for name in ("image_embeds", "pooler_output"):
+            if hasattr(f, name) and getattr(f, name) is not None:
+                f = getattr(f, name)
+                break
         return (f / f.norm(dim=-1, keepdim=True))[0]
 
     def image_similarity(self, image_a, image_b) -> float:

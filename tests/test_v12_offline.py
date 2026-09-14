@@ -667,6 +667,27 @@ def test_clip_veto_and_dedupe(tmp):
           and ag_desc._counterpart("one-piece dress with no trousers underneath", e.must_have_en) == "worn over wide-legged long trousers")
 
 
+def test_analysis_unsupported_candidates(tmp):
+    """v1.5.3: ứng viên không có căn cứ (áo dài, nón lá trong prompt thuyền thúng) bị bỏ; thuyền thúng giữ."""
+    from ctig.stages import analysis as st_a
+    from ctig.schema import AnalysisResult, Keyword
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    kb = KnowledgeBase.load(cfg.kb_path)
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p012")
+    class ChattyAgent:
+        def analyze(self, prompt, kb):
+            return AnalysisResult("t", [Keyword("thuyền thúng", "entity", "surface", 0.9)], ["thuyen_thung", "ao_dai", "non_la"],
+                                  prompt_en="A fisherman paddling a round basket boat off a Central Vietnam beach at dawn")
+    a = st_a.run(ChattyAgent(), p, kb, 6)
+    check("bỏ ao_dai và non_la không có căn cứ, giữ thuyen_thung", a.candidate_entity_ids == ["thuyen_thung"] and "không có căn cứ" in (a.notes or ""), str((a.candidate_entity_ids, a.notes)))
+    class OnlyJunk:
+        def analyze(self, prompt, kb):
+            return AnalysisResult("t", [], ["ao_dai"], prompt_en="x")
+    a2 = st_a.run(OnlyJunk(), p, kb, 6)
+    check("bù thực thể nêu tên (thuyền thúng) và bỏ ao_dai", "thuyen_thung" in a2.candidate_entity_ids and "ao_dai" not in a2.candidate_entity_ids, str(a2.candidate_entity_ids))
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -752,5 +773,6 @@ if __name__ == "__main__":
     print("\ntest_v151_offline"); test_v151_offline(tmp)
     print("\ntest_filter_agent_failure_tolerant"); test_filter_agent_failure_tolerant(tmp)
     print("\ntest_clip_veto_and_dedupe"); test_clip_veto_and_dedupe(tmp)
+    print("\ntest_analysis_unsupported_candidates"); test_analysis_unsupported_candidates(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

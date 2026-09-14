@@ -38,9 +38,18 @@ def run(agent, prompt: Prompt, kb: KnowledgeBase, max_candidates: int = 6) -> An
             res.keywords.append(Keyword(ent.name_vi, "entity", "expanded", 0.6,
                                         f"thực thể mới, chưa có trong KB: {ne.rationale or ''}"))
 
+    # --- Bỏ ứng viên KHÔNG có căn cứ (v1.5.3): p012 "ngư dân chèo thuyền thúng" mà Qwen trả cả ao_dai, non_la ->
+    # 4/6 truy vấn search cho thực thể sai, spec nhiễm áo dài. Ứng viên phải được nêu tên, có keyword chống lưng,
+    # hoặc là thực thể mới agent đề xuất; không thì bỏ, trừ khi bỏ hết. ---
+    conf = _support(res, kb, text)
+    unsupported = [eid for eid in res.candidate_entity_ids if conf.get(eid, 0.0) <= 0.0]
+    if unsupported and len(unsupported) < len(res.candidate_entity_ids):
+        res.candidate_entity_ids = [eid for eid in res.candidate_entity_ids if eid not in unsupported]
+        note = f"Bỏ {len(unsupported)} ứng viên không có căn cứ trong prompt: {unsupported[:6]}"
+        res.notes = f"{res.notes} | {note}" if res.notes else note
+
     # --- Cap ứng viên: xếp theo (được nêu tên, confidence keyword), giữ tối đa max_candidates ---
     if len(res.candidate_entity_ids) > max_candidates:
-        conf = _support(res, kb, text)
         ranked = sorted(res.candidate_entity_ids, key=lambda eid: -conf.get(eid, 0.0))
         dropped = ranked[max_candidates:]
         res.candidate_entity_ids = ranked[:max_candidates]
@@ -55,10 +64,20 @@ def _support(res: AnalysisResult, kb: KnowledgeBase, text: str) -> dict[str, flo
     by_name = {e.name_vi: e.id for e in kb.all()}
     by_name.update({e.name_en.split("(")[0].strip(): e.id for e in kb.all()})
     conf: dict[str, float] = {}
+    alias_map = {}
+    for e in kb.all():
+        for a in e.aliases:
+            alias_map[a.lower()] = e.id
     for kw in res.keywords:
-        if kw.kind != "entity":
+        if kw.kind not in ("entity", "attribute"):
             continue
-        eid = by_name.get(kw.term) or by_name.get(kw.term.split("(")[0].strip())
+        eid = by_name.get(kw.term) or by_name.get(kw.term.split("(")[0].strip()) or alias_map.get(kw.term.lower())
+        if eid is None:
+            # keyword nằm trong tên/alias của thực thể (vd "thuyền thúng tròn" ~ "thuyền thúng")
+            for e in kb.all():
+                if any(contains(kw.term, t) for t in e.search_terms if len(t) >= 3):
+                    eid = e.id
+                    break
         if eid is None:
             continue
         base = 1.0 if kw.source == "surface" else 0.5

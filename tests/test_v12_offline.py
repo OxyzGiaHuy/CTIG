@@ -688,6 +688,40 @@ def test_analysis_unsupported_candidates(tmp):
     check("bù thực thể nêu tên (thuyền thúng) và bỏ ao_dai", "thuyen_thung" in a2.candidate_entity_ids and "ao_dai" not in a2.candidate_entity_ids, str(a2.candidate_entity_ids))
 
 
+def test_reference_tiers(tmp):
+    """v1.5.3: không ảnh nào đạt 0,75 -> nới xuống 0,5 -> rồi ảnh từ prompt gốc chấm lại; rỗng thì [] không ném lỗi."""
+    from PIL import Image
+    from ctig.schema import EvidenceItem
+    from ctig.session import Session
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    cfg.agents.ref_filter = False; cfg.multigen.ref_crop = False
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p012")
+    s = Session(cfg, p, tmp / "tiers", log=lambda *a: None)
+    sr, _ = s.retrieve(); sp, _ = s.spec()
+    check("p012 spec có thuyền thúng", any(se.entity_id == "thuyen_thung" for se in sp.entities))
+    imgs = {}
+    for name in ("low", "mid", "prompt"):
+        f = tmp / f"{name}.jpg"; Image.new("RGB", (64, 64), (100, 100, 100)).save(f); imgs[name] = str(f)
+    sr.items = [it for it in sr.items if it.kind != "image"]
+    sr.items += [EvidenceItem("thuyen_thung", "image", "low", "", local_path=imgs["low"], clip_match=0.3),
+                 EvidenceItem("thuyen_thung", "image", "mid", "", local_path=imgs["mid"], clip_match=0.6),
+                 EvidenceItem("-", "image", "prompt", "", local_path=imgs["prompt"], clip_match=None)]
+    class TierClip:
+        def similarity(self, path, texts): return [0.3]
+        def image_matches(self, path, label, cfs): return 0.8
+    s._clip = TierClip()
+    out = s.reference_images(k=3)
+    check("tầng 2: lấy ảnh 0,6 (không lấy 0,3), chưa cần ảnh prompt gốc", out == [imgs["mid"]], str(out))
+    sr.items = [it for it in sr.items if it.title != "mid"]
+    out2 = s.reference_images(k=3)
+    check("tầng 3: chỉ còn ảnh prompt gốc, chấm lại 0,8 -> dùng", out2 == [imgs["prompt"]], str(out2))
+    class NoClip(TierClip):
+        def image_matches(self, path, label, cfs): return 0.2
+    s._clip = NoClip()
+    check("không ảnh nào đạt -> [] không ném lỗi", s.reference_images(k=3) == [])
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -774,5 +808,6 @@ if __name__ == "__main__":
     print("\ntest_filter_agent_failure_tolerant"); test_filter_agent_failure_tolerant(tmp)
     print("\ntest_clip_veto_and_dedupe"); test_clip_veto_and_dedupe(tmp)
     print("\ntest_analysis_unsupported_candidates"); test_analysis_unsupported_candidates(tmp)
+    print("\ntest_reference_tiers"); test_reference_tiers(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

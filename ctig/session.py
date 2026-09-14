@@ -197,17 +197,50 @@ class Session:
         return self._aesthetic or None
 
     def reference_images(self, k: int | None = None) -> list[str]:
-        """Ảnh tham chiếu cho IP-Adapter: ảnh vật thể đã tải, CLIP >= ngưỡng, tốt nhất trước (v1.3: nhiều ảnh)."""
+        """Ảnh tham chiếu cho IP-Adapter, chọn theo TẦNG (v1.5.3):
+          1. ảnh của thực thể vật thể, CLIP >= ref_image_min_clip (0,75; áo dài đạt dễ);
+          2. như trên nhưng ngưỡng nới (>= 0,5): thực thể hiếm (thuyền thúng) CLIP kém tự tin dù ảnh đúng;
+          3. ảnh từ nhóm truy vấn PROMPT GỐC (entity "-"), chấm lại bằng CLIP theo nhãn thực thể so với confusable, >= 0,5.
+        Xếp theo P(thực thể) + độ khớp prompt (số người, bố cục). Rỗng thì log rõ số ảnh đã xét và điểm cao nhất.
+        Sau đó Filter agent lọc và cắt theo thực thể."""
         s, _ = self.retrieve()
         sp, _ = self.spec()
-        obj_ids = {se.entity_id for se in sp.entities if se.kind == "object"}
+        objs = [se for se in sp.entities if se.kind == "object"]
+        obj_ids = {se.entity_id for se in objs}
         thr = self.cfg.retrieval.ref_image_min_clip
-        items = [it for it in s.items if it.kind == "image" and it.local_path and it.entity_id in obj_ids
-                 and it.clip_match is not None and it.clip_match >= thr]
-        # v1.3 p001: ảnh tham chiếu là ảnh NHÓM nữ sinh -> IP-Adapter Plus kéo ra 3-4 người dù prompt "một cô gái".
-        # Xếp theo P(thực thể) + độ khớp prompt (bố cục, số người) thay vì chỉ P(thực thể).
+        imgs = [it for it in s.items if it.kind == "image" and it.local_path and Path(it.local_path).exists()]
+        ent_imgs = [it for it in imgs if it.entity_id in obj_ids]
+        tier1 = [it for it in ent_imgs if it.clip_match is not None and it.clip_match >= thr]
+        tier2 = [it for it in ent_imgs if it.clip_match is not None and 0.5 <= it.clip_match < thr]
+        chosen, tier = tier1, "1 (CLIP >= %.2f)" % thr
+        if not chosen and tier2:
+            chosen, tier = tier2, "2 (CLIP >= 0,50, ngưỡng nới cho thực thể hiếm)"
+        if not chosen and objs:
+            main = max(objs, key=lambda se: se.weight)
+            label = main.clip_label or f"a photo of Vietnamese {main.name_en.split('(')[0].strip()}"
+            from .llm.shared import confusable_clip_label
+
+            cfs = [confusable_clip_label(c) for c in main.confusables[:4]]
+            prompt_imgs = [it for it in imgs if it.entity_id == "-"]
+            scored = []
+            for it in prompt_imgs:
+                try:
+                    m = self.clip.image_matches(it.local_path, label, cfs)
+                except Exception:  # noqa: BLE001
+                    continue
+                it.clip_match = round(m, 4)
+                if m >= 0.5:
+                    scored.append(it)
+            if scored:
+                chosen, tier = scored, f"3 (ảnh từ prompt gốc, chấm lại theo nhãn '{label[:40]}')"
+        if not chosen:
+            best = max([it.clip_match for it in ent_imgs if it.clip_match is not None] + [0.0])
+            self.log(f"  [3b] không có ảnh tham chiếu: {len(ent_imgs)} ảnh thực thể (CLIP cao nhất {best:.2f}), "
+                     f"{len([it for it in imgs if it.entity_id == '-'])} ảnh prompt gốc đều dưới 0,50")
+            return []
         a, _ = self.analysis()
         pe = a.prompt_en or self.prompt.text_en
+
         def rank(it):
             sim = 0.0
             if pe:
@@ -216,12 +249,13 @@ class Session:
                 except Exception:  # noqa: BLE001
                     sim = 0.0
             return -(0.5 * (it.clip_match or 0) + sim)
-        items = [it for it in items if Path(it.local_path).exists()]
-        items.sort(key=rank)
+
+        chosen = sorted(chosen, key=rank)
         out: list[str] = []
-        for it in items:
+        for it in chosen:
             if it.local_path not in out:
                 out.append(it.local_path)
+        self.log(f"  [3b] ảnh tham chiếu tầng {tier}: {len(out)} ảnh")
         k = k or self.cfg.multigen.ref_images
         ag = self.cfg.agents
         if ag.enabled and ag.ref_filter and out:

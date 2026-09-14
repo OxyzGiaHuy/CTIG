@@ -419,7 +419,8 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 g.model_key = safe_key
             else:
                 if mspec.ip_adapter and not refs:
-                    raise RuntimeError("bỏ qua: spec không có ảnh tham chiếu đạt CLIP cho thực thể vật thể")
+                    raise RuntimeError("bỏ qua: không có ảnh tham chiếu nào đạt CLIP (kể cả ngưỡng nới và ảnh từ prompt gốc); "
+                                       "xem log [3b] của Session để biết điểm cao nhất")
                 log(f"  [4b] nạp {key} ({mspec.repo}) ...")
                 try:
                     pipe = loader(mspec, cfg.device, cfg.cpu_offload, log=log, scheduler=getattr(cfg, "scheduler", None))

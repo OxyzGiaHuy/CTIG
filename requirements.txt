@@ -12,3 +12,4 @@ sentencepiece
 safetensors
 ddgs>=9.0          # DuckDuckGo search, không cần key
 compel>=2.0         # nối embedding cho prompt > 77 token CLIP (SDXL/SD1.5), v1.3
+numpy>=1.24         # kho ảnh tham chiếu CLIP (ctig/stages/refindex.py), v1.6

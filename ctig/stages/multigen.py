@@ -50,13 +50,15 @@ def _clamp(v: int, max_side: int) -> int:
 
 
 def adapt_spec(gen: GenSpec, mspec: ModelSpec, cfg, spec: CulturalSpec | None = None, prompt_en: str = "",
-               variant: str | None = None, t2i_cfg=None) -> GenSpec:
+               variant: str | None = None, t2i_cfg=None, key: str | None = None) -> GenSpec:
     """GenSpec chung -> GenSpec cho một model: kích cỡ, bước, guidance, negative, trigger LoRA.
 
     v1.4.1: cách render prompt có thể khác theo model (sd3 -> sentence) hoặc theo hậu tố '#variant' của khoá; khi đó
     prompt/negative được render lại từ spec (cần `spec` và `prompt_en`). Negative riêng của checkpoint nối vào cuối.
     """
-    ov = (cfg.overrides or {}).get(mspec.key, {})
+    ov = dict((cfg.overrides or {}).get(mspec.key, {}))
+    if key and key != mspec.key:
+        ov.update((cfg.overrides or {}).get(key, {}))  # override theo khoá đầy đủ, vd "realvis_xl+ref": {ip_scale: 0.5}
     w, h = _clamp(ov.get("width", mspec.width), cfg.max_side), _clamp(ov.get("height", mspec.height), cfg.max_side)
     want = variant or mspec.render
     g = gen
@@ -379,7 +381,10 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 on_model_done(result.runs[-1])
             continue
 
-        gspec = adapt_spec(gen, mspec, cfg, spec=spec, prompt_en=prompt_en, variant=variant, t2i_cfg=t2i_cfg)
+        ov_full = (cfg.overrides or {}).get(key, {})
+        if mspec.ip_adapter and "ip_scale" in ov_full:
+            mspec = replace(mspec, ip_adapter_scale=float(ov_full["ip_scale"]))  # sweep scale IP-Adapter theo hàng
+        gspec = adapt_spec(gen, mspec, cfg, spec=spec, prompt_en=prompt_en, variant=variant, t2i_cfg=t2i_cfg, key=key)
         safe_key = key.replace("@", "_s").replace("#", "_r").replace("+", "_")  # tên thư mục/file an toàn
         need = gspec.n_candidates
         if getattr(cfg, "adaptive", None) is not None and getattr(cfg.adaptive, "enabled", False):

@@ -201,3 +201,12 @@
   ghi rõ. Cùng lúc khử ảnh trùng trong top-k do hàng alias chia sẻ đường dẫn.
 - Kế tiếp: p012 (thuyền thúng, prior thấp) để thấy +ref hoạt động chiều "dùng ảnh", rồi p031, p050.
 
+## 2026-09-14 — v1.6: kho ảnh tham chiếu + truy hồi theo thuộc tính (từ ImageRAG), chưa chạy GPU
+- Đọc kỹ ImageRAG: (a) retrieval bằng caption VLM viết cho khái niệm thiếu 0,264 > tên khái niệm/prompt 0,258; (b) kho chuyên
+  miền > LAION ngẫu nhiên, kho lớn hơn tốt hơn; (c) rephrase prompt đơn thuần 0,248 ≈ baseline 0,247 (khớp H15 âm của CTIG);
+  (d) ảnh truy hồi sai thì model bỏ qua; (e) mọi ảnh truy hồi > 0,26 cosine; (f) user study 67 người / 977 so sánh cặp.
+- v1.6: kho ảnh CLIP từ 1.400 ảnh của nhóm (refindex.py) làm tầng 0; ảnh tham chiếu chọn theo tầng (p012: thuyền thúng vs coracle
+  chia xác suất nên 0,75 hụt); vòng sửa truy hồi theo caption thuộc tính thiếu; Analysis bỏ ứng viên không căn cứ (p012 nhận
+  ao_dai/non_la); override ip_scale theo hàng để sweep 0,3/0,4/0,5.
+- Chưa làm: zero-order search quanh seed tốt (Ma et al.), agent chọn model (T2I-Copilot), Exaggeration (CULTIVate).
+

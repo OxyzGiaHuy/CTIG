@@ -105,6 +105,16 @@ Danh sách đọc theo khối: [research/literature/README.md](research/literatu
 | Cắt ảnh tham chiếu bằng **OWL-ViT** (phát hiện theo chữ), lùi về CLIP quét lưới | OWL-ViT | `multigen.ref_detector` |
 | Brief của Summary agent theo 4 chiều attire / objects / background / interactions | CULTIVate | tự động |
 
+## v1.6: kho ảnh tham chiếu và truy hồi theo thuộc tính (ImageRAG)
+
+- **Kho ảnh CLIP** (`ctig/stages/refindex.py`): ~1.400 ảnh tham chiếu của nhóm đánh chỉ mục một lần, truy hồi bằng caption trong
+  vài ms; là tầng 0 khi chọn ảnh tham chiếu (ngưỡng cosine 0,26 theo ImageRAG), web search chỉ là đường lùi. `retrieval.ref_index`.
+- **Ảnh tham chiếu chọn theo tầng**: CLIP ≥ 0,75 → ≥ 0,50 (thực thể hiếm, confusable quá giống như coracle) → ảnh từ prompt gốc chấm lại.
+- **Vòng sửa truy hồi theo caption thuộc tính thiếu** ("close-up of a Vietnamese ao dai showing a high stand-up collar"), không theo
+  tên thực thể (ImageRAG: caption 0,264 so với tên khái niệm 0,258); kho trước, web sau, lọc CLIP theo caption, cắt theo thực thể.
+- **Analysis bỏ ứng viên không có căn cứ** trong prompt (p012 từng nhận áo dài, nón lá từ thói quen của VLM).
+- **Sweep scale IP-Adapter** theo hàng qua `multigen.overrides: {"<khoá>": {ip_scale: 0.5}}`.
+
 ## Báo cáo tiến độ gửi người hướng dẫn
 
 ```bash

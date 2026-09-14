@@ -67,6 +67,22 @@ Muốn nhanh: bỏ `sdxl_base`, `realvis_xl#legacy` hoặc `playground25`.
 chạy lại cùng prompt để so cột CLIP attr; các bước 1-3 vẫn lấy từ cache, chỉ ảnh Search và điểm chấm lại. CultureCLIP (COLM 2025)
 chưa công bố trọng số; muốn dùng phải tự fine-tune theo công thức của họ với `confusable_with` trong KB làm cặp twin.
 
+## v1.6: kho ảnh tham chiếu của nhóm (ImageRAG-style)
+
+1. Upload `ref_images.zip` + `ref_images_complex.zip` (Drive/Data) thành một Dataset, Add Input. Kaggle tự giải nén thành
+   `/kaggle/input/datasets/<user>/<ten>/evidence_images/` và `evidence_images_complex/`.
+2. Đánh chỉ mục một lần (~2 phút cho 1.400 ảnh trên T4), lưu vào cache để đi theo `runs_cache.zip`:
+   ```
+   !cd /kaggle/working/CTIG && python -m ctig.stages.refindex build --root /kaggle/input/datasets/<user>/<ten> --out /kaggle/working/runs/_cache/ref_index.npz
+   ```
+3. Trong cell chọn prompt: `cfg.retrieval.ref_index = "/kaggle/working/runs/_cache/ref_index.npz"`. Log `[session] kho ảnh tham chiếu: N ảnh`.
+   Từ đó ảnh tham chiếu lấy từ kho (tầng 0, log `[3b] ... tầng 0 (kho ...)`), web chỉ dùng khi kho không có; vòng sửa 4d truy hồi
+   theo caption thuộc tính thiếu (`[4d] ảnh theo caption thuộc tính (kho|web): ...`).
+4. Kho phải đánh chỉ mục bằng đúng `perception.clip_model` đang dùng; khác thì Session bỏ kho và báo.
+
+Sweep scale IP-Adapter theo hàng: `multigen.overrides: {"realvis_xl+ref": {ip_scale: 0.5}}` (thêm hàng cùng khoá không được; dùng
+hai config hoặc hai lần chạy).
+
 ## Ước lượng thời gian và dung lượng
 
 | | 1×T4 (offload) | 2×T4 |

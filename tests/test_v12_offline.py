@@ -722,6 +722,62 @@ def test_reference_tiers(tmp):
     check("không ảnh nào đạt -> [] không ném lỗi", s.reference_images(k=3) == [])
 
 
+def test_refindex_and_attribute_refs(tmp):
+    """v1.6: kho ảnh CLIP: build/search/save/load; Session dùng kho làm tầng 0; vòng sửa truy hồi theo caption thuộc tính; override ip_scale."""
+    import numpy as np
+    from PIL import Image
+    from ctig.stages import refindex as ri
+    from ctig.stages import multigen as mg
+    from ctig.models.registry import get
+    from ctig.schema import GenSpec
+    from ctig.session import Session
+
+    root = tmp / "kho"; (root / "p012").mkdir(parents=True); (root / "p001").mkdir(parents=True)
+    Image.new("RGB", (64, 64), (200, 30, 30)).save(root / "p012" / "red.jpg")
+    Image.new("RGB", (64, 64), (30, 30, 200)).save(root / "p001" / "blue.jpg")
+    Image.new("RGB", (64, 64), (30, 200, 30)).save(root / "p001" / "green.png")
+    (root / "p001" / "note.txt").write_text("x")
+
+    class ColorClip:  # embedding = màu trung bình chuẩn hoá; text "red"/"blue"/"green" -> vector màu
+        model_id = "fake-clip"
+        def image_embed(self, img):
+            px = np.asarray(img.convert("RGB").resize((8, 8)), dtype="float32").reshape(-1, 3).mean(0); return px / (np.linalg.norm(px) + 1e-8)
+        def text_embed(self, texts):
+            m = {"red": [1, 0, 0], "blue": [0, 0, 1], "green": [0, 1, 0]}
+            return np.asarray([m.get(next((k for k in m if k in t.lower()), "red"), [1, 0, 0]) for t in texts], dtype="float32")
+        def similarity(self, path, texts): return [0.3 for _ in texts]
+    idx = ri.build(root, tmp / "kho.npz", ColorClip(), log=lambda *a: None)
+    check("build: 3 ảnh (bỏ .txt), lưu npz+json", len(idx) == 3 and (tmp / "kho.npz").exists() and (tmp / "kho.json").exists())
+    idx2 = ri.RefIndex.load(tmp / "kho.npz")
+    hits = idx2.search(ColorClip().text_embed(["a red object"])[0], k=2, min_sim=0.26)
+    check("search 'red' -> red.jpg đầu, cosine cao", hits and hits[0][0].endswith("red.jpg") and hits[0][1] > 0.9, str(hits))
+    check("search giới hạn folder", idx2.search(ColorClip().text_embed(["red"])[0], k=3, min_sim=0.0, folders=["p001"])[0][0].endswith(("blue.jpg", "green.png")))
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    cfg.retrieval.ref_index = str(tmp / "kho.npz"); cfg.perception.clip_model = "fake-clip"
+    cfg.agents.ref_filter = False; cfg.multigen.ref_crop = False
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p012")
+    s = Session(cfg, p, tmp / "ri", log=lambda *a: None)
+    class RedClip(ColorClip):
+        def text_embed(self, texts): return np.asarray([[1, 0, 0] for _ in texts], dtype="float32")
+    s._clip = RedClip()
+    out = s.reference_images(k=2)
+    check("tầng 0: kho trả red.jpg cho thuyền thúng (clip giả)", out and out[0].endswith("red.jpg"), str(out))
+    refs = s.attribute_refs(["round woven bamboo hull", "single oar"], k=2)
+    check("attribute_refs: caption thuộc tính -> ảnh từ kho", refs and refs[0].endswith("red.jpg"), str(refs))
+    cfg.perception.clip_model = "openai/clip-vit-base-patch32"
+    s2 = Session(cfg, p, tmp / "ri2", log=lambda *a: None)
+    check("kho đánh chỉ mục bằng CLIP khác -> bỏ kho", s2.ref_index is None)
+
+    # override ip_scale theo khoá đầy đủ
+    cfg.multigen.overrides = {"realvis_xl+ref": {"ip_scale": 0.55}}
+    g = GenSpec("t", prompt_terms=["a"], seed=1, steps=1, guidance=5, width=8, height=8, n_candidates=1)
+    ad = mg.adapt_spec(g, get("realvis_xl"), cfg.multigen, key="realvis_xl+ref")
+    check("adapt_spec nhận override theo khoá đầy đủ", ad.n_candidates == 1)
+    ov = (cfg.multigen.overrides or {}).get("realvis_xl+ref", {})
+    check("ip_scale override đọc được", ov.get("ip_scale") == 0.55)
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -809,5 +865,6 @@ if __name__ == "__main__":
     print("\ntest_clip_veto_and_dedupe"); test_clip_veto_and_dedupe(tmp)
     print("\ntest_analysis_unsupported_candidates"); test_analysis_unsupported_candidates(tmp)
     print("\ntest_reference_tiers"); test_reference_tiers(tmp)
+    print("\ntest_refindex_and_attribute_refs"); test_refindex_and_attribute_refs(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

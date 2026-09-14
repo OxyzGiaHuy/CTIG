@@ -84,6 +84,11 @@ class RetrievalConfig:
     #: CLIP tối thiểu để ảnh tìm được dùng làm tham chiếu IP-Adapter. Thấp hơn thì
     #: ảnh vẫn được ghi lại làm bằng chứng nhưng không đưa vào bộ sinh.
     ref_image_min_clip: float = 0.75
+    #: v1.6 (ImageRAG): kho ảnh tham chiếu đánh chỉ mục CLIP (ctig/stages/refindex.py). Đường dẫn .npz; None = không dùng.
+    #: Là nguồn TẦNG 0 cho ảnh tham chiếu và cho truy hồi theo caption thuộc tính trong vòng sửa; web search là đường lùi.
+    ref_index: str | None = None
+    ref_index_min_sim: float = 0.26
+    ref_index_k: int = 6
     timeout: float = 10.0
     #: Số ký tự văn bản Wikipedia lấy về cho bước rút thuộc tính (0 = chỉ tóm tắt).
     wiki_chars: int = 3000

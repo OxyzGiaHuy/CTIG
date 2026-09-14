@@ -106,6 +106,21 @@ class CLIPProbe:
         f = f.float()
         return (f / f.norm(dim=-1, keepdim=True))[0]
 
+    def text_embed(self, texts: list[str]):
+        """Vector CLIP chuẩn hoá của các câu (cùng không gian với image_embed) - dùng cho kho ảnh tham chiếu."""
+        kw = dict(text=texts, return_tensors="pt", padding=True, truncation=True)
+        if "siglip" in self.model_id.lower():
+            kw["padding"] = "max_length"; kw["max_length"] = 64
+        inputs = self.proc(**kw).to(self.device)
+        with self.torch.inference_mode():
+            f = self.model.get_text_features(**inputs)
+        for name in ("text_embeds", "pooler_output"):
+            if hasattr(f, name) and getattr(f, name) is not None:
+                f = getattr(f, name)
+                break
+        f = f.float()
+        return f / f.norm(dim=-1, keepdim=True)
+
     def image_similarity(self, image_a, image_b) -> float:
         """Cosine ảnh-ảnh (v1.4.2): đo ảnh sinh 'chép' ảnh tham chiếu đến đâu. Ảnh khác nhau cùng chủ đề ~0,6-0,8; gần chép > 0,9."""
         a, b = self.image_embed(image_a), self.image_embed(image_b)

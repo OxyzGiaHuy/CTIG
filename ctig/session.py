@@ -184,6 +184,79 @@ class Session:
                 self._itm = False
         return self._itm or None
 
+    _ref_index: Any = None
+
+    @property
+    def ref_index(self):
+        """Kho ảnh tham chiếu CLIP (v1.6). None nếu không cấu hình hoặc không nạp được."""
+        if self._ref_index is None:
+            self._ref_index = False
+            path = self.cfg.retrieval.ref_index
+            if path and Path(path).exists():
+                try:
+                    from .stages.refindex import RefIndex
+
+                    idx = RefIndex.load(path)
+                    if idx.clip_model and idx.clip_model != self.cfg.perception.clip_model:
+                        self.log(f"[session] kho ảnh đánh chỉ mục bằng {idx.clip_model}, đang dùng {self.cfg.perception.clip_model} -> bỏ kho")
+                    else:
+                        self._ref_index = idx
+                        self.log(f"[session] kho ảnh tham chiếu: {len(idx)} ảnh ({path})")
+                except Exception as exc:  # noqa: BLE001
+                    self.log(f"[session] không nạp được kho ảnh {path}: {type(exc).__name__}: {exc}")
+            elif path:
+                self.log(f"[session] kho ảnh {path} không tồn tại -> dùng web search")
+        return self._ref_index or None
+
+    def index_refs(self, captions: list[str], k: int | None = None) -> list[tuple[str, float]]:
+        """Truy hồi từ kho theo các caption (hợp, giữ điểm cao nhất mỗi ảnh), cosine >= ref_index_min_sim."""
+        idx = self.ref_index
+        if idx is None or not captions:
+            return []
+        k = k or self.cfg.retrieval.ref_index_k
+        best: dict[str, float] = {}
+        try:
+            vecs = self.clip.text_embed(captions)
+            for v in vecs:
+                for pth, sim in idx.search(v.cpu().numpy() if hasattr(v, "cpu") else v, k=k, min_sim=self.cfg.retrieval.ref_index_min_sim):
+                    best[pth] = max(best.get(pth, 0.0), sim)
+        except Exception as exc:  # noqa: BLE001
+            self.log(f"  [3b] kho ảnh lỗi: {type(exc).__name__}: {str(exc)[:80]}")
+            return []
+        return sorted(best.items(), key=lambda kv: -kv[1])[:k]
+
+    def attribute_refs(self, missing_attrs: list[str], k: int = 3) -> list[str]:
+        """v1.6 (ImageRAG): vòng sửa truy hồi ảnh theo CAPTION của THUỘC TÍNH thiếu ("close-up of a Vietnamese ao dai showing
+        a high stand-up collar"), không theo tên thực thể. Kho trước, web (DDG ảnh) sau; lọc CLIP theo caption; cắt theo thực thể."""
+        sp, _ = self.spec()
+        main = next((se for se in sp.entities if se.kind == "object"), None)
+        if main is None or not missing_attrs:
+            return []
+        name = main.name_en.split("(")[0].strip()
+        caps = [f"close-up photo of a Vietnamese {name} showing {a}" for a in missing_attrs[:3]]
+        hits = self.index_refs(caps, k=k * 2)
+        src = "kho"
+        if not hits:
+            src = "web"
+            thr = self.cfg.retrieval.ref_index_min_sim
+            for cap in caps[:2]:
+                try:
+                    for r in self.web.images(cap, n=4):
+                        local = self.web.download(r.get("image"))
+                        if not local:
+                            continue
+                        sim = self.clip.similarity(local, [cap])[0]
+                        if sim >= thr:
+                            hits.append((local, sim))
+                except Exception as exc:  # noqa: BLE001
+                    self.log(f"  [4d] web ảnh cho '{cap[:40]}': {type(exc).__name__}")
+            hits = sorted(dict(hits).items(), key=lambda kv: -kv[1])
+        paths = [p for p, _ in hits][:k]
+        self.log(f"  [4d] ảnh theo caption thuộc tính ({src}): {len(paths)} ảnh cho {[a[:30] for a in missing_attrs[:3]]}")
+        if paths and self.cfg.multigen.ref_crop:
+            paths = self.crop_refs(paths, sp)
+        return paths
+
     @property
     def aesthetic(self):
         """PickScore (v1.3), nạp lười, offload CPU. None nếu tắt hoặc không nạp được."""
@@ -209,6 +282,24 @@ class Session:
         obj_ids = {se.entity_id for se in objs}
         thr = self.cfg.retrieval.ref_image_min_clip
         imgs = [it for it in s.items if it.kind == "image" and it.local_path and Path(it.local_path).exists()]
+        # Tầng 0 (v1.6): kho ảnh của nhóm đánh chỉ mục CLIP, truy hồi bằng nhãn thực thể + prompt EN.
+        if self.ref_index is not None and objs:
+            main = max(objs, key=lambda se: se.weight)
+            a0, _ = self.analysis()
+            caps = [main.clip_label or f"a photo of Vietnamese {main.name_en.split('(')[0].strip()}", a0.prompt_en or self.prompt.text_en]
+            hits = self.index_refs([c for c in caps if c])
+            if hits:
+                k0 = k or self.cfg.multigen.ref_images
+                out0 = [p for p, _ in hits]
+                self.log(f"  [3b] ảnh tham chiếu tầng 0 (kho, cosine cao nhất {hits[0][1]:.2f}): {len(out0)} ảnh")
+                ag0 = self.cfg.agents
+                if ag0.enabled and ag0.ref_filter:
+                    flt, _ = self.ref_filter(out0[: max(k0 * 2, 4)])
+                    kept = [p for p in out0 if p in set(flt.kept)]
+                    if kept:
+                        out0 = kept
+                out0 = out0[:max(1, k0)]
+                return self.crop_refs(out0, sp) if self.cfg.multigen.ref_crop else out0
         ent_imgs = [it for it in imgs if it.entity_id in obj_ids]
         tier1 = [it for it in ent_imgs if it.clip_match is not None and it.clip_match >= thr]
         tier2 = [it for it in ent_imgs if it.clip_match is not None and 0.5 <= it.clip_match < thr]
@@ -357,9 +448,14 @@ class Session:
                 if plan.is_empty():
                     cr.notes.append("kế hoạch sửa rỗng (không còn gì để thêm) -> giữ ảnh multigen")
                     return cr
+                refs_for_regen = self.attribute_refs(v0.missing_must_have) if plan.use_reference_image else []
+                if not refs_for_regen:
+                    refs_for_regen = self.reference_images()
+                else:
+                    cr.notes.append(f"vòng sửa dùng {len(refs_for_regen)} ảnh truy hồi theo caption thuộc tính thiếu")
                 run_rec, _ = ag_loop.regenerate(gen, plan, sp, self.kb, cr.best_model, self.cfg, self.out_dir,
                                                 clip=self.clip, itm=self.itm, prompt_en=pe, log=self.log,
-                                                aesthetic=self.aesthetic, ref_images=self.reference_images())
+                                                aesthetic=self.aesthetic, ref_images=refs_for_regen)
                 cr.regen = run_rec
                 if run_rec is not None and run_rec.output:
                     flt2 = ag_desc.run(self.agent, [x.path for x in run_rec.output.candidates], sp, pe, kind="candidate", log=self.log, clip=self.clip)

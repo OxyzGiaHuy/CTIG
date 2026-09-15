@@ -62,6 +62,10 @@ REGISTRY: dict[str, ModelSpec] = {
         "sdxl_turbo", "stabilityai/sdxl-turbo", "sdxl_turbo", 512, 512, steps=4, guidance=0.0,
         negative_ok=False, vae=SDXL_VAE_FIX, est_vram_gb=5.5, scheduler="keep", hires_ok=False,
         notes="Chưng cất từ SDXL; 1-4 bước, guidance 0 nên KHÔNG dùng negative prompt. Nhanh nhất."),
+    "sd15_base": ModelSpec(
+        "sd15_base", "stable-diffusion-v1-5/stable-diffusion-v1-5", "sd15", 512, 512, steps=30, guidance=7.5,
+        est_vram_gb=2.5, load_kwargs={"safety_checker": None, "requires_safety_checker": False},
+        notes="SD 1.5 gốc (mirror chính thức sau khi runwayml gỡ repo). Model nền M cho bảng bare/system, không fine-tune."),
     "dreamshaper8": ModelSpec(
         "dreamshaper8", "Lykon/dreamshaper-8", "sd15", 512, 512, steps=30, guidance=7.0,
         est_vram_gb=2.5, load_kwargs={"safety_checker": None, "requires_safety_checker": False},

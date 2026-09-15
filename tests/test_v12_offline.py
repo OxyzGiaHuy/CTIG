@@ -778,6 +778,21 @@ def test_refindex_and_attribute_refs(tmp):
     check("ip_scale override đọc được", ov.get("ip_scale") == 0.55)
 
 
+def test_spec_region_named(tmp):
+    """v1.6.1: thực thể nêu tên trong prompt không bị luật vùng loại dù Analysis đoán sai vùng."""
+    from ctig.llm.rule_agent import RuleAgent
+    from ctig.stages import analysis as st_a, spec as st_s
+    from ctig.stages.retrieval import LocalRetriever
+
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    kb = KnowledgeBase.load(cfg.kb_path)
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p012")
+    ag = RuleAgent(); a = st_a.run(ag, p, kb, 6); a.region_hint = "bac_bo"
+    s = LocalRetriever(cfg.retrieval, None, tmp / "_cache").search(a, kb)
+    sp = st_s.run(ag, p, a, s, kb, 4, 0.3)
+    check("thuyền thúng (trung_bo) giữ dù region_hint bac_bo", any(se.entity_id == "thuyen_thung" for se in sp.entities), str(sp.dropped))
+
+
 def test_agents_offline(tmp):
     """v1.4: Summary / Filter / Rank + vòng sửa chạy offline với RuleAgent + stub; các luật lọc đúng."""
     from ctig.agents import describe as ag_desc, loop as ag_loop, rank as ag_rank
@@ -866,5 +881,6 @@ if __name__ == "__main__":
     print("\ntest_analysis_unsupported_candidates"); test_analysis_unsupported_candidates(tmp)
     print("\ntest_reference_tiers"); test_reference_tiers(tmp)
     print("\ntest_refindex_and_attribute_refs"); test_refindex_and_attribute_refs(tmp)
+    print("\ntest_spec_region_named"); test_spec_region_named(tmp)
     print("\n" + ("THẤT BẠI: " + ", ".join(FAILED) if FAILED else "TẤT CẢ ĐỀU ĐẠT"))
     sys.exit(1 if FAILED else 0)

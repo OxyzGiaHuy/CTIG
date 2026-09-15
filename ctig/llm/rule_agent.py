@@ -76,13 +76,19 @@ class RuleAgent:
                 s["ref"] = it.local_path  # retrieval đã chọn một ảnh tốt nhất đạt ngưỡng, thực thể vật thể
         dropped: list[list[str]] = []
         kept = []
+        from ..kb import contains
+
+        ptext = f"{prompt.text_vi} {prompt.text_en}"
         for eid, s in merged.items():
             ent = kb.get(eid)
             if ent is None:
                 dropped.append([eid, "không có trong KB"]); continue
-            if s["score"] < min_score:
+            named_in_prompt = any(contains(ptext, term) for term in ent.search_terms if len(term) >= 3)
+            if s["score"] < min_score and not named_in_prompt:
                 dropped.append([eid, f"điểm {s['score']:.2f} < {min_score}"]); continue
-            if analysis.region_hint and ent.region not in ("toan_quoc", analysis.region_hint):
+            # Luật vùng chỉ áp cho thực thể SUY RA. v1.6 p012: "thuyền thúng" nêu tên thẳng mà bị bỏ vì Analysis đoán vùng bac_bo
+            # trong khi KB ghi trung_bo -> spec rỗng, CLIP 0, không ảnh tham chiếu. Vùng do VLM đoán không được thắng chữ trong prompt.
+            if analysis.region_hint and ent.region not in ("toan_quoc", analysis.region_hint) and not named_in_prompt:
                 dropped.append([eid, f"vùng '{ent.region}' xung đột với '{analysis.region_hint}'"]); continue
             if not s["mh"]:
                 dropped.append([eid, "không có thuộc tính kiểm chứng được"]); continue

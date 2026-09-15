@@ -951,6 +951,15 @@ def test_v17_grounding_bare(tmp):
     check("khớp dài nhất: 'Tết Trung Thu' che 'tết' -> Tết Nguyên Đán không còn căn cứ", "trung_thu" in cf and "tet_nguyen_dan" not in cf, str(cf))
     cf2 = _support(AnalysisResult(prompt_id="x", keywords=[Keyword("tết", "entity", "surface", 1.0)], candidate_entity_ids=["tet_nguyen_dan"]), s.kb, "Gia đình sum họp ngày Tết bên mâm ngũ quả")
     check("chỉ 'Tết' -> Tết Nguyên Đán vẫn có căn cứ", "tet_nguyen_dan" in cf2, str(cf2))
+    from ctig.stages.spec import resolve_attr_conflicts
+    from ctig.schema import CulturalSpec as _CS, SpecEntity as _SE
+    cs = _CS("t", [_SE("non_la", "Nón lá", "Non la", ["a"], ["b"], [], required_attrs_en=["round conical hat with a pointed tip", ""],
+                       forbidden_attrs_en=["conical shape", "wide brim", ""], tags_en=["conical palm-leaf hat"], neg_tags_en=["flat-top hat"]),
+                  _SE("ao_tu_than", "Áo tứ thân", "Ao tu than", ["a"], [], [], required_attrs_en=["four-panel gown"], neg_tags_en=["conical hat", "obi"])])
+    resolve_attr_conflicts(cs)
+    check("xung đột thuộc tính: bỏ must_not 'conical shape' và neg_tag 'conical hat' trùng must_have nón lá, giữ 'wide brim', bỏ chuỗi rỗng",
+          cs.entities[0].forbidden_attrs_en == ["wide brim"] and cs.entities[0].required_attrs_en == ["round conical hat with a pointed tip"]
+          and cs.entities[1].neg_tags_en == ["obi"] and any("conical" in d[1] for d in cs.dropped), f"{cs.entities[0].forbidden_attrs_en} {cs.entities[1].neg_tags_en}")
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh
     class VqaAgent:

@@ -39,7 +39,7 @@ from .schema import (
 #: Phiên bản LOGIC của từng bước. Tăng số khi đổi code làm đầu ra bước khác đi dù đầu vào không đổi,
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
-STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 2, "spec": 2, "genspec": 4, "multigen": 3, "review": 1,
+STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 2, "spec": 3, "genspec": 4, "multigen": 3, "review": 1,
               "brief": 2, "ref_filter": 2, "candidate_review": 6}
 
 

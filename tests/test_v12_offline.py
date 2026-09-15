@@ -914,6 +914,19 @@ def test_v17_grounding_bare(tmp):
     cr2, _ = s2.candidate_review()
     check("ảnh bare không vào pool chọn cuối / Rank", all("bare" not in pth for pth in cr2.pool) and all("bare" not in pth for pth in cr2.rank.final_order)
           and "bare" not in (cr2.final_path or ""), str(list(cr2.pool)[:3]))
+    # Reviewer loại hết ảnh hệ thống -> vẫn phải có ảnh cuối và loop vẫn chạy
+    class StrictAgent:  # bọc RuleAgent: chỉ ghi đè bước mô tả/khớp để MỌI ảnh đều bị must_not
+        def __init__(self, inner): self.inner = inner
+        def __getattr__(self, k): return getattr(self.inner, k)
+        def describe_image(self, path): return {"people_count": 1, "subjects": ["woman"], "garments": ["dress"], "objects": [], "background": "", "watermark_or_text": False}
+        def match_descriptors(self, description, have, notv): return {"present_must_have": [], "present_must_not": notv[:1], "unsure": []}
+    s3 = Session(cfg2, p, tmp / "g17c", log=lambda *a: None)
+    s3.cfg.models = ["stub#bare", "stub"]
+    s3.multigen(["stub#bare", "stub"])
+    s3._agent = StrictAgent(s3.agent)
+    cr3, _ = s3.candidate_review()
+    check("Reviewer loại hết -> vẫn chọn ảnh hệ thống ít sai nhất, không None, không phải bare",
+          cr3.final_path and "bare" not in cr3.final_path and any("ít sai nhất" in n or "mốc" in n for n in cr3.notes) or (cr3.final_path and "bare" not in cr3.final_path), f"{cr3.final_path} {cr3.notes[:2]}")
     check("Reviewer tầng 1 chấm MỌI ảnh (bare + system), k = số ảnh qua tầng 1 ≤ k_candidates",
           len(cr2.filter.verdicts) == sum(len(r.output.candidates) for r in res2.runs if r.output) and cr2.k <= cfg2.agents.k_candidates, f"{len(cr2.filter.verdicts)} {cr2.k}")
     ht = viz.paired_table(res)

@@ -221,7 +221,7 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                     pass  # không tự thêm must_have; chỉ gỡ must_not sai
                 reasons.append(f"VLM nói '{a[:30]}' nhưng CLIP nghiêng về '{h[:30]}' -> bỏ")
         # v1.7.1: câu hỏi có/không trên ẢNH cho từng thuộc tính (Exposing Blindspots 2026: câu hỏi phủ định cho must_not).
-        # Mô tả tự do hay bỏ sót chi tiết (cổ áo, đai) -> VQA là ý kiến thứ hai: >= 0.75 xác nhận, <= 0.25 bác.
+        # Mô tả tự do hay bỏ sót chi tiết (cổ áo, đai) -> VQA là ý kiến thứ hai: >= 0.75 xác nhận must_have, >= 0.85 thêm must_not, <= 0.25 bác.
         if hasattr(agent, "vqa_yes"):
             subj = name_en if any(se.kind == "object" for se in spec.entities) else "scene"
             for a in have_all + not_all:
@@ -242,7 +242,7 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                 pr = vqa.get(a)
                 if pr is None:
                     continue
-                if pr >= 0.75 and a not in matched_not:
+                if pr >= 0.85 and a not in matched_not:  # must_not chỉ theo VQA cần chắc hơn (p031: 'wide brim' 0.78 trên nón lá đúng)
                     h = _counterpart(a, have_all)
                     if h is None or clip_agrees_not(clip, desc.path, name_en, a, h) is not False:
                         matched_not.append(a); reasons.append(f"VQA thấy must_not '{a[:30]}' ({pr:.2f})")

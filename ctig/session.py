@@ -40,7 +40,7 @@ from .schema import (
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
 STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 2, "spec": 3, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 2, "candidate_review": 6}
+              "brief": 2, "ref_filter": 2, "candidate_review": 7}
 
 
 def _h(obj: Any) -> str:
@@ -470,8 +470,17 @@ class Session:
             # Hàng M#bare là ĐỐI CHỨNG: Reviewer chấm để lập bảng bare/system, nhưng KHÔNG được vào Rank, loop hay ảnh cuối
             # (p031/p050 v1.7: ảnh cuối từng rơi vào hàng bare vì chọn trên toàn pool).
             bare_paths = {cand.path for cand, m in cands if "#bare" in m}
-            fine = sorted([cm for cm in cands if cm[0].path in flt.kept and cm[0].path not in bare_paths],
+            sys_cands = [cm for cm in cands if cm[0].path not in bare_paths]
+            fine = sorted([cm for cm in sys_cands if cm[0].path in flt.kept],
                           key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
+            if not fine and sys_cands:
+                # p031 v1.7.1: Reviewer nghiêm loại hết ảnh hệ thống -> không được trả None; lấy ảnh ÍT SAI NHẤT làm mốc để
+                # Reflector/Refiner còn có gì mà sửa (loop là nơi sửa lỗi, không phải Filter).
+                fine = sorted(sys_cands, key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
+                for cm in fine:
+                    v_by[cm[0].path].keep = True
+                flt.kept = [cm[0].path for cm in fine]
+                self.log(f"  [reviewer] không ảnh hệ thống nào qua tầng 1 -> lấy {len(fine)} ảnh ít sai nhất làm mốc cho loop")
             self.log(f"  [reviewer] tầng 1 VLM: {len(flt.kept)}/{len(cands)} ảnh qua; tầng 2 metric xếp -> top-{len(fine)}")
             rk = ag_rank.run(self.agent, fine, flt, briefs, sp, pe, log=self.log)
             best = rk.final_order[0] if rk.final_order else None

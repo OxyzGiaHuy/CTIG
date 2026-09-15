@@ -40,7 +40,7 @@ from .schema import (
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
 STEP_LOGIC = {"analysis": 2, "compare": 1, "retrieve": 2, "spec": 2, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 2, "candidate_review": 4}
+              "brief": 2, "ref_filter": 2, "candidate_review": 5}
 
 
 def _h(obj: Any) -> str:
@@ -467,7 +467,10 @@ class Session:
             flt = ag_desc.run(self.agent, [cand.path for cand, _ in cands], sp, pe, kind="candidate", log=self.log, clip=self.clip)
             # tầng 2: trong tập VLM giữ lại, xếp theo (điểm Reviewer, ensemble metric) rồi lấy top-k cho Rank
             v_by = {v.path: v for v in flt.verdicts}
-            fine = sorted([cm for cm in cands if cm[0].path in flt.kept],
+            # Hàng M#bare là ĐỐI CHỨNG: Reviewer chấm để lập bảng bare/system, nhưng KHÔNG được vào Rank, loop hay ảnh cuối
+            # (p031/p050 v1.7: ảnh cuối từng rơi vào hàng bare vì chọn trên toàn pool).
+            bare_paths = {cand.path for cand, m in cands if "#bare" in m}
+            fine = sorted([cm for cm in cands if cm[0].path in flt.kept and cm[0].path not in bare_paths],
                           key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
             self.log(f"  [reviewer] tầng 1 VLM: {len(flt.kept)}/{len(cands)} ảnh qua; tầng 2 metric xếp -> top-{len(fine)}")
             rk = ag_rank.run(self.agent, fine, flt, briefs, sp, pe, log=self.log)
@@ -475,7 +478,8 @@ class Session:
             model_of = {cand.path: m for cand, m in cands}
             cr = CandidateReview(prompt_id=self.prompt.id, k=len(fine), filter=flt, rank=rk, best_path=best,
                                  best_model=model_of.get(best) if best else None, final_path=best)
-            cr.pool = {v.path: score_of(v) for v in flt.verdicts}
+            cr.pool = {v.path: score_of(v) for v in flt.verdicts if v.path not in bare_paths}
+            cr.notes.append(f"Reviewer chấm {len(flt.verdicts)} ảnh ({len(bare_paths)} ảnh bare chỉ để so, không vào pool chọn)")
             v0 = next((v for v in flt.verdicts if v.path == best), None)
             if not best or v0 is None:
                 cr.stop_reason = "không có ứng viên qua Filter"
@@ -483,7 +487,7 @@ class Session:
             # Mốc cải thiện = ảnh có điểm Reviewer CAO NHẤT trong pool, không phải top-1 của Rank (p012 v1.7: Rank chọn ảnh
             # +0.25 trong khi pool đã có +0.75 -> vòng sửa "tốt hơn" giả). Hoà thì theo thứ tự Rank.
             rank_pos = {pth: i for i, pth in enumerate(rk.final_order)}
-            kept_v = [v for v in flt.verdicts if v.keep] or [v0]
+            kept_v = [v for v in flt.verdicts if v.keep and v.path not in bare_paths] or [v0]
             best_v = max(kept_v, key=lambda v: (score_of(v), -rank_pos.get(v.path, 99)))
             best_score = score_of(best_v)
             if best_v.path != v0.path:

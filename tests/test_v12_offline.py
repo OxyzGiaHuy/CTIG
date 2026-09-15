@@ -912,6 +912,8 @@ def test_v17_grounding_bare(tmp):
     nb = len(next(r for r in res2.runs if r.model_key == "stub#bare").output.candidates)
     check("adaptive bật: hàng #bare sinh thẳng N = adaptive.max, không thích nghi", nb == 3 and any("N cố định" in n for n in next(r for r in res2.runs if r.model_key == "stub#bare").notes), f"n={nb}")
     cr2, _ = s2.candidate_review()
+    check("ảnh bare không vào pool chọn cuối / Rank", all("bare" not in pth for pth in cr2.pool) and all("bare" not in pth for pth in cr2.rank.final_order)
+          and "bare" not in (cr2.final_path or ""), str(list(cr2.pool)[:3]))
     check("Reviewer tầng 1 chấm MỌI ảnh (bare + system), k = số ảnh qua tầng 1 ≤ k_candidates",
           len(cr2.filter.verdicts) == sum(len(r.output.candidates) for r in res2.runs if r.output) and cr2.k <= cfg2.agents.k_candidates, f"{len(cr2.filter.verdicts)} {cr2.k}")
     ht = viz.paired_table(res)

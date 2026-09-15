@@ -10,7 +10,7 @@ review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.
 judge:      {backend: blip2_itm, device: "cuda:0", offload: true}
 models:     [dreamshaper8, sdxl_base, realvis_xl, sdxl_aodai, sdxl_refplus, playground25]
 # v1.4 agent loop review: Summary (2c) · Filter ảnh tham chiếu (3b) · Filter+Rank ứng viên (4c) · một vòng sửa (4d)
-agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 1}
+agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 3}
 multigen:
   enabled: true
   device: "cuda:0"

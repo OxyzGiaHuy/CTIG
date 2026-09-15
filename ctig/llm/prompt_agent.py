@@ -369,6 +369,18 @@ class PromptAgent:
         schema = _s(order=_arr(STR), reasons={"type": "object"})
         return self.llm.complete_json(system, user, schema)
 
+    def write_retrieval_captions(self, name_en: str, missing: list[str]) -> list[str]:
+        """Reflector (ImageRAG): một caption ảnh độc lập cho MỖI thuộc tính thiếu, để truy hồi ảnh minh hoạ thuộc tính đó."""
+        system = (
+            "You write short English image-search captions. For each missing visual attribute of a cultural item, write ONE "
+            "caption (8-16 words) describing a real photograph that clearly shows that attribute on that item: close-up, "
+            "plain background, no people unless the attribute is about wearing. No adjectives like beautiful. Return captions "
+            "in the same order as the attributes."
+        )
+        user = f"ITEM: {name_en}\nMISSING ATTRIBUTES:\n" + "\n".join(f"- {a}" for a in missing)
+        d = self.llm.complete_json(system, user, _s(captions=_arr(STR)))
+        return [str(c) for c in d.get("captions", [])]
+
     def judge(self, prompt: Prompt, spec: CulturalSpec, perception: Perception) -> tuple[float, str]:
         if not spec.entities:
             return 0.0, "Không có thực thể để đánh giá."

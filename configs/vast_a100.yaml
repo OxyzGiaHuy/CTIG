@@ -10,8 +10,8 @@ search_viz: {k_text: 5, k_images: 6, max_entities: 6}
 max_candidate_entities: 6
 review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
 judge:      {backend: blip2_itm, device: "cuda:0", offload: false}
-agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 1, reload_vlm: false}
-models:     [dreamshaper8, realvis_xl, realvis_xl+ref, realvis_aodai, realvis_aodai+ref, sdxl_refplus]
+agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 3, reload_vlm: false}
+models:     [realvis_xl#bare, realvis_xl, realvis_xl+ref, dreamshaper8#bare, dreamshaper8, realvis_aodai, realvis_aodai+ref, sdxl_refplus]
 multigen:
   enabled: true
   device: "cuda:0"

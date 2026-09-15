@@ -21,6 +21,10 @@ def _spearman(a: list[str], b: list[str]) -> float | None:
     return round(1 - 6 * d2 / (n * (n * n - 1)), 3)
 
 
+def rm_idx(order: list[str], p: str) -> int:
+    return order.index(p) if p in order else 99
+
+
 def run(agent, cands: list[tuple[Candidate, str]], flt: FilterResult, briefs: dict[str, CulturalBrief],
         spec: CulturalSpec, prompt_en: str, log=print) -> RankResult:
     """cands: [(Candidate, model_key)] đã xếp theo metric giảm dần (combined_score)."""
@@ -43,11 +47,18 @@ def run(agent, cands: list[tuple[Candidate, str]], flt: FilterResult, briefs: di
     order_agent, reasons = list(order_metric), {}
     if len(pool) >= 2:
         try:
-            d = agent.rank_candidates(prompt_en, brief_txt, items)
-            got = [id2path[i] for i in d.get("order", []) if i in id2path]
-            got += [p for p in order_metric if p not in got]  # thiếu id nào thì nối theo metric
-            order_agent = got
-            reasons = {id2path[k]: str(v)[:200] for k, v in (d.get("reasons") or {}).items() if k in id2path}
+            # Hai lượt, lượt 2 đảo thứ tự trình bày (position swap - "VLM judges can rank but cannot score"):
+            # hạng cuối = trung bình hạng hai lượt, khử thiên lệch vị trí của LLM.
+            orders = []
+            for items_view in (items, list(reversed(items))):
+                d = agent.rank_candidates(prompt_en, brief_txt, items_view)
+                got = [id2path[i] for i in d.get("order", []) if i in id2path]
+                got += [p for p in order_metric if p not in got]  # thiếu id nào thì nối theo metric
+                orders.append(got)
+                if not reasons:
+                    reasons = {id2path[k]: str(v)[:200] for k, v in (d.get("reasons") or {}).items() if k in id2path}
+            avg = {p: sum(o.index(p) for o in orders) / len(orders) for p in order_metric}
+            order_agent = sorted(order_metric, key=lambda p: (avg[p], rm_idx(order_metric, p)))
         except Exception as exc:  # noqa: BLE001
             log(f"  [rank] agent lỗi ({type(exc).__name__}: {str(exc)[:80]}) -> dùng thứ tự metric")
     # trung bình hạng

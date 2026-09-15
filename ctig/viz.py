@@ -305,6 +305,118 @@ def score_table(res: MultiGenResult, source: str | None = None) -> str:
     return _wrap("Bước 5 · Bảng điểm", "".join(rows) + note, source)
 
 
+# ---------------------------------------------------------------- v1.7 grounding + bare/system
+def grounding_table(g: dict, kb=None, source: str | None = None) -> str:
+    """Một bảng cho cả khối Grounding: thực thể | thuộc tính dương (vào prompt) | âm / dễ nhầm (vào negative) | ảnh tham chiếu.
+    Nguồn ghi ở cột cuối: KB viết tay, web (số trang), brief (Summary agent)."""
+    sp: CulturalSpec = g["spec"]
+    briefs = g.get("briefs") or {}
+    search = g.get("search")
+    n_pages = {}
+    if search is not None:
+        for it in getattr(search, "items", []) or []:
+            n_pages[getattr(it, "entity_id", "")] = n_pages.get(getattr(it, "entity_id", ""), 0) + 1
+    refs = g.get("refs") or []
+    rows = ["<table><tr><th>thực thể</th><th>loại</th><th>dương → prompt</th><th>âm / dễ nhầm → negative</th><th>brief (Summary agent)</th><th>nguồn</th></tr>"]
+    for se in sp.entities:
+        b = briefs.get(se.entity_id)
+        pos = "".join(f"<div>+ {_e(x)}</div>" for x in se.required_attrs_en[:5])
+        neg = "".join(f"<div>− {_e(x)}</div>" for x in se.forbidden_attrs_en[:4])
+        conf = ", ".join(str(c.get("name", "")) for c in (se.confusables or [])[:4])
+        if conf:
+            neg += f"<div class='muted small'>dễ nhầm: {_e(conf)}</div>"
+        bf = ""
+        if b is not None:
+            bf = "".join(f"<div>· {_e(x)}</div>" for x in b.facts_en[:3])
+            if b.depiction_en:
+                bf += f"<div class='muted small'>{_e(b.depiction_en)}</div>"
+        srcs = ["KB"]
+        if n_pages.get(se.entity_id):
+            srcs.append(f"web {n_pages[se.entity_id]} trang")
+        if b is not None and b.n_sources:
+            srcs.append(f"brief {b.n_sources} nguồn")
+        rows.append(f"<tr><td><b>{_e(se.name_vi)}</b><div class='muted small'>{_e(se.name_en)} · w={se.weight:.2f}</div></td><td>{_e(se.kind)}</td>"
+                    f"<td>{pos}</td><td>{neg}</td><td class='small'>{bf}</td><td class='small'>{_e(', '.join(srcs))}</td></tr>")
+    rows.append("</table>")
+    body = "".join(rows)
+    a = g.get("analysis")
+    if a is not None and getattr(a, "prompt_en", ""):
+        body = f"<div><b>prompt_en:</b> {_e(a.prompt_en)}</div>" + body
+    if refs:
+        body += f"<h4>Ảnh tham chiếu ({len(refs)}, đã qua Filter và cắt theo thực thể)</h4><div class='grid'>" + "".join(_img(r, 110) for r in refs[:6]) + "</div>"
+    else:
+        body += "<div class='muted'>không có ảnh tham chiếu (tắt hoặc không ảnh nào đạt ngưỡng)</div>"
+    body += ("<div class='muted'>Grounding = Analysis (VLM tách thực thể) + Search (Wikipedia/DDG/Commons, ảnh) + Summary agent + Spec. "
+             "Dương/âm lấy từ KB viết tay khi thực thể có trong KB; web bổ sung thuộc tính/dễ nhầm và là nguồn ảnh tham chiếu. "
+             "Chi tiết từng bước con xem các ô chẩn đoán phía dưới.</div>")
+    return _wrap("Grounding · prompt → thực thể, thuộc tính, ảnh tham chiếu", body, source)
+
+
+def _bare_pairs(res: MultiGenResult) -> list[tuple]:
+    """Ghép hàng '<m>#bare' với hàng hệ thống cùng model nền '<m>' (hoặc '<m>+ref', '<m>@scale')."""
+    from .models.registry import parse_key, parse_variant
+
+    by_base: dict[str, list] = {}
+    for r in res.runs:
+        base, _ = parse_key(r.model_key)
+        by_base.setdefault(base, []).append(r)
+    pairs = []
+    for base, runs in by_base.items():
+        bare = [r for r in runs if parse_variant(r.model_key) == "bare"]
+        sys_ = [r for r in runs if parse_variant(r.model_key) != "bare"]
+        if bare and sys_:
+            pairs.append((base, bare[0], sys_))
+    return pairs
+
+
+def paired_table(res: MultiGenResult, cr=None, source: str | None = None) -> str:
+    """Bảng 'model nền M' so 'M + hệ thống' cùng seed (v1.7). Cột: CLIP attr, ITM attr, hạng ensemble trung bình; cột Filter
+    khi có candidate_review (số ảnh qua Filter / có must_not)."""
+    from .stages.multigen import combined_score
+
+    pairs = _bare_pairs(res)
+    if not pairs:
+        return _wrap("Bare vs system", "<div class='muted'>không có hàng '#bare' để ghép (thêm 'realvis_xl#bare' vào models:)</div>", source)
+    ver = {}
+    if cr is not None:
+        for v in cr.filter.verdicts:
+            ver[v.path] = v
+    f3 = lambda v: "" if v is None else f"{v:.3f}"
+
+    def agg(runs):
+        cs = [c for r in runs if r.output for c in r.output.candidates]
+        if not cs:
+            return None
+        mean = lambda xs: (sum(xs) / len(xs)) if xs else None
+        vs = [ver[c.path] for c in cs if c.path in ver]
+        return {"n": len(cs), "attr": mean([c.attr_contrast for c in cs if c.attr_contrast is not None]),
+                "itm": mean([c.itm_attrs for c in cs if c.itm_attrs is not None]),
+                "ens": mean([c.ensemble for c in cs if c.ensemble is not None]),
+                "tot": mean([combined_score(c) for c in cs]),
+                "keep": (sum(1 for v in vs if v.keep and not v.matched_must_not), len(vs)) if vs else None,
+                "best": max(cs, key=combined_score).path}
+
+    rows = ["<table><tr><th>model nền</th><th>nhánh</th><th>ảnh</th><th>CLIP attr</th><th>ITM attr</th><th>hạng ensemble</th><th>tổng</th><th>Filter qua</th><th>ảnh tốt nhất</th></tr>"]
+    for base, bare, sys_ in pairs:
+        A, B = agg([bare]), agg(sys_)
+        for lab, d, keys in (("bare", A, bare.model_key), ("system", B, ", ".join(r.model_key for r in sys_))):
+            if d is None:
+                rows.append(f"<tr><td>{_e(base)}</td><td>{lab}</td><td colspan='7' class='bad'>không có ảnh ({_e(keys)})</td></tr>")
+                continue
+            kp = "" if d["keep"] is None else f"{d['keep'][0]}/{d['keep'][1]}"
+            rows.append(f"<tr><td>{_e(base)}</td><td><b>{lab}</b><div class='muted small'>{_e(keys)}</div></td><td>{d['n']}</td><td>{f3(d['attr'])}</td>"
+                        f"<td>{f3(d['itm'])}</td><td>{f3(d['ens'])}</td><td>{f3(d['tot'])}</td><td>{kp}</td><td>{_img(d['best'], 120)}</td></tr>")
+        if A and B:
+            dl = lambda k: "" if (A[k] is None or B[k] is None) else f"{B[k] - A[k]:+.3f}"
+            cls = "ok" if (A["tot"] is not None and B["tot"] is not None and B["tot"] > A["tot"]) else "bad"
+            rows.append(f"<tr class='{cls}'><td></td><td>Δ system − bare</td><td></td><td>{dl('attr')}</td><td>{dl('itm')}</td><td>{dl('ens')}</td><td><b>{dl('tot')}</b></td><td></td><td></td></tr>")
+    rows.append("</table>")
+    note = ("<div class='muted'>bare = model nền với prompt dịch thẳng + negative chung, không KB, không LoRA, không ảnh tham chiếu, cùng seed. "
+            "system = cùng model nền qua Grounding (+ LoRA/ảnh nếu hàng có). Δ &gt; 0 ủng hộ H_sys: hệ thống cải thiện mọi model nền, "
+            "không phải chọn model tốt nhất. Metric bão hoà thì nhìn cột Filter và grid.</div>")
+    return _wrap("Bare vs system · cùng model nền, cùng seed", "".join(rows) + note, source)
+
+
 # ---------------------------------------------------------------- v1.4 agents
 def brief_card(briefs: dict, spec: CulturalSpec, source: str | None = None) -> str:
     if not briefs:
@@ -349,7 +461,7 @@ def filter_table(flt, title: str = "Filter agent", side: int = 160, source: str 
 
 def candidate_review_html(cr, side: int = 200, source: str | None = None) -> str:
     rk = cr.rank
-    parts = [filter_table(cr.filter, title=f"Bước 4c · Filter agent trên top-{cr.k} ứng viên", side=140)]
+    parts = [filter_table(cr.filter, title=f"Agentic Review Loop · Reviewer: Filter agent trên top-{cr.k} ứng viên", side=140)]
     # bảng xếp hạng
     rows = ["<table><tr><th>#</th><th>ảnh</th><th>hạng metric</th><th>hạng agent</th><th>lý do agent</th></tr>"]
     for i, p in enumerate(rk.final_order[:8]):
@@ -360,22 +472,37 @@ def candidate_review_html(cr, side: int = 200, source: str | None = None) -> str
     rows.append("</table>")
     agree = (f"top-1 <b>{'trùng' if rk.agreement_top1 else 'KHÁC'}</b>" + (f" · Spearman {rk.spearman}" if rk.spearman is not None else "")
              + "".join(f"<div class='bad'>· {_e(d)}</div>" for d in rk.disagreements))
-    parts.append(_wrap("Bước 4c · Rank agent so với metric", f"<div>{agree}</div>{''.join(rows)}"))
-    # vòng sửa
+    parts.append(_wrap("Agentic Review Loop · Rank agent (đảo vị trí) so với metric", f"<div>{agree}</div>{''.join(rows)}"))
+    # Agentic Review Loop: Reflector -> Refiner từng vòng
     body = ""
-    if cr.revision is not None:
-        body += (f"<div><b>Kế hoạch sửa:</b> {_e(cr.revision.rationale)}<br>+ prompt: {_e(', '.join(cr.revision.add_positive))}"
-                 f"<br>+ negative: {_e(', '.join(cr.revision.add_negative))}</div>")
-        if cr.regen is not None and cr.regen.output:
-            body += "<div class='grid'>" + "".join(_img(c.path, side) for c in cr.regen.output.candidates) + "</div>"
-            if cr.regen_filter is not None:
-                body += filter_table(cr.regen_filter, title="Lọc lại ảnh sinh lại", side=120)
-        elif cr.regen is not None:
-            body += f"<div class='bad'>{_e(cr.regen.error or '')}</div>"
+    its = getattr(cr, "iterations", None) or []
+    if not its and cr.revision is not None:  # JSON cũ (v1.4-1.6) chỉ có một vòng
+        its = [LoopIteration(n=1, plan=cr.revision, run=cr.regen, filter=cr.regen_filter)]
+    for it in its:
+        body += (f"<h4>Vòng {it.n}</h4><div><b>Reflector:</b> {_e(it.plan.rationale)}<br>+ prompt: {_e(', '.join(it.plan.add_positive))}"
+                 f"<br>+ negative: {_e(', '.join(it.plan.add_negative))}"
+                 + (f"<br>caption truy hồi: {_e(' | '.join(it.captions))}" if it.captions else "")
+                 + (f"<br>ảnh tham chiếu: {len(it.refs)}" if it.refs else "") + "</div>")
+        if it.refs:
+            body += "<div class='grid'>" + "".join(_img(r, 90) for r in it.refs[:4]) + "</div>"
+        if it.run is not None and it.run.output:
+            body += "<div class='grid'>" + "".join(_img(c.path, side) for c in it.run.output.candidates) + "</div>"
+            if it.filter is not None:
+                body += filter_table(it.filter, title=f"Reviewer chấm lại ảnh vòng {it.n}", side=120)
+        elif it.run is not None:
+            body += f"<div class='bad'>{_e(it.run.error or '')}</div>"
+        if it.note:
+            body += f"<div class='{'good' if it.improved else 'muted'}'>· {_e(it.note)}</div>"
     body += "".join(f"<div class='muted'>· {_e(n)}</div>" for n in cr.notes)
+    pool = getattr(cr, "pool", None) or {}
+    if pool:
+        top = sorted(pool.items(), key=lambda kv: -kv[1])[:6]
+        body += "<h4>Chọn cuối trên toàn pool (" + str(len(pool)) + " ảnh)</h4><div class='grid'>" + "".join(
+            f"<div>{_img(pth, 120)}<div class='small muted'>{sc:+.2f}</div></div>" for pth, sc in top) + "</div>"
     if cr.final_path:
         body += (f"<h4>Ảnh cuối ({_e(cr.final_source)}, {_e(cr.best_model or '')})</h4>{_img(cr.final_path, 320)}")
-    parts.append(_wrap("Bước 4d · Vòng sửa (tối đa một lần)", body or "<div class='muted'>không chạy</div>", source))
+    n_it = len(its)
+    parts.append(_wrap(f"Agentic Review Loop · Reflector + Refiner ({n_it} vòng)", body or "<div class='muted'>không chạy</div>", source))
     return "".join(parts)
 
 

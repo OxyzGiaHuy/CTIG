@@ -249,8 +249,12 @@ class AgentsConfig:
     #: Filter + Rank trên top-k ứng viên sau multigen
     candidate_review: bool = True
     k_candidates: int = 8
-    #: số vòng sửa prompt + sinh lại trên model tốt nhất khi ứng viên đầu còn lỗi (0 = chỉ lọc và xếp)
-    max_revisions: int = 1
+    #: số vòng Reflector/Refiner tối đa (v1.7: 3; A100 ~30 s/vòng, T4 ~4 phút/vòng). 0 = chỉ Reviewer + Rank.
+    max_revisions: int = 3
+    #: dừng sớm khi liên tiếp `patience` vòng không cải thiện điểm Reviewer
+    patience: int = 2
+    #: Reflector nhờ LLM viết caption truy hồi cho thuộc tính thiếu (ImageRAG); False = mẫu câu cố định
+    llm_captions: bool = True
     #: mô tả ảnh cần VLM; trên 1xT4 sau bước 4 phải nạp lại Qwen (~1 phút)
     reload_vlm: bool = True
 

@@ -115,6 +115,27 @@ Danh sách đọc theo khối: [research/literature/README.md](research/literatu
 - **Analysis bỏ ứng viên không có căn cứ** trong prompt (p012 từng nhận áo dài, nón lá từ thói quen của VLM).
 - **Sweep scale IP-Adapter** theo hàng qua `multigen.overrides: {"<khoá>": {ip_scale: 0.5}}`.
 
+## v1.7: Prompt → Grounding → [M] × {bare, system} → Agentic Review Loop
+
+Flow chốt với người hướng dẫn (2026-09-15). Ba khối thay cho năm bước:
+
+- **Grounding** (`Session.grounding`, `viz.grounding_table`): Analysis + Search + Summary agent + Spec gom một bảng: thực thể,
+  thuộc tính dương (vào prompt), âm/dễ nhầm (vào negative), brief, ảnh tham chiếu đã lọc/cắt. Các bước con vẫn memo riêng.
+- **Generate, bare vs system**: mỗi model nền M chạy hàng `M#bare` (prompt tiếng Anh dịch thẳng + negative chung, không KB, không
+  LoRA, không ảnh tham chiếu) và hàng `M` qua hệ thống, **cùng seed**; `viz.paired_table` cho Δ CLIP attr / ITM attr / hạng
+  ensemble / Filter qua. Mục đích là chứng minh hệ thống cải thiện *mọi* model nền (H20), không phải chọn model tốt nhất;
+  triển khai chỉ gắn một model. Config: `models: [realvis_xl#bare, realvis_xl, realvis_xl+ref, dreamshaper8#bare, dreamshaper8, ...]`.
+- **Agentic Review Loop** (`Session.candidate_review`, `ctig/agents/`): 
+  - *Reviewer* = Filter (VLM mô tả → khớp chữ → CLIP phủ quyết) + Rank (LLM hai lượt **đảo thứ tự trình bày**, trung bình hạng;
+    "VLM judges can rank but cannot score").
+  - *Reflector* (`agents/reflector.py`): chẩn đoán ứng viên đầu → kế hoạch sửa bằng luật + LLM viết **caption truy hồi cho từng
+    thuộc tính thiếu** (`PromptAgent.write_retrieval_captions`, ImageRAG); **bộ nhớ** cách đã thử, không tăng điểm thì leo nấc
+    (ảnh theo thuộc tính → thêm ảnh/scale +0,1 → seed → guidance); dừng sau `agents.patience` (2) vòng không cải thiện.
+  - *Refiner* (`agents/loop.regenerate`): sinh lại trên model tốt nhất, mỗi vòng seed khác (`revision/iter<n>/`), tối đa
+    `agents.max_revisions` (3) vòng, **giữ hết ảnh**.
+  - Ảnh cuối chọn trên **toàn pool** (ứng viên gốc + mọi vòng) theo điểm Reviewer; hoà thì ưu tiên ảnh sớm hơn (Idea2Img:
+    chọn trên mọi bản, không lấy vòng cuối). `CandidateReview.iterations/pool/stop_reason`.
+
 ## Báo cáo tiến độ gửi người hướng dẫn
 
 ```bash

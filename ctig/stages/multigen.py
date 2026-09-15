@@ -37,7 +37,7 @@ def render_settings(cfg) -> dict:
 
 
 def genspec_hash(gen: GenSpec, render: dict | None = None) -> str:
-    sig = json.dumps({"p": gen.prompt_terms, "n": gen.negative_terms, "seed": gen.seed,
+    sig = json.dumps({"p": gen.prompt_terms, "n": gen.negative_terms, "seed": gen.seed, "it": gen.iteration,
                       "steps": gen.steps, "g": gen.guidance, "w": gen.width, "h": gen.height,
                       **({"r": render} if render else {})},
                      ensure_ascii=False, sort_keys=True)
@@ -75,7 +75,7 @@ def adapt_spec(gen: GenSpec, mspec: ModelSpec, cfg, spec: CulturalSpec | None = 
         negative_terms=neg,
         steps=int(ov.get("steps", mspec.steps)), guidance=float(ov.get("guidance", mspec.guidance)),
         width=w, height=h, n_candidates=int(ov.get("n_candidates", cfg.n_candidates)),
-        ip_adapter_image=None, lora=None, fast=False, iteration=0,
+        ip_adapter_image=None, lora=None, fast=False, iteration=g.iteration,  # vòng Refiner dịch seed qua iteration
     )
 
 
@@ -347,6 +347,11 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
             flags = parse_flags(key)
             mspec = get_model(base_key)
             gate_note = None
+            if variant == "bare":
+                # baseline: model nền trần, không LoRA, không IP-Adapter, không only_if_entity
+                mspec = replace(mspec, lora=None, ip_adapter=False, only_if_entity=None)
+                gate_note = "bare: model nền không hệ thống (prompt dịch thẳng, negative chung, không LoRA/ảnh)"
+                flags = set()
             if "ref" in flags:
                 if mspec.family not in ("sdxl",):
                     raise KeyError(f"'+ref' chỉ dùng cho họ sdxl (khoá {key})")

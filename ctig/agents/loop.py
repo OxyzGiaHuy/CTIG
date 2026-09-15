@@ -1,5 +1,5 @@
 """
-Một vòng sửa (v1.4): ứng viên đầu sau Filter+Rank còn thiếu must_have hoặc còn must_not -> RevisionPlan -> sinh lại
+Refiner (v1.7, trước là "một vòng sửa" v1.4): ứng viên đầu sau Filter+Rank còn thiếu must_have hoặc còn must_not -> RevisionPlan -> sinh lại
 trên model tốt nhất (cùng GenSpec + sửa, seed dịch sang vòng 1) -> lọc lại -> chọn ảnh cuối.
 
 Khác vòng review v1: không hỏi VLM có/không, không cho LLM tự viết plan; plan suy từ FilterVerdict bằng luật
@@ -62,8 +62,10 @@ def needs_revision(v: FilterVerdict | None) -> bool:
 
 
 def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_key: str, cfg, out_dir: Path,
-               clip=None, itm=None, prompt_en: str = "", log=print, aesthetic=None, ref_images=None):
-    """Áp plan lên GenSpec, sinh lại MỘT model vào out_dir/revision. Trả ModelRun (có thể error)."""
+               clip=None, itm=None, prompt_en: str = "", log=print, aesthetic=None, ref_images=None,
+               iteration: int = 1, ip_scale: float | None = None):
+    """Refiner: áp plan lên GenSpec, sinh lại MỘT model vào out_dir/revision/iter<n>. Trả (ModelRun hoặc None, GenSpec).
+    `iteration` dịch seed (seed + 1000·n) để mỗi vòng ra ảnh khác; `ip_scale` ghi đè scale IP-Adapter cho vòng này."""
     from dataclasses import replace
 
     from ..stages import multigen as mg
@@ -72,7 +74,7 @@ def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_k
     from ..models.registry import get as get_model, parse_flags
 
     g2 = apply_plan(gen, plan, spec, cfg.t2i)
-    g2 = replace(g2, iteration=1, fast=False, steps=gen.steps, guidance=min(gen.guidance + plan.guidance_delta, 9.0))
+    g2 = replace(g2, iteration=iteration, fast=False, steps=gen.steps, guidance=min(gen.guidance + plan.guidance_delta, 9.0))
     try:
         base = get_model(model_key)
         fam, has_ip = base.family, base.ip_adapter
@@ -83,7 +85,13 @@ def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_k
         if "ref" not in parse_flags(model_key) and not has_ip:
             model_key = model_key + "+ref"
         force = True  # Filter đã nói model vẽ thiếu -> ảnh tham chiếu được phép bất kể auto_ref (ImageRAG: sinh trước, thiếu mới truy hồi)
-        log(f"  [4d] sinh lại với ảnh tham chiếu: {model_key}")
-    res = mg.run(g2, spec, kb, [model_key], cfg.multigen, Path(out_dir) / "revision", clip=clip, itm=itm,
+        log(f"  [refiner] vòng {iteration}: sinh lại với ảnh tham chiếu: {model_key}")
+    mcfg = cfg.multigen
+    if ip_scale is not None:
+        ov = dict(mcfg.overrides or {})
+        ov[model_key] = {**ov.get(model_key, {}), "ip_scale": float(ip_scale)}
+        mcfg = replace(mcfg, overrides=ov)
+    sub = Path(out_dir) / "revision" / f"iter{iteration}"
+    res = mg.run(g2, spec, kb, [model_key], mcfg, sub, clip=clip, itm=itm,
                  prompt_en=prompt_en, log=log, ref_images=ref_images, aesthetic=aesthetic, t2i_cfg=cfg.t2i, force_refs=force)
     return res.runs[0] if res.runs else None, g2

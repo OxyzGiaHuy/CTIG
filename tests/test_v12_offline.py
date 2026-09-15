@@ -825,6 +825,16 @@ def test_agents_offline(tmp):
           and all(a in gen0.prompt_terms for a in cr.revision.weights) and all(a not in gen0.prompt_terms for a in cr.revision.add_positive), str(cr.revision))
     check("sinh lại chạy nhưng hoà điểm -> giữ ảnh multigen", cr.regen is not None and cr.regen.output and cr.final_source == "multigen"
           and any("không tốt hơn" in n for n in cr.notes), str(cr.notes))
+    # v1.7 Agentic Review Loop: Reflector leo nấc khi không cải thiện, dừng sau patience vòng; pool giữ ảnh mọi vòng
+    fixes = [it.plan.rationale.split("]")[0].strip("[") for it in cr.iterations]
+    check("loop: chạy đúng patience vòng rồi dừng, mỗi vòng thử một nấc khác", len(cr.iterations) == cfg.agents.patience
+          and len(set(fixes)) == len(fixes) and "không cải thiện" in cr.stop_reason, f"{fixes} · {cr.stop_reason}")
+    check("loop: pool gồm ứng viên gốc + ảnh mọi vòng; ảnh cuối chọn trên toàn pool",
+          len(cr.pool) == cr.k + sum(len(it.run.output.candidates) for it in cr.iterations if it.run and it.run.output)
+          and cr.final_path in cr.pool, f"pool={len(cr.pool)}")
+    check("loop: mỗi vòng ghi vào thư mục iter<n> riêng, seed khác nhau",
+          all(f"iter{it.n}" in it.run.output.candidates[0].path for it in cr.iterations if it.run and it.run.output)
+          and len({it.run.output.candidates[0].seed for it in cr.iterations if it.run and it.run.output}) == len(cr.iterations), str([it.run.output.candidates[0].path for it in cr.iterations if it.run and it.run.output]))
     cr2, src2 = s.candidate_review()
     check("candidate_review memo", src2 == "memory")
 
@@ -849,13 +859,76 @@ def test_agents_offline(tmp):
     cands = [(Candidate(f"c{i}.png", i, clip_fidelity=1.0, clip_probs={"e": {"a": 1}}, attr_contrast=0.9 - 0.1 * i), "m") for i in range(4)]
     from ctig.schema import FilterResult, ImageDescriptor
     fr = FilterResult("candidate", 1, [FilterVerdict(c.path, True) for c, _ in cands], [c.path for c, _ in cands], [ImageDescriptor(c.path) for c, _ in cands])
-    class RevAgent:
-        def rank_candidates(self, pe, brief, items): return {"order": [it["id"] for it in reversed(items)], "reasons": {}}
+    class RevAgent:  # xếp theo NỘI DUNG (metric thấp lên đầu) -> nhất quán qua hai lượt đảo vị trí
+        def rank_candidates(self, pe, brief, items): return {"order": [it["id"] for it in sorted(items, key=lambda it: it["metric_score"])], "reasons": {}}
     rr = ag_rank.run(RevAgent(), cands, fr, {}, sp, "p", log=lambda *a: None)
-    check("rank: agent đảo ngược metric -> Spearman -1, top-1 khác, có disagreement", rr.spearman == -1.0 and not rr.agreement_top1 and rr.disagreements)
+    check("rank: agent đảo ngược metric -> Spearman -1, top-1 khác, có disagreement", rr.spearman == -1.0 and not rr.agreement_top1 and rr.disagreements, str(rr.spearman))
+    class PosAgent:  # chỉ lặp lại thứ tự trình bày (thiên lệch vị trí thuần) -> hai lượt đảo nhau triệt tiêu -> về metric
+        calls = 0
+        def rank_candidates(self, pe, brief, items): PosAgent.calls += 1; return {"order": [it["id"] for it in items], "reasons": {}}
+    rp = ag_rank.run(PosAgent(), cands, fr, {}, sp, "p", log=lambda *a: None)
+    check("rank: đảo vị trí gọi agent 2 lần, thiên lệch vị trí bị triệt tiêu -> trùng metric", PosAgent.calls == 2 and rp.agreement_top1 and rp.spearman == 1.0, str(rp.spearman))
     from ctig import viz
     h = viz.candidate_review_html(cr) + viz.brief_card(briefs, sp)
-    check("viz agents có bảng lọc, xếp hạng, brief", "Filter agent" in h and "Rank agent" in h and "Summary agent" in h)
+    check("viz agents có bảng lọc, xếp hạng, brief, từng vòng loop", "Filter agent" in h and "Rank agent" in h and "Summary agent" in h
+          and "Vòng 1" in h and "Reflector" in h and "toàn pool" in h)
+
+
+def test_v17_grounding_bare(tmp):
+    """v1.7: Grounding gom bước; hàng '#bare' = model nền không hệ thống; bảng bare-vs-system; Reflector leo nấc + caption."""
+    from ctig import viz
+    from ctig.agents import reflector as ag_ref
+    from ctig.models.registry import parse_variant
+    from ctig.schema import FilterVerdict
+    from ctig.session import Session
+    from ctig.stages import multigen as mg
+    from ctig.stages.generation import build_initial_spec
+
+    check("parse_variant('realvis_xl#bare')", parse_variant("realvis_xl#bare") == "bare")
+    cfg = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    cfg.multigen.n_candidates = 2
+    p = next(x for x in load_prompts(cfg.prompts_path) if x.id == "p001")
+    s = Session(cfg, p, tmp / "g17", log=lambda *a: None)
+    g, src = s.grounding()
+    check("grounding trả spec + analysis + search + briefs", g["spec"].entities and g["analysis"].prompt_en and "briefs" in g and src == "computed", src)
+    g2, src2 = s.grounding()
+    check("grounding memo qua các bước con", src2 == "memory")
+    h = viz.grounding_table(g, s.kb, source=src)
+    check("grounding_table có thực thể, dương, âm", "áo dài" in h.lower() and "→ prompt" in h and "negative" in h)
+    sp = g["spec"]
+    gb = build_initial_spec(p, sp, g["analysis"].prompt_en, cfg.t2i, cfg.seed, render="bare")
+    gl = build_initial_spec(p, sp, g["analysis"].prompt_en, cfg.t2i, cfg.seed, render="legacy")
+    check("render bare: prompt = prompt_en thuần, không thuộc tính KB; negative chung, không confusable",
+          len(gb.prompt_terms) == 1 and not any(a in " ".join(gb.prompt_terms) for a in sp.entities[0].required_attrs_en)
+          and len(gb.negative_terms) < len(gl.negative_terms) and gb.seed == gl.seed, str(gb.prompt_terms))
+    res, _ = s.multigen(["stub#bare", "stub", "stub@0.5"])
+    bare = next(r for r in res.runs if r.model_key == "stub#bare")
+    check("hàng #bare chạy, có ghi chú 'không hệ thống'", bare.output and any("bare" in n for n in (bare.notes or [])), str(bare.notes))
+    check("hàng #bare không dùng LoRA/ảnh", bare.gen_spec is not None and bare.gen_spec.lora is None and bare.gen_spec.ip_adapter_image is None)
+    ht = viz.paired_table(res)
+    s.cfg.models = ["stub#bare", "stub", "stub@0.5"]
+    cr17, _ = s.candidate_review()
+    check("Refiner không sinh lại trên hàng #bare", all("bare" not in (it.run.model_key if it.run else "") for it in cr17.iterations)
+          and (cr17.best_model != "stub#bare" or any("Refiner sinh lại trên" in n for n in cr17.notes)), f"{cr17.best_model} {[it.run.model_key for it in cr17.iterations if it.run]}")
+    check("paired_table ghép stub#bare với stub, có dòng Δ", "Δ system − bare" in ht and "stub#bare" in ht)
+    check("paired_table không có bare -> ghi chú", "không có hàng" in viz.paired_table(mg.MultiGenResult("x", [r for r in res.runs if r.model_key != "stub#bare"])))
+    # Reflector: bộ nhớ + leo nấc + dừng
+    v = FilterVerdict("a.png", True, missing_must_have=["high collar", "long trousers"], matched_must_not=[], score=0.2)
+    gen, _ = s.genspec()
+    plan, caps, fix = ag_ref.decide(v, sp, gen, [], 2, agent=None, name_en="ao dai")
+    check("reflector vòng 1: thiếu 2 thuộc tính -> attr_refs + caption mẫu cho từng thuộc tính", fix == "attr_refs" and len(caps) == 2 and "high collar" in caps[0], f"{fix} {caps}")
+    plan2, _, fix2 = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
+    check("reflector vòng 2: attr_refs không cải thiện -> leo nấc more_refs", fix2 == "more_refs" and plan2 is not None, fix2)
+    plan3, _, why3 = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": False}, {"fix": "more_refs", "improved": False}], 2, agent=None, name_en="ao dai")
+    check("reflector: 2 vòng liền không cải thiện -> dừng", plan3 is None and "không cải thiện" in why3, why3)
+    plan4, _, fix4 = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": False}, {"fix": "more_refs", "improved": True}], 2, agent=None, name_en="ao dai")
+    check("reflector: vòng gần nhất có cải thiện -> tiếp tục", plan4 is not None, fix4)
+    ok_v = FilterVerdict("a.png", True, missing_must_have=["x"], matched_must_not=[], score=0.9)
+    check("reflector: ảnh đạt -> dừng ngay", ag_ref.decide(ok_v, sp, gen, [], 2)[0] is None)
+    class CapAgent:
+        def write_retrieval_captions(self, name_en, missing): return [f"photo of {name_en} {m}" for m in missing]
+    _, caps5, _ = ag_ref.decide(v, sp, gen, [], 2, agent=CapAgent(), name_en="ao dai")
+    check("reflector dùng caption LLM khi có agent", caps5 == ["photo of ao dai high collar", "photo of ao dai long trousers"], str(caps5))
 
 
 if __name__ == "__main__":
@@ -871,6 +944,7 @@ if __name__ == "__main__":
     test_v13_offline(tmp)
     print("\ntest_progress_report"); test_progress_report(tmp)
     print("\ntest_agents_offline"); test_agents_offline(tmp)
+    print("\ntest_v17_grounding_bare"); test_v17_grounding_bare(tmp)
     print("\ntest_render_variants"); test_render_variants(tmp)
     print("\ntest_refcrop_and_copy"); test_refcrop_and_copy(tmp)
     print("\ntest_garment_rules"); test_garment_rules()

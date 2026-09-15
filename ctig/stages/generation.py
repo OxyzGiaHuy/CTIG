@@ -70,7 +70,7 @@ def _confusable_negatives(se) -> list[str]:
     return out
 
 
-RENDERS = ("legacy", "tags", "tags_w", "legacy_negtags", "sentence")
+RENDERS = ("legacy", "tags", "tags_w", "legacy_negtags", "sentence", "bare")
 
 
 def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_negatives: bool = True):
@@ -87,6 +87,10 @@ def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_neg
     main = [se for se in spec.entities if se.weight >= 0.8]
     weights: dict[str, float] = {}
     scene = [n for n in spec.scene_notes[:2] if n.isascii()]
+    if variant == "bare":
+        # NHÁNH KHÔNG HỆ THỐNG (v1.7): prompt tiếng Anh dịch thẳng + negative chung, không thuộc tính KB, không confusable.
+        # Multigen còn tắt LoRA và ảnh tham chiếu cho hàng này. Dùng để so "model nền M" với "M + hệ thống" cùng seed.
+        return [prompt_en], GENERIC_NEGATIVE.split(", "), {}
     if variant in ("tags", "tags_w"):
         terms: list[str] = []
         for se in spec.entities:

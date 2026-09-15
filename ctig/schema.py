@@ -491,8 +491,24 @@ class RankResult:
 
 
 @dataclass
+class LoopIteration:
+    """Một vòng của Agentic Review Loop: Reflector lập kế hoạch -> Refiner sinh lại -> Reviewer chấm lại."""
+
+    n: int
+    plan: RevisionPlan
+    captions: list[str] = field(default_factory=list)      # caption truy hồi theo thuộc tính thiếu (Reflector viết)
+    refs: list[str] = field(default_factory=list)          # ảnh tham chiếu đã dùng ở vòng này
+    run: ModelRun | None = None
+    filter: FilterResult | None = None
+    best_score: float | None = None                        # điểm Filter tốt nhất trong vòng
+    improved: bool = False
+    note: str = ""
+
+
+@dataclass
 class CandidateReview:
-    """Bước 4c: Filter + Rank trên top-k ứng viên của multigen, và (tuỳ chọn) một vòng sửa prompt + sinh lại."""
+    """Agentic Review Loop (v1.7): Reviewer lọc top-k -> Rank -> Reflector/Refiner lặp tới max_revisions, giữ HẾT ảnh của
+    mọi vòng vào `pool`, chọn ảnh cuối trên toàn pool (Idea2Img: memory of all drafts). Trường cũ giữ để tương thích."""
 
     prompt_id: str
     k: int
@@ -504,8 +520,12 @@ class CandidateReview:
     regen: ModelRun | None = None
     regen_filter: FilterResult | None = None
     final_path: str | None = None
-    final_source: str = "multigen"   # "multigen" | "regen"
+    final_source: str = "multigen"   # "multigen" | "regen" | "iter<n>"
     notes: list[str] = field(default_factory=list)
+    iterations: list[LoopIteration] = field(default_factory=list)
+    #: mọi ảnh đã được Reviewer chấm (đường dẫn -> điểm Filter), để chọn cuối trên toàn pool
+    pool: dict[str, float] = field(default_factory=dict)
+    stop_reason: str = ""
 
 
 # ---------------------------------------------------------------- stage 6

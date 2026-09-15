@@ -184,3 +184,10 @@ SDXL có thể chạy 1024px không offload trên một T4.
 **Ảnh đã sinh cũng phải nằm trong zip.** Kaggle xoá `/kaggle/working` giữa hai phiên; `multigen` chỉ dùng lại ảnh khi `runs/walkthrough/<pid>/multigen.json` và các PNG còn đó. Cell export từ v1.3.1 zip cả `runs/walkthrough`; upload zip đó thành version mới của Dataset. Chỉ zip `_cache` thì lần sau bước 4 sinh lại toàn bộ (v1.3 → v1.3.1 p001: 25 phút thay vì ~8).
 
 Kaggle tự giải nén zip khi upload thành Dataset; trong dataset là thư mục `runs/_cache/...`. Cell khôi phục trong `ctig_walkthrough.ipynb` xử cả zip lẫn thư mục.
+
+## v1.7: bare vs system và Agentic Review Loop
+
+- Hàng `M#bare` trong `models:` là model nền không hệ thống (cùng seed với hàng `M`). Bảng "Bare vs system" nằm sau bảng điểm.
+- `agents.max_revisions` (3) và `agents.patience` (2) điều khiển vòng lặp; trên 1×T4 mỗi vòng ~4 phút, đặt `max_revisions: 1` nếu
+  hết giờ. `agents.llm_captions: false` để Reflector dùng mẫu caption cố định (tiết kiệm một lần gọi VLM mỗi vòng).
+- Ảnh các vòng nằm ở `runs/<run>/<pid>/revision/iter<n>/`; `candidate_review` JSON có `iterations`, `pool`, `stop_reason`.

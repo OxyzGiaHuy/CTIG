@@ -10,9 +10,9 @@ judge:      {backend: blip2_itm, device: "cuda:0", offload: true}
 # Thứ tự nhỏ -> lớn. sd35_medium (gated, fp16 trên T4) và sweep LoRA (sdxl_aodai@0.6 ...) thêm tay khi cần.
 # H15 kết luận (p001, 4 ảnh/hàng): tags 0,49 / tags_w 0,52 / legacy 0,68 / legacy_negtags 0,68 -> bỏ hàng A/B render.
 # +ref chỉ dùng ảnh khi prior <= 0,45 (p012 thuyền thúng); với áo dài nó dùng lại hàng gốc. sdxl_refplus = luôn có ảnh (đối chứng).
-models:     [dreamshaper8, realvis_xl, realvis_xl+ref, sdxl_aodai, realvis_aodai, realvis_aodai+ref, sdxl_refplus]
+models:     [realvis_xl#bare, realvis_xl, realvis_xl+ref, dreamshaper8#bare, dreamshaper8, realvis_aodai, realvis_aodai+ref, sdxl_refplus]
 # v1.4 agent loop review: Summary (2c) · Filter ảnh tham chiếu (3b) · Filter+Rank ứng viên (4c) · một vòng sửa (4d)
-agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 1}
+agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 3}
 multigen:
   enabled: true
   device: "cuda:1"

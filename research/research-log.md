@@ -227,3 +227,14 @@
   cứu); 5 mô tả VLM bị cắt ở 700 token -> 1.400 token riêng cho bước mô tả; hàng IP-Adapter không có ảnh là "bỏ qua" chứ không
   phải lỗi (để cache bước dùng lại được); cảnh báo rò VRAM so với mức nền.
 
+
+## 2026-09-15 — v1.7: chốt flow ba khối với người hướng dẫn, sửa code trước khi mở lại GPU
+- Flow: Prompt → **Grounding** → [model nền M] × {bare, system} → **Agentic Review Loop** → ảnh cuối + hồ sơ. Nhiều model chỉ để
+  chứng minh "M + hệ thống > M trần" là tính chất chung (H20); triển khai gắn một model.
+- Grounding gom Analysis/Search/Summary/Spec thành một bảng (các bước con vẫn memo). Hàng `M#bare` = prompt dịch thẳng + negative
+  chung, không KB/LoRA/ảnh, cùng seed; `paired_table` cho Δ.
+- Agentic Review Loop thay "một vòng sửa": Reviewer (Filter + Rank hai lượt đảo vị trí), Reflector (luật + LLM caption theo
+  thuộc tính thiếu, bộ nhớ, leo nấc, dừng sau 2 vòng không tăng), Refiner (3 vòng, seed khác, giữ hết ảnh), chọn cuối trên toàn
+  pool (không lấy vòng cuối). Sửa kèm: adapt_spec từng reset iteration=0 nên mọi vòng sinh lại cùng seed (lỗi ẩn từ v1.4).
+- Offline: 3 bộ test đạt (204 kiểm). Chưa chạy GPU; kế tiếp trên vast: dev10 × {realvis_xl, dreamshaper8} bare/system (H20),
+  p012/p031 với 3 vòng (H21).

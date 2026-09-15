@@ -37,31 +37,35 @@ def run_one(cfg: Config, prompt: Prompt, run_dir: Path, agents: bool, log) -> Pa
         log(f"[{prompt.id}] {name}: {time.time() - t:.0f}s")
         return out
 
-    a, src = step("1 analysis", s.analysis)
+    g, src = step("1 grounding", s.grounding)
+    report.parts.append(viz.grounding_table(g, s.kb, source=src))
+    # chẩn đoán từng bước con (đã memo, không tốn thêm)
+    a, src = s.analysis()
     report.parts.append(viz.keywords_table(a, s.kb, cfg.max_spec_entities, source=src))
-    cmp, src = step("2 compare", s.compare)
+    cmp, src = s.compare()
     report.parts.append(viz.query_comparison(cmp, cfg.search_viz.k_text, cfg.search_viz.k_images, source=src))
-    search, src = step("2b retrieve", s.retrieve)
+    search, src = s.retrieve()
     report.parts.append(viz.evidence_table(search, s.kb, source=src))
-    if agents and cfg.agents.enabled and cfg.agents.summary:
-        briefs, src = step("2c brief", s.brief)
-        report.parts.append(viz.brief_card(briefs, s.spec()[0], source=src))
-    spec, src = step("3 spec", s.spec)
+    if g["briefs"]:
+        report.parts.append(viz.brief_card(g["briefs"], g["spec"], source=src))
+    spec, src = s.spec()
     report.parts.append(viz.spec_card(spec, source=src))
-    gen, src = step("3 genspec", s.genspec)
+    gen, src = step("1b genspec", s.genspec)
     report.parts.append(viz.genspec_card(gen, source=src))
     if cfg.multigen.device == cfg.llm.device and cfg.agents.reload_vlm:
         s.free_vlm()
-    res, src = step("4 multigen", lambda: s.multigen(cfg.models, on_model_done=lambda r: log(
+    res, src = step("2 generate", lambda: s.multigen(cfg.models, on_model_done=lambda r: log(
         f"    hàng {r.model_key}: " + (r.error[:80] if r.error else f"{len(r.output.candidates)} ảnh, {r.seconds:.0f}s"))))
     report.parts.append(viz.model_grid(res, spec, source=src))
     if "ref_filter" in s.steps:
-        report.parts.append(viz.filter_table(s.steps["ref_filter"].value, title="Bước 3b · Filter agent trên ảnh tham chiếu", source=s.steps["ref_filter"].source))
+        report.parts.append(viz.filter_table(s.steps["ref_filter"].value, title="Grounding · Filter agent trên ảnh tham chiếu", source=s.steps["ref_filter"].source))
     report.parts.append(viz.score_table(res, source=src))
+    cr = None
     if agents and cfg.agents.enabled and cfg.agents.candidate_review:
-        cr, src = step("4c-4d candidate_review", s.candidate_review)
+        cr, src = step("3 agentic review loop", s.candidate_review)
         report.parts.append(viz.candidate_review_html(cr, source=src))
-        log(f"[{prompt.id}] ảnh cuối: {cr.final_path} ({cr.final_source}, {cr.best_model})")
+        log(f"[{prompt.id}] ảnh cuối: {cr.final_path} ({cr.final_source}, {cr.best_model}) · {len(cr.iterations)} vòng · {cr.stop_reason}")
+    report.parts.append(viz.paired_table(res, cr))
     report.parts.append(viz.vram_html())
     out = report.save(s.out_dir / "walkthrough.html")
     log(f"[{prompt.id}] xong {time.time() - t0:.0f}s -> {out}")

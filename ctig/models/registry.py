@@ -127,7 +127,7 @@ REGISTRY: dict[str, ModelSpec] = {
 }
 
 
-RENDER_VARIANTS = ("legacy", "tags", "tags_w", "legacy_negtags", "sentence")
+RENDER_VARIANTS = ("legacy", "tags", "tags_w", "legacy_negtags", "sentence", "bare")
 
 
 def parse_flags(key: str) -> set[str]:

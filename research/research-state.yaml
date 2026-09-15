@@ -186,12 +186,25 @@ hypotheses:
     motivation: "Inference-time scaling: chi cho model/prompt cần, không chi đều"
     priority: medium
     prediction: "Trên p001: realvis_* dừng ở 2-4, dreamshaper/sdxl_base lên 6; attr tốt nhất mỗi model không giảm quá 0,03 so với v1.4 N=4"
+  - id: H20
+    statement: "Cùng model nền M và cùng seed, nhánh qua hệ thống (Grounding + Agentic Review Loop) cho CLIP attr / ITM attr / tỉ lệ qua Filter cao hơn nhánh bare (prompt dịch thẳng) trên MỌI model nền thử, không chỉ trên model tốt nhất"
+    status: active
+    motivation: "Người hướng dẫn: thử nhiều model không phải để chọn model; triển khai gắn một model, phải chứng minh 'with system > without system' là tính chất chung"
+    priority: high
+    prediction: "dev10 x {realvis_xl, dreamshaper8}: Δ(system − bare) > 0 ở ≥ 8/10 prompt cho cả hai model; Δ lớn nhất ở thực thể hiếm (p012, p031), nhỏ ở áo dài/nón lá (bare đã đúng)"
+    protocol: "hàng M#bare và M cùng seed trong một multigen; viz.paired_table; Filter chấm cả hai nhánh (k_candidates đủ lớn để bare vào top-k hoặc chấm riêng)"
+  - id: H21
+    statement: "Vòng lặp Reflector/Refiner 3 vòng có bộ nhớ + chọn trên toàn pool cho ảnh cuối tốt hơn một vòng sửa (v1.4-1.6) ở các prompt mà ứng viên đầu còn thiếu ≥ 2 thuộc tính"
+    status: active
+    motivation: "Idea2Img: chọn trên mọi bản nháp; ImageRAG: caption riêng cho khái niệm thiếu; một vòng chỉ sửa được một thứ"
+    priority: medium
+    prediction: "p031 (áo tứ thân) và p012: điểm Filter của ảnh cuối tăng qua vòng 2-3 ít nhất một lần; không có ca nào ảnh cuối kém ứng viên gốc (chọn trên pool bảo đảm)"
 
 experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0
   best_value: null
-  total_runs: 9
+  total_runs: 9   # v1.7 (2026-09-15) đổi flow, chưa chạy GPU: H20/H21 chờ dev10 trên vast
   trajectory:
     - run_id: "smoke-v1"
       hypothesis: "H1"

@@ -255,6 +255,10 @@ class AgentsConfig:
     patience: int = 2
     #: Reflector nhờ LLM viết caption truy hồi cho thuộc tính thiếu (ImageRAG); False = mẫu câu cố định
     llm_captions: bool = True
+    #: model nền có hồ sơ chính (hiện trong cell/ảnh cuối của walkthrough); None = model nền đầu tiên trong models:
+    primary_model: str | None = None
+    #: chỉ chạy Reflector/Refiner cho các model nền này (tiết kiệm giờ GPU); None = tất cả. Model ngoài danh sách vẫn có Reviewer + Rank + ảnh cuối.
+    loop_models: list[str] | None = None
     #: mô tả ảnh cần VLM; trên 1xT4 sau bước 4 phải nạp lại Qwen (~1 phút)
     reload_vlm: bool = True
 

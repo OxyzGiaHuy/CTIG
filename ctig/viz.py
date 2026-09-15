@@ -399,20 +399,22 @@ def paired_table(res: MultiGenResult, cr=None, source: str | None = None) -> str
                 "vqa": mean([vqa[c.path] for c in cs if c.path in vqa]) if any(c.path in vqa for c in cs) else None,
                 "best": max(cs, key=combined_score).path}
 
-    rows = ["<table><tr><th>model nền</th><th>nhánh</th><th>ảnh</th><th>CLIP attr</th><th>ITM attr</th><th>hạng ensemble</th><th>tổng</th><th>Reviewer TB</th><th>VQAScore TB</th><th>Filter đạt</th><th>ảnh tốt nhất</th></tr>"]
+    finals = {x.base_model: x for x in (getattr(cr, "per_model", None) or [])} if cr is not None else {}
+    rows = ["<table><tr><th>model nền</th><th>nhánh</th><th>ảnh</th><th>CLIP attr</th><th>ITM attr</th><th>hạng ensemble</th><th>tổng</th><th>Reviewer TB</th><th>VQAScore TB</th><th>Filter đạt</th><th>ảnh tốt nhất (metric)</th><th>ảnh cuối loop</th></tr>"]
     for base, bare, sys_ in pairs:
         A, B = agg([bare]), agg(sys_)
         for lab, d, keys in (("bare", A, bare.model_key), ("system", B, ", ".join(r.model_key for r in sys_))):
             if d is None:
-                rows.append(f"<tr><td>{_e(base)}</td><td>{lab}</td><td colspan='9' class='bad'>không có ảnh ({_e(keys)})</td></tr>")
+                rows.append(f"<tr><td>{_e(base)}</td><td>{lab}</td><td colspan='10' class='bad'>không có ảnh ({_e(keys)})</td></tr>")
                 continue
             kp = "" if d["keep"] is None else f"{d['keep'][0]}/{d['keep'][1]}"
             rows.append(f"<tr><td>{_e(base)}</td><td><b>{lab}</b><div class='muted small'>{_e(keys)}</div></td><td>{d['n']}</td><td>{f3(d['attr'])}</td>"
-                        f"<td>{f3(d['itm'])}</td><td>{f3(d['ens'])}</td><td>{f3(d['tot'])}</td><td>{'' if d['rev'] is None else f'{d['rev']:+.2f}'}</td><td>{f3(d['vqa'])}</td><td>{kp}</td><td>{_img(d['best'], 120)}</td></tr>")
+                        f"<td>{f3(d['itm'])}</td><td>{f3(d['ens'])}</td><td>{f3(d['tot'])}</td><td>{'' if d['rev'] is None else f'{d['rev']:+.2f}'}</td><td>{f3(d['vqa'])}</td><td>{kp}</td><td>{_img(d['best'], 120)}</td>"
+                        f"<td>{_img(finals[base].final_path, 120) + f'<div class=small>{_e(finals[base].final_source)} · {len(finals[base].iterations)} vòng</div>' if (lab == 'system' and base in finals and finals[base].final_path) else ''}</td></tr>")
         if A and B:
             dl = lambda k: "" if (A[k] is None or B[k] is None) else f"{B[k] - A[k]:+.3f}"
             cls = "ok" if (A["tot"] is not None and B["tot"] is not None and B["tot"] > A["tot"]) else "bad"
-            rows.append(f"<tr class='{cls}'><td></td><td>Δ system − bare</td><td></td><td>{dl('attr')}</td><td>{dl('itm')}</td><td>{dl('ens')}</td><td><b>{dl('tot')}</b></td><td><b>{dl('rev')}</b></td><td>{dl('vqa')}</td><td></td><td></td></tr>")
+            rows.append(f"<tr class='{cls}'><td></td><td>Δ system − bare</td><td></td><td>{dl('attr')}</td><td>{dl('itm')}</td><td>{dl('ens')}</td><td><b>{dl('tot')}</b></td><td><b>{dl('rev')}</b></td><td>{dl('vqa')}</td><td></td><td></td><td></td></tr>")
     rows.append("</table>")
     note = ("<div class='muted'>bare = model nền với prompt dịch thẳng + negative chung, không KB, không LoRA, không ảnh tham chiếu, cùng seed. "
             "system = cùng model nền qua Grounding (+ LoRA/ảnh nếu hàng có). Δ &gt; 0 ủng hộ H_sys: hệ thống cải thiện mọi model nền, "
@@ -464,9 +466,26 @@ def filter_table(flt, title: str = "Filter agent", side: int = 160, source: str 
     return _wrap(title, f"<div>{head}</div><div class='grid'>{''.join(cells)}</div>", source)
 
 
+def per_model_table(cr, source: str | None = None) -> str:
+    """v1.7.2: mỗi model nền một hệ thống -> một ảnh cuối, số vòng loop, lý do dừng. Không ensemble giữa các model."""
+    pm = getattr(cr, "per_model", None) or []
+    if not pm:
+        return ""
+    rows = ["<table><tr><th>model nền</th><th>ảnh cuối</th><th>nguồn</th><th>Reviewer</th><th>vòng loop</th><th>dừng</th></tr>"]
+    for x in pm:
+        sc = x.pool.get(x.final_path) if x.final_path else None
+        rows.append(f"<tr{' style=background:#f0fdf4' if x.base_model == cr.base_model else ''}><td><b>{_e(x.base_model)}</b>"
+                    f"<div class='muted small'>{_e(x.best_model or '')}</div></td><td>{_img(x.final_path, 160)}</td><td>{_e(x.final_source)}</td>"
+                    f"<td>{'' if sc is None else f'{sc:+.2f}'}</td><td>{len(x.iterations)}</td><td class='small'>{_e(x.stop_reason)}</td></tr>")
+    rows.append("</table>")
+    note = ("<div class='muted'>Reviewer tầng 1 chấm chung mọi ảnh; Rank, Reflector/Refiner và ảnh cuối chạy riêng cho từng checkpoint "
+            "(các hàng +ref / LoRA / IP-Adapter Plus của cùng checkpoint thuộc một nhóm). Hàng tô xanh là hồ sơ chính hiện chi tiết bên dưới.</div>")
+    return _wrap("Agentic Review Loop · Ảnh cuối theo model nền", "".join(rows) + note, source)
+
+
 def candidate_review_html(cr, side: int = 200, source: str | None = None) -> str:
     rk = cr.rank
-    parts = [filter_table(cr.filter, title=f"Agentic Review Loop · Reviewer: Filter agent trên top-{cr.k} ứng viên", side=140)]
+    parts = [per_model_table(cr, source), filter_table(cr.filter, title="Agentic Review Loop · Reviewer tầng 1: Filter agent trên mọi ảnh", side=140)]
     # bảng xếp hạng
     rows = ["<table><tr><th>#</th><th>ảnh</th><th>hạng metric</th><th>hạng agent</th><th>lý do agent</th></tr>"]
     for i, p in enumerate(rk.final_order[:8]):
@@ -477,7 +496,7 @@ def candidate_review_html(cr, side: int = 200, source: str | None = None) -> str
     rows.append("</table>")
     agree = (f"top-1 <b>{'trùng' if rk.agreement_top1 else 'KHÁC'}</b>" + (f" · Spearman {rk.spearman}" if rk.spearman is not None else "")
              + "".join(f"<div class='bad'>· {_e(d)}</div>" for d in rk.disagreements))
-    parts.append(_wrap("Agentic Review Loop · Rank agent (đảo vị trí) so với metric", f"<div>{agree}</div>{''.join(rows)}"))
+    parts.append(_wrap(f"Agentic Review Loop · Rank agent (đảo vị trí) so với metric · {_e(getattr(cr, 'base_model', '') or '')} top-{cr.k}", f"<div>{agree}</div>{''.join(rows)}"))
     # Agentic Review Loop: Reflector -> Refiner từng vòng
     body = ""
     its = getattr(cr, "iterations", None) or []
@@ -507,7 +526,7 @@ def candidate_review_html(cr, side: int = 200, source: str | None = None) -> str
     if cr.final_path:
         body += (f"<h4>Ảnh cuối ({_e(cr.final_source)}, {_e(cr.best_model or '')})</h4>{_img(cr.final_path, 320)}")
     n_it = len(its)
-    parts.append(_wrap(f"Agentic Review Loop · Reflector + Refiner ({n_it} vòng)", body or "<div class='muted'>không chạy</div>", source))
+    parts.append(_wrap(f"Agentic Review Loop · Reflector + Refiner · {_e(getattr(cr, 'base_model', '') or '')} ({n_it} vòng)", body or "<div class='muted'>không chạy</div>", source))
     return "".join(parts)
 
 

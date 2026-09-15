@@ -58,8 +58,12 @@ for mg in sorted(glob.glob(f"{run}/*/multigen.json")):
         cls = "ok" if (dr > 0 or di > 0.05) else "bad"
         parts.append(f"<div class='card'><div class='delta {cls}'>Δ system − bare</div><div>Reviewer TB: {dr:+.2f}</div><div>ITM attr TB: {di:+.2f}</div><div>CLIP attr TB: {da:+.2f}</div></div></div>")
         summary.append((pid, b, dr, di, da))
-    if cr and cr.get("final_path") and os.path.exists(cr["final_path"]):
-        parts.append(f"<div class='pair'><div class='card sys'><img src='{b64(cr['final_path'])}'><div><b>Ảnh cuối của hệ thống</b> · {E(cr.get('final_source',''))} · {len(cr.get('iterations',[]))} vòng loop</div><div class='small muted'>{E(cr.get('stop_reason',''))}</div></div></div>")
+    pm = (cr or {}).get("per_model") or ([cr] if cr else [])
+    finals = [x for x in pm if x.get("final_path") and os.path.exists(x["final_path"])]
+    if finals:
+        parts.append("<h3>Ảnh cuối của hệ thống theo model nền (mỗi model một loop riêng)</h3><div class='pair'>" + "".join(
+            f"<div class='card sys'><img src='{b64(x['final_path'])}'><div><b>{E(x.get('base_model') or '-')}</b> · {E(x.get('final_source',''))} · {len(x.get('iterations',[]))} vòng</div>"
+            f"<div class='small muted'>{E(x.get('stop_reason',''))}</div></div>" for x in finals) + "</div>")
 rows = "".join(f"<tr><td>{E(p)}</td><td>{E(b)}</td><td class='{'ok' if dr>0 else 'bad'}'>{dr:+.2f}</td><td class='{'ok' if di>0 else 'bad'}'>{di:+.2f}</td><td class='{'ok' if da>0 else 'bad'}'>{da:+.2f}</td></tr>" for p, b, dr, di, da in summary)
 wins = sum(1 for _, _, dr, di, _ in summary if dr > 0 or di > 0.05)
 parts.insert(2, f"<h2>Tổng hợp Δ (system − bare)</h2><div>system hơn bare ở <b>{wins}/{len(summary)}</b> cặp (Reviewer TB tăng hoặc ITM attr tăng &gt; 0,05)</div><table><tr><th>prompt</th><th>model nền</th><th>Δ Reviewer</th><th>Δ ITM attr</th><th>Δ CLIP attr</th></tr>{rows}</table>")

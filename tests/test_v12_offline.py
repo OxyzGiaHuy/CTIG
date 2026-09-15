@@ -927,6 +927,13 @@ def test_v17_grounding_bare(tmp):
     cr3, _ = s3.candidate_review()
     check("Reviewer loại hết -> vẫn chọn ảnh hệ thống ít sai nhất, không None, không phải bare",
           cr3.final_path and "bare" not in cr3.final_path and any("ít sai nhất" in n or "mốc" in n for n in cr3.notes) or (cr3.final_path and "bare" not in cr3.final_path), f"{cr3.final_path} {cr3.notes[:2]}")
+    check("v1.7.2: hồ sơ theo model nền: per_model có 1 nhóm stub, base_model đặt, ảnh cuối của nhóm", cr2.per_model and cr2.per_model[0].base_model == "stub"
+          and cr2.base_model == "stub" and cr2.per_model[0].final_path == cr2.final_path, f"{[x.base_model for x in cr2.per_model]}")
+    s2b = Session(cfg2, p, tmp / "g17b", log=lambda *a: None)
+    cr2b, src2b = s2b.candidate_review()
+    check("hồ sơ theo model đọc lại được từ đĩa (per_model lồng nhau)", src2b == "disk" and len(cr2b.per_model) == 1 and isinstance(cr2b.per_model[0], type(cr2b)), src2b)
+    from ctig import viz as _viz
+    check("viz: bảng ảnh cuối theo model nền", "Ảnh cuối theo model nền" in _viz.candidate_review_html(cr2) and "ảnh cuối loop" in _viz.paired_table(res2, cr2))
     check("Reviewer tầng 1 chấm MỌI ảnh (bare + system), k = số ảnh qua tầng 1 ≤ k_candidates",
           len(cr2.filter.verdicts) == sum(len(r.output.candidates) for r in res2.runs if r.output) and cr2.k <= cfg2.agents.k_candidates, f"{len(cr2.filter.verdicts)} {cr2.k}")
     ht = viz.paired_table(res)

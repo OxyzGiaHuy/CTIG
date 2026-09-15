@@ -40,7 +40,7 @@ from .schema import (
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
 STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 2, "spec": 3, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 2, "candidate_review": 7}
+              "brief": 2, "ref_filter": 2, "candidate_review": 8}
 
 
 def _h(obj: Any) -> str:
@@ -436,6 +436,7 @@ class Session:
         Chọn cuối : trên toàn pool (ứng viên gốc + mọi vòng) theo điểm Reviewer; hoà thì ưu tiên ảnh sớm hơn.
         """
         from .agents import describe as ag_desc, loop as ag_loop, rank as ag_rank, reflector as ag_ref
+        from .models.registry import get as _get_model, parse_key as _parse_key
         from .stages.multigen import combined_score
 
         res, _ = self.multigen()
@@ -457,7 +458,8 @@ class Session:
             seen.add(cand.path)
             cands.append((cand, m))
         key = _h({"paths": [Path(cand.path).name for cand, _ in cands], "spec": _h(to_dict(sp)), "pe": pe,
-                  "k": c.k_candidates, "rev": c.max_revisions, "pat": c.patience, "gen": _h(to_dict(gen))})
+                  "k": c.k_candidates, "rev": c.max_revisions, "pat": c.patience, "gen": _h(to_dict(gen)),
+                  "primary": c.primary_model, "loop_models": c.loop_models})
 
         def score_of(v) -> float:
             # điểm Reviewer dùng để so giữa các vòng: ảnh bị loại/có must_not thì âm nặng
@@ -465,132 +467,161 @@ class Session:
 
         def compute():
             flt = ag_desc.run(self.agent, [cand.path for cand, _ in cands], sp, pe, kind="candidate", log=self.log, clip=self.clip)
-            # tầng 2: trong tập VLM giữ lại, xếp theo (điểm Reviewer, ensemble metric) rồi lấy top-k cho Rank
             v_by = {v.path: v for v in flt.verdicts}
-            # Hàng M#bare là ĐỐI CHỨNG: Reviewer chấm để lập bảng bare/system, nhưng KHÔNG được vào Rank, loop hay ảnh cuối
-            # (p031/p050 v1.7: ảnh cuối từng rơi vào hàng bare vì chọn trên toàn pool).
-            bare_paths = {cand.path for cand, m in cands if "#bare" in m}
-            sys_cands = [cm for cm in cands if cm[0].path not in bare_paths]
-            fine = sorted([cm for cm in sys_cands if cm[0].path in flt.kept],
-                          key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
-            if not fine and sys_cands:
-                # p031 v1.7.1: Reviewer nghiêm loại hết ảnh hệ thống -> không được trả None; lấy ảnh ÍT SAI NHẤT làm mốc để
-                # Reflector/Refiner còn có gì mà sửa (loop là nơi sửa lỗi, không phải Filter).
-                fine = sorted(sys_cands, key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
-                for cm in fine:
-                    v_by[cm[0].path].keep = True
-                flt.kept = [cm[0].path for cm in fine]
-                self.log(f"  [reviewer] không ảnh hệ thống nào qua tầng 1 -> lấy {len(fine)} ảnh ít sai nhất làm mốc cho loop")
-            self.log(f"  [reviewer] tầng 1 VLM: {len(flt.kept)}/{len(cands)} ảnh qua; tầng 2 metric xếp -> top-{len(fine)}")
-            rk = ag_rank.run(self.agent, fine, flt, briefs, sp, pe, log=self.log)
-            best = rk.final_order[0] if rk.final_order else None
             model_of = {cand.path: m for cand, m in cands}
-            cr = CandidateReview(prompt_id=self.prompt.id, k=len(fine), filter=flt, rank=rk, best_path=best,
-                                 best_model=model_of.get(best) if best else None, final_path=best)
-            cr.pool = {v.path: score_of(v) for v in flt.verdicts if v.path not in bare_paths}
+            # Hàng M#bare là ĐỐI CHỨNG: Reviewer chấm để lập bảng bare/system, nhưng KHÔNG vào Rank, loop hay ảnh cuối.
+            bare_paths = {cand.path for cand, m in cands if "#bare" in m}
             # VQAScore chuẩn (cột tham chiếu, kể cả bare): P(Yes | Does this figure show "<prompt>"?)
+            vqa_all: dict[str, float] = {}
             if hasattr(self.agent, "vqa_yes"):
                 q = f'Does this figure show "{pe}"? Please answer yes or no.'
                 for cand, _m in cands:
                     pr = self.agent.vqa_yes(q, cand.path)
                     if pr is None:
                         break
-                    cr.vqa[cand.path] = round(pr, 3)
-                if cr.vqa:
-                    self.log(f"  [reviewer] VQAScore {len(cr.vqa)} ảnh, TB {sum(cr.vqa.values()) / len(cr.vqa):.2f}")
-            cr.notes.append(f"Reviewer chấm {len(flt.verdicts)} ảnh ({len(bare_paths)} ảnh bare chỉ để so, không vào pool chọn)")
-            v0 = next((v for v in flt.verdicts if v.path == best), None)
-            if not best or v0 is None:
-                cr.stop_reason = "không có ứng viên qua Filter"
-                return cr
-            # Mốc cải thiện = ảnh có điểm Reviewer CAO NHẤT trong pool, không phải top-1 của Rank (p012 v1.7: Rank chọn ảnh
-            # +0.25 trong khi pool đã có +0.75 -> vòng sửa "tốt hơn" giả). Hoà thì theo thứ tự Rank.
-            rank_pos = {pth: i for i, pth in enumerate(rk.final_order)}
-            kept_v = [v for v in flt.verdicts if v.keep and v.path not in bare_paths] or [v0]
-            best_v = max(kept_v, key=lambda v: (score_of(v), -rank_pos.get(v.path, 99)))
-            best_score = score_of(best_v)
-            if best_v.path != v0.path:
-                cr.notes.append(f"mốc cải thiện: {Path(best_v.path).name} ({best_score:+.2f}) thay top-1 Rank ({score_of(v0):+.2f})")
-                cr.final_path = best_v.path
-            memory: list[dict] = []
-            # Refiner luôn sinh lại trên nhánh HỆ THỐNG: ứng viên đầu có thể là hàng M#bare (được chấm để so bare/system)
-            regen_model = (cr.best_model or "").replace("#bare", "") or cr.best_model
-            if regen_model != cr.best_model:
-                cr.notes.append(f"ứng viên đầu từ hàng bare ({cr.best_model}) -> Refiner sinh lại trên {regen_model}")
-            name_en = sp.entities[0].name_en if sp.entities else pe
-            ip_scale = None
-            for n in range(1, c.max_revisions + 1):
-                plan, captions, fix = ag_ref.decide(best_v, sp, gen, memory, c.patience, agent=self.agent if c.llm_captions else None,
-                                                    name_en=name_en, have_refs=bool(self.cfg.multigen.ref_images), log=self.log)
-                if plan is None:
-                    cr.stop_reason = fix
-                    break
-                if plan.is_empty():
-                    cr.stop_reason = "kế hoạch sửa rỗng (không còn gì để thêm)"
-                    break
-                if n == 1:
-                    cr.revision = plan  # tương thích viz/JSON cũ
-                self.log(f"  [reflector] vòng {n} [{fix}]: {plan.rationale} -> +{plan.add_positive} -{plan.add_negative} g+{plan.guidance_delta}")
-                it = LoopIteration(n=n, plan=plan, captions=captions)
-                refs = []
-                if plan.use_reference_image:
-                    if fix == "ground_refs":
-                        refs = self.reference_images()          # nấc 1: ảnh đã chọn ở Grounding (đã Filter, đã cắt)
-                    else:
-                        refs = self.attribute_refs(best_v.missing_must_have, captions=captions) if (captions or best_v.missing_must_have) else []
-                        if not refs:
-                            refs = self.reference_images()
-                            it.note = "không truy hồi được ảnh theo caption -> dùng ảnh Grounding"
-                    if fix == "more_refs":
-                        ip_scale = (ip_scale or self.cfg.multigen.ref_scale) + 0.1
-                it.refs = [str(r) for r in refs]
-                run_rec, _ = ag_loop.regenerate(gen, plan, sp, self.kb, regen_model, self.cfg, self.out_dir,
-                                                clip=self.clip, itm=self.itm, prompt_en=pe, log=self.log,
-                                                aesthetic=self.aesthetic, ref_images=refs, iteration=n, ip_scale=ip_scale)
-                it.run = run_rec
-                if n == 1:
-                    cr.regen = run_rec
-                if run_rec is None or not run_rec.output:
-                    it.note = f"sinh lại lỗi: {run_rec.error if run_rec else 'không có ModelRun'}"
-                    cr.notes.append(f"vòng {n}: {it.note}")
-                    memory.append({"fix": fix, "improved": False, "score": None})
-                    cr.iterations.append(it)
+                    vqa_all[cand.path] = round(pr, 3)
+                if vqa_all:
+                    self.log(f"  [reviewer] VQAScore {len(vqa_all)} ảnh, TB {sum(vqa_all.values()) / len(vqa_all):.2f}")
+            # MỘT MODEL NỀN MỘT HỆ THỐNG (v1.7.2): Rank, Reflector/Refiner và ảnh cuối chạy RIÊNG cho từng checkpoint
+            # (realvis_xl, realvis_aodai, sdxl_refplus cùng RealVis -> một nhóm). Gom mọi hàng vào một pool là ensemble model,
+            # trái với triển khai chỉ gắn một model. Tầng 1 (Filter) và VQAScore vẫn chấm chung một lần cho mọi ảnh.
+            groups: dict[str, list] = {}
+            label_of_repo: dict[str, str] = {}
+            for cand, m in cands:
+                if cand.path in bare_paths:
                     continue
-                flt_n = ag_desc.run(self.agent, [x.path for x in run_rec.output.candidates], sp, pe, kind="candidate", log=self.log, clip=self.clip)
-                it.filter = flt_n
-                if n == 1:
-                    cr.regen_filter = flt_n
-                for v in flt_n.verdicts:
-                    cr.pool[v.path] = score_of(v)
-                top = max(flt_n.verdicts, key=score_of) if flt_n.verdicts else None
-                it.best_score = score_of(top) if top else None
-                it.improved = bool(top and score_of(top) > best_score)   # chỉ tính cải thiện khi tốt hơn THẬT
-                if it.improved:
-                    best_score, best_v = score_of(top), top
-                    cr.final_path, cr.final_source = top.path, f"iter{n}"
-                    it.note = f"tốt hơn ({best_score:+.2f})"
+                base = _parse_key(m)[0]
+                try:
+                    repo = _get_model(base).repo
+                except KeyError:
+                    repo = base
+                label = label_of_repo.setdefault(repo, base)
+                groups.setdefault(label, []).append((cand, m))
+            self.log(f"  [reviewer] tầng 1 VLM: {len(flt.kept)}/{len(cands)} ảnh qua; {len(groups)} model nền: {', '.join(groups)}")
+
+            def review_group(label: str, gcands: list) -> CandidateReview:
+                fine = sorted([cm for cm in gcands if cm[0].path in flt.kept],
+                              key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
+                if not fine and gcands:
+                    # Reviewer nghiêm loại hết -> lấy ảnh ÍT SAI NHẤT làm mốc để loop còn có gì mà sửa (loop mới là nơi sửa lỗi)
+                    fine = sorted(gcands, key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
+                    for cm in fine:
+                        v_by[cm[0].path].keep = True
+                    self.log(f"  [reviewer:{label}] không ảnh nào qua tầng 1 -> lấy {len(fine)} ảnh ít sai nhất làm mốc cho loop")
+                rk = ag_rank.run(self.agent, fine, flt, briefs, sp, pe, log=self.log)
+                best = rk.final_order[0] if rk.final_order else None
+                cr = CandidateReview(prompt_id=self.prompt.id, k=len(fine), filter=flt, rank=rk, best_path=best,
+                                     best_model=model_of.get(best) if best else None, final_path=best, base_model=label)
+                cr.pool = {cm[0].path: score_of(v_by[cm[0].path]) for cm in gcands}
+                cr.vqa = dict(vqa_all)
+                v0 = v_by.get(best) if best else None
+                if not best or v0 is None:
+                    cr.stop_reason = "không có ứng viên"
+                    return cr
+                # Mốc cải thiện = ảnh có điểm Reviewer CAO NHẤT trong pool của nhóm; hoà thì theo thứ tự Rank.
+                rank_pos = {pth: i for i, pth in enumerate(rk.final_order)}
+                kept_v = [v_by[cm[0].path] for cm in gcands if v_by[cm[0].path].keep] or [v0]
+                best_v = max(kept_v, key=lambda v: (score_of(v), -rank_pos.get(v.path, 99)))
+                best_score = score_of(best_v)
+                if best_v.path != v0.path:
+                    cr.notes.append(f"mốc cải thiện: {Path(best_v.path).name} ({best_score:+.2f}) thay top-1 Rank ({score_of(v0):+.2f})")
+                    cr.final_path = best_v.path
+                memory: list[dict] = []
+                regen_model = model_of.get(best_v.path) or cr.best_model or label
+                if c.loop_models and label not in c.loop_models:
+                    cr.stop_reason = f"loop tắt cho {label} (agents.loop_models)"
+                    cr.notes.append(f"dừng: {cr.stop_reason}")
+                    return cr
+                name_en = sp.entities[0].name_en if sp.entities else pe
+                ip_scale = None
+                for n in range(1, c.max_revisions + 1):
+                    plan, captions, fix = ag_ref.decide(best_v, sp, gen, memory, c.patience, agent=self.agent if c.llm_captions else None,
+                                                        name_en=name_en, have_refs=bool(self.cfg.multigen.ref_images), log=self.log)
+                    if plan is None:
+                        cr.stop_reason = fix
+                        break
+                    if plan.is_empty():
+                        cr.stop_reason = "kế hoạch sửa rỗng (không còn gì để thêm)"
+                        break
+                    if n == 1:
+                        cr.revision = plan  # tương thích viz/JSON cũ
+                    self.log(f"  [reflector:{label}] vòng {n} [{fix}]: {plan.rationale[:140]} -> +{plan.add_positive} -{plan.add_negative} g+{plan.guidance_delta}")
+                    it = LoopIteration(n=n, plan=plan, captions=captions)
+                    refs = []
+                    if plan.use_reference_image:
+                        if fix == "ground_refs":
+                            refs = self.reference_images()          # nấc 1: ảnh đã chọn ở Grounding (đã Filter, đã cắt)
+                        else:
+                            refs = self.attribute_refs(best_v.missing_must_have, captions=captions) if (captions or best_v.missing_must_have) else []
+                            if not refs:
+                                refs = self.reference_images()
+                                it.note = "không truy hồi được ảnh theo caption -> dùng ảnh Grounding"
+                        if fix == "more_refs":
+                            ip_scale = (ip_scale or self.cfg.multigen.ref_scale) + 0.1
+                    it.refs = [str(r) for r in refs]
+                    run_rec, _ = ag_loop.regenerate(gen, plan, sp, self.kb, regen_model, self.cfg, self.out_dir / label,
+                                                    clip=self.clip, itm=self.itm, prompt_en=pe, log=self.log,
+                                                    aesthetic=self.aesthetic, ref_images=refs, iteration=n, ip_scale=ip_scale)
+                    it.run = run_rec
+                    if n == 1:
+                        cr.regen = run_rec
+                    if run_rec is None or not run_rec.output:
+                        it.note = f"sinh lại lỗi: {run_rec.error if run_rec else 'không có ModelRun'}"
+                        cr.notes.append(f"vòng {n}: {it.note}")
+                        memory.append({"fix": fix, "improved": False, "score": None})
+                        cr.iterations.append(it)
+                        continue
+                    flt_n = ag_desc.run(self.agent, [x.path for x in run_rec.output.candidates], sp, pe, kind="candidate", log=self.log, clip=self.clip)
+                    it.filter = flt_n
+                    if n == 1:
+                        cr.regen_filter = flt_n
+                    for v in flt_n.verdicts:
+                        cr.pool[v.path] = score_of(v)
+                    top = max(flt_n.verdicts, key=score_of) if flt_n.verdicts else None
+                    it.best_score = score_of(top) if top else None
+                    it.improved = bool(top and score_of(top) > best_score)   # chỉ tính cải thiện khi tốt hơn THẬT
+                    if it.improved:
+                        best_score, best_v = score_of(top), top
+                        cr.final_path, cr.final_source = top.path, f"iter{n}"
+                        it.note = f"tốt hơn ({best_score:+.2f})"
+                    else:
+                        it.note = f"không tốt hơn ({it.best_score if it.best_score is not None else float('nan'):+.2f} so với {best_score:+.2f})"
+                    cr.notes.append(f"vòng {n} [{fix}]: {it.note}")
+                    memory.append({"fix": fix, "improved": it.improved, "score": it.best_score})
+                    cr.iterations.append(it)
+                    if not ag_loop.needs_revision(best_v):
+                        cr.stop_reason = f"ảnh vòng {n} đạt: đủ thuộc tính, không must_not"
+                        break
                 else:
-                    it.note = f"không tốt hơn ({it.best_score if it.best_score is not None else float('nan'):+.2f} so với {best_score:+.2f})"
-                cr.notes.append(f"vòng {n} [{fix}]: {it.note}")
-                memory.append({"fix": fix, "improved": it.improved, "score": it.best_score})
-                cr.iterations.append(it)
-                if not ag_loop.needs_revision(best_v):
-                    cr.stop_reason = f"ảnh vòng {n} đạt: đủ thuộc tính, không must_not"
-                    break
-            else:
-                if c.max_revisions > 0:
-                    cr.stop_reason = f"hết {c.max_revisions} vòng"
-            if not cr.stop_reason and c.max_revisions == 0:
-                cr.stop_reason = "max_revisions = 0: chỉ Reviewer + Rank"
-            # chọn cuối trên toàn pool: điểm Reviewer cao nhất; hoà -> ảnh có sớm hơn (thứ tự chèn vào pool)
-            order = list(cr.pool.keys())
-            final = max(order, key=lambda p: (cr.pool[p], -order.index(p)))
-            if final != cr.final_path:
-                cr.notes.append(f"chọn trên toàn pool: {Path(final).name} ({cr.pool[final]:+.2f})")
-                cr.final_path = final
-                cr.final_source = "multigen" if final in model_of else next(
-                    (f"iter{it.n}" for it in cr.iterations if it.filter and any(v.path == final for v in it.filter.verdicts)), "regen")
-            cr.notes.append(f"dừng: {cr.stop_reason}")
+                    if c.max_revisions > 0:
+                        cr.stop_reason = f"hết {c.max_revisions} vòng"
+                if not cr.stop_reason and c.max_revisions == 0:
+                    cr.stop_reason = "max_revisions = 0: chỉ Reviewer + Rank"
+                # chọn cuối trên toàn pool CỦA NHÓM: điểm Reviewer cao nhất; hoà -> ảnh có sớm hơn
+                order = list(cr.pool.keys())
+                final = max(order, key=lambda pth: (cr.pool[pth], -order.index(pth)))
+                if final != cr.final_path:
+                    cr.notes.append(f"chọn trên toàn pool: {Path(final).name} ({cr.pool[final]:+.2f})")
+                    cr.final_path = final
+                    cr.final_source = "multigen" if final in model_of else next(
+                        (f"iter{it.n}" for it in cr.iterations if it.filter and any(v.path == final for v in it.filter.verdicts)), "regen")
+                cr.best_model = model_of.get(cr.final_path, cr.best_model)
+                cr.notes.append(f"dừng: {cr.stop_reason}")
+                self.log(f"  [loop:{label}] ảnh cuối {Path(cr.final_path).name if cr.final_path else None} ({cr.final_source}) · {len(cr.iterations)} vòng · {cr.stop_reason}")
+                return cr
+
+            per_model = [review_group(label, g) for label, g in groups.items()]
+            if not per_model:
+                cr0 = CandidateReview(prompt_id=self.prompt.id, k=0, filter=flt, rank=ag_rank.run(self.agent, [], flt, briefs, sp, pe, log=self.log))
+                cr0.stop_reason = "không có hàng hệ thống"
+                cr0.vqa = dict(vqa_all)
+                return cr0
+            primary = next((x for x in per_model if x.base_model == c.primary_model), None) or per_model[0]
+            import copy as _copy
+            cr = _copy.copy(primary)
+            cr.per_model = per_model
+            cr.notes = list(primary.notes) + [f"Reviewer chấm {len(flt.verdicts)} ảnh ({len(bare_paths)} ảnh bare chỉ để so); "
+                                               f"hồ sơ chính: {primary.base_model}; {len(per_model)} model nền có ảnh cuối riêng"]
             return cr
 
         return self._memo("candidate_review", key, CandidateReview, compute, force)

@@ -530,6 +530,10 @@ class CandidateReview:
     stop_reason: str = ""
     #: VQAScore chuẩn (Lin 2024) P(Yes | 'Does this figure show "<prompt>"?') từng ảnh đã chấm, kể cả bare (cột tham chiếu)
     vqa: dict[str, float] = field(default_factory=dict)
+    #: v1.7.2: model nền của hồ sơ này (một model nền = một hệ thống; không ensemble giữa các model)
+    base_model: str = ""
+    #: hồ sơ riêng của từng model nền trong lần chạy (hồ sơ cấp trên là bản sao của model chính agents.primary_model)
+    per_model: list["CandidateReview"] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------- stage 6

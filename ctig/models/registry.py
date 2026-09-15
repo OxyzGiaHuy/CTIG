@@ -14,7 +14,7 @@ from typing import Literal
 
 SDXL_VAE_FIX = "madebyollin/sdxl-vae-fp16-fix"
 
-Family = Literal["sdxl", "sdxl_turbo", "sd15", "playground", "sd3", "hunyuan", "stub"]
+Family = Literal["sdxl", "sdxl_turbo", "sd15", "playground", "sd3", "flux", "hunyuan", "stub"]
 
 
 @dataclass
@@ -38,7 +38,8 @@ class ModelSpec:
     #: Dùng ảnh tham chiếu (từ Search, đã qua CLIP) qua IP-Adapter. Chỉ family sdxl.
     ip_adapter: bool = False
     ip_adapter_scale: float = 0.3
-    #: "base" = ip-adapter_sdxl (1 ảnh, encoder ViT-bigG) | "plus" = ip-adapter-plus_sdxl_vit-h (nhiều ảnh, chi tiết hơn).
+    #: "base" = ip-adapter_sdxl (1 ảnh, encoder ViT-bigG) | "plus" = ip-adapter-plus_sdxl_vit-h (nhiều ảnh, chi tiết hơn)
+    #: | "flux" = XLabs-AI/flux-ip-adapter (1 ảnh, encoder CLIP ViT-L/14) cho họ flux.
     ip_adapter_kind: str = "base"
     #: Ghi đè scheduler của multigen.scheduler cho riêng model này (None = theo config; "keep" = giữ của repo).
     scheduler: str | None = None
@@ -112,10 +113,15 @@ REGISTRY: dict[str, ModelSpec] = {
               "VAE của Playground mang latents_mean/std riêng, thay bằng fp16-fix (v1.3) ra ảnh bạc màu, mờ sương. Giải mã fp32 ~9,5 GB."),
     "sd35_medium": ModelSpec(
         "sd35_medium", "stabilityai/stable-diffusion-3.5-medium", "sd3", 1024, 1024, steps=28, guidance=4.5,
-        variant=None, load_kwargs={"text_encoder_3": None, "tokenizer_3": None}, est_vram_gb=9.0, experimental=True,
+        variant=None, load_kwargs={"text_encoder_3": None, "tokenizer_3": None}, est_vram_gb=9.0,
         scheduler="keep", hires_ok=False, render="sentence",
-        notes="SD3.5 Medium (2,5B MMDiT), bám prompt tốt hơn SDXL. Repo gated: cần HF_TOKEN + chấp nhận điều khoản. "
-              "Bỏ T5 để vừa T4; T4 không có bf16 nên chạy fp16 - có thể ra ảnh lỗi số, vì vậy experimental."),
+        notes="SD 3.5 Medium (2,5B MMDiT, CFG nên negative dùng được). Bỏ T5 (tiết kiệm 9,5 GB đĩa/VRAM; hai CLIP đủ cho 77 token). "
+              "Repo gated: cần HF_TOKEN + chấp nhận điều khoản. bf16 trên A100 (fp16 có thể lỗi số). Chưa có IP-Adapter cho bản Medium."),
+    "flux_dev": ModelSpec(
+        "flux_dev", "black-forest-labs/FLUX.1-dev", "flux", 1024, 1024, steps=28, guidance=3.5, negative_ok=False,
+        variant=None, est_vram_gb=30.0, scheduler="keep", hires_ok=False, render="sentence",
+        notes="FLUX.1-dev (12B DiT rectified-flow, guidance-distilled: KHÔNG có negative prompt; T5 đọc prompt dài). bf16 ~24 GB + T5 9,5 GB. "
+              "Repo gated (license non-commercial). '+ref' qua XLabs IP-Adapter (1 ảnh, encoder CLIP ViT-L/14)."),
     "sd3_medium": ModelSpec(
         "sd3_medium", "stabilityai/stable-diffusion-3-medium-diffusers", "sd3", 1024, 1024, steps=28, guidance=7.0,
         variant=None, load_kwargs={"text_encoder_3": None, "tokenizer_3": None}, est_vram_gb=8.0, experimental=True,

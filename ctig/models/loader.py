@@ -46,11 +46,15 @@ def load_pipeline(spec: ModelSpec, device: str = "cuda:0", cpu_offload: bool = T
     import torch
     from diffusers import AutoPipelineForText2Image
 
-    kwargs = dict(torch_dtype=torch.float16, use_safetensors=True, **spec.load_kwargs)
+    # Họ DiT (sd3, flux) chạy bf16 khi GPU hỗ trợ (A100/H100): fp16 tràn số ra ảnh lỗi; SDXL/SD1.5 giữ fp16 (T4 không có bf16).
+    dtype = torch.float16
+    if spec.family in ("sd3", "flux") and device.startswith("cuda") and torch.cuda.is_available() and torch.cuda.is_bf16_supported():
+        dtype = torch.bfloat16
+    kwargs = dict(torch_dtype=dtype, use_safetensors=True, **spec.load_kwargs)
     if spec.vae:
         from diffusers import AutoencoderKL
 
-        kwargs["vae"] = AutoencoderKL.from_pretrained(spec.vae, torch_dtype=torch.float16)
+        kwargs["vae"] = AutoencoderKL.from_pretrained(spec.vae, torch_dtype=dtype)
     try:
         if spec.variant:
             pipe = AutoPipelineForText2Image.from_pretrained(spec.repo, variant=spec.variant, **kwargs)
@@ -94,7 +98,12 @@ def img2img_from(pipe):
 def load_ip_adapter(pipe, kind: str, scale: float, log=print) -> str:
     """Gắn IP-Adapter SDXL. kind="base": ip-adapter_sdxl.bin (encoder ViT-bigG đi kèm sdxl_models);
     kind="plus": ip-adapter-plus_sdxl_vit-h (encoder ViT-H nằm ở models/image_encoder, PHẢI chỉ rõ)."""
-    if kind == "plus":
+    if kind == "flux":
+        # XLabs IP-Adapter cho FLUX.1-dev (diffusers >= 0.32, FluxIPAdapterMixin); encoder CLIP ViT-L/14 nạp riêng.
+        pipe.load_ip_adapter("XLabs-AI/flux-ip-adapter", weight_name="ip_adapter.safetensors",
+                             image_encoder_pretrained_model_name_or_path="openai/clip-vit-large-patch14")
+        name = "IP-Adapter XLabs (FLUX, ViT-L/14)"
+    elif kind == "plus":
         pipe.load_ip_adapter("h94/IP-Adapter", subfolder="sdxl_models", weight_name="ip-adapter-plus_sdxl_vit-h.safetensors",
                              image_encoder_folder="models/image_encoder")
         name = "IP-Adapter Plus (ViT-H)"
@@ -106,7 +115,7 @@ def load_ip_adapter(pipe, kind: str, scale: float, log=print) -> str:
     enc = getattr(pipe, "image_encoder", None)
     if enc is not None:
         try:
-            unet = getattr(pipe, "unet", None)
+            unet = getattr(pipe, "unet", None) or getattr(pipe, "transformer", None)
             dev = next(unet.parameters()).device if unet is not None else None
             dt = next(unet.parameters()).dtype if unet is not None else None
             if dev is not None and str(dev) != "cpu":

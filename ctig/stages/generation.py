@@ -497,8 +497,11 @@ class DiffusersGenerator:
                 if not any(x.startswith("prompt dài") for x in self.notes):
                     self.notes.append(f"prompt dài ({n} token) -> nối embedding bằng compel")
                 return emb
-        elif n is not None and n > 75:
+        elif n is not None and n > 75 and self.family in ("sdxl", "sd15"):
             self.notes.append(f"prompt {n} token > 75, pipeline sẽ cắt phần cuối (multigen.long_prompt=false)")
+        elif n is not None and n > 75 and self.family in ("sd3", "flux"):
+            self.notes.append(f"prompt {n} token CLIP; họ {self.family} đọc bằng T5/CLIP dài hơn" if self.family == "flux"
+                              else f"prompt {n} token > 77: SD3.5 không T5 sẽ cắt phần cuối (render 'sentence' nên ngắn)")
         kw = {"prompt": prompt}
         if negative:
             kw["negative_prompt"] = negative
@@ -564,7 +567,7 @@ class DiffusersGenerator:
                     enc = getattr(self.pipe, "image_encoder", None)
                     if enc is not None:
                         try:
-                            unet = self.pipe.unet
+                            unet = getattr(self.pipe, "unet", None) or self.pipe.transformer
                             enc.to(next(unet.parameters()).device, dtype=next(unet.parameters()).dtype)
                         except Exception:  # noqa: BLE001
                             pass

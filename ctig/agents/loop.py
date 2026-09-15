@@ -83,7 +83,7 @@ def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_k
     except KeyError:
         fam, has_ip = "", False
     force = False
-    if plan.use_reference_image and ref_images and fam == "sdxl":
+    if plan.use_reference_image and ref_images and fam in ("sdxl", "flux"):
         if "ref" not in parse_flags(model_key) and not has_ip:
             model_key = model_key + "+ref"
         force = True  # Filter đã nói model vẽ thiếu -> ảnh tham chiếu được phép bất kể auto_ref (ImageRAG: sinh trước, thiếu mới truy hồi)

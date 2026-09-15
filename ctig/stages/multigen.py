@@ -353,13 +353,13 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 gate_note = "bare: model nền không hệ thống (prompt dịch thẳng, negative chung, không LoRA/ảnh)"
                 flags = set()
             if "ref" in flags:
-                if mspec.family not in ("sdxl",):
-                    raise KeyError(f"'+ref' chỉ dùng cho họ sdxl (khoá {key})")
+                if mspec.family not in ("sdxl", "flux"):
+                    raise KeyError(f"'+ref' chỉ dùng cho họ sdxl/flux (khoá {key})")
                 use, why = should_use_refs(spec, kb, cfg)
                 if force_refs and not use:
                     use, why = True, "Filter báo model vẽ thiếu -> dùng ảnh tham chiếu bất kể prior (ImageRAG)"
                 if use:
-                    mspec = replace(mspec, ip_adapter=True, ip_adapter_kind="plus",
+                    mspec = replace(mspec, ip_adapter=True, ip_adapter_kind="flux" if mspec.family == "flux" else "plus",
                                     ip_adapter_scale=float(getattr(cfg, "ref_scale", 0.4)))
                     gate_note = f"auto_ref: {why}"
                 else:
@@ -465,7 +465,7 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                     trigger = mspec.lora.get("trigger")
                 ref_imgs: list[str] | None = None
                 if mspec.ip_adapter:
-                    n_ref = int(getattr(cfg, "ref_images", 1)) if mspec.ip_adapter_kind == "plus" else 1
+                    n_ref = int(getattr(cfg, "ref_images", 1)) if mspec.ip_adapter_kind == "plus" else 1  # flux/base: 1 ảnh
                     ref_imgs = refs[:max(1, n_ref)]
                     how = model_loader.load_ip_adapter(pipe, mspec.ip_adapter_kind, mspec.ip_adapter_scale, log=log)
                     log(f"  [4b] {key}: {how}, {len(ref_imgs)} ảnh tham chiếu: " + ", ".join(Path(r).name for r in ref_imgs))

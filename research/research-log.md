@@ -238,3 +238,13 @@
   pool (không lấy vòng cuối). Sửa kèm: adapt_spec từng reset iteration=0 nên mọi vòng sinh lại cùng seed (lỗi ẩn từ v1.4).
 - Offline: 3 bộ test đạt (204 kiểm). Chưa chạy GPU; kế tiếp trên vast: dev10 × {realvis_xl, dreamshaper8} bare/system (H20),
   p012/p031 với 3 vòng (H21).
+
+## 2026-09-15 — v1.7 lần chạy đầu trên A100 80 GB (Taiwan), p001 bare vs system
+- RealVis: bare attr 0,47 / system 0,74; DreamShaper: bare 0,19 / system 0,40. Grid: hai hàng bare vẽ váy liền, cổ chéo kiểu
+  Trung Hoa (DreamShaper bare còn ra cổng chùa chữ Hán); hàng hệ thống có quần ống rộng, tà xẻ. Filter loại 5/5 ảnh bare lọt
+  top-k ("one-piece dress", "Y-shaped cross collar"). Tín hiệu đầu ủng hộ H20.
+- **PickScore chấm bare đẹp hơn hẳn (0,83 so với 0,28)** kéo hạng ensemble RealVis bare (0,57) lên trên system (0,48): chỉ
+  dùng metric thì hệ thống đã chọn ảnh sai văn hoá; Reviewer (VLM) là lớp cứu. Bằng chứng trực tiếp cho CulturalFrames/H13.
+- Lỗi thiết kế: top-k Reviewer chọn theo ensemble toàn cục nên 5/8 chỗ là bare, hàng hệ thống không được chấm -> đổi sang
+  chọn vòng tròn theo hàng (mỗi hàng ít nhất một ảnh). Loop dừng 0 vòng vì ứng viên đầu đạt (đúng luật).
+- Best-of-N thích nghi cho bare nhiều lượt hơn (6 so với 2) -> so sánh nghiêng về bare, kết luận system > bare càng chắc.

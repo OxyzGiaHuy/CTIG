@@ -445,15 +445,23 @@ class Session:
         briefs, _ = self.brief()
         c = self.cfg.agents
         pe = a.prompt_en or self.prompt.text_en
+        # Chọn top-k cho Reviewer theo VÒNG TRÒN: ảnh tốt nhất của MỖI hàng trước (để mọi hàng, kể cả M#bare và M, đều được
+        # Filter chấm -> bảng bare/system có cột Filter), rồi điền phần còn lại theo điểm ensemble toàn cục.
+        # Lý do (p001 v1.7): PickScore kéo hàng bare lên, 5/8 chỗ top-k là ảnh bare, hàng hệ thống không được chấm.
         seen: set[str] = set()
         cands = []
-        for cand, m in sorted([(cand, r.model_key) for r in res.runs if r.output for cand in r.output.candidates],
-                              key=lambda cm: -combined_score(cm[0])):
-            if cand.path in seen:
-                continue  # hàng alias dùng lại ảnh của hàng gốc -> không chấm hai lần
-            seen.add(cand.path)
-            cands.append((cand, m))
-        cands = cands[: c.k_candidates]
+        rows = [(r.model_key, sorted(r.output.candidates, key=lambda x: -combined_score(x))) for r in res.runs if r.output]
+        depth = 0
+        while len(cands) < c.k_candidates and any(depth < len(cs) for _, cs in rows):
+            for m, cs in rows:
+                if depth < len(cs) and len(cands) < c.k_candidates:
+                    cand = cs[depth]
+                    if cand.path in seen:
+                        continue  # hàng alias dùng lại ảnh của hàng gốc -> không chấm hai lần
+                    seen.add(cand.path)
+                    cands.append((cand, m))
+            depth += 1
+        cands.sort(key=lambda cm: -combined_score(cm[0]))
         key = _h({"paths": [Path(cand.path).name for cand, _ in cands], "spec": _h(to_dict(sp)), "pe": pe,
                   "k": c.k_candidates, "rev": c.max_revisions, "pat": c.patience, "gen": _h(to_dict(gen))})
 

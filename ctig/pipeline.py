@@ -39,7 +39,8 @@ def load_prompts(path: str | Path) -> list[Prompt]:
     for r in rows:
         r = dict(r)
         ents = r.pop("entities", None)
-        cats = r.pop("categories_used", None)
+        cats = r.pop("categories_used", None) or r.pop("categories", None)  # bộ 2026-09-15 của nhóm dùng 'categories'
+        r.pop("categories", None)
         if ents and not r.get("gold_entities"):
             r["gold_entities"] = list(ents)
         if cats and not r.get("category"):

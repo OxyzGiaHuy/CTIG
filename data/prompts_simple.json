@@ -1,0 +1,552 @@
+[
+  {
+    "id": "S001",
+    "text_vi": "Một cô gái mặc áo dài trắng đứng trước cổng trường.",
+    "text_en": "A young woman in a white ao dai standing at a school gate.",
+    "categories": [
+      "Clothing"
+    ],
+    "entities": [
+      "áo dài"
+    ]
+  },
+  {
+    "id": "S002",
+    "text_vi": "Người phụ nữ gánh hàng rong trên phố vào buổi sáng.",
+    "text_en": "A woman carrying a shoulder pole of street goods along a street in the morning.",
+    "categories": [
+      "Everyday Life & Trades"
+    ],
+    "entities": [
+      "gánh hàng rong"
+    ]
+  },
+  {
+    "id": "S003",
+    "text_vi": "Một tô phở bò nóng đặt trên bàn gỗ, khói bay lên.",
+    "text_en": "A steaming bowl of beef pho on a wooden table.",
+    "categories": [
+      "Food & Drink"
+    ],
+    "entities": [
+      "phở bò"
+    ]
+  },
+  {
+    "id": "S004",
+    "text_vi": "Bánh chưng vuông gói lá dong buộc lạt tre trên mâm.",
+    "text_en": "Square banh chung wrapped in dong leaves tied with bamboo strips on a tray.",
+    "categories": [
+      "Food & Drink"
+    ],
+    "entities": [
+      "bánh chưng"
+    ]
+  },
+  {
+    "id": "S005",
+    "text_vi": "Ổ bánh mì thịt kẹp đầy đồ chua và rau mùi.",
+    "text_en": "A banh mi stuffed with pork, pickles and cilantro.",
+    "categories": [
+      "Food & Drink"
+    ],
+    "entities": [
+      "bánh mì"
+    ]
+  },
+  {
+    "id": "S006",
+    "text_vi": "Chùa Một Cột giữa hồ nước, sáng sớm sương mờ.",
+    "text_en": "The One Pillar Pagoda over its pond in early morning mist.",
+    "categories": [
+      "Architecture & Landmark"
+    ],
+    "entities": [
+      "Chùa Một Cột"
+    ]
+  },
+  {
+    "id": "S007",
+    "text_vi": "Gác Khuê Văn Các ở Văn Miếu Quốc Tử Giám với hàng bia tiến sĩ trên lưng rùa đá.",
+    "text_en": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.",
+    "categories": [
+      "Architecture & Landmark"
+    ],
+    "entities": [
+      "Văn Miếu - Quốc Tử Giám"
+    ]
+  },
+  {
+    "id": "S008",
+    "text_vi": "Phố cổ Hội An về đêm, đèn lồng lụa treo dọc tường vàng.",
+    "text_en": "Hoi An ancient town at night, silk lanterns along ochre walls.",
+    "categories": [
+      "Architecture & Landmark"
+    ],
+    "entities": [
+      "phố cổ Hội An"
+    ]
+  },
+  {
+    "id": "S009",
+    "text_vi": "Nghệ sĩ chơi đàn bầu trên sân khấu nhỏ.",
+    "text_en": "A musician playing the dan bau monochord on a small stage.",
+    "categories": [
+      "Arts & Music"
+    ],
+    "entities": [
+      "đàn bầu"
+    ]
+  },
+  {
+    "id": "S010",
+    "text_vi": "Buổi diễn múa rối nước trong thủy đình, con rối nổi trên mặt nước.",
+    "text_en": "A water puppetry performance at a water pavilion, puppets on the water surface.",
+    "categories": [
+      "Arts & Music"
+    ],
+    "entities": [
+      "múa rối nước"
+    ]
+  },
+  {
+    "id": "S011",
+    "text_vi": "Nghệ sĩ cải lương mặc phục trang biểu diễn trên sân khấu.",
+    "text_en": "A cai luong performer in costume on stage.",
+    "categories": [
+      "Arts & Music"
+    ],
+    "entities": [
+      "cải lương"
+    ]
+  },
+  {
+    "id": "S012",
+    "text_vi": "Ngư dân chèo thuyền thúng tròn ra khỏi bãi biển miền Trung lúc bình minh.",
+    "text_en": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise.",
+    "categories": [
+      "Everyday Life & Trades"
+    ],
+    "entities": [
+      "chèo thuyền thúng"
+    ]
+  },
+  {
+    "id": "S013",
+    "text_vi": "Xích lô chở khách qua đường phố.",
+    "text_en": "A cyclo carrying a passenger along a street.",
+    "categories": [
+      "Everyday Life & Trades"
+    ],
+    "entities": [
+      "xích lô"
+    ]
+  },
+  {
+    "id": "S014",
+    "text_vi": "Ruộng bậc thang mùa nước đổ, mặt ruộng phản chiếu trời chiều.",
+    "text_en": "Terraced fields in the water season reflecting the evening sky.",
+    "categories": [
+      "Landscape"
+    ],
+    "entities": [
+      "ruộng bậc thang"
+    ]
+  },
+  {
+    "id": "S015",
+    "text_vi": "Chợ nổi sáng sớm, thuyền chở trái cây, cây bẹo treo mẫu hàng.",
+    "text_en": "A floating market at dawn, fruit boats with sample poles.",
+    "categories": [
+      "Everyday Life & Trades"
+    ],
+    "entities": [
+      "chợ nổi"
+    ]
+  },
+  {
+    "id": "S016",
+    "text_vi": "Nhà rông Tây Nguyên giữa buôn làng.",
+    "text_en": "A Central Highlands rong house in a village.",
+    "categories": [
+      "Architecture & Landmark"
+    ],
+    "entities": [
+      "nhà rông Tây Nguyên"
+    ]
+  },
+  {
+    "id": "S017",
+    "text_vi": "Liền anh liền chị đứng hát quan họ trên thuyền.",
+    "text_en": "Quan ho singers standing and singing on a boat.",
+    "categories": [
+      "Arts & Music"
+    ],
+    "entities": [
+      "hát quan họ"
+    ]
+  },
+  {
+    "id": "S018",
+    "text_vi": "Dàn cồng chiêng Tây Nguyên diễn quanh đống lửa.",
+    "text_en": "A Central Highlands gong ensemble performing around a fire.",
+    "categories": [
+      "Arts & Music"
+    ],
+    "entities": [
+      "cồng chiêng Tây Nguyên"
+    ]
+  },
+  {
+    "id": "S019",
+    "text_vi": "Cô gái người Dao Đỏ đội khăn đỏ.",
+    "text_en": "A Red Dao woman in her red headdress.",
+    "categories": [
+      "Clothing"
+    ],
+    "entities": [
+      "trang phục người Dao Đỏ"
+    ]
+  },
+  {
+    "id": "S020",
+    "text_vi": "Thiếu nữ Bắc Bộ đội nón quai thao.",
+    "text_en": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat.",
+    "categories": [
+      "Clothing"
+    ],
+    "entities": [
+      "nón quai thao"
+    ]
+  },
+  {
+    "id": "S021",
+    "text_vi": "Trẻ con rước đèn ông sao đêm Trung Thu trong sân khu phố.",
+    "text_en": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night.",
+    "categories": [
+      "Customs & Rituals"
+    ],
+    "entities": [
+      "Tết Trung Thu"
+    ]
+  },
+  {
+    "id": "S022",
+    "text_vi": "Đoàn múa lân với ông Địa cầm quạt mo trước cửa nhà.",
+    "text_en": "A lion dance troupe with the Ong Dia character at a house front.",
+    "categories": [
+      "Customs & Rituals"
+    ],
+    "entities": [
+      "múa lân"
+    ]
+  },
+  {
+    "id": "S023",
+    "text_vi": "Gia đình quây quần bên mâm cỗ Tết có cây quất và bao lì xì đỏ.",
+    "text_en": "A family around a Tet feast with a kumquat tree and red envelopes.",
+    "categories": [
+      "Festival"
+    ],
+    "entities": [
+      "mâm cỗ Tết"
+    ]
+  },
+  {
+    "id": "S024",
+    "text_vi": "Ly cà phê sữa đá với phin nhôm đang nhỏ giọt trên bàn.",
+    "text_en": "Iced milk coffee dripping through an aluminium phin filter on a table.",
+    "categories": [
+      "Food & Drink"
+    ],
+    "entities": [
+      "cà phê sữa đá"
+    ]
+  },
+  {
+    "id": "S025",
+    "text_vi": "Đĩa gỏi cuốn tôm thịt kèm bát tương đen đậu phộng.",
+    "text_en": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip.",
+    "categories": [
+      "Food & Drink"
+    ],
+    "entities": [
+      "gỏi cuốn"
+    ]
+  },
+  {
+    "id": "S026",
+    "text_vi": "Mâm nem rán vàng giòn với rau sống và bát nước chấm.",
+    "text_en": "A tray of golden fried spring rolls with fresh herbs and dipping sauce.",
+    "categories": [
+      "Food & Drink"
+    ],
+    "entities": [
+      "nem rán"
+    ]
+  },
+  {
+    "id": "S027",
+    "text_vi": "Tô bún bò Huế nóng hổi đặt trên bàn ăn buổi sáng.",
+    "text_en": "A steaming bowl of bun bo Hue on a table in the morning.",
+    "categories": [
+      "Food & Drink"
+    ],
+    "entities": [
+      "bún bò Huế"
+    ]
+  },
+  {
+    "id": "S028",
+    "text_vi": "Bánh tét khoanh tròn cắt ra bày trên lá chuối.",
+    "text_en": "Sliced rounds of banh tet arranged on banana leaves.",
+    "categories": [
+      "Food & Drink"
+    ],
+    "entities": [
+      "bánh tét"
+    ]
+  },
+  {
+    "id": "S029",
+    "text_vi": "Gói cốm bọc lá sen buộc rơm nếp.",
+    "text_en": "A parcel of young green rice wrapped in lotus leaf tied with rice straw.",
+    "categories": [
+      "Food & Drink"
+    ],
+    "entities": [
+      "cốm"
+    ]
+  },
+  {
+    "id": "S030",
+    "text_vi": "Người phụ nữ đeo khăn rằn ngồi trên xuồng ba lá.",
+    "text_en": "A woman in a checkered scarf sitting in a small sampan.",
+    "categories": [
+      "Clothing"
+    ],
+    "entities": [
+      "khăn rằn"
+    ]
+  },
+  {
+    "id": "S031",
+    "text_vi": "Thiếu nữ Bắc Bộ mặc áo tứ thân thắt lưng buông.",
+    "text_en": "A northern Vietnamese young woman in a four-panel dress with a sash.",
+    "categories": [
+      "Clothing"
+    ],
+    "entities": [
+      "áo tứ thân"
+    ]
+  },
+  {
+    "id": "S032",
+    "text_vi": "Nghệ sĩ nữ chơi đàn tranh, tay đeo móng gảy.",
+    "text_en": "A woman playing a dan tranh zither with finger picks.",
+    "categories": [
+      "Arts & Music"
+    ],
+    "entities": [
+      "đàn tranh"
+    ]
+  },
+  {
+    "id": "S033",
+    "text_vi": "Dàn nhã nhạc cung đình Huế biểu diễn trong điện sơn son thếp vàng.",
+    "text_en": "A Hue royal court music ensemble performing in a gilded palace hall.",
+    "categories": [
+      "Arts & Music"
+    ],
+    "entities": [
+      "nhã nhạc cung đình Huế"
+    ]
+  },
+  {
+    "id": "S034",
+    "text_vi": "Đình làng Bắc Bộ mái ngói võng, sân có cây đa cổ thụ.",
+    "text_en": "A northern village communal house with a sagging tiled roof and an old banyan in the yard.",
+    "categories": [
+      "Architecture & Landmark"
+    ],
+    "entities": [
+      "đình làng"
+    ]
+  },
+  {
+    "id": "S035",
+    "text_vi": "Ông cụ mặc áo the khăn xếp đọc văn tế trước bàn thờ.",
+    "text_en": "An elderly man in a traditional gown and turban reading a ritual text before an altar.",
+    "categories": [
+      "Customs & Rituals"
+    ],
+    "entities": [
+      "đọc văn tế"
+    ]
+  },
+  {
+    "id": "S036",
+    "text_vi": "Cô dâu và chú rể trong lễ ăn hỏi truyền thống, mâm quả phủ khăn đỏ.",
+    "text_en": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays.",
+    "categories": [
+      "Customs & Rituals"
+    ],
+    "entities": [
+      "lễ ăn hỏi"
+    ]
+  },
+  {
+    "id": "S037",
+    "text_vi": "Buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.",
+    "text_en": "Morning at a sidewalk coffee shop with customers on low plastic stools.",
+    "categories": [
+      "Everyday Life & Trades"
+    ],
+    "entities": [
+      "quán cà phê vỉa hè"
+    ]
+  },
+  {
+    "id": "S038",
+    "text_vi": "Những ụ muối trắng xếp thành hàng trên ruộng muối dưới nắng trưa.",
+    "text_en": "White mounds of salt lined up in rows on a salt field under the midday sun.",
+    "categories": [
+      "Landscape"
+    ],
+    "entities": [
+      "ruộng muối"
+    ]
+  },
+  {
+    "id": "S039",
+    "text_vi": "Ngọn tháp Chăm cổ đứng trên đồi dưới nắng chiều.",
+    "text_en": "An ancient Cham tower standing on a hill in the afternoon sun.",
+    "categories": [
+      "Architecture & Landmark"
+    ],
+    "entities": [
+      "tháp Chăm"
+    ]
+  },
+  {
+    "id": "S040",
+    "text_vi": "Người phụ nữ đội nón lá đứng bên bờ ruộng lúc chiều muộn.",
+    "text_en": "A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon.",
+    "categories": [
+      "Clothing"
+    ],
+    "entities": [
+      "nón lá"
+    ]
+  },
+  {
+    "id": "S041",
+    "text_vi": "Chợ Tết ở làng quê Bắc Bộ, người mua bán cành đào.",
+    "text_en": "A Tet market in a northern village with peach branches.",
+    "categories": [
+      "Festival"
+    ],
+    "entities": [
+      "chợ Tết"
+    ]
+  },
+  {
+    "id": "S042",
+    "text_vi": "Những hòn đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long.",
+    "text_en": "Limestone karst islands rising from the emerald waters of Ha Long Bay.",
+    "categories": [
+      "Landscape"
+    ],
+    "entities": [
+      "vịnh Hạ Long"
+    ]
+  },
+  {
+    "id": "S043",
+    "text_vi": "Nghệ nhân đang in tranh dân gian Đông Hồ trong xưởng nhỏ.",
+    "text_en": "An artisan printing Dong Ho folk prints in a small workshop.",
+    "categories": [
+      "Arts & Music"
+    ],
+    "entities": [
+      "tranh Đông Hồ"
+    ]
+  },
+  {
+    "id": "S044",
+    "text_vi": "Cành đào nở hoa cắm trong bình gốm ngày Tết.",
+    "text_en": "A blossoming peach branch in a ceramic vase at Tet.",
+    "categories": [
+      "Festival"
+    ],
+    "entities": [
+      "cành đào"
+    ]
+  },
+  {
+    "id": "S045",
+    "text_vi": "Bàn thờ gia tiên ngày Tết với mâm ngũ quả và hương khói.",
+    "text_en": "An ancestral altar at Tet with a five-fruit tray and burning incense.",
+    "categories": [
+      "Customs & Rituals"
+    ],
+    "entities": [
+      "bàn thờ gia tiên"
+    ]
+  },
+  {
+    "id": "S046",
+    "text_vi": "Toàn cảnh một làng chài miền Trung, thuyền thúng xếp trên bãi cát.",
+    "text_en": "A central Vietnam fishing village with round basket boats lined up on the sand.",
+    "categories": [
+      "Landscape"
+    ],
+    "entities": [
+      "làng chài"
+    ]
+  },
+  {
+    "id": "S047",
+    "text_vi": "Một người phụ nữ H'Mông mặc trang phục truyền thống đứng giữa rừng hoa.",
+    "text_en": "A Hmong woman in traditional dress standing amid a field of flowers.",
+    "categories": [
+      "Clothing"
+    ],
+    "entities": [
+      "trang phục truyền thống H'Mông"
+    ]
+  },
+  {
+    "id": "S048",
+    "text_vi": "Nghệ nhân đang chuốt gốm trên bàn xoay.",
+    "text_en": "An artisan throwing pottery on a wheel.",
+    "categories": [
+      "Everyday Life & Trades"
+    ],
+    "entities": [
+      "làm gốm"
+    ]
+  },
+  {
+    "id": "S049",
+    "text_vi": "Người đàn ông lớn tuổi mặc áo the, đầu đội khăn xếp, đứng trong sân nhà.",
+    "text_en": "An elderly man in a traditional silk tunic and wrapped turban stands in a house yard.",
+    "categories": [
+      "Clothing"
+    ],
+    "entities": [
+      "áo the khăn xếp"
+    ]
+  },
+  {
+    "id": "S050",
+    "text_vi": "Bàn tay người lớn trao phong bao lì xì đỏ cho một đứa trẻ.",
+    "text_en": "An adult's hand giving a red lucky money envelope to a child.",
+    "categories": [
+      "Festival"
+    ],
+    "entities": [
+      "bao lì xì đỏ"
+    ]
+  }
+]

@@ -2,67 +2,64 @@
   {
     "id": "C001",
     "text_vi": "Ông đồ ngồi trên chiếu viết thư pháp bằng mực tàu lên giấy đỏ, phía sau là cổng Văn Miếu - Quốc Tử Giám.",
-    "text_en": "An old calligrapher sits on a mat writing calligraphy in black ink on red paper, the gate of the Temple of Literature behind him.",
-    "categories_used": [
+    "text_en": "An old Confucian scholar-calligrapher sits on a mat writing calligraphy in black ink on red paper, the gate of the Temple of Literature behind him.",
+    "categories": [
       "Customs & Rituals",
       "Architecture & Landmark"
     ],
     "entities": [
+      "ông đồ",
       "thư pháp mực tàu",
       "Văn Miếu - Quốc Tử Giám"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C002",
-    "text_vi": "Người phụ nữ mặc áo bà ba, quàng khăn rằn, đứng trên ghe gỗ chở đầy trái cây ở chợ nổi lúc sáng sớm.",
-    "text_en": "A woman in a purple ao ba ba with a checkered kerchief stands on a wooden boat loaded with fruit at floating market at dawn.",
-    "categories_used": [
+    "text_vi": "Người phụ nữ mặc áo bà ba màu tím, quàng khăn rằn, đứng trên ghe gỗ chở đầy trái cây ở chợ nổi lúc sáng sớm.",
+    "text_en": "A woman in a purple ao ba ba with a checkered kerchief stands on a wooden boat loaded with fruit at a floating market at dawn.",
+    "categories": [
       "Clothing",
       "Everyday Life & Trades"
     ],
     "entities": [
       "áo bà ba",
       "khăn rằn",
-      "ghe chợ nổi Cái Răng"
-    ],
-    "difficulty": "medium"
+      "chợ nổi"
+    ]
   },
   {
     "id": "C003",
-    "text_vi": "Trong buổi diễn múa rối nước ban ngày, các con rối gỗ sơn son chao trên mặt nước trước thủy đình mái ngói, còn người xem ngồi quanh hồ.",
-    "text_en": "During a daytime water puppet performance, lacquered wooden puppets glide across the water in front of a tiled-roof water pavilion while spectators sit around the pond.",
-    "categories_used": [
-      "Performing Arts & Music",
+    "text_vi": "Trong buổi diễn múa rối nước ban ngày, các con rối gỗ chao trên mặt nước trước thủy đình mái ngói, còn người xem ngồi quanh hồ.",
+    "text_en": "During a daytime water puppet performance, wooden puppets glide across the water in front of a tiled-roof water pavilion while spectators sit around the pond.",
+    "categories": [
+      "Arts & Music",
       "Architecture & Landmark"
     ],
     "entities": [
       "múa rối nước",
-      "rối gỗ sơn son",
+      "rối gỗ",
       "thủy đình"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C004",
     "text_vi": "Người phụ nữ H'Mông mặc váy xòe thổ cẩm đứng trên con đường đá ngoằn ngoèo giữa cao nguyên đá Đồng Văn.",
     "text_en": "A Hmong woman in a pleated brocade skirt stands on a winding stone road across the Dong Van karst plateau.",
-    "categories_used": [
+    "categories": [
       "Clothing",
       "Landscape"
     ],
     "entities": [
       "váy xòe thổ cẩm H'Mông",
       "cao nguyên đá Đồng Văn"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C005",
     "text_vi": "Dàn nhã nhạc cung đình Huế biểu diễn trong sân Điện Thái Hòa, nhạc công tấu đàn nguyệt và trống bản.",
-    "text_en": "A Hue royal court music ensemble performs in the courtyard of Thai Hoa Palace, musicians playing the moon lute and frame drum.",
-    "categories_used": [
-      "Performing Arts & Music",
+    "text_en": "A Hue royal court music ensemble performs in the courtyard of Thai Hoa Palace, musicians playing the moon lute and flat barrel drum.",
+    "categories": [
+      "Arts & Music",
       "Architecture & Landmark"
     ],
     "entities": [
@@ -70,14 +67,13 @@
       "đàn nguyệt",
       "trống bản",
       "Điện Thái Hòa"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C006",
     "text_vi": "Vào đêm giao thừa, một nồi bánh chưng đang được luộc trên bếp lửa ngoài sân, bên cạnh là một cành đào và mâm ngũ quả đặt trên bàn.",
     "text_en": "On Lunar New Year's Eve, a pot of banh chung is boiling over an open fire in the yard, with a peach blossom branch and a five-fruit tray placed on a table beside it.",
-    "categories_used": [
+    "categories": [
       "Food & Drink",
       "Festival"
     ],
@@ -86,14 +82,13 @@
       "Tết Nguyên Đán",
       "cành đào",
       "mâm ngũ quả"
-    ],
-    "difficulty": "easy"
+    ]
   },
   {
     "id": "C007",
     "text_vi": "Vào mùa gặt trên ruộng bậc thang Mù Cang Chải, người dân cắt lúa chín bằng liềm và xếp các bó lúa trên bờ ruộng.",
     "text_en": "During the harvest season on the Mu Cang Chai rice terraces, villagers cut ripe rice with sickles and stack the bundles on the terrace edges.",
-    "categories_used": [
+    "categories": [
       "Landscape",
       "Everyday Life & Trades"
     ],
@@ -101,47 +96,47 @@
       "ruộng bậc thang Mù Cang Chải",
       "liềm gặt lúa",
       "bó lúa"
-    ],
-    "difficulty": "easy"
+    ]
   },
   {
     "id": "C008",
-    "text_vi": "Trong hội Lim ngày xuân, các liền anh mặc áo the khăn xếp và các liền chị mặc áo tứ thân, đội nón quai thao đứng hát quan họ đối đáp trên chiếc thuyền rồng sơn son thếp vàng giữa hồ nước.",
-    "text_en": "At the Lim Festival in spring, male singers in silk tunics and turbans and female singers in four-panel dresses with flat palm hats sing responsive quan ho on a lacquered gilded dragon boat on a small lake.",
-    "categories_used": [
+    "text_vi": "Trong hội Lim ngày xuân, các liền anh mặc áo the khăn xếp và các liền chị mặc áo tứ thân, đội nón quai thao đứng hát quan họ đối đáp trên chiếc thuyền rồng giữa hồ nước.",
+    "text_en": "At the Lim Festival in spring, male singers in silk tunics and turbans and female singers in four-panel dresses with flat-brimmed quai thao hats sing responsive quan ho on a dragon boat on a small lake.",
+    "categories": [
       "Festival",
-      "Performing Arts & Music",
+      "Arts & Music",
       "Clothing"
     ],
     "entities": [
       "hội Lim",
-      "quan họ Bắc Ninh",
+      "hát quan họ",
       "áo tứ thân",
       "nón quai thao",
-      "áo the"
-    ],
-    "difficulty": "hard"
+      "áo the",
+      "khăn xếp",
+      "thuyền rồng"
+    ]
   },
   {
     "id": "C009",
     "text_vi": "Người thợ gói cốm xanh vào lá sen rồi buộc bằng sợi rơm nếp, bên cạnh là cối đá và chày gỗ giã cốm.",
-    "text_en": "A worker wraps green young rice flakes in a lotus leaf and ties it with a rice straw, a stone mortar and wooden pestle beside her.",
-    "categories_used": [
+    "text_en": "A worker wraps green young rice flakes in a lotus leaf and ties it with rice straw, a stone mortar and wooden pestle beside the worker.",
+    "categories": [
       "Food & Drink",
       "Everyday Life & Trades"
     ],
     "entities": [
       "cốm",
       "gói lá sen",
-      "cối đá chày gỗ"
-    ],
-    "difficulty": "medium"
+      "cối đá chày gỗ",
+      "rơm nếp"
+    ]
   },
   {
     "id": "C010",
-    "text_vi": "Trong lễ hội Katê của người Chăm, đoàn người mặc áo dài Chăm trắng và quấn khăn matra viền tua đỏ trên đầu bưng lễ vật leo bậc thang lên tháp Po Klong Garai bằng gạch đỏ.",
-    "text_en": "During the Cham Kate festival, a procession dressed in white Cham tunics with red-tasseled matra headcloths carries offerings up the steps of the red-brick Po Klong Garai tower.",
-    "categories_used": [
+    "text_vi": "Trong lễ hội Katê của người Chăm, đoàn người mặc áo dài Chăm và quấn khăn matra trên đầu bưng lễ vật leo bậc thang lên tháp Po Klong Garai.",
+    "text_en": "During the Cham Kate festival, a procession dressed in Cham tunics with matra headcloths carries offerings up the steps of the Po Klong Garai tower.",
+    "categories": [
       "Festival",
       "Clothing",
       "Architecture & Landmark"
@@ -151,15 +146,14 @@
       "áo dài Chăm",
       "khăn matra",
       "tháp Po Klong Garai"
-    ],
-    "difficulty": "hard"
+    ]
   },
   {
     "id": "C011",
     "text_vi": "Một ban đờn ca tài tử đàn hát dưới tán vườn cây ăn trái ven kênh rạch miền Tây, trong đó một người ôm đàn kìm còn một người kéo đàn cò.",
-    "text_en": "A don ca tai tu ensemble plays under the canopy of a fruit orchard beside a canal in the Mekong Delta, with one musician on the moon lute and another bowing the two-string fiddle.",
-    "categories_used": [
-      "Performing Arts & Music",
+    "text_en": "A don ca tai tu ensemble plays and sings under the canopy of a fruit orchard beside a canal in the Mekong Delta, with one musician on the moon lute and another bowing the two-string fiddle.",
+    "categories": [
+      "Arts & Music",
       "Landscape"
     ],
     "entities": [
@@ -167,14 +161,13 @@
       "đàn kìm",
       "đàn cò",
       "vườn cây trái miệt vườn"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C012",
-    "text_vi": "Bên bếp củi, người ta đổ bánh xèo trong chiếc chảo gang lớn cho vỏ bánh vàng giòn với nhân tôm, thịt và giá, cạnh đó là rổ rau sống cùng chén nước mắm chua ngọt.",
-    "text_en": "Beside a wood fire, someone cooks banh xeo in a large cast-iron pan until the crepe turns crisp and golden with its filling of shrimp, pork and bean sprouts, next to a basket of raw herbs and a bowl of sweet-sour fish sauce.",
-    "categories_used": [
+    "text_vi": "Bên bếp củi, người ta đổ bánh xèo trong chiếc chảo gang lớn, cạnh đó là rổ rau sống cùng chén nước mắm chua ngọt.",
+    "text_en": "Beside a wood fire, someone cooks banh xeo in a large cast-iron pan, next to a basket of raw herbs and a bowl of sweet-sour fish sauce.",
+    "categories": [
       "Food & Drink",
       "Everyday Life & Trades"
     ],
@@ -182,137 +175,130 @@
       "bánh xèo",
       "bếp củi chảo gang",
       "rau sống"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C013",
     "text_vi": "Một nghệ nhân tranh Đông Hồ đang dập ván khắc gỗ lên giấy điệp óng ánh, trên tường phía sau có nhiều bức tranh được trưng bày.",
     "text_en": "A Dong Ho folk-print artisan presses a carved woodblock onto shimmering diep paper, with many finished prints displayed on the wall behind him.",
-    "categories_used": [
-      "Performing Arts & Music",
+    "categories": [
+      "Arts & Music",
       "Everyday Life & Trades"
     ],
     "entities": [
       "tranh Đông Hồ",
       "ván khắc gỗ",
       "giấy điệp"
-    ],
-    "difficulty": "hard"
+    ]
   },
   {
     "id": "C014",
     "text_vi": "Nữ sinh mặc áo dài trắng dắt xe đạp dưới hàng cây phượng rợp bóng mát.",
     "text_en": "A schoolgirl in a white ao dai walks her bicycle under a row of flame trees casting cool shade.",
-    "categories_used": [
+    "categories": [
       "Clothing",
       "Everyday Life & Trades"
     ],
     "entities": [
-      "áo dài trắng nữ sinh",
-      "xe đạp"
-    ],
-    "difficulty": "easy"
+      "áo dài",
+      "xe đạp",
+      "hàng cây phượng"
+    ]
   },
   {
     "id": "C015",
-    "text_vi": "Trong lễ ăn hỏi, đoàn bưng tráp sơn đỏ đựng trầu cau, bánh phu thê và chè nối nhau bước qua sân gạch.",
-    "text_en": "At a betrothal ceremony, a procession of bearers carries red lacquered trays of betel and areca, husband-and-wife cakes and tea across a brick courtyard.",
-    "categories_used": [
-      "Customs & Rituals"
+    "text_vi": "Trong lễ ăn hỏi, đoàn bưng tráp sơn đỏ đựng trầu cau và bánh phu thê nối nhau bước qua sân gạch.",
+    "text_en": "At a betrothal ceremony, a procession of bearers carries red lacquered trays of betel and areca and husband-and-wife cakes across a brick courtyard.",
+    "categories": [
+      "Customs & Rituals",
+      "Food & Drink"
     ],
     "entities": [
       "lễ ăn hỏi",
       "tráp sơn đỏ trầu cau",
       "bánh phu thê"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C016",
-    "text_vi": "Trong đêm hát bội ở đình làng, các diễn viên hóa trang mặt nạ đỏ - trắng, đội mũ kép và mang râu dài múa trên sân khấu, bên cạnh là chiếc trống chầu.",
-    "text_en": "On a hat boi opera night at a Vietnam village temple, actors in red-and-white painted faces, ornate headdresses and long beards perform on a stage, with a signal drum at the side.",
-    "categories_used": [
-      "Performing Arts & Music",
+    "text_vi": "Trong đêm hát bội ở đình làng, các diễn viên vẽ mặt, đội mũ kép và mang râu dài múa trên sân khấu, bên cạnh là chiếc trống chầu.",
+    "text_en": "On a hat boi opera night at a village communal house, actors with painted faces, headdresses and long beards perform on a stage, with a praise drum at the side.",
+    "categories": [
+      "Arts & Music",
       "Festival",
       "Architecture & Landmark"
     ],
     "entities": [
       "hát bội",
-      "mặt nạ hóa trang tuồng",
+      "vẽ mặt tuồng",
       "đình làng",
       "trống chầu"
-    ],
-    "difficulty": "hard"
+    ]
   },
   {
     "id": "C017",
-    "text_vi": "Tô mì Quảng sợi vàng với tôm, thịt và bánh tráng mè được đặt trên chiếc bàn gỗ, phía sau là Chùa Cầu Hội An.",
-    "text_en": "A bowl of yellow mi Quang noodles with shrimp, pork and a sesame rice cracker is set on a wooden table, with the Japanese Covered Bridge in Hoi An behind it.",
-    "categories_used": [
+    "text_vi": "Tô mì Quảng sợi vàng với tôm, thịt và bánh tráng mè được đặt trên chiếc bàn nhựa của một quán ăn bình dân.",
+    "text_en": "A bowl of yellow mi Quang noodles with shrimp, pork and a sesame rice cracker is set on a plastic table at a modest street eatery.",
+    "categories": [
       "Food & Drink",
-      "Architecture & Landmark"
+      "Everyday Life & Trades"
     ],
     "entities": [
       "mì Quảng",
       "bánh tráng mè",
-      "Chùa Cầu Hội An"
-    ],
-    "difficulty": "medium"
+      "quán ăn bình dân"
+    ]
   },
   {
     "id": "C018",
-    "text_vi": "Người hái chè trên đồi chè Mộc Châu xanh mướt, sọt tre đầy búp chè sau lưng.",
-    "text_en": "Tea pickers on the green Moc Chau tea hills, bamboo baskets full of tea buds on their backs.",
-    "categories_used": [
+    "text_vi": "Một người phụ nữ dân tộc H'Mông mặc trang phục truyền thống đang hái chè trên đồi chè xanh mướt, sọt tre đầy búp chè sau lưng.",
+    "text_en": "A Hmong woman in traditional dress picks tea on green tea hills, a bamboo basket full of tea buds on her back.",
+    "categories": [
       "Landscape",
-      "Everyday Life & Trades"
+      "Everyday Life & Trades",
+      "Clothing"
     ],
     "entities": [
-      "đồi chè Mộc Châu",
+      "đồi chè",
       "hái chè",
-      "sọt tre"
-    ],
-    "difficulty": "easy"
+      "sọt tre",
+      "trang phục truyền thống H'Mông"
+    ]
   },
   {
     "id": "C019",
     "text_vi": "Trong một chiếu ca trù ở gian nhà cổ, đào nương mặc áo dài the màu nâu và vấn khăn ngồi gõ phách tre, kép đàn ôm cây đàn đáy cần dài, còn quan viên cầm trống chầu ngồi đối diện.",
-    "text_en": "In a ca tru session held in an old wooden house, a female singer in a brown silk ao dai with a wrapped hair band beats bamboo clappers, a male musician holds the long-necked day lute, and a patron sits opposite with a praise drum.",
-    "categories_used": [
-      "Performing Arts & Music",
-      "Clothing",
-      "Architecture & Landmark"
+    "text_en": "In a ca tru session held in an old wooden house, a female singer in a brown silk ao dai with a traditional wrapped headband beats bamboo clappers, a male musician holds the long-necked day lute, and a patron sits opposite with a praise drum.",
+    "categories": [
+      "Arts & Music",
+      "Clothing"
     ],
     "entities": [
       "ca trù",
       "phách tre",
       "đàn đáy",
       "trống chầu quan viên",
-      "gian nhà cổ Hà Nội"
-    ],
-    "difficulty": "hard"
+      "áo dài the",
+      "khăn vấn"
+    ]
   },
   {
     "id": "C020",
     "text_vi": "Nồi bánh tét gói lá chuối luộc trên bếp củi, bên cạnh là một đòn bánh đã cắt khoanh lộ nhân đậu xanh và thịt mỡ.",
     "text_en": "A pot of banana-leaf banh tet boiling over a wood fire, beside it a sliced roll showing the mung bean and fatty pork filling.",
-    "categories_used": [
-      "Food & Drink",
-      "Everyday Life & Trades"
+    "categories": [
+      "Food & Drink"
     ],
     "entities": [
       "bánh tét",
-      "nồi luộc bếp củi",
       "nhân đậu xanh thịt mỡ"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C021",
-    "text_vi": "Người phụ nữ lái đò đội nón lá, mặc áo nâu, chèo thuyền giữa dòng nước xanh, phía sau là các khối núi đá vôi Tràng An",
+    "text_vi": "Người phụ nữ lái đò đội nón lá, mặc áo nâu, chèo thuyền giữa dòng nước xanh, phía sau là các khối núi đá vôi Tràng An.",
     "text_en": "A boatwoman wearing a conical hat and a brown tunic rows a boat through the green water, with the limestone karsts of Trang An rising behind her.",
-    "categories_used": [
+    "categories": [
       "Clothing",
       "Landscape",
       "Everyday Life & Trades"
@@ -321,28 +307,26 @@
       "nón lá",
       "áo nâu",
       "Tràng An"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C022",
     "text_vi": "Một người đàn ông người Gia Rai mặc trang phục thổ cẩm truyền thống đang chơi đàn t'rưng bên bờ suối.",
     "text_en": "A Gia Rai man in traditional brocade attire plays the t'rung bamboo xylophone beside a stream.",
-    "categories_used": [
-      "Performing Arts & Music",
+    "categories": [
+      "Arts & Music",
       "Clothing"
     ],
     "entities": [
       "đàn t'rưng",
       "trang phục thổ cẩm Gia Rai"
-    ],
-    "difficulty": "hard"
+    ]
   },
   {
     "id": "C023",
-    "text_vi": "Trong nhà thùng nước mắm Phú Quốc, những thùng gỗ bời lời khổng lồ đai bằng dây song xếp thành dãy, nước mắm nhỉ màu cánh gián chảy xuống thùng hứng, còn ngoài cửa là biển đảo xanh.",
-    "text_en": "Inside a Phu Quoc fish sauce house, giant wooden vats bound with rattan hoops stand in rows, amber first-press sauce drips into a collecting bucket, and the blue island sea shows through the doorway.",
-    "categories_used": [
+    "text_vi": "Trong nhà thùng nước mắm Phú Quốc, những thùng gỗ ủ chượp xếp thành dãy, nước mắm chảy xuống thùng hứng, phía ngoài cửa là biển đảo xanh.",
+    "text_en": "Inside a Phu Quoc fish sauce house, wooden fermentation vats stand in rows, fish sauce drips into a collecting bucket, and the blue island sea shows through the doorway.",
+    "categories": [
       "Food & Drink",
       "Everyday Life & Trades",
       "Landscape"
@@ -351,304 +335,364 @@
       "nước mắm Phú Quốc",
       "thùng gỗ ủ chượp",
       "biển đảo Phú Quốc"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C024",
     "text_vi": "Người thợ chuốt bình gốm trên bàn xoay, phía sau là chiếc lò bầu gạch cổ nhiều tầng.",
     "text_en": "A potter shapes a vase on a wheel, an old multi-chambered brick dragon kiln behind.",
-    "categories_used": [
+    "categories": [
       "Everyday Life & Trades"
     ],
     "entities": [
-      "bàn xoay gốm",
+      "làm gốm",
       "lò bầu gạch cổ"
-    ],
-    "difficulty": "easy"
+    ]
   },
   {
     "id": "C025",
-    "text_vi": "Người đạp xích lô chở khách trên con phố cổ rợp bóng cây xanh.",
-    "text_en": "A cyclo driver pedals a passenger along an old street shaded by green trees.",
-    "categories_used": [
-      "Everyday Life & Trades"
+    "text_vi": "Người đạp xích lô chở khách đi ngang qua phía trước Nhà thờ Lớn Hà Nội.",
+    "text_en": "A cyclo driver pedals a passenger past the front of St. Joseph's Cathedral in Hanoi.",
+    "categories": [
+      "Everyday Life & Trades",
+      "Architecture & Landmark"
     ],
     "entities": [
-      "xích lô"
-    ],
-    "difficulty": "easy"
+      "xích lô",
+      "Nhà thờ Lớn Hà Nội"
+    ]
   },
   {
     "id": "C026",
-    "text_vi": "Một nghệ sĩ cải lương mặc phục trang lóng lánh đính đá, đội mão hoa lộng lẫy, đang biểu diễn trên sân khấu dưới ánh đèn màu.",
-    "text_en": "A cai luong performer in a glittering, bejeweled costume and an ornate headdress performs on stage under colored stage lights.",
-    "categories_used": [
-      "Performing Arts & Music"
+    "text_vi": "Một nghệ sĩ cải lương mặc phục trang lóng lánh và đội mão hoa đang biểu diễn trên sân khấu dưới ánh đèn màu.",
+    "text_en": "A cai luong performer in a glittering costume and a flowered headdress performs on stage under colored stage lights.",
+    "categories": [
+      "Arts & Music",
+      "Clothing"
     ],
     "entities": [
-      "cải lương"
-    ],
-    "difficulty": "medium"
+      "cải lương",
+      "phục trang cải lương",
+      "mão hoa cải lương"
+    ]
   },
   {
     "id": "C027",
-    "text_vi": "Ở sân phơi hương của làng nghề, hàng trăm bó chân hương nhuộm đỏ xòe tròn xếp kín sân gạch, còn người thợ ngồi bó thêm một bó mới.",
-    "text_en": "In an incense village's drying yard, hundreds of red-dyed incense stick bundles fan out across the brick yard, while a worker sits tying another bundle.",
-    "categories_used": [
+    "text_vi": "Ở sân phơi hương của làng nghề, hàng trăm bó chân hương xòe tròn xếp kín sân gạch, còn người thợ ngồi bó thêm một bó mới.",
+    "text_en": "In an incense village's drying yard, hundreds of incense stick bundles fan out across the brick yard, while a worker sits tying another bundle.",
+    "categories": [
       "Everyday Life & Trades"
     ],
     "entities": [
       "làng hương",
-      "bó chân hương đỏ",
-      "sân đình"
-    ],
-    "difficulty": "easy"
+      "bó chân hương"
+    ]
   },
   {
     "id": "C028",
-    "text_vi": "Lúc trưa nắng gắt, diêm dân cào muối bằng chiếc cào gỗ dài trên ruộng muối, những ụ muối trắng hình nón xếp thành hàng trên nền ruộng.",
-    "text_en": "At midday under the harsh sun, a salt worker rakes salt with a long wooden rake across a salt field, white conical mounds of salt lined up in rows on the cracked ground.",
-    "categories_used": [
+    "text_vi": "Lúc trưa nắng gắt, một diêm dân cào muối bằng chiếc cào gỗ dài trên ruộng muối, những ụ muối trắng xếp thành hàng trên nền ruộng.",
+    "text_en": "At midday under the harsh sun, a salt worker rakes salt with a long wooden rake across a salt field, white mounds of salt lined up in rows on the ground.",
+    "categories": [
       "Everyday Life & Trades",
       "Landscape"
     ],
     "entities": [
       "ruộng muối",
       "cào muối gỗ",
-      "ụ muối hình nón"
-    ],
-    "difficulty": "easy"
+      "ụ muối"
+    ]
   },
   {
     "id": "C029",
     "text_vi": "Một nam nghệ sĩ mặc áo dài, đầu đội khăn xếp, đang chơi đàn bầu.",
     "text_en": "A male musician wearing an ao dai and a wrapped turban plays the dan bau.",
-    "categories_used": [
+    "categories": [
       "Clothing",
-      "Performing Arts & Music"
+      "Arts & Music"
     ],
     "entities": [
       "áo dài nam",
       "khăn xếp",
       "đàn bầu"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C030",
     "text_vi": "Cầu Long Biên với dàn thép rỉ sét bắc qua sông Hồng lúc hoàng hôn.",
     "text_en": "Long Bien bridge with its rusted steel trusses spanning the Red River at sunset.",
-    "categories_used": [
-      "Architecture & Landmark"
+    "categories": [
+      "Architecture & Landmark",
+      "Landscape"
     ],
     "entities": [
-      "cầu Long Biên"
-    ],
-    "difficulty": "easy"
+      "cầu Long Biên",
+      "sông Hồng"
+    ]
   },
   {
     "id": "C031",
     "text_vi": "Trong xưởng vẽ tranh Hàng Trống, người thợ dùng bút lông tô phẩm màu lên nét in đen của bức tranh thờ Ngũ Hổ, phía sau là các bản tranh treo trên tường.",
     "text_en": "In a Hang Trong folk painting workshop, an artisan brushes color pigments onto the black printed outlines of a Five Tigers ritual painting, finished sheets hang on the wall.",
-    "categories_used": [
-      "Performing Arts & Music",
+    "categories": [
+      "Arts & Music",
       "Everyday Life & Trades"
     ],
     "entities": [
       "tranh Hàng Trống",
       "tranh Ngũ Hổ",
       "tô màu bút lông"
-    ],
-    "difficulty": "hard"
+    ]
   },
   {
     "id": "C032",
     "text_vi": "Người phụ nữ đội nón lá, quang gánh hàng rong trên vai, đi bộ dọc con phố cổ Hà Nội lúc sáng sớm.",
-    "text_en": "A woman in a conical leaf hat carries a shoulder pole of street goods along an Old Quarter street in Hanoi at early morning.",
-    "categories_used": [
+    "text_en": "A woman in a conical leaf hat carries a shoulder pole of street goods along an Old Quarter street in Hanoi in the early morning.",
+    "categories": [
       "Everyday Life & Trades",
       "Clothing"
     ],
     "entities": [
       "nón lá",
       "gánh hàng rong"
-    ],
-    "difficulty": "easy"
+    ]
   },
   {
     "id": "C033",
-    "text_vi": "Một tô phở bò nóng hổi bốc khói được đặt trên chiếc bàn gỗ.",
-    "text_en": "A steaming hot bowl of beef pho sits on a wooden table.",
-    "categories_used": [
+    "text_vi": "Một tô phở bò nóng hổi bốc khói được đặt trên chiếc bàn gỗ, bên cạnh là một dĩa rau thơm.",
+    "text_en": "A steaming hot bowl of beef pho sits on a wooden table, with a plate of fresh herbs beside it.",
+    "categories": [
       "Food & Drink"
     ],
     "entities": [
-      "phở bò"
-    ],
-    "difficulty": "easy"
+      "phở bò",
+      "rau thơm"
+    ]
   },
   {
     "id": "C034",
-    "text_vi": "Một ổ bánh mì thịt kẹp đầy đồ chua và rau mùi được bày trên xe đẩy bán hàng ven đường.",
-    "text_en": "A banh mi stuffed with pickled vegetables and cilantro sits on a roadside food cart.",
-    "categories_used": [
+    "text_vi": "Một ổ bánh mì kẹp đầy thịt, đồ chua và rau mùi được bày trên xe đẩy bán hàng ven đường.",
+    "text_en": "A banh mi stuffed with pork, pickled vegetables and cilantro sits on a roadside food cart.",
+    "categories": [
       "Food & Drink",
       "Everyday Life & Trades"
     ],
     "entities": [
       "bánh mì",
       "xe đẩy bán hàng rong"
-    ],
-    "difficulty": "easy"
+    ]
   },
   {
     "id": "C035",
-    "text_vi": "Phố cổ Hội An về đêm với những chiếc đèn lồng lụa nhiều màu treo dọc theo các bức tường vàng.",
-    "text_en": "Hoi An ancient town at night, with colorful silk lanterns hanging along the ochre-colored walls.",
-    "categories_used": [
+    "text_vi": "Phố cổ Hội An về đêm với những chiếc đèn lồng lụa nhiều màu treo dọc theo các bức tường vàng, du khách tấp nập dạo phố.",
+    "text_en": "Hoi An ancient town at night, with colorful silk lanterns hanging along the ochre-colored walls, with crowds of visitors strolling the streets.",
+    "categories": [
       "Architecture & Landmark"
     ],
     "entities": [
       "đèn lồng lụa Hội An",
       "phố cổ Hội An"
-    ],
-    "difficulty": "easy"
+    ]
   },
   {
     "id": "C036",
     "text_vi": "Một nhóm người Tây Nguyên đánh cồng chiêng xếp thành vòng tròn quanh đống lửa, phía sau là ngôi nhà rông mái cao.",
-    "text_en": "A group of Central Highlands performers plays gongs and cymbals arranged in a circle around a bonfire, a tall-roofed rong house behind them.",
-    "categories_used": [
-      "Performing Arts & Music",
+    "text_en": "A group of Central Highlands performers plays bronze gongs arranged in a circle around a bonfire, a tall-roofed rong house behind them.",
+    "categories": [
+      "Arts & Music",
       "Architecture & Landmark"
     ],
     "entities": [
       "cồng chiêng Tây Nguyên",
-      "nhà rông"
-    ],
-    "difficulty": "medium"
+      "nhà rông Tây Nguyên"
+    ]
   },
   {
     "id": "C037",
     "text_vi": "Đám trẻ con cầm đèn ông sao rước đèn trong sân khu phố dưới ánh trăng rằm vào đêm Tết Trung Thu.",
     "text_en": "A group of children carries five-pointed star lanterns in a parade through a neighborhood courtyard under the full moon on Mid-Autumn night.",
-    "categories_used": [
-      "Festival"
+    "categories": [
+      "Customs & Rituals"
     ],
     "entities": [
       "đèn ông sao",
       "Tết Trung Thu"
-    ],
-    "difficulty": "easy"
+    ]
   },
   {
     "id": "C038",
     "text_vi": "Một nữ nghệ sĩ mặc áo dài có họa tiết hoa sen đang đeo móng gảy trên tay và chơi đàn tranh.",
     "text_en": "A female musician in an ao dai patterned with lotus flowers wears finger picks and plays the dan tranh zither.",
-    "categories_used": [
+    "categories": [
       "Clothing",
-      "Performing Arts & Music"
+      "Arts & Music"
     ],
     "entities": [
       "áo dài",
       "đàn tranh"
-    ],
-    "difficulty": "easy"
+    ]
   },
   {
     "id": "C039",
     "text_vi": "Một ông cụ mặc áo the, đội khăn xếp, đứng đọc văn tế trước bàn thờ gia tiên nghi ngút khói hương.",
-    "text_en": "An elderly man in a traditional silk tunic and wrapped turban reads a ritual prayer text before a smoking ancestral altar.",
-    "categories_used": [
+    "text_en": "An elderly man in a traditional silk tunic and wrapped turban stands reading a ritual prayer text before a smoking ancestral altar.",
+    "categories": [
       "Customs & Rituals",
       "Clothing"
     ],
     "entities": [
       "áo the khăn xếp",
-      "văn tế",
+      "đọc văn tế",
       "bàn thờ gia tiên"
-    ],
-    "difficulty": "medium"
+    ]
   },
   {
     "id": "C040",
-    "text_vi": "Cô dâu mặc áo dài đỏ và chú rể mặc áo dài the đứng cạnh nhau trong lễ ăn hỏi truyền thống, phía trước là mâm quả phủ khăn đỏ.",
+    "text_vi": "Cô dâu mặc áo dài đỏ và chú rể mặc áo the đứng cạnh nhau trong lễ ăn hỏi truyền thống, phía trước là mâm quả phủ khăn đỏ.",
     "text_en": "A bride in a red ao dai and a groom in a traditional silk tunic stand together at a traditional betrothal ceremony, red-draped gift trays in front of them.",
-    "categories_used": [
+    "categories": [
       "Customs & Rituals",
       "Clothing"
     ],
     "entities": [
       "áo dài cô dâu chú rể",
-      "mâm quả phủ khăn đỏ"
-    ],
-    "difficulty": "medium"
+      "mâm quả phủ khăn đỏ",
+      "lễ ăn hỏi"
+    ]
   },
   {
     "id": "C041",
     "text_vi": "Toàn cảnh một làng chài miền Trung với những chiếc thuyền thúng tròn xếp hàng trên bãi cát.",
     "text_en": "A wide view of a central Vietnam fishing village with round basket boats lined up on the sand.",
-    "categories_used": [
+    "categories": [
       "Landscape",
       "Everyday Life & Trades"
     ],
     "entities": [
-      "thuyền thúng",
-      "làng chài miền Trung"
-    ],
-    "difficulty": "easy"
+      "chèo thuyền thúng",
+      "làng chài"
+    ]
   },
   {
     "id": "C042",
     "text_vi": "Tháp Rùa cổ kính đứng giữa hồ Hoàn Kiếm, mặt nước phẳng lặng phản chiếu bóng tháp dưới nắng sớm.",
     "text_en": "The ancient Turtle Tower stands in the middle of Hoan Kiem Lake, its reflection mirrored on the calm water under the morning sun.",
-    "categories_used": [
+    "categories": [
       "Architecture & Landmark"
     ],
     "entities": [
       "Tháp Rùa",
       "hồ Hoàn Kiếm"
-    ],
-    "difficulty": "easy"
+    ]
   },
   {
     "id": "C043",
-    "text_vi": "Hàng trăm đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long, một chiếc thuyền buồm nhỏ lướt qua giữa các đảo.",
-    "text_en": "Hundreds of limestone karst islands rise from the emerald waters of Ha Long Bay, a small sailboat gliding between them.",
-    "categories_used": [
+    "text_vi": "Hàng trăm đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long, một chiếc thuyền buồm cánh dơi nhỏ lướt qua giữa các đảo.",
+    "text_en": "Hundreds of limestone karst islands rise from the emerald waters of Ha Long Bay, a small sailboat with a bat-wing sail gliding between them.",
+    "categories": [
       "Landscape"
     ],
     "entities": [
-      "vịnh Hạ Long"
-    ],
-    "difficulty": "hard"
+      "vịnh Hạ Long",
+      "thuyền buồm cánh dơi"
+    ]
   },
   {
     "id": "C044",
     "text_vi": "Đoàn múa lân với ông Địa bụng phệ cầm quạt mo phe phẩy đi trước, đầu lân nhiều màu nhún nhảy ở sân đình.",
-    "text_en": "A lion dance troupe leads with a pot-bellied Ong Dia character fanning a palm-leaf fan, the colorful lion head bobbing in a communal house yard.",
-    "categories_used": [
-      "Festival"
+    "text_en": "A lion dance troupe leads with a pot-bellied Ong Dia character fanning an areca-spathe fan, the colorful lion head bobbing in a communal house yard.",
+    "categories": [
+      "Festival",
+      "Architecture & Landmark"
     ],
     "entities": [
       "múa lân",
-      "ông Địa"
-    ],
-    "difficulty": "hard"
+      "ông Địa",
+      "quạt mo",
+      "sân đình"
+    ]
   },
   {
     "id": "C045",
     "text_vi": "Ông bà ngồi trên bộ ghế gỗ, tươi cười trao phong bao lì xì đỏ cho cháu nhỏ khoanh tay chúc Tết.",
-    "text_en": "Grandparents sit on a wooden bench, smiling as they hand red lucky money envelopes to a grandchild who bows with crossed arms to wish them a happy new year.",
-    "categories_used": [
+    "text_en": "Grandparents sit on a wooden bench, smiling as they hand red lucky money envelopes to a grandchild who bows with crossed arms to wish them a happy Lunar New Year.",
+    "categories": [
       "Customs & Rituals",
       "Festival"
     ],
     "entities": [
-      "phong bao lì xì đỏ",
-      "khoanh tay chúc Tết"
+      "bao lì xì đỏ",
+      "chúc Tết",
+      "Tết Nguyên Đán"
+    ]
+  },
+  {
+    "id": "C046",
+    "text_vi": "Người phụ nữ Tày mặc áo chàm ngồi hát then, tay gảy cây đàn tính, phía sau là vách gỗ của ngôi nhà sàn.",
+    "text_en": "A Tay woman in an indigo tunic sits singing then melodies, plucking a tinh lute, the wooden wall of a stilt house behind her.",
+    "categories": [
+      "Arts & Music",
+      "Clothing",
+      "Architecture & Landmark"
     ],
-    "difficulty": "medium"
+    "entities": [
+      "hát then",
+      "đàn tính",
+      "áo chàm người Tày",
+      "nhà sàn"
+    ]
+  },
+  {
+    "id": "C047",
+    "text_vi": "Người phụ nữ dân tộc Thái đội khăn piêu ngồi dệt thổ cẩm trên khung cửi gỗ, tấm vải trên khung nổi hoa văn hình học nhiều màu.",
+    "text_en": "A Thai ethnic minority woman wearing an embroidered pieu headscarf sits weaving brocade on a wooden frame loom, the cloth on the loom showing multicolored geometric patterns.",
+    "categories": [
+      "Everyday Life & Trades",
+      "Clothing"
+    ],
+    "entities": [
+      "dệt thổ cẩm",
+      "khung cửi gỗ",
+      "khăn piêu"
+    ]
+  },
+  {
+    "id": "C048",
+    "text_vi": "Đôi bàn tay đang cuốn gỏi cuốn trên tấm bánh tráng ẩm, bên cạnh là đĩa gỏi cuốn đã cuốn xong cùng chén tương đen đậu phộng.",
+    "text_en": "A pair of hands rolls a fresh summer roll on a moistened sheet of rice paper, beside them a plate of finished rolls and a bowl of dark peanut-hoisin sauce.",
+    "categories": [
+      "Food & Drink",
+      "Everyday Life & Trades"
+    ],
+    "entities": [
+      "gỏi cuốn",
+      "bánh tráng",
+      "tương đen đậu phộng"
+    ]
+  },
+  {
+    "id": "C049",
+    "text_vi": "Người phụ nữ mặc áo dài có họa tiết hoa sen đứng phía trước Chùa Cầu Hội An.",
+    "text_en": "A woman in an ao dai patterned with lotus flowers stands in front of the Japanese Covered Bridge in Hoi An.",
+    "categories": [
+      "Clothing",
+      "Architecture & Landmark"
+    ],
+    "entities": [
+      "áo dài",
+      "Chùa Cầu Hội An"
+    ]
+  },
+  {
+    "id": "C050",
+    "text_vi": "Mâm cỗ Trung Thu với chiếc bánh nướng màu cánh gián in hoa văn, bánh được cắt đôi lộ nhân thập cẩm ôm lòng đỏ trứng muối.",
+    "text_en": "A Mid-Autumn festival tray with a golden-brown baked mooncake stamped with a decorative pattern, cut in half to reveal its mixed filling around a salted egg yolk.",
+    "categories": [
+      "Food & Drink",
+      "Customs & Rituals"
+    ],
+    "entities": [
+      "mâm cỗ Trung Thu",
+      "bánh nướng"
+    ]
   }
 ]

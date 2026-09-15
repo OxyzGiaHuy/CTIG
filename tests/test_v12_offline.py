@@ -921,6 +921,8 @@ def test_v17_grounding_bare(tmp):
     check("reflector vòng 2: attr_refs không cải thiện -> leo nấc more_refs", fix2 == "more_refs" and plan2 is not None, fix2)
     plan3, _, why3 = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": False}, {"fix": "more_refs", "improved": False}], 2, agent=None, name_en="ao dai")
     check("reflector: 2 vòng liền không cải thiện -> dừng", plan3 is None and "không cải thiện" in why3, why3)
+    _, _, fix2b = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": True}, {"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
+    check("reflector: lần gần nhất của attr_refs không tăng (dù lần trước có) -> vẫn leo nấc", fix2b == "more_refs", fix2b)
     plan4, _, fix4 = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": False}, {"fix": "more_refs", "improved": True}], 2, agent=None, name_en="ao dai")
     check("reflector: vòng gần nhất có cải thiện -> tiếp tục", plan4 is not None, fix4)
     ok_v = FilterVerdict("a.png", True, missing_must_have=["x"], matched_must_not=[], score=0.9)

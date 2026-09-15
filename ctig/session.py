@@ -481,8 +481,15 @@ class Session:
             if not best or v0 is None:
                 cr.stop_reason = "không có ứng viên qua Filter"
                 return cr
-            best_score = score_of(v0)
-            best_v = v0
+            # Mốc cải thiện = ảnh có điểm Reviewer CAO NHẤT trong pool, không phải top-1 của Rank (p012 v1.7: Rank chọn ảnh
+            # +0.25 trong khi pool đã có +0.75 -> vòng sửa "tốt hơn" giả). Hoà thì theo thứ tự Rank.
+            rank_pos = {pth: i for i, pth in enumerate(rk.final_order)}
+            kept_v = [v for v in flt.verdicts if v.keep] or [v0]
+            best_v = max(kept_v, key=lambda v: (score_of(v), -rank_pos.get(v.path, 99)))
+            best_score = score_of(best_v)
+            if best_v.path != v0.path:
+                cr.notes.append(f"mốc cải thiện: {Path(best_v.path).name} ({best_score:+.2f}) thay top-1 Rank ({score_of(v0):+.2f})")
+                cr.final_path = best_v.path
             memory: list[dict] = []
             # Refiner luôn sinh lại trên nhánh HỆ THỐNG: ứng viên đầu có thể là hàng M#bare (được chấm để so bare/system)
             regen_model = (cr.best_model or "").replace("#bare", "") or cr.best_model

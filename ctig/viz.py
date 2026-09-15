@@ -393,27 +393,29 @@ def paired_table(res: MultiGenResult, cr=None, source: str | None = None) -> str
                 "itm": mean([c.itm_attrs for c in cs if c.itm_attrs is not None]),
                 "ens": mean([c.ensemble for c in cs if c.ensemble is not None]),
                 "tot": mean([combined_score(c) for c in cs]),
-                "keep": (sum(1 for v in vs if v.keep and not v.matched_must_not), len(vs)) if vs else None,
+                "keep": (sum(1 for v in vs if v.keep and not v.matched_must_not and v.score >= 0.5), len(vs)) if vs else None,
+                "rev": mean([v.score for v in vs]) if vs else None,
                 "best": max(cs, key=combined_score).path}
 
-    rows = ["<table><tr><th>model nền</th><th>nhánh</th><th>ảnh</th><th>CLIP attr</th><th>ITM attr</th><th>hạng ensemble</th><th>tổng</th><th>Filter qua</th><th>ảnh tốt nhất</th></tr>"]
+    rows = ["<table><tr><th>model nền</th><th>nhánh</th><th>ảnh</th><th>CLIP attr</th><th>ITM attr</th><th>hạng ensemble</th><th>tổng</th><th>Reviewer TB</th><th>Filter đạt</th><th>ảnh tốt nhất</th></tr>"]
     for base, bare, sys_ in pairs:
         A, B = agg([bare]), agg(sys_)
         for lab, d, keys in (("bare", A, bare.model_key), ("system", B, ", ".join(r.model_key for r in sys_))):
             if d is None:
-                rows.append(f"<tr><td>{_e(base)}</td><td>{lab}</td><td colspan='7' class='bad'>không có ảnh ({_e(keys)})</td></tr>")
+                rows.append(f"<tr><td>{_e(base)}</td><td>{lab}</td><td colspan='8' class='bad'>không có ảnh ({_e(keys)})</td></tr>")
                 continue
             kp = "" if d["keep"] is None else f"{d['keep'][0]}/{d['keep'][1]}"
             rows.append(f"<tr><td>{_e(base)}</td><td><b>{lab}</b><div class='muted small'>{_e(keys)}</div></td><td>{d['n']}</td><td>{f3(d['attr'])}</td>"
-                        f"<td>{f3(d['itm'])}</td><td>{f3(d['ens'])}</td><td>{f3(d['tot'])}</td><td>{kp}</td><td>{_img(d['best'], 120)}</td></tr>")
+                        f"<td>{f3(d['itm'])}</td><td>{f3(d['ens'])}</td><td>{f3(d['tot'])}</td><td>{'' if d['rev'] is None else f'{d['rev']:+.2f}'}</td><td>{kp}</td><td>{_img(d['best'], 120)}</td></tr>")
         if A and B:
             dl = lambda k: "" if (A[k] is None or B[k] is None) else f"{B[k] - A[k]:+.3f}"
             cls = "ok" if (A["tot"] is not None and B["tot"] is not None and B["tot"] > A["tot"]) else "bad"
-            rows.append(f"<tr class='{cls}'><td></td><td>Δ system − bare</td><td></td><td>{dl('attr')}</td><td>{dl('itm')}</td><td>{dl('ens')}</td><td><b>{dl('tot')}</b></td><td></td><td></td></tr>")
+            rows.append(f"<tr class='{cls}'><td></td><td>Δ system − bare</td><td></td><td>{dl('attr')}</td><td>{dl('itm')}</td><td>{dl('ens')}</td><td><b>{dl('tot')}</b></td><td><b>{dl('rev')}</b></td><td></td><td></td></tr>")
     rows.append("</table>")
     note = ("<div class='muted'>bare = model nền với prompt dịch thẳng + negative chung, không KB, không LoRA, không ảnh tham chiếu, cùng seed. "
             "system = cùng model nền qua Grounding (+ LoRA/ảnh nếu hàng có). Δ &gt; 0 ủng hộ H_sys: hệ thống cải thiện mọi model nền, "
-            "không phải chọn model tốt nhất. Metric bão hoà thì nhìn cột Filter và grid.</div>")
+            "không phải chọn model tốt nhất. Metric bão hoà thì nhìn cột Reviewer (điểm Filter trung bình, âm = có must_not) và Filter đạt "
+            "(giữ, không must_not, điểm ≥ 0,5) rồi nhìn grid.</div>")
     return _wrap("Bare vs system · cùng model nền, cùng seed", "".join(rows) + note, source)
 
 

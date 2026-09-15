@@ -32,8 +32,9 @@ def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: l
     plan = plan_from_verdict(v0, spec, gen)
     tried = {m.get("fix") for m in memory}
     fix = "attr_refs" if plan.use_reference_image and have_refs else ("negative" if plan.add_negative else "prompt")
-    # leo nấc: cách sửa này đã thử mà không tăng -> đổi nấc
-    if fix in tried and not any(m.get("improved") for m in memory if m.get("fix") == fix):
+    # leo nấc: LẦN GẦN NHẤT thử cách này không tăng -> đổi nấc (không tính lần cũ hơn đã từng tăng)
+    last_same = next((m for m in reversed(memory) if m.get("fix") == fix), None)
+    if last_same is not None and not last_same.get("improved"):
         nxt = None
         for step in LADDER:
             if step not in tried:

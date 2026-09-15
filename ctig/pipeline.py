@@ -27,10 +27,27 @@ from .stages.retrieval import get_retriever
 
 
 def load_prompts(path: str | Path) -> list[Prompt]:
+    """Đọc .jsonl (một prompt một dòng) hoặc .json (danh sách, vd bộ complex của nhóm: id, text_vi, text_en, difficulty,
+    entities -> gold_entities, categories_used -> category)."""
+    text = Path(path).read_text(encoding="utf-8")
+    if str(path).endswith(".json"):
+        rows = json.loads(text)
+        rows = rows if isinstance(rows, list) else rows.get("prompts", [])
+    else:
+        rows = [json.loads(line) for line in text.splitlines() if line.strip() and not line.startswith("//")]
     out = []
-    for line in Path(path).read_text(encoding="utf-8").splitlines():
-        if line.strip() and not line.startswith("//"):
-            out.append(Prompt(**json.loads(line)))
+    for r in rows:
+        r = dict(r)
+        ents = r.pop("entities", None)
+        cats = r.pop("categories_used", None)
+        if ents and not r.get("gold_entities"):
+            r["gold_entities"] = list(ents)
+        if cats and not r.get("category"):
+            r["category"] = ", ".join(cats) if isinstance(cats, list) else str(cats)
+        if r.get("difficulty") not in ("easy", "medium", "hard"):
+            r["difficulty"] = "medium"
+        known = {"id", "text_vi", "text_en", "category", "difficulty", "gold_entities", "note"}
+        out.append(Prompt(**{k: v for k, v in r.items() if k in known}))
     return out
 
 

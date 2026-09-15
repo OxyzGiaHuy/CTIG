@@ -248,3 +248,21 @@
 - Lỗi thiết kế: top-k Reviewer chọn theo ensemble toàn cục nên 5/8 chỗ là bare, hàng hệ thống không được chấm -> đổi sang
   chọn vòng tròn theo hàng (mỗi hàng ít nhất một ảnh). Loop dừng 0 vòng vì ứng viên đầu đạt (đúng luật).
 - Best-of-N thích nghi cho bare nhiều lượt hơn (6 so với 2) -> so sánh nghiêng về bare, kết luận system > bare càng chắc.
+
+## 2026-09-15 — v1.7.1 chạy đủ: 4 model nền × {bare, system} trên 4 prompt gốc + 4 prompt complex (A100 80 GB, 2 luồng song song)
+- **H20 (system > bare trên mọi model nền)**: prompt gốc 15/16 cặp; điểm Reviewer TB bare -> system: SD1.5 0,17 -> 0,17,
+  DreamShaper 0,13 -> 0,33, SDXL 0,11 -> 0,37, RealVis 0,08 -> 0,30; ITM attr tăng ở 3/4 (SD1.5 gốc không đổi 0,24).
+  Prompt complex: 12/16 cặp; Reviewer TB chỉ tăng ở DreamShaper (0,07 -> 0,16) và SDXL (0,07 -> 0,17), RealVis và SD1.5 bằng/kém nhẹ.
+  -> hệ thống bổ trợ nhưng không vượt năng lực model nền; lợi thế co lại ngoài KB (thiên lệch KB: sinh và chấm cùng nguồn thuộc tính).
+- **H21 (loop nhiều vòng)**: cải thiện thật ở p050 (vòng 2, SDXL gốc) và C002 (vòng 2, RealVis caption + ref); 6/8 prompt dừng sau
+  2 vòng không tăng. Reflector leo nấc ground_refs -> attr_refs đúng thiết kế.
+- **Reviewer v1.7.1** (VQA có/không từng thuộc tính, trọng số định danh, 'đạt' = đủ mọi must_have): nghiêm hơn hẳn (p001 bare 0/6 qua
+  ở 3/4 model); lộ 3 lỗi dữ liệu/logic đã sửa: must_not web 'conical shape' cho nón lá (spec bỏ must_not nhắc lại must_have), Tết Nguyên
+  Đán nhận nhầm từ 'Tết Trung Thu' (alias dài che alias ngắn), áo dài w=0,55 lọt Filter ở C008 (Filter chỉ thực thể w>=0,6), Reviewer
+  loại hết -> None (fallback ảnh ít sai nhất). must_not theo VQA cần >= 0,85 ('wide brim' 0,78 trên nón lá đúng).
+- **VQAScore** bão hoà ~0,89 trên mọi ảnh p001 kể cả váy liền -> chỉ đo khớp prompt, không đo văn hoá (khớp CulturalFrames/Culture in Action).
+  ITM attr ~0 và CLIP attr ~1,0 trên complex -> hai metric này vô dụng ngoài áo dài/thuyền thúng; chỉ Reviewer dùng được.
+- **Prompt caption (<= 75 token)**: thua legacy ở p001 (attr 0,57 vs 0,74, Filter 0/6 vs 2/2) nhưng thắng ở C002, C003 (ảnh cuối từ hàng
+  caption) -> prompt ngắn hợp nhiều thực thể, chuỗi thuộc tính dài hợp một thực thể KB chi tiết. Chưa chốt.
+- Hạ tầng: 2 tiến trình song song theo prompt -> GPU 99%, VRAM ~25 GB/tiến trình; có thể lên 3 luồng cho dev10.
+- Kế tiếp: SD 3.5 Medium + FLUX.1-dev (nút thắt model nền?), tách nguồn chấm khỏi KB, tập kiểm ngoài KB, LoRA áo tứ thân, đánh giá người theo cặp.

@@ -170,7 +170,7 @@ hypotheses:
 
   - id: H17
     statement: "Ảnh tham chiếu chỉ có lợi cho thực thể prior thấp; với prior cao nó không tăng attr mà tăng ref_sim (chép)"
-    status: active
+    status: supported  # vast p012: RealVis không ảnh vẽ canoe (ITM attr 0,01-0,11), +3 ảnh cắt từ kho vẽ đúng thúng (0,79-0,96), ref_sim 0,81-0,83; p031 chỉ đổi màu/đai, cấu trúc 4 tà chưa ra
     motivation: "ImageRAG truy hồi có điều kiện; v1.3 p001 (áo dài, prior cao) refplus kéo bố cục"
     priority: high
     prediction: "p001 (áo dài): +ref không tăng attr TB >= 0,03 và ref_sim cao hơn; p012 (thuyền thúng): +ref tăng attr TB >= 0,10"
@@ -191,7 +191,7 @@ experiments:
   proxy_metric: "trên data/dev10.txt: mean CLIP fidelity cuối, tỉ lệ đạt, và đối chiếu bằng mắt trong bundle.html"
   baseline_value: null      # điền sau lần chạy dev10 đầu tiên với review.max_iters=0
   best_value: null
-  total_runs: 7
+  total_runs: 9
   trajectory:
     - run_id: "smoke-v1"
       hypothesis: "H1"
@@ -263,6 +263,26 @@ experiments:
       change_summary: "IP-Adapter Plus chạy lần đầu; +ref gate dùng lại hàng gốc; CLIP id/ITM ẩn; A/B render đủ 4 ảnh/hàng"
       notes: "H15 âm dứt điểm (tags 0,49 vs legacy 0,68); H16 ủng hộ (4/4 một người, không chép); Filter loại nhầm 5/8 vì Qwen 3B đọc collar=crossed trên ảnh cổ đứng -> v1.5.2 CLIP phải xác nhận must_not; alias làm top-k trùng ảnh -> khử trùng"
       timestamp: "2026-09-13"
+    - run_id: "vast-a100-v1.6-p001"
+      hypothesis: "H10, H11, H13, H14"
+      config: "vast_a100 (1x A100 80GB): 6 hàng, hires cả IP-Adapter, agents, adaptive 2->6"
+      metric_value: 0.83     # attr tốt nhất sdxl_refplus c0; ảnh cuối = regen refplus (lọc +0,75 vs +0,50)
+      pass_rate: null
+      delta: null
+      wall_time_min: 6.7
+      change_summary: "Chạy đầu trên GPU thuê; toàn pipeline 400 s (2xT4 ~45 phút); vòng sửa ImageRAG trọn: caption thuộc tính -> web 3 ảnh -> sinh lại"
+      notes: "Rank trùng metric (Spearman 1,0); Filter giữ 5/8 nhờ CLIP veto; hires + IP-Adapter Plus 27,9 GB"
+      timestamp: "2026-09-15"
+    - run_id: "vast-a100-v1.6-p012-p031-p050"
+      hypothesis: "H17, H16, H7"
+      config: "vast_a100 + kho 1399 ảnh (ref_index)"
+      metric_value: null
+      pass_rate: null
+      delta: null
+      wall_time_min: 25
+      change_summary: "Kho ảnh CLIP làm tầng 0 (cosine 0,33-0,37); auto_ref mở ở prior 0,07/0,12; vòng sửa lấy ảnh từ kho"
+      notes: "p012: không ảnh -> canoe, có ảnh -> thúng đúng (H17 mạnh); p031: ảnh đổi màu/đai nhưng vẫn váy quấn, không ra 4 tà, Filter giữ 1/8; p050: Tết đúng (quất, đào, mâm quả, lì xì, không lồng đèn TQ) nhưng Filter mù vì chỉ xét vật thể -> sửa; spec từng bỏ thuyền thúng vì luật vùng (sửa); 5 mô tả VLM bị cắt 700 token (sửa)"
+      timestamp: "2026-09-15"
 
 outer_loop:
   cycle: 1

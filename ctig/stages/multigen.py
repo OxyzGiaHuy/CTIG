@@ -386,6 +386,13 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
         ov_full = (cfg.overrides or {}).get(key, {})
         if mspec.ip_adapter and "ip_scale" in ov_full:
             mspec = replace(mspec, ip_adapter_scale=float(ov_full["ip_scale"]))  # sweep scale IP-Adapter theo hàng
+        if mspec.ip_adapter and not refs and mspec.family != "stub":
+            # bỏ qua có chủ ý (prompt bối cảnh như Tết không có vật thể để tham chiếu), không phải lỗi -> cache bước vẫn dùng lại được
+            result.runs.append(ModelRun(key, mspec.repo, gen, error="bỏ qua: không có ảnh tham chiếu đạt CLIP (xem log [3b])"))
+            _save(result, out_dir)
+            if on_model_done:
+                on_model_done(result.runs[-1])
+            continue
         gspec = adapt_spec(gen, mspec, cfg, spec=spec, prompt_en=prompt_en, variant=variant, t2i_cfg=t2i_cfg, key=key)
         safe_key = key.replace("@", "_s").replace("#", "_r").replace("+", "_")  # tên thư mục/file an toàn
         need = gspec.n_candidates

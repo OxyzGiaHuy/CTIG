@@ -41,7 +41,7 @@ class QwenVLBackend(JSONChatMixin):
             model, min_pixels=256 * 28 * 28, max_pixels=640 * 28 * 28
         )
 
-    def chat(self, system: str, user: str, images: list[str] | None = None) -> str:
+    def chat(self, system: str, user: str, images: list[str] | None = None, max_new_tokens: int | None = None) -> str:
         from PIL import Image
         from qwen_vl_utils import process_vision_info
 
@@ -63,7 +63,7 @@ class QwenVLBackend(JSONChatMixin):
         ).to(self.model.device)
 
         t0 = time.time()
-        gen_kwargs = dict(max_new_tokens=self.max_new_tokens)
+        gen_kwargs = dict(max_new_tokens=max_new_tokens or self.max_new_tokens)
         if self.temperature > 0:
             gen_kwargs.update(do_sample=True, temperature=self.temperature, top_p=0.9)
         else:

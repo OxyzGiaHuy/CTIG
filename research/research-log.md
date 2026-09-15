@@ -210,3 +210,20 @@
   ao_dai/non_la); override ip_scale theo hàng để sweep 0,3/0,4/0,5.
 - Chưa làm: zero-order search quanh seed tốt (Ma et al.), agent chọn model (T2I-Copilot), Exaggeration (CULTIVate).
 
+## 2026-09-15 — Lần đầu chạy trên GPU thuê (vast.ai, 1x A100 80 GB, đĩa 50 GB)
+- Hạ tầng: toàn pipeline p001 kể cả agent 400 s (2xT4: ~45 phút); RealVis 2 ảnh + hires 20 s; IP-Adapter Plus + hires 27,9 GB.
+  Đĩa 50 GB buộc dùng một checkpoint SDXL (RealVis) cho mọi hàng. Config `vast_a100.yaml`, chạy bằng `scripts/run_walkthrough.py`
+  qua SSH, không cần Jupyter. Kho 1.399 ảnh của nhóm đánh chỉ mục trong ~2 phút.
+- **H17 ủng hộ mạnh (p012 thuyền thúng):** cùng RealVis cùng seed, không ảnh -> canoe mũi nhọn (ITM attr 0,01-0,11); 3 ảnh
+  cắt từ kho -> thúng tròn đan tre đúng (0,79-0,96), ref_sim 0,81-0,83 dưới ngưỡng chép. Vòng sửa lấy ảnh từ kho theo caption
+  thuộc tính, không cần web. Đúng ImageRAG: rephrase không cứu thực thể hiếm, ảnh thì có.
+- **CLIP attr bão hoà ở p012** (0,97-1,00 cho cả canoe) trong khi ITM attr tách rõ; ở p001 thì ngược lại. Không có metric
+  đơn nào tin được mọi lúc -> ensemble hạng là đúng; cần bảng "metric nào tin ở loại thực thể nào".
+- **p031 áo tứ thân: kênh ảnh chỉ sửa được màu và đai**, cấu trúc bốn tà không ra ở model nào; Filter giữ 1/8 (must_not
+  "one-piece closed robe", "wide obi sash"). Đây là ca cho LoRA tự train (H5), không phải cho IP-Adapter.
+- **p050 Tết: ảnh đúng** (quất, đào, mâm ngũ quả, lì xì, không lồng đèn Trung Quốc) - khác hẳn v1 khi Tết vắng cả 3 vòng.
+  Nhưng Filter chỉ xét thực thể vật thể nên 0/0 thuộc tính -> sửa: thực thể bối cảnh cũng vào Filter (H7).
+- Lỗi tìm được và đã sửa: spec bỏ thực thể nêu tên vì luật vùng (Qwen đoán sai vùng); Analysis trả 33 ứng viên (lọc căn cứ
+  cứu); 5 mô tả VLM bị cắt ở 700 token -> 1.400 token riêng cho bước mô tả; hàng IP-Adapter không có ảnh là "bỏ qua" chứ không
+  phải lỗi (để cache bước dùng lại được); cảnh báo rò VRAM so với mức nền.
+

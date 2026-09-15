@@ -50,7 +50,7 @@ class JSONChatMixin:
     name: str = "?"
     model_id: str = "?"
 
-    def complete_json(self, system, user, schema, images=None):
+    def complete_json(self, system, user, schema, images=None, max_new_tokens=None):
         from . import cache as llm_cache
 
         c = llm_cache.current()
@@ -69,7 +69,10 @@ class JSONChatMixin:
         last_err: Exception | None = None
         prompt = user
         for attempt in range(self.json_retries + 1):
-            text = self.chat(sys_full, prompt, images)  # type: ignore[attr-defined]
+            try:
+                text = self.chat(sys_full, prompt, images, max_new_tokens=max_new_tokens) if max_new_tokens else self.chat(sys_full, prompt, images)  # type: ignore[attr-defined]
+            except TypeError:  # backend không nhận max_new_tokens
+                text = self.chat(sys_full, prompt, images)  # type: ignore[attr-defined]
             try:
                 result = extract_json(text)
                 if key:

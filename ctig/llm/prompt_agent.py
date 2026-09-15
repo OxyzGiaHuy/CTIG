@@ -307,7 +307,9 @@ class PromptAgent:
         )
         schema = _s(people_count=NUM, subjects=_arr(STR), garments=_arr(STR), objects=_arr(STR), background=STR,
                     watermark_or_text={"type": "boolean"})
-        return self.llm.complete_json(system, "Describe the image.", schema, images=[path])
+        # v1.6 vast: 5 mô tả bị cắt ở 700 token (garments dict dài) -> cho riêng bước này 1400 token, và yêu cầu ngắn.
+        return self.llm.complete_json(system, "Describe the image. Keep every string short (<= 12 words); at most 3 garments and 4 objects.",
+                                      schema, images=[path], max_new_tokens=1400)
 
     def match_descriptors(self, description: str, must_have_en: list[str], must_not_en: list[str]) -> dict:
         """Filter agent tầng 2 (văn bản): thuộc tính nào được mô tả nói rõ là có. Cụm trích phải nằm trong mô tả."""

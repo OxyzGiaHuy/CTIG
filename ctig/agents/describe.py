@@ -172,9 +172,9 @@ def clip_agrees_not(clip, path: str, name_en: str, not_attr: str, have_attr: str
 def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_people: int | None, clip=None) -> FilterVerdict:
     have_all: list[str] = []
     not_all: list[str] = []
-    for se in spec.entities:
-        if se.kind != "object":
-            continue
+    # v1.6 vast p050: prompt chỉ có thực thể bối cảnh (Tết) -> 0/0 thuộc tính, Filter mù. Thực thể context cũng có must_have
+    # (cây quất, bao lì xì) / must_not (lồng đèn Trung Quốc) kiểm được trên mô tả objects/background -> đưa vào, vật thể trước.
+    for se in sorted(spec.entities, key=lambda s: 0 if s.kind == "object" else 1):
         have_all += [a for a in se.required_attrs_en if a]
         not_all += [a for a in se.forbidden_attrs_en if a]
     have_all, not_all = have_all[:8], not_all[:6]

@@ -39,7 +39,7 @@ from .schema import (
 #: Phiên bản LOGIC của từng bước. Tăng số khi đổi code làm đầu ra bước khác đi dù đầu vào không đổi,
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
-STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 2, "spec": 3, "genspec": 4, "multigen": 3, "review": 1,
+STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 3, "spec": 3, "genspec": 4, "multigen": 3, "review": 1,
               "brief": 2, "ref_filter": 2, "candidate_review": 9}
 
 
@@ -700,7 +700,13 @@ class Session:
         val, src = self._memo("retrieve", key, SearchResult, compute, force)
         if src == "disk":
             # thực thể ad-hoc và thuộc tính rút thêm phải nạp lại vào KB bộ nhớ
+            from .stages.extraction import load_kb_draft
+
             for it in val.items:
+                if it.provenance == "kb_auto":
+                    ent = self.kb.get(it.entity_id)
+                    if ent is not None and not ent.must_have_en:
+                        load_kb_draft(ent, self.cache_dir / "kb_auto")
                 if it.provenance == "extracted":
                     ent = self.kb.get(it.entity_id)
                     if ent is not None and not ent.must_have:

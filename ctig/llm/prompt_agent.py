@@ -139,7 +139,54 @@ class PromptAgent:
         return {"must_have": mh, "must_not": mn, "confusable_with": cf, "attr_sources": srcs, "dropped_unsourced": dropped}
 
     # ------------------------------------------------------------ stage 3
-    def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:
+    def draft_kb_entry(self, ent, texts: list[dict]) -> dict:
+        """v1.8 KB tự sinh: một bản ghi KB đầy đủ theo đúng mẫu bản tay, rút từ văn bản (mỗi thuộc tính kèm câu gốc)."""
+        numbered = "\n\n".join(f"[{i}] {t.get('title', '')}\n{t.get('text', '')[:2500]}" for i, t in enumerate(texts))
+        system = (
+            f"Bạn dựng một bản ghi tri thức THỊ GIÁC về '{ent.name_vi}' ({ent.name_en}) cho hệ sinh và kiểm ảnh, CHỈ từ văn bản cho sẵn.\n"
+            "must_have: 3-5 mục, mỗi mục {attr_vi, attr_en, quote}. attr_en là cụm tiếng Anh <= 8 từ, nhìn ảnh kiểm được (hình dạng, "
+            "cấu trúc, chất liệu, màu, cách mặc/bày). HAI MỤC ĐẦU phải là đặc điểm ĐỊNH DANH: thứ phân biệt nó với vật gần giống nhất. "
+            "quote CHÉP NGUYÊN VĂN một câu trong văn bản kèm chỉ số nguồn [i]. Không lịch sử, không ý nghĩa.\n"
+            "must_not: 2-4 mục cùng cấu trúc: đặc điểm của thứ DỄ NHẦM (văn hoá khác hoặc vật gần giống) mà nếu thấy là ảnh sai; "
+            "KHÔNG nhắc lại từ khoá của must_have.\n"
+            "confusable_with: 1-3 {name, name_en, culture, why}.\n"
+            "tags_en: 3-5 thẻ tiếng Anh ngắn (2-4 từ) cho prompt, thẻ định danh đứng đầu. neg_tags_en: 2-4 thẻ ngắn cho negative, "
+            "KHÔNG chứa danh từ của must_have (CLIP không hiểu phủ định).\n"
+            "clip_label: một câu tiếng Anh 'a photo of ...' mô tả (không phải tên trần). kind: 'object' nếu là vật/trang phục/món ăn, "
+            "'context' nếu là lễ hội/cảnh/hoạt động. prior_strength: 0-1, ước lượng model vẽ ảnh phổ thông tự vẽ đúng được không "
+            "(áo dài ~0.55, thuyền thúng ~0.1).\n"
+            "Quy tắc: không có câu gốc thì KHÔNG đưa mục đó vào. Văn bản không đủ thì trả ít."
+        )
+        item = _s(attr_vi=STR, attr_en=STR, quote=STR)
+        schema = _s(must_have=_arr(item), must_not=_arr(item),
+                    confusable_with=_arr(_s(name=STR, name_en=STR, culture=STR, why=STR)),
+                    tags_en=_arr(STR), neg_tags_en=_arr(STR), clip_label=STR, kind=STR, prior_strength=NUM)
+        d = self.llm.complete_json(system, f"Văn bản:\n\n{numbered}", schema, max_new_tokens=1400)
+        from ..stages.extraction import quote_in_texts
+
+        raw = [t.get("text", "") for t in texts]
+        out = {"must_have": [], "must_have_en": [], "must_not": [], "must_not_en": [], "attr_sources": {}, "dropped_unsourced": []}
+        for key in ("must_have", "must_not"):
+            for it in d.get(key, []) or []:
+                if not isinstance(it, dict) or not it.get("attr_en"):
+                    continue
+                vi, en, q = str(it.get("attr_vi") or it["attr_en"]).strip(), str(it["attr_en"]).strip(), str(it.get("quote") or "").strip()
+                if q and quote_in_texts(q, raw):
+                    out[key].append(vi); out[key + "_en"].append(en); out["attr_sources"][vi] = q
+                else:
+                    out["dropped_unsourced"].append(en)
+        out["confusable_with"] = [c for c in (d.get("confusable_with") or []) if isinstance(c, dict) and c.get("name")]
+        out["tags_en"] = [str(x).strip() for x in (d.get("tags_en") or []) if str(x).strip()][:5]
+        out["neg_tags_en"] = [str(x).strip() for x in (d.get("neg_tags_en") or []) if str(x).strip()][:4]
+        out["clip_label"] = str(d.get("clip_label") or "").strip()
+        out["kind"] = "context" if str(d.get("kind", "")).lower().startswith("c") else "object"
+        try:
+            out["prior_strength"] = max(0.0, min(1.0, float(d.get("prior_strength", 0.2))))
+        except (TypeError, ValueError):
+            out["prior_strength"] = 0.2
+        return out
+
+    def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:    def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:
         # Gộp / lọc / xếp hạng bằng luật để nhất quán; LLM chỉ dịch thuộc tính.
         spec = self._rule.build_spec(prompt, analysis, search, kb, max_entities, min_score)
         if not spec.entities:

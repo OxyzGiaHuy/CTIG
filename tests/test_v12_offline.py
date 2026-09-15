@@ -983,6 +983,30 @@ def test_v17_grounding_bare(tmp):
     check("xung đột thuộc tính: bỏ must_not 'conical shape' và neg_tag 'conical hat' trùng must_have nón lá, giữ 'wide brim', bỏ chuỗi rỗng",
           cs.entities[0].forbidden_attrs_en == ["wide brim"] and cs.entities[0].required_attrs_en == ["round conical hat with a pointed tip"]
           and cs.entities[1].neg_tags_en == ["obi"] and any("conical" in d[1] for d in cs.dropped), f"{cs.entities[0].forbidden_attrs_en} {cs.entities[1].neg_tags_en}")
+    # v1.8 KB tự sinh: thực thể ad-hoc + văn bản -> LLM (giả) dựng bản ghi; câu không có gốc bị bỏ; nạp lại từ cache
+    from ctig.stages import extraction as st_ex
+    from ctig.schema import EvidenceItem, SearchResult
+    class DraftAgent:
+        def draft_kb_entry(self, ent, texts):
+            return {"must_have": ["mũ rộng vành", "dây tua"], "must_have_en": ["very wide flat brim", "long silk tassel straps"],
+                    "must_not": ["chóp nhọn"], "must_not_en": ["pointed conical tip"], "attr_sources": {"mũ rộng vành": "Nón quai thao có vành rất rộng và phẳng"},
+                    "dropped_unsourced": ["golden embroidery"], "confusable_with": [{"name": "nón lá", "name_en": "conical leaf hat", "culture": "Việt Nam", "why": "cùng chất liệu"}],
+                    "tags_en": ["wide flat disc hat", "silk tassels"], "neg_tags_en": ["conical hat"], "clip_label": "a photo of a Vietnamese flat wide-brimmed quai thao hat",
+                    "kind": "object", "prior_strength": 0.1}
+    ent = s.kb.add_adhoc("nón quai thao thử", "quai thao test hat")
+    sr = SearchResult("t", [EvidenceItem(ent.id, "wiki_text", "Nón quai thao – Wikipedia", "Nón quai thao có vành rất rộng và phẳng, quai là dải lụa dài buông hai bên. " * 3, url="u")])
+    ok = st_ex.draft_kb(DraftAgent(), ent, [sr.items[0]], tmp / "kb_auto", sr, log=lambda *a: None)
+    check("kb_auto: dựng bản ghi, nạp vào Entity (must_have_en, tags, clip_label, prior), thêm EvidenceItem provenance kb_auto",
+          ok and ent.must_have_en == ["very wide flat brim", "long silk tassel straps"] and ent.tags_en and ent.prior_strength == 0.1
+          and any(it.provenance == "kb_auto" for it in sr.items) and (tmp / "kb_auto" / f"{ent.id}.json").exists(), str(ent.must_have_en))
+    check("kb_auto: mục không có câu gốc được ghi chú", any("golden embroidery" in n for n in sr.notes), str(sr.notes))
+    ent2 = s.kb.add_adhoc("nón quai thao thử", "quai thao test hat"); ent2.must_have_en = []
+    check("kb_auto: nạp lại từ cache theo id", st_ex.load_kb_draft(ent2, tmp / "kb_auto") and ent2.must_have_en[0] == "very wide flat brim")
+    class ThinAgent(DraftAgent):
+        def draft_kb_entry(self, ent, texts): d = super().draft_kb_entry(ent, texts); d["must_have_en"] = d["must_have_en"][:1]; d["must_have"] = d["must_have"][:1]; return d
+    ent3 = s.kb.add_adhoc("thứ mỏng", "thin thing")
+    ok3 = st_ex.draft_kb(ThinAgent(), ent3, [sr.items[0]], tmp / "kb_auto", sr, log=lambda *a: None)
+    check("kb_auto: < 2 must_have có gốc -> không dùng, lùi về đường cũ", not ok3 and not ent3.must_have_en)
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh
     class VqaAgent:

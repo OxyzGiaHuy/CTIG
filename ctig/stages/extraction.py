@@ -40,6 +40,10 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
             continue
         # Ưu tiên nguồn dài (toàn văn trang) hơn snippet; giới hạn số nguồn để VLM 3B không loạn và không tốn 70s.
         texts = sorted(texts, key=lambda t: -len(t.snippet))[: getattr(cfg, "extract_max_sources", 6)]
+        # v1.8 KB tự sinh: thực thể không có bản tay (ad-hoc, hoặc KB thiếu must_have_en) -> dựng CẢ bản ghi theo mẫu KB.
+        if getattr(cfg, "auto_kb", True) and not ent.must_have_en and hasattr(agent, "draft_kb_entry"):
+            if draft_kb(agent, ent, texts, cache_dir.parent / "kb_auto", search, log=log):
+                continue
         cache_file = cache_dir / f"{eid}.json"
         extracted = None
         if cfg.evidence_cache and cache_file.exists():
@@ -161,6 +165,73 @@ def clean_extracted(extracted: dict, ent) -> tuple[dict, list[str]]:
     out.update({"must_have": keep_mh, "must_not": keep_mn, "confusable_with": keep_cf, "attr_sources": srcs,
                 "confirms_kb": confirms})
     return out, junk
+
+
+def apply_kb_draft(ent, d: dict) -> None:
+    """Nạp bản ghi KB tự sinh vào Entity trong bộ nhớ (dùng cho cả lúc dựng mới và lúc nạp lại từ cache)."""
+    ent.must_have, ent.must_have_en = list(d.get("must_have", [])), list(d.get("must_have_en", []))
+    ent.must_not, ent.must_not_en = list(d.get("must_not", [])), list(d.get("must_not_en", []))
+    ent.confusable_with = list(d.get("confusable_with", []))
+    ent.tags_en, ent.neg_tags_en = list(d.get("tags_en", [])), list(d.get("neg_tags_en", []))
+    if d.get("clip_label"):
+        ent.clip_label = d["clip_label"]
+    if d.get("kind"):
+        ent.kind = d["kind"]
+    if d.get("prior_strength") is not None:
+        ent.prior_strength = float(d["prior_strength"])
+    ent.notes = (ent.notes or "") + " | KB tự sinh (source=auto)"
+
+
+def load_kb_draft(ent, kb_auto_dir: Path) -> bool:
+    f = Path(kb_auto_dir) / f"{ent.id}.json"
+    if not f.exists():
+        return False
+    try:
+        d = json.loads(f.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False
+    if not d.get("must_have_en"):
+        return False
+    apply_kb_draft(ent, d)
+    return True
+
+
+def draft_kb(agent, ent, texts: list[EvidenceItem], kb_auto_dir: Path, search: SearchResult, log=print) -> bool:
+    """Dựng bản ghi KB tự sinh cho `ent` từ văn bản đã truy hồi; cache theo id; thêm EvidenceItem provenance 'kb_auto'.
+    Trả True nếu có bản ghi dùng được (>= 2 must_have có câu gốc)."""
+    kb_auto_dir.mkdir(parents=True, exist_ok=True)
+    f = kb_auto_dir / f"{ent.id}.json"
+    d = None
+    if f.exists():
+        try:
+            d = json.loads(f.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            d = None
+    if d is None:
+        t0 = time.time()
+        try:
+            d = agent.draft_kb_entry(ent, [{"title": t.title, "url": t.url, "text": t.snippet} for t in texts])
+        except Exception as exc:  # noqa: BLE001
+            search.retrieval_errors.append(f"kb_auto {ent.id}: {type(exc).__name__}: {exc}")
+            return False
+        d["_meta"] = {"entity_id": ent.id, "name_vi": ent.name_vi, "name_en": ent.name_en, "n_sources": len(texts),
+                      "sources": [t.title for t in texts], "seconds": round(time.time() - t0, 1), "source": "auto"}
+        f.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    for x in d.get("dropped_unsourced", [])[:4]:
+        search.notes.append(f"kb_auto {ent.id}: bỏ '{str(x)[:50]}' vì không có câu gốc")
+    if len(d.get("must_have_en", [])) < 2:
+        search.notes.append(f"kb_auto {ent.id}: chỉ {len(d.get('must_have_en', []))} must_have có câu gốc -> dùng đường rút thuộc tính cũ")
+        return False
+    apply_kb_draft(ent, d)
+    log(f"  [2b] {ent.name_vi}: KB tự sinh {len(ent.must_have_en)} must_have, {len(ent.must_not_en)} must_not, "
+        f"{len(ent.tags_en)} tags, kind={ent.kind}, prior={ent.prior_strength:.2f} ({d['_meta'].get('n_sources', len(texts))} nguồn)")
+    search.items.append(EvidenceItem(
+        entity_id=ent.id, kind="wiki_text", title=f"KB tự sinh: {ent.name_vi}",
+        snippet=f"Bản ghi KB do LLM dựng từ {len(texts)} nguồn: " + "; ".join(t.title for t in texts),
+        must_have=list(ent.must_have), must_not=list(ent.must_not), confusable_with=list(ent.confusable_with),
+        url=texts[0].url if texts else None, score=0.8, provenance="kb_auto", attr_sources=dict(d.get("attr_sources", {})),
+    ))
+    return True
 
 
 def quote_in_texts(quote: str, texts: list[str]) -> bool:

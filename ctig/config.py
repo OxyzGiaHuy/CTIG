@@ -79,6 +79,10 @@ class PerceptionConfig:
 class RetrievalConfig:
     #: "local" | "wiki"
     backend: str = "wiki"
+    #: v1.8: thực thể KHÔNG có bản KB viết tay (ad-hoc hoặc thiếu must_have_en) -> LLM dựng cả bản ghi KB theo đúng mẫu
+    #: (2 thuộc tính định danh trước, must_not theo cặp dễ nhầm, tags, clip_label, kèm câu gốc) từ Wikipedia/web; cache
+    #: runs/_cache/kb_auto/<eid>.json, nhãn source=auto. Bản tay 38 thực thể = tập đã duyệt của cùng quy trình.
+    auto_kb: bool = True
     max_evidence_per_entity: int = 3
     download_images: bool = True
     #: CLIP tối thiểu để ảnh tìm được dùng làm tham chiếu IP-Adapter. Thấp hơn thì

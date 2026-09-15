@@ -186,7 +186,7 @@ class PromptAgent:
             out["prior_strength"] = 0.2
         return out
 
-    def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:    def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:
+    def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:
         # Gộp / lọc / xếp hạng bằng luật để nhất quán; LLM chỉ dịch thuộc tính.
         spec = self._rule.build_spec(prompt, analysis, search, kb, max_entities, min_score)
         if not spec.entities:

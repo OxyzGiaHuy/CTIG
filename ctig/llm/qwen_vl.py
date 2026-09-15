@@ -77,6 +77,36 @@ class QwenVLBackend(JSONChatMixin):
         return self.processor.batch_decode(trimmed, skip_special_tokens=True)[0]
 
 
+    def yes_prob(self, question: str, images: list[str] | None = None) -> float:
+        """VQAScore (Lin et al. 2024): P('Yes') so với P('No') ở token đầu câu trả lời, một lượt forward, không sinh.
+        Dùng cho câu hỏi có/không về thuộc tính (Reviewer) và cho câu chuẩn 'Does this figure show "<prompt>"?'."""
+        from PIL import Image
+        from qwen_vl_utils import process_vision_info
+
+        content = []
+        for p in images or []:
+            img = Image.open(p).convert("RGB")
+            img.thumbnail((896, 896))
+            content.append({"type": "image", "image": img})
+        content.append({"type": "text", "text": question})
+        messages = [{"role": "system", "content": "Answer with a single word: Yes or No."},
+                    {"role": "user", "content": content}]
+        text = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        image_inputs, video_inputs = process_vision_info(messages)
+        inputs = self.processor(text=[text], images=image_inputs, videos=video_inputs, padding=True, return_tensors="pt").to(self.model.device)
+        tok = self.processor.tokenizer
+        yes_ids = {tok.encode(w, add_special_tokens=False)[0] for w in ("Yes", "yes", " Yes", " yes")}
+        no_ids = {tok.encode(w, add_special_tokens=False)[0] for w in ("No", "no", " No", " no")}
+        t0 = time.time()
+        with self.torch.inference_mode():
+            logits = self.model(**inputs).logits[0, -1].float()
+        self.calls += 1
+        self.seconds += time.time() - t0
+        ly = self.torch.logsumexp(logits[list(yes_ids)], 0)
+        ln = self.torch.logsumexp(logits[list(no_ids)], 0)
+        return float(self.torch.softmax(self.torch.stack([ly, ln]), 0)[0])
+
+
 def _load_model(model: str, dt, device: str):
     from transformers import AutoModelForImageTextToText
 

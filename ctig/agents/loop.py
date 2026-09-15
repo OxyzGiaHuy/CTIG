@@ -49,16 +49,18 @@ def plan_from_verdict(v: FilterVerdict, spec: CulturalSpec, gen: GenSpec) -> Rev
     weights = {a: 1.3 for a in already[:2]}
     if weights:
         why.append("nhấn compel ×1.3: " + "; ".join(a[:40] for a in weights))
-    use_ref = len(v.missing_must_have) >= 2  # ImageRAG: model không tự vẽ được thuộc tính -> lần sinh lại kèm ảnh tham chiếu
+    use_ref = len(v.missing_must_have) >= 1  # ImageRAG: model không tự vẽ được thuộc tính -> lần sinh lại kèm ảnh tham chiếu
     if use_ref:
-        why.append("thiếu >= 2 thuộc tính -> sinh lại KÈM ảnh tham chiếu (+ref)")
+        why.append("còn thuộc tính thiếu -> sinh lại KÈM ảnh tham chiếu (+ref)")
     return RevisionPlan(add_positive=pos, add_negative=neg, boost=boost, weights=weights, use_reference_image=use_ref,
                         guidance_delta=1.0 if (neg or already) else 0.0,
                         rationale="; ".join(why) or "không có gì để sửa")
 
 
 def needs_revision(v: FilterVerdict | None) -> bool:
-    return v is not None and (bool(v.matched_must_not) or len(v.missing_must_have) >= 2 or not v.keep)
+    """v1.7.1: 'đạt' = đủ MỌI must_have, không must_not, được giữ. Trước là thiếu >= 2 mới sửa -> p001 RealVis (+0.50, thiếu cổ
+    đứng và tà bay) được coi là đạt dù ảnh còn sai."""
+    return v is not None and (bool(v.matched_must_not) or len(v.missing_must_have) >= 1 or not v.keep)
 
 
 def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_key: str, cfg, out_dir: Path,

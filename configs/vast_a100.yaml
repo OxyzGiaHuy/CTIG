@@ -12,7 +12,8 @@ review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.
 judge:      {backend: blip2_itm, device: "cuda:0", offload: false}
 agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 3, reload_vlm: false}
 models:     [sd15_base#bare, sd15_base, dreamshaper8#bare, dreamshaper8, sdxl_base#bare, sdxl_base, sdxl_base+ref,
-             realvis_xl#bare, realvis_xl, realvis_xl+ref, realvis_aodai, realvis_aodai+ref, sdxl_refplus]
+             realvis_xl#bare, realvis_xl, realvis_xl#caption, realvis_xl+ref, realvis_aodai, realvis_aodai+ref, sdxl_refplus]
+# '#caption' (v1.7.1): prompt kiểu caption <= 75 token, 2 thuộc tính định danh; A/B với hàng legacy cùng seed.
 # M = {SD 1.5 gốc, DreamShaper 8, SDXL 1.0 gốc, RealVis XL}: mỗi M một hàng #bare cùng seed; hàng +ref/LoRA/refplus là
 # ablation thành phần hệ thống trên cùng M. SD 3.5 Medium và AltDiffusion m18 thêm sau (cần code IP-Adapter sd3, họ altclip).
 multigen:

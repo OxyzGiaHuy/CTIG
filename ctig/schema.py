@@ -466,8 +466,10 @@ class FilterVerdict:
     missing_must_have: list[str] = field(default_factory=list)
     people_count: int | None = None
     reasons: list[str] = field(default_factory=list)
-    #: (#must_have có - #must_not có) / #must_have, kẹp [-1, 1]
+    #: (Σw must_have có - Σw must_not có) / Σw must_have, kẹp [-1, 1]; w = 2 cho 2 thuộc tính định danh đầu của mỗi thực thể (v1.7.1)
     score: float = 0.0
+    #: P(Yes) từng câu hỏi có/không về thuộc tính (VQA, v1.7.1): {thuộc tính: xác suất}
+    vqa: dict[str, float] = field(default_factory=dict)
 
 
 @dataclass
@@ -526,6 +528,8 @@ class CandidateReview:
     #: mọi ảnh đã được Reviewer chấm (đường dẫn -> điểm Filter), để chọn cuối trên toàn pool
     pool: dict[str, float] = field(default_factory=dict)
     stop_reason: str = ""
+    #: VQAScore chuẩn (Lin 2024) P(Yes | 'Does this figure show "<prompt>"?') từng ảnh đã chấm, kể cả bare (cột tham chiếu)
+    vqa: dict[str, float] = field(default_factory=dict)
 
 
 # ---------------------------------------------------------------- stage 6

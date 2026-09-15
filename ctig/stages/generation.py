@@ -70,7 +70,33 @@ def _confusable_negatives(se) -> list[str]:
     return out
 
 
-RENDERS = ("legacy", "tags", "tags_w", "legacy_negtags", "sentence", "bare")
+RENDERS = ("legacy", "tags", "tags_w", "legacy_negtags", "sentence", "bare", "caption")
+
+
+_CLIP_TOK = None
+
+
+def _cap_tokens(text: str, max_tokens: int) -> str:
+    """Cắt câu theo dấu ';' / ',' từ cuối cho tới khi <= max_tokens token CLIP (tokenizer openai/clip-vit-base-patch32, đã có
+    trong cache vì CLIPProbe dùng). Không có tokenizer -> ước lượng 1,35 token/từ."""
+    global _CLIP_TOK
+    def n_tok(s: str) -> int:
+        global _CLIP_TOK
+        if _CLIP_TOK is None:
+            try:
+                from transformers import CLIPTokenizer
+                _CLIP_TOK = CLIPTokenizer.from_pretrained("openai/clip-vit-base-patch32")
+            except Exception:  # noqa: BLE001
+                _CLIP_TOK = False
+        if _CLIP_TOK:
+            return len(_CLIP_TOK(s, truncation=False)["input_ids"])
+        return int(len(s.split()) * 1.35) + 2
+    while n_tok(text) > max_tokens:
+        cut = max(text.rfind(";"), text.rfind(","))
+        if cut <= 0:
+            break
+        text = text[:cut].rstrip()
+    return text
 
 
 def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_negatives: bool = True):
@@ -107,6 +133,22 @@ def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_neg
                 neg.extend(_confusable_negatives(se))
                 if se.weight >= 0.8:
                     neg.extend([a for a in (se.neg_tags_en or _forbidden_negatives(se)) if a][:5])
+    elif variant == "caption":
+        # v1.7.1: prompt KIỂU CAPTION ẢNH (SDXL học từ caption, không từ định nghĩa): một câu tự nhiên, chỉ 2 thuộc tính
+        # ĐỊNH DANH của thực thể chính, hậu tố ngắn, tổng <= ~75 token CLIP để không cần compel. Negative: generic + confusable
+        # + 3 neg_tags. So với 'legacy' (112 token, thuộc tính kiểu từ điển) trên cùng seed bằng hàng '<M>#caption'.
+        sent = prompt_en.rstrip(".")
+        for se in main[:2]:
+            attrs = [a for a in (se.tags_en or se.required_attrs_en) if a][:2]
+            if attrs:
+                sent += f"; the {_en(se).lower()} has {' and '.join(attrs)}"
+        sent += ". photo, natural light"
+        terms = [_cap_tokens(sent, 75)]
+        neg = GENERIC_NEGATIVE.split(", ")
+        if init_negatives:
+            for se in main:
+                neg.extend(_confusable_negatives(se)[:3])
+                neg.extend([a for a in (se.neg_tags_en or _forbidden_negatives(se)) if a][:3])
     elif variant == "sentence":
         parts = [prompt_en.rstrip(".") + "."]
         for se in main:

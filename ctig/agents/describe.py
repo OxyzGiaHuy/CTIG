@@ -174,11 +174,19 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
     not_all: list[str] = []
     # v1.6 vast p050: prompt chỉ có thực thể bối cảnh (Tết) -> 0/0 thuộc tính, Filter mù. Thực thể context cũng có must_have
     # (cây quất, bao lì xì) / must_not (lồng đèn Trung Quốc) kiểm được trên mô tả objects/background -> đưa vào, vật thể trước.
-    for se in sorted(spec.entities, key=lambda s: 0 if s.kind == "object" else 1):
-        have_all += [a for a in se.required_attrs_en if a]
+    key_attrs: set[str] = set()
+    # chỉ thực thể đủ trọng số (nêu tên hoặc suy ra chắc); thực thể đoán w<0.6 (C008: áo dài 0.55 trong prompt áo tứ thân)
+    # không được áp must_have lên ảnh
+    for se in sorted([s for s in spec.entities if s.weight >= 0.6] or spec.entities, key=lambda s: 0 if s.kind == "object" else 1):
+        attrs = [a for a in se.required_attrs_en if a]
+        have_all += attrs
+        key_attrs.update(attrs[:2])  # KB viết tay xếp 2 thuộc tính ĐỊNH DANH (cổ đứng, hai tà...) lên đầu -> trọng số 2
         not_all += [a for a in se.forbidden_attrs_en if a]
     have_all, not_all = have_all[:8], not_all[:6]
+    w = lambda a: 2.0 if a in key_attrs else 1.0
     matched_have, matched_not, reasons = [], [], []
+    vqa: dict[str, float] = {}
+    name_en = next((se.name_en.split("(")[0].strip() for se in spec.entities if se.kind == "object"), "outfit")
     if have_all or not_all:
         try:
             m = agent.match_descriptors(compact_text(desc), have_all, not_all)
@@ -202,7 +210,6 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                 matched_not.remove(a)
         # v1.5.1 p001: Qwen 3B ghi collar=crossed cho ảnh cổ đứng rõ -> 5/8 ảnh bị loại nhầm. must_not do VLM đọc ra
         # phải được CLIP xác nhận trên chính ảnh (so cặp với must_have cùng bộ phận); CLIP không đồng ý -> không tính.
-        name_en = next((se.name_en.split("(")[0].strip() for se in spec.entities if se.kind == "object"), "outfit")
         for a in list(matched_not):
             h = _counterpart(a, have_all)
             if h is None:
@@ -213,8 +220,37 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                 if h not in matched_have and garment_rules(desc, h) != "absent":
                     pass  # không tự thêm must_have; chỉ gỡ must_not sai
                 reasons.append(f"VLM nói '{a[:30]}' nhưng CLIP nghiêng về '{h[:30]}' -> bỏ")
+        # v1.7.1: câu hỏi có/không trên ẢNH cho từng thuộc tính (Exposing Blindspots 2026: câu hỏi phủ định cho must_not).
+        # Mô tả tự do hay bỏ sót chi tiết (cổ áo, đai) -> VQA là ý kiến thứ hai: >= 0.75 xác nhận, <= 0.25 bác.
+        if hasattr(agent, "vqa_yes"):
+            subj = name_en if any(se.kind == "object" for se in spec.entities) else "scene"
+            for a in have_all + not_all:
+                q = f"Look carefully. Does the {subj} in this photo have {a}? Answer Yes or No."
+                pr = agent.vqa_yes(q, desc.path)
+                if pr is None:
+                    break
+                vqa[a] = round(pr, 3)
+            for a in have_all:
+                pr = vqa.get(a)
+                if pr is None:
+                    continue
+                if pr >= 0.75 and a not in matched_have and garment_rules(desc, a) != "absent":
+                    matched_have.append(a); reasons.append(f"VQA xác nhận '{a[:30]}' ({pr:.2f})")
+                elif pr <= 0.25 and a in matched_have and garment_rules(desc, a) != "present":
+                    matched_have.remove(a); reasons.append(f"VQA bác '{a[:30]}' ({pr:.2f})")
+            for a in not_all:
+                pr = vqa.get(a)
+                if pr is None:
+                    continue
+                if pr >= 0.75 and a not in matched_not:
+                    h = _counterpart(a, have_all)
+                    if h is None or clip_agrees_not(clip, desc.path, name_en, a, h) is not False:
+                        matched_not.append(a); reasons.append(f"VQA thấy must_not '{a[:30]}' ({pr:.2f})")
+                elif pr <= 0.25 and a in matched_not:
+                    matched_not.remove(a); reasons.append(f"VQA bác must_not '{a[:30]}' ({pr:.2f})")
     missing = [a for a in have_all if a not in matched_have]
-    score = ((len(matched_have) - len(matched_not)) / len(have_all)) if have_all else 0.0
+    tot = sum(w(a) for a in have_all)
+    score = ((sum(w(a) for a in matched_have) - sum(w(a) for a in matched_not)) / tot) if tot else 0.0
     score = max(-1.0, min(1.0, score))
     keep = True
     if matched_not:
@@ -229,7 +265,7 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
     if not any(r.startswith(("có must_not", "prompt", "có chữ")) for r in reasons):
         reasons.append(f"{len(matched_have)}/{len(have_all)} must_have thấy trong mô tả")
     return FilterVerdict(path=desc.path, keep=keep, matched_must_have=matched_have, matched_must_not=matched_not,
-                         missing_must_have=missing, people_count=desc.people_count, reasons=reasons, score=round(score, 3))
+                         missing_must_have=missing, people_count=desc.people_count, reasons=reasons, score=round(score, 3), vqa=vqa)
 
 
 def run(agent, paths: list[str], spec: CulturalSpec, prompt_en: str, kind: str = "candidate", log=print, clip=None) -> FilterResult:

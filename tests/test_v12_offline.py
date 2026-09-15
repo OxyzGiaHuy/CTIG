@@ -877,7 +877,7 @@ def test_agents_offline(tmp):
 def test_v17_grounding_bare(tmp):
     """v1.7: Grounding gom bước; hàng '#bare' = model nền không hệ thống; bảng bare-vs-system; Reflector leo nấc + caption."""
     from ctig import viz
-    from ctig.agents import reflector as ag_ref
+    from ctig.agents import describe as ag_desc, reflector as ag_ref
     from ctig.models.registry import parse_variant
     from ctig.schema import FilterVerdict
     from ctig.session import Session
@@ -940,8 +940,31 @@ def test_v17_grounding_bare(tmp):
     check("reflector: cách vừa rồi có tăng -> giữ nấc, chỉ đổi seed", fix2c == "ground_refs", fix2c)
     plan4, _, fix4 = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": False}, {"fix": "more_refs", "improved": True}], 2, agent=None, name_en="ao dai")
     check("reflector: vòng gần nhất có cải thiện -> tiếp tục", plan4 is not None, fix4)
-    ok_v = FilterVerdict("a.png", True, missing_must_have=["x"], matched_must_not=[], score=0.9)
-    check("reflector: ảnh đạt -> dừng ngay", ag_ref.decide(ok_v, sp, gen, [], 2)[0] is None)
+    ok_v = FilterVerdict("a.png", True, missing_must_have=[], matched_must_not=[], score=1.0)
+    check("reflector: ảnh đạt (đủ mọi must_have) -> dừng ngay", ag_ref.decide(ok_v, sp, gen, [], 2)[0] is None)
+    one_v = FilterVerdict("a.png", True, missing_must_have=["x"], matched_must_not=[], score=0.9)
+    from ctig.stages.analysis import _support
+    from ctig.schema import AnalysisResult, Keyword
+    ar = AnalysisResult(prompt_id="c037", keywords=[Keyword("Tết Trung Thu", "entity", "surface", 1.0), Keyword("tết", "entity", "surface", 1.0)],
+                        candidate_entity_ids=["trung_thu", "tet_nguyen_dan"])
+    cf = _support(ar, s.kb, "Đám trẻ rước đèn ông sao đêm Tết Trung Thu")
+    check("khớp dài nhất: 'Tết Trung Thu' che 'tết' -> Tết Nguyên Đán không còn căn cứ", "trung_thu" in cf and "tet_nguyen_dan" not in cf, str(cf))
+    cf2 = _support(AnalysisResult(prompt_id="x", keywords=[Keyword("tết", "entity", "surface", 1.0)], candidate_entity_ids=["tet_nguyen_dan"]), s.kb, "Gia đình sum họp ngày Tết bên mâm ngũ quả")
+    check("chỉ 'Tết' -> Tết Nguyên Đán vẫn có căn cứ", "tet_nguyen_dan" in cf2, str(cf2))
+    check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
+    # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh
+    class VqaAgent:
+        def __init__(self, table): self.table = table
+        def describe_image(self, path): return {"people_count": 1, "subjects": ["woman"], "garments": ["long dress"], "objects": [], "background": "", "watermark_or_text": False}
+        def match_descriptors(self, description, have, notv): return {"present_must_have": [], "present_must_not": [], "unsure": []}
+        def vqa_yes(self, q, image): return next((p for k, p in self.table.items() if k in q), 0.5)
+    have = sp.entities[0].required_attrs_en; notv = sp.entities[0].forbidden_attrs_en
+    fv = ag_desc.run(VqaAgent({have[0]: 0.9, notv[0]: 0.9}), ["v.png"], sp, "A young woman", kind="candidate", log=lambda *a: None).verdicts[0]
+    check("VQA >= 0.75 xác nhận must_have và must_not mà mô tả bỏ sót", have[0] in fv.matched_must_have and notv[0] in fv.matched_must_not
+          and fv.vqa.get(have[0]) == 0.9 and any("VQA" in r for r in fv.reasons), str(fv))
+    fv2 = ag_desc.run(VqaAgent({have[0]: 0.9, have[1]: 0.9}), ["v2.png"], sp, "A young woman", kind="candidate", log=lambda *a: None).verdicts[0]
+    fv3 = ag_desc.run(VqaAgent({have[-1]: 0.9, have[-2]: 0.9}), ["v3.png"], sp, "A young woman", kind="candidate", log=lambda *a: None).verdicts[0]
+    check("2 thuộc tính định danh (đầu KB) cho điểm cao hơn 2 thuộc tính phụ", fv2.score > fv3.score, f"{fv2.score} vs {fv3.score}")
     class CapAgent:
         def write_retrieval_captions(self, name_en, missing): return [f"photo of {name_en} {m}" for m in missing]
     _, caps5, _ = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}], 2, agent=CapAgent(), name_en="ao dai")

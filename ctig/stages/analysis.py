@@ -92,4 +92,17 @@ def _support(res: AnalysisResult, kb: KnowledgeBase, text: str) -> dict[str, flo
         # Thực thể bối cảnh (Tết, chợ nổi...) có keyword chống lưng thì giữ trước vật thể suy ra.
         if ent.kind == "context" and eid in conf:
             conf[eid] += 0.4
+    # v1.7.1 (C037): "Tết Trung Thu" chứa "tết" -> Tết Nguyên Đán được coi là nêu tên thẳng và vào spec với w=1.0.
+    # Luật khớp dài nhất: tên/alias của A nằm TRONG một tên/alias dài hơn của B cũng có trong prompt -> A bị che, bỏ căn cứ nêu tên.
+    found: dict[str, list[str]] = {}
+    for eid in list(conf):
+        ent = kb.get(eid)
+        if ent is not None:
+            found[eid] = [t.lower() for t in ent.search_terms if len(t) >= 3 and contains(text, t)]
+    for eid, terms in found.items():
+        if not terms:
+            continue
+        shadowed = all(any(t != t2 and t in t2 for e2, ts2 in found.items() if e2 != eid for t2 in ts2) for t in terms)
+        if shadowed:
+            conf.pop(eid, None)
     return conf

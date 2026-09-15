@@ -39,8 +39,8 @@ from .schema import (
 #: Phiên bản LOGIC của từng bước. Tăng số khi đổi code làm đầu ra bước khác đi dù đầu vào không đổi,
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
-STEP_LOGIC = {"analysis": 2, "compare": 1, "retrieve": 2, "spec": 2, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 2, "candidate_review": 5}
+STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 2, "spec": 2, "genspec": 4, "multigen": 3, "review": 1,
+              "brief": 2, "ref_filter": 2, "candidate_review": 6}
 
 
 def _h(obj: Any) -> str:
@@ -479,6 +479,16 @@ class Session:
             cr = CandidateReview(prompt_id=self.prompt.id, k=len(fine), filter=flt, rank=rk, best_path=best,
                                  best_model=model_of.get(best) if best else None, final_path=best)
             cr.pool = {v.path: score_of(v) for v in flt.verdicts if v.path not in bare_paths}
+            # VQAScore chuẩn (cột tham chiếu, kể cả bare): P(Yes | Does this figure show "<prompt>"?)
+            if hasattr(self.agent, "vqa_yes"):
+                q = f'Does this figure show "{pe}"? Please answer yes or no.'
+                for cand, _m in cands:
+                    pr = self.agent.vqa_yes(q, cand.path)
+                    if pr is None:
+                        break
+                    cr.vqa[cand.path] = round(pr, 3)
+                if cr.vqa:
+                    self.log(f"  [reviewer] VQAScore {len(cr.vqa)} ảnh, TB {sum(cr.vqa.values()) / len(cr.vqa):.2f}")
             cr.notes.append(f"Reviewer chấm {len(flt.verdicts)} ảnh ({len(bare_paths)} ảnh bare chỉ để so, không vào pool chọn)")
             v0 = next((v for v in flt.verdicts if v.path == best), None)
             if not best or v0 is None:

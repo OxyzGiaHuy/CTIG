@@ -369,6 +369,16 @@ class PromptAgent:
         schema = _s(order=_arr(STR), reasons={"type": "object"})
         return self.llm.complete_json(system, user, schema)
 
+    def vqa_yes(self, question: str, image: str) -> float | None:
+        """P(Yes) cho một câu hỏi có/không trên ảnh (VQAScore). None nếu backend không hỗ trợ (API text-only, RuleAgent)."""
+        fn = getattr(self.llm, "yes_prob", None)
+        if fn is None:
+            return None
+        try:
+            return float(fn(question, [image]))
+        except Exception:  # noqa: BLE001
+            return None
+
     def write_retrieval_captions(self, name_en: str, missing: list[str]) -> list[str]:
         """Reflector (ImageRAG): một caption ảnh độc lập cho MỖI thuộc tính thiếu, để truy hồi ảnh minh hoạ thuộc tính đó."""
         system = (

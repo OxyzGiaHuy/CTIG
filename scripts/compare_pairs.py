@@ -20,6 +20,7 @@ for mg in sorted(glob.glob(f"{run}/*/multigen.json")):
     pid = mg.split("/")[-2]; d = json.load(open(mg))
     crp = f"{run}/{pid}/step_candidate_review.json"; cr = json.load(open(crp))["value"] if os.path.exists(crp) else None
     ver = {v["path"]: v for v in cr["filter"]["verdicts"]} if cr else {}
+    vqa = (cr or {}).get("vqa", {}) or {}
     sp = json.load(open(f"{run}/{pid}/step_spec.json"))["value"]
     prompt_en = d.get("prompt_en", "")
     parts.append(f"<h2>{E(pid)}</h2><div><b>{E(prompt_en)}</b></div><div class='small muted'>thực thể: {E(', '.join(e['name_vi'] for e in sp['entities']))}</div>")
@@ -49,8 +50,9 @@ for mg in sorted(glob.glob(f"{run}/*/multigen.json")):
                            + (f"<div class='small bad'>must_not: {E('; '.join(a[:40] for a in v['matched_must_not'][:2]))}</div>" if v["matched_must_not"] else ""))
             else:
                 verdict = "<div class='muted small'>Reviewer chưa chấm ảnh này</div>"
+            vq = f" · VQAScore {vqa[c['path']]:.2f}" if c["path"] in vqa else ""
             parts.append(f"<div class='card {lab}'><img src='{b64(c['path'])}'><div><b>{lab}</b> · {E(key)} · {n} ảnh</div>"
-                         f"<div class='small'>ảnh này: CLIP attr {c.get('attr_contrast') or 0:.2f} · ITM attr {c.get('itm_attrs') or 0:.2f} · PickScore {c.get('aesthetic') or 0:.2f}</div>"
+                         f"<div class='small'>ảnh này: CLIP attr {c.get('attr_contrast') or 0:.2f} · ITM attr {c.get('itm_attrs') or 0:.2f} · PickScore {c.get('aesthetic') or 0:.2f}{vq}</div>"
                          f"<div class='small muted'>TB nhánh: Reviewer {rev_mean:+.2f} · ITM {itm_mean:.2f} · CLIP attr {attr_mean:.2f}</div>{verdict}</div>")
         dr, di, da = (vals["system"][i] - vals["bare"][i] for i in range(3))
         cls = "ok" if (dr > 0 or di > 0.05) else "bad"

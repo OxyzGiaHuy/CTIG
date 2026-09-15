@@ -40,7 +40,7 @@ from .schema import (
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
 STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 2, "spec": 3, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 2, "candidate_review": 8}
+              "brief": 2, "ref_filter": 2, "candidate_review": 9}
 
 
 def _h(obj: Any) -> str:
@@ -485,18 +485,32 @@ class Session:
             # MỘT MODEL NỀN MỘT HỆ THỐNG (v1.7.2): Rank, Reflector/Refiner và ảnh cuối chạy RIÊNG cho từng checkpoint
             # (realvis_xl, realvis_aodai, sdxl_refplus cùng RealVis -> một nhóm). Gom mọi hàng vào một pool là ensemble model,
             # trái với triển khai chỉ gắn một model. Tầng 1 (Filter) và VQAScore vẫn chấm chung một lần cho mọi ảnh.
-            groups: dict[str, list] = {}
+            # Nhãn nhóm = khoá model NỀN (không LoRA, không IP-Adapter) đứng đầu trong cfg.models cùng checkpoint
+            # (realvis_xl, không phải sdxl_refplus), để khớp với cột "model nền" của bảng bare/system.
+            def _repo(k: str) -> str:
+                try:
+                    return _get_model(_parse_key(k)[0]).repo
+                except KeyError:
+                    return _parse_key(k)[0]
+
+            def _plain(k: str) -> bool:
+                try:
+                    ms = _get_model(_parse_key(k)[0])
+                    return not ms.lora and not ms.ip_adapter
+                except KeyError:
+                    return True
+
             label_of_repo: dict[str, str] = {}
+            for k in list(self.cfg.models) + [m for _, m in cands]:
+                base = _parse_key(k)[0]
+                r = _repo(k)
+                if r not in label_of_repo or (_plain(k) and not _plain(label_of_repo[r])):
+                    label_of_repo[r] = base
+            groups: dict[str, list] = {}
             for cand, m in cands:
                 if cand.path in bare_paths:
                     continue
-                base = _parse_key(m)[0]
-                try:
-                    repo = _get_model(base).repo
-                except KeyError:
-                    repo = base
-                label = label_of_repo.setdefault(repo, base)
-                groups.setdefault(label, []).append((cand, m))
+                groups.setdefault(label_of_repo[_repo(m)], []).append((cand, m))
             self.log(f"  [reviewer] tầng 1 VLM: {len(flt.kept)}/{len(cands)} ảnh qua; {len(groups)} model nền: {', '.join(groups)}")
 
             def review_group(label: str, gcands: list) -> CandidateReview:

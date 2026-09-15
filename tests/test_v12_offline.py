@@ -927,6 +927,9 @@ def test_v17_grounding_bare(tmp):
     cr3, _ = s3.candidate_review()
     check("Reviewer loại hết -> vẫn chọn ảnh hệ thống ít sai nhất, không None, không phải bare",
           cr3.final_path and "bare" not in cr3.final_path and any("ít sai nhất" in n or "mốc" in n for n in cr3.notes) or (cr3.final_path and "bare" not in cr3.final_path), f"{cr3.final_path} {cr3.notes[:2]}")
+    from ctig.models.registry import get as _get
+    check("nhãn nhóm: realvis_aodai và sdxl_refplus cùng checkpoint RealVis", _get("realvis_aodai").repo == _get("sdxl_refplus").repo == _get("realvis_xl").repo
+          and (_get("realvis_aodai").lora or _get("sdxl_refplus").ip_adapter) and not _get("realvis_xl").lora and not _get("realvis_xl").ip_adapter)
     check("v1.7.2: hồ sơ theo model nền: per_model có 1 nhóm stub, base_model đặt, ảnh cuối của nhóm", cr2.per_model and cr2.per_model[0].base_model == "stub"
           and cr2.base_model == "stub" and cr2.per_model[0].final_path == cr2.final_path, f"{[x.base_model for x in cr2.per_model]}")
     s2b = Session(cfg2, p, tmp / "g17b", log=lambda *a: None)

@@ -401,7 +401,14 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
         gspec = adapt_spec(gen, mspec, cfg, spec=spec, prompt_en=prompt_en, variant=variant, t2i_cfg=t2i_cfg, key=key)
         safe_key = key.replace("@", "_s").replace("#", "_r").replace("+", "_")  # tên thư mục/file an toàn
         need = gspec.n_candidates
-        if getattr(cfg, "adaptive", None) is not None and getattr(cfg.adaptive, "enabled", False):
+        ad_cfg = getattr(cfg, "adaptive", None)
+        ad_on = bool(ad_cfg is not None and getattr(ad_cfg, "enabled", False))
+        if ad_on and variant == "bare":
+            # Nhánh bare không thích nghi: sinh thẳng N = adaptive.max (ngân sách TỐI ĐA hệ thống có thể dùng) để so sánh
+            # bare/system không bị chê "system được nhiều mẫu hơn". Bare luôn >= system về số mẫu.
+            gspec = replace(gspec, n_candidates=max(gspec.n_candidates, int(ad_cfg.max)))
+            need = gspec.n_candidates
+        elif ad_on:
             need = max(1, min(int(cfg.adaptive.min), gspec.n_candidates))
         prev = _load_previous(previous, key, ghash, need)
         if prev is not None:
@@ -471,7 +478,8 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                                        ip_adapter_image=ref_imgs, family=mspec.family,
                                        long_prompt=bool(getattr(cfg, "long_prompt", False)), hires=hires, log=log)
             ad = getattr(cfg, "adaptive", None)
-            adaptive = bool(ad is not None and getattr(ad, "enabled", False) and clip is not None and mspec.family != "stub_never")
+            adaptive = bool(ad is not None and getattr(ad, "enabled", False) and clip is not None and mspec.family != "stub_never"
+                            and variant != "bare")  # bare: N cố định = adaptive.max (xem trên)
             if adaptive:
                 # v1.5 best-of-N thích nghi: sinh `min`, verifier (CLIP attr tốt nhất) chưa đạt thì thêm `step` tới `max`.
                 n_min = max(1, min(int(ad.min), gspec.n_candidates if gspec.n_candidates > 0 else int(ad.min)))
@@ -499,6 +507,8 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
             else:
                 run_rec.output = g.generate(gspec, spec, kb, out_dir / safe_key)
                 score_run(run_rec, spec, clip, itm, prompt_en)
+                if variant == "bare" and ad is not None and getattr(ad, "enabled", False):
+                    run_rec.notes.append(f"bare: N cố định {gspec.n_candidates} = adaptive.max, không thích nghi")
             run_rec.seconds = round(time.time() - t0, 1)
             run_rec.peak_vram_gb = model_loader.peak_gb(cfg.device)
             run_rec.prompt_tokens = getattr(g, "prompt_tokens", None)

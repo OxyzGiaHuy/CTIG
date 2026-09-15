@@ -40,7 +40,7 @@ from .schema import (
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
 STEP_LOGIC = {"analysis": 2, "compare": 1, "retrieve": 2, "spec": 2, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 2, "candidate_review": 3}
+              "brief": 2, "ref_filter": 2, "candidate_review": 4}
 
 
 def _h(obj: Any) -> str:
@@ -445,23 +445,17 @@ class Session:
         briefs, _ = self.brief()
         c = self.cfg.agents
         pe = a.prompt_en or self.prompt.text_en
-        # Chọn top-k cho Reviewer theo VÒNG TRÒN: ảnh tốt nhất của MỖI hàng trước (để mọi hàng, kể cả M#bare và M, đều được
-        # Filter chấm -> bảng bare/system có cột Filter), rồi điền phần còn lại theo điểm ensemble toàn cục.
-        # Lý do (p001 v1.7): PickScore kéo hàng bare lên, 5/8 chỗ top-k là ảnh bare, hàng hệ thống không được chấm.
+        # Reviewer hai tầng (flow v1.7): tầng 1 VLM mô tả + khớp chữ trên MỌI ảnh của MỌI hàng (kể cả M#bare, để bảng bare/system
+        # có cột Reviewer); tầng 2 CLIP/ITM/ensemble chỉ xếp trong tập đã qua tầng 1, lấy top-k cho Rank và loop.
+        # Trước đây metric (gồm PickScore) chọn top-k TRƯỚC rồi VLM chấm sau -> p001: PickScore đẩy 5/8 ảnh bare vào top-k.
         seen: set[str] = set()
         cands = []
-        rows = [(r.model_key, sorted(r.output.candidates, key=lambda x: -combined_score(x))) for r in res.runs if r.output]
-        depth = 0
-        while len(cands) < c.k_candidates and any(depth < len(cs) for _, cs in rows):
-            for m, cs in rows:
-                if depth < len(cs) and len(cands) < c.k_candidates:
-                    cand = cs[depth]
-                    if cand.path in seen:
-                        continue  # hàng alias dùng lại ảnh của hàng gốc -> không chấm hai lần
-                    seen.add(cand.path)
-                    cands.append((cand, m))
-            depth += 1
-        cands.sort(key=lambda cm: -combined_score(cm[0]))
+        for cand, m in sorted([(cand, r.model_key) for r in res.runs if r.output for cand in r.output.candidates],
+                              key=lambda cm: -combined_score(cm[0])):
+            if cand.path in seen:
+                continue  # hàng alias dùng lại ảnh của hàng gốc -> không chấm hai lần
+            seen.add(cand.path)
+            cands.append((cand, m))
         key = _h({"paths": [Path(cand.path).name for cand, _ in cands], "spec": _h(to_dict(sp)), "pe": pe,
                   "k": c.k_candidates, "rev": c.max_revisions, "pat": c.patience, "gen": _h(to_dict(gen))})
 
@@ -471,10 +465,15 @@ class Session:
 
         def compute():
             flt = ag_desc.run(self.agent, [cand.path for cand, _ in cands], sp, pe, kind="candidate", log=self.log, clip=self.clip)
-            rk = ag_rank.run(self.agent, cands, flt, briefs, sp, pe, log=self.log)
+            # tầng 2: trong tập VLM giữ lại, xếp theo (điểm Reviewer, ensemble metric) rồi lấy top-k cho Rank
+            v_by = {v.path: v for v in flt.verdicts}
+            fine = sorted([cm for cm in cands if cm[0].path in flt.kept],
+                          key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
+            self.log(f"  [reviewer] tầng 1 VLM: {len(flt.kept)}/{len(cands)} ảnh qua; tầng 2 metric xếp -> top-{len(fine)}")
+            rk = ag_rank.run(self.agent, fine, flt, briefs, sp, pe, log=self.log)
             best = rk.final_order[0] if rk.final_order else None
             model_of = {cand.path: m for cand, m in cands}
-            cr = CandidateReview(prompt_id=self.prompt.id, k=len(cands), filter=flt, rank=rk, best_path=best,
+            cr = CandidateReview(prompt_id=self.prompt.id, k=len(fine), filter=flt, rank=rk, best_path=best,
                                  best_model=model_of.get(best) if best else None, final_path=best)
             cr.pool = {v.path: score_of(v) for v in flt.verdicts}
             v0 = next((v for v in flt.verdicts if v.path == best), None)
@@ -512,9 +511,13 @@ class Session:
                 it = LoopIteration(n=n, plan=plan, captions=captions)
                 refs = []
                 if plan.use_reference_image:
-                    refs = self.attribute_refs(best_v.missing_must_have, captions=captions) if captions or best_v.missing_must_have else []
-                    if not refs:
-                        refs = self.reference_images()
+                    if fix == "ground_refs":
+                        refs = self.reference_images()          # nấc 1: ảnh đã chọn ở Grounding (đã Filter, đã cắt)
+                    else:
+                        refs = self.attribute_refs(best_v.missing_must_have, captions=captions) if (captions or best_v.missing_must_have) else []
+                        if not refs:
+                            refs = self.reference_images()
+                            it.note = "không truy hồi được ảnh theo caption -> dùng ảnh Grounding"
                     if fix == "more_refs":
                         ip_scale = (ip_scale or self.cfg.multigen.ref_scale) + 0.1
                 it.refs = [str(r) for r in refs]

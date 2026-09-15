@@ -5,7 +5,8 @@ Ranh giới: Reviewer chỉ mô tả và so; Refiner chỉ thi hành. Reflector 
 (plan_from_verdict) giữ là luật; LLM chỉ viết caption truy hồi cho thuộc tính thiếu (ImageRAG: caption > tên khái niệm)
 và lời giải thích. Bộ nhớ (Idea2Img): cách sửa đã thử mà không tăng điểm thì không lặp lại, leo nấc khác.
 
-Thang leo kênh khi bí: seed mới -> thêm ảnh tham chiếu theo thuộc tính -> tăng scale IP-Adapter -> tăng guidance.
+Thang leo kênh: ảnh tham chiếu ĐÃ CHỌN Ở GROUNDING (ground_refs) -> ảnh truy hồi theo caption thuộc tính thiếu (attr_refs,
+ImageRAG) -> thêm ảnh / scale IP-Adapter +0,1 (more_refs) -> seed mới -> guidance +1,5. Mỗi vòng đổi MỘT thứ.
 """
 
 from __future__ import annotations
@@ -15,7 +16,7 @@ from dataclasses import replace
 from ..schema import CulturalSpec, FilterVerdict, GenSpec, RevisionPlan
 from .loop import needs_revision, plan_from_verdict
 
-LADDER = ("attr_refs", "more_refs", "seed", "guidance")
+LADDER = ("ground_refs", "attr_refs", "more_refs", "seed", "guidance")
 
 
 def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: list[dict], patience: int,
@@ -30,29 +31,30 @@ def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: l
         return None, [], f"{patience} vòng liền không cải thiện -> dừng"
 
     plan = plan_from_verdict(v0, spec, gen)
-    tried = {m.get("fix") for m in memory}
-    fix = "attr_refs" if plan.use_reference_image and have_refs else ("negative" if plan.add_negative else "prompt")
-    # leo nấc: LẦN GẦN NHẤT thử cách này không tăng -> đổi nấc (không tính lần cũ hơn đã từng tăng)
-    last_same = next((m for m in reversed(memory) if m.get("fix") == fix), None)
-    if last_same is not None and not last_same.get("improved"):
-        nxt = None
-        for step in LADDER:
-            if step not in tried:
-                nxt = step
-                break
-        if nxt is None:
+    ladder = [s for s in LADDER if have_refs or s not in ("ground_refs", "attr_refs", "more_refs")]
+    base_fix = "ground_refs" if plan.use_reference_image and have_refs else ("negative" if plan.add_negative else "prompt")
+    if not memory:
+        fix = base_fix
+    elif memory[-1].get("improved"):
+        fix = memory[-1].get("fix") or base_fix       # cách vừa rồi có tăng -> giữ nguyên nấc, đổi seed (iteration)
+    else:
+        tried = {m.get("fix") for m in memory}
+        fix = next((s for s in ladder if s not in tried), None)  # lần gần nhất không tăng -> nấc kế tiếp chưa thử
+        if fix is None:
             return None, [], "đã thử hết thang leo mà không cải thiện -> dừng"
-        fix = nxt
-        if fix == "more_refs":
-            plan = replace(plan, use_reference_image=True, rationale=plan.rationale + "; leo nấc: thêm ảnh tham chiếu, scale +0.1")
-        elif fix == "seed":
-            plan = replace(plan, rationale=plan.rationale + "; leo nấc: seed mới, giữ prompt")
-        elif fix == "guidance":
-            plan = replace(plan, guidance_delta=max(plan.guidance_delta, 1.5), rationale=plan.rationale + "; leo nấc: guidance +1.5")
+    if fix in ("ground_refs", "attr_refs"):
+        note = "; ảnh tham chiếu Grounding" if fix == "ground_refs" else "; ảnh truy hồi theo caption thuộc tính thiếu"
+        plan = replace(plan, use_reference_image=True, rationale=plan.rationale + note)
+    elif fix == "more_refs":
+        plan = replace(plan, use_reference_image=True, rationale=plan.rationale + "; leo nấc: thêm ảnh tham chiếu, scale +0.1")
+    elif fix == "seed":
+        plan = replace(plan, rationale=plan.rationale + "; leo nấc: seed mới, giữ prompt")
+    elif fix == "guidance":
+        plan = replace(plan, guidance_delta=max(plan.guidance_delta, 1.5), rationale=plan.rationale + "; leo nấc: guidance +1.5")
     plan = replace(plan, rationale=f"[{fix}] " + plan.rationale)
 
     captions: list[str] = []
-    if plan.use_reference_image and v0.missing_must_have:
+    if fix in ("attr_refs", "more_refs") and v0.missing_must_have:
         captions = write_captions(agent, name_en, v0.missing_must_have[:3], log=log)
     return plan, captions, fix
 

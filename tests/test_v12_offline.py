@@ -827,8 +827,8 @@ def test_agents_offline(tmp):
           and any("không tốt hơn" in n for n in cr.notes), str(cr.notes))
     # v1.7 Agentic Review Loop: Reflector leo nấc khi không cải thiện, dừng sau patience vòng; pool giữ ảnh mọi vòng
     fixes = [it.plan.rationale.split("]")[0].strip("[") for it in cr.iterations]
-    check("loop: chạy đúng patience vòng rồi dừng, mỗi vòng thử một nấc khác", len(cr.iterations) == cfg.agents.patience
-          and len(set(fixes)) == len(fixes) and "không cải thiện" in cr.stop_reason, f"{fixes} · {cr.stop_reason}")
+    check("loop: chạy đúng patience vòng rồi dừng, mỗi vòng thử một nấc khác, nấc đầu là ảnh Grounding", len(cr.iterations) == cfg.agents.patience
+          and len(set(fixes)) == len(fixes) and fixes[:1] == ["ground_refs"] and "không cải thiện" in cr.stop_reason, f"{fixes} · {cr.stop_reason}")
     check("loop: pool gồm ứng viên gốc + ảnh mọi vòng; ảnh cuối chọn trên toàn pool",
           len(cr.pool) == cr.k + sum(len(it.run.output.candidates) for it in cr.iterations if it.run and it.run.output)
           and cr.final_path in cr.pool, f"pool={len(cr.pool)}")
@@ -905,6 +905,15 @@ def test_v17_grounding_bare(tmp):
     bare = next(r for r in res.runs if r.model_key == "stub#bare")
     check("hàng #bare chạy, có ghi chú 'không hệ thống'", bare.output and any("bare" in n for n in (bare.notes or [])), str(bare.notes))
     check("hàng #bare không dùng LoRA/ảnh", bare.gen_spec is not None and bare.gen_spec.lora is None and bare.gen_spec.ip_adapter_image is None)
+    cfg2 = Config.load("configs/offline.yaml", {"runs_dir": str(tmp)})
+    cfg2.multigen.n_candidates = 1; cfg2.multigen.adaptive.enabled = True; cfg2.multigen.adaptive.max = 3
+    s2 = Session(cfg2, p, tmp / "g17b", log=lambda *a: None)
+    res2, _ = s2.multigen(["stub#bare", "stub"])
+    nb = len(next(r for r in res2.runs if r.model_key == "stub#bare").output.candidates)
+    check("adaptive bật: hàng #bare sinh thẳng N = adaptive.max, không thích nghi", nb == 3 and any("N cố định" in n for n in next(r for r in res2.runs if r.model_key == "stub#bare").notes), f"n={nb}")
+    cr2, _ = s2.candidate_review()
+    check("Reviewer tầng 1 chấm MỌI ảnh (bare + system), k = số ảnh qua tầng 1 ≤ k_candidates",
+          len(cr2.filter.verdicts) == sum(len(r.output.candidates) for r in res2.runs if r.output) and cr2.k <= cfg2.agents.k_candidates, f"{len(cr2.filter.verdicts)} {cr2.k}")
     ht = viz.paired_table(res)
     s.cfg.models = ["stub#bare", "stub", "stub@0.5"]
     cr17, _ = s.candidate_review()
@@ -916,20 +925,24 @@ def test_v17_grounding_bare(tmp):
     v = FilterVerdict("a.png", True, missing_must_have=["high collar", "long trousers"], matched_must_not=[], score=0.2)
     gen, _ = s.genspec()
     plan, caps, fix = ag_ref.decide(v, sp, gen, [], 2, agent=None, name_en="ao dai")
-    check("reflector vòng 1: thiếu 2 thuộc tính -> attr_refs + caption mẫu cho từng thuộc tính", fix == "attr_refs" and len(caps) == 2 and "high collar" in caps[0], f"{fix} {caps}")
-    plan2, _, fix2 = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
-    check("reflector vòng 2: attr_refs không cải thiện -> leo nấc more_refs", fix2 == "more_refs" and plan2 is not None, fix2)
-    plan3, _, why3 = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": False}, {"fix": "more_refs", "improved": False}], 2, agent=None, name_en="ao dai")
+    check("reflector vòng 1: thiếu 2 thuộc tính -> ảnh Grounding (ground_refs), chưa cần caption", fix == "ground_refs" and not caps, f"{fix} {caps}")
+    plan1b, caps1b, fix1b = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}], 2, agent=None, name_en="ao dai")
+    check("reflector vòng 2: ảnh Grounding không cải thiện -> attr_refs + caption mẫu cho từng thuộc tính", fix1b == "attr_refs" and len(caps1b) == 2 and "high collar" in caps1b[0], f"{fix1b} {caps1b}")
+    plan2, _, fix2 = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": True}, {"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
+    check("reflector vòng 3: attr_refs không cải thiện -> leo nấc more_refs", fix2 == "more_refs" and plan2 is not None, fix2)
+    plan3, _, why3 = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}, {"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
     check("reflector: 2 vòng liền không cải thiện -> dừng", plan3 is None and "không cải thiện" in why3, why3)
-    _, _, fix2b = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": True}, {"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
-    check("reflector: lần gần nhất của attr_refs không tăng (dù lần trước có) -> vẫn leo nấc", fix2b == "more_refs", fix2b)
+    _, _, fix2b = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}, {"fix": "attr_refs", "improved": True}, {"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
+    check("reflector: lần gần nhất của attr_refs không tăng (dù lần trước có) -> vẫn leo nấc more_refs", fix2b == "more_refs", fix2b)
+    _, _, fix2c = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": True}], 2, agent=None, name_en="ao dai")
+    check("reflector: cách vừa rồi có tăng -> giữ nấc, chỉ đổi seed", fix2c == "ground_refs", fix2c)
     plan4, _, fix4 = ag_ref.decide(v, sp, gen, [{"fix": "attr_refs", "improved": False}, {"fix": "more_refs", "improved": True}], 2, agent=None, name_en="ao dai")
     check("reflector: vòng gần nhất có cải thiện -> tiếp tục", plan4 is not None, fix4)
     ok_v = FilterVerdict("a.png", True, missing_must_have=["x"], matched_must_not=[], score=0.9)
     check("reflector: ảnh đạt -> dừng ngay", ag_ref.decide(ok_v, sp, gen, [], 2)[0] is None)
     class CapAgent:
         def write_retrieval_captions(self, name_en, missing): return [f"photo of {name_en} {m}" for m in missing]
-    _, caps5, _ = ag_ref.decide(v, sp, gen, [], 2, agent=CapAgent(), name_en="ao dai")
+    _, caps5, _ = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}], 2, agent=CapAgent(), name_en="ao dai")
     check("reflector dùng caption LLM khi có agent", caps5 == ["photo of ao dai high collar", "photo of ao dai long trousers"], str(caps5))
 
 

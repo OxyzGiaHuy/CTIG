@@ -38,6 +38,9 @@ class ModelSpec:
     #: Dùng ảnh tham chiếu (từ Search, đã qua CLIP) qua IP-Adapter. Chỉ family sdxl.
     ip_adapter: bool = False
     ip_adapter_scale: float = 0.3
+    #: v1.9: dùng ảnh tham chiếu làm ẢNH KHỞI TẠO (img2img) thay IP-Adapter - cho model chưa có adapter (SD 3.5 Medium).
+    init_image: bool = False
+    init_strength: float = 0.75
     #: "base" = ip-adapter_sdxl (1 ảnh, encoder ViT-bigG) | "plus" = ip-adapter-plus_sdxl_vit-h (nhiều ảnh, chi tiết hơn)
     #: | "flux" = XLabs-AI/flux-ip-adapter (1 ảnh, encoder CLIP ViT-L/14) cho họ flux.
     ip_adapter_kind: str = "base"
@@ -138,15 +141,17 @@ REGISTRY: dict[str, ModelSpec] = {
 
 
 RENDER_VARIANTS = ("legacy", "tags", "tags_w", "legacy_negtags", "sentence", "bare", "caption")
+FLAGS = ("ref", "init")
 
 
 def parse_flags(key: str) -> set[str]:
-    """Cờ '+ref' (bật IP-Adapter Plus với ảnh tham chiếu đã cắt cho hàng bất kỳ họ SDXL). 'realvis_aodai+ref#tags@0.8'."""
+    """Cờ '+ref' (IP-Adapter với ảnh tham chiếu) hoặc '+init' (ảnh tham chiếu làm ảnh khởi tạo img2img, cho model chưa có
+    adapter như SD 3.5 Medium). 'realvis_aodai+ref#tags@0.8', 'sd35_medium+init'."""
     flags = set()
     for part in key.split("+")[1:]:
         f = part.split("#")[0].split("@")[0]
-        if f not in ("ref",):
-            raise KeyError(f"Cờ '+{f}' của '{key}' không biết (chỉ có +ref)")
+        if f not in FLAGS:
+            raise KeyError(f"Cờ '+{f}' của '{key}' không biết (chỉ có {', '.join('+' + x for x in FLAGS)})")
         flags.add(f)
     return flags
 

@@ -357,6 +357,16 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 mspec = replace(mspec, lora=None, ip_adapter=False, only_if_entity=None)
                 gate_note = "bare: model nền không hệ thống (prompt dịch thẳng, negative chung, không LoRA/ảnh)"
                 flags = set()
+            if "init" in flags:
+                # v1.9: ảnh tham chiếu làm ẢNH KHỞI TẠO (img2img) - kênh ảnh cho model chưa có IP-Adapter (SD 3.5 Medium)
+                use, why = should_use_refs(spec, kb, cfg)
+                if force_refs and not use:
+                    use, why = True, "Filter báo model vẽ thiếu -> dùng ảnh khởi tạo"
+                if use and refs:
+                    mspec = replace(mspec, init_image=True)
+                    gate_note = f"init: ảnh tham chiếu làm ảnh khởi tạo img2img (strength {mspec.init_strength}); {why}"
+                else:
+                    gate_note = f"init: {why} -> hàng chạy KHÔNG ảnh khởi tạo"
             if "ref" in flags:
                 if mspec.family not in ("sdxl", "flux"):
                     raise KeyError(f"'+ref' chỉ dùng cho họ sdxl/flux (khoá {key})")
@@ -469,7 +479,14 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                     run_rec.notes.append(f"LoRA {how}")
                     trigger = mspec.lora.get("trigger")
                 ref_imgs: list[str] | None = None
+                init_img = refs[0] if (getattr(mspec, "init_image", False) and refs) else None
+                if init_img:
+                    run_rec.notes.append(f"ảnh khởi tạo img2img: {Path(init_img).name}, strength {mspec.init_strength}")
                 if mspec.ip_adapter:
+                    # ImageRAG: ảnh đi kèm CAPTION nói ảnh minh hoạ khái niệm gì
+                    names = [se.name_en.split("(")[0].strip() for se in spec.entities if se.kind == "object"][:2]
+                    if names:
+                        gspec = replace(gspec, ref_captions=names)
                     n_ref = int(getattr(cfg, "ref_images", 1)) if mspec.ip_adapter_kind == "plus" else 1  # flux/base: 1 ảnh
                     ref_imgs = refs[:max(1, n_ref)]
                     how = model_loader.load_ip_adapter(pipe, mspec.ip_adapter_kind, mspec.ip_adapter_scale, log=log)
@@ -481,7 +498,8 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                     run_rec.notes.append("hires tắt cho hàng IP-Adapter (VRAM)")
                 g = DiffusersGenerator(pipe, safe_key, trigger=trigger, negative_ok=mspec.negative_ok,
                                        ip_adapter_image=ref_imgs, family=mspec.family,
-                                       long_prompt=bool(getattr(cfg, "long_prompt", False)), hires=hires, log=log)
+                                       long_prompt=bool(getattr(cfg, "long_prompt", False)), hires=hires, log=log,
+                                       init_image=init_img, init_strength=mspec.init_strength)
             ad = getattr(cfg, "adaptive", None)
             adaptive = bool(ad is not None and getattr(ad, "enabled", False) and clip is not None and mspec.family != "stub_never"
                             and variant != "bare")  # bare: N cố định = adaptive.max (xem trên)

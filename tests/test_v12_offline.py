@@ -1089,7 +1089,15 @@ def test_v17_grounding_bare(tmp):
     check("bộ nhớ liên prompt ghi/đọc, mới nhất trước", _fix_memory_read(tmp / "kbm", "ao_dai") == ["rewrite", "attr_refs"], str(_fix_memory_read(tmp / "kbm", "ao_dai")))
     from ctig.agents import inpaint as ag_inp
     check("inpaint: họ sdxl/sd15 được, stub/flux không", ag_inp.can_inpaint("realvis_xl+ref") and ag_inp.can_inpaint("sd15_base") and not ag_inp.can_inpaint("stub") and not ag_inp.can_inpaint("flux_dev"))
-    check("inpaint: IoU cho kiểm nhất quán hộp zoom và hộp toàn ảnh", abs(ag_inp._iou((0, 0, 10, 10), (0, 0, 10, 10)) - 1.0) < 1e-6
+    from ctig.models.registry import parse_flags as _pf
+    check("cờ +init hợp lệ, cờ lạ vẫn lỗi", _pf("sd35_medium+init") == {"init"} and _pf("realvis_xl+ref") == {"ref"})
+    from ctig.schema import GenSpec as _GS
+    g_cap = _GS("t", prompt_terms=["a woman at a gate"], ref_captions=["Ao dai"], ip_adapter_image="r.jpg")
+    check("ImageRAG: caption ảnh nối vào prompt theo mẫu 'According to these reference examples of ...'",
+          g_cap.prompt.startswith("According to these reference examples of Ao dai, generate: a woman at a gate"), g_cap.prompt[:60])
+    g_nocap = _GS("t", prompt_terms=["a woman at a gate"], ref_captions=["Ao dai"])
+    check("không có ảnh tham chiếu -> prompt không đổi", g_nocap.prompt == "a woman at a gate")
+        check("inpaint: IoU cho kiểm nhất quán hộp zoom và hộp toàn ảnh", abs(ag_inp._iou((0, 0, 10, 10), (0, 0, 10, 10)) - 1.0) < 1e-6
           and ag_inp._iou((0, 0, 10, 10), (20, 20, 30, 30)) == 0.0)
     class LocAgent:
         def locate(self, image, labels): return [{"bbox": (100, 100, 300, 260), "label": labels[0]}] if labels else []

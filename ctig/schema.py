@@ -163,6 +163,9 @@ class GenSpec:
     #: Prompt là DANH SÁCH cụm, render bằng .prompt. Giữ danh sách để dedupe và
     #: giới hạn nhấn được; bản v1 dùng chuỗi nên lặp "Ao dai, Ao dai, Ao dai".
     prompt_terms: list[str] = field(default_factory=list)
+    #: v1.9 (ImageRAG): caption của từng ảnh tham chiếu, nối vào đầu prompt theo mẫu
+    #: "According to these examples of <khái niệm>: <ảnh>, generate <prompt>" để model biết ảnh minh hoạ cái gì.
+    ref_captions: list[str] = field(default_factory=list)
     negative_terms: list[str] = field(default_factory=list)
     #: entity_id -> số lần đã nhấn (đẩy lên đầu prompt). Tối đa 1.
     emphasis: dict[str, int] = field(default_factory=dict)
@@ -191,7 +194,11 @@ class GenSpec:
 
     @property
     def prompt(self) -> str:
-        return ", ".join(dict.fromkeys(t for t in self.prompt_terms if t))
+        body = ", ".join(dict.fromkeys(t for t in self.prompt_terms if t))
+        if self.ref_captions and self.ip_adapter_image:
+            caps = "; ".join(dict.fromkeys(c for c in self.ref_captions if c))
+            return f"According to these reference examples of {caps}, generate: {body}"
+        return body
 
     @property
     def negative_prompt(self) -> str:

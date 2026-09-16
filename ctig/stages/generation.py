@@ -388,7 +388,7 @@ class DiffusersGenerator:
 
     def __init__(self, pipe, model_key: str, trigger: str | None = None, negative_ok: bool = True,
                  ip_adapter_image: str | list[str] | None = None, family: str = "sdxl",
-                 long_prompt: bool = True, hires=None, log=print):
+                 long_prompt: bool = True, hires=None, log=print, init_image: str | None = None, init_strength: float = 0.75):
         import torch
 
         self.torch = torch
@@ -400,6 +400,9 @@ class DiffusersGenerator:
         self.family = family
         self.long_prompt = long_prompt
         self.hires = hires
+        self.init_image = init_image
+        self.init_strength = init_strength
+        self._i2i = None
         self.log = log
         self.notes: list[str] = []
         self.prompt_tokens: int | None = None
@@ -568,8 +571,22 @@ class DiffusersGenerator:
             g = self.torch.Generator(device="cpu").manual_seed(seed)
             kwargs = dict(num_inference_steps=gen.steps, guidance_scale=gen.guidance,
                           width=gen.width, height=gen.height, generator=g, **pk, **ipk)
+            pipe_call = self.pipe
+            if self.init_image:
+                # v1.9: img2img từ ảnh tham chiếu (kênh ảnh cho model chưa có IP-Adapter)
+                from PIL import Image as _I
+
+                from ..models.loader import img2img_from
+
+                if self._i2i is None:
+                    self._i2i = img2img_from(self.pipe)
+                    self.notes.append(f"ảnh khởi tạo img2img, strength {self.init_strength}")
+                base = _I.open(self.init_image).convert("RGB").resize((gen.width, gen.height))
+                kwargs = dict(num_inference_steps=gen.steps, guidance_scale=gen.guidance, generator=g,
+                              image=base, strength=self.init_strength, **pk)
+                pipe_call = self._i2i
             try:
-                img = self.pipe(**kwargs).images[0]
+                img = pipe_call(**kwargs).images[0]
             except Exception as exc:  # noqa: BLE001 - hai đường lùi trước khi coi là lỗi hàng
                 if "ip_adapter_image_embeds" in ipk:
                     self.notes.append(f"embedding IP-Adapter tính trước bị từ chối ({type(exc).__name__}) -> mã hoá lại từ ảnh")
@@ -595,7 +612,7 @@ class DiffusersGenerator:
                     self.torch.cuda.empty_cache()
                 kwargs = dict(num_inference_steps=gen.steps, guidance_scale=gen.guidance, width=gen.width, height=gen.height,
                               generator=self.torch.Generator(device="cpu").manual_seed(seed), **pk, **ipk)
-                img = self.pipe(**kwargs).images[0]
+                img = (self._i2i or self.pipe)(**kwargs).images[0] if not self.init_image else self.pipe(**kwargs).images[0]
             path = out_dir / f"{gen.prompt_id}_{self.model_key}_c{i}.png"
             img.save(path)
             cand = Candidate(str(path), seed, model_id=self.model_key)

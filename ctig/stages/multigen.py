@@ -133,6 +133,11 @@ def attribute_labels(spec: CulturalSpec) -> list[tuple[list[str], list[str]]]:
         name = se.name_en.split("(")[0].strip()
         pos = [f"a photo of a Vietnamese {name} with {a}" for a in se.required_attrs_en if a][:4]
         neg = [f"a photo of a {name} with {a}" for a in se.forbidden_attrs_en if a][:4]
+        if pos and not neg:
+            # v1.8: KB tự sinh hay không có must_not -> tương phản với thứ dễ nhầm (nếu có) hoặc câu trần không thuộc tính,
+            # để CLIP attr không bị None (FLUX S001: attr None -> best-of-N thích nghi không dừng, ensemble mất một verifier)
+            cf = [str(c.get("name_en") or c.get("name")) for c in (se.confusables or []) if isinstance(c, dict) and (c.get("name_en") or c.get("name"))]
+            neg = [f"a photo of {x}" if not x.lower().startswith(("a ", "an ")) else f"a photo of {x}" for x in cf[:3]] or [f"a plain photo of a {name}"]
         if pos and neg:
             pairs.append((pos, neg))
     return pairs

@@ -254,6 +254,23 @@ class PromptAgent:
                 cfs.append({"name": str(c.get("name") or c.get("name_en")), "name_en": str(c.get("name_en") or c.get("name")),
                             "culture": str(c.get("culture") or ""), "why": str(c.get("why") or "")})
         out["confusable_with"] = cfs
+        if not out["must_not_en"] and cfs:
+            # must_not nói về THỨ DỄ NHẦM nên không có câu gốc trong văn bản về thực thể -> hỏi riêng, chỉ lọc từ ngữ
+            try:
+                d3 = self._complete(
+                    f"List 2-4 VISIBLE features of '{cfs[0]['name_en']}' ({cfs[0]['culture']}) that a Vietnamese {name} does NOT have "
+                    "(shape, structure, part, material, pattern). Each 3-8 English words, concrete, no colors alone, no generic words. "
+                    "Return {\"features\": [...]}",
+                    f"Item: {name}. Confusable: {cfs[0]['name_en']}. Known must_have of the item: " + "; ".join(out["must_have_en"]),
+                    _s(features=_arr(STR)), max_new_tokens=300)
+                have_words = {w.lower() for x in out["must_have_en"] for w in x.split() if len(w) > 4}
+                for f_ in d3.get("features", []) or []:
+                    f_ = str(f_).strip().rstrip(".")
+                    if _attr_ok_en(f_) and not any(w in have_words for w in f_.lower().split() if len(w) > 4) and f_.lower() not in {x.lower() for x in out["must_not_en"]}:
+                        out["must_not"].append(f_); out["must_not_en"].append(f_)
+                out["must_not"], out["must_not_en"] = out["must_not"][:4], out["must_not_en"][:4]
+            except Exception:  # noqa: BLE001
+                pass
         def _tags(xs, drop_example=False):
             flat = []
             for x in xs or []:

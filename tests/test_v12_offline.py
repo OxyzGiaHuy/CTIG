@@ -1081,6 +1081,12 @@ def test_v17_grounding_bare(tmp):
     check("reflector: model không inpaint được -> nấc thường", f_no != "inpaint", f_no)
     _, _, f_two = ag_ref.decide(v, sp, gen, [], 3, agent=None, name_en="ao dai", have_inpaint=True)
     check("reflector: thiếu 2 thuộc tính -> không inpaint", f_two != "inpaint", f_two)
+    from ctig.stages.multigen import attribute_labels as _al
+    from ctig.schema import CulturalSpec as _CS3, SpecEntity as _SE3
+    cs3 = _CS3("t", [_SE3("x", "X", "X thing", ["a"], [], [{"name": "kimono", "name_en": "a Japanese kimono", "culture": "Japan"}], required_attrs_en=["high collar"], kind="object"),
+                     _SE3("y", "Y", "Y thing", ["a"], [], [], required_attrs_en=["round shape"], kind="object")])
+    prs = _al(cs3)
+    check("CLIP attr: không must_not -> tương phản với confusable hoặc câu trần", len(prs) == 2 and "kimono" in prs[0][1][0] and "plain photo" in prs[1][1][0], str(prs))
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh
     class VqaAgent:

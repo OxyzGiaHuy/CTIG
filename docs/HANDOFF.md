@@ -299,6 +299,20 @@ Trả lời câu "scoring vẫn là CLIP hay đã qua VLM?": **đã qua VLM trư
 tính + CLIP phủ quyết) chấm mọi ảnh; CLIP attr chỉ dùng để **xếp thứ tự trong tập đã qua VLM** và cho best-of-N thích nghi.
 Grid cũ hiển thị CLIP attr nên trông như CLIP quyết định.
 
+### v1.9.1 — chống THIÊN LỆCH GẬT của VLM (lỗi thật sau khi bóc lớp trình bày)
+
+Nhìn kỹ ảnh cuối c1 của `sdxl_base` ở S001: đó là **áo liền quần, không có tà xẻ**, nhưng Reviewer chấm +1,00 "đủ 4/4" — tức VQA
+**gật** cho "long-sleeved tunic split at the hips into front and back panels" dù ảnh không có. Đây là thiên lệch gật (yes-bias) của
+VLM khi hỏi câu khẳng định.
+
+Sửa (`4cb2b34`):
+1. **Câu phủ định đối chứng**: mỗi must_have được VQA xác nhận (≥ 0,60) sẽ bị hỏi thêm "Statement: the X does NOT have <attr>".
+   Gật cả hai chiều (≥ 0,55) ⇒ model không phân biệt được ⇒ đưa về 0,5 (không đo được), **không tính là có**; ghi vào `vqa_neg`.
+2. **"Đạt" cần độ chắc chắn**: `needs_revision` yêu cầu thêm VQA trung bình trên các must_have đã khớp ≥ 0,7. Ảnh "đủ thuộc tính
+   nhưng model không chắc" vẫn đi tiếp vào vòng sửa → loop không còn dừng ở 0 vòng vì lý do giả.
+
+Đang chạy `v191` (S001, S012 × 8 hàng) để kiểm ba thay đổi: câu phủ định, ngưỡng đạt, và cổng prior đã sửa.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

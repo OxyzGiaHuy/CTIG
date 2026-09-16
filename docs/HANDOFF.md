@@ -311,7 +311,54 @@ Sửa (`4cb2b34`):
 2. **"Đạt" cần độ chắc chắn**: `needs_revision` yêu cầu thêm VQA trung bình trên các must_have đã khớp ≥ 0,7. Ảnh "đủ thuộc tính
    nhưng model không chắc" vẫn đi tiếp vào vòng sửa → loop không còn dừng ở 0 vòng vì lý do giả.
 
-Đang chạy `v191` (S001, S012 × 8 hàng) để kiểm ba thay đổi: câu phủ định, ngưỡng đạt, và cổng prior đã sửa.
+`v191` chạy xong 14:06. **Câu phủ định KHÔNG cứu được**: ảnh áo liền quần vẫn ra `c1`, 0 vòng, +1,00. Đọc số:
+VQA khẳng định 0,85 cho "tunic split at the hips into front and back panels", câu phủ định 0,22 — nhất quán, không gật hai
+chiều. Nghĩa là VLM **không thiên lệch gật, nó thật sự nhìn sai**. Giả thuyết v1.9.1 sai.
+
+### v1.9.2 — thử câu TRẮC NGHIỆM hai lựa chọn (đo xong, TẮT mặc định)
+
+Đo trực tiếp trên ảnh áo liền quần và ba ảnh áo dài thật của S001, Qwen2.5-VL-7B, thuộc tính "tà xẻ":
+
+| cách hỏi | ảnh áo liền quần (phải thấp) | ba ảnh áo dài thật (phải cao) |
+|---|---|---|
+| có/không (đang dùng) | 0,87 | 0,96 / 0,90 / 0,91 |
+| nguyên tử "khe hở hông" | 0,12 | 0,32 / 0,41 / 0,18 |
+| nguyên tử "hai mảnh rời" | 0,75 | 0,75 / 0,65 / 0,90 |
+| phản đề "liền một khối" | 0,89 | 0,62 / 0,92 / 0,59 |
+| **trắc nghiệm A/B, mô tả sai viết tay** | **0,05–0,24** | **0,84 / 0,89 / 0,96** |
+
+Mọi cách hỏi có/không đều vô dụng; câu trắc nghiệm với mô tả sai **viết tay** tách hẳn. Nhưng khi sinh mô tả sai **tự động**
+thì hỏng: LLM viết "short-sleeved tunic without any splits" (lật nhầm chiều dài tay áo) → 0,97; ghép từ must_not theo vùng
+cho "one-piece dress with no trousers underneath" → **AUC 0,29, dưới mức ngẫu nhiên**, vì ảnh áo dài thật phần lớn không
+nhìn thấy quần nên VLM chọn nhầm. Mã (`choice_prob`, `pair_distractors`, `usable_distractor`, `forced_choice`) và bài đo
+giữ lại, `describe.FORCED_CHOICE = False`. Bật lại khi có cách sinh mô tả sai chỉ lật ĐÚNG một đặc trưng phân biệt.
+
+### v1.9.3 — hiệu chỉnh ngưỡng từng thuộc tính trên ẢNH THẬT (`aa9e22b`)
+
+Chốt lại nguyên nhân: câu có/không **xếp hạng khá tốt** (AUC 0,92 cho tà xẻ, 1,00 cho thân áo) nhưng **chuẩn độ sai** — mọi
+giá trị nằm trong 0,62–0,98 nên ngưỡng cố định 0,60 cho tất cả đi qua. Ngưỡng nay lấy từ chính ảnh thật của prompt
+(`<ref_dir>/selected/<pid>/`): `thr = ref_mean − 0,08`, và thuộc tính mà **ảnh thật cũng không đạt** (`ref_mean < 0,50`)
+bị **loại khỏi bảng kiểm** vì VLM này không kiểm được nó.
+
+- tà xẻ: ảnh thật 0,95 → ngưỡng 0,87 → ảnh áo liền quần (0,85) và hai ảnh realvis áo ngắn (0,80 / 0,62) đều rớt.
+- cổ đứng: ảnh thật 0,83 → ngưỡng 0,75.
+- **"worn over wide-legged long trousers": ảnh thật 0,96 / 0,00 / 0,20 → loại khỏi bảng kiểm.** Tà áo dài thật che kín
+  quần nên thuộc tính này không quan sát được; chấm nó là chấm nhiễu. Vẫn giữ trong prompt sinh ảnh.
+- must_not lấy ngưỡng `ref_mean + 0,20` (sàn 0,70).
+- Điểm cộng PHẦN tối đa nửa trọng số: trước đây thuộc tính 0,85 dưới ngưỡng 0,87 vẫn được 92% điểm, làm hiệu chỉnh vô nghĩa.
+
+**Chạy lại Reviewer trên đúng 20 ứng viên S001 của v191** (8 ảnh gán nhãn tay):
+
+| | nhóm ĐÚNG | nhóm SAI | AUC |
+|---|---|---|---|
+| v191, ngưỡng cố định | 0,67–0,82 | **0,83–1,00** | **0,00** (đảo hoàn toàn) |
+| v1.9.3, hiệu chỉnh | 0,43–0,70 | 0,10–0,60 | 0,67 |
+
+AUC 0,00 định lượng đúng điều người dùng nói: ảnh sai được chấm cao hơn **mọi** ảnh đúng. Ảnh áo liền quần rơi từ +1,00
+xuống +0,60 và bị ghi thiếu tà; ảnh đứng đầu của `sdxl_base` nay là `c0` — áo dài tà dài, khe xẻ hông rõ, quần riêng bên
+dưới. `FilterResult.calibration`, `FilterVerdict.unverifiable`, bảng hiệu chỉnh trong walkthrough.
+
+Đang chạy `v192` (S001, S012 × 8 hàng) để xem ảnh cuối và số vòng loop có đổi không.
 
 ## 4. Lỗi/rủi ro còn mở
 
@@ -328,6 +375,11 @@ Sửa (`4cb2b34`):
   chấm theo brief Wikipedia độc lập với prompt; tập kiểm ngoài KB; đánh giá người.
 - **`best_model` lệch ảnh cuối** trong một vài hồ sơ cũ (nhãn model của top-1 Rank thay vì của ảnh cuối) — đã sửa ở v1.7.2.
 - **Bộ complex đổi câu** ở C002, C003, C008 (nhóm sửa 2026-09-15) → số v1.7 complex không so trực tiếp được với v1.8.
+- **Ngưỡng hiệu chỉnh chỉ dựa trên 3 ảnh thật/prompt** → `ref_mean` nhiễu. "fitted bodice with flowing loose panels" có ảnh
+  thật 0,94 rất chặt nên nhiều ảnh đúng bị ghi thiếu (AUC còn 0,67 chứ chưa cao hơn). Hướng: dùng cả thư mục `candidates/`
+  (~20 ảnh) để hiệu chỉnh, hoặc lấy phân vị thay vì trung bình.
+- **Thuộc tính không quan sát được** nay bị loại khỏi bảng kiểm nhưng vẫn nằm trong must_have của KB; nên đánh dấu ngay ở
+  bước `validate_kb` để bản KB xuất cho nhóm ghi rõ "không kiểm được bằng ảnh".
 
 ## 5. Máy vast.ai
 

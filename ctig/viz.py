@@ -466,6 +466,60 @@ def filter_table(flt, title: str = "Filter agent", side: int = 160, source: str 
     return _wrap(title, f"<div>{head}</div><div class='grid'>{''.join(cells)}</div>", source)
 
 
+def final_grid(res: MultiGenResult, cr=None, side: int = 300, source: str | None = None) -> str:
+    """v1.8.2: lưới KẾT LUẬN cho một prompt: mỗi model nền một hàng, cột trái = ảnh model THUẦN (bare) tốt nhất, cột phải = ảnh CUỐI
+    của hệ thống (sau loop), kèm Δ các số đo. Đây là hình người đọc cần nhìn đầu tiên, không phải bảng số."""
+    from .stages.multigen import combined_score
+
+    pairs = _bare_pairs(res)
+    if not pairs:
+        return ""
+    ver = {v.path: v for v in cr.filter.verdicts} if cr is not None else {}
+    vqa = dict(getattr(cr, "vqa", {}) or {}) if cr is not None else {}
+    finals = {x.base_model: x for x in (getattr(cr, "per_model", None) or ([cr] if cr is not None else []))}
+    f2 = lambda v: "–" if v is None else f"{v:.2f}"
+
+    def stat(paths):
+        cs = [c for r in res.runs if r.output for c in r.output.candidates if c.path in paths]
+        m = lambda xs: (sum(xs) / len(xs)) if xs else None
+        vs = [ver[p] for p in paths if p in ver]
+        return {"attr": m([c.attr_contrast for c in cs if c.attr_contrast is not None]),
+                "rev": m([v.score for v in vs]) if vs else None,
+                "vqa": m([vqa[p] for p in paths if p in vqa]) if any(p in vqa for p in paths) else None}
+
+    rows = []
+    for base, bare, sys_ in pairs:
+        bare_cs = [c for c in (bare.output.candidates if bare.output else [])]
+        if not bare_cs:
+            continue
+        b_best = max(bare_cs, key=lambda c: ((ver[c.path].score if c.path in ver else -9), combined_score(c)))
+        fx = finals.get(base)
+        f_path = fx.final_path if fx else None
+        sys_paths = [c.path for r in sys_ if r.output for c in r.output.candidates]
+        sb, ss = stat([c.path for c in bare_cs]), stat(sys_paths)
+        d = lambda k: ("" if (sb[k] is None or ss[k] is None) else
+                       f"<span class='{'ok' if ss[k] > sb[k] else 'bad'}'>{ss[k] - sb[k]:+.2f}</span>")
+        vb = ver.get(b_best.path); vf = ver.get(f_path) if f_path else None
+        cap = lambda v: ("" if v is None else
+                         (f"<div class='small {'ok' if (v.keep and not v.matched_must_not) else 'bad'}'>Reviewer {v.score:+.2f}"
+                          + (f" · thiếu: {_e('; '.join(a[:26] for a in v.missing_must_have[:2]))}" if v.missing_must_have else "")
+                          + (f" · <b>must_not:</b> {_e('; '.join(a[:22] for a in v.matched_must_not[:2]))}" if v.matched_must_not else "") + "</div>"))
+        rows.append(
+            f"<tr><td style='vertical-align:middle'><b>{_e(base)}</b><div class='small muted'>{_e(bare.repo.split('/')[-1])}</div></td>"
+            f"<td><div class='small bad'><b>MODEL THUẦN</b> (bare)</div>{_img(b_best.path, side)}{cap(vb)}</td>"
+            f"<td><div class='small ok'><b>HỆ THỐNG</b> ({_e(fx.final_source) if fx else '-'}"
+            + (f", {len(fx.iterations)} vòng" if fx else "") + f")</div>{_img(f_path, side)}{cap(vf)}</td>"
+            f"<td class='small' style='vertical-align:middle'>Δ CLIP attr {d('attr')}<br>Δ Reviewer {d('rev')}<br>Δ VQAScore {d('vqa')}"
+            f"<div class='muted'>TB bare: attr {f2(sb['attr'])} · rev {f2(sb['rev'])}<br>TB system: attr {f2(ss['attr'])} · rev {f2(ss['rev'])}</div></td></tr>")
+    if not rows:
+        return ""
+    note = ("<div class='muted'>Cùng model nền, cùng seed. <b>Model thuần</b>: prompt tiếng Anh dịch thẳng + negative chung, không KB, "
+            "không LoRA, không ảnh tham chiếu. <b>Hệ thống</b>: Grounding (thuộc tính, negative, ảnh tham chiếu) + Agentic Review Loop; "
+            "ảnh hiển thị là ảnh CUỐI hệ thống chọn. Δ tính trên trung bình mọi ảnh của mỗi nhánh.</div>")
+    return _wrap("Kết luận · Model thuần so với Hệ thống, từng model nền",
+                 "<table>" + "".join(rows) + "</table>" + note, source)
+
+
 def per_model_table(cr, source: str | None = None) -> str:
     """v1.7.2: mỗi model nền một hệ thống -> một ảnh cuối, số vòng loop, lý do dừng. Không ensemble giữa các model."""
     pm = getattr(cr, "per_model", None) or []
@@ -483,9 +537,9 @@ def per_model_table(cr, source: str | None = None) -> str:
     return _wrap("Agentic Review Loop · Ảnh cuối theo model nền", "".join(rows) + note, source)
 
 
-def candidate_review_html(cr, side: int = 200, source: str | None = None) -> str:
+def candidate_review_html(cr, side: int = 200, source: str | None = None, res=None) -> str:
     rk = cr.rank
-    parts = [per_model_table(cr, source), filter_table(cr.filter, title="Agentic Review Loop · Reviewer tầng 1: Filter agent trên mọi ảnh", side=140)]
+    parts = [final_grid(res, cr, source=source) if res is not None else "", per_model_table(cr, source), filter_table(cr.filter, title="Agentic Review Loop · Reviewer tầng 1: Filter agent trên mọi ảnh", side=140)]
     # bảng xếp hạng
     rows = ["<table><tr><th>#</th><th>ảnh</th><th>hạng metric</th><th>hạng agent</th><th>lý do agent</th></tr>"]
     for i, p in enumerate(rk.final_order[:8]):

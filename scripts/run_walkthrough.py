@@ -65,7 +65,7 @@ def run_one(cfg: Config, prompt: Prompt, run_dir: Path, agents: bool, log) -> Pa
     cr = None
     if agents and cfg.agents.enabled and cfg.agents.candidate_review:
         cr, src = step("3 agentic review loop", s.candidate_review)
-        report.parts.append(viz.candidate_review_html(cr, source=src))
+        report.parts.append(viz.candidate_review_html(cr, source=src, res=res))
         for x in (cr.per_model or [cr]):
             log(f"[{prompt.id}] {x.base_model or '-'}: ảnh cuối {x.final_path} ({x.final_source}) · {len(x.iterations)} vòng · {x.stop_reason}")
     report.parts.append(viz.paired_table(res, cr))

@@ -465,6 +465,28 @@ không dùng được; đó là giới hạn của model.
 Kiểm thử mới: `tests/test_forced_choice.py` (hiệu chỉnh, phân tán, chống chấm mù), `tests/test_inpaint_gate.py`
 (cổng inpaint và nấc thay thế). `v193` xong 15:52.
 
+## 3i. Lưới so sánh TỔNG (`scripts/overview_grid.py`, 2026-09-16 tối)
+
+Từ trước tới giờ chỉ có trang so sánh theo từng prompt, thiếu một ảnh nhìn được cả run. Nay có
+`python scripts/overview_grid.py <run_dir> [out.png] [--cell 300] [--ids ...] [--bare best|first]`:
+mỗi HÀNG một prompt, mỗi CẶP CỘT một model nền (bare đỏ rồi system xanh), dưới mỗi ô là điểm Reviewer,
+ô system ghi thêm nguồn ảnh và số vòng, ô thắng có viền dày và dấu sao, cuối ảnh có dòng thắng/hoà/thua.
+
+**Chọn ảnh bare nào làm mốc thì ra hai kết luận khác hẳn** (v193, 6 cặp):
+
+| cách lấy ảnh bare | system thắng | hoà | thua |
+|---|---|---|---|
+| `--bare best` — ảnh bare TỐT NHẤT trong 6 ảnh | 2 | 3 | 1 |
+| `--bare first` — ảnh bare ĐẦU TIÊN, cùng seed | **5** | 1 | 0 |
+
+Nhánh bare **không có bước chọn ảnh nào cả**, nên lấy best-of-6 là tự dựng cho bare một bộ chọn mà nó không
+có khi triển khai. Cách đọc đúng: `first` là so sánh chính (bare thật sự là gì), `best` là ablation cho thấy
+bao nhiêu phần lợi thế đến từ việc CHỌN và bao nhiêu từ grounding + vòng sửa. Viết bài phải nêu cả hai, và
+nói rõ đang dùng cái nào; trang `bare_vs_system.html` lại dùng TRUNG BÌNH cả nhánh (5/6 thắng) — con số thứ ba.
+
+Lưới cũng làm lộ rõ điểm yếu đã biết: ở S012 có tới ba ô đạt +1,00 cho cả bare lẫn system vì bảng kiểm chỉ
+còn MỘT thuộc tính, thang điểm bão hoà nên không phân biệt được.
+
 ## 3j. Công trình đã có gần giống (tra cứu 2026-09-16)
 
 Không ai công bố trọn pipeline này, nhưng **hai trong bốn điểm ta tưởng là mới thì đã có người làm**.

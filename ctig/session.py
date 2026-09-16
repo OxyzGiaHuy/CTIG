@@ -599,6 +599,10 @@ class Session:
                     fine = sorted(gcands, key=lambda cm: tuple(-x for x in score_tb(v_by[cm[0].path], vqa_all, tb)))[: c.k_candidates]
                     for cm in fine:
                         v_by[cm[0].path].keep = True
+                        # v1.9.4: Rank lọc theo flt.kept, không theo verdict.keep -> thiếu dòng này thì Rank trả RỖNG và
+                        # loop thoát ngay ở "không có ứng viên qua Rank" (S001/sd35_medium v192: cả pool -0,20 mà 0 vòng).
+                        if cm[0].path not in flt.kept:
+                            flt.kept.append(cm[0].path)
                     self.log(f"  [reviewer:{label}] không ảnh nào qua tầng 1 -> lấy {len(fine)} ảnh ít sai nhất làm mốc cho loop")
                 rk = ag_rank.run(self.agent, fine, flt, briefs, sp, pe, log=self.log)
                 best = rk.final_order[0] if rk.final_order else None
@@ -607,14 +611,19 @@ class Session:
                 cr.pool = {cm[0].path: score_of(v_by[cm[0].path]) for cm in gcands}
                 cr.vqa = dict(vqa_all)
                 v0 = v_by.get(best) if best else None
+                if (not best or v0 is None) and gcands:
+                    # v1.9.4: Rank rỗng KHÔNG được thoát sớm. Mọi ảnh đều hỏng chính là lúc cần vòng sửa nhất; trước đây
+                    # hàm return ngay nên S001/sd35_medium (cả pool -0,20 đến -0,30) chạy 0 vòng và trả về ảnh hỏng.
+                    fb = max(gcands, key=lambda cm: (score_of(v_by[cm[0].path]), combined_score(cm[0])))[0]
+                    best, v0 = fb.path, v_by.get(fb.path)
+                    cr.best_path, cr.final_path = best, best
+                    cr.best_model = model_of.get(best)
+                    if best not in rk.final_order:
+                        rk.final_order.insert(0, best)
+                    cr.notes.append("Rank rỗng -> lấy ảnh ít sai nhất làm mốc rồi vẫn chạy vòng sửa")
+                    self.log(f"  [reviewer:{label}] Rank rỗng -> mốc {Path(best).name}, vẫn vào vòng sửa")
                 if not best or v0 is None:
-                    # v1.9: Rank có thể trả rỗng (mọi ảnh bị loại) -> vẫn phải có ảnh cuối của nhánh hệ thống, không trả None
-                    if gcands:
-                        fb = max(gcands, key=lambda cm: (score_of(v_by[cm[0].path]), combined_score(cm[0])))[0]
-                        cr.final_path, cr.best_path = fb.path, fb.path
-                        cr.best_model = model_of.get(fb.path)
-                        cr.notes.append("Rank rỗng -> lấy ảnh hệ thống ít sai nhất làm ảnh cuối")
-                    cr.stop_reason = "không có ứng viên qua Rank"
+                    cr.stop_reason = "không có ảnh nào của nhánh hệ thống"
                     return cr
                 # Mốc cải thiện = ảnh có điểm Reviewer CAO NHẤT trong pool của nhóm; hoà thì theo thứ tự Rank.
                 rank_pos = {pth: i for i, pth in enumerate(rk.final_order)}

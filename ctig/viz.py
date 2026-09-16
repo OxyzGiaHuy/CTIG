@@ -537,9 +537,101 @@ def per_model_table(cr, source: str | None = None) -> str:
     return _wrap("Agentic Review Loop · Ảnh cuối theo model nền", "".join(rows) + note, source)
 
 
+def agent_dialog(cr, side: int = 170, source: str | None = None) -> str:
+    """v1.9: NHẬT KÝ GIAO TIẾP giữa các agent trong Agentic Review Loop, đọc như một cuộc trao đổi:
+    Reviewer (mô tả ảnh -> hỏi VQA từng thuộc tính -> kết luận) -> Rank (xếp hạng, so với metric) -> Reflector (chẩn đoán ->
+    chọn nấc sửa -> viết caption/prompt) -> Refiner (prompt và ảnh thật sự dùng -> ảnh mới) -> Reviewer chấm lại.
+    Mục đích: người đọc thấy chính xác agent nào nói gì với agent nào, và số nào dẫn tới quyết định nào."""
+    if cr is None:
+        return ""
+    desc_by = {d.path: d for d in (cr.filter.descriptors or [])}
+    ver_by = {v.path: v for v in cr.filter.verdicts}
+    vqa_all = dict(getattr(cr, "vqa", {}) or {})
+
+    def bubble(who: str, cls: str, body: str) -> str:
+        return (f"<div style='margin:6px 0;padding:8px 10px;border-left:4px solid {cls};background:#fafaf8'>"
+                f"<div class='small' style='color:{cls};font-weight:600'>{_e(who)}</div>{body}</div>")
+
+    def vqa_rows(v):
+        if not v.vqa:
+            return ""
+        cells = "".join(
+            f"<tr><td class='small'>{_e(a[:52])}</td><td class='small'><b class='{'ok' if p >= 0.6 else ('bad' if p <= 0.25 else 'muted')}'>"
+            f"{p:.2f}</b></td><td class='small'>{'có' if a in v.matched_must_have else ('MUST_NOT' if a in v.matched_must_not else ('thiếu' if a in v.missing_must_have else '–'))}</td></tr>"
+            for a, p in sorted(v.vqa.items(), key=lambda kv: -kv[1]))
+        return f"<table style='margin:4px 0'><tr><th>hỏi VLM: thuộc tính</th><th>P(đúng)</th><th>kết luận</th></tr>{cells}</table>"
+
+    parts = []
+    # --- Reviewer trên ảnh mốc ---
+    base = cr.best_path or (cr.rank.final_order[0] if cr.rank.final_order else None)
+    if base and base in ver_by:
+        v, d = ver_by[base], desc_by.get(base)
+        body = f"<div class='pair'><div>{_img(base, side)}</div><div style='flex:1'>"
+        if d is not None:
+            body += (f"<div class='small'><b>Bước 1, VLM mô tả ảnh (không phán xét văn hoá):</b> {_e(d.text()[:300])}</div>")
+        body += f"<div class='small'><b>Bước 2, hỏi có/không từng thuộc tính:</b></div>{vqa_rows(v)}"
+        body += (f"<div class='small'><b>Bước 3, kết luận:</b> điểm {v.score:+.2f}, "
+                 f"{'GIỮ' if v.keep else 'LOẠI'}" + (f", lý do: {_e('; '.join(v.reasons[:3]))}" if v.reasons else "") + "</div>")
+        body += "</div></div>"
+        parts.append(bubble("REVIEWER → (ảnh mốc của model nền " + _e(cr.base_model or "?") + ")", "#1d4ed8", body))
+    # --- Rank ---
+    rk = cr.rank
+    if rk.final_order:
+        agree = "trùng" if rk.agreement_top1 else "KHÁC"
+        parts.append(bubble("RANK → REFLECTOR", "#7c3aed",
+                            f"<div class='small'>Xếp {len(rk.final_order)} ảnh. Top-1 của agent và của metric <b>{agree}</b>"
+                            + (f", Spearman {rk.spearman}" if rk.spearman is not None else "")
+                            + (f". Bất đồng: {_e('; '.join(rk.disagreements[:2]))}" if rk.disagreements else "") + "</div>"))
+    # --- từng vòng loop ---
+    for it in (cr.iterations or []):
+        fix = it.plan.rationale.split("]")[0].strip("[") if it.plan.rationale.startswith("[") else "?"
+        body = (f"<div class='small'><b>Nhận từ Reviewer:</b> thiếu {_e('; '.join(a[:40] for a in (it.plan.add_positive or [])[:2]) or '—')}"
+                f"<br><b>Chọn nấc:</b> <code>{_e(fix)}</code><br><b>Lý do:</b> {_e(it.plan.rationale[:260])}</div>")
+        if it.captions:
+            body += f"<div class='small'><b>Viết caption truy hồi:</b> {_e(' | '.join(it.captions))}</div>"
+        if getattr(it.plan, "rewrite_prompt", ""):
+            body += f"<div class='small'><b>Viết lại prompt:</b> “{_e(it.plan.rewrite_prompt)}”</div>"
+        if it.plan.add_negative:
+            body += f"<div class='small'><b>Thêm negative:</b> {_e('; '.join(it.plan.add_negative[:3]))}</div>"
+        parts.append(bubble(f"REFLECTOR → REFINER · vòng {it.n}", "#b45309", body))
+
+        rbody = ""
+        if it.refs:
+            rbody += f"<div class='small'><b>Ảnh tham chiếu nhận được ({len(it.refs)}):</b></div><div class='grid'>" + "".join(_img(r, 90) for r in it.refs[:4]) + "</div>"
+        if it.run is not None and it.run.gen_spec is not None:
+            gs = it.run.gen_spec
+            rbody += (f"<div class='small'><b>Prompt thật sự gửi model ({_e(it.run.model_key)}):</b> <code>{_e(gs.prompt[:320])}</code></div>"
+                      f"<div class='small muted'>negative: {_e(gs.negative_prompt[:180]) or '—'} · seed {gs.seed}+{gs.iteration}·1000 · guidance {gs.guidance:g}</div>")
+            if it.run.notes:
+                rbody += f"<div class='small muted'>{_e(' · '.join(it.run.notes[:3]))}</div>"
+        if it.run is not None and it.run.output:
+            rbody += "<div class='grid'>" + "".join(_img(c.path, side) for c in it.run.output.candidates[:4]) + "</div>"
+        elif it.run is not None and it.run.error:
+            rbody += f"<div class='bad small'>{_e(it.run.error)}</div>"
+        parts.append(bubble(f"REFINER · vòng {it.n}", "#047857", rbody or "<div class='muted small'>không sinh được ảnh</div>"))
+
+        if it.filter is not None and it.filter.verdicts:
+            top = max(it.filter.verdicts, key=lambda v: v.score)
+            parts.append(bubble(f"REVIEWER chấm lại · vòng {it.n}", "#1d4ed8",
+                                f"<div class='small'>{len(it.filter.kept)}/{len(it.filter.verdicts)} ảnh qua. Ảnh tốt nhất {top.score:+.2f}"
+                                + (f", còn thiếu: {_e('; '.join(a[:36] for a in top.missing_must_have[:2]))}" if top.missing_must_have else "")
+                                + f". <b>{'CẢI THIỆN' if it.improved else 'không cải thiện'}</b> ({_e(it.note)})</div>"
+                                + vqa_rows(top)))
+    # --- kết ---
+    fin = f"<div class='small'>Ảnh cuối: <b>{_e(Path(cr.final_path).name) if cr.final_path else '—'}</b> ({_e(cr.final_source)})"
+    if cr.final_path and cr.final_path in vqa_all:
+        fin += f", VQAScore {vqa_all[cr.final_path]:.2f}"
+    fin += f". Dừng vì: {_e(cr.stop_reason)}</div>"
+    if cr.final_path:
+        fin += _img(cr.final_path, 260)
+    parts.append(bubble("KẾT LUẬN", "#374151", fin))
+    return _wrap(f"Nhật ký giao tiếp giữa các agent · {_e(cr.base_model or '')}", "".join(parts), source)
+
+
 def candidate_review_html(cr, side: int = 200, source: str | None = None, res=None) -> str:
     rk = cr.rank
-    parts = [final_grid(res, cr, source=source) if res is not None else "", per_model_table(cr, source), filter_table(cr.filter, title="Agentic Review Loop · Reviewer tầng 1: Filter agent trên mọi ảnh", side=140)]
+    parts = [final_grid(res, cr, source=source) if res is not None else "", per_model_table(cr, source),
+             "".join(agent_dialog(x) for x in (getattr(cr, "per_model", None) or [cr])), filter_table(cr.filter, title="Agentic Review Loop · Reviewer tầng 1: Filter agent trên mọi ảnh", side=140)]
     # bảng xếp hạng
     rows = ["<table><tr><th>#</th><th>ảnh</th><th>hạng metric</th><th>hạng agent</th><th>lý do agent</th></tr>"]
     for i, p in enumerate(rk.final_order[:8]):

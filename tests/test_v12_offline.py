@@ -939,7 +939,10 @@ def test_v17_grounding_bare(tmp):
     cr2b, src2b = s2b.candidate_review()
     check("hồ sơ theo model đọc lại được từ đĩa (per_model lồng nhau)", src2b == "disk" and len(cr2b.per_model) == 1 and isinstance(cr2b.per_model[0], type(cr2b)), src2b)
     from ctig import viz as _viz
-    check("viz: bảng ảnh cuối theo model nền", "Ảnh cuối theo model nền" in _viz.candidate_review_html(cr2) and "ảnh cuối loop" in _viz.paired_table(res2, cr2))
+    html_cr = _viz.candidate_review_html(cr2)
+    check("viz: bảng ảnh cuối theo model nền", "Ảnh cuối theo model nền" in html_cr and "ảnh cuối loop" in _viz.paired_table(res2, cr2))
+    check("viz: nhật ký giao tiếp agent có đủ REVIEWER / RANK / KẾT LUẬN và prompt gửi model",
+          "Nhật ký giao tiếp" in html_cr and "REVIEWER" in html_cr and "KẾT LUẬN" in html_cr, "")
     check("Reviewer tầng 1 chấm MỌI ảnh (bare + system), k = số ảnh qua tầng 1 ≤ k_candidates",
           len(cr2.filter.verdicts) == sum(len(r.output.candidates) for r in res2.runs if r.output) and cr2.k <= cfg2.agents.k_candidates, f"{len(cr2.filter.verdicts)} {cr2.k}")
     ht = viz.paired_table(res)
@@ -1097,7 +1100,7 @@ def test_v17_grounding_bare(tmp):
           g_cap.prompt.startswith("According to these reference examples of Ao dai, generate: a woman at a gate"), g_cap.prompt[:60])
     g_nocap = _GS("t", prompt_terms=["a woman at a gate"], ref_captions=["Ao dai"])
     check("không có ảnh tham chiếu -> prompt không đổi", g_nocap.prompt == "a woman at a gate")
-        check("inpaint: IoU cho kiểm nhất quán hộp zoom và hộp toàn ảnh", abs(ag_inp._iou((0, 0, 10, 10), (0, 0, 10, 10)) - 1.0) < 1e-6
+    check("inpaint: IoU cho kiểm nhất quán hộp zoom và hộp toàn ảnh", abs(ag_inp._iou((0, 0, 10, 10), (0, 0, 10, 10)) - 1.0) < 1e-6
           and ag_inp._iou((0, 0, 10, 10), (20, 20, 30, 30)) == 0.0)
     class LocAgent:
         def locate(self, image, labels): return [{"bbox": (100, 100, 300, 260), "label": labels[0]}] if labels else []

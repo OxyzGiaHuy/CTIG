@@ -17,8 +17,39 @@ def run(agent, prompt: Prompt, analysis: AnalysisResult, search: SearchResult,
             dropped.append([se.entity_id, "không có thuộc tính kiểm chứng được"])
     spec.entities, spec.dropped = keep, dropped
     sync_auto_entities(spec, kb)
+    focus_context_entities(spec, prompt, analysis)
     resolve_attr_conflicts(spec)
     return spec
+
+
+def focus_context_entities(spec: CulturalSpec, prompt: Prompt, analysis: AnalysisResult | None = None) -> None:
+    """v1.8.1 (S021): thực thể BỐI CẢNH (lễ hội, chợ, buổi diễn) trong KB liệt kê mọi yếu tố (bánh nướng, múa lân, ông Địa...), nhưng
+    prompt chỉ nói một cảnh (trẻ rước đèn ông sao) -> Reviewer đòi cả bánh và múa lân, loop đuổi thứ prompt không nói. Giữ must_have
+    có từ khoá trùng với prompt (VI/EN) hoặc với tên thực thể vật thể trong spec; không cái nào trùng thì giữ 2 mục đầu và hạ trọng số."""
+    pe = ((getattr(analysis, "prompt_en", None) or prompt.text_en or "") + " " + (prompt.text_vi or "")).lower()
+    pw = set(_words(pe)) | set(w for w in pe.replace(",", " ").split() if len(w) >= 3)
+    obj_words: set[str] = set()
+    for se in spec.entities:
+        if se.kind == "object":
+            obj_words |= _words(se.name_en) | set(se.name_vi.lower().split())
+    for se in spec.entities:
+        if se.kind != "context" or len(se.required_attrs_en) <= 2:
+            continue
+        keep_idx = []
+        for i, a in enumerate(se.required_attrs_en):
+            ws = _words(a) | set((se.required_attrs[i] if i < len(se.required_attrs) else "").lower().split())
+            if ws & pw or ws & obj_words:
+                keep_idx.append(i)
+        if not keep_idx:
+            keep_idx = [0, 1]
+            se.weight = min(se.weight, 0.65)
+            spec.dropped.append([se.entity_id, "bối cảnh: prompt không nêu yếu tố nào -> giữ 2 must_have đầu, hạ trọng số"])
+        else:
+            spec.dropped.append([se.entity_id, f"bối cảnh: giữ {len(keep_idx)}/{len(se.required_attrs_en)} must_have có trong prompt"])
+        se.required_attrs_en = [se.required_attrs_en[i] for i in keep_idx]
+        se.required_attrs = [se.required_attrs[i] for i in keep_idx if i < len(se.required_attrs)]
+        if se.tags_en:
+            se.tags_en = [tg for tg in se.tags_en if _words(tg) & (pw | obj_words)] or se.tags_en[:2]
 
 
 def sync_auto_entities(spec: CulturalSpec, kb: KnowledgeBase) -> None:

@@ -66,7 +66,7 @@ def _fix_memory_write(kb_auto_dir: Path, eid: str, fix: str, prompt_id: str, mod
         pass
 
 
-STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 4, "spec": 4, "genspec": 4, "multigen": 3, "review": 1,
+STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 4, "spec": 5, "genspec": 4, "multigen": 3, "review": 1,
               "brief": 2, "ref_filter": 2, "candidate_review": 11}
 
 

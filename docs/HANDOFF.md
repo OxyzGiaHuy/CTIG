@@ -81,8 +81,8 @@ SD3.5/FLUX đuổi theo thuộc tính này vô ích. Sửa `9f8769e`: bước 2 
 ≥ 2 mục tốt, lọc từ lớp phủ/hoá chất (dung, resin, tar, coating...). Lượt `v18_smoke7b2` (xếp hàng) chạy lại với sửa này.
 S021 Trung Thu với 7B: KB tự sinh KHÔNG đủ 2 thuộc tính có gốc → lùi về bản tay; bản tay của thực thể bối cảnh liệt kê mọi yếu tố lễ hội
 (bánh nướng, múa lân, ông Địa) nên Reviewer đòi cả bánh trung thu và múa lân trong ảnh trẻ rước đèn ông sao → loop đuổi thứ prompt không
-nói. **Vấn đề mở**: với thực thể bối cảnh, must_have phải lọc theo yếu tố được nêu trong prompt (đèn ông sao) hoặc chỉ dùng must_not
-+ bối cảnh; chưa sửa.
+nói. Sửa: `focus_context_entities` (spec) giữ must_have của thực thể bối cảnh có từ khoá trùng prompt hoặc tên thực thể vật thể trong spec;
+không trùng cái nào thì giữ 2 mục đầu và hạ trọng số 0,65.
 
 ## 4. Lỗi/rủi ro còn mở
 

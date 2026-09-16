@@ -1088,6 +1088,17 @@ def test_v17_grounding_bare(tmp):
                      _SE3("y", "Y", "Y thing", ["a"], [], [], required_attrs_en=["round shape"], kind="object")])
     prs = _al(cs3)
     check("CLIP attr: không must_not -> tương phản với confusable hoặc câu trần", len(prs) == 2 and "kimono" in prs[0][1][0] and "plain photo" in prs[1][1][0], str(prs))
+    from ctig.stages.spec import focus_context_entities
+    from ctig.schema import CulturalSpec as _CS4, SpecEntity as _SE4, Prompt as _P4
+    ctx = _SE4("trung_thu", "Tết Trung Thu", "Mid-Autumn Festival", ["đèn ông sao", "bánh nướng", "múa lân"], [], [], weight=1.0, kind="context",
+               required_attrs_en=["five-pointed star lantern of colored cellophane", "square molded baked mooncakes", "lion dance with the Ong Dia character"])
+    cs4 = _CS4("t", [ctx])
+    focus_context_entities(cs4, _P4("x", "Trẻ con rước đèn ông sao đêm Trung Thu", "Children carry star lanterns at night during the Mid-Autumn festival"))
+    check("bối cảnh: chỉ giữ must_have được prompt nêu (đèn ông sao), bỏ bánh nướng/múa lân",
+          cs4.entities[0].required_attrs_en == ["five-pointed star lantern of colored cellophane"], str(cs4.entities[0].required_attrs_en))
+    ctx2 = _SE4("tet", "Tết", "Lunar New Year", ["a", "b", "c"], [], [], weight=1.0, kind="context", required_attrs_en=["kumquat tree", "red envelopes", "five-fruit tray"])
+    cs5 = _CS4("t", [ctx2]); focus_context_entities(cs5, _P4("y", "Gia đình sum họp ngày Tết", "A family gathers for the new year"))
+    check("bối cảnh: prompt không nêu yếu tố -> giữ 2 mục đầu, hạ trọng số", len(cs5.entities[0].required_attrs_en) == 2 and cs5.entities[0].weight == 0.65)
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh
     class VqaAgent:

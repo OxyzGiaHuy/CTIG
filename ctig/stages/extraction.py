@@ -24,14 +24,15 @@ from ..kb import KnowledgeBase
 from ..schema import EvidenceItem, SearchResult, to_dict
 
 
-def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, log=print) -> SearchResult:
-    if not cfg.extract or not hasattr(agent, "extract_evidence"):
+def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, log=print, kb_auto_dir: Path | None = None) -> SearchResult:
+    if not cfg.extract or not (hasattr(agent, "extract_evidence") or hasattr(agent, "draft_kb_entry")):
         return search
     cache_dir.mkdir(parents=True, exist_ok=True)
+    kb_auto_dir = Path(kb_auto_dir) if kb_auto_dir else cache_dir.parent / "kb_auto"
     by_entity: dict[str, list[EvidenceItem]] = {}
     for it in search.items:
         if it.kind in ("wiki_text", "web_text") and it.snippet and len(it.snippet) > 80 \
-                and not it.provenance.startswith("kb.notes") and it.provenance != "extracted":
+                and not it.provenance.startswith("kb.notes") and it.provenance not in ("extracted", "kb_auto"):
             by_entity.setdefault(it.entity_id, []).append(it)
 
     for eid, texts in by_entity.items():
@@ -40,10 +41,36 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
             continue
         # Ưu tiên nguồn dài (toàn văn trang) hơn snippet; giới hạn số nguồn để VLM 3B không loạn và không tốn 70s.
         texts = sorted(texts, key=lambda t: -len(t.snippet))[: getattr(cfg, "extract_max_sources", 6)]
-        # v1.8 KB tự sinh: thực thể không có bản tay (ad-hoc, hoặc KB thiếu must_have_en) -> dựng CẢ bản ghi theo mẫu KB.
-        if getattr(cfg, "auto_kb", True) and not ent.must_have_en and hasattr(agent, "draft_kb_entry"):
-            if draft_kb(agent, ent, texts, cache_dir.parent / "kb_auto", search, log=log):
+        # v1.8 KB tự sinh trong Grounding. kb_mode "auto": dựng cho MỌI thực thể từ nguồn truy hồi (KB tay chỉ là danh mục tên
+        # và đường lùi); "hand": chỉ thực thể thiếu bản tay; "hand_only": không dựng.
+        mode = getattr(cfg, "kb_mode", "auto") if getattr(cfg, "auto_kb", True) else "hand_only"
+        want_draft = hasattr(agent, "draft_kb_entry") and (mode == "auto" or (mode == "hand" and not ent.must_have_en))
+        if want_draft:
+            if draft_kb(agent, ent, texts, kb_auto_dir, search, cfg=cfg, log=log):
+                # thuộc tính TAY trên item KB không được trộn vào spec nữa (spec chỉ dùng bản tự dựng)
+                for it in search.items:
+                    if it.entity_id == eid and it.provenance.startswith("kb"):
+                        it.must_have, it.must_not, it.confusable_with = [], [], []
+                search.notes.append(f"kb {eid}: nguồn thuộc tính = tự dựng (auto)")
                 continue
+            if ent.must_have_en:
+                search.notes.append(f"kb {eid}: tự dựng không đủ -> dùng bản tay (hand)")
+                continue
+            thin = _LAST_THIN_DRAFT.pop(eid, None)
+            if thin and thin.get("must_have"):
+                # bản nháp mỏng vẫn có thuộc tính kèm câu gốc -> dùng như kết quả rút, KHÔNG gọi LLM lần hai trên cùng văn bản
+                search.items.append(EvidenceItem(
+                    entity_id=eid, kind="wiki_text", title=f"Rút từ văn bản: {ent.name_vi}",
+                    snippet=f"Thuộc tính (bản nháp KB mỏng) từ {len(texts)} nguồn: " + "; ".join(t.title for t in texts),
+                    must_have=list(thin["must_have"]), must_not=list(thin.get("must_not", [])),
+                    confusable_with=list(thin.get("confusable_with", [])), url=texts[0].url, score=0.7, provenance="extracted",
+                    attr_sources=dict(thin.get("attr_sources", {}))))
+                if not ent.must_have:
+                    ent.must_have, ent.must_not = list(thin["must_have"]), list(thin.get("must_not", []))
+                    ent.confusable_with = list(thin.get("confusable_with", []))
+                continue
+        if not hasattr(agent, "extract_evidence"):
+            continue
         cache_file = cache_dir / f"{eid}.json"
         extracted = None
         if cfg.evidence_cache and cache_file.exists():
@@ -167,64 +194,146 @@ def clean_extracted(extracted: dict, ent) -> tuple[dict, list[str]]:
     return out, junk
 
 
+#: bản nháp KB mỏng của lần gọi vừa rồi (theo id) để đường rút cũ dùng lại thay vì gọi LLM lần hai; id đã lỗi để không thử lại
+#: trong cùng tiến trình (3 lần retry JSON x prompt ~6k token mỗi lần).
+_LAST_THIN_DRAFT: dict[str, dict] = {}
+_FAILED_DRAFT_IDS: set[str] = set()
+
+
+def _read_json(path: Path) -> dict | None:
+    try:
+        return json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def draft_usable(d: dict | None) -> bool:
+    """Bản ghi tự sinh dùng được khi có >= 2 must_have kèm câu gốc (cùng một ngưỡng cho lúc dựng và lúc nạp lại)."""
+    return bool(d) and isinstance(d.get("must_have_en"), list) and len(d["must_have_en"]) >= 2
+
+
+def hand_snapshot(ent) -> dict:
+    """Bản tay hiện có của thực thể (để export so auto/tay); rỗng nếu chưa có."""
+    return {"must_have_en": list(ent.must_have_en), "must_not_en": list(ent.must_not_en),
+            "tags_en": list(ent.tags_en), "neg_tags_en": list(ent.neg_tags_en)}
+
+
+def clean_draft(d: dict, ent) -> tuple[dict, list[str]]:
+    """Cho bản nháp qua CÙNG bộ lọc rác của đường rút thuộc tính cũ (clean_extracted): bỏ thuộc tính là tên loại, must_not trùng
+    must_have, confusable là chính thực thể hoặc cùng văn hoá Việt; giữ thẳng hàng VI/EN. Không so với bản tay (kb_mode auto)."""
+    from types import SimpleNamespace
+
+    # Lọc trên bản TIẾNG ANH: tokens() bỏ từ < 3 chữ nên cụm Việt ngắn ("hai tà xẻ") chỉ còn 1 token và bị coi là rác.
+    blank = SimpleNamespace(name_vi=ent.name_vi, name_en=ent.name_en, must_have=[])
+    en2vi_h = dict(zip(d.get("must_have_en", []), d.get("must_have", [])))
+    en2vi_n = dict(zip(d.get("must_not_en", []), d.get("must_not", [])))
+    cleaned, junk = clean_extracted({"must_have": list(en2vi_h), "must_not": list(en2vi_n),
+                                     "confusable_with": list(d.get("confusable_with", []) or [])}, blank)
+    out = dict(d)
+    out["must_have_en"] = list(cleaned.get("must_have", []))
+    out["must_have"] = [en2vi_h[a] for a in out["must_have_en"]]
+    out["must_not_en"] = list(cleaned.get("must_not", []))
+    out["must_not"] = [en2vi_n[a] for a in out["must_not_en"]]
+    out["confusable_with"] = list(cleaned.get("confusable_with", []))
+    out["attr_sources"] = {k: v for k, v in (d.get("attr_sources") or {}).items() if k in out["must_have"] or k in out["must_not"]}
+    return out, junk
+
+
 def apply_kb_draft(ent, d: dict) -> None:
-    """Nạp bản ghi KB tự sinh vào Entity trong bộ nhớ (dùng cho cả lúc dựng mới và lúc nạp lại từ cache)."""
+    """Nạp bản ghi KB tự sinh vào Entity trong bộ nhớ (dùng cho cả lúc dựng mới và lúc nạp lại từ cache). Chuẩn hoá tại đây
+    để file do người duyệt sửa tay cũng an toàn: kind chỉ nhận 'context'/'object', prior kẹp [0, 1]."""
     ent.must_have, ent.must_have_en = list(d.get("must_have", [])), list(d.get("must_have_en", []))
     ent.must_not, ent.must_not_en = list(d.get("must_not", [])), list(d.get("must_not_en", []))
-    ent.confusable_with = list(d.get("confusable_with", []))
-    ent.tags_en, ent.neg_tags_en = list(d.get("tags_en", [])), list(d.get("neg_tags_en", []))
+    ent.confusable_with = [c for c in (d.get("confusable_with") or []) if isinstance(c, dict) and (c.get("name") or c.get("name_en"))]
+    for c in ent.confusable_with:
+        c.setdefault("name", c.get("name_en", "")); c.setdefault("name_en", c.get("name", "")); c.setdefault("culture", ""); c.setdefault("why", "")
+    ent.tags_en = [str(x) for x in (d.get("tags_en") or []) if str(x).strip()][:5]
+    ent.neg_tags_en = [str(x) for x in (d.get("neg_tags_en") or []) if str(x).strip()][:4]
     if d.get("clip_label"):
-        ent.clip_label = d["clip_label"]
-    if d.get("kind"):
-        ent.kind = d["kind"]
-    if d.get("prior_strength") is not None:
-        ent.prior_strength = float(d["prior_strength"])
-    ent.notes = (ent.notes or "") + " | KB tự sinh (source=auto)"
+        ent.clip_label = str(d["clip_label"])
+    ent.kind = "context" if str(d.get("kind", "")).strip().lower() == "context" else "object"
+    try:
+        ent.prior_strength = max(0.0, min(1.0, float(d.get("prior_strength", 0.2))))
+    except (TypeError, ValueError):
+        ent.prior_strength = 0.2
+    if "KB tự sinh" not in (ent.notes or ""):
+        ent.notes = (ent.notes or "") + " | KB tự sinh (source=auto)"
 
 
 def load_kb_draft(ent, kb_auto_dir: Path) -> bool:
-    f = Path(kb_auto_dir) / f"{ent.id}.json"
-    if not f.exists():
-        return False
-    try:
-        d = json.loads(f.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return False
-    if not d.get("must_have_en"):
+    d = _read_json(Path(kb_auto_dir) / f"{ent.id}.json")
+    if not draft_usable(d):
         return False
     apply_kb_draft(ent, d)
     return True
 
 
-def draft_kb(agent, ent, texts: list[EvidenceItem], kb_auto_dir: Path, search: SearchResult, log=print) -> bool:
-    """Dựng bản ghi KB tự sinh cho `ent` từ văn bản đã truy hồi; cache theo id; thêm EvidenceItem provenance 'kb_auto'.
-    Trả True nếu có bản ghi dùng được (>= 2 must_have có câu gốc)."""
+def rehydrate(search: SearchResult, kb: KnowledgeBase, kb_auto_dir: Path) -> None:
+    """Sau khi đọc SearchResult từ cache (Session hoặc Pipeline): dựng lại trạng thái KB bộ nhớ mà lúc chạy thật là tác dụng phụ
+    của extraction.run. Thực thể ad-hoc chưa có trong KB (Analysis cũng đọc từ đĩa) được đăng ký lại từ _meta của bản nháp."""
+    for it in search.items:
+        if it.provenance == "kb_auto":
+            ent = kb.get(it.entity_id)
+            d = _read_json(Path(kb_auto_dir) / f"{it.entity_id}.json")
+            if ent is None:
+                meta = (d or {}).get("_meta", {})
+                name_vi = meta.get("name_vi") or it.title.split(":", 1)[-1].strip() or it.entity_id
+                ent = kb.add_adhoc(name_vi, meta.get("name_en") or name_vi)
+                if ent.id != it.entity_id:
+                    kb.entities[it.entity_id] = ent
+            if "KB tự sinh" in (ent.notes or ""):
+                continue
+            if draft_usable(d):
+                apply_kb_draft(ent, d)
+            else:  # file bị xoá/hỏng: ít nhất giữ thuộc tính ghi trên item
+                ent.must_have, ent.must_not, ent.confusable_with = list(it.must_have), list(it.must_not), list(it.confusable_with)
+        elif it.provenance == "extracted":
+            ent = kb.get(it.entity_id)
+            if ent is not None and not ent.must_have:
+                ent.must_have, ent.must_not, ent.confusable_with = list(it.must_have), list(it.must_not), list(it.confusable_with)
+
+
+def draft_kb(agent, ent, texts: list[EvidenceItem], kb_auto_dir: Path, search: SearchResult, cfg=None, log=print) -> bool:
+    """Dựng bản ghi KB tự sinh cho `ent` từ văn bản đã truy hồi. Cache theo id (tôn trọng cfg.evidence_cache; bản mỏng không
+    được cache để lần sau có nguồn tốt hơn thì dựng lại). Thêm EvidenceItem provenance 'kb_auto'. Trả True nếu dùng được."""
+    kb_auto_dir = Path(kb_auto_dir)
     kb_auto_dir.mkdir(parents=True, exist_ok=True)
     f = kb_auto_dir / f"{ent.id}.json"
-    d = None
-    if f.exists():
-        try:
-            d = json.loads(f.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            d = None
-    if d is None:
+    use_cache = bool(getattr(cfg, "evidence_cache", True)) if cfg is not None else True
+    d = _read_json(f) if use_cache else None
+    if not draft_usable(d):
+        if ent.id in _FAILED_DRAFT_IDS:
+            search.notes.append(f"kb_auto {ent.id}: đã lỗi trước đó trong tiến trình này -> không thử lại")
+            return False
         t0 = time.time()
         try:
-            d = agent.draft_kb_entry(ent, [{"title": t.title, "url": t.url, "text": t.snippet} for t in texts])
+            raw = agent.draft_kb_entry(ent, [{"title": t.title, "url": t.url, "text": t.snippet} for t in texts])
         except Exception as exc:  # noqa: BLE001
+            _FAILED_DRAFT_IDS.add(ent.id)
             search.retrieval_errors.append(f"kb_auto {ent.id}: {type(exc).__name__}: {exc}")
             return False
+        d, junk = clean_draft(raw, ent)
+        for j in junk[:4]:
+            search.notes.append(f"kb_auto {ent.id}: loại rác '{str(j)[:50]}'")
         d["_meta"] = {"entity_id": ent.id, "name_vi": ent.name_vi, "name_en": ent.name_en, "n_sources": len(texts),
-                      "sources": [t.title for t in texts], "seconds": round(time.time() - t0, 1), "source": "auto"}
-        f.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
-    for x in d.get("dropped_unsourced", [])[:4]:
-        search.notes.append(f"kb_auto {ent.id}: bỏ '{str(x)[:50]}' vì không có câu gốc")
-    if len(d.get("must_have_en", [])) < 2:
-        search.notes.append(f"kb_auto {ent.id}: chỉ {len(d.get('must_have_en', []))} must_have có câu gốc -> dùng đường rút thuộc tính cũ")
+                      "sources": [t.title for t in texts], "seconds": round(time.time() - t0, 1), "source": "auto",
+                      "hand": hand_snapshot(ent)}
+        for x in (d.get("dropped_unsourced") or [])[:4]:
+            search.notes.append(f"kb_auto {ent.id}: bỏ '{str(x)[:50]}' vì không có câu gốc")
+        if draft_usable(d) and use_cache:
+            try:
+                f.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+            except OSError as exc:
+                search.notes.append(f"kb_auto {ent.id}: không ghi được cache ({exc})")
+    if not draft_usable(d):
+        search.notes.append(f"kb_auto {ent.id}: chỉ {len((d or {}).get('must_have_en', []))} must_have có câu gốc -> không dùng bản tự sinh")
+        if d:
+            _LAST_THIN_DRAFT[ent.id] = d
         return False
     apply_kb_draft(ent, d)
+    meta = d.get("_meta", {})
     log(f"  [2b] {ent.name_vi}: KB tự sinh {len(ent.must_have_en)} must_have, {len(ent.must_not_en)} must_not, "
-        f"{len(ent.tags_en)} tags, kind={ent.kind}, prior={ent.prior_strength:.2f} ({d['_meta'].get('n_sources', len(texts))} nguồn)")
+        f"{len(ent.tags_en)} tags, kind={ent.kind}, prior={ent.prior_strength:.2f} ({meta.get('n_sources', len(texts))} nguồn)")
     search.items.append(EvidenceItem(
         entity_id=ent.id, kind="wiki_text", title=f"KB tự sinh: {ent.name_vi}",
         snippet=f"Bản ghi KB do LLM dựng từ {len(texts)} nguồn: " + "; ".join(t.title for t in texts),

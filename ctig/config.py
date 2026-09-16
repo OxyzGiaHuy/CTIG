@@ -79,9 +79,14 @@ class PerceptionConfig:
 class RetrievalConfig:
     #: "local" | "wiki"
     backend: str = "wiki"
-    #: v1.8: thực thể KHÔNG có bản KB viết tay (ad-hoc hoặc thiếu must_have_en) -> LLM dựng cả bản ghi KB theo đúng mẫu
-    #: (2 thuộc tính định danh trước, must_not theo cặp dễ nhầm, tags, clip_label, kèm câu gốc) từ Wikipedia/web; cache
-    #: runs/_cache/kb_auto/<eid>.json, nhãn source=auto. Bản tay 38 thực thể = tập đã duyệt của cùng quy trình.
+    #: v1.8: tri thức thực thể do Grounding TỰ DỰNG lúc chạy (LLM đọc Wikipedia/web -> bản ghi KB theo mẫu: 2 thuộc tính định
+    #: danh trước, must_not theo cặp dễ nhầm, tags, clip_label, prior; mỗi thuộc tính kèm câu gốc; cache runs/_cache/kb_auto/).
+    #:   "auto"      (mặc định): dựng cho MỌI thực thể trong spec, kể cả thực thể có bản tay. KB tay chỉ còn là danh mục
+    #:               tên/alias để Analysis nhận thực thể, và là đường lùi khi nguồn không đủ (< 2 thuộc tính có câu gốc).
+    #:   "hand"      : KB tay như v1.7, tự sinh chỉ cho thực thể thiếu must_have_en.
+    #:   "hand_only" : không tự sinh (tái lập v1.7).
+    kb_mode: str = "auto"
+    #: (cũ, giữ tương thích) tắt hẳn tự sinh = kb_mode "hand_only"
     auto_kb: bool = True
     max_evidence_per_entity: int = 3
     download_images: bool = True

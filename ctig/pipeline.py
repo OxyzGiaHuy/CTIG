@@ -155,6 +155,7 @@ class Pipeline:
                 if self.kb.get(se.entity_id) is None:
                     ent = self.kb.add_adhoc(se.name_vi, se.name_en)
                     ent.must_have, ent.must_not, ent.confusable_with = se.required_attrs, se.forbidden_attrs, se.confusables
+            st_extract.rehydrate(search, self.kb, self.cache_dir / "kb_auto")  # bản KB tự sinh (v1.8)
         else:
             analysis = st_analysis.run(self.agent, prompt, self.kb, cfg.max_candidate_entities)
             log(f"  [1] ứng viên: {analysis.candidate_entity_ids} | vùng: {analysis.region_hint or '-'}"
@@ -165,7 +166,8 @@ class Pipeline:
             n_txt = sum(1 for i in search.items if i.kind in ("wiki_text", "web_text") and i.provenance != "kb.notes (offline)")
             log(f"  [2] {len(search.items)} bằng chứng: {n_txt} văn bản online, {n_img} ảnh tải về, {n_ref} tham chiếu đạt CLIP"
                 + (f" | lỗi: {search.retrieval_errors[:2]}" if search.retrieval_errors else ""))
-            search = st_extract.run(self.agent, search, self.kb, cfg.retrieval, self.cache_dir / "evidence", log=log)
+            search = st_extract.run(self.agent, search, self.kb, cfg.retrieval, self.cache_dir / "evidence", log=log,
+                                    kb_auto_dir=self.cache_dir / "kb_auto")
             for note in search.notes[:4]:
                 log(f"  [2b] {note}")
             spec = st_spec.run(self.agent, prompt, analysis, search, self.kb, cfg.max_spec_entities, cfg.min_entity_score)

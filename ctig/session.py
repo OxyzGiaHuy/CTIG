@@ -690,27 +690,21 @@ class Session:
         c = self.cfg
         key = _h({**self._base_key(), "ids": a.candidate_entity_ids,
                   "ret": [c.retrieval.backend, c.retrieval.web_api, c.retrieval.extract, c.retrieval.wiki_chars,
-                          c.retrieval.ref_image_min_clip, c.search_viz.k_images]})
+                          c.retrieval.ref_image_min_clip, c.search_viz.k_images, getattr(c.retrieval, "kb_mode", "auto"),
+                          getattr(c.retrieval, "auto_kb", True)]})
 
         def compute():
             retriever = get_retriever(c.retrieval, self.clip, self.cache_dir, web=self.web, k_images=c.search_viz.k_images)
             s = retriever.search(a, self.kb, raw_prompt=self.prompt.text_vi)
-            return st_extract.run(self.agent, s, self.kb, c.retrieval, self.cache_dir / "evidence", log=self.log)
+            return st_extract.run(self.agent, s, self.kb, c.retrieval, self.cache_dir / "evidence", log=self.log,
+                                  kb_auto_dir=self.cache_dir / "kb_auto")
 
         val, src = self._memo("retrieve", key, SearchResult, compute, force)
         if src == "disk":
-            # thực thể ad-hoc và thuộc tính rút thêm phải nạp lại vào KB bộ nhớ
-            from .stages.extraction import load_kb_draft
+            # thực thể ad-hoc, bản KB tự sinh và thuộc tính rút thêm phải nạp lại vào KB bộ nhớ (kể cả khi Analysis cũng đọc từ đĩa)
+            from .stages.extraction import rehydrate
 
-            for it in val.items:
-                if it.provenance == "kb_auto":
-                    ent = self.kb.get(it.entity_id)
-                    if ent is not None and not ent.must_have_en:
-                        load_kb_draft(ent, self.cache_dir / "kb_auto")
-                if it.provenance == "extracted":
-                    ent = self.kb.get(it.entity_id)
-                    if ent is not None and not ent.must_have:
-                        ent.must_have, ent.must_not, ent.confusable_with = list(it.must_have), list(it.must_not), list(it.confusable_with)
+            rehydrate(val, self.kb, self.cache_dir / "kb_auto")
         return val, src
 
     def spec(self, force: bool = False) -> tuple[CulturalSpec, str]:

@@ -160,26 +160,40 @@ class PromptAgent:
         item = _s(attr_vi=STR, attr_en=STR, quote=STR)
         schema = _s(must_have=_arr(item), must_not=_arr(item),
                     confusable_with=_arr(_s(name=STR, name_en=STR, culture=STR, why=STR)),
-                    tags_en=_arr(STR), neg_tags_en=_arr(STR), clip_label=STR, kind=STR, prior_strength=NUM)
-        d = self.llm.complete_json(system, f"Văn bản:\n\n{numbered}", schema, max_new_tokens=1400)
+                    tags_en=_arr(STR), neg_tags_en=_arr(STR), clip_label=STR,
+                    kind={"type": "string", "enum": ["object", "context"]}, prior_strength=NUM)
+        try:
+            d = self.llm.complete_json(system, f"Văn bản:\n\n{numbered}", schema, max_new_tokens=1400)
+        except TypeError:  # backend không nhận max_new_tokens (API): dùng mặc định
+            d = self.llm.complete_json(system, f"Văn bản:\n\n{numbered}", schema)
         from ..stages.extraction import quote_in_texts
 
         raw = [t.get("text", "") for t in texts]
         out = {"must_have": [], "must_have_en": [], "must_not": [], "must_not_en": [], "attr_sources": {}, "dropped_unsourced": []}
         for key in ("must_have", "must_not"):
+            seen_vi: set[str] = set()
             for it in d.get(key, []) or []:
                 if not isinstance(it, dict) or not it.get("attr_en"):
                     continue
                 vi, en, q = str(it.get("attr_vi") or it["attr_en"]).strip(), str(it["attr_en"]).strip(), str(it.get("quote") or "").strip()
+                if vi.lower() in seen_vi or en.lower() in {x.lower() for x in out[key + "_en"]}:
+                    continue  # LLM 3B hay lặp một thuộc tính hai cách viết
                 if q and quote_in_texts(q, raw):
+                    seen_vi.add(vi.lower())
                     out[key].append(vi); out[key + "_en"].append(en); out["attr_sources"][vi] = q
                 else:
                     out["dropped_unsourced"].append(en)
-        out["confusable_with"] = [c for c in (d.get("confusable_with") or []) if isinstance(c, dict) and c.get("name")]
+        cfs = []
+        for c in d.get("confusable_with") or []:
+            if not isinstance(c, dict) or not (c.get("name") or c.get("name_en")):
+                continue
+            cfs.append({"name": str(c.get("name") or c.get("name_en")), "name_en": str(c.get("name_en") or c.get("name")),
+                        "culture": str(c.get("culture") or ""), "why": str(c.get("why") or "")})
+        out["confusable_with"] = cfs
         out["tags_en"] = [str(x).strip() for x in (d.get("tags_en") or []) if str(x).strip()][:5]
         out["neg_tags_en"] = [str(x).strip() for x in (d.get("neg_tags_en") or []) if str(x).strip()][:4]
         out["clip_label"] = str(d.get("clip_label") or "").strip()
-        out["kind"] = "context" if str(d.get("kind", "")).lower().startswith("c") else "object"
+        out["kind"] = "context" if str(d.get("kind", "")).strip().lower() == "context" else "object"
         try:
             out["prior_strength"] = max(0.0, min(1.0, float(d.get("prior_strength", 0.2))))
         except (TypeError, ValueError):

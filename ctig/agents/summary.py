@@ -13,7 +13,7 @@ def run(agent, search: SearchResult, spec: CulturalSpec, kb: KnowledgeBase, max_
     briefs: dict[str, CulturalBrief] = {}
     for se in spec.entities:
         texts = [it for it in search.items if it.entity_id == se.entity_id and it.kind in ("wiki_text", "web_text")
-                 and it.snippet and len(it.snippet) > 80 and it.provenance != "extracted"]
+                 and it.snippet and len(it.snippet) > 80 and it.provenance not in ("extracted", "kb_auto")]
         texts = sorted(texts, key=lambda t: -len(t.snippet))[:max_sources]
         ent = kb.get(se.entity_id)
         if not texts and ent is None:

@@ -55,7 +55,7 @@ class AnthropicBackend:
             output_config={"effort": self.effort},
         )
 
-    def complete_json(self, system, user, schema, images=None):
+    def complete_json(self, system, user, schema, images=None, max_new_tokens=None):  # max_new_tokens: tương thích JSONChatMixin
         from . import cache as llm_cache
 
         c = llm_cache.current()

@@ -1007,6 +1007,31 @@ def test_v17_grounding_bare(tmp):
     ent3 = s.kb.add_adhoc("thứ mỏng", "thin thing")
     ok3 = st_ex.draft_kb(ThinAgent(), ent3, [sr.items[0]], tmp / "kb_auto", sr, log=lambda *a: None)
     check("kb_auto: < 2 must_have có gốc -> không dùng, lùi về đường cũ", not ok3 and not ent3.must_have_en)
+    # kb_mode auto: thực thể CÓ bản tay (áo dài) cũng được dựng lại từ nguồn; thuộc tính tay trên item KB bị xoá khỏi spec
+    from types import SimpleNamespace
+    ao = s.kb.get("ao_dai"); hand_before = list(ao.must_have_en)
+    kb_item = EvidenceItem("ao_dai", "wiki_text", "KB", "x", must_have=list(ao.must_have), must_not=list(ao.must_not), provenance="kb@0.4")
+    txt = EvidenceItem("ao_dai", "wiki_text", "Áo dài – Wikipedia", "Áo dài có cổ cao đứng và hai tà dài xẻ đến eo, mặc với quần ống rộng. " * 4, url="u")
+    sr2 = SearchResult("t", [kb_item, txt])
+    class AoAgent:
+        def draft_kb_entry(self, ent, texts):
+            return {"must_have": ["cổ cao đứng", "hai tà xẻ"], "must_have_en": ["high stand-up collar", "two long panels split at the waist"],
+                    "must_not": [], "must_not_en": [], "attr_sources": {"cổ cao đứng": "Áo dài có cổ cao đứng và hai tà dài xẻ đến eo"},
+                    "dropped_unsourced": [], "confusable_with": [], "tags_en": ["stand-up collar"], "neg_tags_en": ["qipao"],
+                    "clip_label": "a photo of a Vietnamese ao dai", "kind": "object", "prior_strength": 0.5}
+    cfg_auto = SimpleNamespace(extract=True, extract_max_sources=6, evidence_cache=False, auto_kb=True, kb_mode="auto")
+    st_ex.run(AoAgent(), sr2, s.kb, cfg_auto, tmp / "ev", log=lambda *a: None)
+    check("kb_mode auto: áo dài (có bản tay) được dựng lại từ nguồn, item KB tay bị xoá thuộc tính, ghi chú nguồn auto",
+          ao.must_have_en == ["high stand-up collar", "two long panels split at the waist"] and kb_item.must_have == []
+          and any("tự dựng (auto)" in n for n in sr2.notes), f"{ao.must_have_en[:2]} {kb_item.must_have[:1]} {sr2.notes[-1:]}")
+    class ThinAo(AoAgent):
+        def draft_kb_entry(self, ent, texts): d = super().draft_kb_entry(ent, texts); d["must_have_en"] = d["must_have_en"][:1]; d["must_have"] = d["must_have"][:1]; return d
+    nl = s.kb.get("non_la"); hand_nl = list(nl.must_have_en)
+    kb_item2 = EvidenceItem("non_la", "wiki_text", "KB", "x", must_have=list(nl.must_have), provenance="kb@0.4")
+    sr3 = SearchResult("t", [kb_item2, EvidenceItem("non_la", "wiki_text", "Nón lá – Wikipedia", "Nón lá hình chóp làm từ lá cọ. " * 6, url="u")])
+    st_ex.run(ThinAo(), sr3, s.kb, cfg_auto, tmp / "ev2", log=lambda *a: None)
+    check("kb_mode auto: nguồn không đủ -> giữ bản tay, item KB giữ thuộc tính", nl.must_have_en == hand_nl and kb_item2.must_have and any("dùng bản tay" in n for n in sr3.notes), str(sr3.notes[-1:]))
+    s.kb.entities["ao_dai"].must_have_en = hand_before  # trả lại cho các test sau
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh
     class VqaAgent:

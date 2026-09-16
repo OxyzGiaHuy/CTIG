@@ -2,7 +2,7 @@
 llm:        {backend: rule, cache: false}
 t2i:        {backend: stub, n_candidates: 1}
 perception: {backend: stub}
-retrieval:  {backend: local, download_images: false, web_api: none, extract: false}
+retrieval:  {backend: local, download_images: false, web_api: none, extract: false, kb_mode: hand_only}
 judge:      {backend: rule}
 review:     {enabled: true, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
 models:     [stub#bare, stub]

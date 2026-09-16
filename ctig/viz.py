@@ -153,8 +153,8 @@ def evidence_table(search: SearchResult, kb, source: str | None = None) -> str:
         ent = kb.get(eid)
         name = ent.name_vi if ent else eid
         kbi = [i for i in items if i.kind == "kb"]
-        exi = [i for i in items if i.provenance == "extracted"]
-        texts = [i for i in items if i.kind in ("wiki_text", "web_text") and i.provenance != "extracted"]
+        exi = [i for i in items if i.provenance in ("extracted", "kb_auto")]
+        texts = [i for i in items if i.kind in ("wiki_text", "web_text") and i.provenance not in ("extracted", "kb_auto")]
         imgs = [i for i in items if i.kind == "image"]
         parts.append(f"<h4>{_e(name)} <span class='muted'>({_e(eid)})</span> · {len(texts)} văn bản · {len(imgs)} ảnh</h4>")
         parts.append("<div class='cols'>")

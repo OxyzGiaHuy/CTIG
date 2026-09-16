@@ -1092,6 +1092,15 @@ def test_v17_grounding_bare(tmp):
     check("bộ nhớ liên prompt ghi/đọc, mới nhất trước", _fix_memory_read(tmp / "kbm", "ao_dai") == ["rewrite", "attr_refs"], str(_fix_memory_read(tmp / "kbm", "ao_dai")))
     from ctig.agents import inpaint as ag_inp
     check("inpaint: họ sdxl/sd15 được, stub/flux không", ag_inp.can_inpaint("realvis_xl+ref") and ag_inp.can_inpaint("sd15_base") and not ag_inp.can_inpaint("stub") and not ag_inp.can_inpaint("flux_dev"))
+    rec_p = {"must_have": ["a", "b"], "must_have_en": ["round basket-shaped hull", "woven bamboo strips"], "must_not": [], "must_not_en": [],
+             "attr_sources": {}, "tags_en": [], "neg_tags_en": [], "clip_label": "x", "kind": "object", "prior_strength": 0.8,
+             "_meta": {"entity_id": "x_prior"}}
+    ent_p = s.kb.add_adhoc("p test", "p test"); ent_p.id = "x_prior"
+    st_ex.apply_kb_draft(ent_p, rec_p)
+    check("prior do LLM đoán KHÔNG dùng cho cổng ảnh (thực thể tự sinh coi như hiếm, 0.2)", ent_p.prior_strength == 0.2 and rec_p["prior_strength_llm"] == 0.8, str(ent_p.prior_strength))
+    rec_p2 = dict(rec_p); rec_p2["_meta"] = {"entity_id": "x_prior", "hand_prior": 0.55}
+    st_ex.apply_kb_draft(ent_p, rec_p2)
+    check("thực thể có bản tay -> dùng prior tay", ent_p.prior_strength == 0.55)
     from ctig.models.registry import parse_flags as _pf
     check("cờ +init hợp lệ, cờ lạ vẫn lỗi", _pf("sd35_medium+init") == {"init"} and _pf("realvis_xl+ref") == {"ref"})
     from ctig.schema import GenSpec as _GS

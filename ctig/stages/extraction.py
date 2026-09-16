@@ -255,10 +255,12 @@ def apply_kb_draft(ent, d: dict) -> None:
         ent.clip_label = str(d["clip_label"])
     ent.analogy_en = str(d.get("analogy_en") or "").strip()
     ent.kind = "context" if str(d.get("kind", "")).strip().lower() == "context" else "object"
-    try:
-        ent.prior_strength = max(0.0, min(1.0, float(d.get("prior_strength", 0.2))))
-    except (TypeError, ValueError):
-        ent.prior_strength = 0.2
+    # v1.9: prior do LLM TỰ ĐOÁN không đáng tin (thuyền thúng: LLM chấm 0,80 trong khi model thật sự không vẽ được -> cổng
+    # auto_ref đóng, mất kênh ảnh đúng ở thực thể cần nó nhất). Thực thể KHÔNG có bản tay coi như prior THẤP (hiếm) để cổng mở;
+    # giá trị LLM chỉ lưu lại trong bản ghi để tham khảo.
+    d["prior_strength_llm"] = d.get("prior_strength")
+    hand_prior = (d.get("_meta", {}) or {}).get("hand_prior")
+    ent.prior_strength = float(hand_prior) if hand_prior is not None else 0.2
     if "KB tự sinh" not in (ent.notes or ""):
         ent.notes = (ent.notes or "") + " | KB tự sinh (source=auto)"
 
@@ -413,7 +415,9 @@ def draft_kb(agent, ent, texts: list[EvidenceItem], kb_auto_dir: Path, search: S
             search.notes.append(f"kb_auto {ent.id}: loại rác '{str(j)[:50]}'")
         d["_meta"] = {"entity_id": ent.id, "name_vi": ent.name_vi, "name_en": ent.name_en, "n_sources": len(texts),
                       "sources": [t.title for t in texts], "seconds": round(time.time() - t0, 1), "source": "auto",
-                      "hand": hand_snapshot(ent)}
+                      "hand": hand_snapshot(ent),
+                      # prior viết tay (đã hiệu chỉnh qua nhiều lần chạy) nếu thực thể có trong KB gốc
+                      "hand_prior": ent.prior_strength if ent.must_have_en else None}
         for x in (d.get("dropped_unsourced") or [])[:4]:
             search.notes.append(f"kb_auto {ent.id}: bỏ '{str(x)[:50]}' vì không có câu gốc")
         if draft_usable(d) and use_cache:

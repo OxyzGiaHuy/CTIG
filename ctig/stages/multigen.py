@@ -152,12 +152,13 @@ def _attr_contrast(clip, path: str, pairs: list[tuple[list[str], list[str]]]) ->
     return sum(vals) / len(vals)
 
 
-def should_use_refs(spec: CulturalSpec, kb: KnowledgeBase, cfg) -> tuple[bool, str]:
+def should_use_refs(spec: CulturalSpec, kb: KnowledgeBase, cfg, prior_max: float | None = None) -> tuple[bool, str]:
     """v1.5 (ImageRAG): chỉ cấp ảnh tham chiếu khi thực thể vật thể chính có prior thấp hoặc không có trong KB.
     Trả (dùng?, lý do)."""
     ar = getattr(cfg, "auto_ref", None)
     if ar is None or not getattr(ar, "enabled", False):
         return True, "auto_ref tắt"
+    pmax = ar.prior_max if prior_max is None else prior_max
     objs = [se for se in spec.entities if se.kind == "object"]
     if not objs:
         return False, "không có thực thể vật thể"
@@ -165,9 +166,9 @@ def should_use_refs(spec: CulturalSpec, kb: KnowledgeBase, cfg) -> tuple[bool, s
     ent = kb.get(main.entity_id)
     if ent is None:
         return True, f"{main.entity_id} không có trong KB -> coi là prior thấp"
-    if ent.prior_strength <= ar.prior_max:
-        return True, f"prior {ent.prior_strength:.2f} <= {ar.prior_max} -> dùng ảnh tham chiếu"
-    return False, f"prior {ent.prior_strength:.2f} > {ar.prior_max} -> model tự vẽ được, không dùng ảnh (tránh chép)"
+    if ent.prior_strength <= pmax:
+        return True, f"prior {ent.prior_strength:.2f} <= {pmax} -> dùng ảnh tham chiếu"
+    return False, f"prior {ent.prior_strength:.2f} > {pmax} -> model tự vẽ được, không dùng ảnh (tránh chép)"
 
 
 def score_key(c: Candidate) -> float:
@@ -358,8 +359,9 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                 gate_note = "bare: model nền không hệ thống (prompt dịch thẳng, negative chung, không LoRA/ảnh)"
                 flags = set()
             if "init" in flags:
-                # v1.9: ảnh tham chiếu làm ẢNH KHỞI TẠO (img2img) - kênh ảnh cho model chưa có IP-Adapter (SD 3.5 Medium)
-                use, why = should_use_refs(spec, kb, cfg)
+                # v1.9: ảnh tham chiếu làm ẢNH KHỞI TẠO (img2img) - kênh ảnh cho model chưa có IP-Adapter (SD 3.5 Medium).
+                # Cổng nới hơn +ref: img2img strength 0,75 giữ lại ít của ảnh gốc nên rủi ro chép thấp; số đo "giống ref" vẫn canh.
+                use, why = should_use_refs(spec, kb, cfg, prior_max=0.75)
                 if force_refs and not use:
                     use, why = True, "Filter báo model vẽ thiếu -> dùng ảnh khởi tạo"
                 if use and refs:

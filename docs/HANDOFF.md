@@ -183,6 +183,28 @@ Ngoài ra `viz.final_grid`: mỗi prompt có **lưới kết luận** ở đầu
 phải là ảnh cuối hệ thống, kèm Δ CLIP attr / Reviewer / VQAScore. Đã dựng lại cho v4; bản local:
 `~/Research/VnCultureGen/result_kaggle/vast_v1.8_smoke/v4/S001_walkthrough.html` (và S012, S021).
 
+## 3f. Kết quả v5 (`v18_v5`, xong 10:57) — 4 prompt (S001, S012, S021, S031) × 3 model nền, có ảnh ref của nhóm
+
+| model nền | CLIP attr bare → system | điểm Reviewer bare → system |
+|---|---|---|
+| RealVis XL | 0,75 → 0,92 | +0,18 → +0,45 |
+| SD 3.5 Medium | 0,49 → 0,86 | +0,31 → +0,45 |
+| FLUX.1-dev | 0,59 → 0,65 | +0,30 → +0,47 |
+
+System > bare ở cả 3 model, cả hai số đo (9/12 cặp theo tiêu chí của `compare_pairs`). Khoảng cách lớn nhất ở SD 3.5 (+0,37 CLIP attr)
+và RealVis (+0,27 Reviewer); FLUX ít hưởng lợi nhất về CLIP attr (+0,06) — khớp với quan sát "model mạnh đã biết thực thể phổ biến".
+Trang so sánh: `/workspace/runs/v18_v5/bare_vs_system.html`.
+
+**Kênh ảnh theo model** (điểm khác biệt còn lại): RealVis có IP-Adapter (h94) và FLUX có IP-Adapter XLabs; **SD 3.5 Medium KHÔNG có**
+(InstantX chỉ phát hành cho 3.5 Large). Đang cân nhắc thêm hàng `+init` (img2img từ ảnh tham chiếu, strength ~0,75) để mọi họ model
+có cùng một dạng kênh ảnh so được với nhau; rủi ro chép ảnh đã có số đo "giống ref" (ngưỡng 0,88) bắt.
+
+**ImageRAG (2502.09411) kết hợp ảnh thế nào** (để đối chiếu thiết kế của ta): SDXL dùng **IP-Adapter, ip_adapter_scale = 0,5, 1 khái
+niệm × 1 ảnh**; OmniGen dùng in-context, tối đa 3 ảnh, 3 khái niệm × 1 ảnh. **Mỗi ảnh đi kèm caption trong prompt** theo mẫu
+"According to these examples of <c1>:<img1>, …, generate <p>". Truy hồi **một vòng**, kích hoạt bằng VLM hỏi "ảnh có khớp prompt
+không" rồi nêu khái niệm thiếu. CTIG hiện: scale 0,4 (thấp hơn), tối đa 3 ảnh cho IP-Adapter Plus, **chưa nối caption của ảnh vào
+prompt** — nên thử scale 0,5 và thêm caption theo mẫu của họ.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

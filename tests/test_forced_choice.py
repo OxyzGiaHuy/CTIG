@@ -106,6 +106,16 @@ D._CAL_CACHE.clear()
 refs = ["/ref0.jpg", "/ref1.jpg", "/ref2.jpg"]
 cal = D.calibrate(CalAgent({}), spec3, refs, log=lambda *a: None)
 assert cal[TROUSERS]["checkable"] is False, cal[TROUSERS]   # 0,96/0,00/0,20 -> tà che quần, không kiểm được
+assert cal[TROUSERS]["ref_spread"] > 0.45, cal[TROUSERS]
+# thuộc tính TB cao nhưng ba ảnh thật bất đồng nhiều cũng bị loại
+D._CAL_CACHE.clear()
+REF_VALS[COLLAR] = [0.99, 0.98, 0.40]
+c2 = D.calibrate(CalAgent({}), spec3, refs, log=lambda *a: None)
+assert c2[COLLAR]["checkable"] is False, c2[COLLAR]
+REF_VALS[COLLAR] = [0.75, 0.75, 0.97]
+D._CAL_CACHE.clear()
+cal = D.calibrate(CalAgent({}), spec3, refs, log=lambda *a: None)
+print("loại theo độ phân tán: TB %.2f nhưng chênh %.2f -> bỏ" % (0.79, 0.59))
 assert cal[HAVE]["checkable"] and 0.85 < cal[HAVE]["thr"] < 0.90, cal[HAVE]
 assert cal[COLLAR]["thr"] < cal[HAVE]["thr"], (cal[COLLAR], cal[HAVE])
 print("hiệu chỉnh: %s ngưỡng %.2f | %s ngưỡng %.2f | %s BỎ (ảnh thật %.2f)"

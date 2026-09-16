@@ -14,6 +14,7 @@ Luật giữ/bỏ (rẻ, kiểm được, không phải LLM):
 from __future__ import annotations
 
 import re
+from pathlib import Path
 
 from ..schema import CulturalSpec, FilterResult, FilterVerdict, ImageDescriptor
 
@@ -357,14 +358,16 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
         # Mô tả tự do hay bỏ sót chi tiết (cổ áo, đai) -> VQA là ý kiến thứ hai: >= 0.75 xác nhận must_have, >= 0.85 thêm must_not, <= 0.25 bác.
         if hasattr(agent, "vqa_yes"):
             subj = name_en if any(se.kind == "object" for se in spec.entities) else "scene"
+            # v1.9.5: mô tả tự do và đếm người vẫn đọc ảnh đầy đủ; riêng câu hỏi thuộc tính đọc ảnh đã cắt quanh người
+            vp = person_crop(agent, desc.path) if calib else desc.path
             for a in have_all + not_all:
                 q = attr_question(subj, a)
-                pr = agent.vqa_yes(q, desc.path)
+                pr = agent.vqa_yes(q, vp)
                 if pr is None:
                     break
                 # đối chứng phủ định cho must_have: gật cả hai chiều = không phân biệt được
                 if a in have_all and alts.get(a):
-                    pc = forced_choice(agent, subj, desc.path, a, alts[a])
+                    pc = forced_choice(agent, subj, vp, a, alts[a])
                     if pc is not None:
                         fc[a] = round(pc, 3)
                         if abs(pc - pr) >= 0.30:
@@ -372,7 +375,7 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                                            f" (sai: {alts[a][:34]})")
                         pr = pc  # câu trắc nghiệm phân biệt tốt hơn -> dùng làm giá trị quyết định
                 elif a in have_all and pr >= 0.60:
-                    pn = agent.vqa_yes(attr_question_neg(subj, a), desc.path)
+                    pn = agent.vqa_yes(attr_question_neg(subj, a), vp)
                     if pn is not None:
                         contra[a] = round(pn, 3)
                         if pn >= 0.55:
@@ -442,7 +445,50 @@ FORCED_CHOICE = False
 
 #: Ngưỡng sàn/trần khi hiệu chỉnh ngưỡng theo ảnh thật, và mức dưới mà thuộc tính bị coi là không kiểm được.
 _CAL_FLOOR, _CAL_CEIL, _CAL_MARGIN, _CAL_MIN_REF = 0.55, 0.90, 0.08, 0.50
+#: ảnh tham chiếu đều là ví dụ ĐÚNG, nên thuộc tính đáng tin phải cho điểm GIỐNG NHAU trên cả ba.
+#: Chênh lệch lớn = không quan sát được ổn định (quần: 0,96/0,00/0,20 vì tà áo che kín).
+_CAL_MAX_SPREAD = 0.45
 _CAL_CACHE: dict[tuple, dict] = {}
+
+
+_CROP_MEMO: dict[str, str] = {}
+
+
+def person_crop(agent, path: str, pad: float = 0.06) -> str:
+    """Cắt quanh người rồi mới hỏi VQA (v1.9.5). Ảnh 1536px bị thu về ~700px trước khi vào VLM, người chiếm chưa tới
+    một phần ba khung nên cổ áo và khe xẻ hông gần như biến mất. Đo trên 14 ảnh S001 có nhãn tay, AUC từng thuộc tính:
+    tà xẻ 0,67 -> 0,82; thân áo 0,94 -> 0,97; cổ đứng 0,36 -> 0,58. Không tìm thấy người thì trả lại ảnh gốc."""
+    if path in _CROP_MEMO:
+        return _CROP_MEMO[path]
+    _CROP_MEMO[path] = path              # đặt trước để lỗi cũng không thử lại
+    if getattr(agent, "locate", None) is None:
+        return path
+    try:
+        import hashlib
+        import tempfile
+        from PIL import Image
+
+        out = Path(tempfile.gettempdir()) / "ctig_crops"
+        out.mkdir(parents=True, exist_ok=True)
+        dst = out / (hashlib.sha1(path.encode()).hexdigest()[:16] + ".png")
+        if dst.exists():
+            _CROP_MEMO[path] = str(dst)
+            return str(dst)
+        boxes = agent.locate(path, ["person"]) or agent.locate(path, ["woman"])
+        if not boxes:
+            return path
+        im = Image.open(path).convert("RGB")
+        W, H = im.size
+        x0, y0, x1, y1 = max(boxes, key=lambda b: (b["bbox"][2] - b["bbox"][0]) * (b["bbox"][3] - b["bbox"][1]))["bbox"]
+        pw, ph = (x1 - x0) * pad, (y1 - y0) * pad
+        box = (max(0, int(x0 - pw)), max(0, int(y0 - ph)), min(W, int(x1 + pw)), min(H, int(y1 + ph)))
+        if (box[2] - box[0]) < 0.10 * W or (box[3] - box[1]) < 0.10 * H:
+            return path              # hộp quá nhỏ: nhiều khả năng định vị sai
+        im.crop(box).save(dst)
+        _CROP_MEMO[path] = str(dst)
+    except Exception:  # noqa: BLE001
+        pass
+    return _CROP_MEMO[path]
 
 
 def calibrate(agent, spec: CulturalSpec, refs: list[str], log=print) -> dict[str, dict]:
@@ -470,18 +516,22 @@ def calibrate(agent, spec: CulturalSpec, refs: list[str], log=print) -> dict[str
     if ck in _CAL_CACHE:
         return _CAL_CACHE[ck]
     out: dict[str, dict] = {}
+    rc = [person_crop(agent, r) for r in refs]
     for a, side in attrs:
-        vals = [v for v in (agent.vqa_yes(attr_question(subj, a), r) for r in refs) if v is not None]
+        vals = [v for v in (agent.vqa_yes(attr_question(subj, a), r) for r in rc) if v is not None]
         if not vals:
             continue
         mean = sum(vals) / len(vals)
+        spread = max(vals) - min(vals)
         if side == "have":
             out[a] = {"side": side, "ref_mean": round(mean, 3), "ref_min": round(min(vals), 3),
-                      "checkable": mean >= _CAL_MIN_REF,
+                      "ref_spread": round(spread, 3),
+                      "checkable": mean >= _CAL_MIN_REF and spread <= _CAL_MAX_SPREAD,
                       "thr": round(max(_CAL_FLOOR, min(_CAL_CEIL, mean - _CAL_MARGIN)), 3)}
         else:
             # must_not phải hiếm trên ảnh thật; nếu nó đã kêu sẵn ở đó thì trên ứng viên phải kêu to hơn hẳn
-            out[a] = {"side": side, "ref_mean": round(mean, 3), "ref_min": round(min(vals), 3), "checkable": True,
+            out[a] = {"side": side, "ref_mean": round(mean, 3), "ref_min": round(min(vals), 3),
+                      "ref_spread": round(spread, 3), "checkable": True,
                       "thr": round(max(0.70, min(0.95, mean + 0.20)), 3)}
     dead = [a for a, c in out.items() if c["side"] == "have" and not c["checkable"]]
     log(f"  [filter] hiệu chỉnh trên {len(refs)} ảnh thật: "
@@ -489,7 +539,7 @@ def calibrate(agent, spec: CulturalSpec, refs: list[str], log=print) -> dict[str
                     for a, c in list(out.items())[:3]))
     if dead:
         log("  [filter] thuộc tính KHÔNG kiểm được trên ảnh thật, bỏ khỏi bảng kiểm: "
-            + "; ".join(f"{a[:34]} ({out[a]['ref_mean']:.2f})" for a in dead))
+            + "; ".join(f"{a[:34]} (TB {out[a]['ref_mean']:.2f}, chênh {out[a]['ref_spread']:.2f})" for a in dead))
     _CAL_CACHE[ck] = out
     return out
 

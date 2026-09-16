@@ -19,12 +19,20 @@ _PARTS = ("collar", "neckline", "sleeve", "sleeves", "trousers", "pants", "sash"
           "cuff", "headscarf", "turban", "hat", "lantern", "tray", "envelope", "envelopes", "tree", "blossom", "blossoms")
 
 
-def part_query(attr_en: str, name_en: str) -> str:
+def part_queries(attr_en: str, name_en: str) -> list[str]:
+    """Các câu hỏi OWL-ViT thử lần lượt: bộ phận trên thực thể (tên ngắn, bỏ phần trong ngoặc), rồi bộ phận trần, rồi cả thực thể."""
     low = attr_en.lower()
+    short = name_en.split("(")[0].strip()
     for p in sorted(_PARTS, key=len, reverse=True):
         if p in low:
-            return f"the {p} of a {name_en}" if p not in ("tree", "lantern", "tray", "envelope", "envelopes", "blossom", "blossoms") else f"a {p}"
-    return f"a {name_en}"
+            if p in ("tree", "lantern", "tray", "envelope", "envelopes", "blossom", "blossoms"):
+                return [f"a {p}", f"a {short}"]
+            return [f"the {p} of a {short}", f"a {p}", f"a {short}"]
+    return [f"a {short}"]
+
+
+def part_query(attr_en: str, name_en: str) -> str:
+    return part_queries(attr_en, name_en)[0]
 
 
 def can_inpaint(model_key: str) -> bool:
@@ -63,10 +71,11 @@ def inpaint_fix(best_path: str, attr_en: str, name_en: str, gen: GenSpec, model_
     base_key = parse_key(model_key)[0]
     mspec = get_model(base_key)
     img = Image.open(best_path).convert("RGB")
-    q = part_query(attr_en, name_en)
-    det = detect_owlvit(img, q, device=getattr(cfg.multigen, "device", "cuda:0"), min_score=0.08, min_area=0.01)
-    if det is None and not q.startswith(f"a {name_en}"):
-        det = detect_owlvit(img, f"a {name_en}", device=getattr(cfg.multigen, "device", "cuda:0"), min_score=0.08, min_area=0.02)
+    det, q = None, ""
+    for q in part_queries(attr_en, name_en):
+        det = detect_owlvit(img, q, device=getattr(cfg.multigen, "device", "cuda:0"), min_score=0.06, min_area=0.005)
+        if det is not None:
+            break
     if det is None:
         log(f"  [inpaint] không tìm được vùng cho '{attr_en[:40]}' ({q}) -> bỏ nấc inpaint")
         return None

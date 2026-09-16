@@ -1072,7 +1072,7 @@ def test_v17_grounding_bare(tmp):
     check("bộ nhớ liên prompt ghi/đọc, mới nhất trước", _fix_memory_read(tmp / "kbm", "ao_dai") == ["rewrite", "attr_refs"], str(_fix_memory_read(tmp / "kbm", "ao_dai")))
     from ctig.agents import inpaint as ag_inp
     check("inpaint: họ sdxl/sd15 được, stub/flux không", ag_inp.can_inpaint("realvis_xl+ref") and ag_inp.can_inpaint("sd15_base") and not ag_inp.can_inpaint("stub") and not ag_inp.can_inpaint("flux_dev"))
-    check("inpaint: câu hỏi vùng theo bộ phận", ag_inp.part_query("high stand-up mandarin collar", "ao dai") == "the collar of a ao dai"
+    check("inpaint: câu hỏi vùng theo bộ phận, bỏ phần trong ngoặc, có dự phòng", ag_inp.part_queries("high stand-up mandarin collar", "Ao dai (Vietnamese long dress)") == ["the collar of a Ao dai", "a collar", "a Ao dai"]
           and ag_inp.part_query("round shape", "coracle boat") == "a coracle boat")
     v_one = FilterVerdict("a.png", True, missing_must_have=["high stand-up mandarin collar"], matched_must_not=[], score=0.7)
     p_in, _, f_in = ag_ref.decide(v_one, sp, gen, [], 3, agent=None, name_en="ao dai", have_inpaint=True)

@@ -291,7 +291,7 @@ def clip_agrees_not(clip, path: str, name_en: str, not_attr: str, have_attr: str
 
 
 def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_people: int | None, clip=None,
-             alts: dict[str, str] | None = None) -> FilterVerdict:
+             alts: dict[str, str] | None = None, calib: dict[str, dict] | None = None) -> FilterVerdict:
     have_all: list[str] = []
     not_all: list[str] = []
     # v1.6 vast p050: prompt chỉ có thực thể bối cảnh (Tết) -> 0/0 thuộc tính, Filter mù. Thực thể context cũng có must_have
@@ -305,6 +305,12 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
         key_attrs.update(attrs[:2])  # KB viết tay xếp 2 thuộc tính ĐỊNH DANH (cổ đứng, hai tà...) lên đầu -> trọng số 2
         not_all += [a for a in se.forbidden_attrs_en if a]
     have_all, not_all = have_all[:8], not_all[:6]
+    calib = calib or {}
+    # thuộc tính mà chính ảnh THẬT cũng không đạt thì không kiểm được bằng VLM này -> bỏ khỏi bảng kiểm, ghi lại
+    dead = [a for a in have_all if calib.get(a, {}).get("checkable") is False]
+    have_all = [a for a in have_all if a not in dead]
+    thr_have = lambda a: calib.get(a, {}).get("thr", 0.60)
+    thr_not = lambda a: calib.get(a, {}).get("thr", 0.70)
     w = lambda a: 2.0 if a in key_attrs else 1.0
     matched_have, matched_not, reasons = [], [], []
     vqa: dict[str, float] = {}
@@ -377,15 +383,19 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                     continue
                 # v1.9: 0,75 rơi đúng giữa hai mode của phân bố (0,731 và 0,755) -> đổi ngưỡng xác nhận về 0,60 và ghi nhận
                 # dải "không chắc" 0,35-0,60 để tính điểm liên tục thay vì nhảy bậc.
-                if pr >= 0.60 and a not in matched_have and garment_rules(desc, a) != "absent":
-                    matched_have.append(a); reasons.append(f"VQA xác nhận '{a[:30]}' ({pr:.2f})")
+                t = thr_have(a)
+                if pr >= t and a not in matched_have and garment_rules(desc, a) != "absent":
+                    matched_have.append(a); reasons.append(f"VQA xác nhận '{a[:30]}' ({pr:.2f} >= {t:.2f})")
+                elif pr < t and a in matched_have and garment_rules(desc, a) != "present":
+                    matched_have.remove(a)
+                    reasons.append(f"VQA dưới mốc ảnh thật '{a[:26]}' ({pr:.2f} < {t:.2f})")
                 elif pr <= 0.25 and a in matched_have and garment_rules(desc, a) != "present":
                     matched_have.remove(a); reasons.append(f"VQA bác '{a[:30]}' ({pr:.2f})")
             for a in not_all:
                 pr = vqa.get(a)
                 if pr is None:
                     continue
-                if pr >= 0.70 and a not in matched_not:  # v1.9: 0,85 bỏ sót 25 câu trong dải 0,60-0,85 (S031); 0,70 cân bằng hơn
+                if pr >= thr_not(a) and a not in matched_not:  # v1.9.3: mốc lấy từ chính ảnh thật, sàn 0,70
                     h = _counterpart(a, have_all)
                     if h is None or clip_agrees_not(clip, desc.path, name_en, a, h) is not False:
                         matched_not.append(a); reasons.append(f"VQA thấy must_not '{a[:30]}' ({pr:.2f})")
@@ -394,7 +404,10 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
     missing = [a for a in have_all if a not in matched_have]
     tot = sum(w(a) for a in have_all)
     # v1.9: thuộc tính chưa khớp nhưng VQA ở dải giữa được cộng PHẦN theo xác suất -> phá hoà (S001: 16/26 ảnh cùng +1.00)
-    partial = sum(w(a) * max(0.0, min(1.0, (vqa[a] - 0.35) / 0.25)) for a in missing if 0.35 < vqa.get(a, 0.0) < 0.60)
+    # v1.9.3: điểm cộng PHẦN tối đa nửa trọng số. Trước đây cộng đủ trọng số nên ảnh áo liền quần (tà 0,85, ngưỡng
+    # ảnh thật 0,87) vẫn được 0,97 - hiệu chỉnh ngưỡng bị điểm cộng phần vô hiệu hoá.
+    partial = sum(0.5 * w(a) * max(0.0, min(1.0, (vqa[a] - (thr_have(a) - 0.25)) / 0.25))
+                  for a in missing if (thr_have(a) - 0.25) < vqa.get(a, 0.0) < thr_have(a))
     score = ((sum(w(a) for a in matched_have) + partial - sum(w(a) for a in matched_not)) / tot) if tot else 0.0
     score = max(-1.0, min(1.0, score))
     keep = True
@@ -407,11 +420,76 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
         keep = False
     if kind == "reference" and desc.watermark_or_text:
         reasons.append("có chữ/watermark")
+    if dead:
+        reasons.append("không kiểm được trên ảnh thật, bỏ khỏi bảng kiểm: " + "; ".join(a[:30] for a in dead))
     if not any(r.startswith(("có must_not", "prompt", "có chữ")) for r in reasons):
         reasons.append(f"{len(matched_have)}/{len(have_all)} must_have thấy trong mô tả")
     return FilterVerdict(path=desc.path, keep=keep, matched_must_have=matched_have, matched_must_not=matched_not,
                          missing_must_have=missing, people_count=desc.people_count, reasons=reasons, score=round(score, 3),
-                         vqa=vqa, vqa_neg=contra, vqa_fc=fc, alt_attrs={k: alts[k] for k in fc})
+                         vqa=vqa, vqa_neg=contra, vqa_fc=fc, alt_attrs={k: alts[k] for k in fc},
+                         unverifiable=dead)
+
+
+#: Câu trắc nghiệm hai lựa chọn: TẮT mặc định. Đo trên 23 ảnh S001 (11 ảnh có nhãn tay): với mô tả sai viết bằng tay
+#: cho đúng một đặc trưng ("one-piece outfit joined from top to bottom, no separate panels") nó tách rất tốt
+#: (0,05-0,24 với ảnh sai, 0,84-0,96 với ảnh đúng). Nhưng mô tả sai sinh tự động thì hỏng: must_not ghép theo vùng
+#: ("one-piece dress with no trousers underneath") lật HAI đặc trưng cùng lúc, mà ảnh áo dài thật phần lớn không
+#: nhìn thấy quần -> VLM chọn nhầm, AUC 0,29 (dưới mức ngẫu nhiên). LLM viết thì lật nhầm chiều dài tay áo.
+#: Giữ lại mã và bài đo; bật khi có cách sinh mô tả sai chỉ lật ĐÚNG đặc trưng phân biệt.
+FORCED_CHOICE = False
+
+#: Ngưỡng sàn/trần khi hiệu chỉnh ngưỡng theo ảnh thật, và mức dưới mà thuộc tính bị coi là không kiểm được.
+_CAL_FLOOR, _CAL_CEIL, _CAL_MARGIN, _CAL_MIN_REF = 0.55, 0.90, 0.08, 0.50
+_CAL_CACHE: dict[tuple, dict] = {}
+
+
+def calibrate(agent, spec: CulturalSpec, refs: list[str], log=print) -> dict[str, dict]:
+    """Hiệu chỉnh ngưỡng từng thuộc tính trên ẢNH THẬT của chính prompt này (v1.9.3).
+
+    Câu có/không XẾP HẠNG khá tốt nhưng CHUẨN ĐỘ thì sai: trên S001, thuộc tính "tunic split at the hips into front
+    and back panels" cho 0,82-0,96 với ảnh đúng và 0,62-0,85 với ảnh sai (AUC 0,92) - thứ tự đúng, nhưng ngưỡng cố
+    định 0,60 cho TẤT CẢ đi qua, nên ảnh áo liền quần được +1,00. Ảnh tham chiếu thật là mốc: ứng viên phải giống
+    thuộc tính ít nhất gần bằng ảnh thật yếu nhất.
+
+    Đồng thời phát hiện thuộc tính KHÔNG KIỂM ĐƯỢC: "worn over wide-legged long trousers" chỉ được 0,96/0,00/0,20
+    trên ba ảnh áo dài thật, vì tà áo che kín quần. Chấm nó là chấm nhiễu -> loại khỏi bảng kiểm, vẫn giữ trong prompt.
+    """
+    if not refs or getattr(agent, "vqa_yes", None) is None:
+        return {}
+    attrs: list[tuple[str, str]] = []
+    subj = next((se.name_en.split("(")[0].strip() for se in spec.entities if se.kind == "object"), "outfit")
+    for se in spec.entities:
+        attrs += [(a, "have") for a in se.required_attrs_en if a]
+        attrs += [(a, "not") for a in se.forbidden_attrs_en if a]
+    if not attrs:
+        return {}
+    refs = list(dict.fromkeys(refs))[:4]
+    ck = (subj, tuple(sorted(attrs)), tuple(refs))
+    if ck in _CAL_CACHE:
+        return _CAL_CACHE[ck]
+    out: dict[str, dict] = {}
+    for a, side in attrs:
+        vals = [v for v in (agent.vqa_yes(attr_question(subj, a), r) for r in refs) if v is not None]
+        if not vals:
+            continue
+        mean = sum(vals) / len(vals)
+        if side == "have":
+            out[a] = {"side": side, "ref_mean": round(mean, 3), "ref_min": round(min(vals), 3),
+                      "checkable": mean >= _CAL_MIN_REF,
+                      "thr": round(max(_CAL_FLOOR, min(_CAL_CEIL, mean - _CAL_MARGIN)), 3)}
+        else:
+            # must_not phải hiếm trên ảnh thật; nếu nó đã kêu sẵn ở đó thì trên ứng viên phải kêu to hơn hẳn
+            out[a] = {"side": side, "ref_mean": round(mean, 3), "ref_min": round(min(vals), 3), "checkable": True,
+                      "thr": round(max(0.70, min(0.95, mean + 0.20)), 3)}
+    dead = [a for a, c in out.items() if c["side"] == "have" and not c["checkable"]]
+    log(f"  [filter] hiệu chỉnh trên {len(refs)} ảnh thật: "
+        + "; ".join(f"{a[:24]} ngưỡng {c['thr']:.2f} (ảnh thật {c['ref_mean']:.2f})"
+                    for a, c in list(out.items())[:3]))
+    if dead:
+        log("  [filter] thuộc tính KHÔNG kiểm được trên ảnh thật, bỏ khỏi bảng kiểm: "
+            + "; ".join(f"{a[:34]} ({out[a]['ref_mean']:.2f})" for a in dead))
+    _CAL_CACHE[ck] = out
+    return out
 
 
 def _alternatives(agent, spec: CulturalSpec, log=print) -> dict[str, str]:
@@ -420,7 +498,7 @@ def _alternatives(agent, spec: CulturalSpec, log=print) -> dict[str, str]:
     Ưu tiên ghép bằng luật từ chính must_not (đã là mô tả sai đúng vùng, do người viết hoặc rút từ web);
     chỉ hỏi LLM cho thuộc tính không có must_not cùng vùng, và chỉ nhận câu LLM viết nếu nó nói về cùng vùng.
     """
-    if getattr(agent, "vqa_choice", None) is None:
+    if not FORCED_CHOICE or getattr(agent, "vqa_choice", None) is None:
         return {}
     out: dict[str, str] = {}
     n_rule = 0
@@ -453,12 +531,15 @@ def _alternatives(agent, spec: CulturalSpec, log=print) -> dict[str, str]:
     return out
 
 
-def run(agent, paths: list[str], spec: CulturalSpec, prompt_en: str, kind: str = "candidate", log=print, clip=None) -> FilterResult:
+def run(agent, paths: list[str], spec: CulturalSpec, prompt_en: str, kind: str = "candidate", log=print, clip=None,
+        refs: list[str] | None = None) -> FilterResult:
     n_people = expected_people(prompt_en)
     paths = list(dict.fromkeys(paths))  # hàng alias (+ref bị gate) chia sẻ đường dẫn -> không mô tả hai lần
     descs = describe(agent, paths, log=log)
     alts = _alternatives(agent, spec, log=log)
-    verdicts = [_verdict(agent, d, spec, kind, n_people, clip=clip, alts=alts) for d in descs]
+    # ảnh thật của chính prompt này làm mốc; khi đang lọc chính ảnh thật thì không hiệu chỉnh (vòng tròn)
+    calib = calibrate(agent, spec, refs or [], log=log) if kind != "reference" else {}
+    verdicts = [_verdict(agent, d, spec, kind, n_people, clip=clip, alts=alts, calib=calib) for d in descs]
     kept = [v.path for v in verdicts if v.keep]
     if not kept and verdicts:
         best = max(verdicts, key=lambda v: v.score)
@@ -466,4 +547,5 @@ def run(agent, paths: list[str], spec: CulturalSpec, prompt_en: str, kind: str =
         best.reasons.append("giữ lại vì là ảnh tốt nhất còn lại")
         kept = [best.path]
     log(f"  [filter:{kind}] giữ {len(kept)}/{len(paths)}" + (f", prompt nói rõ {n_people} người" if n_people else ""))
-    return FilterResult(kind=kind, expected_people=n_people, verdicts=verdicts, kept=kept, descriptors=descs)
+    return FilterResult(kind=kind, expected_people=n_people, verdicts=verdicts, kept=kept, descriptors=descs,
+                        calibration=calib)

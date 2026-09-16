@@ -487,6 +487,8 @@ class FilterVerdict:
     vqa_fc: dict[str, float] = field(default_factory=dict)
     #: v1.9.2: mô tả sai đã dùng làm lựa chọn còn lại, để đọc lại được vì sao một thuộc tính bị bác
     alt_attrs: dict[str, str] = field(default_factory=dict)
+    #: v1.9.3: must_have mà chính ảnh THẬT cũng không đạt -> không kiểm được bằng VLM này, bỏ khỏi bảng kiểm
+    unverifiable: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -496,6 +498,8 @@ class FilterResult:
     verdicts: list[FilterVerdict] = field(default_factory=list)
     kept: list[str] = field(default_factory=list)
     descriptors: list[ImageDescriptor] = field(default_factory=list)
+    #: v1.9.3: ngưỡng từng thuộc tính hiệu chỉnh trên ảnh THẬT của prompt {thuộc tính: {ref_mean, ref_min, thr, checkable, side}}
+    calibration: dict[str, dict] = field(default_factory=dict)
 
 
 @dataclass

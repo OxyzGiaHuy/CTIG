@@ -586,6 +586,20 @@ def agent_dialog(cr, side: int = 170, source: str | None = None) -> str:
                 f"<th>kết luận</th></tr>{cells}</table>")
 
     parts = []
+    # --- hiệu chỉnh ngưỡng trên ảnh thật (v1.9.3) ---
+    cal = dict(getattr(getattr(cr, "filter", None), "calibration", {}) or {})
+    if cal:
+        rows = "".join(
+            f"<tr><td class='small'>{_e(a[:56])}</td><td class='small'>{'bắt buộc' if c.get('side') == 'have' else 'cấm'}</td>"
+            f"<td class='small'>{c.get('ref_mean', 0):.2f}</td><td class='small'><b>{c.get('thr', 0):.2f}</b></td>"
+            f"<td class='small'>{'—' if c.get('checkable') else '<b class=bad>không kiểm được, bỏ khỏi bảng kiểm</b>'}</td></tr>"
+            for a, c in sorted(cal.items(), key=lambda kv: (kv[1].get("side") != "have", -kv[1].get("ref_mean", 0))))
+        parts.append(bubble("REVIEWER ← ảnh tham chiếu thật (hiệu chỉnh ngưỡng từng thuộc tính)", "#0f766e",
+                            "<div class='small'>Ngưỡng không đặt cứng mà lấy từ chính ảnh thật của prompt: ứng viên phải "
+                            "giống thuộc tính gần bằng ảnh thật. Thuộc tính mà ảnh thật cũng không đạt thì VLM này không "
+                            "kiểm được, bỏ khỏi bảng kiểm (vẫn giữ trong prompt sinh ảnh).</div>"
+                            "<table style='margin:4px 0'><tr><th>thuộc tính</th><th>loại</th><th>ảnh thật</th>"
+                            f"<th>ngưỡng</th><th>ghi chú</th></tr>{rows}</table>"))
     # --- Reviewer trên ảnh mốc ---
     base = cr.best_path or (cr.rank.final_order[0] if cr.rank.final_order else None)
     if base and base in ver_by:

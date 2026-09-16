@@ -524,7 +524,8 @@ class Session:
                     (c.ensemble if c is not None and c.ensemble is not None else 0.0))
 
         def compute():
-            flt = ag_desc.run(self.agent, [cand.path for cand, _ in cands], sp, pe, kind="candidate", log=self.log, clip=self.clip)
+            flt = ag_desc.run(self.agent, [cand.path for cand, _ in cands], sp, pe, kind="candidate", log=self.log,
+                              clip=self.clip, refs=self.prompt_refs(include_candidates=False))
             v_by = {v.path: v for v in flt.verdicts}
             model_of = {cand.path: m for cand, m in cands}
             # v1.9: THUỘC TÍNH CHẾT - không ảnh nào trong lần chạy đạt VQA >= 0.5 (S012 "on a central Vietnam beach" max 0,04;
@@ -681,7 +682,8 @@ class Session:
                         memory.append({"fix": fix, "improved": False, "score": None})
                         cr.iterations.append(it)
                         continue
-                    flt_n = ag_desc.run(self.agent, [x.path for x in run_rec.output.candidates], sp, pe, kind="candidate", log=self.log, clip=self.clip)
+                    flt_n = ag_desc.run(self.agent, [x.path for x in run_rec.output.candidates], sp, pe, kind="candidate",
+                                        log=self.log, clip=self.clip, refs=self.prompt_refs(include_candidates=False))
                     it.filter = flt_n
                     if n == 1:
                         cr.regen_filter = flt_n

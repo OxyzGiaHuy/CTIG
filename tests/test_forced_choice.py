@@ -28,6 +28,7 @@ spec = CulturalSpec(prompt_id="t", entities=[SpecEntity(
     confusables=[], weight=1.0, required_attrs_en=[HAVE], forbidden_attrs_en=[], kind="object")])
 desc = ImageDescriptor(path="/x.png", people_count=1, garments=["a white outfit"])
 
+D.FORCED_CHOICE = True          # tắt mặc định (xem ghi chú trong describe.py), bật để kiểm mã
 for jumpsuit, want in ((True, "bác"), (False, "nhận")):
     ag = FakeAgent(jumpsuit)
     alts = D._alternatives(ag, spec, log=lambda *a: None)
@@ -77,4 +78,56 @@ assert not D.usable_distractor(HAVE, "tunic with no split at the hips")
 assert D.usable_distractor(HAVE, "a jumpsuit joined from shoulder to ankle")
 assert D.usable_distractor(HAVE, NOT4[1])
 print("mô tả sai chỉ phủ định chính thuộc tính: bị bỏ đúng")
+
+D.FORCED_CHOICE = False
+
+# --- hiệu chỉnh ngưỡng trên ảnh thật (v1.9.3) ---
+COLLAR = "high stand-up mandarin collar"
+TROUSERS = "worn over wide-legged long trousers"
+spec3 = CulturalSpec(prompt_id="t", entities=[SpecEntity(
+    entity_id="ao_dai", name_vi="áo dài", name_en="ao dai", required_attrs=["a", "b", "c"], forbidden_attrs=[],
+    confusables=[], weight=1.0, required_attrs_en=[HAVE, COLLAR, TROUSERS], forbidden_attrs_en=[], kind="object")])
+
+# số đo thật từ v191/S001 trên ba ảnh áo dài thật
+REF_VALS = {HAVE: [0.96, 0.93, 0.95], COLLAR: [0.75, 0.75, 0.97], TROUSERS: [0.96, 0.00, 0.20]}
+
+
+class CalAgent:
+    """Trả số đo thật cho ảnh tham chiếu; với ứng viên trả giá trị đặt sẵn."""
+    def __init__(self, cand): self.cand, self.seen = cand, []
+    def match_descriptors(self, t, h, n): return {"present_must_have": [], "present_must_not": []}
+    def vqa_yes(self, q, img):
+        attr = next(a for a in REF_VALS if a[:24] in q)
+        v = REF_VALS[attr][int(img[-5])] if img.startswith("/ref") else self.cand[attr]
+        return round(1.0 - v, 3) if "does NOT have" in q else v   # câu phủ định đối chứng nhất quán
+
+
+D._CAL_CACHE.clear()
+refs = ["/ref0.jpg", "/ref1.jpg", "/ref2.jpg"]
+cal = D.calibrate(CalAgent({}), spec3, refs, log=lambda *a: None)
+assert cal[TROUSERS]["checkable"] is False, cal[TROUSERS]   # 0,96/0,00/0,20 -> tà che quần, không kiểm được
+assert cal[HAVE]["checkable"] and 0.85 < cal[HAVE]["thr"] < 0.90, cal[HAVE]
+assert cal[COLLAR]["thr"] < cal[HAVE]["thr"], (cal[COLLAR], cal[HAVE])
+print("hiệu chỉnh: %s ngưỡng %.2f | %s ngưỡng %.2f | %s BỎ (ảnh thật %.2f)"
+      % (HAVE[:18], cal[HAVE]["thr"], COLLAR[:18], cal[COLLAR]["thr"], TROUSERS[:18], cal[TROUSERS]["ref_mean"]))
+
+# ảnh áo liền quần thật của v191: tà 0,85 cổ 0,97 quần 0,94 -> trước đây +1,00
+JUMP = {HAVE: 0.85, COLLAR: 0.97, TROUSERS: 0.94}
+GOOD = {HAVE: 0.96, COLLAR: 0.90, TROUSERS: 0.25}
+got = {}
+for lab, vals, want_have in (("áo liền quần", JUMP, False), ("áo dài đúng", GOOD, True)):
+    D._CAL_CACHE.clear()
+    ag2 = CalAgent(vals)
+    cal2 = D.calibrate(ag2, spec3, refs, log=lambda *a: None)
+    v = D._verdict(ag2, desc, spec3, "candidate", 1, clip=None, alts={}, calib=cal2)
+    print("  %-14s điểm %+.2f · tà %s · bỏ khỏi bảng kiểm %s"
+          % (lab, v.score, "có" if HAVE in v.matched_must_have else "THIẾU", v.unverifiable))
+    assert (HAVE in v.matched_must_have) is want_have, (lab, v.matched_must_have)
+    assert v.unverifiable == [TROUSERS], v.unverifiable
+    assert TROUSERS not in v.missing_must_have
+    got[lab] = v.score
+assert got["áo dài đúng"] - got["áo liền quần"] >= 0.20, got
+assert D._verdict(CalAgent(JUMP), desc, spec3, "candidate", 1, clip=None, alts={}, calib={}).score == 1.0, \
+    "không hiệu chỉnh thì vẫn +1.00 như cũ"
+print("hiệu chỉnh ngưỡng: áo liền quần bị bác, áo dài đúng được nhận")
 print("ĐẠT")

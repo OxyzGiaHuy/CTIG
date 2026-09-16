@@ -49,4 +49,32 @@ ag = OldAgent()
 assert D._alternatives(ag, spec, log=lambda *a: None) == {}
 v = D._verdict(ag, desc, spec, "candidate", 1, clip=None, alts={})
 print("không có vqa_choice: score %+.2f, fc rỗng=%s" % (v.score, not v.vqa_fc))
+# ghép bằng luật: must_not cùng vùng được chọn làm mô tả sai, không cần hỏi LLM
+HAVE4 = ["long-sleeved tunic split at the hips into front and back panels", "high stand-up mandarin collar",
+         "worn over wide-legged long trousers", "fitted bodice with flowing loose panels"]
+NOT4 = ["wide obi sash tied at the back", "one-piece dress with no trousers underneath",
+        "diagonal Y-shaped crossed collar", "puffy flared skirt"]
+pairs = D.pair_distractors(HAVE4, NOT4)
+assert pairs[HAVE4[0]] == NOT4[1], pairs[HAVE4[0]]
+assert pairs[HAVE4[1]] == NOT4[2], pairs[HAVE4[1]]
+assert pairs[HAVE4[2]] == NOT4[3], pairs[HAVE4[2]]   # váy xoè hẹp hơn "áo liền quần" -> hợp với quần hơn
+assert len(pairs) == 4, pairs
+print("ghép luật: 4/4 thuộc tính có mô tả sai đúng vùng, không gọi LLM")
+
+
+# LLM viết lệch vùng (lật tay áo thay vì lật phần tà) -> bị bỏ
+class DriftAgent(FakeAgent):
+    def __init__(self): super().__init__(True)
+    def attr_alternatives(self, name, attrs, notd): return {HAVE: "short-sleeved tunic without any splits"}
+    def vqa_choice(self, q, img, n=3): raise AssertionError("không được hỏi khi mô tả sai bị bỏ")
+
+
+msgs = []
+assert D._alternatives(DriftAgent(), spec, log=msgs.append) == {}
+assert any("phủ định" in m for m in msgs), msgs
+assert not D.usable_distractor(HAVE, "short-sleeved tunic without any splits")
+assert not D.usable_distractor(HAVE, "tunic with no split at the hips")
+assert D.usable_distractor(HAVE, "a jumpsuit joined from shoulder to ankle")
+assert D.usable_distractor(HAVE, NOT4[1])
+print("mô tả sai chỉ phủ định chính thuộc tính: bị bỏ đúng")
 print("ĐẠT")

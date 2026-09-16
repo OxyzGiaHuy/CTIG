@@ -148,6 +148,82 @@ def compact_text(desc: ImageDescriptor, max_chars: int = 700) -> str:
 
 _PAIR_NOUNS = ("collar", "trousers", "pants", "sash", "obi", "skirt", "slit", "sleeve", "hat", "brim", "broth", "noodle")
 
+#: Nhóm vùng nhìn thấy được, để ghép một must_have với must_not NÓI VỀ CÙNG CHỖ (v1.9.2). Cặp này thành hai lựa chọn
+#: loại trừ nhau của câu trắc nghiệm. Ghép bằng luật thay vì hỏi LLM: LLM viết "short-sleeved tunic without any splits"
+#: cho thuộc tính "tunic split at the hips into front and back panels" - lật nhầm chiều dài tay áo, ảnh áo liền quần
+#: vẫn được 0,97. must_not viết tay/rút từ web đã sẵn là mô tả sai đúng chỗ.
+_REGION_GROUPS: dict[str, tuple[str, ...]] = {
+    "silhouette": ("split", "panels", "panel", "flap", "two-piece", "tunic", "one-piece", "onepiece", "jumpsuit",
+                   "gown", "joined", "single piece", "no trousers", "seamless"),
+    "collar": ("collar", "neckline", "neck", "lapel"),
+    "lower": ("trousers", "pants", "skirt", "legs", "hem", "bare legs", "shorts"),
+    "waist": ("sash", "obi", "belt", "waistband", "girdle"),
+    "sleeve": ("sleeve", "cuff", "arm"),
+    "head": ("hat", "brim", "conical", "headdress", "turban", "crown"),
+    "material": ("embroider", "brocade", "silk", "lace", "print", "pattern"),
+}
+
+
+def _groups(text: str) -> set[str]:
+    t = (text or "").lower()
+    return {g for g, words in _REGION_GROUPS.items() if any(w in t for w in words)}
+
+
+_NEGATORS = ("without", "no", "not", "lacking", "missing", "absent", "lacks", "none")
+_STOPW = {"any", "a", "an", "the", "of", "at", "in", "on", "with", "and", "or", "its", "their", "that", "which"}
+
+
+def usable_distractor(attr: str, alt: str) -> bool:
+    """Mô tả sai chỉ dùng được nếu nó nêu một HÌNH DẠNG KHÁC, không phải chính thuộc tính bị phủ định.
+
+    "short-sleeved tunic without any splits" cho thuộc tính "tunic split at the hips into front and back panels"
+    chỉ phủ định chữ 'split' -> model chọn A vì tay áo đúng là dài, ảnh áo liền quần vẫn được 0,97. Ngược lại
+    "one-piece dress with no trousers underneath" nêu một dáng khác hẳn -> ảnh sai rớt còn 0,15.
+    """
+    alt = (alt or "").strip()
+    if not alt or not (3 <= len(alt.split()) <= 20) or alt.lower() == attr.lower():
+        return False
+    aw = {w.strip(".,;:\"'()") for w in attr.lower().split()}
+    toks = [w.strip(".,;:\"'()") for w in alt.lower().split()]
+    for i, w in enumerate(toks):
+        if w not in _NEGATORS:
+            continue
+        for nxt in toks[i + 1:i + 4]:           # chữ bị phủ định nằm ngay sau từ phủ định
+            if nxt in _STOPW or not nxt:
+                continue
+            if nxt in aw or any(nxt.startswith(a[:5]) and len(a) >= 5 for a in aw):
+                return False                     # chỉ là phủ định chính thuộc tính
+            break
+    ga, gl = _groups(attr), _groups(alt)
+    return not ga or bool(ga & gl)
+
+
+def pair_distractors(have_all: list[str], not_all: list[str]) -> dict[str, str]:
+    """Ghép mỗi must_have với must_not cùng vùng để làm lựa chọn còn lại của câu trắc nghiệm.
+
+    Một must_not được dùng cho nhiều must_have nếu hợp. Khi nhiều must_not cùng khớp, chọn cái HẸP hơn
+    (ít nhóm hơn) vì nó nói đúng một chỗ: "puffy flared skirt" tốt hơn "one-piece dress with no trousers"
+    khi đối chiếu với "worn over wide-legged long trousers".
+    """
+    out: dict[str, str] = {}
+    cand = [(n, _groups(n)) for n in not_all if n]
+    for h in have_all:
+        gh = _groups(h)
+        if not gh:
+            continue
+        best, best_key = None, None
+        for n, gn in cand:
+            shared = gh & gn
+            if not shared or not usable_distractor(h, n):
+                continue
+            key = (len(shared), -len(gn))  # nhiều nhóm chung trước, rồi must_not hẹp hơn
+            if best_key is None or key > best_key:
+                best, best_key = n, key
+        if best:
+            out[h] = best
+    return out
+
+
 
 def _counterpart(not_attr: str, have_attrs: list[str]) -> str | None:
     """must_have nói về cùng bộ phận với must_not (cổ áo, phần dưới, đai...) để CLIP so cặp."""
@@ -339,23 +415,40 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
 
 
 def _alternatives(agent, spec: CulturalSpec, log=print) -> dict[str, str]:
-    """Một lần mỗi lô: với mỗi must_have, lấy mô tả sai cụ thể để làm lựa chọn B của câu trắc nghiệm."""
-    if getattr(agent, "attr_alternatives", None) is None or getattr(agent, "vqa_choice", None) is None:
+    """Một lần mỗi lô: với mỗi must_have, lấy mô tả sai cụ thể để làm lựa chọn B của câu trắc nghiệm.
+
+    Ưu tiên ghép bằng luật từ chính must_not (đã là mô tả sai đúng vùng, do người viết hoặc rút từ web);
+    chỉ hỏi LLM cho thuộc tính không có must_not cùng vùng, và chỉ nhận câu LLM viết nếu nó nói về cùng vùng.
+    """
+    if getattr(agent, "vqa_choice", None) is None:
         return {}
     out: dict[str, str] = {}
+    n_rule = 0
     for se in spec.entities:
         attrs = [a for a in se.required_attrs_en if a]
+        nots = [a for a in se.forbidden_attrs_en if a]
         if not attrs:
             continue
+        paired = pair_distractors(attrs, nots)
+        out.update(paired)
+        n_rule += len(paired)
+        rest = [a for a in attrs if a not in paired]
+        if not rest or getattr(agent, "attr_alternatives", None) is None:
+            continue
         try:
-            got = agent.attr_alternatives(se.name_en.split("(")[0].strip(), attrs,
-                                          [a for a in se.forbidden_attrs_en if a])
+            got = agent.attr_alternatives(se.name_en.split("(")[0].strip(), rest, nots)
         except Exception as exc:  # noqa: BLE001
             log(f"  [filter] không lấy được mô tả sai đối ứng ({type(exc).__name__})")
             continue
-        out.update(got)
+        for a, alt in got.items():
+            if a in out or a not in rest:
+                continue
+            if not usable_distractor(a, alt):
+                log(f"  [filter] bỏ mô tả sai lệch vùng hoặc chỉ phủ định: '{a[:28]}' vs '{alt[:32]}'")
+                continue
+            out[a] = alt
     if out:
-        log(f"  [filter] trắc nghiệm hai lựa chọn cho {len(out)} thuộc tính: "
+        log(f"  [filter] trắc nghiệm hai lựa chọn cho {len(out)} thuộc tính ({n_rule} ghép từ must_not): "
             + "; ".join(f"{k[:22]} vs {v[:28]}" for k, v in list(out.items())[:3]))
     return out
 

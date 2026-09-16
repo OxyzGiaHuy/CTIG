@@ -358,7 +358,25 @@ AUC 0,00 định lượng đúng điều người dùng nói: ảnh sai được
 xuống +0,60 và bị ghi thiếu tà; ảnh đứng đầu của `sdxl_base` nay là `c0` — áo dài tà dài, khe xẻ hông rõ, quần riêng bên
 dưới. `FilterResult.calibration`, `FilterVerdict.unverifiable`, bảng hiệu chỉnh trong walkthrough.
 
-Đang chạy `v192` (S001, S012 × 8 hàng) để xem ảnh cuối và số vòng loop có đổi không.
+**Hiệu chỉnh nên dựa trên mấy ảnh thật?** Đo thêm với 20 ảnh `candidates/S001` (8 ảnh gen có nhãn tay):
+
+| nguồn hiệu chỉnh | ngưỡng tà xẻ | giữ ảnh đúng | loại ảnh sai |
+|---|---|---|---|
+| `selected` (3 ảnh), mean − 0,08 | 0,87 | 3/5 | **3/3** |
+| `selected`+`candidates` (23), mean − 0,08 | 0,76 | 5/5 | 1/3 |
+| 23 ảnh, median − 0,08 | 0,83 | 3/5 | 2/3 |
+| 23 ảnh, phân vị 30 | 0,89 | 3/5 | **3/3** |
+
+`candidates` có ảnh lệch hẳn (thấp nhất 0,18 cho tà xẻ) nên kéo trung bình xuống, ngưỡng 0,76 **cho ảnh áo liền quần
+(0,85) đi qua** — đúng lỗi đang phải sửa. Giữ nguyên nguồn `selected`. Hai phân bố chồng nhau (ảnh đúng 0,82–0,96, ảnh
+sai 0,62–0,85, AUC 0,87) nên không ngưỡng nào tách sạch; chọn phía **thà bỏ sót còn hơn cho lọt**, vì cho lọt thì loop
+dừng ở ảnh sai, còn bỏ sót chỉ tốn thêm một vòng sửa.
+
+Lưu ý khi đọc bảng đo: nhãn tay là nhãn cho **cả bộ trang phục**, nên chỉ áp được cho thuộc tính tà xẻ và thân áo. Với
+"cổ đứng" thì ảnh áo liền quần thật sự CÓ cổ đứng, nên con số AUC 0,33 của thuộc tính đó là do nhãn không hợp, không
+phải do phép đo sai.
+
+Đang chạy `v192` (S001, S012 × 8 hàng, commit `5dbff82`) để xem ảnh cuối và số vòng loop có đổi không.
 
 ## 4. Lỗi/rủi ro còn mở
 

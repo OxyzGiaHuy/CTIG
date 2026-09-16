@@ -1045,6 +1045,14 @@ def test_v17_grounding_bare(tmp):
     st_ex.run(ThinAo(), sr3, s.kb, cfg_auto, tmp / "ev2", log=lambda *a: None)
     check("kb_mode auto: nguồn không đủ -> giữ bản tay, item KB giữ thuộc tính", nl.must_have_en == hand_nl and kb_item2.must_have and any("dùng bản tay" in n for n in sr3.notes), str(sr3.notes[-1:]))
     s.kb.entities["ao_dai"].must_have_en = hand_before  # trả lại cho các test sau
+    rd = tmp / "refdir" / "selected" / "p001"; rd.mkdir(parents=True, exist_ok=True)
+    for nm in ("01.jpg", "02.png", "notes.txt"):
+        (rd / nm).write_bytes(b"x")
+    s.cfg.retrieval.ref_dir = str(tmp / "refdir")
+    pr = s.prompt_refs()
+    check("ảnh tham chiếu theo prompt: đọc <ref_dir>/selected/<id>/, bỏ file không phải ảnh", [Path(x).name for x in pr] == ["01.jpg", "02.png"], str(pr))
+    s.cfg.retrieval.ref_dir = None
+    check("không cấu hình ref_dir -> rỗng", s.prompt_refs() == [])
     from ctig.agents.describe import attr_question
     check("VQA hỏi dạng phát biểu, không ghép 'have <cụm động từ>'", 'Statement: "worn over wide-legged long trousers"' in attr_question("ao dai", "worn over wide-legged long trousers")
           and "have worn" not in attr_question("ao dai", "worn over wide-legged long trousers"))

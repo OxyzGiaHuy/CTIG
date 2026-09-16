@@ -79,6 +79,12 @@ class PerceptionConfig:
 class RetrievalConfig:
     #: "local" | "wiki"
     backend: str = "wiki"
+    #: v1.8.2: thư mục ảnh tham chiếu THEO PROMPT do nhóm chuẩn bị: <ref_dir>/selected/<prompt_id>/*.jpg (3 ảnh chọn tay) và
+    #: <ref_dir>/candidates/<prompt_id>/*.jpg (~20 ảnh ứng viên). Có thì dùng làm TẦNG ƯU TIÊN NHẤT cho IP-Adapter và cho bước
+    #: kiểm KB (ảnh thật của đúng prompt, không phải ảnh tìm bằng CLIP trong kho trộn). Nhiều thư mục cách nhau bằng dấu phẩy.
+    ref_dir: str | None = None
+    #: dùng cả ảnh 'candidates' (nhiều, chưa lọc tay) hay chỉ 'selected'
+    ref_dir_candidates: bool = False
     #: v1.8: tri thức thực thể do Grounding TỰ DỰNG lúc chạy (LLM đọc Wikipedia/web -> bản ghi KB theo mẫu: 2 thuộc tính định
     #: danh trước, must_not theo cặp dễ nhầm, tags, clip_label, prior; mỗi thuộc tính kèm câu gốc; cache runs/_cache/kb_auto/).
     #:   "auto"      (mặc định): dựng cho MỌI thực thể trong spec, kể cả thực thể có bản tay. KB tay chỉ còn là danh mục

@@ -66,7 +66,7 @@ def _fix_memory_write(kb_auto_dir: Path, eid: str, fix: str, prompt_id: str, mod
         pass
 
 
-STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 5, "spec": 5, "genspec": 4, "multigen": 3, "review": 1,
+STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 5, "spec": 6, "genspec": 4, "multigen": 3, "review": 1,
               "brief": 2, "ref_filter": 2, "candidate_review": 12}
 
 
@@ -296,6 +296,22 @@ class Session:
                 self._aesthetic = get_scorer(self.cfg.multigen.aesthetic, log=self.log) or False
         return self._aesthetic or None
 
+    def prompt_refs(self, include_candidates: bool | None = None) -> list[str]:
+        """v1.8.2: ảnh tham chiếu nhóm chuẩn bị SẴN cho ĐÚNG prompt này (<ref_dir>/selected/<prompt_id>/*). Không cần CLIP tìm kiếm
+        nên không chọn nhầm; dùng làm tầng ưu tiên nhất và làm ảnh thật để kiểm KB."""
+        dirs = [d.strip() for d in (self.cfg.retrieval.ref_dir or "").split(",") if d.strip()]
+        if not dirs:
+            return []
+        use_cand = self.cfg.retrieval.ref_dir_candidates if include_candidates is None else include_candidates
+        out: list[str] = []
+        for d in dirs:
+            for sub in (["selected"] + (["candidates"] if use_cand else [])):
+                folder = Path(d) / sub / self.prompt.id
+                if folder.is_dir():
+                    out += [str(f) for f in sorted(folder.iterdir())
+                            if f.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp") and f.is_file()]
+        return out
+
     def reference_images(self, k: int | None = None) -> list[str]:
         """Ảnh tham chiếu cho IP-Adapter, chọn theo TẦNG (v1.5.3):
           1. ảnh của thực thể vật thể, CLIP >= ref_image_min_clip (0,75; áo dài đạt dễ);
@@ -305,6 +321,13 @@ class Session:
         Sau đó Filter agent lọc và cắt theo thực thể."""
         s, _ = self.retrieve()
         sp, _ = self.spec()
+        # Tầng -1 (v1.8.2): ảnh nhóm chuẩn bị sẵn cho đúng prompt này -> tin cậy nhất, bỏ qua tìm kiếm CLIP.
+        pr = self.prompt_refs()
+        if pr:
+            k_1 = k or self.cfg.multigen.ref_images
+            self.log(f"  [3b] ảnh tham chiếu của nhóm cho {self.prompt.id}: {len(pr)} ảnh (dùng {min(len(pr), max(1, k_1))})")
+            out_1 = pr[: max(1, k_1)]
+            return self.crop_refs(out_1, sp) if self.cfg.multigen.ref_crop else out_1
         objs = [se for se in sp.entities if se.kind == "object"]
         obj_ids = {se.entity_id for se in objs}
         thr = self.cfg.retrieval.ref_image_min_clip
@@ -774,6 +797,12 @@ class Session:
         for se in sp.entities:
             ent = self.kb.get(se.entity_id)
             if ent is None or "KB tự sinh" not in (ent.notes or ""):
+                continue
+            refs_p = self.prompt_refs()
+            if refs_p:  # ảnh của nhóm cho đúng prompt: chuẩn nhất để kiểm KB
+                d = validate_draft(self.agent, ent, refs_p[:3], self.cache_dir / "kb_auto", log=self.log)
+                if d:
+                    out[se.entity_id] = d
                 continue
             caps = [ent.clip_label or f"a photo of Vietnamese {ent.name_en.split('(')[0].strip()}"]
             hits = self.index_refs(caps, k=10)

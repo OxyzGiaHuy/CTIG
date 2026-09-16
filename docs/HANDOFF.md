@@ -119,6 +119,22 @@ sometimes, usually…), và khi sau kiểm còn < 3 thì **lấy thêm từ bả
    `evidence_images_complex`) → "kiểm bằng 3 ảnh thật" thực chất chỉ 1 ảnh. Khử trùng theo (tên, kích thước) khi đánh chỉ mục và
    theo tên khi chọn ảnh kiểm. **Cần dựng lại `ref_index.npz`** trước lượt tiếp theo.
 
+## 3c. Bộ dữ liệu mới của nhóm (2026-09-16, bản thứ hai)
+
+Drive `1R2C8iw3ruOE4UFRtnpaYWb193OKCYHnI` (tải bằng `gdown --folder`): prompts_simple/complex (bản này chỉ đổi **S046**: "làng chài,
+thuyền thúng" → "cầu khỉ", để không trùng entity với S012) và **ảnh tham chiếu theo PROMPT**:
+
+```
+reference_images_simple/selected/<S###>/01.jpg,02.jpg,03.jpg   (3 ảnh chọn tay, 150 ảnh)
+reference_images_simple/candidates/<S###>/…                    (~20 ảnh/prompt, 1000 ảnh)
+reference_images_complex/selected|candidates/<C###>/…          (196 + 999 ảnh)
+```
+
+Đã nối vào pipeline (`retrieval.ref_dir`, `ref_dir_candidates`): `Session.prompt_refs()` là **tầng ưu tiên nhất** cho IP-Adapter
+(không cần CLIP tìm trong kho trộn, không chọn nhầm) và là ảnh thật cho bước kiểm KB. Kho cũ 1.399 ảnh (`/workspace/refs`) vẫn là
+đường lùi khi prompt không có thư mục riêng. **Lưu ý báo cáo:** ảnh này do nhóm chọn tay → phải khai báo như KB tay; muốn đo "hoàn toàn
+tự động" thì đặt `ref_dir_candidates: true` (dùng ảnh chưa lọc) hoặc tắt `ref_dir`.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

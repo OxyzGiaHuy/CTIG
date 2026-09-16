@@ -240,6 +240,19 @@ Trạng thái 5 khuyến nghị của agent nghiên cứu (commit `ea8bb72` + `1
 
 Cần tải thêm `facebook/sam-vit-base` (~375 MB) trên máy trước lượt v19; đĩa còn ~4,9 GB.
 
+## 3h. v19 đang chạy (bắt đầu ~11:40 giờ máy)
+
+`runs/v19`, 4 prompt S001/S012/S021/S031 × **15 hàng** (SDXL gốc, RealVis, SD 3.5 Medium, FLUX.1-dev; mỗi model một hàng `#bare`),
+gồm tất cả thay đổi v1.9:
+- KB tự sinh kiểu viết tay (VLM nhìn ảnh thật của prompt rồi viết cụm ngắn) + kiểm bằng ảnh thật, khoá 2 thuộc tính định danh;
+- Reviewer: luật sash sửa, must_not tay luôn nạp, ngưỡng VQA 0,60/0,70 + điểm phần, bỏ thuộc tính chết, khoá phá hoà;
+- Refiner inpaint: thang định vị 4 nấc (VLM grounding → crop-then-ground → OWL-ViT danh từ ngắn → hộp cha) + **SAM** tinh chỉnh mask;
+- ImageRAG: `ip_adapter_scale = 0,5`, **caption ảnh nối vào prompt** ("According to these reference examples of X, generate: …");
+- **`sd35_medium+init`**: ảnh tham chiếu làm ảnh khởi tạo img2img (strength 0,75) — kênh ảnh cho model chưa có IP-Adapter;
+- walkthrough có **nhật ký giao tiếp giữa các agent** (`viz.agent_dialog`): Reviewer mô tả ảnh → bảng VQA từng thuộc tính → kết
+  luận; Rank; Reflector nhận gì, chọn nấc nào, viết caption/prompt gì; Refiner nhận ảnh nào, prompt thật gửi model, seed, guidance;
+  Reviewer chấm lại từng vòng; kết luận. Kèm lưới ảnh model thuần so ảnh cuối hệ thống ở đầu trang.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

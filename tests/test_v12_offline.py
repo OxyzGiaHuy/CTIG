@@ -1027,6 +1027,11 @@ def test_v17_grounding_bare(tmp):
     from ctig.schema import CulturalSpec as _CS2, SpecEntity as _SE2
     cs2 = _CS2("t", [_SE2("ao_dai", "Áo dài", "Ao dai", ["x"], [], [], required_attrs_en=[], tags_en=[])])
     sync_auto_entities(cs2, s.kb)
+    ao.analogy_en = "a long fitted tunic split into two panels, worn over wide trousers"
+    sync_auto_entities(cs2, s.kb)
+    from ctig.stages.generation import render_terms as _rt
+    terms_an, _, _ = _rt("A woman at a gate", cs2, cfg.t2i, "legacy")
+    check("analogy_en vào prompt legacy ngay sau tên thực thể", any("Vietnamese Ao dai (a long fitted tunic" in x for x in terms_an), str(terms_an[:3]))
     check("spec đồng bộ từ KB tự sinh: EN thẳng hàng với VI, tags, clip_label", cs2.entities[0].required_attrs_en == ao.must_have_en
           and cs2.entities[0].required_attrs == ao.must_have and cs2.entities[0].tags_en == ao.tags_en and cs2.entities[0].clip_label == ao.clip_label, str(cs2.entities[0].required_attrs_en))
     check("kb_mode auto: áo dài (có bản tay) được dựng lại từ nguồn, item KB tay bị xoá thuộc tính, ghi chú nguồn auto",

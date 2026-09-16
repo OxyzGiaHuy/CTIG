@@ -120,6 +120,9 @@ class Entity:
     notes: str | None = None
     #: Nhãn CLIP tiếng Anh mô tả (xem docs/ARCHITECTURE.md, CLIP cần nhãn mô tả, không phải tên trần).
     clip_label: str = ""
+    #: v1.8 (Culture-TRIP "comparable objects"): một cụm so sánh với vật quen thuộc mà model T2I đã biết,
+    #: vd "a long split tunic worn over wide trousers", "a giant round woven basket used as a boat". Vào prompt ngay sau tên.
+    analogy_en: str = ""
     #: "object" | "context" - context (sự kiện, cảnh) không probe được bằng CLIP danh tính.
     kind: str = "object"
     #: Bản tiếng Anh viết tay của must_have / must_not, cùng thứ tự. Dùng thẳng cho prompt SDXL,

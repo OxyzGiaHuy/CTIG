@@ -214,8 +214,10 @@ class PromptAgent:
             "(e.g. for a conical hat: 'very wide flat brim with no point'). Must not repeat words of must_have. src may be -1 if the "
             "sentences do not mention it.\n"
             "confusable_with: 1-3 {name, name_en, culture, why}. tags_en: 3-5 short prompt tags (2-4 words), identifying tag first. "
-            "neg_tags_en: 2-4 short negative tags without nouns used in must_have. clip_label: 'a photo of ...'. kind: 'object' or "
-            "'context'. prior_strength: 0-1 (how well a generic text-to-image model already draws it; ao dai ~0.55, coracle ~0.1).\n"
+            "neg_tags_en: 2-4 short negative tags without nouns used in must_have. clip_label: 'a photo of ...'. analogy_en: ONE phrase "
+            "(5-12 words) comparing the item to a familiar object an image model already knows, stating the key difference, e.g. "
+            "'a giant round woven basket used as a boat' or 'a long fitted tunic split into two panels, worn over wide trousers'. "
+            "kind: 'object' or 'context'. prior_strength: 0-1 (how well a generic text-to-image model already draws it; ao dai ~0.55, coracle ~0.1).\n"
             "Format example for a DIFFERENT item (a hat), do NOT copy its content: must_have attr_en like 'round conical shape with pointed "
             "tip' or 'silk chin strap under the chin'; must_not attr_en like 'wide flat brim'. Every attribute you write must come from "
             f"the sentences about {name}."
@@ -223,7 +225,7 @@ class PromptAgent:
         item = _s(attr_vi=STR, attr_en=STR, src={"type": "integer"})
         schema = _s(must_have=_arr(item), must_not=_arr(item),
                     confusable_with=_arr(_s(name=STR, name_en=STR, culture=STR, why=STR)),
-                    tags_en=_arr(STR), neg_tags_en=_arr(STR), clip_label=STR,
+                    tags_en=_arr(STR), neg_tags_en=_arr(STR), clip_label=STR, analogy_en=STR,
                     kind={"type": "string", "enum": ["object", "context"]}, prior_strength=NUM)
         d = self._complete(sys2, f"SENTENCES:\n{numbered}", schema, max_new_tokens=1000)
         for key in ("must_have", "must_not"):
@@ -270,6 +272,8 @@ class PromptAgent:
         out["tags_en"] = _tags(d.get("tags_en"))[:5]
         out["neg_tags_en"] = _tags(d.get("neg_tags_en"), drop_example=True)[:4]
         out["clip_label"] = str(d.get("clip_label") or "").strip()
+        an = str(d.get("analogy_en") or "").strip().rstrip(".")
+        out["analogy_en"] = an if 4 <= len(an.split()) <= 14 and not any(w in _NONVISUAL_EN for w in an.lower().split()) else ""
         kind = "context" if str(d.get("kind", "")).strip().lower() == "context" else "object"
         low = ent.name_vi.lower()
         if any(low.startswith(w) for w in ("tết", "lễ", "hội", "chợ", "múa", "hát", "đám", "lễ hội")) or "festival" in ent.name_en.lower():

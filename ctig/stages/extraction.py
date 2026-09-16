@@ -252,6 +252,7 @@ def apply_kb_draft(ent, d: dict) -> None:
     ent.neg_tags_en = [str(x) for x in (d.get("neg_tags_en") or []) if str(x).strip()][:4]
     if d.get("clip_label"):
         ent.clip_label = str(d["clip_label"])
+    ent.analogy_en = str(d.get("analogy_en") or "").strip()
     ent.kind = "context" if str(d.get("kind", "")).strip().lower() == "context" else "object"
     try:
         ent.prior_strength = max(0.0, min(1.0, float(d.get("prior_strength", 0.2))))

@@ -35,6 +35,7 @@ def sync_auto_entities(spec: CulturalSpec, kb: KnowledgeBase) -> None:
         se.kind = ent.kind
         if ent.clip_label:
             se.clip_label = ent.clip_label
+        se.analogy_en = getattr(ent, "analogy_en", "") or ""
         spec.dropped.append([se.entity_id, f"thuộc tính lấy từ KB tự sinh ({len(se.required_attrs_en)} must_have, {len(se.forbidden_attrs_en)} must_not)"])
 
 

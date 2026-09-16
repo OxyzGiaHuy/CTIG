@@ -132,6 +132,8 @@ class SpecEntity:
     #: Nhãn tiếng Anh MÔ TẢ cho CLIP (không phải tên trần). Ví dụ
     #: "a woman wearing a Vietnamese ao dai, a long split tunic over wide trousers".
     clip_label: str = ""
+    #: cụm so sánh với vật quen thuộc (Culture-TRIP), vào prompt ngay sau tên thực thể; "" = không có
+    analogy_en: str = ""
     #: Loại thực thể: "object" (vật thể, CLIP và IP-Adapter dùng được) hay "context"
     #: (sự kiện, cảnh; chỉ VLM checklist mới kiểm được).
     kind: str = "object"

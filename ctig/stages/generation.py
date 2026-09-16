@@ -140,6 +140,9 @@ def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_neg
         sent = prompt_en.rstrip(".")
         for se in main[:2]:
             attrs = [a for a in (se.tags_en or se.required_attrs_en) if a][:2]
+            an = getattr(se, "analogy_en", "") or ""
+            if an:
+                sent += f"; the {_en(se).lower()} is {an}"
             if attrs:
                 sent += f"; the {_en(se).lower()} has {' and '.join(attrs)}"
         sent += ". photo, natural light"
@@ -164,7 +167,8 @@ def render_terms(prompt_en: str, spec: CulturalSpec, cfg, variant: str, init_neg
     else:  # legacy | legacy_negtags
         terms = [prompt_en]
         for se in spec.entities:
-            terms.append(f"Vietnamese {_en(se)}")
+            an = getattr(se, "analogy_en", "") or ""
+            terms.append(f"Vietnamese {_en(se)} ({an})" if an and se.weight >= 0.8 else f"Vietnamese {_en(se)}")
             en_attrs = [a for a in se.required_attrs_en if a]
             if se.weight >= 0.8 and en_attrs:
                 terms.extend(en_attrs[:n_attrs])

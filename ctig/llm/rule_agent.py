@@ -124,6 +124,7 @@ class RuleAgent:
                                    weights[min(i, 3)], s["titles"],
                                    required_attrs_en=mh_en, forbidden_attrs_en=mn_en,
                                    clip_label=ent.clip_label or f"a photo of Vietnamese {ent.name_en.split('(')[0].strip()}",
+                                   analogy_en=getattr(ent, "analogy_en", "") or "",
                                    kind=ent.kind, reference_image=s["ref"],
                                    tags_en=list(ent.tags_en), neg_tags_en=list(ent.neg_tags_en)))
         return CulturalSpec(prompt.id, ents, [k.term for k in analysis.keywords if k.kind == "scene"], dropped)

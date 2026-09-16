@@ -323,6 +323,19 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
             keep_h.append(a); keep_h_vi.append(vi)
         else:
             dropped.append(a)
+    # Còn quá ít thuộc tính -> thử thêm từ BẢN TAY (nếu KB gốc có), cũng phải qua kiểm ảnh thật; ghi rõ nguồn.
+    hand = (d.get("_meta", {}) or {}).get("hand", {}) or {}
+    from_hand = []
+    if len(keep_h) < 3 and hand.get("must_have_en"):
+        for a in hand["must_have_en"]:
+            if a in keep_h or not a:
+                continue
+            ok = sum(int((agent.vqa_yes(f"Look carefully. Does the {name} in this photo have {a}? Answer Yes or No.", img) or 0) >= 0.6) for img in imgs)
+            scores[a] = round(ok / len(imgs), 2)
+            if ok / len(imgs) >= min_ok:
+                keep_h.append(a); keep_h_vi.append(a); from_hand.append(a)
+            if len(keep_h) >= 4:
+                break
     if not keep_h:  # ảnh thật không xác nhận được cái nào -> giữ nguyên, có thể ảnh tham chiếu kém
         log(f"  [2b] {ent.name_vi}: KHÔNG thuộc tính nào được ảnh thật xác nhận ({len(imgs)} ảnh) -> giữ nguyên bản ghi")
         return None
@@ -339,13 +352,14 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
             dropped.append(f"(must_not) {a}")
     d["must_have_en"], d["must_have"] = keep_h, keep_h_vi
     d["must_not_en"], d["must_not"] = keep_n, keep_n_vi
-    d.setdefault("_meta", {})["validated"] = {"n_images": len(imgs), "scores": scores, "dropped": dropped}
+    d.setdefault("_meta", {})["validated"] = {"n_images": len(imgs), "scores": scores, "dropped": dropped, "from_hand": from_hand}
     try:
         f.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
     except OSError:
         pass
     apply_kb_draft(ent, d)
-    log(f"  [2b] {ent.name_vi}: kiểm KB bằng {len(imgs)} ảnh thật -> giữ {len(keep_h)} must_have, {len(keep_n)} must_not"
+    log(f"  [2b] {ent.name_vi}: kiểm KB bằng {len(imgs)} ảnh thật -> giữ {len(keep_h)} must_have"
+        + (f" ({len(from_hand)} lấy thêm từ bản tay, đã kiểm)" if from_hand else "") + f", {len(keep_n)} must_not"
         + (f"; bỏ: {'; '.join(x[:40] for x in dropped[:3])}" if dropped else ""))
     return d
 

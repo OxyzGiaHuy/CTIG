@@ -1048,6 +1048,8 @@ def test_v17_grounding_bare(tmp):
     from ctig.llm.prompt_agent import _attr_ok_en
     check("kb_auto: lọc thuộc tính EN vô nghĩa", not _attr_ok_en("Is white") and not _attr_ok_en("Vietnamese traditional dress")
           and not _attr_ok_en("Has two sleeves") is False or True)
+    check("kb_auto: thuộc tính mơ hồ (either/or, sometimes) bị loại", not _attr_ok_en("fitting sleeves, either loose or reaching past the wrist")
+          and not _attr_ok_en("sometimes worn with a hat") and _attr_ok_en("long sleeves reaching past the wrist"))
     check("kb_auto: lớp phủ/hoá chất không phải đặc điểm nhìn từ xa", not _attr_ok_en("covered with cow dung") and not _attr_ok_en("sealed with resin"))
     check("kb_auto: thuộc tính phi thị giác / chép ví dụ bị loại", not _attr_ok_en("one of the few Vietnamese words that appear in English-language dictionaries")
           and not _attr_ok_en("very wide flat brim with no point") and _attr_ok_en("worn over silk trousers"))
@@ -1113,6 +1115,16 @@ def test_v17_grounding_bare(tmp):
     check("kiểm KB bằng ảnh thật: giữ thuộc tính ảnh đúng xác nhận, bỏ thuộc tính không kiểm được",
           got and got["must_have_en"] == ["high stand-up collar"] and got["must_not_en"] == ["diagonal crossed collar"]
           and got["_meta"]["validated"]["scores"]["split skirt at the sides from waist to hip level"] == 0.0, str(got and got["must_have_en"]))
+    rec2 = dict(rec); rec2["must_have"] = ["xẻ tà", "tay mơ hồ"]; rec2["must_have_en"] = ["split skirt at the sides from waist to hip level", "unclear sleeve shape here"]
+    rec2["_meta"] = {"entity_id": "ao_dai", "hand": {"must_have_en": ["high stand-up collar", "worn over wide-legged long trousers"]}}
+    (tmp / "kbv" / "x_test.json").write_text(_json.dumps(rec2, ensure_ascii=False), encoding="utf-8")
+    class VqaRef2:
+        def vqa_yes(self, q, image): return 0.9 if ("stand-up collar" in q or "wide-legged" in q) else 0.1
+    ent_x = s.kb.add_adhoc("x test", "x test"); ent_x.id = "x_test"; s.kb.entities["x_test"] = ent_x
+    got2 = st_ex.validate_draft(VqaRef2(), ent_x, ["r1.jpg", "r2.jpg"], tmp / "kbv", log=lambda *a: None)
+    check("kiểm KB: còn < 3 thuộc tính -> lấy thêm từ bản tay, cũng phải qua kiểm ảnh thật",
+          got2 and got2["must_have_en"] == ["high stand-up collar", "worn over wide-legged long trousers"]
+          and got2["_meta"]["validated"]["from_hand"] == got2["must_have_en"], str(got2 and got2["must_have_en"]))
     check("kiểm KB: chạy một lần (đã đánh dấu validated)", st_ex.validate_draft(VqaRef(), ent_v, ["r1.jpg"], tmp / "kbv", log=lambda *a: None) is None)
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh

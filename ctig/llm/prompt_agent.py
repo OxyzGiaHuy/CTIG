@@ -54,6 +54,9 @@ _EXAMPLE_STRINGS = {"round conical shape with pointed tip", "silk chin strap und
                     "open lattice bamboo weave", "smooth pale palm-leaf surface over bamboo rings", "silk or cloth chin strap"}
 
 
+_VAGUE_EN = ("either", " or ", "may be", "can be", "sometimes", "usually", "often", "various", "different", "depending")
+
+
 def _attr_ok_en(attr_en: str) -> bool:
     """Thuộc tính tiếng Anh phải cụ thể: >= 3 từ, không chỉ là màu, không toàn từ chung ('Is white', 'Vietnamese traditional dress')."""
     ws = [w.strip(".,;:()").lower() for w in attr_en.split() if w.strip(".,;:()")]
@@ -68,6 +71,9 @@ def _attr_ok_en(attr_en: str) -> bool:
         return False
     if attr_en.strip().lower() in _EXAMPLE_STRINGS:
         return False  # model chép ví dụ định dạng
+    low2 = " " + attr_en.lower() + " "
+    if any(v in low2 for v in _VAGUE_EN):
+        return False  # "either loose or reaching past the wrist" -> VQA trả lời không nhất quán
     return True
 
 
@@ -169,7 +175,7 @@ class PromptAgent:
         return {"must_have": mh, "must_not": mn, "confusable_with": cf, "attr_sources": srcs, "dropped_unsourced": dropped}
 
     # ------------------------------------------------------------ stage 3
-    def draft_kb_entry(self, ent, texts: list[dict]) -> dict:
+    def draft_kb_entry(self, ent, texts: list[dict]) -> dict:  # noqa: C901
         """v1.8 KB tự sinh, HAI BƯỚC (Qwen 3B một bước trả thuộc tính vô nghĩa và bịa câu gốc):
         1) với từng nguồn: CHÉP NGUYÊN VĂN các câu mô tả hình dáng/cấu trúc/chất liệu/cách mặc (kiểm khớp 0,8, >= 8 từ);
         2) từ các câu đã kiểm (đánh số): dựng bản ghi KB; mỗi thuộc tính phải trỏ chỉ số câu -> câu gốc luôn thật."""
@@ -206,7 +212,7 @@ class PromptAgent:
             f"You build a VISUAL knowledge record about {name} for a system that generates and checks images, using ONLY the numbered "
             "sentences below (they were copied from Wikipedia and web pages). Only features visible in a photograph count: words, "
             "names, dictionaries, dates, prices, popularity, feelings are NOT features.\n"
-            "must_have: 3-5 items {attr_vi, attr_en, src, salience}. attr_en = 3-8 English words naming a concrete SHAPE, STRUCTURE, PART, "
+            "must_have: 5-8 items {attr_vi, attr_en, src, salience} (later filtered by real photos, so list every visible feature you find). attr_en = 3-8 English words naming a concrete SHAPE, STRUCTURE, PART, "
             "MATERIAL, PATTERN or WAY OF WEARING/PLACING that a viewer can verify in an ORDINARY PHOTO TAKEN FROM A FEW METERS AWAY; "
             "attr_vi = the same in Vietnamese; src = the index (integer) of the sentence that supports it; salience = 1-5, how much this "
             "feature helps recognize the item at a glance (5 = the overall shape/silhouette or a large distinctive part; 1 = a coating, "

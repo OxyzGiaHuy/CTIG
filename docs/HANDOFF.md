@@ -94,6 +94,10 @@ Sửa (`b0…`, xem commit "kiểm KB bằng ảnh thật"): thêm bước **`Se
 2–3 **ảnh THẬT** của thực thể (kho ảnh nhóm, đã qua CLIP); thuộc tính mà chính ảnh đúng cũng không xác nhận (< 50% số ảnh) thì bỏ
 khỏi bản ghi; must_not mà ảnh đúng cũng "có" thì bỏ. Ghi `_meta.validated` (điểm từng thuộc tính) vào cache, chạy một lần mỗi thực thể.
 Đây cũng là câu trả lời cho "KB tự sinh có đáng tin không": mọi thuộc tính vào Reviewer đều đã được ảnh thật xác nhận.
+Lượt `v18_smoke7b3` (08:50): bước kiểm chạy 2 giây, bỏ đúng "split skirt at the sides…", Reviewer loại 3/24 ảnh (trước đó 0/24) →
+bare/system bắt đầu phân biệt được. Nhưng KB áo dài còn **1 must_have duy nhất** và nó mơ hồ ("fitting sleeves, either loose or
+reaching past the wrist"). Sửa tiếp: bước 2 xin **5-8** thuộc tính (lọc sau bằng ảnh thật), loại cách viết mơ hồ (either/or,
+sometimes, usually…), và khi sau kiểm còn < 3 thì **lấy thêm từ bản tay nhưng cũng phải qua kiểm ảnh thật** (ghi `_meta.validated.from_hand`).
 
 ## 4. Lỗi/rủi ro còn mở
 

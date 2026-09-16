@@ -40,7 +40,7 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
         if ent is None:
             continue
         # Ưu tiên nguồn dài (toàn văn trang) hơn snippet; giới hạn số nguồn để VLM 3B không loạn và không tốn 70s.
-        texts = sorted(texts, key=lambda t: (0 if "wikipedia" in (t.provenance or "") else 1, -len(t.snippet)))[: getattr(cfg, "extract_max_sources", 6)]
+        texts = sorted(texts, key=lambda t: (0 if "wikipedia" in (t.provenance or "") else 1, -len(t.snippet)))[: getattr(cfg, "extract_max_sources", 6)]  # vi + en Wikipedia trước
         # v1.8 KB tự sinh trong Grounding. kb_mode "auto": dựng cho MỌI thực thể từ nguồn truy hồi (KB tay chỉ là danh mục tên
         # và đường lùi); "hand": chỉ thực thể thiếu bản tay; "hand_only": không dựng.
         mode = getattr(cfg, "kb_mode", "auto") if getattr(cfg, "auto_kb", True) else "hand_only"

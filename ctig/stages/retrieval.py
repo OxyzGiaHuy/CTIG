@@ -107,6 +107,16 @@ class WikiRetriever(LocalRetriever):
                                                   query=title, query_group="keyword"))
                     if not ent.wiki_title_vi:
                         ent.wiki_title_vi = title
+            # --- Wikipedia tiếng Anh (v1.8.1): mô tả hình dáng thường chi tiết hơn bản Việt ("tight-fitting silk tunic worn over
+            # trousers", "high collar") -> nguồn tốt cho KB tự sinh; xếp ngay sau bản Việt ---
+            if "en" in (self.cfg.web_langs or []):
+                title_en = self._wiki_find_title(en, lang="en")
+                if title_en:
+                    text_en, url_en = self._wiki_text(title_en, lang="en")
+                    if text_en:
+                        res.items.append(EvidenceItem(eid, "wiki_text", f"Wikipedia (en): {title_en}", text_en, url=url_en,
+                                                      score=0.65 * max(conf, 0.5), provenance="en.wikipedia.org",
+                                                      query=title_en, query_group="keyword"))
 
             # --- Web text: tiếng Việt trước, tiếng Anh sau ---
             fetched = 0
@@ -180,35 +190,39 @@ class WikiRetriever(LocalRetriever):
         return res
 
     # ------------------------------------------------------------------ Wikipedia
-    def _wiki_find_title(self, name: str) -> str | None:
+    def _wiki_find_title(self, name: str, lang: str = "vi") -> str | None:
+        api = WIKI_API if lang == "vi" else WIKI_API.replace("vi.wikipedia", f"{lang}.wikipedia")
+
         def fetch():
             try:
-                r = self._s().get(WIKI_API, params={"action": "query", "list": "search", "srsearch": name,
-                                                    "srlimit": "1", "format": "json"}, timeout=self.cfg.timeout)
+                r = self._s().get(api, params={"action": "query", "list": "search", "srsearch": name,
+                                               "srlimit": "1", "format": "json"}, timeout=self.cfg.timeout)
                 hits = r.json().get("query", {}).get("search", [])
                 return [hits[0]["title"]] if hits else []
             except Exception as exc:  # noqa: BLE001
                 self.errors.append(f"wiki-search {name}: {type(exc).__name__}")
                 return []
 
-        out = self.web._cached({"kind": "wiki-title", "q": name}, fetch)
+        out = self.web._cached({"kind": "wiki-title", "q": name, **({"lang": lang} if lang != "vi" else {})}, fetch)
         return out[0] if out else None
 
-    def _wiki_text(self, title: str) -> tuple[str | None, str | None]:
-        url = f"https://vi.wikipedia.org/wiki/{title.replace(' ', '_')}"
+    def _wiki_text(self, title: str, lang: str = "vi") -> tuple[str | None, str | None]:
+        url = f"https://{lang}.wikipedia.org/wiki/{title.replace(' ', '_')}"
+        api = WIKI_API if lang == "vi" else WIKI_API.replace("vi.wikipedia", f"{lang}.wikipedia")
+        summary_url = WIKI_SUMMARY_URL if lang == "vi" else WIKI_SUMMARY_URL.replace("vi.wikipedia", f"{lang}.wikipedia")
 
         def fetch():
             try:
                 if self.cfg.wiki_chars > 0:
                     # exchars bị MediaWiki chặn ở 1200, nên lấy toàn văn rồi cắt phía client.
-                    r = self._s().get(WIKI_API, params={
+                    r = self._s().get(api, params={
                         "action": "query", "prop": "extracts", "explaintext": "1", "exsectionformat": "plain",
                         "exlimit": "1", "titles": title, "format": "json", "redirects": "1",
                     }, timeout=self.cfg.timeout)
                     for p in r.json().get("query", {}).get("pages", {}).values():
                         if p.get("extract"):
                             return [p["extract"][: self.cfg.wiki_chars]]
-                r = self._s().get(WIKI_SUMMARY_URL.format(title=title.replace(" ", "_")), timeout=self.cfg.timeout)
+                r = self._s().get(summary_url.format(title=title.replace(" ", "_")), timeout=self.cfg.timeout)
                 if r.status_code == 200 and r.json().get("extract"):
                     return [r.json()["extract"]]
                 self.errors.append(f"wiki {title}: HTTP {r.status_code}")
@@ -216,7 +230,7 @@ class WikiRetriever(LocalRetriever):
                 self.errors.append(f"wiki {title}: {type(exc).__name__}")
             return []
 
-        out = self.web._cached({"kind": "wiki-text", "title": title, "chars": self.cfg.wiki_chars}, fetch)
+        out = self.web._cached({"kind": "wiki-text", "title": title, "chars": self.cfg.wiki_chars, **({"lang": lang} if lang != "vi" else {})}, fetch)
         return (out[0], url) if out else (None, None)
 
 

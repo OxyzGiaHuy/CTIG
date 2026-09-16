@@ -575,11 +575,15 @@ def agent_dialog(cr, side: int = 170, source: str | None = None) -> str:
     def vqa_rows(v):
         if not v.vqa:
             return ""
+        fc, alt = dict(getattr(v, "vqa_fc", {}) or {}), dict(getattr(v, "alt_attrs", {}) or {})
         cells = "".join(
             f"<tr><td class='small'>{_e(a[:52])}</td><td class='small'><b class='{'ok' if p >= 0.6 else ('bad' if p <= 0.25 else 'muted')}'>"
-            f"{p:.2f}</b></td><td class='small'>{'có' if a in v.matched_must_have else ('MUST_NOT' if a in v.matched_must_not else ('thiếu' if a in v.missing_must_have else '–'))}</td></tr>"
+            f"{p:.2f}</b></td><td class='small'>"
+            + (f"trắc nghiệm, mô tả sai đối ứng: <i>{_e(alt.get(a, '')[:46])}</i>" if a in fc else "câu có/không")
+            + f"</td><td class='small'>{'có' if a in v.matched_must_have else ('MUST_NOT' if a in v.matched_must_not else ('thiếu' if a in v.missing_must_have else '–'))}</td></tr>"
             for a, p in sorted(v.vqa.items(), key=lambda kv: -kv[1]))
-        return f"<table style='margin:4px 0'><tr><th>hỏi VLM: thuộc tính</th><th>P(đúng)</th><th>kết luận</th></tr>{cells}</table>"
+        return ("<table style='margin:4px 0'><tr><th>hỏi VLM: thuộc tính</th><th>P(đúng)</th><th>cách hỏi</th>"
+                f"<th>kết luận</th></tr>{cells}</table>")
 
     parts = []
     # --- Reviewer trên ảnh mốc ---
@@ -589,7 +593,7 @@ def agent_dialog(cr, side: int = 170, source: str | None = None) -> str:
         body = f"<div class='pair'><div>{_img(base, side)}</div><div style='flex:1'>"
         if d is not None:
             body += (f"<div class='small'><b>Bước 1, VLM mô tả ảnh (không phán xét văn hoá):</b> {_e(d.text()[:300])}</div>")
-        body += f"<div class='small'><b>Bước 2, hỏi có/không từng thuộc tính:</b></div>{vqa_rows(v)}"
+        body += f"<div class='small'><b>Bước 2, kiểm từng thuộc tính trên ảnh:</b></div>{vqa_rows(v)}"
         body += (f"<div class='small'><b>Bước 3, kết luận:</b> điểm {v.score:+.2f}, "
                  f"{'GIỮ' if v.keep else 'LOẠI'}" + (f", lý do: {_e('; '.join(v.reasons[:3]))}" if v.reasons else "") + "</div>")
         body += "</div></div>"

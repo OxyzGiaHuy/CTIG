@@ -553,6 +553,61 @@ class PromptAgent:
         except Exception:  # noqa: BLE001
             return None
 
+    def vqa_choice(self, question: str, image: str, n: int = 3) -> list[float] | None:
+        """Xác suất trên n chữ cái đầu của câu trả lời trắc nghiệm. None nếu backend không hỗ trợ."""
+        fn = getattr(self.llm, "choice_prob", None)
+        if fn is None:
+            return None
+        try:
+            out = fn(question, [image], tuple("ABC"[:n]))
+            return [float(x) for x in out]
+        except Exception:  # noqa: BLE001
+            return None
+
+    def attr_alternatives(self, name_en: str, attrs_en: list[str], must_not_en: list[str]) -> dict[str, str]:
+        """Với mỗi thuộc tính bắt buộc, viết MỘT mô tả sai cụ thể mà model sinh ảnh hay vẽ nhầm thành (v1.9.2).
+
+        Reviewer dùng cặp (đúng, sai) làm câu trắc nghiệm hai lựa chọn thay cho câu có/không. Câu sai phải nhìn thấy
+        được, cùng bộ phận với câu đúng, và loại trừ nhau với nó - không phải phủ định suông ("không có tà").
+        """
+        attrs_en = [a for a in attrs_en if a]
+        if not attrs_en:
+            return {}
+        system = (
+            "You help verify whether a generated photo really shows a described garment or object. For each required "
+            "visual attribute, write the single most likely WRONG thing an image generator draws instead. "
+            "Rules: describe what is SEEN, 5-14 words, same body part or same region as the attribute, mutually "
+            "exclusive with it, never a bare negation such as 'no collar' or 'does not have'. "
+            "Reuse one of the forbidden descriptions when it fits the same region."
+        )
+        user = (
+            f"Object: {name_en}\n"
+            "Required attributes:\n" + "\n".join(f"- {a}" for a in attrs_en) + "\n"
+            + ("Known forbidden descriptions:\n" + "\n".join(f"- {a}" for a in must_not_en if a) + "\n" if must_not_en else "")
+            + "Return JSON: {\"alternatives\": [{\"attribute\": <copy the required attribute exactly>, "
+              "\"instead\": <the wrong look, 5-14 words>}]}"
+        )
+        schema = {"type": "object", "properties": {"alternatives": {"type": "array", "items": {"type": "object",
+                  "properties": {"attribute": {"type": "string"}, "instead": {"type": "string"}},
+                  "required": ["attribute", "instead"]}}}, "required": ["alternatives"]}
+        try:
+            out = self._complete(system, user, schema, max_new_tokens=520)
+        except Exception:  # noqa: BLE001
+            return {}
+        low = {a.lower().strip(): a for a in attrs_en}
+        alts: dict[str, str] = {}
+        for it in (out or {}).get("alternatives", []) or []:
+            a, alt = str(it.get("attribute", "")).lower().strip(), str(it.get("instead", "")).strip()
+            key = low.get(a) or next((v for k, v in low.items() if a and (a in k or k in a)), None)
+            if not key or not alt or len(alt.split()) < 3 or len(alt.split()) > 20:
+                continue
+            if alt.lower().startswith(("no ", "not ", "does not", "without ", "missing ", "lack")):
+                continue  # phủ định suông không tách được hai lựa chọn
+            if alt.lower() in (key.lower(), name_en.lower()):
+                continue
+            alts[key] = alt
+        return alts
+
     def rewrite_prompt(self, image: str, prompt_en: str, name_en: str, missing: list[str], wrong: list[str], facts: list[str]) -> str:
         """Reflector kiểu Idea2Img: nhìn ảnh lỗi, biết thiếu gì / sai gì, viết lại câu prompt chính (<= 60 từ) giữ cảnh gốc,
         mô tả đúng chỗ sai bằng từ ngữ mà model sinh ảnh hiểu (hình dáng, vị trí, chất liệu), không dùng từ phủ định."""

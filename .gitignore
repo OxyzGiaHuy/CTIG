@@ -5,3 +5,6 @@ runs/
 .pytest_cache/
 .ipynb_checkpoints/
 *.egg-info/
+
+# ảnh tham chiếu của nhóm: ảnh web bên thứ ba, giấy phép không rõ -> chỉ dùng nội bộ, không đẩy lên repo công khai
+docs/report_assets/

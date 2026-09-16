@@ -177,6 +177,31 @@ def attr_question(name_en: str, attr_en: str) -> str:
             "Is this statement true for what you see? Answer Yes or No.")
 
 
+def attr_choice_question(name_en: str, opt_a: str, opt_b: str) -> str:
+    """Câu TRẮC NGHIỆM hai lựa chọn loại trừ nhau + lối thoát 'không cái nào' (v1.9.2)."""
+    cap = lambda t: t[0].upper() + t[1:] if t else t
+    return (f"Look at the {name_en} in this photo. Which ONE of these matches what you actually see?\n"
+            f"A. {cap(opt_a)}\nB. {cap(opt_b)}\nC. neither A nor B\n"
+            "Answer with only the letter A, B or C.")
+
+
+def forced_choice(agent, name_en: str, path: str, have_attr: str, alt_attr: str) -> float | None:
+    """P(thuộc tính đúng) qua câu trắc nghiệm, chạy CẢ HAI thứ tự rồi lấy trung bình để khử thiên lệch vị trí.
+
+    Đo trên S001 (Qwen2.5-VL-7B), thuộc tính "tunic split at the hips into front and back panels":
+    câu có/không cho 0,87 với ảnh áo liền quần và 0,90-0,96 với ba ảnh áo dài thật -> không tách được.
+    Câu trắc nghiệm cho 0,05/0,24 với ảnh sai và 0,84-0,96 với ba ảnh đúng.
+    """
+    fn = getattr(agent, "vqa_choice", None)
+    if fn is None or not alt_attr:
+        return None
+    p1 = fn(attr_choice_question(name_en, have_attr, alt_attr), path)
+    p2 = fn(attr_choice_question(name_en, alt_attr, have_attr), path)
+    if p1 is None or p2 is None:
+        return None
+    return (p1[0] + p2[1]) / 2.0
+
+
 def clip_agrees_not(clip, path: str, name_en: str, not_attr: str, have_attr: str, margin: float = 0.60) -> bool | None:
     """CLIP so cặp trên chính ảnh: P('với must_not') so với P('với must_have'). True = CLIP cũng thấy must_not;
     False = CLIP nghiêng về must_have (VLM đọc sai); None = không kiểm được."""
@@ -189,7 +214,8 @@ def clip_agrees_not(clip, path: str, name_en: str, not_attr: str, have_attr: str
         return None
 
 
-def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_people: int | None, clip=None) -> FilterVerdict:
+def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_people: int | None, clip=None,
+             alts: dict[str, str] | None = None) -> FilterVerdict:
     have_all: list[str] = []
     not_all: list[str] = []
     # v1.6 vast p050: prompt chỉ có thực thể bối cảnh (Tết) -> 0/0 thuộc tính, Filter mù. Thực thể context cũng có must_have
@@ -206,7 +232,9 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
     w = lambda a: 2.0 if a in key_attrs else 1.0
     matched_have, matched_not, reasons = [], [], []
     vqa: dict[str, float] = {}
-    contra: dict[str, float] = {}  # P(Yes) của câu phủ định đối chứng
+    contra: dict[str, float] = {}  # P(Yes) của câu phủ định đối chứng (chỉ khi không có mô tả sai đối ứng)
+    fc: dict[str, float] = {}      # P(thuộc tính đúng) của câu trắc nghiệm hai lựa chọn
+    alts = alts or {}
     name_en = next((se.name_en.split("(")[0].strip() for se in spec.entities if se.kind == "object"), "outfit")
     if have_all or not_all:
         try:
@@ -251,7 +279,15 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                 if pr is None:
                     break
                 # đối chứng phủ định cho must_have: gật cả hai chiều = không phân biệt được
-                if a in have_all and pr >= 0.60:
+                if a in have_all and alts.get(a):
+                    pc = forced_choice(agent, subj, desc.path, a, alts[a])
+                    if pc is not None:
+                        fc[a] = round(pc, 3)
+                        if abs(pc - pr) >= 0.30:
+                            reasons.append(f"trắc nghiệm '{a[:24]}' {pc:.2f} thay câu có/không {pr:.2f}"
+                                           f" (sai: {alts[a][:34]})")
+                        pr = pc  # câu trắc nghiệm phân biệt tốt hơn -> dùng làm giá trị quyết định
+                elif a in have_all and pr >= 0.60:
                     pn = agent.vqa_yes(attr_question_neg(subj, a), desc.path)
                     if pn is not None:
                         contra[a] = round(pn, 3)
@@ -299,14 +335,37 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
         reasons.append(f"{len(matched_have)}/{len(have_all)} must_have thấy trong mô tả")
     return FilterVerdict(path=desc.path, keep=keep, matched_must_have=matched_have, matched_must_not=matched_not,
                          missing_must_have=missing, people_count=desc.people_count, reasons=reasons, score=round(score, 3),
-                         vqa=vqa, vqa_neg=contra)
+                         vqa=vqa, vqa_neg=contra, vqa_fc=fc, alt_attrs={k: alts[k] for k in fc})
+
+
+def _alternatives(agent, spec: CulturalSpec, log=print) -> dict[str, str]:
+    """Một lần mỗi lô: với mỗi must_have, lấy mô tả sai cụ thể để làm lựa chọn B của câu trắc nghiệm."""
+    if getattr(agent, "attr_alternatives", None) is None or getattr(agent, "vqa_choice", None) is None:
+        return {}
+    out: dict[str, str] = {}
+    for se in spec.entities:
+        attrs = [a for a in se.required_attrs_en if a]
+        if not attrs:
+            continue
+        try:
+            got = agent.attr_alternatives(se.name_en.split("(")[0].strip(), attrs,
+                                          [a for a in se.forbidden_attrs_en if a])
+        except Exception as exc:  # noqa: BLE001
+            log(f"  [filter] không lấy được mô tả sai đối ứng ({type(exc).__name__})")
+            continue
+        out.update(got)
+    if out:
+        log(f"  [filter] trắc nghiệm hai lựa chọn cho {len(out)} thuộc tính: "
+            + "; ".join(f"{k[:22]} vs {v[:28]}" for k, v in list(out.items())[:3]))
+    return out
 
 
 def run(agent, paths: list[str], spec: CulturalSpec, prompt_en: str, kind: str = "candidate", log=print, clip=None) -> FilterResult:
     n_people = expected_people(prompt_en)
     paths = list(dict.fromkeys(paths))  # hàng alias (+ref bị gate) chia sẻ đường dẫn -> không mô tả hai lần
     descs = describe(agent, paths, log=log)
-    verdicts = [_verdict(agent, d, spec, kind, n_people, clip=clip) for d in descs]
+    alts = _alternatives(agent, spec, log=log)
+    verdicts = [_verdict(agent, d, spec, kind, n_people, clip=clip, alts=alts) for d in descs]
     kept = [v.path for v in verdicts if v.keep]
     if not kept and verdicts:
         best = max(verdicts, key=lambda v: v.score)

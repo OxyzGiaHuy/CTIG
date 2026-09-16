@@ -483,6 +483,10 @@ class FilterVerdict:
     vqa: dict[str, float] = field(default_factory=dict)
     #: v1.9.1: P(Yes) của câu PHỦ ĐỊNH đối chứng; gật cả hai chiều = VLM không phân biệt được, thuộc tính không được tính
     vqa_neg: dict[str, float] = field(default_factory=dict)
+    #: v1.9.2: P(thuộc tính đúng) của câu TRẮC NGHIỆM hai lựa chọn (đúng vs mô tả sai đối ứng), trung bình hai thứ tự
+    vqa_fc: dict[str, float] = field(default_factory=dict)
+    #: v1.9.2: mô tả sai đã dùng làm lựa chọn còn lại, để đọc lại được vì sao một thuộc tính bị bác
+    alt_attrs: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass

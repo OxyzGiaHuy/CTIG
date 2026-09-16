@@ -160,6 +160,42 @@ class QwenVLBackend(JSONChatMixin):
         ln = self.torch.logsumexp(logits[list(no_ids)], 0)
         return float(self.torch.softmax(self.torch.stack([ly, ln]), 0)[0])
 
+    def choice_prob(self, question: str, images: list[str] | None = None,
+                    letters: tuple[str, ...] = ("A", "B", "C")) -> list[float]:
+        """Câu hỏi TRẮC NGHIỆM: xác suất chuẩn hoá trên chữ cái đầu câu trả lời, một lượt forward, không sinh.
+
+        v1.9.2. Câu có/không không phân biệt được cấu trúc trang phục: trên S001, "áo có tà xẻ hai bên không" cho
+        0,87 với ảnh áo liền quần và 0,90-0,96 với ảnh áo dài thật -> trùm lên nhau hoàn toàn. Bắt model CHỌN giữa
+        thuộc tính đúng và một mô tả sai cụ thể thì tách hẳn: 0,05-0,24 so với 0,84-0,96.
+        """
+        from PIL import Image
+        from qwen_vl_utils import process_vision_info
+
+        content = []
+        for p in images or []:
+            img = Image.open(p).convert("RGB")
+            img.thumbnail((896, 896))
+            content.append({"type": "image", "image": img})
+        content.append({"type": "text", "text": question})
+        messages = [{"role": "system", "content": "Answer with a single letter."},
+                    {"role": "user", "content": content}]
+        text = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        image_inputs, video_inputs = process_vision_info(messages)
+        inputs = self.processor(text=[text], images=image_inputs, videos=video_inputs, padding=True,
+                                return_tensors="pt").to(self.model.device)
+        tok = self.processor.tokenizer
+        t0 = time.time()
+        with self.torch.inference_mode():
+            logits = self.model(**inputs).logits[0, -1].float()
+        self.calls += 1
+        self.seconds += time.time() - t0
+        cols = []
+        for letter in letters:
+            ids = {tok.encode(w, add_special_tokens=False)[0] for w in (letter, " " + letter, letter.lower())}
+            cols.append(self.torch.logsumexp(logits[list(ids)], 0))
+        return [float(x) for x in self.torch.softmax(self.torch.stack(cols), 0)]
+
+
 
 def _load_model(model: str, dt, device: str):
     from transformers import AutoModelForImageTextToText

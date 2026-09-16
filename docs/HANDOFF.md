@@ -253,6 +253,14 @@ gồm tất cả thay đổi v1.9:
   luận; Rank; Reflector nhận gì, chọn nấc nào, viết caption/prompt gì; Refiner nhận ảnh nào, prompt thật gửi model, seed, guidance;
   Reviewer chấm lại từng vòng; kết luận. Kèm lưới ảnh model thuần so ảnh cuối hệ thống ở đầu trang.
 
+### S001 của v19 (xong 12:12, 1.280 s cho 15 hàng)
+
+CLIP attr bare → system: SDXL 0,36 → 0,52; RealVis 0,49 → 0,70 (LoRA áo dài 0,67, IP-Adapter Plus **0,81**); SD 3.5 0,22 → 0,27;
+FLUX 0,17 → 0,28. Filter qua: SDXL 1/6 → 2/6; RealVis 0/6 → 2/2; FLUX 0/6 → 2/6. Reviewer nghiêm hơn hẳn (11/62 ảnh qua tầng 1,
+trước là 21/24). **Loop 0 vòng ở cả 4 model** vì ứng viên đầu đã "đủ thuộc tính" — KB áo dài trong cache vẫn là bản cũ 3 thuộc tính
+(bước kiểm KB mất 0 s vì đã đánh dấu `validated`), nên inpaint/rewrite vẫn chưa chạy thật.
+Hàng `+init` và `+ref` của S001 bị cổng `auto_ref` chặn (prior áo dài 0,55 > 0,45) — đúng thiết kế; S012 (prior 0,10) sẽ mở.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

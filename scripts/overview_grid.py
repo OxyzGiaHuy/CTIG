@@ -103,10 +103,10 @@ def build(run: str, out_png: str, cell: int = 300, ids: list[str] | None = None,
     if not rows:
         raise SystemExit(f"không có prompt nào trong {run}")
 
-    pad, gut, head, cap = 8, 190, 62, 40
+    pad, gut, head, cap, foot = 8, 200, 62, 40, 34
     cw, ch = cell + pad, cell + cap + pad
     W = gut + len(models) * 2 * cw + pad
-    H = head + len(rows) * ch + pad
+    H = head + len(rows) * ch + pad + foot
     im = Image.new("RGB", (W, H), "white")
     d = ImageDraw.Draw(im)
     f9, f11, f13b = _font(13), _font(15), _font(18, True)
@@ -123,7 +123,7 @@ def build(run: str, out_png: str, cell: int = 300, ids: list[str] | None = None,
         d.text((6, y + 6), pid, font=f13b, fill=(20, 20, 20))
         words, line, lines = prompt_en.split(), "", []
         for w in words:
-            if len(line) + len(w) > 26:
+            if len(line) + len(w) > 21:
                 lines.append(line); line = w
             else:
                 line = (line + " " + w).strip()
@@ -160,6 +160,19 @@ def build(run: str, out_png: str, cell: int = 300, ids: list[str] | None = None,
                     note = f"{src} · {nrounds} vòng"
                 d.text((x + 4, y + cell + 22), note[:34], font=f9, fill=(120, 120, 120))
         d.line([(0, y - 2), (W, y - 2)], fill=(225, 225, 225), width=1)
+
+    # dòng tổng kết để ảnh tự đứng được một mình
+    win = tie = lose = 0
+    for _, _, row in rows:
+        for cell_ in row.values():
+            a, b = cell_.get("bare"), cell_.get("system")
+            if not a or not b or a[1] is None or b[1] is None:
+                continue
+            win += b[1] > a[1]; lose += b[1] < a[1]; tie += b[1] == a[1]
+    fy = head + len(rows) * ch + 6
+    d.text((6, fy), f"system thắng {win} · hoà {tie} · thua {lose} trong {win + tie + lose} cặp "
+                    f"(ô bare = ảnh bare tốt nhất theo Reviewer; ô system = ảnh CUỐI vòng sửa chọn)",
+           font=f11, fill=(90, 90, 90))
 
     im.save(out_png)
     log(f"{out_png} · {len(rows)} prompt × {len(models)} model nền · {W}×{H}px · {os.path.getsize(out_png) // 1024} KB")

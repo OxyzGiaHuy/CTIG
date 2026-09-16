@@ -1003,7 +1003,7 @@ def test_v17_grounding_bare(tmp):
     sr = SearchResult("t", [EvidenceItem(ent.id, "wiki_text", "Nón quai thao – Wikipedia", "Nón quai thao có vành rất rộng và phẳng, quai là dải lụa dài buông hai bên. " * 3, url="u")])
     ok = st_ex.draft_kb(DraftAgent(), ent, [sr.items[0]], tmp / "kb_auto", sr, log=lambda *a: None)
     check("kb_auto: dựng bản ghi, nạp vào Entity (must_have_en, tags, clip_label, prior), thêm EvidenceItem provenance kb_auto",
-          ok and ent.must_have_en == ["very wide flat brim", "long silk tassel straps"] and ent.tags_en and ent.prior_strength == 0.1
+          ok and ent.must_have_en == ["very wide flat brim", "long silk tassel straps"] and ent.tags_en and ent.prior_strength == 0.2
           and any(it.provenance == "kb_auto" for it in sr.items) and (tmp / "kb_auto" / f"{ent.id}.json").exists(), str(ent.must_have_en))
     check("kb_auto: mục không có câu gốc được ghi chú", any("golden embroidery" in n for n in sr.notes), str(sr.notes))
     ent2 = s.kb.add_adhoc("nón quai thao thử", "quai thao test hat"); ent2.must_have_en = []

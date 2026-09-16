@@ -150,7 +150,20 @@ Loop có tác dụng: S001 đạt ở vòng 2, S012 lấy ảnh vòng 1, S021 d�
 `realvis_xl+ref`, tức kênh ảnh vẫn là thành phần quyết định.
 
 Lượt **v5** đang chạy (`v18_v5`, 4 prompt S001/S012/S021/S031, 8 hàng gồm `flux_dev+ref`): thêm ảnh ref theo prompt của nhóm,
-VQA dạng phát biểu, chỉ mục kho dựng lại sau khử trùng.
+VQA dạng phát biểu, chỉ mục kho dựng lại sau khử trùng (1.346 ảnh sau khi bỏ 53 bản trùng).
+
+**Kiểm KB với ảnh của nhóm + VQA phát biểu cho kết quả sạch hẳn** (áo dài, S001):
+
+| thuộc tính | điểm trên 3 ảnh thật | kết quả |
+|---|---|---|
+| high stand-up mandarin collar | 1,00 (trước 0,33) | giữ |
+| long-sleeved tunic split at the hips… | 1,00 (trước 0,67) | giữ |
+| fitted bodice with flowing loose panels | 1,00 | giữ |
+| worn over wide-legged long trousers | 0,33 | bỏ (ảnh nhóm là cận cảnh nửa người) |
+| split skirt…, front skirt shorter…, seam along the side | 0,00 | bỏ |
+
+Đáng chú ý: **cả 3 thuộc tính giữ lại đều đến từ bản tay**, mọi thuộc tính LLM tự sinh cho áo dài đều bị ảnh thật loại. Với thực thể
+có bản tay, tự sinh chưa bằng; giá trị thật của tự sinh là ở ~113 thực thể NGOÀI KB của hai bộ prompt mới.
 
 ## 4. Lỗi/rủi ro còn mở
 

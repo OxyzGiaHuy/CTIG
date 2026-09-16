@@ -205,6 +205,29 @@ niệm × 1 ảnh**; OmniGen dùng in-context, tối đa 3 ảnh, 3 khái niệm
 không" rồi nêu khái niệm thiếu. CTIG hiện: scale 0,4 (thấp hơn), tối đa 3 ảnh cho IP-Adapter Plus, **chưa nối caption của ảnh vào
 prompt** — nên thử scale 0,5 và thêm caption theo mẫu của họ.
 
+## 3g. v1.9 — 8 lỗi của Reviewer/loop tìm bằng agent phân tích output thật (2026-09-16)
+
+Agent đọc toàn bộ `runs/v18_v5` (4 prompt × 3 model, 622 câu VQA) và **xem ảnh**. Lỗi và cách sửa (commit `b418b63`, `ea8bb72`, `74d7f8e`):
+
+| # | Lỗi | Bằng chứng | Sửa |
+|---|---|---|---|
+| 1 | `garment_rules` nhánh sash/belt luôn trả `absent` (không phân biệt "mô tả không nói" với "không có") | 24/32 ảnh S031 bị ghi thiếu "silk sash" dù VQA trung vị 0,94 | chỉ `absent` khi trường có mặt |
+| 2 | `must_not` rỗng: `validate_draft` bỏ qua `hand.must_not_en` | S001 `forbidden_attrs: []`; 23/26 ảnh có "bare legs" trong mô tả, 0 ảnh bị phạt → **ảnh cuối không quần vẫn +1,00** | luôn nạp must_not tay |
+| 3 | Bỏ phiếu 3 ảnh quá nhiễu | cùng 3 ảnh, 2 lần chạy: "mandarin collar" 1,00 và 0,33 | khoá 2 thuộc tính định danh, chỉ bỏ khi ảnh BÁC BỎ rõ |
+| 4 | Ngưỡng cứng 0,75 / 0,85 | 0,75 cắt giữa hai mode 0,731 (14 lần) và 0,755 (11 lần); must_not 0,85 bỏ sót 25 câu trong 0,60–0,85 | 0,60 / 0,70 + **điểm phần** cho dải 0,35–0,60 |
+| 5 | Thuộc tính "chết" | S012 "on a central Vietnam beach" max 0,04/28 ảnh; S021 "lion dance" max 0,22/36 | max VQA < 0,5 trên mọi ảnh → bỏ khỏi điểm và khỏi mục tiêu loop |
+| 6 | Hoà điểm hàng loạt | S001 16/26 ảnh cùng +1,00; S021 23/36 cùng +0,20 | khoá phá hoà: Reviewer → VQA TB → VQAScore → ensemble |
+| 7 | Rank rỗng → ảnh cuối None | | lấy ảnh hệ thống ít sai nhất |
+| 8 | must_have của thực thể phụ không có trong prompt | S021 "lion dance" trọng số 2/5 → trần điểm 0,60 | `focus_context_entities` áp cho cả vật thể phụ |
+
+**Giả thuyết của tôi trước đó SAI**: ảnh tham chiếu S001 là ảnh **toàn thân**, thấy rõ quần; thuộc tính quần rớt vì VQA đọc sai
+áo trắng trên quần trắng, không phải vì khung ảnh.
+
+**Định vị vùng cho inpaint** (theo SLD / GenArtist / Marmot, agent nghiên cứu riêng): không hệ thống nào định vị thuộc tính trừu
+tượng; tất cả định vị **đối tượng** rồi suy ra vùng. Đã đổi theo: (1) **Qwen2.5-VL grounding** trả bbox (toạ độ theo ảnh đã resize,
+quy đổi `image_grid_thw * 14`), (2) OWL-ViT với **danh từ ngắn** (`collar`, `brim` — GenArtist dùng từ vựng 7.605 danh từ đơn),
+(3) box **thực thể cha** (SLD). Thuộc tính chuyển sang **prompt của vùng inpaint** (DiffEdit) thay vì câu truy vấn.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

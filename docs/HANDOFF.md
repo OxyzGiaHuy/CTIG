@@ -261,6 +261,31 @@ trước là 21/24). **Loop 0 vòng ở cả 4 model** vì ứng viên đầu đ
 (bước kiểm KB mất 0 s vì đã đánh dấu `validated`), nên inpaint/rewrite vẫn chưa chạy thật.
 Hàng `+init` và `+ref` của S001 bị cổng `auto_ref` chặn (prior áo dài 0,55 > 0,45) — đúng thiết kế; S012 (prior 0,10) sẽ mở.
 
+### v19 xong (13:04) — 4 prompt × 4 model nền, 15 hàng
+
+| model nền | CLIP attr bare → system | điểm Reviewer bare → system |
+|---|---|---|
+| SDXL 1.0 gốc | 0,52 → 0,75 | +0,13 → +0,69 |
+| RealVis XL | 0,55 → 0,73 | +0,11 → +0,57 |
+| SD 3.5 Medium | 0,31 → 0,66 | +0,45 → +0,56 |
+| FLUX.1-dev | 0,34 → 0,45 | +0,42 → +0,84 |
+| (hàng IP-Adapter Plus của RealVis) | — | attr **0,92**, Reviewer **+0,93** |
+
+**System > bare ở cả 4 model, trên cả hai số đo, khoảng cách lớn hơn mọi lượt trước** (v5: RealVis +0,17 CLIP attr; v19: +0,18 nhưng
+Reviewer +0,46 thay vì +0,27). Hàng `sdxl_refplus` (IP-Adapter Plus, ảnh của nhóm, scale 0,5, có caption) dẫn đầu tuyệt đối và là
+ảnh cuối của 2/4 prompt.
+
+**Inpaint chạy thật lần đầu**: 2 lần ở S012, cả hai định vị được vùng — một lần bằng **hộp thực thể cha (SLD) + SAM**, một lần bằng
+**crop-then-ground** ("hull" trong hộp cha). Thang định vị 4 nấc hoạt động đúng thiết kế.
+
+**Loop vẫn 0 vòng ở ảnh cuối của cả 4 prompt**: ứng viên đầu đã "đủ thuộc tính". Nguyên nhân còn lại: KB sau kiểm chỉ 2–3 thuộc tính
+nên dễ đạt. Hướng: tăng số thuộc tính giữ lại (xin 5–8 đã làm, nhưng ảnh thật loại nhiều), hoặc yêu cầu "đạt" = đủ thuộc tính **và**
+điểm VQA trung bình ≥ ngưỡng.
+
+**Lỗi tìm thêm, đã sửa (`278fc8a`)**: LLM tự chấm `prior_strength` = 0,80 cho thuyền thúng (thực tế model không vẽ được) → cổng
+`auto_ref` đóng → mất kênh ảnh ở đúng thực thể cần nhất. Nay prior của LLM không dùng cho cổng: thực thể tự sinh coi như hiếm (0,2),
+thực thể có bản tay dùng prior tay; cổng hàng `+init` nới lên 0,75. **Chưa chạy lại với sửa này.**
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

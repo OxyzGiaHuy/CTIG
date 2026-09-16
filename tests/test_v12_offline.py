@@ -1035,7 +1035,9 @@ def test_v17_grounding_bare(tmp):
     from ctig.llm.prompt_agent import _attr_ok_en
     check("kb_auto: lọc thuộc tính EN vô nghĩa", not _attr_ok_en("Is white") and not _attr_ok_en("Vietnamese traditional dress")
           and not _attr_ok_en("Has two sleeves") is False or True)
-    check("kb_auto: thuộc tính cấu trúc qua", _attr_ok_en("round conical shape with pointed tip") and _attr_ok_en("high stand-up mandarin collar")
+    check("kb_auto: thuộc tính phi thị giác / chép ví dụ bị loại", not _attr_ok_en("one of the few Vietnamese words that appear in English-language dictionaries")
+          and not _attr_ok_en("very wide flat brim with no point") and _attr_ok_en("worn over silk trousers"))
+    check("kb_auto: thuộc tính cấu trúc qua", _attr_ok_en("high collar about 4-5 cm") and _attr_ok_en("high stand-up mandarin collar")
           and not _attr_ok_en("Is white") and not _attr_ok_en("Vietnamese traditional dress") and not _attr_ok_en("red silk"))
     check("kb_auto: câu gốc ngắn toàn từ phổ biến không qua ngưỡng 0.8 khi văn bản khác", not st_ex.quote_in_texts("Áo dài có màu trắng", ["Áo dài là trang phục truyền thống, thân áo dài xẻ hai tà, mặc với quần"], min_overlap=0.8)
           and st_ex.quote_in_texts("thân áo dài xẻ hai tà, mặc với quần ống rộng", ["Áo dài là trang phục truyền thống, thân áo dài xẻ hai tà, mặc với quần ống rộng"], min_overlap=0.8))

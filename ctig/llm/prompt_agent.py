@@ -44,6 +44,13 @@ FINDING_SCHEMA = _s(entity_id=STR, severity={"type": "string", "enum": SEVERITIE
 _GENERIC_EN = {"traditional", "beautiful", "famous", "dress", "clothing", "clothes", "costume", "vietnamese", "vietnam", "item",
                "culture", "cultural", "style", "typical", "popular", "common", "national", "outfit", "garment"}
 _COLORS_EN = {"white", "red", "black", "blue", "green", "yellow", "pink", "purple", "brown", "gold", "golden", "silver", "orange", "grey", "gray"}
+#: từ cho thấy thuộc tính KHÔNG phải đặc điểm nhìn thấy (v1.8 áo dài: "one of the few Vietnamese words that appear in English dictionaries")
+_NONVISUAL_EN = {"word", "words", "dictionary", "dictionaries", "language", "history", "historical", "century", "centuries", "origin",
+                 "originated", "named", "called", "name", "symbol", "symbolizes", "meaning", "means", "popular", "popularity", "famous",
+                 "price", "cost", "festival-goers", "believed", "considered", "known", "unesco", "heritage", "year", "years", "dynasty",
+                 "emperor", "king", "designer", "designed", "introduced", "invented"}
+_EXAMPLE_STRINGS = {"round conical shape with pointed tip", "silk chin strap under the chin", "wide flat brim", "very wide flat brim with no point",
+                    "open lattice bamboo weave", "smooth pale palm-leaf surface over bamboo rings", "silk or cloth chin strap"}
 
 
 def _attr_ok_en(attr_en: str) -> bool:
@@ -56,6 +63,10 @@ def _attr_ok_en(attr_en: str) -> bool:
         return False
     if all(w in _GENERIC_EN or w in _COLORS_EN for w in content):
         return False
+    if any(w in _NONVISUAL_EN for w in content):
+        return False
+    if attr_en.strip().lower() in _EXAMPLE_STRINGS:
+        return False  # model chép ví dụ định dạng
     return True
 
 
@@ -192,7 +203,8 @@ class PromptAgent:
         # ---- bước 2: bản ghi từ câu đã kiểm ----
         sys2 = (
             f"You build a VISUAL knowledge record about {name} for a system that generates and checks images, using ONLY the numbered "
-            "sentences below (they were copied from Wikipedia and web pages).\n"
+            "sentences below (they were copied from Wikipedia and web pages). Only features visible in a photograph count: words, "
+            "names, dictionaries, dates, prices, popularity, feelings are NOT features.\n"
             "must_have: 3-5 items {attr_vi, attr_en, src}. attr_en = 3-8 English words naming a concrete SHAPE, STRUCTURE, PART, MATERIAL, "
             "PATTERN or WAY OF WEARING/PLACING that a viewer can verify in a photo; attr_vi = the same in Vietnamese; src = the index "
             "(integer) of the sentence that supports it. The FIRST TWO must be IDENTIFYING features that separate this item from the "
@@ -204,8 +216,9 @@ class PromptAgent:
             "confusable_with: 1-3 {name, name_en, culture, why}. tags_en: 3-5 short prompt tags (2-4 words), identifying tag first. "
             "neg_tags_en: 2-4 short negative tags without nouns used in must_have. clip_label: 'a photo of ...'. kind: 'object' or "
             "'context'. prior_strength: 0-1 (how well a generic text-to-image model already draws it; ao dai ~0.55, coracle ~0.1).\n"
-            "Example (conical hat): must_have attr_en = 'round conical shape with pointed tip', 'smooth pale palm-leaf surface over bamboo "
-            "rings', 'silk or cloth chin strap'; must_not = 'very wide flat brim with no point', 'open lattice bamboo weave'."
+            "Format example for a DIFFERENT item (a hat), do NOT copy its content: must_have attr_en like 'round conical shape with pointed "
+            "tip' or 'silk chin strap under the chin'; must_not attr_en like 'wide flat brim'. Every attribute you write must come from "
+            f"the sentences about {name}."
         )
         item = _s(attr_vi=STR, attr_en=STR, src={"type": "integer"})
         schema = _s(must_have=_arr(item), must_not=_arr(item),
@@ -240,7 +253,8 @@ class PromptAgent:
                             "culture": str(c.get("culture") or ""), "why": str(c.get("why") or "")})
         out["confusable_with"] = cfs
         out["tags_en"] = [str(x).strip() for x in (d.get("tags_en") or []) if str(x).strip() and not all(w.lower() in _GENERIC_EN for w in str(x).split())][:5]
-        out["neg_tags_en"] = [str(x).strip() for x in (d.get("neg_tags_en") or []) if str(x).strip()][:4]
+        out["neg_tags_en"] = [str(x).strip() for x in (d.get("neg_tags_en") or []) if str(x).strip() and str(x).strip().lower() not in _EXAMPLE_STRINGS
+                              and "conical" not in str(x).lower() or "nón" in ent.name_vi.lower()][:4]
         out["clip_label"] = str(d.get("clip_label") or "").strip()
         out["kind"] = "context" if str(d.get("kind", "")).strip().lower() == "context" else "object"
         try:

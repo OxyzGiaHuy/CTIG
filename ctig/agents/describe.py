@@ -308,6 +308,8 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
     calib = calib or {}
     # thuộc tính mà chính ảnh THẬT cũng không đạt thì không kiểm được bằng VLM này -> bỏ khỏi bảng kiểm, ghi lại
     dead = [a for a in have_all if calib.get(a, {}).get("checkable") is False]
+    if dead and len(dead) == len(have_all):
+        dead = []      # bỏ hết thì Reviewer mù, mọi ảnh đều 0 điểm -> thà giữ bảng kiểm nhiễu còn hơn không có
     have_all = [a for a in have_all if a not in dead]
     thr_have = lambda a: calib.get(a, {}).get("thr", 0.60)
     thr_not = lambda a: calib.get(a, {}).get("thr", 0.70)

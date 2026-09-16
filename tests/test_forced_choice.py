@@ -129,5 +129,11 @@ for lab, vals, want_have in (("áo liền quần", JUMP, False), ("áo dài đú
 assert got["áo dài đúng"] - got["áo liền quần"] >= 0.20, got
 assert D._verdict(CalAgent(JUMP), desc, spec3, "candidate", 1, clip=None, alts={}, calib={}).score == 1.0, \
     "không hiệu chỉnh thì vẫn +1.00 như cũ"
+# mọi thuộc tính đều không kiểm được -> KHÔNG bỏ hết, nếu không Reviewer mù
+D._CAL_CACHE.clear()
+allbad = D._verdict(CalAgent({a: 0.9 for a in REF_VALS}), desc, spec3, "candidate", 1, clip=None, alts={},
+                    calib={a: {"side": "have", "checkable": False, "thr": 0.6} for a in REF_VALS})
+assert allbad.unverifiable == [] and allbad.score > 0, (allbad.unverifiable, allbad.score)
+print("mọi thuộc tính không kiểm được: giữ nguyên bảng kiểm thay vì chấm mù")
 print("hiệu chỉnh ngưỡng: áo liền quần bị bác, áo dài đúng được nhận")
 print("ĐẠT")

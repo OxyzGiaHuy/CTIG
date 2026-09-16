@@ -359,7 +359,7 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
         if hasattr(agent, "vqa_yes"):
             subj = name_en if any(se.kind == "object" for se in spec.entities) else "scene"
             # v1.9.5: mô tả tự do và đếm người vẫn đọc ảnh đầy đủ; riêng câu hỏi thuộc tính đọc ảnh đã cắt quanh người
-            vp = person_crop(agent, desc.path) if calib else desc.path
+            vp = subject_crop(agent, desc.path, subject_labels(spec)) if calib else desc.path
             for a in have_all + not_all:
                 q = attr_question(subj, a)
                 pr = agent.vqa_yes(q, vp)
@@ -454,13 +454,29 @@ _CAL_CACHE: dict[tuple, dict] = {}
 _CROP_MEMO: dict[str, str] = {}
 
 
-def person_crop(agent, path: str, pad: float = 0.06) -> str:
-    """Cắt quanh người rồi mới hỏi VQA (v1.9.5). Ảnh 1536px bị thu về ~700px trước khi vào VLM, người chiếm chưa tới
-    một phần ba khung nên cổ áo và khe xẻ hông gần như biến mất. Đo trên 14 ảnh S001 có nhãn tay, AUC từng thuộc tính:
-    tà xẻ 0,67 -> 0,82; thân áo 0,94 -> 0,97; cổ đứng 0,36 -> 0,58. Không tìm thấy người thì trả lại ảnh gốc."""
-    if path in _CROP_MEMO:
-        return _CROP_MEMO[path]
-    _CROP_MEMO[path] = path              # đặt trước để lỗi cũng không thử lại
+def subject_labels(spec: CulturalSpec) -> list[str]:
+    """Nhãn để định vị vùng cần soi: tên thực thể VẬT THỂ của prompt, rồi tới người.
+
+    v1.9.5b: bản đầu chỉ tìm "person" nên đúng với prompt trang phục mà sai với prompt đồ vật. S012 (thuyền thúng)
+    bị soi vào người chèo thay vì vào thuyền, nên "woven bamboo strips" chỉ được 0,20 trên ba ảnh thật và bị loại,
+    bảng kiểm tụt còn đúng MỘT thuộc tính.
+    """
+    out = [se.name_en.split("(")[0].strip() for se in spec.entities if se.kind == "object" and se.name_en]
+    return [x for x in out if x][:2] + ["person"]
+
+
+def subject_crop(agent, path: str, labels: list[str] | None = None, pad: float = 0.06) -> str:
+    """Cắt quanh chủ thể rồi mới hỏi VQA (v1.9.5). Ảnh 1536px bị thu về ~700px trước khi vào VLM, chủ thể chiếm chưa
+    tới một phần ba khung nên cổ áo, khe xẻ hông hay nan tre gần như biến mất. Đo trên 14 ảnh S001 có nhãn tay, AUC
+    từng thuộc tính: tà xẻ 0,67 -> 0,82; thân áo 0,94 -> 0,97; cổ đứng 0,36 -> 0,58.
+
+    Lấy HỢP của mọi hộp tìm được (thuyền và người chèo đều phải nằm trong khung). Không tìm được gì thì dùng ảnh gốc.
+    """
+    labels = [l for l in (labels or ["person"]) if l]
+    key = path + "|" + ",".join(labels)
+    if key in _CROP_MEMO:
+        return _CROP_MEMO[key]
+    _CROP_MEMO[key] = path              # đặt trước để lỗi cũng không thử lại
     if getattr(agent, "locate", None) is None:
         return path
     try:
@@ -470,25 +486,35 @@ def person_crop(agent, path: str, pad: float = 0.06) -> str:
 
         out = Path(tempfile.gettempdir()) / "ctig_crops"
         out.mkdir(parents=True, exist_ok=True)
-        dst = out / (hashlib.sha1(path.encode()).hexdigest()[:16] + ".png")
+        dst = out / (hashlib.sha1(key.encode()).hexdigest()[:16] + ".png")
         if dst.exists():
-            _CROP_MEMO[path] = str(dst)
+            _CROP_MEMO[key] = str(dst)
             return str(dst)
-        boxes = agent.locate(path, ["person"]) or agent.locate(path, ["woman"])
+        boxes = agent.locate(path, labels)
         if not boxes:
             return path
         im = Image.open(path).convert("RGB")
         W, H = im.size
-        x0, y0, x1, y1 = max(boxes, key=lambda b: (b["bbox"][2] - b["bbox"][0]) * (b["bbox"][3] - b["bbox"][1]))["bbox"]
+        area = lambda b: (b[2] - b[0]) * (b[3] - b[1])
+        keep = [b["bbox"] for b in boxes if area(b["bbox"]) >= 0.01 * W * H]
+        if not keep:
+            return path
+        x0 = min(b[0] for b in keep); y0 = min(b[1] for b in keep)
+        x1 = max(b[2] for b in keep); y1 = max(b[3] for b in keep)
         pw, ph = (x1 - x0) * pad, (y1 - y0) * pad
         box = (max(0, int(x0 - pw)), max(0, int(y0 - ph)), min(W, int(x1 + pw)), min(H, int(y1 + ph)))
         if (box[2] - box[0]) < 0.10 * W or (box[3] - box[1]) < 0.10 * H:
             return path              # hộp quá nhỏ: nhiều khả năng định vị sai
         im.crop(box).save(dst)
-        _CROP_MEMO[path] = str(dst)
+        _CROP_MEMO[key] = str(dst)
     except Exception:  # noqa: BLE001
         pass
-    return _CROP_MEMO[path]
+    return _CROP_MEMO[key]
+
+
+def person_crop(agent, path: str, pad: float = 0.06) -> str:
+    """Tương thích ngược: cắt quanh người."""
+    return subject_crop(agent, path, ["person"], pad)
 
 
 def calibrate(agent, spec: CulturalSpec, refs: list[str], log=print) -> dict[str, dict]:
@@ -516,7 +542,8 @@ def calibrate(agent, spec: CulturalSpec, refs: list[str], log=print) -> dict[str
     if ck in _CAL_CACHE:
         return _CAL_CACHE[ck]
     out: dict[str, dict] = {}
-    rc = [person_crop(agent, r) for r in refs]
+    labels = subject_labels(spec)
+    rc = [subject_crop(agent, r, labels) for r in refs]
     for a, side in attrs:
         vals = [v for v in (agent.vqa_yes(attr_question(subj, a), r) for r in rc) if v is not None]
         if not vals:

@@ -165,6 +165,24 @@ VQA dạng phát biểu, chỉ mục kho dựng lại sau khử trùng (1.346 �
 Đáng chú ý: **cả 3 thuộc tính giữ lại đều đến từ bản tay**, mọi thuộc tính LLM tự sinh cho áo dài đều bị ảnh thật loại. Với thực thể
 có bản tay, tự sinh chưa bằng; giá trị thật của tự sinh là ở ~113 thực thể NGOÀI KB của hai bộ prompt mới.
 
+## 3e. v1.8.3 — KB tự sinh làm ĐÚNG cách viết KB tay (2026-09-16 chiều)
+
+Nhận xét của user: "đang bị bias vào KB viết tay; tại sao không dùng chính cách tạo ra KB tay để áp cho mọi prompt". Đúng — bằng chứng:
+ở v5, cả 3 thuộc tính áo dài giữ lại đều `from_hand`. Nguyên nhân là ràng buộc **"mỗi thuộc tính phải kèm câu gốc chép nguyên văn"**:
+nó ép LLM copy câu Wikipedia dài ("split skirt on both sides of the hips, extending from the waist to mid-thigh") thay vì viết cụm
+ngắn như người ("high stand-up mandarin collar"). Người viết KB tay **nhìn ảnh** và **viết cụm ngắn**, không trích dẫn.
+
+Cách mới (`b586f3b`), ba bước đúng như quy trình tay:
+1. đọc nguồn → chép các câu mô tả hình dáng làm **tư liệu** (không còn là ràng buộc trích dẫn);
+2. VLM **NHÌN 2–3 ảnh THẬT của chính prompt** (thư mục `selected/<id>` của nhóm) + tư liệu → **viết** must_have là cụm 3–6 từ, hai cụm
+   đầu là đặc điểm định danh, `confusable_with` là vật dễ nhầm nhất, và must_not **viết từ vật dễ nhầm đó**; kèm tags, analogy, prior;
+3. kiểm lại bằng chính ảnh thật (`validate_kb`) — thay hoàn toàn cho ràng buộc câu gốc.
+Bản tay chỉ còn là **đường cứu khi tự sinh trắng** (< 2 thuộc tính), không còn là nguồn ưu tiên.
+
+Ngoài ra `viz.final_grid`: mỗi prompt có **lưới kết luận** ở đầu walkthrough.html — mỗi model nền một hàng, trái là ảnh model thuần,
+phải là ảnh cuối hệ thống, kèm Δ CLIP attr / Reviewer / VQAScore. Đã dựng lại cho v4; bản local:
+`~/Research/VnCultureGen/result_kaggle/vast_v1.8_smoke/v4/S001_walkthrough.html` (và S012, S021).
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

@@ -76,6 +76,9 @@ Wikipedia), must_not "left panel longer than right panel" (hiểu sai câu "tà 
 must_not còn yếu. Reviewer 7B cho 28/28 ảnh qua tầng 1 (kể cả bare) → thuộc tính tự sinh hiện dễ đạt, cần xem lại tính phân biệt.
 Inpaint lần đầu: OWL-ViT không tìm được "the sleeves of a Ao dai (Vietnamese long dress)" → đã sửa câu hỏi (bỏ ngoặc, dự phòng
 "a sleeve" → "a Ao dai", ngưỡng thấp hơn) ở `4a90ce5`; tiến trình đang chạy vẫn dùng code cũ nên inpaint chỉ chạy thật ở lượt sau.
+S012 với 7B: KB tự sinh thúng chỉ 2 must_have và một là **"covered with cow dung"** (đúng Wikipedia nhưng không nhìn thấy từ xa) → loop
+SD3.5/FLUX đuổi theo thuộc tính này vô ích. Sửa `9f8769e`: bước 2 chấm `salience` 1–5 (ưu tiên hình dáng/bộ phận lớn), bỏ mục < 3 khi còn
+≥ 2 mục tốt, lọc từ lớp phủ/hoá chất (dung, resin, tar, coating...). Chưa chạy lại.
 
 ## 4. Lỗi/rủi ro còn mở
 

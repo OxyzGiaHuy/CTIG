@@ -40,7 +40,7 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
         if ent is None:
             continue
         # Ưu tiên nguồn dài (toàn văn trang) hơn snippet; giới hạn số nguồn để VLM 3B không loạn và không tốn 70s.
-        texts = sorted(texts, key=lambda t: -len(t.snippet))[: getattr(cfg, "extract_max_sources", 6)]
+        texts = sorted(texts, key=lambda t: (0 if "wikipedia" in (t.provenance or "") else 1, -len(t.snippet)))[: getattr(cfg, "extract_max_sources", 6)]
         # v1.8 KB tự sinh trong Grounding. kb_mode "auto": dựng cho MỌI thực thể từ nguồn truy hồi (KB tay chỉ là danh mục tên
         # và đường lùi); "hand": chỉ thực thể thiếu bản tay; "hand_only": không dựng.
         mode = getattr(cfg, "kb_mode", "auto") if getattr(cfg, "auto_kb", True) else "hand_only"
@@ -343,8 +343,9 @@ def draft_kb(agent, ent, texts: list[EvidenceItem], kb_auto_dir: Path, search: S
     return True
 
 
-def quote_in_texts(quote: str, texts: list[str]) -> bool:
-    """Câu trích có thật trong văn bản không. So mờ theo token vì model hay sửa dấu câu."""
+def quote_in_texts(quote: str, texts: list[str], min_overlap: float = 0.7) -> bool:
+    """Câu trích có thật trong văn bản không. So mờ theo token vì model hay sửa dấu câu. Câu ngắn toàn từ phổ biến ("Áo dài có màu
+    trắng") dễ qua ở 0,7 -> bản nháp KB dùng 0,8 và yêu cầu >= 8 từ."""
     from ..kb import tokens
 
     q = tokens(quote)
@@ -352,6 +353,6 @@ def quote_in_texts(quote: str, texts: list[str]) -> bool:
         return False
     for t in texts:
         tt = tokens(t)
-        if len(q & tt) / len(q) >= 0.7:
+        if len(q & tt) / len(q) >= min_overlap:
             return True
     return False

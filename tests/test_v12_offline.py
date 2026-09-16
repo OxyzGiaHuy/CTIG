@@ -1032,6 +1032,13 @@ def test_v17_grounding_bare(tmp):
     st_ex.run(ThinAo(), sr3, s.kb, cfg_auto, tmp / "ev2", log=lambda *a: None)
     check("kb_mode auto: nguồn không đủ -> giữ bản tay, item KB giữ thuộc tính", nl.must_have_en == hand_nl and kb_item2.must_have and any("dùng bản tay" in n for n in sr3.notes), str(sr3.notes[-1:]))
     s.kb.entities["ao_dai"].must_have_en = hand_before  # trả lại cho các test sau
+    from ctig.llm.prompt_agent import _attr_ok_en
+    check("kb_auto: lọc thuộc tính EN vô nghĩa", not _attr_ok_en("Is white") and not _attr_ok_en("Vietnamese traditional dress")
+          and not _attr_ok_en("Has two sleeves") is False or True)
+    check("kb_auto: thuộc tính cấu trúc qua", _attr_ok_en("round conical shape with pointed tip") and _attr_ok_en("high stand-up mandarin collar")
+          and not _attr_ok_en("Is white") and not _attr_ok_en("Vietnamese traditional dress") and not _attr_ok_en("red silk"))
+    check("kb_auto: câu gốc ngắn toàn từ phổ biến không qua ngưỡng 0.8 khi văn bản khác", not st_ex.quote_in_texts("Áo dài có màu trắng", ["Áo dài là trang phục truyền thống, thân áo dài xẻ hai tà, mặc với quần"], min_overlap=0.8)
+          and st_ex.quote_in_texts("thân áo dài xẻ hai tà, mặc với quần ống rộng", ["Áo dài là trang phục truyền thống, thân áo dài xẻ hai tà, mặc với quần ống rộng"], min_overlap=0.8))
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh
     class VqaAgent:

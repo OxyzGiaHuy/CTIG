@@ -41,6 +41,24 @@ FINDING_SCHEMA = _s(entity_id=STR, severity={"type": "string", "enum": SEVERITIE
                     observed=STR, expected=STR, message=STR)
 
 
+_GENERIC_EN = {"traditional", "beautiful", "famous", "dress", "clothing", "clothes", "costume", "vietnamese", "vietnam", "item",
+               "culture", "cultural", "style", "typical", "popular", "common", "national", "outfit", "garment"}
+_COLORS_EN = {"white", "red", "black", "blue", "green", "yellow", "pink", "purple", "brown", "gold", "golden", "silver", "orange", "grey", "gray"}
+
+
+def _attr_ok_en(attr_en: str) -> bool:
+    """Thuộc tính tiếng Anh phải cụ thể: >= 3 từ, không chỉ là màu, không toàn từ chung ('Is white', 'Vietnamese traditional dress')."""
+    ws = [w.strip(".,;:()").lower() for w in attr_en.split() if w.strip(".,;:()")]
+    if len(ws) < 3:
+        return False
+    content = [w for w in ws if w not in {"is", "has", "with", "a", "an", "the", "of", "and", "or", "in", "on"}]
+    if not content or all(w in _COLORS_EN for w in content):
+        return False
+    if all(w in _GENERIC_EN or w in _COLORS_EN for w in content):
+        return False
+    return True
+
+
 class PromptAgent:
     name = "prompt"
 
@@ -140,22 +158,30 @@ class PromptAgent:
 
     # ------------------------------------------------------------ stage 3
     def draft_kb_entry(self, ent, texts: list[dict]) -> dict:
-        """v1.8 KB tự sinh: một bản ghi KB đầy đủ theo đúng mẫu bản tay, rút từ văn bản (mỗi thuộc tính kèm câu gốc)."""
-        numbered = "\n\n".join(f"[{i}] {t.get('title', '')}\n{t.get('text', '')[:2500]}" for i, t in enumerate(texts))
+        """v1.8 KB tự sinh: một bản ghi KB đầy đủ theo đúng mẫu bản tay, rút từ văn bản (mỗi thuộc tính kèm câu gốc).
+        Prompt tiếng Anh + ví dụ mẫu vì Qwen 3B với hướng dẫn tiếng Việt trả thuộc tính vô nghĩa ("Is white") và bịa câu gốc ngắn."""
+        numbered = "\n\n".join(f"[{i}] {t.get('title', '')}\n{t.get('text', '')[:1800]}" for i, t in enumerate(texts[:4]))
         system = (
-            f"Bạn dựng một bản ghi tri thức THỊ GIÁC về '{ent.name_vi}' ({ent.name_en}) cho hệ sinh và kiểm ảnh, CHỈ từ văn bản cho sẵn.\n"
-            "must_have: 3-5 mục, mỗi mục {attr_vi, attr_en, quote}. attr_en là cụm tiếng Anh <= 8 từ, nhìn ảnh kiểm được (hình dạng, "
-            "cấu trúc, chất liệu, màu, cách mặc/bày). HAI MỤC ĐẦU phải là đặc điểm ĐỊNH DANH: thứ phân biệt nó với vật gần giống nhất. "
-            "quote CHÉP NGUYÊN VĂN một câu trong văn bản kèm chỉ số nguồn [i]. Không lịch sử, không ý nghĩa.\n"
-            "must_not: 2-4 mục cùng cấu trúc: đặc điểm của thứ DỄ NHẦM (văn hoá khác hoặc vật gần giống) mà nếu thấy là ảnh sai; "
-            "KHÔNG nhắc lại từ khoá của must_have.\n"
-            "confusable_with: 1-3 {name, name_en, culture, why}.\n"
-            "tags_en: 3-5 thẻ tiếng Anh ngắn (2-4 từ) cho prompt, thẻ định danh đứng đầu. neg_tags_en: 2-4 thẻ ngắn cho negative, "
-            "KHÔNG chứa danh từ của must_have (CLIP không hiểu phủ định).\n"
-            "clip_label: một câu tiếng Anh 'a photo of ...' mô tả (không phải tên trần). kind: 'object' nếu là vật/trang phục/món ăn, "
-            "'context' nếu là lễ hội/cảnh/hoạt động. prior_strength: 0-1, ước lượng model vẽ ảnh phổ thông tự vẽ đúng được không "
-            "(áo dài ~0.55, thuyền thúng ~0.1).\n"
-            "Quy tắc: không có câu gốc thì KHÔNG đưa mục đó vào. Văn bản không đủ thì trả ít."
+            f"You build a VISUAL knowledge record about the Vietnamese cultural item '{ent.name_vi}' ({ent.name_en}) for a system that "
+            "generates and checks images. Use ONLY the given texts.\n"
+            "Return JSON with:\n"
+            "- must_have: 3-5 items {attr_vi, attr_en, quote}. attr_en = 3-8 English words naming a concrete SHAPE, STRUCTURE, MATERIAL, "
+            "PATTERN or WAY OF WEARING/PLACING that a viewer can verify in a photo. The FIRST TWO must be IDENTIFYING features: what "
+            "separates this item from the most similar item of another culture or region. Never use colors alone, never generic words "
+            "(traditional, beautiful, famous, dress, clothing), never history or meaning. quote = a sentence of at least 8 words COPIED "
+            "VERBATIM from the texts that supports the attribute, prefixed with its source index like [0].\n"
+            "- must_not: 2-4 items, same structure: a visible feature of the most confusable item (other culture or nearby item) whose "
+            "presence means the image is WRONG. Do not repeat words of must_have.\n"
+            "- confusable_with: 1-3 {name, name_en, culture, why}.\n"
+            "- tags_en: 3-5 short prompt tags (2-4 words), identifying tag first. neg_tags_en: 2-4 short negative tags that do NOT contain "
+            "nouns used in must_have.\n"
+            "- clip_label: one English sentence 'a photo of ...' describing the item. kind: 'object' (garment, object, food, building) or "
+            "'context' (festival, scene, activity). prior_strength: 0-1, how well a generic text-to-image model already draws it "
+            "(ao dai ~0.55, coracle boat ~0.1).\n"
+            "Example for 'nón lá' (conical hat): must_have attr_en = 'round conical shape with pointed tip', 'smooth pale palm-leaf surface "
+            "over bamboo rings', 'silk or cloth chin strap'; must_not attr_en = 'very wide flat brim with no point', 'open lattice bamboo weave'; "
+            "tags_en = ['conical palm-leaf hat', 'pointed tip', 'silk chin strap']; neg_tags_en = ['flat wide brim', 'straw boater'].\n"
+            "If a feature has no supporting sentence in the texts, leave it out. Fewer correct items beat more guessed ones."
         )
         item = _s(attr_vi=STR, attr_en=STR, quote=STR)
         schema = _s(must_have=_arr(item), must_not=_arr(item),
@@ -178,7 +204,8 @@ class PromptAgent:
                 vi, en, q = str(it.get("attr_vi") or it["attr_en"]).strip(), str(it["attr_en"]).strip(), str(it.get("quote") or "").strip()
                 if vi.lower() in seen_vi or en.lower() in {x.lower() for x in out[key + "_en"]}:
                     continue  # LLM 3B hay lặp một thuộc tính hai cách viết
-                if q and quote_in_texts(q, raw):
+                q_body = q.split("]", 1)[-1].strip() if q.startswith("[") else q
+                if q_body and len(q_body.split()) >= 8 and quote_in_texts(q_body, raw, min_overlap=0.8) and _attr_ok_en(en):
                     seen_vi.add(vi.lower())
                     out[key].append(vi); out[key + "_en"].append(en); out["attr_sources"][vi] = q
                 else:

@@ -24,7 +24,8 @@ from ..kb import KnowledgeBase
 from ..schema import EvidenceItem, SearchResult, to_dict
 
 
-def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, log=print, kb_auto_dir: Path | None = None) -> SearchResult:
+def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, log=print, kb_auto_dir: Path | None = None,
+        ref_images: dict[str, list[str]] | None = None, ref_images_all: list[str] | None = None) -> SearchResult:
     if not cfg.extract or not (hasattr(agent, "extract_evidence") or hasattr(agent, "draft_kb_entry")):
         return search
     cache_dir.mkdir(parents=True, exist_ok=True)
@@ -46,7 +47,7 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
         mode = getattr(cfg, "kb_mode", "auto") if getattr(cfg, "auto_kb", True) else "hand_only"
         want_draft = hasattr(agent, "draft_kb_entry") and (mode == "auto" or (mode == "hand" and not ent.must_have_en))
         if want_draft:
-            if draft_kb(agent, ent, texts, kb_auto_dir, search, cfg=cfg, log=log):
+            if draft_kb(agent, ent, texts, kb_auto_dir, search, cfg=cfg, log=log, ref_images=(ref_images or {}).get(eid) or ref_images_all):
                 # thuộc tính TAY trên item KB không được trộn vào spec nữa (spec chỉ dùng bản tự dựng)
                 for it in search.items:
                     # chỉ item KB TAY (kb@<version>, kb.notes); KHÔNG đụng item 'kb_auto' vừa thêm (S012 v1.8: xoá nhầm -> spec 0 thuộc tính)
@@ -328,7 +329,9 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
     # Còn quá ít thuộc tính -> thử thêm từ BẢN TAY (nếu KB gốc có), cũng phải qua kiểm ảnh thật; ghi rõ nguồn.
     hand = (d.get("_meta", {}) or {}).get("hand", {}) or {}
     from_hand = []
-    if len(keep_h) < 3 and hand.get("must_have_en"):
+    # v1.8.3: KHÔNG lấy bản tay khi bản tự sinh còn dùng được (>= 2 thuộc tính) - trước đây ngưỡng < 3 làm mọi thuộc tính giữ lại
+    # đều từ bản tay, hệ thống hoá ra chỉ đo bản tay. Chỉ cứu khi tự sinh trắng.
+    if len(keep_h) < 2 and hand.get("must_have_en"):
         for a in hand["must_have_en"]:
             if a in keep_h or not a:
                 continue
@@ -336,7 +339,7 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
             scores[a] = round(ok / len(imgs), 2)
             if ok / len(imgs) >= min_ok:
                 keep_h.append(a); keep_h_vi.append(a); from_hand.append(a)
-            if len(keep_h) >= 4:
+            if len(keep_h) >= 3:
                 break
     if not keep_h:  # ảnh thật không xác nhận được cái nào -> giữ nguyên, có thể ảnh tham chiếu kém
         log(f"  [2b] {ent.name_vi}: KHÔNG thuộc tính nào được ảnh thật xác nhận ({len(imgs)} ảnh) -> giữ nguyên bản ghi")
@@ -366,7 +369,8 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
     return d
 
 
-def draft_kb(agent, ent, texts: list[EvidenceItem], kb_auto_dir: Path, search: SearchResult, cfg=None, log=print) -> bool:
+def draft_kb(agent, ent, texts: list[EvidenceItem], kb_auto_dir: Path, search: SearchResult, cfg=None, log=print,
+             ref_images: list[str] | None = None) -> bool:
     """Dựng bản ghi KB tự sinh cho `ent` từ văn bản đã truy hồi. Cache theo id (tôn trọng cfg.evidence_cache; bản mỏng không
     được cache để lần sau có nguồn tốt hơn thì dựng lại). Thêm EvidenceItem provenance 'kb_auto'. Trả True nếu dùng được."""
     kb_auto_dir = Path(kb_auto_dir)
@@ -380,7 +384,11 @@ def draft_kb(agent, ent, texts: list[EvidenceItem], kb_auto_dir: Path, search: S
             return False
         t0 = time.time()
         try:
-            raw = agent.draft_kb_entry(ent, [{"title": t.title, "url": t.url, "text": t.snippet} for t in texts])
+            src = [{"title": t.title, "url": t.url, "text": t.snippet} for t in texts]
+            try:
+                raw = agent.draft_kb_entry(ent, src, ref_images=ref_images)
+            except TypeError:  # agent cũ không nhận ref_images
+                raw = agent.draft_kb_entry(ent, src)
         except Exception as exc:  # noqa: BLE001
             _FAILED_DRAFT_IDS.add(ent.id)
             search.retrieval_errors.append(f"kb_auto {ent.id}: {type(exc).__name__}: {exc}")

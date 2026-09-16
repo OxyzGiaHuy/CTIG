@@ -66,7 +66,7 @@ def _fix_memory_write(kb_auto_dir: Path, eid: str, fix: str, prompt_id: str, mod
         pass
 
 
-STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 5, "spec": 6, "genspec": 4, "multigen": 3, "review": 1,
+STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 6, "spec": 6, "genspec": 4, "multigen": 3, "review": 1,
               "brief": 2, "ref_filter": 2, "candidate_review": 12}
 
 
@@ -760,7 +760,7 @@ class Session:
             retriever = get_retriever(c.retrieval, self.clip, self.cache_dir, web=self.web, k_images=c.search_viz.k_images)
             s = retriever.search(a, self.kb, raw_prompt=self.prompt.text_vi)
             return st_extract.run(self.agent, s, self.kb, c.retrieval, self.cache_dir / "evidence", log=self.log,
-                                  kb_auto_dir=self.cache_dir / "kb_auto")
+                                  kb_auto_dir=self.cache_dir / "kb_auto", ref_images_all=self.prompt_refs()[:3])
 
         val, src = self._memo("retrieve", key, SearchResult, compute, force)
         if src == "disk":

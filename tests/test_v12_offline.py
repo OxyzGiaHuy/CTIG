@@ -1133,7 +1133,7 @@ def test_v17_grounding_bare(tmp):
         def vqa_yes(self, q, image): return 0.9 if ("stand-up collar" in q or "wide-legged" in q) else 0.1
     ent_x = s.kb.add_adhoc("x test", "x test"); ent_x.id = "x_test"; s.kb.entities["x_test"] = ent_x
     got2 = st_ex.validate_draft(VqaRef2(), ent_x, ["r1.jpg", "r2.jpg"], tmp / "kbv", log=lambda *a: None)
-    check("kiểm KB: còn < 3 thuộc tính -> lấy thêm từ bản tay, cũng phải qua kiểm ảnh thật",
+    check("kiểm KB: còn < 2 thuộc tính -> mới lấy bản tay (không lấy khi tự sinh đã đủ)",
           got2 and got2["must_have_en"] == ["high stand-up collar", "worn over wide-legged long trousers"]
           and got2["_meta"]["validated"]["from_hand"] == got2["must_have_en"], str(got2 and got2["must_have_en"]))
     check("kiểm KB: chạy một lần (đã đánh dấu validated)", st_ex.validate_draft(VqaRef(), ent_v, ["r1.jpg"], tmp / "kbv", log=lambda *a: None) is None)

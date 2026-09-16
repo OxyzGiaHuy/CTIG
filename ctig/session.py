@@ -67,7 +67,7 @@ def _fix_memory_write(kb_auto_dir: Path, eid: str, fix: str, prompt_id: str, mod
 
 
 STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 6, "spec": 6, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 2, "candidate_review": 12}
+              "brief": 2, "ref_filter": 2, "candidate_review": 13}
 
 
 def _h(obj: Any) -> str:
@@ -515,10 +515,36 @@ class Session:
             # điểm Reviewer dùng để so giữa các vòng: ảnh bị loại/có must_not thì âm nặng
             return v.score - (1.0 if (not v.keep or v.matched_must_not) else 0.0)
 
+        def score_tb(v, vqa_map=None, cand_map=None) -> tuple:
+            """v1.9: khoá phá hoà (S001: 16/26 ảnh cùng +1.00 -> 'ứng viên đầu đạt' chọn gần như ngẫu nhiên rồi tắt loop).
+            Thứ tự: điểm Reviewer -> trung bình VQA các thuộc tính -> VQAScore -> hạng ensemble."""
+            vq = (sum((v.vqa or {}).values()) / len(v.vqa)) if v.vqa else 0.0
+            c = (cand_map or {}).get(v.path)
+            return (score_of(v), round(vq, 3), round((vqa_map or {}).get(v.path, 0.0), 3),
+                    (c.ensemble if c is not None and c.ensemble is not None else 0.0))
+
         def compute():
             flt = ag_desc.run(self.agent, [cand.path for cand, _ in cands], sp, pe, kind="candidate", log=self.log, clip=self.clip)
             v_by = {v.path: v for v in flt.verdicts}
             model_of = {cand.path: m for cand, m in cands}
+            # v1.9: THUỘC TÍNH CHẾT - không ảnh nào trong lần chạy đạt VQA >= 0.5 (S012 "on a central Vietnam beach" max 0,04;
+            # S021 "lion dance with Ong Dia" max 0,22) -> Reviewer không đo được, loop đuổi theo vô ích. Bỏ khỏi điểm và khỏi
+            # danh sách thiếu, ghi lại để báo cáo.
+            dead: set[str] = set()
+            all_attrs = {a for v in flt.verdicts for a in (v.vqa or {})}
+            for a in all_attrs:
+                best_p = max((v.vqa.get(a, 0.0) for v in flt.verdicts if v.vqa), default=0.0)
+                if best_p < 0.5 and any(a in v.missing_must_have for v in flt.verdicts):
+                    dead.add(a)
+            if dead:
+                self.log(f"  [reviewer] {len(dead)} thuộc tính KHÔNG đo được trên mọi ảnh (max VQA < 0,5) -> bỏ khỏi điểm: "
+                         + "; ".join(sorted(x[:40] for x in dead)[:3]))
+                for v in flt.verdicts:
+                    v.missing_must_have = [a for a in v.missing_must_have if a not in dead]
+                    n_have = len(v.matched_must_have) + len(v.missing_must_have)
+                    if n_have:
+                        v.score = round(max(-1.0, min(1.0, (len(v.matched_must_have) - len(v.matched_must_not)) / n_have)), 3)
+                    v.reasons.append(f"bỏ {len(dead)} thuộc tính không đo được khỏi điểm")
             # Hàng M#bare là ĐỐI CHỨNG: Reviewer chấm để lập bảng bare/system, nhưng KHÔNG vào Rank, loop hay ảnh cuối.
             bare_paths = {cand.path for cand, m in cands if "#bare" in m}
             # VQAScore chuẩn (cột tham chiếu, kể cả bare): P(Yes | Does this figure show "<prompt>"?)
@@ -564,11 +590,12 @@ class Session:
             self.log(f"  [reviewer] tầng 1 VLM: {len(flt.kept)}/{len(cands)} ảnh qua; {len(groups)} model nền: {', '.join(groups)}")
 
             def review_group(label: str, gcands: list) -> CandidateReview:
+                tb = {cm[0].path: cm[0] for cm in gcands}
                 fine = sorted([cm for cm in gcands if cm[0].path in flt.kept],
-                              key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
+                              key=lambda cm: tuple(-x for x in score_tb(v_by[cm[0].path], vqa_all, tb)))[: c.k_candidates]
                 if not fine and gcands:
                     # Reviewer nghiêm loại hết -> lấy ảnh ÍT SAI NHẤT làm mốc để loop còn có gì mà sửa (loop mới là nơi sửa lỗi)
-                    fine = sorted(gcands, key=lambda cm: (-score_of(v_by[cm[0].path]), -combined_score(cm[0])))[: c.k_candidates]
+                    fine = sorted(gcands, key=lambda cm: tuple(-x for x in score_tb(v_by[cm[0].path], vqa_all, tb)))[: c.k_candidates]
                     for cm in fine:
                         v_by[cm[0].path].keep = True
                     self.log(f"  [reviewer:{label}] không ảnh nào qua tầng 1 -> lấy {len(fine)} ảnh ít sai nhất làm mốc cho loop")
@@ -580,12 +607,19 @@ class Session:
                 cr.vqa = dict(vqa_all)
                 v0 = v_by.get(best) if best else None
                 if not best or v0 is None:
-                    cr.stop_reason = "không có ứng viên"
+                    # v1.9: Rank có thể trả rỗng (mọi ảnh bị loại) -> vẫn phải có ảnh cuối của nhánh hệ thống, không trả None
+                    if gcands:
+                        fb = max(gcands, key=lambda cm: (score_of(v_by[cm[0].path]), combined_score(cm[0])))[0]
+                        cr.final_path, cr.best_path = fb.path, fb.path
+                        cr.best_model = model_of.get(fb.path)
+                        cr.notes.append("Rank rỗng -> lấy ảnh hệ thống ít sai nhất làm ảnh cuối")
+                    cr.stop_reason = "không có ứng viên qua Rank"
                     return cr
                 # Mốc cải thiện = ảnh có điểm Reviewer CAO NHẤT trong pool của nhóm; hoà thì theo thứ tự Rank.
                 rank_pos = {pth: i for i, pth in enumerate(rk.final_order)}
                 kept_v = [v_by[cm[0].path] for cm in gcands if v_by[cm[0].path].keep] or [v0]
-                best_v = max(kept_v, key=lambda v: (score_of(v), -rank_pos.get(v.path, 99)))
+                cand_by = {cm[0].path: cm[0] for cm in gcands}
+                best_v = max(kept_v, key=lambda v: score_tb(v, vqa_all, cand_by) + (-rank_pos.get(v.path, 99),))
                 best_score = score_of(best_v)
                 if best_v.path != v0.path:
                     cr.notes.append(f"mốc cải thiện: {Path(best_v.path).name} ({best_score:+.2f}) thay top-1 Rank ({score_of(v0):+.2f})")
@@ -677,7 +711,8 @@ class Session:
                     cr.stop_reason = "max_revisions = 0: chỉ Reviewer + Rank"
                 # chọn cuối trên toàn pool CỦA NHÓM: điểm Reviewer cao nhất; hoà -> ảnh có sớm hơn
                 order = list(cr.pool.keys())
-                final = max(order, key=lambda pth: (cr.pool[pth], -order.index(pth)))
+                final = max(order, key=lambda pth: ((score_tb(v_by[pth], vqa_all, cand_by) if pth in v_by else (cr.pool[pth], 0, 0, 0))
+                                                    + (-order.index(pth),)))
                 if final != cr.final_path:
                     cr.notes.append(f"chọn trên toàn pool: {Path(final).name} ({cr.pool[final]:+.2f})")
                     cr.final_path = final

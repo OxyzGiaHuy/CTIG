@@ -266,3 +266,20 @@
   caption) -> prompt ngắn hợp nhiều thực thể, chuỗi thuộc tính dài hợp một thực thể KB chi tiết. Chưa chốt.
 - Hạ tầng: 2 tiến trình song song theo prompt -> GPU 99%, VRAM ~25 GB/tiến trình; có thể lên 3 luồng cho dev10.
 - Kế tiếp: SD 3.5 Medium + FLUX.1-dev (nút thắt model nền?), tách nguồn chấm khỏi KB, tập kiểm ngoài KB, LoRA áo tứ thân, đánh giá người theo cặp.
+
+## 2026-09-16 (chiều) — v1.9: sửa 8 lỗi của Reviewer và review loop tìm bằng agent phân tích output thật
+Agent đọc toàn bộ `runs/v18_v5` (4 prompt × 3 model, 622 câu VQA) và xem ảnh; kết quả:
+- **Lỗi code**: `garment_rules` nhánh sash/belt không phân biệt "mô tả không nói gì về đai" với "không có đai" -> luôn trả
+  `absent`; 24/32 ảnh S031 bị ghi thiếu "silk sash" dù VQA trung vị 0,94. Sửa: chỉ `absent` khi trường có mặt và rỗng.
+- **must_not rỗng**: `validate_draft` chỉ nạp `hand.must_have_en`, bỏ `hand.must_not_en` -> S001 `forbidden_attrs: []`, 23/26 ảnh
+  có "bare legs" trong mô tả mà không ảnh nào bị phạt; ảnh cuối RealVis không quần vẫn +1,00. Sửa: luôn nạp must_not tay.
+- **Bỏ phiếu 3 ảnh quá nhiễu**: cùng 3 ảnh, hai lần chạy cho "mandarin collar" 1,00 và 0,33. Sửa: khoá 2 thuộc tính định danh đầu,
+  chỉ bỏ khi ảnh BÁC BỎ rõ. (Giả thuyết "ảnh cận cảnh" của tôi sai: ảnh là toàn thân, VQA đọc sai áo trắng trên quần trắng.)
+- **Ngưỡng cứng**: 0,75 cắt đúng giữa hai mode 0,731 và 0,755; hạ về 0,60 (must_have) và 0,70 (must_not), thêm điểm PHẦN cho dải
+  0,35-0,60 -> phá hoà (trước: S001 16/26 ảnh cùng +1,00, S021 23/36 cùng +0,20).
+- **Thuộc tính chết**: max VQA < 0,5 trên MỌI ảnh (S012 "on a central Vietnam beach" 0,04; S021 "lion dance" 0,22) -> bỏ khỏi điểm
+  và khỏi mục tiêu loop. Cả 3 ca "loop không cải thiện" đều đuổi theo đúng loại thuộc tính này.
+- **Khoá phá hoà**: điểm Reviewer -> VQA trung bình -> VQAScore -> hạng ensemble.
+- **Rank rỗng** vẫn phải có ảnh cuối của nhánh hệ thống.
+- Định vị vùng cho inpaint (theo SLD/GenArtist/Marmot): Qwen2.5-VL grounding (bbox pixel, quy đổi `image_grid_thw*14`) ->
+  OWL-ViT với DANH TỪ NGẮN -> box thực thể cha; thuộc tính chuyển sang prompt vùng (DiffEdit) thay vì câu truy vấn.

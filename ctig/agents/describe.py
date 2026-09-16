@@ -112,8 +112,13 @@ def garment_rules(desc: ImageDescriptor, attr: str) -> str | None:
             return None
         return "present" if any(v not in ("no", "none") for v in sl) else "absent"
     if "obi" in a or "sash" in a or "belt" in a:
+        # v1.9: phân biệt "mô tả KHÔNG nói gì về đai" (-> None, để VQA/agent quyết) với "mô tả nói không có đai" (-> absent).
+        # Trước đây cả hai đều ra 'absent' vì vals() lọc mất giá trị 'none' -> S031: 24/32 ảnh bị ghi thiếu 'silk sash'
+        # dù VQA trung vị 0,94.
+        if not any("sash_or_belt" in g for g in gs):
+            return None
         sb = vals("sash_or_belt")
-        return "present" if sb and any(v not in ("no", "none") for v in sb) else "absent"
+        return "present" if any(v not in ("no", "none") for v in sb) else "absent"
     if "one-piece" in a or "gown" in a or "floor-length" in a:
         ty = vals("type"); ln = vals("length"); lb = vals("lower_body")
         if any(("dress" in v or "gown" in v) for v in ty) and not any(("trouser" in v or "pant" in v) for v in lb):
@@ -241,7 +246,9 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                 pr = vqa.get(a)
                 if pr is None:
                     continue
-                if pr >= 0.75 and a not in matched_have and garment_rules(desc, a) != "absent":
+                # v1.9: 0,75 rơi đúng giữa hai mode của phân bố (0,731 và 0,755) -> đổi ngưỡng xác nhận về 0,60 và ghi nhận
+                # dải "không chắc" 0,35-0,60 để tính điểm liên tục thay vì nhảy bậc.
+                if pr >= 0.60 and a not in matched_have and garment_rules(desc, a) != "absent":
                     matched_have.append(a); reasons.append(f"VQA xác nhận '{a[:30]}' ({pr:.2f})")
                 elif pr <= 0.25 and a in matched_have and garment_rules(desc, a) != "present":
                     matched_have.remove(a); reasons.append(f"VQA bác '{a[:30]}' ({pr:.2f})")
@@ -249,7 +256,7 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                 pr = vqa.get(a)
                 if pr is None:
                     continue
-                if pr >= 0.85 and a not in matched_not:  # must_not chỉ theo VQA cần chắc hơn (p031: 'wide brim' 0.78 trên nón lá đúng)
+                if pr >= 0.70 and a not in matched_not:  # v1.9: 0,85 bỏ sót 25 câu trong dải 0,60-0,85 (S031); 0,70 cân bằng hơn
                     h = _counterpart(a, have_all)
                     if h is None or clip_agrees_not(clip, desc.path, name_en, a, h) is not False:
                         matched_not.append(a); reasons.append(f"VQA thấy must_not '{a[:30]}' ({pr:.2f})")
@@ -257,7 +264,9 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                     matched_not.remove(a); reasons.append(f"VQA bác must_not '{a[:30]}' ({pr:.2f})")
     missing = [a for a in have_all if a not in matched_have]
     tot = sum(w(a) for a in have_all)
-    score = ((sum(w(a) for a in matched_have) - sum(w(a) for a in matched_not)) / tot) if tot else 0.0
+    # v1.9: thuộc tính chưa khớp nhưng VQA ở dải giữa được cộng PHẦN theo xác suất -> phá hoà (S001: 16/26 ảnh cùng +1.00)
+    partial = sum(w(a) * max(0.0, min(1.0, (vqa[a] - 0.35) / 0.25)) for a in missing if 0.35 < vqa.get(a, 0.0) < 0.60)
+    score = ((sum(w(a) for a in matched_have) + partial - sum(w(a) for a in matched_not)) / tot) if tot else 0.0
     score = max(-1.0, min(1.0, score))
     keep = True
     if matched_not:

@@ -325,10 +325,9 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
             ok += int(pr >= 0.6)
             rejected += int(pr <= reject_below)
         scores[a] = round(ok / len(imgs), 2)
-        # v1.8.4 (S001: mất "worn over wide-legged long trousers" vì ảnh tham chiếu là ảnh cận cảnh -> ảnh cuối không quần
-        # vẫn "đủ thuộc tính"): chỉ BỎ khi ảnh thật BÁC BỎ rõ (đa số ảnh trả No chắc chắn). "Không thấy" (điểm lưng chừng,
-        # thường do ảnh crop) thì GIỮ - thà đòi hỏi thừa còn hơn bỏ sót thuộc tính định danh.
-        if ok / len(imgs) >= min_ok or rejected < max(1, (len(imgs) + 1) // 2):
+        # v1.9: (a) chỉ BỎ khi ảnh thật BÁC BỎ rõ; (b) HAI THUỘC TÍNH ĐỊNH DANH ĐẦU không bao giờ bị loại - bỏ phiếu trên 3 ảnh
+        # quá nhiễu (cùng 3 ảnh, hai lần chạy cho 'mandarin collar' 1,00 và 0,33; 'trousers' 0,33 và 0,00).
+        if i < 2 or ok / len(imgs) >= min_ok or rejected < max(1, (len(imgs) + 1) // 2):
             keep_h.append(a); keep_h_vi.append(vi)
             if ok / len(imgs) < min_ok:
                 scores[a + " (giữ: ảnh không bác bỏ)"] = round(sum(probs) / len(probs), 2)
@@ -349,6 +348,14 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
                 keep_h.append(a); keep_h_vi.append(a); from_hand.append(a)
             if len(keep_h) >= 3:
                 break
+    # v1.9 (S001: forbidden_attrs rỗng -> 23/26 ảnh "bare legs" không bị phạt, ảnh cuối không quần vẫn +1.00):
+    # must_not KHÔNG được rỗng. Thiếu thì lấy từ bản tay, chỉ bỏ cái nào ảnh ĐÚNG cũng "có" một cách chắc chắn.
+    hand_n = (d.get("_meta", {}) or {}).get("hand", {}).get("must_not_en") or []
+    if hand_n:
+        d.setdefault("must_not_en", []); d.setdefault("must_not", [])
+        for a in hand_n:
+            if a and a not in d["must_not_en"]:
+                d["must_not_en"].append(a); d["must_not"].append(a)
     if not keep_h:  # ảnh thật không xác nhận được cái nào -> giữ nguyên, có thể ảnh tham chiếu kém
         log(f"  [2b] {ent.name_vi}: KHÔNG thuộc tính nào được ảnh thật xác nhận ({len(imgs)} ảnh) -> giữ nguyên bản ghi")
         return None

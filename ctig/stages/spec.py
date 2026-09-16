@@ -33,7 +33,9 @@ def focus_context_entities(spec: CulturalSpec, prompt: Prompt, analysis: Analysi
         if se.kind == "object":
             obj_words |= _words(se.name_en) | set(se.name_vi.lower().split())
     for se in spec.entities:
-        if se.kind != "context" or len(se.required_attrs_en) <= 2:
+        # v1.9: áp cho cả thực thể vật thể PHỤ (weight < 0.8) - S021 'lion dance' nằm trong thực thể bối cảnh, nhưng cùng
+        # kiểu lỗi xảy ra với vật thể phụ khi KB liệt kê mọi biến thể.
+        if (se.kind != "context" and se.weight >= 0.8) or len(se.required_attrs_en) <= 2:
             continue
         keep_idx = []
         for i, a in enumerate(se.required_attrs_en):

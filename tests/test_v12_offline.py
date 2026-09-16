@@ -460,6 +460,9 @@ def test_garment_rules():
     d2 = ImageDescriptor("y", garments=["{'type': 'tunic', 'collar': 'stand-up', 'lower_body': 'trousers', 'sash_or_belt': 'none', 'slits': 'yes'}"])
     check("stand-up + trousers + slits -> present", all(garment_rules(d2, a) == "present" for a in ("high stand-up mandarin collar", "worn over wide-legged long trousers", "tunic split at the hips")))
     check("obi sash must_not absent khi sash none", garment_rules(d2, "wide obi sash tied at the back") == "absent")
+    d2b = ImageDescriptor("y2", garments=["{'type': 'tunic', 'collar': 'stand-up'}"])
+    check("v1.9: mô tả KHÔNG có trường sash -> None (không phải 'absent'); trước đây luật giết nhầm 24/32 ảnh S031",
+          garment_rules(d2b, "silk sash tied at the waist with hanging ends") is None)
     d3 = ImageDescriptor("z", garments=["{'type': 'dress', 'length': 'floor', 'lower_body': 'bare legs', 'collar': 'round'}"])
     check("bare legs -> 'one-piece dress with no trousers' PRESENT, trousers ABSENT", garment_rules(d3, "one-piece dress with no trousers underneath") == "present"
           and garment_rules(d3, "worn over wide-legged long trousers") == "absent")
@@ -925,8 +928,8 @@ def test_v17_grounding_bare(tmp):
     s3.multigen(["stub#bare", "stub"])
     s3._agent = StrictAgent(s3.agent)
     cr3, _ = s3.candidate_review()
-    check("Reviewer loại hết -> vẫn chọn ảnh hệ thống ít sai nhất, không None, không phải bare",
-          cr3.final_path and "bare" not in cr3.final_path and any("ít sai nhất" in n or "mốc" in n for n in cr3.notes) or (cr3.final_path and "bare" not in cr3.final_path), f"{cr3.final_path} {cr3.notes[:2]}")
+    check("Reviewer loại hết -> vẫn có ảnh cuối của nhánh hệ thống, không None, không phải bare",
+          bool(cr3.final_path) and "bare" not in (cr3.final_path or "x_bare"), f"{cr3.final_path} {cr3.notes[:2]}")
     from ctig.models.registry import get as _get
     check("nhãn nhóm: realvis_aodai và sdxl_refplus cùng checkpoint RealVis", _get("realvis_aodai").repo == _get("sdxl_refplus").repo == _get("realvis_xl").repo
           and (_get("realvis_aodai").lora or _get("sdxl_refplus").ip_adapter) and not _get("realvis_xl").lora and not _get("realvis_xl").ip_adapter)
@@ -1116,7 +1119,7 @@ def test_v17_grounding_bare(tmp):
     # v1.8.1: kiểm KB bằng ảnh thật - thuộc tính mà ảnh đúng cũng không xác nhận thì bỏ
     import json as _json
     (tmp / "kbv").mkdir(parents=True, exist_ok=True)
-    rec = {"must_have": ["cổ đứng", "xẻ tà từ eo"], "must_have_en": ["high stand-up collar", "split skirt at the sides from waist to hip level"],
+    rec = {"must_have": ["cổ đứng", "tà bay", "xẻ tà từ eo"], "must_have_en": ["high stand-up collar", "flowing panels", "split skirt at the sides from waist to hip level"],
            "must_not": ["cổ chéo"], "must_not_en": ["diagonal crossed collar"], "attr_sources": {}, "tags_en": ["stand-up collar"],
            "neg_tags_en": [], "clip_label": "x", "kind": "object", "prior_strength": 0.5, "_meta": {"entity_id": "ao_dai"}}
     (tmp / "kbv" / "ao_dai.json").write_text(_json.dumps(rec, ensure_ascii=False), encoding="utf-8")
@@ -1126,19 +1129,21 @@ def test_v17_grounding_bare(tmp):
         def vqa_yes(self, q, image): return 0.45 if "trousers" in q else (0.9 if "collar" in q else 0.05)
     ent_v = s.kb.get("ao_dai"); ent_v.notes = (ent_v.notes or "") + " | KB tự sinh (source=auto)"
     got = st_ex.validate_draft(VqaRef(), ent_v, ["r1.jpg", "r2.jpg", "r3.jpg"], tmp / "kbv", log=lambda *a: None)
-    check("kiểm KB bằng ảnh thật: giữ thuộc tính ảnh đúng xác nhận, bỏ thuộc tính không kiểm được",
-          got and got["must_have_en"] == ["high stand-up collar"] and got["must_not_en"] == ["diagonal crossed collar"]
+    check("kiểm KB bằng ảnh thật: giữ 2 thuộc tính định danh đầu (khoá) + thuộc tính ảnh xác nhận, bỏ cái bị bác bỏ",
+          got and got["must_have_en"] == ["high stand-up collar", "flowing panels"] and got["must_not_en"] == ["diagonal crossed collar"]
           and got["_meta"]["validated"]["scores"]["split skirt at the sides from waist to hip level"] == 0.0, str(got and got["must_have_en"]))
     rec2 = dict(rec); rec2["must_have"] = ["xẻ tà", "tay mơ hồ"]; rec2["must_have_en"] = ["split skirt at the sides from waist to hip level", "unclear sleeve shape here"]
-    rec2["_meta"] = {"entity_id": "ao_dai", "hand": {"must_have_en": ["high stand-up collar", "worn over wide-legged long trousers"]}}
+    rec2["must_not"] = []; rec2["must_not_en"] = []
+    rec2["_meta"] = {"entity_id": "x_test", "hand": {"must_have_en": ["high stand-up collar", "worn over wide-legged long trousers"],
+                                                     "must_not_en": ["diagonal crossed collar"]}}
     (tmp / "kbv" / "x_test.json").write_text(_json.dumps(rec2, ensure_ascii=False), encoding="utf-8")
     class VqaRef2:
-        def vqa_yes(self, q, image): return 0.9 if ("stand-up collar" in q or "wide-legged" in q) else 0.1
+        def vqa_yes(self, q, image): return 0.9 if ("stand-up collar" in q or "wide-legged" in q) else 0.1  # bác 2 thuộc tính tự sinh
     ent_x = s.kb.add_adhoc("x test", "x test"); ent_x.id = "x_test"; s.kb.entities["x_test"] = ent_x
     got2 = st_ex.validate_draft(VqaRef2(), ent_x, ["r1.jpg", "r2.jpg"], tmp / "kbv", log=lambda *a: None)
-    check("kiểm KB: còn < 2 thuộc tính -> mới lấy bản tay (không lấy khi tự sinh đã đủ)",
-          got2 and got2["must_have_en"] == ["high stand-up collar", "worn over wide-legged long trousers"]
-          and got2["_meta"]["validated"]["from_hand"] == got2["must_have_en"], str(got2 and got2["must_have_en"]))
+    check("kiểm KB: 2 thuộc tính đầu khoá + bổ sung bản tay; must_not tay luôn được nạp",
+          got2 and got2["must_have_en"][:2] == ["split skirt at the sides from waist to hip level", "unclear sleeve shape here"]
+          and "diagonal crossed collar" in got2["must_not_en"], f"{got2 and got2['must_have_en']} | {got2 and got2['must_not_en']}")
     rec3 = {"must_have": ["cổ đứng", "quần ống rộng"], "must_have_en": ["high stand-up collar", "worn over wide-legged long trousers"],
             "must_not": [], "must_not_en": [], "attr_sources": {}, "tags_en": [], "neg_tags_en": [], "clip_label": "x", "kind": "object",
             "prior_strength": 0.5, "_meta": {"entity_id": "x_unsure"}}

@@ -1089,6 +1089,15 @@ def test_v17_grounding_bare(tmp):
     check("bộ nhớ liên prompt ghi/đọc, mới nhất trước", _fix_memory_read(tmp / "kbm", "ao_dai") == ["rewrite", "attr_refs"], str(_fix_memory_read(tmp / "kbm", "ao_dai")))
     from ctig.agents import inpaint as ag_inp
     check("inpaint: họ sdxl/sd15 được, stub/flux không", ag_inp.can_inpaint("realvis_xl+ref") and ag_inp.can_inpaint("sd15_base") and not ag_inp.can_inpaint("stub") and not ag_inp.can_inpaint("flux_dev"))
+    check("inpaint: IoU cho kiểm nhất quán hộp zoom và hộp toàn ảnh", abs(ag_inp._iou((0, 0, 10, 10), (0, 0, 10, 10)) - 1.0) < 1e-6
+          and ag_inp._iou((0, 0, 10, 10), (20, 20, 30, 30)) == 0.0)
+    class LocAgent:
+        def locate(self, image, labels): return [{"bbox": (100, 100, 300, 260), "label": labels[0]}] if labels else []
+    from PIL import Image as _PI
+    _img = _PI.new("RGB", (200, 200))
+    cg = ag_inp.crop_then_ground(LocAgent(), _img, (0, 0, 100, 100), "collar", log=lambda *a: None)
+    check("inpaint: crop-then-ground map toạ độ về ảnh gốc", cg is not None and cg[1] == "crop-then-ground" and all(0 <= v <= 200 for v in cg[0]), str(cg))
+    check("inpaint: không có agent định vị -> crop-then-ground trả None", ag_inp.crop_then_ground(None, _img, (0, 0, 100, 100), "collar") is None)
     check("inpaint: truy vấn là DANH TỪ NGẮN trước, rồi bộ phận gắn thực thể, cuối cùng là thực thể cha (SLD)",
           ag_inp.part_queries("high stand-up mandarin collar", "Ao dai (Vietnamese long dress)") == ["a collar", "the collar of a Ao dai", "a Ao dai"]
           and ag_inp.part_query("round shape", "coracle boat") == "a coracle boat" and ag_inp.part_noun("silk chin strap") == "strap")

@@ -1048,6 +1048,7 @@ def test_v17_grounding_bare(tmp):
     from ctig.llm.prompt_agent import _attr_ok_en
     check("kb_auto: lọc thuộc tính EN vô nghĩa", not _attr_ok_en("Is white") and not _attr_ok_en("Vietnamese traditional dress")
           and not _attr_ok_en("Has two sleeves") is False or True)
+    check("kb_auto: lớp phủ/hoá chất không phải đặc điểm nhìn từ xa", not _attr_ok_en("covered with cow dung") and not _attr_ok_en("sealed with resin"))
     check("kb_auto: thuộc tính phi thị giác / chép ví dụ bị loại", not _attr_ok_en("one of the few Vietnamese words that appear in English-language dictionaries")
           and not _attr_ok_en("very wide flat brim with no point") and _attr_ok_en("worn over silk trousers"))
     check("kb_auto: thuộc tính cấu trúc qua", _attr_ok_en("high collar about 4-5 cm") and _attr_ok_en("high stand-up mandarin collar")

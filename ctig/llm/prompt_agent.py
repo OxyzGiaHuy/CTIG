@@ -45,7 +45,8 @@ _GENERIC_EN = {"traditional", "beautiful", "famous", "dress", "clothing", "cloth
                "culture", "cultural", "style", "typical", "popular", "common", "national", "outfit", "garment"}
 _COLORS_EN = {"white", "red", "black", "blue", "green", "yellow", "pink", "purple", "brown", "gold", "golden", "silver", "orange", "grey", "gray"}
 #: từ cho thấy thuộc tính KHÔNG phải đặc điểm nhìn thấy (v1.8 áo dài: "one of the few Vietnamese words that appear in English dictionaries")
-_NONVISUAL_EN = {"word", "words", "dictionary", "dictionaries", "language", "history", "historical", "century", "centuries", "origin",
+_NONVISUAL_EN = {"dung", "resin", "tar", "varnish", "coating", "coated", "sealed", "sealant", "glue", "treated", "waterproofed",
+                 "word", "words", "dictionary", "dictionaries", "language", "history", "historical", "century", "centuries", "origin",
                  "originated", "named", "called", "name", "symbol", "symbolizes", "meaning", "means", "popular", "popularity", "famous",
                  "price", "cost", "festival-goers", "believed", "considered", "known", "unesco", "heritage", "year", "years", "dynasty",
                  "emperor", "king", "designer", "designed", "introduced", "invented"}
@@ -205,11 +206,13 @@ class PromptAgent:
             f"You build a VISUAL knowledge record about {name} for a system that generates and checks images, using ONLY the numbered "
             "sentences below (they were copied from Wikipedia and web pages). Only features visible in a photograph count: words, "
             "names, dictionaries, dates, prices, popularity, feelings are NOT features.\n"
-            "must_have: 3-5 items {attr_vi, attr_en, src}. attr_en = 3-8 English words naming a concrete SHAPE, STRUCTURE, PART, MATERIAL, "
-            "PATTERN or WAY OF WEARING/PLACING that a viewer can verify in a photo; attr_vi = the same in Vietnamese; src = the index "
-            "(integer) of the sentence that supports it. The FIRST TWO must be IDENTIFYING features that separate this item from the "
-            "most similar item of another culture or region. Never colors alone, never generic words (traditional, beautiful, dress, "
-            "clothing), never history or meaning, never the same feature twice.\n"
+            "must_have: 3-5 items {attr_vi, attr_en, src, salience}. attr_en = 3-8 English words naming a concrete SHAPE, STRUCTURE, PART, "
+            "MATERIAL, PATTERN or WAY OF WEARING/PLACING that a viewer can verify in an ORDINARY PHOTO TAKEN FROM A FEW METERS AWAY; "
+            "attr_vi = the same in Vietnamese; src = the index (integer) of the sentence that supports it; salience = 1-5, how much this "
+            "feature helps recognize the item at a glance (5 = the overall shape/silhouette or a large distinctive part; 1 = a coating, "
+            "stitching, chemical treatment or tiny detail not visible at distance). The FIRST TWO must be IDENTIFYING features that "
+            "separate this item from the most similar item of another culture or region, with salience >= 4. Never colors alone, never "
+            "generic words (traditional, beautiful, dress, clothing), never history or meaning, never the same feature twice.\n"
             "must_not: 2-4 items, same structure: a visible feature of the most confusable item whose presence means the image is WRONG "
             "(e.g. for a conical hat: 'very wide flat brim with no point'). Must not repeat words of must_have. src may be -1 if the "
             "sentences do not mention it.\n"
@@ -222,7 +225,7 @@ class PromptAgent:
             "tip' or 'silk chin strap under the chin'; must_not attr_en like 'wide flat brim'. Every attribute you write must come from "
             f"the sentences about {name}."
         )
-        item = _s(attr_vi=STR, attr_en=STR, src={"type": "integer"})
+        item = _s(attr_vi=STR, attr_en=STR, src={"type": "integer"}, salience={"type": "integer"})
         schema = _s(must_have=_arr(item), must_not=_arr(item),
                     confusable_with=_arr(_s(name=STR, name_en=STR, culture=STR, why=STR)),
                     tags_en=_arr(STR), neg_tags_en=_arr(STR), clip_label=STR, analogy_en=STR,
@@ -230,9 +233,18 @@ class PromptAgent:
         d = self._complete(sys2, f"SENTENCES:\n{numbered}", schema, max_new_tokens=1000)
         for key in ("must_have", "must_not"):
             seen: set[str] = set()
-            for it in d.get(key, []) or []:
-                if not isinstance(it, dict) or not it.get("attr_en"):
-                    continue
+            items = [it for it in (d.get(key, []) or []) if isinstance(it, dict) and it.get("attr_en")]
+            if key == "must_have":
+                # thuộc tính nhìn từ xa không thấy (lớp phủ, khâu, hoá chất...) xuống cuối; bỏ hẳn nếu còn >= 3 mục tốt hơn
+                def _sal(it):
+                    try:
+                        return int(it.get("salience", 3))
+                    except (TypeError, ValueError):
+                        return 3
+                items.sort(key=lambda it: -_sal(it))
+                good = [it for it in items if _sal(it) >= 3]
+                items = good if len(good) >= 2 else items
+            for it in items:
                 en = str(it["attr_en"]).strip(); vi = str(it.get("attr_vi") or en).strip()
                 try:
                     src = int(it.get("src", -1))

@@ -465,6 +465,33 @@ không dùng được; đó là giới hạn của model.
 Kiểm thử mới: `tests/test_forced_choice.py` (hiệu chỉnh, phân tán, chống chấm mù), `tests/test_inpaint_gate.py`
 (cổng inpaint và nấc thay thế). `v193` xong 15:52.
 
+## 3k. v1.9.6 — vòng sửa xuất phát từ ảnh CÙNG SEED với bare (quyết định của người dùng, 2026-09-16 tối)
+
+Người dùng chốt: "phải same seed, vì ta lấy initial gen output để qua loop rồi mới ra kết quả system, chứ
+không phải đưa toàn bộ 6 ảnh vào sửa xong lấy tốt nhất". Đúng: lấy best-of-6 làm mốc là tự cho hệ thống thêm
+một bộ CHỌN mà nhánh bare không có.
+
+- `agents.anchor: "first"` (mặc định) | `"best"`. Mốc = ảnh `c0` của hàng hệ thống TRẦN, cùng seed với hàng bare.
+  `cands` đã bị xếp lại theo metric nên phải lấy thứ tự gốc từ `res.runs`.
+- Khi `anchor="first"`, pool chọn ảnh cuối **chỉ gồm ảnh mốc và ảnh do vòng sửa sinh ra**.
+- `overview_grid.py` mặc định `--bare first`; `--bare best` giữ làm ablation.
+
+**Kết quả `v194` (xong 16:31) — sạch nhất từ trước tới giờ.** S001, mốc so với ảnh cuối:
+
+| model nền | ảnh mốc (cùng seed với bare) | ảnh cuối sau loop | vòng |
+|---|---|---|---|
+| sdxl_base | +0,80 | **+1,00** | 1 |
+| realvis_xl | +0,14 | **+1,00** | 1 |
+| sd35_medium | −0,20 | **+1,00** | 1 |
+
+Cả ba đều tiến, đều một vòng, ảnh cuối đều do vòng sửa sinh ra. Kể cả `sd35_medium` vốn hỏng ở mọi lần trước.
+Toàn run (2 prompt × 3 model nền): **system thắng 6/6** khi so cùng seed.
+
+**Đừng thổi phồng con số 6/6.** Chỉ 2 prompt. Và ở S012 cả ba ô system đều +1,00 vì bảng kiểm chỉ còn MỘT
+thuộc tính ("round basket-shaped hull") nên thang điểm bão hoà; ảnh `realvis_xl` system thực ra vẫn là thuyền
+dài có cái rổ tròn bên cạnh mà vẫn được +1,00. Ba ô bare của S012 đều −0,50 là ĐÚNG (thuyền dài, thiếu thân
+tròn, dính must_not), xem lưới `runs/v194/overview_grid.png`.
+
 ## 3i. Lưới so sánh TỔNG (`scripts/overview_grid.py`, 2026-09-16 tối)
 
 Từ trước tới giờ chỉ có trang so sánh theo từng prompt, thiếu một ảnh nhìn được cả run. Nay có
@@ -542,6 +569,11 @@ T2I-Copilot, RPG, MosAIG là MIT/Apache.
 - **Bộ complex đổi câu** ở C002, C003, C008 (nhóm sửa 2026-09-15) → số v1.7 complex không so trực tiếp được với v1.8.
 - **Bộ nhãn tay chỉ 14 ảnh, 3 ảnh sai** → AUC 0,79 còn thô, khoảng tin cậy rộng. Cần gán nhãn thêm, tốt nhất là
   nhãn theo TỪNG thuộc tính chứ không phải nhãn cho cả bộ trang phục.
+- **CHƯA CÓ DEV SET**. Mọi con số hiệu chỉnh (biên 0,08, phân tán 0,45, cắt ảnh, cổng inpaint, AUC 0,85) đều đo
+  trên 14 ảnh của MỘT prompt do chính Claude tự gán nhãn — vừa ra đề vừa chấm bài. Cần bảng
+  `(prompt_id, image_path, attribute_en, có/không/không thấy được)`, gán nhãn theo TỪNG thuộc tính chứ không
+  theo cả bộ trang phục, ~20 prompt × 6 ảnh × 3 thuộc tính ≈ 360 phán đoán, tách phần tune và phần cất đi.
+  Việc này người dùng/nhóm phải làm, không phải Claude. Đây là nút thắt của mọi bước sau.
 - **S012 chỉ còn MỘT thuộc tính kiểm được**: "woven bamboo strips" được 0,43 trên ba ảnh thật với chênh lệch 0,87
   (một ảnh thấy rõ nan tre, hai ảnh không) nên bị loại, còn lại mỗi "round basket-shaped hull". Mọi ảnh có thân
   thuyền tròn đều +1,00 ở vòng 0. Đây là vấn đề của BỘ ẢNH THAM CHIẾU chứ không phải của mã: cần nhóm chọn ảnh

@@ -65,6 +65,10 @@ S021 realvis 3 vòng, sd35 2 vòng không tăng, một lỗi JSON của VLM khi 
 ảnh FLUX *bare* của áo dài đã đúng (cổ đứng, tà dài), còn ảnh cuối hệ thống chọn từ vòng 2 (+ref) lại KÉM hơn (tay ngắn, yếm ngực lạ)
 → với model nền mạnh, loop có thể làm xấu đi; Reviewer 3B chấm chưa tin được. Cần xem lại với 7B trước khi kết luận H20 cho FLUX.
 Ảnh so sánh: `~/Research/VnCultureGen/result_kaggle/vast_v1.8_smoke/S001_montage.jpg` (bare FLUX | cuối FLUX iter2 | SD3.5 system).
+S012 thuyền thúng (`S012_montage.jpg`: FLUX bare | FLUX +ref | SD3.5 bare | SD3.5 system): **FLUX bare đã vẽ thúng tròn đúng**, +ref
+cũng đúng (auto_ref mở vì prior 0,10); **SD 3.5 bare ra ghe mũi nhọn, system (chỉ prompt, chưa có IP-Adapter cho SD3.5) vẫn ra ghe gỗ**
+→ với SD3.5 kênh ảnh là thứ còn thiếu; với FLUX thực thể hiếm này đã có trong model. Gợi ý H20 sẽ phân hoá theo model nền:
+hệ thống giúp SDXL/RealVis/SD3.5, ít hoặc không giúp FLUX ở áo dài/thúng.
 Đã xếp hàng `queue_7b.sh`: xoá cache Qwen 3B + bản KB 3B (giữ ở `_cache/kb_auto_3b/`) + cache LLM, rồi smoke S001, S012, S021 với
 7 hàng (RealVis, SD3.5, FLUX bare/system) bằng Qwen 7B, run `v18_smoke7b`.
 

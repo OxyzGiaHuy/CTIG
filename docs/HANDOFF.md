@@ -60,8 +60,13 @@ Từ v1.8 mỗi phiên bản dùng run-name riêng (`v18`, `v18_complex`).
 | `pgrep -f snapshot_download` / `run_walkthrough` giết chính ssh | mất output | luôn dùng `[n]` trong pattern |
 
 Kết quả tạm smoke (Qwen 3B, hand fallback cho áo dài): S001 realvis loop 3 vòng cải thiện ở vòng 1; S012 không hợp lệ (lỗi trên);
-S021 realvis 3 vòng, sd35 2 vòng không tăng, một lỗi JSON của VLM khi mô tả ảnh. FLUX: bare/system S001 xong, `flux_dev+ref`
-(IP-Adapter XLabs) đang thử lần đầu trong loop.
+S021 realvis 3 vòng, sd35 2 vòng không tăng, một lỗi JSON của VLM khi mô tả ảnh. FLUX S001: bare/system/+ref đều sinh được
+(6 ảnh ~100 s, đỉnh 46–47,5 GB; IP-Adapter XLabs chạy, bước tính trước embedding lùi về mã hoá từng ảnh). **Quan sát quan trọng:**
+ảnh FLUX *bare* của áo dài đã đúng (cổ đứng, tà dài), còn ảnh cuối hệ thống chọn từ vòng 2 (+ref) lại KÉM hơn (tay ngắn, yếm ngực lạ)
+→ với model nền mạnh, loop có thể làm xấu đi; Reviewer 3B chấm chưa tin được. Cần xem lại với 7B trước khi kết luận H20 cho FLUX.
+Ảnh so sánh: `~/Research/VnCultureGen/result_kaggle/vast_v1.8_smoke/S001_montage.jpg` (bare FLUX | cuối FLUX iter2 | SD3.5 system).
+Đã xếp hàng `queue_7b.sh`: xoá cache Qwen 3B + bản KB 3B (giữ ở `_cache/kb_auto_3b/`) + cache LLM, rồi smoke S001, S012, S021 với
+7 hàng (RealVis, SD3.5, FLUX bare/system) bằng Qwen 7B, run `v18_smoke7b`.
 
 ## 4. Lỗi/rủi ro còn mở
 

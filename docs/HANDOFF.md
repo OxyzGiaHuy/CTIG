@@ -83,6 +83,11 @@ S021 Trung Thu với 7B: KB tự sinh KHÔNG đủ 2 thuộc tính có gốc →
 (bánh nướng, múa lân, ông Địa) nên Reviewer đòi cả bánh trung thu và múa lân trong ảnh trẻ rước đèn ông sao → loop đuổi thứ prompt không
 nói. Sửa: `focus_context_entities` (spec) giữ must_have của thực thể bối cảnh có từ khoá trùng prompt hoặc tên thực thể vật thể trong spec;
 không trùng cái nào thì giữ 2 mục đầu và hạ trọng số 0,65.
+Ảnh S021 (`S021_montage.jpg`, có nhãn): cả RealVis và FLUX, bare lẫn system, đều ra đèn ông sao và trẻ em; RealVis bare treo đèn thay
+vì cầm; **system của cả hai model thêm lồng đèn tròn kiểu Trung Quốc** dù must_not có "round red Chinese lantern" → negative không đủ
+sức với DiT (FLUX không có negative) và với SDXL khi prompt dài. Gợi ý: Reviewer phải bắt must_not này (VQA), và Refiner dùng inpaint xoá.
+Thêm nguồn **Wikipedia tiếng Anh** cho KB tự sinh (`2d65cea`, bản EN mô tả hình dáng chi tiết hơn); bản áo dài 7B lượt v2 vẫn chỉ 2
+must_have ("split skirt at the sides", "fitting sleeves") → KB tự sinh còn dao động giữa các lần gọi, chưa có "cổ đứng".
 
 ## 4. Lỗi/rủi ro còn mở
 

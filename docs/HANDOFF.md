@@ -465,6 +465,44 @@ không dùng được; đó là giới hạn của model.
 Kiểm thử mới: `tests/test_forced_choice.py` (hiệu chỉnh, phân tán, chống chấm mù), `tests/test_inpaint_gate.py`
 (cổng inpaint và nấc thay thế). `v193` xong 15:52.
 
+## 3j. Công trình đã có gần giống (tra cứu 2026-09-16)
+
+Không ai công bố trọn pipeline này, nhưng **hai trong bốn điểm ta tưởng là mới thì đã có người làm**.
+
+| điểm ta tưởng mới | tình trạng |
+|---|---|
+| Tự dựng bảng kiểm thuộc tính văn hoá từ truy hồi | **Đã có một phần.** FAGER (CVPR-W 2026, arXiv 2605.19111) dựng rubric sự kiện có thật rồi đổi thành cặp VQA, và lọc bỏ sự kiện "không kiểm được bằng mắt". AHEaD (ICLR 2026) tự sinh mô tả văn hoá theo 5 chiều. Phần **must_not rút từ web** thì chưa ai làm. |
+| Dùng ảnh thật để hiệu chỉnh ngưỡng của bộ kiểm VLM | **Đã có một nửa, đúng lĩnh vực.** AHEaD/CULTIVate, arXiv **2511.05681**, ICLR 2026, ghi thẳng: hiệu chỉnh τ trên ảnh thật thay vì ảnh sinh để tránh rò rỉ, lấy tứ phân vị ba trên ~3.000 ảnh. **Khác ta:** của họ là MỘT ngưỡng chung trên độ tương đồng embedding; của ta là ngưỡng TỪNG THUỘC TÍNH trên xác suất trả lời VQA, cộng thêm việc LOẠI thuộc tính không quan sát được. Phải trích dẫn ngay đoạn giới thiệu hiệu chỉnh, nếu không sẽ bị bác. |
+| Thang leo sửa lỗi: inpaint → sinh lại kèm ảnh → viết lại prompt → đổi seed | **Chưa ai làm — phần mạnh nhất.** Gần nhất là Generation Navigator (2605.17969) với ba hành động PHẲNG (dừng/tinh chỉnh/sinh lại), và TARA (2607.18724) định tuyến theo LOẠI lỗi chứ không theo MỨC ĐỘ sửa. Cả hai không có mã. |
+| So bare với system trên nhiều model nền | **Không phải đóng góp, là mức tối thiểu.** Idea2Img, ImageRAG, Marmot, ORIG, TARA đều làm. Giữ thí nghiệm, bỏ khỏi danh sách đóng góp. |
+
+**Tiếng Việt / Đông Nam Á**: gần như trống. `ViFA-Council` (MAPR 2026, tác giả HCMUS, arXiv 2609.13348) là bài sinh ảnh
+văn hoá Việt duy nhất có mã, nhưng 1 commit, chỉ gọi API, không truy hồi, không vòng kiểm. `Culture-TRIP` (NAACL 2025)
+có sẵn `data/culture_nouns/Vietnam.json` với 8 nhóm (áo dài, áo bà ba, áo tứ thân, nón lá, phở, bánh xèo, Tết, Trung Thu...).
+`VietFashion` (ICMR 2026, HCMUS) có bộ từ vựng thuộc tính áo dài dùng lại được. Việt Nam VẮNG MẶT trong CultDiff, CuRe,
+CCUB, CULTIVate — đây là lý do chính đáng để làm đề tài.
+
+**Hai hệ thống đáng chạy làm chuẩn so sánh** (đã clone về `/workspace/baselines/`):
+
+1. **ImageRAG** (arXiv 2502.09411, `rotem-shalev/ImageRAG`, 107 sao, cập nhật 2026-03). `imageRAG_SDXL.py` dùng ĐÚNG
+   SDXL base + `h94/IP-Adapter` mà máy đã có sẵn. Chỉ một hàm `utils.message_gpt` gọi GPT-4o, thay được bằng Qwen 7B
+   nội bộ. Chạy nó với chính bộ ảnh tham chiếu của nhóm thì bảng so sánh thành đúng "chỉ ảnh tham chiếu" so với
+   "ảnh tham chiếu + spec văn hoá + vòng kiểm" — tách bạch đóng góp trong một bảng.
+2. **Culture-TRIP** (arXiv 2502.16902, `Kakaomacao/Culture-TRIP`, repo 280 KB). Chuẩn văn hoá mà phản biện sẽ hỏi.
+   Điểm yếu của nó nêu được thành một câu: **vòng tinh chỉnh chấm PROMPT chứ không bao giờ nhìn ẢNH**. Thay SD2 bằng
+   SDXL/FLUX cho công bằng.
+
+Đáng chạy thêm nếu còn thời gian: **FAGER** (MIT, đủ mã, Qwen3-VL-8B ~16 GB) — không phải đối thủ mà là **thước đo**:
+báo cáo điểm hệ thống ta theo rubric của FAGER để chặn phản biện "thước đo tự chấm mình".
+**Không nên chạy**: GenArtist (hỏng, 10 issue không ai trả lời), Idea2Img / DiffAgent (chết từ 2024), Gen-Searcher (phải huấn luyện RL),
+World-To-Image (cần Azure + RapidAPI trả phí).
+
+**Cảnh báo giấy phép**: ImageRAG, Culture-TRIP, GenArtist, AHEaD, Gen-Searcher, ViFA-Council, ORIG **không có file
+LICENSE** → mặc định giữ toàn quyền. Đọc và trích dẫn thì được, **chép mã vào repo ta thì không**. Chỉ SLD, FAGER,
+T2I-Copilot, RPG, MosAIG là MIT/Apache.
+
+**Hai vướng mắc khi chạy**: máy **không có khoá OpenAI/Gemini** (chỉ có HF_TOKEN), và đĩa còn **11 GB / 100 GB**.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

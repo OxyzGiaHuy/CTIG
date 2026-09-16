@@ -228,6 +228,18 @@ tượng; tất cả định vị **đối tượng** rồi suy ra vùng. Đã �
 quy đổi `image_grid_thw * 14`), (2) OWL-ViT với **danh từ ngắn** (`collar`, `brim` — GenArtist dùng từ vựng 7.605 danh từ đơn),
 (3) box **thực thể cha** (SLD). Thuộc tính chuyển sang **prompt của vùng inpaint** (DiffEdit) thay vì câu truy vấn.
 
+Trạng thái 5 khuyến nghị của agent nghiên cứu (commit `ea8bb72` + `151c977`):
+
+| # | khuyến nghị | trạng thái |
+|---|---|---|
+| 1 | Qwen2.5-VL grounding làm bộ định vị chính | xong, `qwen_vl.ground()` + `PromptAgent.locate()`, quy đổi `image_grid_thw*14` |
+| 2 | Thủ thuật hai lượt SLD, hỏi thực thể cha, thuộc tính vào prompt inpaint | xong, nấc 4 là hộp cha; prompt vùng = `"<thực thể> with <thuộc tính>"` |
+| 3 | crop-then-ground hai giai đoạn | xong, `crop_then_ground()`, crop hộp cha + phóng lên 768 px, hỏi lại bộ phận, map ngược; lệch IoU < 0,1 so với hộp toàn ảnh thì tin hộp zoom |
+| 4 | detector mở từ vựng với danh từ ngắn | xong ở dạng OWL-ViT + danh từ ngắn (chưa đổi sang GroundingDINO; cân nhắc nếu OWL-ViT vẫn yếu) |
+| 5 | fallback phân tầng + SAM refine | xong, thang 4 nấc; `sam_refine()` dùng `facebook/sam-vit-base`, chọn trong 3 mask whole/part/subpart theo tỉ lệ diện tích 0,15–1,2 lần hộp. Mask tương phản kiểu DiffEdit **chưa làm** (nấc 5 dự phòng) |
+
+Cần tải thêm `facebook/sam-vit-base` (~375 MB) trên máy trước lượt v19; đĩa còn ~4,9 GB.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

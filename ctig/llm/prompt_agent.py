@@ -533,6 +533,16 @@ class PromptAgent:
         schema = _s(order=_arr(STR), reasons={"type": "object"})
         return self.llm.complete_json(system, user, schema)
 
+    def locate(self, image: str, labels: list[str]) -> list[dict]:
+        """Định vị bằng chính VLM (Qwen2.5-VL grounding). [] nếu backend không hỗ trợ."""
+        fn = getattr(self.llm, "ground", None)
+        if fn is None:
+            return []
+        try:
+            return fn(image, labels)
+        except Exception:  # noqa: BLE001
+            return []
+
     def vqa_yes(self, question: str, image: str) -> float | None:
         """P(Yes) cho một câu hỏi có/không trên ảnh (VQAScore). None nếu backend không hỗ trợ (API text-only, RuleAgent)."""
         fn = getattr(self.llm, "yes_prob", None)

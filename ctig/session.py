@@ -632,7 +632,8 @@ class Session:
                     it.refs = [str(r) for r in refs]
                     if fix == "inpaint":
                         run_rec = ag_inp.inpaint_fix(best_v.path, best_v.missing_must_have[0], name_en, gen, regen_model, self.cfg,
-                                                     self.out_dir / label, n, clip=self.clip, itm=self.itm, spec=sp, prompt_en=pe, log=self.log)
+                                                     self.out_dir / label, n, clip=self.clip, itm=self.itm, spec=sp, prompt_en=pe,
+                                                     log=self.log, agent=self.agent)
                     else:
                         run_rec, _ = ag_loop.regenerate(gen, plan, sp, self.kb, regen_model, self.cfg, self.out_dir / label,
                                                         clip=self.clip, itm=self.itm, prompt_en=pe, log=self.log,

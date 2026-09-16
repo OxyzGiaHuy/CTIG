@@ -77,6 +77,60 @@ class QwenVLBackend(JSONChatMixin):
         return self.processor.batch_decode(trimmed, skip_special_tokens=True)[0]
 
 
+    def ground(self, image: str, labels: list[str]) -> list[dict]:
+        """Qwen2.5-VL grounding: trả [{"bbox": (x0,y0,x1,y1) PIXEL ẢNH GỐC, "label": str}].
+        Qwen2.5-VL trả toạ độ theo ảnh ĐÃ RESIZE (khác Qwen2-VL chuẩn hoá 0-1000) -> phải quy đổi bằng image_grid_thw * 14,
+        nếu không hộp lệch có hệ thống (thường lệch trục Y)."""
+        import json as _json
+        import re as _re
+
+        from PIL import Image
+        from qwen_vl_utils import process_vision_info
+
+        orig = Image.open(image).convert("RGB")
+        ow, oh = orig.size
+        img = orig.copy()
+        img.thumbnail((896, 896))
+        cats = ", ".join(labels)
+        user = (f'Locate every instance that belongs to the following categories: "{cats}". '
+                'Report bounding boxes in JSON like [{"bbox_2d": [x1, y1, x2, y2], "label": "..."}]. '
+                "If a category is not visible, omit it. Output JSON only.")
+        messages = [{"role": "system", "content": "You are a precise visual grounding model."},
+                    {"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": user}]}]
+        text = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        image_inputs, video_inputs = process_vision_info(messages)
+        inputs = self.processor(text=[text], images=image_inputs, videos=video_inputs, padding=True, return_tensors="pt").to(self.model.device)
+        t0 = time.time()
+        with self.torch.inference_mode():
+            out = self.model.generate(**inputs, max_new_tokens=512, do_sample=False, temperature=None, top_p=None, top_k=None)
+        self.calls += 1
+        self.seconds += time.time() - t0
+        raw = self.processor.batch_decode(out[:, inputs.input_ids.shape[1]:], skip_special_tokens=True)[0]
+        m = _re.search(r"\[.*\]", raw, _re.S)
+        if not m:
+            return []
+        try:
+            rows = _json.loads(m.group(0))
+        except ValueError:
+            return []
+        grid = inputs.get("image_grid_thw")
+        in_h = int(grid[0][1]) * 14 if grid is not None else img.height
+        in_w = int(grid[0][2]) * 14 if grid is not None else img.width
+        res = []
+        for r in rows if isinstance(rows, list) else []:
+            b = r.get("bbox_2d") or r.get("bbox") if isinstance(r, dict) else None
+            if not b or len(b) != 4:
+                continue
+            try:
+                x1, y1, x2, y2 = [float(v) for v in b]
+            except (TypeError, ValueError):
+                continue
+            box = (max(0, int(x1 / in_w * ow)), max(0, int(y1 / in_h * oh)),
+                   min(ow, int(x2 / in_w * ow)), min(oh, int(y2 / in_h * oh)))
+            if box[2] > box[0] and box[3] > box[1]:
+                res.append({"bbox": box, "label": str(r.get("label", ""))})
+        return res
+
     def yes_prob(self, question: str, images: list[str] | None = None) -> float:
         """VQAScore (Lin et al. 2024): P('Yes') so với P('No') ở token đầu câu trả lời, một lượt forward, không sinh.
         Dùng cho câu hỏi có/không về thuộc tính (Reviewer) và cho câu chuẩn 'Does this figure show "<prompt>"?'."""

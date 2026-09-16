@@ -67,7 +67,7 @@ def _fix_memory_write(kb_auto_dir: Path, eid: str, fix: str, prompt_id: str, mod
 
 
 STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 4, "spec": 4, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 2, "candidate_review": 10}
+              "brief": 2, "ref_filter": 2, "candidate_review": 11}
 
 
 def _h(obj: Any) -> str:
@@ -462,7 +462,7 @@ class Session:
         Refiner   : sinh lại trên model tốt nhất theo kế hoạch, mỗi vòng seed khác, ảnh vòng nào cũng GIỮ.
         Chọn cuối : trên toàn pool (ứng viên gốc + mọi vòng) theo điểm Reviewer; hoà thì ưu tiên ảnh sớm hơn.
         """
-        from .agents import describe as ag_desc, loop as ag_loop, rank as ag_rank, reflector as ag_ref
+        from .agents import describe as ag_desc, inpaint as ag_inp, loop as ag_loop, rank as ag_rank, reflector as ag_ref
         from .models.registry import get as _get_model, parse_key as _parse_key
         from .stages.multigen import combined_score
 
@@ -583,11 +583,12 @@ class Session:
                 for n in range(1, c.max_revisions + 1):
                     plan, captions, fix = ag_ref.decide(best_v, sp, gen, memory, c.patience, agent=self.agent if c.llm_captions else None,
                                                         name_en=name_en, have_refs=bool(self.cfg.multigen.ref_images), log=self.log,
-                                                        prior_fixes=prior_fixes if n == 1 else None, image=best_v.path, facts=facts)
+                                                        prior_fixes=prior_fixes if n == 1 else None, image=best_v.path, facts=facts,
+                                                        have_inpaint=ag_inp.can_inpaint(regen_model))
                     if plan is None:
                         cr.stop_reason = fix
                         break
-                    if plan.is_empty():
+                    if plan.is_empty() and fix != "inpaint":
                         cr.stop_reason = "kế hoạch sửa rỗng (không còn gì để thêm)"
                         break
                     if n == 1:
@@ -606,9 +607,13 @@ class Session:
                         if fix == "more_refs":
                             ip_scale = (ip_scale or self.cfg.multigen.ref_scale) + 0.1
                     it.refs = [str(r) for r in refs]
-                    run_rec, _ = ag_loop.regenerate(gen, plan, sp, self.kb, regen_model, self.cfg, self.out_dir / label,
-                                                    clip=self.clip, itm=self.itm, prompt_en=pe, log=self.log,
-                                                    aesthetic=self.aesthetic, ref_images=refs, iteration=n, ip_scale=ip_scale)
+                    if fix == "inpaint":
+                        run_rec = ag_inp.inpaint_fix(best_v.path, best_v.missing_must_have[0], name_en, gen, regen_model, self.cfg,
+                                                     self.out_dir / label, n, clip=self.clip, itm=self.itm, spec=sp, prompt_en=pe, log=self.log)
+                    else:
+                        run_rec, _ = ag_loop.regenerate(gen, plan, sp, self.kb, regen_model, self.cfg, self.out_dir / label,
+                                                        clip=self.clip, itm=self.itm, prompt_en=pe, log=self.log,
+                                                        aesthetic=self.aesthetic, ref_images=refs, iteration=n, ip_scale=ip_scale)
                     it.run = run_rec
                     if n == 1:
                         cr.regen = run_rec

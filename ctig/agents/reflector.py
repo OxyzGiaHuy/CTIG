@@ -16,12 +16,12 @@ from dataclasses import replace
 from ..schema import CulturalSpec, FilterVerdict, GenSpec, RevisionPlan
 from .loop import needs_revision, plan_from_verdict
 
-LADDER = ("ground_refs", "attr_refs", "rewrite", "more_refs", "seed", "guidance")
+LADDER = ("inpaint", "ground_refs", "attr_refs", "rewrite", "more_refs", "seed", "guidance")
 
 
 def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: list[dict], patience: int,
            agent=None, name_en: str = "", have_refs: bool = True, log=print, prior_fixes: list[str] | None = None,
-           image: str | None = None, facts: list[str] | None = None) -> tuple[RevisionPlan | None, list[str], str]:
+           image: str | None = None, facts: list[str] | None = None, have_inpaint: bool = False) -> tuple[RevisionPlan | None, list[str], str]:
     """Trả (plan hoặc None nếu dừng, captions truy hồi, lý do). memory = [{'fix': str, 'improved': bool, 'score': float}].
     prior_fixes: cách sửa đã TĂNG điểm cho cùng thực thể ở prompt trước (bộ nhớ liên prompt, GenEvolve-lite) -> thử trước.
     image/facts: cho nấc 'rewrite' (VLM nhìn ảnh lỗi, viết lại prompt chính)."""
@@ -34,8 +34,13 @@ def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: l
         return None, [], f"{patience} vòng liền không cải thiện -> dừng"
 
     plan = plan_from_verdict(v0, spec, gen)
-    ladder = [s for s in LADDER if have_refs or s not in ("ground_refs", "attr_refs", "more_refs")]
-    base_fix = "ground_refs" if plan.use_reference_image and have_refs else ("negative" if plan.add_negative else "prompt")
+    # nấc 'inpaint' (sửa cục bộ) chỉ khi thiếu ĐÚNG MỘT thuộc tính, không must_not, và họ model inpaint được
+    inpaint_ok = have_inpaint and len(v0.missing_must_have) == 1 and not v0.matched_must_not and v0.keep
+    ladder = [s for s in LADDER if (have_refs or s not in ("ground_refs", "attr_refs", "more_refs")) and (inpaint_ok or s != "inpaint")]
+    if inpaint_ok:
+        base_fix = "inpaint"
+    else:
+        base_fix = "ground_refs" if plan.use_reference_image and have_refs else ("negative" if plan.add_negative else "prompt")
     if not memory:
         fix = base_fix
         for pf in prior_fixes or []:  # bộ nhớ liên prompt: nấc từng thành công cho thực thể này đi trước
@@ -49,7 +54,10 @@ def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: l
         fix = next((s for s in ladder if s not in tried), None)  # lần gần nhất không tăng -> nấc kế tiếp chưa thử
         if fix is None:
             return None, [], "đã thử hết thang leo mà không cải thiện -> dừng"
-    if fix in ("ground_refs", "attr_refs"):
+    if fix == "inpaint":
+        plan = replace(plan, add_positive=[], add_negative=[], boost={}, weights={}, use_reference_image=False, guidance_delta=0.0,
+                       rationale=f"sửa cục bộ: inpaint vùng '{v0.missing_must_have[0][:40]}' trên ảnh mốc, giữ phần còn lại")
+    elif fix in ("ground_refs", "attr_refs"):
         note = "; ảnh tham chiếu Grounding" if fix == "ground_refs" else "; ảnh truy hồi theo caption thuộc tính thiếu"
         plan = replace(plan, use_reference_image=True, rationale=plan.rationale + note)
     elif fix == "rewrite":

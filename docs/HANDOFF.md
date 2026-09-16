@@ -396,6 +396,55 @@ Cần lưu ý: ngưỡng chặt hơn **làm đổi cả cột bare**, nên các 
 được. S001·realvis: bare tốt nhất +1,00 bằng system; S012·realvis: bare +0,00 so với system +1,00. Phải đo lại trên tập
 rộng hơn trước khi kết luận "system hơn bare" ở mức mới.
 
+### Ba lỗi của VÒNG SỬA tìm được sau khi thang điểm đáng tin (2026-09-16 tối)
+
+Sửa xong thang điểm thì mới nhìn ra vòng sửa hỏng. Cả ba đều có bằng chứng từ chính dữ liệu `v192`.
+
+**Lỗi A — mọi ảnh hỏng thì loop bỏ cuộc (`v1.9.4`, `f1fef78` trở về trước).** S001/`sd35_medium`: cả pool
+−0,20 đến −0,30, không ảnh nào qua, mà loop chạy **0 vòng**. Hai nguyên nhân chồng lên nhau: dự phòng "lấy
+ảnh ít sai nhất làm mốc" đặt `verdict.keep = True` nhưng Rank lọc theo `flt.kept` nên pool vẫn rỗng; và
+`review_group` gặp Rank rỗng thì `return` ngay. Nay dự phòng ghi cả vào `flt.kept`, và Rank rỗng thì lấy ảnh
+ít sai nhất làm mốc rồi **vẫn vào vòng sửa**.
+
+**Lỗi B — hỏi thuộc tính trên ảnh quá nhỏ (`v1.9.5`, `f1fef78`).** Ảnh 1536px bị thu về ~700px trước khi vào
+VLM, người chiếm chưa tới một phần ba khung, cổ áo chỉ vài chục pixel. Cắt quanh người rồi mới hỏi:
+
+| thuộc tính | AUC ảnh đầy đủ | AUC ảnh cắt người |
+|---|---|---|
+| tà xẻ hai bên | 0,67 | **0,82** |
+| thân áo ôm, tà buông | 0,94 | **0,97** |
+| cổ đứng | 0,36 | **0,58** |
+
+Mô tả tự do và đếm người vẫn đọc ảnh đầy đủ. Không định vị được người thì dùng ảnh gốc. Ảnh cắt lưu ở
+`$TMPDIR/ctig_crops`, nhớ theo băm đường dẫn.
+
+Kèm theo: **loại thuộc tính khi ba ảnh thật BẤT ĐỒNG** (chênh lệch > 0,45), không chỉ khi trung bình thấp.
+Ảnh thật đều là ví dụ đúng nên thuộc tính đáng tin phải cho điểm giống nhau trên cả ba. Quần: 0,96/0,00/0,20.
+Cắt ảnh làm trung bình của nó lên 0,52 nên tiêu chí cũ (`< 0,50`) hết tác dụng, mà chính nó là thuộc tính hại
+nhất (AUC 0,03, đảo ngược). Với S001 sau khi cắt, cả "cổ đứng" (chênh 0,46) cũng bị loại, còn lại hai thuộc
+tính kiểm được là tà xẻ và thân áo.
+
+**Tiến triển AUC điểm Reviewer tổng, 14 ảnh S001 gán nhãn tay (11 đúng, 3 sai):**
+
+| phiên bản | AUC | nhóm ĐÚNG | nhóm SAI |
+|---|---|---|---|
+| v191, ngưỡng cố định, ảnh đầy đủ | **0,00** | 0,67–0,82 | 0,83–1,00 |
+| v1.9.3, hiệu chỉnh, ảnh đầy đủ | 0,56 | −0,20–0,82 | 0,07–0,56 |
+| v1.9.5, + cắt người + phân tán | **0,79** | −0,13–1,00 | 0,00–0,31 |
+
+Ảnh áo liền quần `sdxl_base_c1` nay xếp gần chót với +0,00.
+
+**Lỗi C — inpaint vẽ đè lên phần đang đúng (`v1.9.5b`, `9b466bf`).** S001/`sdxl_base` thiếu "fitted bodice with
+flowing loose panels" → nấc inpaint định vị `'panels'` ra **vùng ống chân** → vẽ lại biến khe xẻ hông và quần
+riêng (vốn ĐÚNG) thành váy liền. Ba ảnh inpaint đều thấp hơn ảnh gốc: +0,64 / +0,31 / +0,66 so với +0,84.
+Nay `inpaint.locally_fixable` chỉ nhận thuộc tính mà **mọi** danh từ bộ phận đều là bộ phận nhỏ (cổ, tay, đai,
+nón, cúc, khay, lồng đèn). Quần, tà, váy, gấu, khe xẻ là thân trang phục: sửa chúng là vẽ lại gần hết bộ đồ,
+đó là việc của nấc sinh lại. `part_nouns_all` xét mọi danh từ chứ không chỉ cái dài nhất, vì
+"long-sleeved tunic split … panels" có cả `sleeve` lẫn `panels` mà chỗ thiếu là tà.
+
+Kiểm thử mới: `tests/test_forced_choice.py` (hiệu chỉnh, phân tán, chống chấm mù), `tests/test_inpaint_gate.py`
+(cổng inpaint và nấc thay thế). Đang chạy `v193` (S001, S012 × 8 hàng, commit `9b466bf`) để kiểm cả ba.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.
@@ -411,6 +460,12 @@ rộng hơn trước khi kết luận "system hơn bare" ở mức mới.
   chấm theo brief Wikipedia độc lập với prompt; tập kiểm ngoài KB; đánh giá người.
 - **`best_model` lệch ảnh cuối** trong một vài hồ sơ cũ (nhãn model của top-1 Rank thay vì của ảnh cuối) — đã sửa ở v1.7.2.
 - **Bộ complex đổi câu** ở C002, C003, C008 (nhóm sửa 2026-09-15) → số v1.7 complex không so trực tiếp được với v1.8.
+- **Bộ nhãn tay chỉ 14 ảnh, 3 ảnh sai** → AUC 0,79 còn thô, khoảng tin cậy rộng. Cần gán nhãn thêm, tốt nhất là
+  nhãn theo TỪNG thuộc tính chứ không phải nhãn cho cả bộ trang phục.
+- **Với S001 chỉ còn 2 thuộc tính kiểm được** sau khi loại quần và cổ đứng. Bảng kiểm mỏng thì điểm thô. Hướng:
+  viết lại must_have thành những cụm quan sát được ở mức ảnh cắt, thay vì cụm học thuật dài.
+- **Vòng sửa vẫn chưa chứng minh được là có ích**: sau khi chặn inpaint sai chỗ, nấc còn lại là sinh lại có ảnh
+  tham chiếu, ở v192 cho +0,80/+0,70 so với ảnh gốc +0,84. Chưa lần nào vòng sửa vượt ảnh gốc. Phải đo lại ở v193.
 - **Ngưỡng hiệu chỉnh chỉ dựa trên 3 ảnh thật/prompt** → `ref_mean` nhiễu. "fitted bodice with flowing loose panels" có ảnh
   thật 0,94 rất chặt nên nhiều ảnh đúng bị ghi thiếu (AUC còn 0,67 chứ chưa cao hơn). Hướng: dùng cả thư mục `candidates/`
   (~20 ảnh) để hiệu chỉnh, hoặc lấy phân vị thay vì trung bình.

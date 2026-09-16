@@ -135,6 +135,23 @@ reference_images_complex/selected|candidates/<C###>/…          (196 + 999 ản
 đường lùi khi prompt không có thư mục riêng. **Lưu ý báo cáo:** ảnh này do nhóm chọn tay → phải khai báo như KB tay; muốn đo "hoàn toàn
 tự động" thì đặt `ref_dir_candidates: true` (dùng ảnh chưa lọc) hoặc tắt `ref_dir`.
 
+## 3d. Kết quả lượt v4 (`v18_smoke7b4`, xong 09:54) — 3 prompt × 3 model nền, Qwen 7B
+
+Trung bình S001, S012, S021 (KB tự sinh có kiểm ảnh thật, chưa có ảnh ref theo prompt, VQA còn dạng câu hỏi cũ):
+
+| model nền | CLIP attr bare → system | điểm Reviewer bare → system |
+|---|---|---|
+| RealVis XL | 0,77 → 0,87 | +0,30 → +0,40 |
+| SD 3.5 Medium | 0,50 → 0,81 | +0,37 → +0,53 |
+| FLUX.1-dev | 0,57 → 0,75 | +0,45 → +0,57 |
+
+**System > bare ở cả ba model trên cả hai số đo** — lần đầu điểm Reviewer cũng phân biệt được (trước đó mọi ảnh cùng 0).
+Loop có tác dụng: S001 đạt ở vòng 2, S012 lấy ảnh vòng 1, S021 dừng vì không cải thiện. Ảnh cuối của S001 và S012 đều từ hàng
+`realvis_xl+ref`, tức kênh ảnh vẫn là thành phần quyết định.
+
+Lượt **v5** đang chạy (`v18_v5`, 4 prompt S001/S012/S021/S031, 8 hàng gồm `flux_dev+ref`): thêm ảnh ref theo prompt của nhóm,
+VQA dạng phát biểu, chỉ mục kho dựng lại sau khử trùng.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

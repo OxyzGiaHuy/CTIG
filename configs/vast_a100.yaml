@@ -2,14 +2,15 @@
 # Đĩa nhỏ nên chỉ MỘT checkpoint SDXL (RealVisXL) làm nền cho mọi hàng SDXL; dreamshaper8 làm baseline SD1.5 rẻ.
 # Ước lượng đĩa: RealVis 7 + dreamshaper 2 + Qwen-3B 7.5 + BLIP-2 4.7 + PickScore 4 + IP-Adapter Plus 3.5 + CLIP/OWL 1.2 ≈ 30 GB.
 # Muốn Qwen 7B (đọc collar/lower_body chính xác hơn 3B): đổi model bên dưới, +15 GB đĩa.
-llm:        {backend: qwen_vl, model: Qwen/Qwen2.5-VL-3B-Instruct, device: "cuda:0", max_new_tokens: 700, temperature: 0.0, cache: true}
+llm:        {backend: qwen_vl, model: Qwen/Qwen2.5-VL-7B-Instruct, device: "cuda:0", max_new_tokens: 700, temperature: 0.0, cache: true}
+# v1.8: 7B thay 3B (Culture-TRIP dùng 70B; 3B viết thuộc tính KB vô nghĩa và trả lời có/không kém). ~16 GB VRAM bf16.
 perception: {backend: vlm_clip, clip_model: openai/clip-vit-base-patch32, device: "cuda:0"}
 retrieval:  {backend: wiki, web_api: ddg, web_langs: [vi, en], download_images: true, ref_image_min_clip: 0.75, extract: true,
              ref_index: /workspace/runs/_cache/ref_index.npz, ref_index_min_sim: 0.26, ref_index_k: 6}
 search_viz: {k_text: 5, k_images: 6, max_entities: 6}
 max_candidate_entities: 6
 review:     {enabled: false, max_iters: 2, pass_threshold: 0.75, clip_weight: 0.35}
-judge:      {backend: blip2_itm, device: "cuda:0", offload: false}
+judge:      {backend: clip, device: "cuda:0", offload: false}   # v1.8: bỏ BLIP-2 ITM (~0 trên prompt complex; 4,4 GB đĩa)
 agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true, k_candidates: 8, max_revisions: 3, reload_vlm: false, primary_model: realvis_xl}
 models:     [sdxl_base#bare, sdxl_base, sdxl_base+ref,
              realvis_xl#bare, realvis_xl, realvis_xl#caption, realvis_xl+ref, realvis_aodai, sdxl_refplus,
@@ -26,7 +27,7 @@ multigen:
   cpu_offload: false
   n_candidates: 6
   max_side: 1024
-  itm: true
+  itm: false   # v1.8: không BLIP-2
   scheduler: dpmpp_2m_karras
   long_prompt: true
   ref_images: 3
@@ -34,7 +35,7 @@ multigen:
   ref_scale: 0.4
   copy_threshold: 0.88
   hires:     {enabled: true, scale: 1.5, strength: 0.3, steps: 20, skip_ip_adapter: false}
-  aesthetic: {enabled: true, device: "cuda:0", offload: false}
+  aesthetic: {enabled: false, device: "cuda:0", offload: false}   # v1.8: PickScore kéo ảnh bare lên (p001), bỏ
   adaptive:  {enabled: true, min: 2, max: 6, step: 2, target_attr: 0.70}
   auto_ref:  {enabled: true, prior_max: 0.45}
   ensemble: true

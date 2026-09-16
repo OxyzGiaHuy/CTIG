@@ -16,12 +16,15 @@ from dataclasses import replace
 from ..schema import CulturalSpec, FilterVerdict, GenSpec, RevisionPlan
 from .loop import needs_revision, plan_from_verdict
 
-LADDER = ("ground_refs", "attr_refs", "more_refs", "seed", "guidance")
+LADDER = ("ground_refs", "attr_refs", "rewrite", "more_refs", "seed", "guidance")
 
 
 def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: list[dict], patience: int,
-           agent=None, name_en: str = "", have_refs: bool = True, log=print) -> tuple[RevisionPlan | None, list[str], str]:
-    """Trả (plan hoặc None nếu dừng, captions truy hồi, lý do). memory = [{'fix': str, 'improved': bool, 'score': float}]."""
+           agent=None, name_en: str = "", have_refs: bool = True, log=print, prior_fixes: list[str] | None = None,
+           image: str | None = None, facts: list[str] | None = None) -> tuple[RevisionPlan | None, list[str], str]:
+    """Trả (plan hoặc None nếu dừng, captions truy hồi, lý do). memory = [{'fix': str, 'improved': bool, 'score': float}].
+    prior_fixes: cách sửa đã TĂNG điểm cho cùng thực thể ở prompt trước (bộ nhớ liên prompt, GenEvolve-lite) -> thử trước.
+    image/facts: cho nấc 'rewrite' (VLM nhìn ảnh lỗi, viết lại prompt chính)."""
     if v0 is None:
         return None, [], "không có chẩn đoán"
     if not needs_revision(v0):
@@ -35,6 +38,10 @@ def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: l
     base_fix = "ground_refs" if plan.use_reference_image and have_refs else ("negative" if plan.add_negative else "prompt")
     if not memory:
         fix = base_fix
+        for pf in prior_fixes or []:  # bộ nhớ liên prompt: nấc từng thành công cho thực thể này đi trước
+            if pf in ladder and (pf not in ("ground_refs", "attr_refs", "more_refs") or have_refs):
+                fix = pf
+                break
     elif memory[-1].get("improved"):
         fix = memory[-1].get("fix") or base_fix       # cách vừa rồi có tăng -> giữ nguyên nấc, đổi seed (iteration)
     else:
@@ -45,6 +52,20 @@ def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: l
     if fix in ("ground_refs", "attr_refs"):
         note = "; ảnh tham chiếu Grounding" if fix == "ground_refs" else "; ảnh truy hồi theo caption thuộc tính thiếu"
         plan = replace(plan, use_reference_image=True, rationale=plan.rationale + note)
+    elif fix == "rewrite":
+        new_p = ""
+        if agent is not None and hasattr(agent, "rewrite_prompt") and image:
+            try:
+                new_p = agent.rewrite_prompt(image, gen.prompt_terms[0] if gen.prompt_terms else "", name_en,
+                                             list(v0.missing_must_have), list(v0.matched_must_not), list(facts or []))
+            except Exception as exc:  # noqa: BLE001
+                log(f"  [reflector] VLM không viết lại được prompt ({type(exc).__name__})")
+        if not new_p:
+            # không viết được -> coi nấc này đã thử, nhảy nấc kế
+            memory = memory + [{"fix": "rewrite", "improved": False, "score": None}]
+            return decide(v0, spec, gen, memory, patience, agent=agent, name_en=name_en, have_refs=have_refs, log=log,
+                          prior_fixes=None, image=None, facts=facts)
+        plan = replace(plan, rewrite_prompt=new_p, add_positive=[], rationale=plan.rationale + f"; viết lại prompt: {new_p[:80]}")
     elif fix == "more_refs":
         plan = replace(plan, use_reference_image=True, rationale=plan.rationale + "; leo nấc: thêm ảnh tham chiếu, scale +0.1")
     elif fix == "seed":

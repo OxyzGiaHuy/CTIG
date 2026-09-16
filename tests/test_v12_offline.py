@@ -953,11 +953,11 @@ def test_v17_grounding_bare(tmp):
     check("reflector vòng 1: thiếu 2 thuộc tính -> ảnh Grounding (ground_refs), chưa cần caption", fix == "ground_refs" and not caps, f"{fix} {caps}")
     plan1b, caps1b, fix1b = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}], 2, agent=None, name_en="ao dai")
     check("reflector vòng 2: ảnh Grounding không cải thiện -> attr_refs + caption mẫu cho từng thuộc tính", fix1b == "attr_refs" and len(caps1b) == 2 and "high collar" in caps1b[0], f"{fix1b} {caps1b}")
-    plan2, _, fix2 = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": True}, {"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
-    check("reflector vòng 3: attr_refs không cải thiện -> leo nấc more_refs", fix2 == "more_refs" and plan2 is not None, fix2)
+    plan2, _, fix2 = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": True}, {"fix": "attr_refs", "improved": False}], 3, agent=None, name_en="ao dai")
+    check("reflector vòng 3: attr_refs không cải thiện -> nấc rewrite không có VLM -> more_refs", fix2 == "more_refs" and plan2 is not None, fix2)
     plan3, _, why3 = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}, {"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
     check("reflector: 2 vòng liền không cải thiện -> dừng", plan3 is None and "không cải thiện" in why3, why3)
-    _, _, fix2b = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}, {"fix": "attr_refs", "improved": True}, {"fix": "attr_refs", "improved": False}], 2, agent=None, name_en="ao dai")
+    _, _, fix2b = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}, {"fix": "attr_refs", "improved": True}, {"fix": "attr_refs", "improved": False}], 3, agent=None, name_en="ao dai")
     check("reflector: lần gần nhất của attr_refs không tăng (dù lần trước có) -> vẫn leo nấc more_refs", fix2b == "more_refs", fix2b)
     _, _, fix2c = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": True}], 2, agent=None, name_en="ao dai")
     check("reflector: cách vừa rồi có tăng -> giữ nấc, chỉ đổi seed", fix2c == "ground_refs", fix2c)
@@ -1054,6 +1054,22 @@ def test_v17_grounding_bare(tmp):
           and not _attr_ok_en("Is white") and not _attr_ok_en("Vietnamese traditional dress") and not _attr_ok_en("red silk"))
     check("kb_auto: câu gốc ngắn toàn từ phổ biến không qua ngưỡng 0.8 khi văn bản khác", not st_ex.quote_in_texts("Áo dài có màu trắng", ["Áo dài là trang phục truyền thống, thân áo dài xẻ hai tà, mặc với quần"], min_overlap=0.8)
           and st_ex.quote_in_texts("thân áo dài xẻ hai tà, mặc với quần ống rộng", ["Áo dài là trang phục truyền thống, thân áo dài xẻ hai tà, mặc với quần ống rộng"], min_overlap=0.8))
+    # v1.8: nấc 'rewrite' (Idea2Img) và bộ nhớ liên prompt
+    from ctig.stages.generation import apply_plan as _ap
+    from ctig.schema import GenSpec, RevisionPlan as _RP
+    g0 = GenSpec("t", prompt_terms=["A woman at a gate", "Vietnamese Ao dai", "high collar"], negative_terms=["n"], seed=1, steps=1, guidance=5, width=8, height=8, n_candidates=1)
+    g1 = _ap(g0, _RP(rewrite_prompt="A woman in a white ao dai with a high stand-up collar at a school gate"), sp, cfg.t2i)
+    check("rewrite_prompt thay câu prompt chính, giữ cụm thuộc tính", g1.prompt_terms[0].startswith("A woman in a white ao dai") and "high collar" in g1.prompt_terms and "A woman at a gate" not in g1.prompt_terms, str(g1.prompt_terms))
+    class RwAgent:
+        def rewrite_prompt(self, image, prompt_en, name_en, missing, wrong, facts): return "A young woman wearing a white ao dai with a tall stand-up collar and two long panels over wide trousers at a school gate"
+    v_rw = FilterVerdict("a.png", True, missing_must_have=["high collar"], matched_must_not=[], score=0.5)
+    plan_rw, _, fix_rw = ag_ref.decide(v_rw, sp, gen, [{"fix": "ground_refs", "improved": False}, {"fix": "attr_refs", "improved": False}], 3, agent=RwAgent(), name_en="ao dai", image="a.png")
+    check("reflector nấc 3 = rewrite: VLM viết lại prompt", fix_rw == "rewrite" and plan_rw.rewrite_prompt.startswith("A young woman"), f"{fix_rw} {plan_rw.rewrite_prompt[:30] if plan_rw else None}")
+    plan_pf, _, fix_pf = ag_ref.decide(v_rw, sp, gen, [], 3, agent=RwAgent(), name_en="ao dai", image="a.png", prior_fixes=["rewrite"])
+    check("bộ nhớ liên prompt: nấc từng thành công đi trước", fix_pf == "rewrite", fix_pf)
+    from ctig.session import _fix_memory_read, _fix_memory_write
+    _fix_memory_write(tmp / "kbm", "ao_dai", "attr_refs", "S001", "realvis_xl"); _fix_memory_write(tmp / "kbm", "ao_dai", "rewrite", "S002", "realvis_xl")
+    check("bộ nhớ liên prompt ghi/đọc, mới nhất trước", _fix_memory_read(tmp / "kbm", "ao_dai") == ["rewrite", "attr_refs"], str(_fix_memory_read(tmp / "kbm", "ao_dai")))
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh
     class VqaAgent:

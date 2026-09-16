@@ -39,8 +39,35 @@ from .schema import (
 #: Phiên bản LOGIC của từng bước. Tăng số khi đổi code làm đầu ra bước khác đi dù đầu vào không đổi,
 #: để cache bước cũ trên đĩa (step_*.json) không che mất thay đổi. Các bước sau tự đổi khoá vì khoá
 #: của chúng chứa hash đầu ra bước trước.
+def _fix_memory_read(kb_auto_dir: Path, eid: str | None) -> list[str]:
+    """Bộ nhớ liên prompt (GenEvolve-lite): các nấc sửa đã TĂNG điểm cho thực thể này ở prompt trước, mới nhất trước."""
+    if not eid:
+        return []
+    f = Path(kb_auto_dir) / f"{eid}.fixes.json"
+    try:
+        rows = json.loads(f.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    out: list[str] = []
+    for r in reversed(rows):
+        if r.get("fix") and r["fix"] not in out:
+            out.append(r["fix"])
+    return out
+
+
+def _fix_memory_write(kb_auto_dir: Path, eid: str, fix: str, prompt_id: str, model: str) -> None:
+    f = Path(kb_auto_dir) / f"{eid}.fixes.json"
+    try:
+        f.parent.mkdir(parents=True, exist_ok=True)
+        rows = json.loads(f.read_text(encoding="utf-8")) if f.exists() else []
+        rows.append({"fix": fix, "prompt_id": prompt_id, "model": model})
+        f.write_text(json.dumps(rows[-50:], ensure_ascii=False, indent=1), encoding="utf-8")
+    except (OSError, ValueError):
+        pass
+
+
 STEP_LOGIC = {"analysis": 3, "compare": 1, "retrieve": 4, "spec": 4, "genspec": 4, "multigen": 3, "review": 1,
-              "brief": 2, "ref_filter": 2, "candidate_review": 9}
+              "brief": 2, "ref_filter": 2, "candidate_review": 10}
 
 
 def _h(obj: Any) -> str:
@@ -547,10 +574,16 @@ class Session:
                     cr.notes.append(f"dừng: {cr.stop_reason}")
                     return cr
                 name_en = sp.entities[0].name_en if sp.entities else pe
+                main_eid = sp.entities[0].entity_id if sp.entities else None
+                prior_fixes = _fix_memory_read(self.cache_dir / "kb_auto", main_eid)
+                facts = []
+                if main_eid and briefs.get(main_eid):
+                    facts = list(briefs[main_eid].facts_en[:4])
                 ip_scale = None
                 for n in range(1, c.max_revisions + 1):
                     plan, captions, fix = ag_ref.decide(best_v, sp, gen, memory, c.patience, agent=self.agent if c.llm_captions else None,
-                                                        name_en=name_en, have_refs=bool(self.cfg.multigen.ref_images), log=self.log)
+                                                        name_en=name_en, have_refs=bool(self.cfg.multigen.ref_images), log=self.log,
+                                                        prior_fixes=prior_fixes if n == 1 else None, image=best_v.path, facts=facts)
                     if plan is None:
                         cr.stop_reason = fix
                         break
@@ -602,6 +635,8 @@ class Session:
                         it.note = f"không tốt hơn ({it.best_score if it.best_score is not None else float('nan'):+.2f} so với {best_score:+.2f})"
                     cr.notes.append(f"vòng {n} [{fix}]: {it.note}")
                     memory.append({"fix": fix, "improved": it.improved, "score": it.best_score})
+                    if it.improved and main_eid:
+                        _fix_memory_write(self.cache_dir / "kb_auto", main_eid, fix, self.prompt.id, label)
                     cr.iterations.append(it)
                     if not ag_loop.needs_revision(best_v):
                         cr.stop_reason = f"ảnh vòng {n} đạt: đủ thuộc tính, không must_not"

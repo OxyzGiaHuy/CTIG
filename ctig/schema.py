@@ -390,10 +390,12 @@ class RevisionPlan:
     rationale: str = ""
     #: cụm đã có trong prompt nhưng ảnh còn thiếu -> nhấn bằng trọng số compel thay vì thêm trùng (v1.4.1)
     weights: dict[str, float] = field(default_factory=dict)
+    #: v1.8 (Idea2Img): VLM nhìn ảnh lỗi + lời phê -> viết lại câu prompt chính (thay prompt_terms[0]); "" = không đổi
+    rewrite_prompt: str = ""
 
     def is_empty(self) -> bool:
         return not (self.add_positive or self.add_negative or self.boost or self.weights
-                    or self.attach_lora or self.use_reference_image or self.guidance_delta)
+                    or self.attach_lora or self.use_reference_image or self.guidance_delta or self.rewrite_prompt)
 
 
 @dataclass

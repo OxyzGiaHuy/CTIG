@@ -221,6 +221,12 @@ def apply_plan(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, cfg, lora_i
             emphasis[eid] = 1
     # Cụm đã nhấn được rút khỏi vị trí cũ rồi đặt lên đầu, không nhân đôi.
     body = [t for t in gen.prompt_terms if t not in head]
+    if getattr(plan, "rewrite_prompt", ""):
+        # Idea2Img: câu prompt chính (prompt_en, luôn đứng đầu prompt_terms gốc) được VLM viết lại; các cụm thuộc tính giữ nguyên
+        base = gen.prompt_terms[0] if gen.prompt_terms else None
+        body = [plan.rewrite_prompt if t == base else t for t in body]
+        if base in head:
+            head = [plan.rewrite_prompt if t == base else t for t in head]
     terms = list(dict.fromkeys(head + body + [p for p in plan.add_positive if p]))
     negative = list(dict.fromkeys(gen.negative_terms + [n for n in plan.add_negative if n]))
     ref = gen.ip_adapter_image

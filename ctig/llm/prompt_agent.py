@@ -531,6 +531,22 @@ class PromptAgent:
         except Exception:  # noqa: BLE001
             return None
 
+    def rewrite_prompt(self, image: str, prompt_en: str, name_en: str, missing: list[str], wrong: list[str], facts: list[str]) -> str:
+        """Reflector kiểu Idea2Img: nhìn ảnh lỗi, biết thiếu gì / sai gì, viết lại câu prompt chính (<= 60 từ) giữ cảnh gốc,
+        mô tả đúng chỗ sai bằng từ ngữ mà model sinh ảnh hiểu (hình dáng, vị trí, chất liệu), không dùng từ phủ định."""
+        system = (
+            "You improve a text-to-image prompt after seeing the image it produced. Keep the original scene, subject and setting. "
+            "Rewrite ONE English prompt (max 60 words, one paragraph, no lists, no negations like 'no' or 'without') that makes the "
+            "image model draw the missing features and avoid the wrong ones by describing the correct appearance concretely "
+            "(shape, position on the body/object, material, how it is worn or placed). Do not add new objects. "
+            "Return {\"prompt\": \"...\"}."
+        )
+        user = (f"ORIGINAL PROMPT: {prompt_en}\nITEM: {name_en}\nREFERENCE FACTS: " + "; ".join(facts[:4]) +
+                f"\nMISSING IN IMAGE: " + "; ".join(missing[:3]) + f"\nWRONG IN IMAGE: " + "; ".join(wrong[:2]))
+        d = self.llm.complete_json(system, user, _s(prompt=STR), images=[image])
+        s_ = " ".join(str(d.get("prompt", "")).split())
+        return s_ if 8 <= len(s_.split()) <= 80 else ""
+
     def write_retrieval_captions(self, name_en: str, missing: list[str]) -> list[str]:
         """Reflector (ImageRAG): một caption ảnh độc lập cho MỖI thuộc tính thiếu, để truy hồi ảnh minh hoạ thuộc tính đó."""
         system = (

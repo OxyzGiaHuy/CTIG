@@ -430,7 +430,8 @@ tính kiểm được là tà xẻ và thân áo.
 |---|---|---|---|
 | v191, ngưỡng cố định, ảnh đầy đủ | **0,00** | 0,67–0,82 | 0,83–1,00 |
 | v1.9.3, hiệu chỉnh, ảnh đầy đủ | 0,56 | −0,20–0,82 | 0,07–0,56 |
-| v1.9.5, + cắt người + phân tán | **0,79** | −0,13–1,00 | 0,00–0,31 |
+| v1.9.5, + cắt người + phân tán | 0,79 | −0,13–1,00 | 0,00–0,31 |
+| v1.9.5c, cắt theo THỰC THỂ | **0,85** | −0,01–1,00 | 0,14–0,40 |
 
 Ảnh áo liền quần `sdxl_base_c1` nay xếp gần chót với +0,00.
 
@@ -442,8 +443,27 @@ nón, cúc, khay, lồng đèn). Quần, tà, váy, gấu, khe xẻ là thân tr
 đó là việc của nấc sinh lại. `part_nouns_all` xét mọi danh từ chứ không chỉ cái dài nhất, vì
 "long-sleeved tunic split … panels" có cả `sleeve` lẫn `panels` mà chỗ thiếu là tà.
 
+**Cắt theo THỰC THỂ chứ không chỉ quanh người (`v1.9.5c`).** Bản đầu tìm `"person"`, đúng với prompt trang phục
+nhưng sai với prompt đồ vật. S012 (thuyền thúng) bị soi vào người chèo. `subject_labels` lấy tên thực thể vật thể
+của spec rồi mới tới `person`, `subject_crop` lấy HỢP các hộp. S001 nhờ vậy giữ lại được thuộc tính "cổ đứng"
+(3 thuộc tính kiểm được thay vì 2) và AUC lên **0,85**. Quét biên độ 0,04–0,30 cho AUC 0,79–0,88, đỉnh ở 0,20;
+giữ 0,08 vì chênh lệch nằm trong nhiễu của 14 ảnh, không tinh chỉnh theo bộ đo nhỏ.
+
+**Kết quả `v193` (commit `9b466bf`) — vòng sửa đã thật sự sửa được.** So ảnh tốt nhất trong lô gốc với ảnh tốt
+nhất do vòng sửa tạo ra, S001:
+
+| model nền | v192 gốc → sửa | v193 gốc → sửa |
+|---|---|---|
+| sdxl_base | +0,84 → **−0,20** (inpaint phá) | +0,67 → **+0,83** |
+| realvis_xl | +0,54 → +1,00 | +0,31 → **+0,80** |
+| sd35_medium | **0 vòng** | 2 vòng, −0,33 → −0,33 |
+
+Nấc inpaint không được gọi lần nào ở S001 (đúng: thuộc tính thiếu là thân áo), thang leo sang `attr_refs` và
+`ground_refs`. `sd35_medium` vẫn hỏng vì SD 3.5 Medium không có IP-Adapter nên nấc sinh lại kèm ảnh tham chiếu
+không dùng được; đó là giới hạn của model.
+
 Kiểm thử mới: `tests/test_forced_choice.py` (hiệu chỉnh, phân tán, chống chấm mù), `tests/test_inpaint_gate.py`
-(cổng inpaint và nấc thay thế). Đang chạy `v193` (S001, S012 × 8 hàng, commit `9b466bf`) để kiểm cả ba.
+(cổng inpaint và nấc thay thế). `v193` xong 15:52.
 
 ## 4. Lỗi/rủi ro còn mở
 
@@ -462,7 +482,11 @@ Kiểm thử mới: `tests/test_forced_choice.py` (hiệu chỉnh, phân tán, c
 - **Bộ complex đổi câu** ở C002, C003, C008 (nhóm sửa 2026-09-15) → số v1.7 complex không so trực tiếp được với v1.8.
 - **Bộ nhãn tay chỉ 14 ảnh, 3 ảnh sai** → AUC 0,79 còn thô, khoảng tin cậy rộng. Cần gán nhãn thêm, tốt nhất là
   nhãn theo TỪNG thuộc tính chứ không phải nhãn cho cả bộ trang phục.
-- **Với S001 chỉ còn 2 thuộc tính kiểm được** sau khi loại quần và cổ đứng. Bảng kiểm mỏng thì điểm thô. Hướng:
+- **S012 chỉ còn MỘT thuộc tính kiểm được**: "woven bamboo strips" được 0,43 trên ba ảnh thật với chênh lệch 0,87
+  (một ảnh thấy rõ nan tre, hai ảnh không) nên bị loại, còn lại mỗi "round basket-shaped hull". Mọi ảnh có thân
+  thuyền tròn đều +1,00 ở vòng 0. Đây là vấn đề của BỘ ẢNH THAM CHIẾU chứ không phải của mã: cần nhóm chọn ảnh
+  thấy rõ đặc trưng phân biệt.
+- **Với S001 chỉ còn 3 thuộc tính kiểm được** sau khi loại quần và cổ đứng. Bảng kiểm mỏng thì điểm thô. Hướng:
   viết lại must_have thành những cụm quan sát được ở mức ảnh cắt, thay vì cụm học thuật dài.
 - **Vòng sửa vẫn chưa chứng minh được là có ích**: sau khi chặn inpaint sai chỗ, nấc còn lại là sinh lại có ảnh
   tham chiếu, ở v192 cho +0,80/+0,70 so với ảnh gốc +0,84. Chưa lần nào vòng sửa vượt ảnh gốc. Phải đo lại ở v193.

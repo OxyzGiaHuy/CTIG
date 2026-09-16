@@ -333,7 +333,7 @@ cho "one-piece dress with no trousers underneath" → **AUC 0,29, dưới mức 
 nhìn thấy quần nên VLM chọn nhầm. Mã (`choice_prob`, `pair_distractors`, `usable_distractor`, `forced_choice`) và bài đo
 giữ lại, `describe.FORCED_CHOICE = False`. Bật lại khi có cách sinh mô tả sai chỉ lật ĐÚNG một đặc trưng phân biệt.
 
-### v1.9.3 — hiệu chỉnh ngưỡng từng thuộc tính trên ẢNH THẬT (`aa9e22b`)
+### v1.9.3 — hiệu chỉnh ngưỡng từng thuộc tính trên ẢNH THẬT (`5dbff82`)
 
 Chốt lại nguyên nhân: câu có/không **xếp hạng khá tốt** (AUC 0,92 cho tà xẻ, 1,00 cho thân áo) nhưng **chuẩn độ sai** — mọi
 giá trị nằm trong 0,62–0,98 nên ngưỡng cố định 0,60 cho tất cả đi qua. Ngưỡng nay lấy từ chính ảnh thật của prompt

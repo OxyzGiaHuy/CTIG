@@ -69,8 +69,13 @@ S012 thuyền thúng (`S012_montage.jpg`: FLUX bare | FLUX +ref | SD3.5 bare | S
 cũng đúng (auto_ref mở vì prior 0,10); **SD 3.5 bare ra ghe mũi nhọn, system (chỉ prompt, chưa có IP-Adapter cho SD3.5) vẫn ra ghe gỗ**
 → với SD3.5 kênh ảnh là thứ còn thiếu; với FLUX thực thể hiếm này đã có trong model. Gợi ý H20 sẽ phân hoá theo model nền:
 hệ thống giúp SDXL/RealVis/SD3.5, ít hoặc không giúp FLUX ở áo dài/thúng.
-Đã xếp hàng `queue_7b.sh`: xoá cache Qwen 3B + bản KB 3B (giữ ở `_cache/kb_auto_3b/`) + cache LLM, rồi smoke S001, S012, S021 với
-7 hàng (RealVis, SD3.5, FLUX bare/system) bằng Qwen 7B, run `v18_smoke7b`.
+Smoke **Qwen 7B** (`v18_smoke7b`, bắt đầu 07:37, 3 prompt × 7 hàng RealVis/SD3.5/FLUX): KB tự sinh áo dài của 7B =
+must_have "split tunic with side slits at the hips", "two straight panels front and back", "sleeves fitting closely to the arms" (đủ 3 câu gốc
+Wikipedia), must_not "left panel longer than right panel" (hiểu sai câu "tà trước ngắn hơn tà sau"), tags còn từ chung ("tradition",
+"formalwear"), analogy "a long fitted tunic split into two panels, worn over wide trousers". Tốt hơn 3B rõ, còn thiếu "cổ đứng" và
+must_not còn yếu. Reviewer 7B cho 28/28 ảnh qua tầng 1 (kể cả bare) → thuộc tính tự sinh hiện dễ đạt, cần xem lại tính phân biệt.
+Inpaint lần đầu: OWL-ViT không tìm được "the sleeves of a Ao dai (Vietnamese long dress)" → đã sửa câu hỏi (bỏ ngoặc, dự phòng
+"a sleeve" → "a Ao dai", ngưỡng thấp hơn) ở `4a90ce5`; tiến trình đang chạy vẫn dùng code cũ nên inpaint chỉ chạy thật ở lượt sau.
 
 ## 4. Lỗi/rủi ro còn mở
 

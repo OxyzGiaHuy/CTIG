@@ -301,6 +301,8 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
     KHÔNG dùng để chấm ảnh sinh ra - nó đúng về tri thức nhưng không kiểm được bằng mắt/VLM (S001: "split skirt at the sides
     from waist to hip level" -> mọi ảnh, kể cả ảnh áo dài đúng, đều bị coi là thiếu -> loop chạy vô ích).
     Trả bản ghi đã cập nhật (ghi lại cache) hoặc None nếu không kiểm được."""
+    from ..agents.describe import attr_question
+
     f = Path(kb_auto_dir) / f"{ent.id}.json"
     d = _read_json(f)
     if not draft_usable(d) or not ref_images or not hasattr(agent, "vqa_yes"):
@@ -314,7 +316,7 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
         vi = d["must_have"][i] if i < len(d.get("must_have", [])) else a
         ok = 0
         for img in imgs:
-            pr = agent.vqa_yes(f"Look carefully. Does the {name} in this photo have {a}? Answer Yes or No.", img)
+            pr = agent.vqa_yes(attr_question(name, a), img)
             if pr is None:
                 return None
             ok += int(pr >= 0.6)
@@ -330,7 +332,7 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
         for a in hand["must_have_en"]:
             if a in keep_h or not a:
                 continue
-            ok = sum(int((agent.vqa_yes(f"Look carefully. Does the {name} in this photo have {a}? Answer Yes or No.", img) or 0) >= 0.6) for img in imgs)
+            ok = sum(int((agent.vqa_yes(attr_question(name, a), img) or 0) >= 0.6) for img in imgs)
             scores[a] = round(ok / len(imgs), 2)
             if ok / len(imgs) >= min_ok:
                 keep_h.append(a); keep_h_vi.append(a); from_hand.append(a)
@@ -344,7 +346,7 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
         vi = d["must_not"][i] if i < len(d.get("must_not", [])) else a
         bad = 0
         for img in imgs:
-            pr = agent.vqa_yes(f"Look carefully. Does the {name} in this photo have {a}? Answer Yes or No.", img)
+            pr = agent.vqa_yes(attr_question(name, a), img)
             bad += int((pr or 0) >= 0.6)
         if bad / len(imgs) <= 0.34:  # ảnh ĐÚNG mà cũng "có" must_not -> must_not sai
             keep_n.append(a); keep_n_vi.append(vi)

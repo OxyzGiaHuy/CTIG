@@ -157,6 +157,13 @@ def _counterpart(not_attr: str, have_attrs: list[str]) -> str | None:
     return None
 
 
+def attr_question(name_en: str, attr_en: str) -> str:
+    """Câu hỏi VQA dạng PHÁT BIỂU (v1.8.1). Trước đây ghép "Does the ao dai have worn over wide-legged trousers?" -> sai ngữ pháp,
+    Qwen trả No cho cả ảnh áo dài thật (điểm kiểm 0,0 cho thuộc tính đúng). Dạng phát biểu tách thuộc tính khỏi cấu trúc câu."""
+    return (f'Look carefully at the {name_en} in this photo. Statement: "{attr_en}". '
+            "Is this statement true for what you see? Answer Yes or No.")
+
+
 def clip_agrees_not(clip, path: str, name_en: str, not_attr: str, have_attr: str, margin: float = 0.60) -> bool | None:
     """CLIP so cặp trên chính ảnh: P('với must_not') so với P('với must_have'). True = CLIP cũng thấy must_not;
     False = CLIP nghiêng về must_have (VLM đọc sai); None = không kiểm được."""
@@ -225,7 +232,7 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
         if hasattr(agent, "vqa_yes"):
             subj = name_en if any(se.kind == "object" for se in spec.entities) else "scene"
             for a in have_all + not_all:
-                q = f"Look carefully. Does the {subj} in this photo have {a}? Answer Yes or No."
+                q = attr_question(subj, a)
                 pr = agent.vqa_yes(q, desc.path)
                 if pr is None:
                     break

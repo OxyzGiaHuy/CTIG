@@ -62,6 +62,60 @@ def install_search_shim(log=print) -> str:
     return name
 
 
+#: Các mốc mà LLM nhỏ hay chèn vào; mọi thứ từ mốc này trở đi không còn là prompt nữa.
+_TAIL = ("### refine feedback", "### feedback", "### score", "### evaluation", "### note",
+         "refine feedback:", "**clarity", "**visual detail", "**background", "**purpose",
+         "**comparable object", "**total")
+_HEAD = ("### refined prompt:", "### refined prompt", "refined prompt:", "answer:")
+_PREFIX = ("here is the refined prompt based on the feedback:", "here is the refined prompt:",
+           "here's the refined prompt:", "sure, here is the refined prompt:")
+
+
+def clean_refined(text: str) -> tuple[str, bool]:
+    """Bóc phần prompt thật ra khỏi lời rào và phần feedback/điểm mà LLM nhỏ nhả kèm. (câu sạch, có phải cắt không).
+
+    llama3:8b không giữ đúng khuôn của bài gốc: nó trả về "Here is the refined prompt… ### Refined Prompt: …
+    ### Refine Feedback: … **Clarity (10/10)**…" trong CÙNG một chuỗi, 469 từ cho câu vào 13 từ. Dùng nguyên
+    chuỗi đó làm nhánh baseline là dựng bù nhìn. Đây là sửa PHẦN ĐỌC KẾT QUẢ, không đụng vào phương pháp của
+    họ; với 70B như bài gốc thì khả năng cao không cần bước này. Phải khai báo là có hậu xử lý.
+    """
+    t = " ".join((text or "").split())
+    if not t:
+        return "", False
+    low = t.lower()
+    cut = False
+    for h in _HEAD:                       # lấy phần SAU nhãn "### Refined Prompt:"
+        i = low.find(h)
+        if i >= 0:
+            t = t[i + len(h):].strip()
+            low = t.lower()
+            cut = True
+            break
+    else:
+        for pre in _PREFIX:               # không có nhãn thì bóc lời rào đầu câu
+            if low.startswith(pre):
+                t = t[len(pre):].strip()
+                low = t.lower()
+                cut = True
+                break
+    ends = [low.find(m) for m in _TAIL if low.find(m) > 0]
+    if ends:
+        t = t[: min(ends)].strip()
+        cut = True
+    t = " ".join(t.split()).strip(" :-*#")
+    return t, cut
+
+
+def clip_tokens(text: str, tok=None) -> int:
+    """Số token CLIP thật nếu có transformers, không thì ước lượng theo số từ."""
+    if tok is not None:
+        try:
+            return len(tok(text)["input_ids"])
+        except Exception:  # noqa: BLE001
+            pass
+    return int(len(text.split()) * 1.35)
+
+
 def load_culture_trip(repo: str, model: str, log=print):
     """Nạp hàm culture_trip() từ checkout của họ; ép LLM sang `model`."""
     repo = str(Path(repo).resolve())
@@ -107,11 +161,14 @@ def refine_one(culture_trip, repo: str, nouns: list[str], prompt_en: str, thresh
                 steps.append({"culture_noun": noun, "error": f"{type(exc).__name__}: {str(exc)[:200]}",
                               "seconds": round(time.time() - t0, 1), "out": cur})
                 continue
-            steps.append({"culture_noun": noun, "in": cur, "out": out, "words": len(out.split()),
+            clean, was_cut = clean_refined(out)
+            steps.append({"culture_noun": noun, "in": cur, "out_raw": out, "out": clean,
+                          "words_raw": len(out.split()), "words": len(clean.split()), "post_processed": was_cut,
                           "seconds": round(time.time() - t0, 1)})
-            log(f"    [{noun}] {len(cur.split())} -> {len(out.split())} từ, {time.time() - t0:.0f}s")
-            if out:
-                cur = out
+            log(f"    [{noun}] {len(cur.split())} -> {len(out.split())} từ thô"
+                + (f", bóc còn {len(clean.split())} từ" if was_cut else "") + f", {time.time() - t0:.0f}s")
+            if clean:
+                cur = clean
         return cur, steps
     finally:
         os.chdir(cwd)
@@ -145,8 +202,15 @@ def main(argv=None):
     culture_trip, backend, repo = load_culture_trip(a.repo, a.model, log)
     log(f"{len(recs)} prompt · model {a.model} · ngưỡng {a.threshold} · tìm kiếm {backend} · ra {out_dir}")
 
-    done = skip = fail = 0
+    done = skip = fail = n_over = 0
     t_all = time.time()
+    tok = None
+    try:                                  # đếm token CLIP thật nếu có; không thì ước lượng theo số từ
+        from transformers import CLIPTokenizerFast
+
+        tok = CLIPTokenizerFast.from_pretrained("openai/clip-vit-base-patch32")
+    except Exception:  # noqa: BLE001
+        log("[cảnh báo] không nạp được tokenizer CLIP -> số token chỉ là ước lượng")
     for r in recs:
         dst = out_dir / f"{r['id']}.json"
         sig = hashlib.sha1(f"{r['text_en']}|{a.model}|{a.threshold}".encode()).hexdigest()[:12]
@@ -166,18 +230,26 @@ def main(argv=None):
         t0 = time.time()
         refined, steps = refine_one(culture_trip, repo, nouns, r["text_en"], a.threshold, log)
         ok = bool(refined) and refined != r["text_en"]
+        n_tok = clip_tokens(refined, tok)
         dst.write_text(json.dumps({
             "prompt_id": r["id"], "sig": sig, "model": a.model, "threshold": a.threshold,
             "search_backend": backend, "chained": len(nouns) > 1,
+            "post_processed": any(s_.get("post_processed") for s_ in steps),
             "prompt_en": r["text_en"], "culture_nouns": nouns,
             "refined_prompt": refined, "words_in": len(r["text_en"].split()), "words_out": len(refined.split()),
+            "clip_tokens": n_tok, "over_77_tokens": n_tok > 77,
             "per_step": steps, "seconds": round(time.time() - t0, 1),
         }, ensure_ascii=False, indent=1), encoding="utf-8")
+        if n_tok > 77:
+            n_over += 1
         done += 1
         if not ok:
             fail += 1
             log(f"[{r['id']}] CẢNH BÁO: câu không đổi so với gốc")
     log(f"xong: {done} mới, {skip} bỏ qua (đã có), {fail} có vấn đề · {time.time() - t_all:.0f}s")
+    if n_over:
+        log(f"[cảnh báo] {n_over}/{done} prompt vượt 77 token của CLIP -> bộ sinh sẽ CẮT phần cuối. "
+            "Đây là giới hạn sẵn có của cách bung prompt, phải báo cáo.")
 
 
 if __name__ == "__main__":

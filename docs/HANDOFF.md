@@ -552,6 +552,69 @@ T2I-Copilot, RPG, MosAIG là MIT/Apache.
 
 **Hai vướng mắc khi chạy**: máy **không có khoá OpenAI/Gemini** (chỉ có HF_TOKEN), và đĩa còn **11 GB / 100 GB**.
 
+## 3l. CHUYỂN HƯỚNG v2 — Culture-TRIP làm nền (2026-09-17, người dùng chốt)
+
+Kế hoạch đầy đủ: `~/.claude/plans/v-flow-notebook-tui-compiled-raven.md` (đã duyệt).
+
+**Ba nhánh, cùng seed, cùng model nền:**
+`A. prompt EN → SDXL` · `B. prompt EN → Culture-TRIP → SDXL` · `C. = B + Agentic Loop`.
+A→B là đóng góp của Culture-TRIP, **B→C là đóng góp của ta**. Đóng góp rút còn hai: agentic loop, và bộ prompt
+văn hoá Việt Nam. Bỏ "chạy nhiều model nền" khỏi danh sách đóng góp.
+
+**Chống thiên lệch vào KB** (người dùng chặn đúng chỗ này trước khi duyệt plan). Nguyên tắc: bảng kiểm KB là
+**đặc tả đầu vào**, không phải **thước đo đầu ra**. Nhánh C tối ưu thẳng vào bảng kiểm còn B thì không, nên
+hiệu số B→C bắt buộc đo bằng thước đo độc lập. Năm biện pháp: (1) tách ảnh thật thành tập loop nhìn thấy và
+tập cất riêng để đánh giá; (2) ba thước đo độc lập — nhãn người (chính), VQAScore theo prompt, tương đồng
+ảnh-ảnh với ảnh thật cất riêng; (3) kiểm chứng KB có trích nguồn; (4) đo Goodhart, vẽ điểm Reviewer so với
+điểm người theo từng vòng; (5) ablation C5 — loop KHÔNG dùng bảng kiểm, mục tiêu lấy từ khác-biệt-với-ảnh-thật.
+
+### Đã làm xong 2026-09-17
+
+| Thành phần | Tệp | Trạng thái |
+|---|---|---|
+| Trang gán nhãn tay | `scripts/label_tool.py` | xong, đã dựng thử 12 ảnh / 90 câu |
+| Thước đo độc lập với KB | `ctig/evaluation.py` | xong, `tests/test_eval_split.py` đạt |
+| Tiêm prompt ngoài | `Session.set_prompt_en`, `--prompt-source` | xong, `tests/test_prompt_injection.py` đạt |
+| Sinh prompt Culture-TRIP | `scripts/culture_trip_prompts.py` | xong, đã chạy thật S001 và S012 |
+| Lưới so sánh tổng | `scripts/overview_grid.py` | xong từ hôm trước |
+
+**Môi trường Culture-TRIP trên máy thuê** (mã ở `/workspace/baselines/Culture-TRIP`, KHÔNG commit):
+venv riêng `/workspace/venv_ctrip` theo đúng `requirements.txt` của họ (langchain-community 0.3.16), vì bản
+mới 0.4.2 trong `/venv/main` đã bỏ `ChatOllama` và `GoogleSearchAPIWrapper`. Ollama đã cài, `llama3:8b` đã tải
+(4,7 GB). Chạy bằng `/workspace/venv_ctrip/bin/python scripts/culture_trip_prompts.py --repo /workspace/baselines/Culture-TRIP`.
+
+**Ba phát hiện khi chạy thật Culture-TRIP, đều phải khai báo khi viết bài:**
+
+1. **Máy KHÔNG có khoá Serper lẫn Google CSE** (`~/.bashrc` chỉ có HF_TOKEN). Culture-TRIP vì vậy chạy
+   **Wikipedia-only**, trong khi bài gốc dùng Wikipedia + Google. Cần xin khoá Google CSE (miễn phí 100
+   truy vấn/ngày, đủ cho ~197 lượt) hoặc chấp nhận và khai báo.
+2. **llama3:8b không giữ khuôn của bài gốc.** S001: câu vào 13 từ ra **469 từ**, nhả cả
+   `### Refined Prompt: … ### Refine Feedback: … **Clarity (10/10)**` vào cùng một chuỗi, và thêm câu tự thuật
+   `"I added more sensory descriptions…"`. Dùng nguyên chuỗi làm baseline là dựng bù nhìn. `clean_refined`
+   bóc phần prompt thật (S001 còn 74 từ, S012 còn 36 từ) và ghi cờ `post_processed`. Đây là sửa **phần đọc kết
+   quả**, không đụng phương pháp của họ.
+3. **Prompt bung ra vượt 77 token của CLIP**: S001 92 token, S012 177 token trước khi lọc câu meta. Bài gốc
+   dùng SD2 cũng giới hạn 77 nên đây là **giới hạn sẵn có của cách bung prompt**, và là một lập luận cho hướng
+   sửa ở mức ẢNH. Phải đếm và báo cáo số prompt bị cắt.
+
+### Đang chạy khi dừng phiên (bắt đầu 17:42 giờ máy, ~10 phút/prompt, dự kiến xong ~21:00)
+
+`runs/label20` — 20 prompt phủ đủ 8 nhóm chủ đề, 4 hàng (`sdxl_base#bare, sdxl_base, realvis_xl#bare,
+realvis_xl`), cùng seed. Mục đích: lấy ẢNH để gán nhãn tay. Xong S001, S002.
+Lệnh: `bash /workspace/run_label20.sh`, log `/workspace/logs/label20.log`.
+
+### Việc kế tiếp (mai)
+
+1. Chờ `label20` xong → dựng trang gán nhãn đầy đủ → **người dùng gán nhãn 20 prompt** (nút thắt).
+2. Sinh prompt Culture-TRIP cho 10 prompt đơn → **pilot go/no-go**: còn ≥ 30% thuộc tính sai sau nhánh B thì
+   đề tài có đất, dưới 15% phải đổi hướng.
+3. Sửa nấc `rewrite` thành VÁ THÊM câu thay vì ghi đè `prompt_terms[0]` (nếu không sẽ xoá sạch câu Culture-TRIP).
+4. Kiểm xem `_compel_embeds` có xử lý prompt dài quá 77 token không, hay bị cắt thật.
+5. Chạy chính 100 prompt × 3 nhánh trên SDXL.
+
+**Đĩa**: còn 7,2 GB. Đã xoá `runs/{v17,v17_complex,v18_smoke7b4,v18_v5,v191}`. Còn xoá được `runs/v19` (1,1 GB)
+nếu cần chỗ.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

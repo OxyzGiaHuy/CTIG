@@ -158,66 +158,88 @@ class PromptAgent:
 
     # ------------------------------------------------------------ stage 3
     def draft_kb_entry(self, ent, texts: list[dict]) -> dict:
-        """v1.8 KB tự sinh: một bản ghi KB đầy đủ theo đúng mẫu bản tay, rút từ văn bản (mỗi thuộc tính kèm câu gốc).
-        Prompt tiếng Anh + ví dụ mẫu vì Qwen 3B với hướng dẫn tiếng Việt trả thuộc tính vô nghĩa ("Is white") và bịa câu gốc ngắn."""
-        numbered = "\n\n".join(f"[{i}] {t.get('title', '')}\n{t.get('text', '')[:1800]}" for i, t in enumerate(texts[:4]))
-        system = (
-            f"You build a VISUAL knowledge record about the Vietnamese cultural item '{ent.name_vi}' ({ent.name_en}) for a system that "
-            "generates and checks images. Use ONLY the given texts.\n"
-            "Return JSON with:\n"
-            "- must_have: 3-5 items {attr_vi, attr_en, quote}. attr_en = 3-8 English words naming a concrete SHAPE, STRUCTURE, MATERIAL, "
-            "PATTERN or WAY OF WEARING/PLACING that a viewer can verify in a photo. The FIRST TWO must be IDENTIFYING features: what "
-            "separates this item from the most similar item of another culture or region. Never use colors alone, never generic words "
-            "(traditional, beautiful, famous, dress, clothing), never history or meaning. quote = a sentence of at least 8 words COPIED "
-            "VERBATIM from the texts that supports the attribute, prefixed with its source index like [0].\n"
-            "- must_not: 2-4 items, same structure: a visible feature of the most confusable item (other culture or nearby item) whose "
-            "presence means the image is WRONG. Do not repeat words of must_have.\n"
-            "- confusable_with: 1-3 {name, name_en, culture, why}.\n"
-            "- tags_en: 3-5 short prompt tags (2-4 words), identifying tag first. neg_tags_en: 2-4 short negative tags that do NOT contain "
-            "nouns used in must_have.\n"
-            "- clip_label: one English sentence 'a photo of ...' describing the item. kind: 'object' (garment, object, food, building) or "
-            "'context' (festival, scene, activity). prior_strength: 0-1, how well a generic text-to-image model already draws it "
-            "(ao dai ~0.55, coracle boat ~0.1).\n"
-            "Example for 'nón lá' (conical hat): must_have attr_en = 'round conical shape with pointed tip', 'smooth pale palm-leaf surface "
-            "over bamboo rings', 'silk or cloth chin strap'; must_not attr_en = 'very wide flat brim with no point', 'open lattice bamboo weave'; "
-            "tags_en = ['conical palm-leaf hat', 'pointed tip', 'silk chin strap']; neg_tags_en = ['flat wide brim', 'straw boater'].\n"
-            "If a feature has no supporting sentence in the texts, leave it out. Fewer correct items beat more guessed ones."
+        """v1.8 KB tự sinh, HAI BƯỚC (Qwen 3B một bước trả thuộc tính vô nghĩa và bịa câu gốc):
+        1) với từng nguồn: CHÉP NGUYÊN VĂN các câu mô tả hình dáng/cấu trúc/chất liệu/cách mặc (kiểm khớp 0,8, >= 8 từ);
+        2) từ các câu đã kiểm (đánh số): dựng bản ghi KB; mỗi thuộc tính phải trỏ chỉ số câu -> câu gốc luôn thật."""
+        from ..stages.extraction import quote_in_texts
+
+        name = f"'{ent.name_vi}' ({ent.name_en})"
+        # ---- bước 1: câu mô tả thị giác, theo từng nguồn ----
+        sentences: list[str] = []
+        for i, t in enumerate(texts[:4]):
+            body = (t.get("text") or "")[:3000]
+            if len(body) < 80:
+                continue
+            sys1 = (f"You read a text about the Vietnamese cultural item {name}. COPY VERBATIM (do not paraphrase, do not translate) up to 6 "
+                    "sentences that describe how it LOOKS or is WORN/USED/PLACED: shape, structure, parts, material, pattern, size, how it "
+                    "differs from similar items. Each sentence at least 8 words. Skip history, origin, meaning, prices, people's names. "
+                    "Return {\"sentences\": [...]} ; empty list if nothing describes appearance.")
+            try:
+                d1 = self._complete(sys1, f"TEXT [{i}] {t.get('title', '')}:\n{body}", _s(sentences=_arr(STR)), max_new_tokens=700)
+            except Exception:  # noqa: BLE001
+                continue
+            for s_ in d1.get("sentences", []) or []:
+                s_ = str(s_).strip()
+                if len(s_.split()) >= 8 and quote_in_texts(s_, [body], min_overlap=0.8) and s_ not in sentences:
+                    sentences.append(s_)
+        out = {"must_have": [], "must_have_en": [], "must_not": [], "must_not_en": [], "attr_sources": {}, "dropped_unsourced": [],
+               "confusable_with": [], "tags_en": [], "neg_tags_en": [], "clip_label": "", "kind": "object", "prior_strength": 0.2,
+               "n_sentences": len(sentences)}
+        if len(sentences) < 2:
+            return out
+        sentences = sentences[:14]
+        numbered = "\n".join(f"S{k}: {s_}" for k, s_ in enumerate(sentences))
+        # ---- bước 2: bản ghi từ câu đã kiểm ----
+        sys2 = (
+            f"You build a VISUAL knowledge record about {name} for a system that generates and checks images, using ONLY the numbered "
+            "sentences below (they were copied from Wikipedia and web pages).\n"
+            "must_have: 3-5 items {attr_vi, attr_en, src}. attr_en = 3-8 English words naming a concrete SHAPE, STRUCTURE, PART, MATERIAL, "
+            "PATTERN or WAY OF WEARING/PLACING that a viewer can verify in a photo; attr_vi = the same in Vietnamese; src = the index "
+            "(integer) of the sentence that supports it. The FIRST TWO must be IDENTIFYING features that separate this item from the "
+            "most similar item of another culture or region. Never colors alone, never generic words (traditional, beautiful, dress, "
+            "clothing), never history or meaning, never the same feature twice.\n"
+            "must_not: 2-4 items, same structure: a visible feature of the most confusable item whose presence means the image is WRONG "
+            "(e.g. for a conical hat: 'very wide flat brim with no point'). Must not repeat words of must_have. src may be -1 if the "
+            "sentences do not mention it.\n"
+            "confusable_with: 1-3 {name, name_en, culture, why}. tags_en: 3-5 short prompt tags (2-4 words), identifying tag first. "
+            "neg_tags_en: 2-4 short negative tags without nouns used in must_have. clip_label: 'a photo of ...'. kind: 'object' or "
+            "'context'. prior_strength: 0-1 (how well a generic text-to-image model already draws it; ao dai ~0.55, coracle ~0.1).\n"
+            "Example (conical hat): must_have attr_en = 'round conical shape with pointed tip', 'smooth pale palm-leaf surface over bamboo "
+            "rings', 'silk or cloth chin strap'; must_not = 'very wide flat brim with no point', 'open lattice bamboo weave'."
         )
-        item = _s(attr_vi=STR, attr_en=STR, quote=STR)
+        item = _s(attr_vi=STR, attr_en=STR, src={"type": "integer"})
         schema = _s(must_have=_arr(item), must_not=_arr(item),
                     confusable_with=_arr(_s(name=STR, name_en=STR, culture=STR, why=STR)),
                     tags_en=_arr(STR), neg_tags_en=_arr(STR), clip_label=STR,
                     kind={"type": "string", "enum": ["object", "context"]}, prior_strength=NUM)
-        try:
-            d = self.llm.complete_json(system, f"Văn bản:\n\n{numbered}", schema, max_new_tokens=1400)
-        except TypeError:  # backend không nhận max_new_tokens (API): dùng mặc định
-            d = self.llm.complete_json(system, f"Văn bản:\n\n{numbered}", schema)
-        from ..stages.extraction import quote_in_texts
-
-        raw = [t.get("text", "") for t in texts]
-        out = {"must_have": [], "must_have_en": [], "must_not": [], "must_not_en": [], "attr_sources": {}, "dropped_unsourced": []}
+        d = self._complete(sys2, f"SENTENCES:\n{numbered}", schema, max_new_tokens=1000)
         for key in ("must_have", "must_not"):
-            seen_vi: set[str] = set()
+            seen: set[str] = set()
             for it in d.get(key, []) or []:
                 if not isinstance(it, dict) or not it.get("attr_en"):
                     continue
-                vi, en, q = str(it.get("attr_vi") or it["attr_en"]).strip(), str(it["attr_en"]).strip(), str(it.get("quote") or "").strip()
-                if vi.lower() in seen_vi or en.lower() in {x.lower() for x in out[key + "_en"]}:
-                    continue  # LLM 3B hay lặp một thuộc tính hai cách viết
-                q_body = q.split("]", 1)[-1].strip() if q.startswith("[") else q
-                if q_body and len(q_body.split()) >= 8 and quote_in_texts(q_body, raw, min_overlap=0.8) and _attr_ok_en(en):
-                    seen_vi.add(vi.lower())
-                    out[key].append(vi); out[key + "_en"].append(en); out["attr_sources"][vi] = q
-                else:
-                    out["dropped_unsourced"].append(en)
+                en = str(it["attr_en"]).strip(); vi = str(it.get("attr_vi") or en).strip()
+                try:
+                    src = int(it.get("src", -1))
+                except (TypeError, ValueError):
+                    src = -1
+                if en.lower() in seen or vi.lower() in seen or not _attr_ok_en(en):
+                    continue
+                if key == "must_have" and not (0 <= src < len(sentences)):
+                    out["dropped_unsourced"].append(en); continue
+                if key == "must_not" and any(w in {x.lower() for x in " ".join(out["must_have_en"]).split()} for w in en.lower().split() if len(w) > 4):
+                    continue  # must_not nhắc lại từ khoá của must_have
+                seen.add(en.lower()); seen.add(vi.lower())
+                out[key].append(vi); out[key + "_en"].append(en)
+                if 0 <= src < len(sentences):
+                    out["attr_sources"][vi] = sentences[src]
         cfs = []
         for c in d.get("confusable_with") or []:
-            if not isinstance(c, dict) or not (c.get("name") or c.get("name_en")):
-                continue
-            cfs.append({"name": str(c.get("name") or c.get("name_en")), "name_en": str(c.get("name_en") or c.get("name")),
-                        "culture": str(c.get("culture") or ""), "why": str(c.get("why") or "")})
+            if isinstance(c, dict) and (c.get("name") or c.get("name_en")):
+                cfs.append({"name": str(c.get("name") or c.get("name_en")), "name_en": str(c.get("name_en") or c.get("name")),
+                            "culture": str(c.get("culture") or ""), "why": str(c.get("why") or "")})
         out["confusable_with"] = cfs
-        out["tags_en"] = [str(x).strip() for x in (d.get("tags_en") or []) if str(x).strip()][:5]
+        out["tags_en"] = [str(x).strip() for x in (d.get("tags_en") or []) if str(x).strip() and not all(w.lower() in _GENERIC_EN for w in str(x).split())][:5]
         out["neg_tags_en"] = [str(x).strip() for x in (d.get("neg_tags_en") or []) if str(x).strip()][:4]
         out["clip_label"] = str(d.get("clip_label") or "").strip()
         out["kind"] = "context" if str(d.get("kind", "")).strip().lower() == "context" else "object"
@@ -226,6 +248,12 @@ class PromptAgent:
         except (TypeError, ValueError):
             out["prior_strength"] = 0.2
         return out
+
+    def _complete(self, system: str, user: str, schema: dict, max_new_tokens: int | None = None) -> dict:
+        try:
+            return self.llm.complete_json(system, user, schema, max_new_tokens=max_new_tokens)
+        except TypeError:  # backend không nhận max_new_tokens
+            return self.llm.complete_json(system, user, schema)
 
     def build_spec(self, prompt, analysis, search, kb, max_entities, min_score) -> CulturalSpec:
         # Gộp / lọc / xếp hạng bằng luật để nhất quán; LLM chỉ dịch thuộc tính.

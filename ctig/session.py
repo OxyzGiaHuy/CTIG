@@ -799,6 +799,32 @@ class Session:
         return {"text": self.prompt.text_vi, "en": self.prompt.text_en, "llm": [c.llm.backend, c.llm.model],
                 "kb": self.kb.version, "maxc": c.max_candidate_entities}
 
+    def set_prompt_en(self, text: str) -> str:
+        """Thay câu prompt tiếng Anh bằng chuỗi từ NGOÀI (v2: đầu ra Culture-TRIP), GIỮ NGUYÊN CulturalSpec.
+
+        Trả về câu cũ. Ba điểm phải đúng, nếu sai thì so sánh ba nhánh mất giá trị:
+
+        1. **Gọi SAU `spec()` và sau `validate_kb()`.** `focus_context_entities` (stages/spec.py) và
+           `validate_kb` đọc `analysis.prompt_en` để cắt bớt thuộc tính theo câu chữ; gọi trước thì hai nhánh
+           sẽ có bảng kiểm KHÁC nhau và hiệu số B→C không còn đo đúng phần vòng sửa.
+        2. Memo của `analysis`/`retrieve`/`spec` không chứa `prompt_en` (xem `_base_key`) nên giữ nguyên,
+           không phải chạy lại grounding.
+        3. `genspec` trở đi phải tính lại; khoá memo của `genspec` có chứa `prompt_en` nên tự trượt, nhưng
+           vẫn xoá tường minh cho chắc.
+        """
+        text = " ".join((text or "").split())
+        if not text:
+            return ""
+        a, _ = self.analysis()
+        self.spec()                      # chốt spec theo câu GỐC trước khi đổi
+        old = a.prompt_en or self.prompt.text_en
+        if text == old:
+            return old
+        a.prompt_en = text
+        self.invalidate("genspec")
+        self.log(f"[session] prompt ngoài: {len(text.split())} từ (câu gốc {len(old.split())} từ); spec giữ nguyên")
+        return old
+
     def analysis(self, force: bool = False) -> tuple[AnalysisResult, str]:
         from .stages import analysis as st
 

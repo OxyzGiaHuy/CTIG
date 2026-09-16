@@ -66,6 +66,20 @@ def prompt_card(prompt: Prompt, source: str | None = None) -> str:
     return _wrap("Prompt", body, source)
 
 
+def external_prompt_card(source: str, old_en: str, new_en: str) -> str:
+    """Câu prompt do hệ thống NGOÀI viết lại, đặt cạnh câu gốc, kèm cảnh báo vượt 77 token của CLIP."""
+    nw, ow = len(new_en.split()), len(old_en.split())
+    approx = int(nw * 1.35)                 # ước lượng thô: token CLIP nhiều hơn số từ chừng 35%
+    warn = ("<div class='bad small'>Ước lượng khoảng " + str(approx) + " token CLIP, vượt giới hạn 77 nên phần "
+            "cuối câu có thể bị cắt. Phải đếm và báo cáo số prompt bị cắt.</div>") if approx > 77 else ""
+    body = (f"<table><tr><th>nguồn</th><td>{_e(source)}</td></tr>"
+            f"<tr><th>câu gốc ({ow} từ)</th><td>{_e(old_en)}</td></tr>"
+            f"<tr><th>câu dùng để sinh ({nw} từ)</th><td><b>{_e(new_en)}</b></td></tr></table>" + warn
+            + "<div class='small muted'>Bảng kiểm (CulturalSpec) được chốt theo câu GỐC trước khi thay, nên ba "
+              "nhánh dùng chung một bảng kiểm; chỉ câu đưa vào bộ sinh là khác.</div>")
+    return _wrap("Prompt thay từ hệ thống ngoài", body, None)
+
+
 # ---------------------------------------------------------------- bước 1
 def keywords_table(analysis: AnalysisResult, kb, max_spec_entities: int = 4, source: str | None = None) -> str:
     rows = []

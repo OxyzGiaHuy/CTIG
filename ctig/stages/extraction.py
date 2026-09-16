@@ -295,6 +295,61 @@ def rehydrate(search: SearchResult, kb: KnowledgeBase, kb_auto_dir: Path) -> Non
                 ent.must_have, ent.must_not, ent.confusable_with = list(it.must_have), list(it.must_not), list(it.confusable_with)
 
 
+def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=print, min_ok: float = 0.5) -> dict | None:
+    """v1.8.1: KIỂM bản ghi KB bằng ẢNH THẬT của thực thể (kho ảnh của nhóm / ảnh truy hồi đã qua CLIP).
+    Hỏi VQA từng must_have trên từng ảnh thật: thuộc tính mà chính ảnh đúng cũng không xác nhận được (< min_ok số ảnh) thì
+    KHÔNG dùng để chấm ảnh sinh ra - nó đúng về tri thức nhưng không kiểm được bằng mắt/VLM (S001: "split skirt at the sides
+    from waist to hip level" -> mọi ảnh, kể cả ảnh áo dài đúng, đều bị coi là thiếu -> loop chạy vô ích).
+    Trả bản ghi đã cập nhật (ghi lại cache) hoặc None nếu không kiểm được."""
+    f = Path(kb_auto_dir) / f"{ent.id}.json"
+    d = _read_json(f)
+    if not draft_usable(d) or not ref_images or not hasattr(agent, "vqa_yes"):
+        return None
+    if d.get("_meta", {}).get("validated"):
+        return None
+    name = ent.name_en.split("(")[0].strip()
+    imgs = list(ref_images)[:3]
+    keep_h, keep_h_vi, scores, dropped = [], [], {}, []
+    for i, a in enumerate(d.get("must_have_en", [])):
+        vi = d["must_have"][i] if i < len(d.get("must_have", [])) else a
+        ok = 0
+        for img in imgs:
+            pr = agent.vqa_yes(f"Look carefully. Does the {name} in this photo have {a}? Answer Yes or No.", img)
+            if pr is None:
+                return None
+            ok += int(pr >= 0.6)
+        scores[a] = round(ok / len(imgs), 2)
+        if ok / len(imgs) >= min_ok:
+            keep_h.append(a); keep_h_vi.append(vi)
+        else:
+            dropped.append(a)
+    if not keep_h:  # ảnh thật không xác nhận được cái nào -> giữ nguyên, có thể ảnh tham chiếu kém
+        log(f"  [2b] {ent.name_vi}: KHÔNG thuộc tính nào được ảnh thật xác nhận ({len(imgs)} ảnh) -> giữ nguyên bản ghi")
+        return None
+    keep_n, keep_n_vi = [], []
+    for i, a in enumerate(d.get("must_not_en", [])):
+        vi = d["must_not"][i] if i < len(d.get("must_not", [])) else a
+        bad = 0
+        for img in imgs:
+            pr = agent.vqa_yes(f"Look carefully. Does the {name} in this photo have {a}? Answer Yes or No.", img)
+            bad += int((pr or 0) >= 0.6)
+        if bad / len(imgs) <= 0.34:  # ảnh ĐÚNG mà cũng "có" must_not -> must_not sai
+            keep_n.append(a); keep_n_vi.append(vi)
+        else:
+            dropped.append(f"(must_not) {a}")
+    d["must_have_en"], d["must_have"] = keep_h, keep_h_vi
+    d["must_not_en"], d["must_not"] = keep_n, keep_n_vi
+    d.setdefault("_meta", {})["validated"] = {"n_images": len(imgs), "scores": scores, "dropped": dropped}
+    try:
+        f.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    except OSError:
+        pass
+    apply_kb_draft(ent, d)
+    log(f"  [2b] {ent.name_vi}: kiểm KB bằng {len(imgs)} ảnh thật -> giữ {len(keep_h)} must_have, {len(keep_n)} must_not"
+        + (f"; bỏ: {'; '.join(x[:40] for x in dropped[:3])}" if dropped else ""))
+    return d
+
+
 def draft_kb(agent, ent, texts: list[EvidenceItem], kb_auto_dir: Path, search: SearchResult, cfg=None, log=print) -> bool:
     """Dựng bản ghi KB tự sinh cho `ent` từ văn bản đã truy hồi. Cache theo id (tôn trọng cfg.evidence_cache; bản mỏng không
     được cache để lần sau có nguồn tốt hơn thì dựng lại). Thêm EvidenceItem provenance 'kb_auto'. Trả True nếu dùng được."""

@@ -50,6 +50,8 @@ def run_one(cfg: Config, prompt: Prompt, run_dir: Path, agents: bool, log) -> Pa
         report.parts.append(viz.brief_card(g["briefs"], g["spec"], source=src))
     spec, src = s.spec()
     report.parts.append(viz.spec_card(spec, source=src))
+    if cfg.retrieval.auto_kb and getattr(cfg.retrieval, "kb_mode", "auto") != "hand_only":
+        step("1a kiểm KB bằng ảnh thật", s.validate_kb)
     gen, src = step("1b genspec", s.genspec)
     report.parts.append(viz.genspec_card(gen, source=src))
     if cfg.multigen.device == cfg.llm.device and cfg.agents.reload_vlm:

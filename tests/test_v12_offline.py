@@ -1099,6 +1099,21 @@ def test_v17_grounding_bare(tmp):
     ctx2 = _SE4("tet", "Tết", "Lunar New Year", ["a", "b", "c"], [], [], weight=1.0, kind="context", required_attrs_en=["kumquat tree", "red envelopes", "five-fruit tray"])
     cs5 = _CS4("t", [ctx2]); focus_context_entities(cs5, _P4("y", "Gia đình sum họp ngày Tết", "A family gathers for the new year"))
     check("bối cảnh: prompt không nêu yếu tố -> giữ 2 mục đầu, hạ trọng số", len(cs5.entities[0].required_attrs_en) == 2 and cs5.entities[0].weight == 0.65)
+    # v1.8.1: kiểm KB bằng ảnh thật - thuộc tính mà ảnh đúng cũng không xác nhận thì bỏ
+    import json as _json
+    (tmp / "kbv").mkdir(parents=True, exist_ok=True)
+    rec = {"must_have": ["cổ đứng", "xẻ tà từ eo"], "must_have_en": ["high stand-up collar", "split skirt at the sides from waist to hip level"],
+           "must_not": ["cổ chéo"], "must_not_en": ["diagonal crossed collar"], "attr_sources": {}, "tags_en": ["stand-up collar"],
+           "neg_tags_en": [], "clip_label": "x", "kind": "object", "prior_strength": 0.5, "_meta": {"entity_id": "ao_dai"}}
+    (tmp / "kbv" / "ao_dai.json").write_text(_json.dumps(rec, ensure_ascii=False), encoding="utf-8")
+    class VqaRef:
+        def vqa_yes(self, q, image): return 0.9 if "high stand-up collar" in q else (0.1 if "split skirt" in q else 0.05)
+    ent_v = s.kb.get("ao_dai"); ent_v.notes = (ent_v.notes or "") + " | KB tự sinh (source=auto)"
+    got = st_ex.validate_draft(VqaRef(), ent_v, ["r1.jpg", "r2.jpg", "r3.jpg"], tmp / "kbv", log=lambda *a: None)
+    check("kiểm KB bằng ảnh thật: giữ thuộc tính ảnh đúng xác nhận, bỏ thuộc tính không kiểm được",
+          got and got["must_have_en"] == ["high stand-up collar"] and got["must_not_en"] == ["diagonal crossed collar"]
+          and got["_meta"]["validated"]["scores"]["split skirt at the sides from waist to hip level"] == 0.0, str(got and got["must_have_en"]))
+    check("kiểm KB: chạy một lần (đã đánh dấu validated)", st_ex.validate_draft(VqaRef(), ent_v, ["r1.jpg"], tmp / "kbv", log=lambda *a: None) is None)
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh
     class VqaAgent:

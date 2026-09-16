@@ -762,6 +762,39 @@ class Session:
                 ent.must_have, ent.must_not, ent.confusable_with = se.required_attrs, se.forbidden_attrs, se.confusables
         return val, src
 
+    def validate_kb(self) -> dict[str, dict]:
+        """v1.8.1: sau khi có ảnh tham chiếu thật, kiểm các bản KB TỰ SINH bằng VQA trên ảnh thật; bỏ thuộc tính mà chính ảnh
+        đúng cũng không xác nhận được. Chạy một lần cho mỗi thực thể (đánh dấu trong cache). Trả {entity_id: bản ghi đã sửa}."""
+        from .stages.extraction import validate_draft
+
+        if not self.cfg.retrieval.auto_kb or getattr(self.cfg.retrieval, "kb_mode", "auto") == "hand_only":
+            return {}
+        sp, _ = self.spec()
+        out: dict[str, dict] = {}
+        for se in sp.entities:
+            ent = self.kb.get(se.entity_id)
+            if ent is None or "KB tự sinh" not in (ent.notes or ""):
+                continue
+            caps = [ent.clip_label or f"a photo of Vietnamese {ent.name_en.split('(')[0].strip()}"]
+            hits = self.index_refs(caps, k=4)
+            refs = [p for p, _ in hits[:3]]
+            if not refs:
+                refs = [it.local_path for it in self.retrieve()[0].items
+                        if it.kind == "image" and it.entity_id == se.entity_id and it.local_path and Path(it.local_path).exists()][:3]
+            if not refs:
+                continue
+            d = validate_draft(self.agent, ent, refs, self.cache_dir / "kb_auto", log=self.log)
+            if d:
+                out[se.entity_id] = d
+        if out:  # spec phải lấy lại thuộc tính đã lọc
+            from .stages.spec import focus_context_entities, sync_auto_entities
+
+            a0, _ = self.analysis()
+            sync_auto_entities(sp, self.kb)
+            focus_context_entities(sp, self.prompt, a0)
+            self.steps.pop("genspec", None)
+        return out
+
     def genspec(self, force: bool = False) -> tuple[GenSpec, str]:
         from .stages.generation import build_initial_spec
 

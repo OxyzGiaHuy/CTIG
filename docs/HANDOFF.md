@@ -88,6 +88,12 @@ vì cầm; **system của cả hai model thêm lồng đèn tròn kiểu Trung Q
 sức với DiT (FLUX không có negative) và với SDXL khi prompt dài. Gợi ý: Reviewer phải bắt must_not này (VQA), và Refiner dùng inpaint xoá.
 Thêm nguồn **Wikipedia tiếng Anh** cho KB tự sinh (`2d65cea`, bản EN mô tả hình dáng chi tiết hơn); bản áo dài 7B lượt v2 vẫn chỉ 2
 must_have ("split skirt at the sides", "fitting sleeves") → KB tự sinh còn dao động giữa các lần gọi, chưa có "cổ đứng".
+**Lỗi lớn tìm được ở lượt v2**: Reviewer 7B báo THIẾU cả hai thuộc tính đó trên MỌI ảnh của cả ba model (kể cả ảnh áo dài đúng)
+→ loop chạy 2 vòng vô ích rồi dừng ở cả 3 model. Nguyên nhân: thuộc tính viết theo văn Wikipedia, VLM không xác nhận được trên ảnh.
+Sửa (`b0…`, xem commit "kiểm KB bằng ảnh thật"): thêm bước **`Session.validate_kb`** sau Grounding — hỏi VQA từng must_have trên
+2–3 **ảnh THẬT** của thực thể (kho ảnh nhóm, đã qua CLIP); thuộc tính mà chính ảnh đúng cũng không xác nhận (< 50% số ảnh) thì bỏ
+khỏi bản ghi; must_not mà ảnh đúng cũng "có" thì bỏ. Ghi `_meta.validated` (điểm từng thuộc tính) vào cache, chạy một lần mỗi thực thể.
+Đây cũng là câu trả lời cho "KB tự sinh có đáng tin không": mọi thuộc tính vào Reviewer đều đã được ảnh thật xác nhận.
 
 ## 4. Lỗi/rủi ro còn mở
 

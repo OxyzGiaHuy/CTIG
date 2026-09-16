@@ -252,11 +252,29 @@ class PromptAgent:
                 cfs.append({"name": str(c.get("name") or c.get("name_en")), "name_en": str(c.get("name_en") or c.get("name")),
                             "culture": str(c.get("culture") or ""), "why": str(c.get("why") or "")})
         out["confusable_with"] = cfs
-        out["tags_en"] = [str(x).strip() for x in (d.get("tags_en") or []) if str(x).strip() and not all(w.lower() in _GENERIC_EN for w in str(x).split())][:5]
-        out["neg_tags_en"] = [str(x).strip() for x in (d.get("neg_tags_en") or []) if str(x).strip() and str(x).strip().lower() not in _EXAMPLE_STRINGS
-                              and "conical" not in str(x).lower() or "nón" in ent.name_vi.lower()][:4]
+        def _tags(xs, drop_example=False):
+            flat = []
+            for x in xs or []:
+                flat += [y.strip(" .;") for y in str(x).split(",")]  # 3B hay trả một chuỗi "a, b, c"
+            outp = []
+            for y in flat:
+                if not y or len(y.split()) > 5 or y.lower().startswith("no "):
+                    continue
+                if all(w.lower() in _GENERIC_EN for w in y.split()):
+                    continue
+                if drop_example and (y.lower() in _EXAMPLE_STRINGS or ("conical" in y.lower() and "nón" not in ent.name_vi.lower())):
+                    continue
+                if y.lower() not in {z.lower() for z in outp}:
+                    outp.append(y)
+            return outp
+        out["tags_en"] = _tags(d.get("tags_en"))[:5]
+        out["neg_tags_en"] = _tags(d.get("neg_tags_en"), drop_example=True)[:4]
         out["clip_label"] = str(d.get("clip_label") or "").strip()
-        out["kind"] = "context" if str(d.get("kind", "")).strip().lower() == "context" else "object"
+        kind = "context" if str(d.get("kind", "")).strip().lower() == "context" else "object"
+        low = ent.name_vi.lower()
+        if any(low.startswith(w) for w in ("tết", "lễ", "hội", "chợ", "múa", "hát", "đám", "lễ hội")) or "festival" in ent.name_en.lower():
+            kind = "context"  # 3B hay gọi lễ hội là 'object'
+        out["kind"] = kind
         try:
             out["prior_strength"] = max(0.0, min(1.0, float(d.get("prior_strength", 0.2))))
         except (TypeError, ValueError):

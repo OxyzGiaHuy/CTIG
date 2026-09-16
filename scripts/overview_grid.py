@@ -46,7 +46,7 @@ def is_bare(k: str) -> bool:
     return "#bare" in k
 
 
-def collect(run: str, ids: list[str] | None):
+def collect(run: str, ids: list[str] | None, bare_pick: str = "best"):
     """[(prompt_id, prompt_en, {model nền: {'bare': (path, score), 'system': (path, score, nguồn, số vòng)}})]"""
     out, models = [], []
     for mg in sorted(glob.glob(f"{run}/*/multigen.json")):
@@ -79,8 +79,14 @@ def collect(run: str, ids: list[str] | None):
             cell = {}
             cands = groups.get((b, "bare"), [])
             if cands:
-                c = max(cands, key=lambda c: ((sc(c["path"]) if sc(c["path"]) is not None else -1.0), c.get("ensemble") or 0))
-                cell["bare"] = (c["path"], sc(c["path"]), "bare tốt nhất", 0)
+                # 'best' = chọn ảnh bare tốt nhất (mốc khắt khe nhất); 'first' = ảnh bare đầu tiên, cùng seed với system,
+                # đây mới là so sánh cùng điều kiện vì nhánh bare KHÔNG có bước chọn ảnh nào cả.
+                if bare_pick == "first":
+                    c, note = cands[0], "bare ảnh đầu"
+                else:
+                    c = max(cands, key=lambda c: ((sc(c["path"]) if sc(c["path"]) is not None else -1.0), c.get("ensemble") or 0))
+                    note = "bare tốt nhất"
+                cell["bare"] = (c["path"], sc(c["path"]), note, 0)
             f = finals.get(b)
             if f and os.path.exists(f["final_path"]):
                 cell["system"] = (f["final_path"], sc(f["final_path"]), f.get("final_source", ""), len(f.get("iterations") or []))
@@ -96,10 +102,11 @@ def collect(run: str, ids: list[str] | None):
     return out, models
 
 
-def build(run: str, out_png: str, cell: int = 300, ids: list[str] | None = None, log=print) -> str:
+def build(run: str, out_png: str, cell: int = 300, ids: list[str] | None = None, bare_pick: str = "best",
+          log=print) -> str:
     from PIL import Image, ImageDraw
 
-    rows, models = collect(run, ids)
+    rows, models = collect(run, ids, bare_pick)
     if not rows:
         raise SystemExit(f"không có prompt nào trong {run}")
 
@@ -171,7 +178,8 @@ def build(run: str, out_png: str, cell: int = 300, ids: list[str] | None = None,
             win += b[1] > a[1]; lose += b[1] < a[1]; tie += b[1] == a[1]
     fy = head + len(rows) * ch + 6
     d.text((6, fy), f"system thắng {win} · hoà {tie} · thua {lose} trong {win + tie + lose} cặp "
-                    f"(ô bare = ảnh bare tốt nhất theo Reviewer; ô system = ảnh CUỐI vòng sửa chọn)",
+                    f"(ô bare = {'ảnh bare tốt nhất theo Reviewer' if bare_pick == 'best' else 'ảnh bare đầu tiên, cùng seed'}; "
+                    f"ô system = ảnh CUỐI vòng sửa chọn)",
            font=f11, fill=(90, 90, 90))
 
     im.save(out_png)
@@ -185,9 +193,11 @@ def main(argv=None):
     ap.add_argument("out", nargs="?", default=None)
     ap.add_argument("--cell", type=int, default=300)
     ap.add_argument("--ids", default=None)
+    ap.add_argument("--bare", choices=("best", "first"), default="best",
+                    help="best = ảnh bare tốt nhất (khắt khe nhất); first = ảnh bare đầu, cùng seed với system")
     a = ap.parse_args(argv)
     out = a.out or str(Path(a.run) / "overview_grid.png")
-    build(a.run, out, a.cell, [i.strip() for i in a.ids.split(",")] if a.ids else None)
+    build(a.run, out, a.cell, [i.strip() for i in a.ids.split(",")] if a.ids else None, a.bare)
 
 
 if __name__ == "__main__":

@@ -1188,14 +1188,28 @@ def test_v17_grounding_bare(tmp):
         def __init__(self, table): self.table = table
         def describe_image(self, path): return {"people_count": 1, "subjects": ["woman"], "garments": ["long dress"], "objects": [], "background": "", "watermark_or_text": False}
         def match_descriptors(self, description, have, notv): return {"present_must_have": [], "present_must_not": [], "unsure": []}
-        def vqa_yes(self, q, image): return next((p for k, p in self.table.items() if k in q), 0.5)
+        def vqa_yes(self, q, image):
+            if "does NOT have" in q:  # câu phủ định đối chứng: model phân biệt được -> trả thấp
+                return 0.05
+            return next((p for k, p in self.table.items() if k in q), 0.5)
     have = sp.entities[0].required_attrs_en; notv = sp.entities[0].forbidden_attrs_en
-    fv = ag_desc.run(VqaAgent({have[0]: 0.9, notv[0]: 0.9}), ["v.png"], sp, "A young woman", kind="candidate", log=lambda *a: None).verdicts[0]
+    fv = ag_desc.run(VqaAgent({have[0]: 0.9, notv[0]: 0.9}), ["v.png"], sp, "A young woman", kind="candidate", log=lambda *a: None).verdicts[0]  # phủ định trả 0.05 -> tính
     check("VQA >= 0.75 xác nhận must_have và must_not mà mô tả bỏ sót", have[0] in fv.matched_must_have and notv[0] in fv.matched_must_not
           and fv.vqa.get(have[0]) == 0.9 and any("VQA" in r for r in fv.reasons), str(fv))
     fv2 = ag_desc.run(VqaAgent({have[0]: 0.9, have[1]: 0.9}), ["v2.png"], sp, "A young woman", kind="candidate", log=lambda *a: None).verdicts[0]
     fv3 = ag_desc.run(VqaAgent({have[-1]: 0.9, have[-2]: 0.9}), ["v3.png"], sp, "A young woman", kind="candidate", log=lambda *a: None).verdicts[0]
     check("2 thuộc tính định danh (đầu KB) cho điểm cao hơn 2 thuộc tính phụ", fv2.score > fv3.score, f"{fv2.score} vs {fv3.score}")
+    class VqaYesBias(VqaAgent):  # gật MỌI câu, kể cả câu phủ định -> không thuộc tính nào được tính
+        def vqa_yes(self, q, image): return 0.9
+    fvb = ag_desc.run(VqaYesBias({}), ["yb.png"], sp, "A young woman", kind="candidate", log=lambda *a: None).verdicts[0]
+    check("v1.9.1: VLM gật cả câu khẳng định lẫn phủ định -> thuộc tính KHÔNG được tính (chống thiên lệch gật)",
+          not fvb.matched_must_have and any("gật cả hai chiều" in r for r in fvb.reasons) and fvb.vqa_neg, str(fvb.reasons[:2]))
+    from ctig.agents.loop import needs_revision as _nr
+    from ctig.schema import FilterVerdict as _FV
+    v_sure = _FV("a.png", True, matched_must_have=["x", "y"], vqa={"x": 0.95, "y": 0.9})
+    v_unsure = _FV("b.png", True, matched_must_have=["x", "y"], vqa={"x": 0.62, "y": 0.61})
+    check("v1.9.1: 'đạt' cần cả độ chắc chắn - đủ thuộc tính nhưng VQA thấp thì vẫn phải sửa",
+          not _nr(v_sure) and _nr(v_unsure))
     class CapAgent:
         def write_retrieval_captions(self, name_en, missing): return [f"photo of {name_en} {m}" for m in missing]
     _, caps5, _ = ag_ref.decide(v, sp, gen, [{"fix": "ground_refs", "improved": False}], 2, agent=CapAgent(), name_en="ao dai")

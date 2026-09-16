@@ -481,6 +481,8 @@ class FilterVerdict:
     score: float = 0.0
     #: P(Yes) từng câu hỏi có/không về thuộc tính (VQA, v1.7.1): {thuộc tính: xác suất}
     vqa: dict[str, float] = field(default_factory=dict)
+    #: v1.9.1: P(Yes) của câu PHỦ ĐỊNH đối chứng; gật cả hai chiều = VLM không phân biệt được, thuộc tính không được tính
+    vqa_neg: dict[str, float] = field(default_factory=dict)
 
 
 @dataclass

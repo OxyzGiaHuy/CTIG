@@ -162,6 +162,14 @@ def _counterpart(not_attr: str, have_attrs: list[str]) -> str | None:
     return None
 
 
+def attr_question_neg(name_en: str, attr_en: str) -> str:
+    """Câu PHỦ ĐỊNH đối chứng cho cùng thuộc tính (v1.9.1). VLM có thiên lệch GẬT: hỏi 'áo có tà xẻ không' thì gật cả với ảnh
+    áo liền quần (S001 sdxl_base c1 được +1,00 dù không có tà). Hỏi thêm câu ngược lại: nếu model gật CẢ HAI thì nó không thật
+    sự phân biệt được -> coi là KHÔNG ĐO ĐƯỢC, không tính là có."""
+    return (f'Look carefully at the {name_en} in this photo. Statement: "the {name_en} does NOT have {attr_en}". '
+            "Is this statement true for what you see? Answer Yes or No.")
+
+
 def attr_question(name_en: str, attr_en: str) -> str:
     """Câu hỏi VQA dạng PHÁT BIỂU (v1.8.1). Trước đây ghép "Does the ao dai have worn over wide-legged trousers?" -> sai ngữ pháp,
     Qwen trả No cho cả ảnh áo dài thật (điểm kiểm 0,0 cho thuộc tính đúng). Dạng phát biểu tách thuộc tính khỏi cấu trúc câu."""
@@ -198,6 +206,7 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
     w = lambda a: 2.0 if a in key_attrs else 1.0
     matched_have, matched_not, reasons = [], [], []
     vqa: dict[str, float] = {}
+    contra: dict[str, float] = {}  # P(Yes) của câu phủ định đối chứng
     name_en = next((se.name_en.split("(")[0].strip() for se in spec.entities if se.kind == "object"), "outfit")
     if have_all or not_all:
         try:
@@ -241,6 +250,14 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
                 pr = agent.vqa_yes(q, desc.path)
                 if pr is None:
                     break
+                # đối chứng phủ định cho must_have: gật cả hai chiều = không phân biệt được
+                if a in have_all and pr >= 0.60:
+                    pn = agent.vqa_yes(attr_question_neg(subj, a), desc.path)
+                    if pn is not None:
+                        contra[a] = round(pn, 3)
+                        if pn >= 0.55:
+                            reasons.append(f"VQA gật cả hai chiều '{a[:26]}' ({pr:.2f}/{pn:.2f}) -> không tính")
+                            pr = 0.5  # đưa về dải "không đo được"
                 vqa[a] = round(pr, 3)
             for a in have_all:
                 pr = vqa.get(a)
@@ -281,7 +298,8 @@ def _verdict(agent, desc: ImageDescriptor, spec: CulturalSpec, kind: str, n_peop
     if not any(r.startswith(("có must_not", "prompt", "có chữ")) for r in reasons):
         reasons.append(f"{len(matched_have)}/{len(have_all)} must_have thấy trong mô tả")
     return FilterVerdict(path=desc.path, keep=keep, matched_must_have=matched_have, matched_must_not=matched_not,
-                         missing_must_have=missing, people_count=desc.people_count, reasons=reasons, score=round(score, 3), vqa=vqa)
+                         missing_must_have=missing, people_count=desc.people_count, reasons=reasons, score=round(score, 3),
+                         vqa=vqa, vqa_neg=contra)
 
 
 def run(agent, paths: list[str], spec: CulturalSpec, prompt_en: str, kind: str = "candidate", log=print, clip=None) -> FilterResult:

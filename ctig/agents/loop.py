@@ -57,10 +57,19 @@ def plan_from_verdict(v: FilterVerdict, spec: CulturalSpec, gen: GenSpec) -> Rev
                         rationale="; ".join(why) or "không có gì để sửa")
 
 
-def needs_revision(v: FilterVerdict | None) -> bool:
-    """v1.7.1: 'đạt' = đủ MỌI must_have, không must_not, được giữ. Trước là thiếu >= 2 mới sửa -> p001 RealVis (+0.50, thiếu cổ
-    đứng và tà bay) được coi là đạt dù ảnh còn sai."""
-    return v is not None and (bool(v.matched_must_not) or len(v.missing_must_have) >= 1 or not v.keep)
+def needs_revision(v: FilterVerdict | None, min_conf: float = 0.7) -> bool:
+    """'đạt' = đủ MỌI must_have, không must_not, được giữ, VÀ độ chắc chắn trung bình của VQA trên các must_have >= min_conf.
+    v1.9.1: chỉ đếm số thuộc tính là chưa đủ - S001 có ảnh áo liền quần được +1,00 vì VLM gật hết; thêm điều kiện độ chắc chắn
+    để những ảnh 'đạt nhưng model không chắc' vẫn đi tiếp vào vòng sửa."""
+    if v is None:
+        return False
+    if bool(v.matched_must_not) or len(v.missing_must_have) >= 1 or not v.keep:
+        return True
+    if v.vqa and v.matched_must_have:
+        conf = [v.vqa[a] for a in v.matched_must_have if a in v.vqa]
+        if conf and sum(conf) / len(conf) < min_conf:
+            return True
+    return False
 
 
 def regenerate(gen: GenSpec, plan: RevisionPlan, spec: CulturalSpec, kb, model_key: str, cfg, out_dir: Path,

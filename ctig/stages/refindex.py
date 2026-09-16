@@ -89,6 +89,20 @@ def build(root: str | Path, out: str | Path, clip, batch: int = 16, log=print, m
 
     root = Path(root)
     files = list_images(root)
+    # kho của nhóm có cùng ảnh ở nhiều thư mục con (evidence_images / evidence_images_complex) -> khử theo (tên, kích thước)
+    uniq, seen = [], set()
+    for f in files:
+        try:
+            key = (f.name, f.stat().st_size)
+        except OSError:
+            key = (f.name, -1)
+        if key in seen:
+            continue
+        seen.add(key)
+        uniq.append(f)
+    if len(uniq) < len(files):
+        log(f"[refindex] bỏ {len(files) - len(uniq)} ảnh trùng (cùng tên và kích thước)")
+    files = uniq
     if max_images:
         files = files[:max_images]
     embs, paths, bad = [], [], 0

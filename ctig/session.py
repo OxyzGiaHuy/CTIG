@@ -776,8 +776,17 @@ class Session:
             if ent is None or "KB tự sinh" not in (ent.notes or ""):
                 continue
             caps = [ent.clip_label or f"a photo of Vietnamese {ent.name_en.split('(')[0].strip()}"]
-            hits = self.index_refs(caps, k=4)
-            refs = [p for p, _ in hits[:3]]
+            hits = self.index_refs(caps, k=10)
+            # kho của nhóm có ảnh TRÙNG giữa các thư mục con -> khử theo tên file, nếu không "3 ảnh thật" chỉ là một ảnh lặp 3 lần
+            refs, seen_names = [], set()
+            for pth, _ in hits:
+                nm = Path(pth).name
+                if nm in seen_names:
+                    continue
+                seen_names.add(nm)
+                refs.append(pth)
+                if len(refs) >= 3:
+                    break
             if not refs:
                 refs = [it.local_path for it in self.retrieve()[0].items
                         if it.kind == "image" and it.entity_id == se.entity_id and it.local_path and Path(it.local_path).exists()][:3]

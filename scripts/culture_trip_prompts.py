@@ -25,6 +25,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -69,6 +70,10 @@ _TAIL = ("### refine feedback", "### feedback", "### score", "### evaluation", "
 _HEAD = ("### refined prompt:", "### refined prompt", "refined prompt:", "answer:")
 _PREFIX = ("here is the refined prompt based on the feedback:", "here is the refined prompt:",
            "here's the refined prompt:", "sure, here is the refined prompt:")
+#: Câu tự thuật ở cuối: "I added more sensory descriptions…", "This refined prompt improves…". Không phải prompt.
+_META = ("i added", "i also added", "i have added", "i included", "i made", "i changed", "i rewrote",
+         "i expanded", "i incorporated", "i provided", "this refined prompt", "the refined prompt",
+         "note:", "in this version", "these changes", "this should improve", "by adding")
 
 
 def clean_refined(text: str) -> tuple[str, bool]:
@@ -103,6 +108,13 @@ def clean_refined(text: str) -> tuple[str, bool]:
         t = t[: min(ends)].strip()
         cut = True
     t = " ".join(t.split()).strip(" :-*#")
+    # Bỏ các CÂU CUỐI mà model tự thuật việc mình vừa sửa; 8B hay viết thêm dù không có nhãn ### nào.
+    # Cắt theo câu chứ không theo chuỗi con, để không xén nhầm giữa một câu mô tả.
+    parts = re.split(r"(?<=[.!?])\s+", t)
+    while parts and any(parts[-1].lower().lstrip().startswith(m) for m in _META):
+        parts.pop()
+        cut = True
+    t = " ".join(parts).strip()
     return t, cut
 
 

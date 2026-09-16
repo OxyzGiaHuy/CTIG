@@ -228,8 +228,15 @@ def genspec_card(gen: GenSpec, source: str | None = None) -> str:
 
 
 # ---------------------------------------------------------------- bước 4/5
-def model_grid(res: MultiGenResult, spec: CulturalSpec, side: int = 220, source: str | None = None) -> str:
-    rows = ["<table class='mg'><tr><th>model</th><th colspan='8'>ứng viên (viền xanh = điểm tổng cao nhất trong hàng)</th></tr>"]
+def model_grid(res: MultiGenResult, spec: CulturalSpec, side: int = 220, source: str | None = None, cr=None) -> str:
+    """v1.9: viền xanh = ảnh Reviewer chấm CAO NHẤT trong hàng (nếu đã có Reviewer), không phải ảnh có CLIP attr cao nhất.
+    Trước đây viền theo metric nên grid có thể tô đậm một ảnh mà Reviewer đã loại vì must_not (S001 sdxl_base c5: attr 0,76
+    nhưng Reviewer -0,17 vì 'one-piece dress'), khiến người đọc tưởng hệ thống chọn ảnh sai."""
+    ver = {v.path: v for v in cr.filter.verdicts} if cr is not None else {}
+    finals = {x.final_path for x in (getattr(cr, "per_model", None) or ([cr] if cr is not None else [])) if x.final_path}
+    head = "ứng viên (viền xanh = ĐIỂM REVIEWER cao nhất trong hàng; ★ = ảnh cuối hệ thống)" if ver else \
+           "ứng viên (viền xanh = điểm tổng cao nhất trong hàng)"
+    rows = [f"<table class='mg'><tr><th>model</th><th colspan='8'>{head}</th></tr>"]
     for r in res.runs:
         meta = (f"<b>{_e(r.model_key)}</b><div class='muted'>{_e(r.repo.split('/')[-1])}</div>"
                 f"<div class='muted'>{r.gen_spec.steps} bước · g{r.gen_spec.guidance:g} · {r.gen_spec.width}px</div>"
@@ -258,9 +265,22 @@ def model_grid(res: MultiGenResult, spec: CulturalSpec, side: int = 220, source:
                 b.append(f"sim {c.clip_prompt_sim:.2f}")
             if c.ref_sim is not None:
                 b.append(f"<span class='{'bad' if c.ref_sim > 0.88 else ''}'>giống ref {c.ref_sim:.2f}</span>")
-            cls = "chosen" if (j == r.output.chosen and len(r.output.candidates) > 1) else ""
+            v = ver.get(c.path)
+            if v is not None:
+                b.insert(0, f"<b class='{'ok' if (v.keep and not v.matched_must_not) else 'bad'}'>Reviewer {v.score:+.2f}</b>")
+                if v.matched_must_not:
+                    b.append(f"<span class='bad'>must_not: {_e('; '.join(a[:22] for a in v.matched_must_not[:2]))}</span>")
+                elif v.missing_must_have:
+                    b.append(f"<span class='muted'>thiếu: {_e('; '.join(a[:22] for a in v.missing_must_have[:2]))}</span>")
+            if ver:
+                scored = [(vv.score, cc.path) for cc in r.output.candidates for vv in [ver.get(cc.path)] if vv]
+                top = max(scored)[1] if scored else None
+                cls = "chosen" if (c.path == top and len(r.output.candidates) > 1) else ""
+            else:
+                cls = "chosen" if (j == r.output.chosen and len(r.output.candidates) > 1) else ""
             hr = " <span class='badge disk'>hires</span>" if c.base_path else ""
-            cells.append(f"<td class='{cls}'>{_img(c.path, side)}<div>{' · '.join(b) or f'seed {c.seed}'}{hr}</div></td>")
+            star = " <b title='ảnh cuối của hệ thống'>★</b>" if c.path in finals else ""
+            cells.append(f"<td class='{cls}'>{_img(c.path, side)}<div>{' · '.join(b) or f'seed {c.seed}'}{hr}{star}</div></td>")
         rows.append(f"<tr><td>{meta}</td>{''.join(cells)}</tr>")
     rows.append("</table>")
     return _wrap(f"Bước 4 · {len(res.runs)} model cùng một GenSpec", "".join(rows), source)

@@ -58,7 +58,8 @@ def run_one(cfg: Config, prompt: Prompt, run_dir: Path, agents: bool, log) -> Pa
         s.free_vlm()
     res, src = step("2 generate", lambda: s.multigen(cfg.models, on_model_done=lambda r: log(
         f"    hàng {r.model_key}: " + (r.error[:80] if r.error else f"{len(r.output.candidates)} ảnh, {r.seconds:.0f}s"))))
-    report.parts.append(viz.model_grid(res, spec, source=src))
+    grid_at = len(report.parts)          # chèn grid sau, khi đã có verdict của Reviewer để tô viền đúng
+    report.parts.append("")
     if "ref_filter" in s.steps:
         report.parts.append(viz.filter_table(s.steps["ref_filter"].value, title="Grounding · Filter agent trên ảnh tham chiếu", source=s.steps["ref_filter"].source))
     report.parts.append(viz.score_table(res, source=src))
@@ -68,6 +69,7 @@ def run_one(cfg: Config, prompt: Prompt, run_dir: Path, agents: bool, log) -> Pa
         report.parts.append(viz.candidate_review_html(cr, source=src, res=res))
         for x in (cr.per_model or [cr]):
             log(f"[{prompt.id}] {x.base_model or '-'}: ảnh cuối {x.final_path} ({x.final_source}) · {len(x.iterations)} vòng · {x.stop_reason}")
+    report.parts[grid_at] = viz.model_grid(res, spec, source=src, cr=cr)
     report.parts.append(viz.paired_table(res, cr))
     report.parts.append(viz.vram_html())
     out = report.save(s.out_dir / "walkthrough.html")

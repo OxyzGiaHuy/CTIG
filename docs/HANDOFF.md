@@ -286,6 +286,19 @@ nên dễ đạt. Hướng: tăng số thuộc tính giữ lại (xin 5–8 đã
 `auto_ref` đóng → mất kênh ảnh ở đúng thực thể cần nhất. Nay prior của LLM không dùng cho cổng: thực thể tự sinh coi như hiếm (0,2),
 thực thể có bản tay dùng prior tay; cổng hàng `+init` nới lên 0,75. **Chưa chạy lại với sửa này.**
 
+### Hiểu nhầm về "system tệ hơn bare" ở S001 — nguyên nhân là CÁCH TRÌNH BÀY
+
+User thấy trong grid: hàng `sdxl_base` có ảnh viền xanh là **c5**, chiếc áo trông như đầm có cúc, trong khi ảnh bare đẹp hơn.
+Kiểm tra dữ liệu: **ảnh cuối của hệ thống là c1, không phải c5**. Reviewer chấm c5 **−0,17** vì bắt đúng must_not
+"one-piece dress with no trousers underneath"; c1 được +1,00 (đủ 4/4 thuộc tính), bare tốt nhất +0,82.
+Lỗi nằm ở `viz.model_grid`: viền xanh tô theo **CLIP attr** (c5 = 0,76) chứ không theo Reviewer → grid tô đậm đúng cái ảnh mà
+Reviewer đã loại. Sửa: viền xanh theo **điểm Reviewer**, mỗi ảnh hiện `Reviewer ±x.xx` cùng must_not/thiếu, ảnh cuối có dấu ★.
+Đã dựng lại 4 trang v19; ảnh đối chiếu `vast_v1.9/S001_bare_vs_final.jpg`.
+
+Trả lời câu "scoring vẫn là CLIP hay đã qua VLM?": **đã qua VLM trước**. Reviewer tầng 1 (VLM mô tả + khớp chữ + VQA từng thuộc
+tính + CLIP phủ quyết) chấm mọi ảnh; CLIP attr chỉ dùng để **xếp thứ tự trong tập đã qua VLM** và cho best-of-N thích nghi.
+Grid cũ hiển thị CLIP attr nên trông như CLIP quyết định.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

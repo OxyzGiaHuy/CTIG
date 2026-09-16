@@ -296,7 +296,8 @@ def rehydrate(search: SearchResult, kb: KnowledgeBase, kb_auto_dir: Path) -> Non
                 ent.must_have, ent.must_not, ent.confusable_with = list(it.must_have), list(it.must_not), list(it.confusable_with)
 
 
-def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=print, min_ok: float = 0.5) -> dict | None:
+def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=print, min_ok: float = 0.5,
+                   reject_below: float = 0.25) -> dict | None:
     """v1.8.1: KIỂM bản ghi KB bằng ẢNH THẬT của thực thể (kho ảnh của nhóm / ảnh truy hồi đã qua CLIP).
     Hỏi VQA từng must_have trên từng ảnh thật: thuộc tính mà chính ảnh đúng cũng không xác nhận được (< min_ok số ảnh) thì
     KHÔNG dùng để chấm ảnh sinh ra - nó đúng về tri thức nhưng không kiểm được bằng mắt/VLM (S001: "split skirt at the sides
@@ -315,15 +316,22 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
     keep_h, keep_h_vi, scores, dropped = [], [], {}, []
     for i, a in enumerate(d.get("must_have_en", [])):
         vi = d["must_have"][i] if i < len(d.get("must_have", [])) else a
-        ok = 0
+        ok, rejected, probs = 0, 0, []
         for img in imgs:
             pr = agent.vqa_yes(attr_question(name, a), img)
             if pr is None:
                 return None
+            probs.append(pr)
             ok += int(pr >= 0.6)
+            rejected += int(pr <= reject_below)
         scores[a] = round(ok / len(imgs), 2)
-        if ok / len(imgs) >= min_ok:
+        # v1.8.4 (S001: mất "worn over wide-legged long trousers" vì ảnh tham chiếu là ảnh cận cảnh -> ảnh cuối không quần
+        # vẫn "đủ thuộc tính"): chỉ BỎ khi ảnh thật BÁC BỎ rõ (đa số ảnh trả No chắc chắn). "Không thấy" (điểm lưng chừng,
+        # thường do ảnh crop) thì GIỮ - thà đòi hỏi thừa còn hơn bỏ sót thuộc tính định danh.
+        if ok / len(imgs) >= min_ok or rejected < max(1, (len(imgs) + 1) // 2):
             keep_h.append(a); keep_h_vi.append(vi)
+            if ok / len(imgs) < min_ok:
+                scores[a + " (giữ: ảnh không bác bỏ)"] = round(sum(probs) / len(probs), 2)
         else:
             dropped.append(a)
     # Còn quá ít thuộc tính -> thử thêm từ BẢN TAY (nếu KB gốc có), cũng phải qua kiểm ảnh thật; ghi rõ nguồn.
@@ -350,7 +358,7 @@ def validate_draft(agent, ent, ref_images: list[str], kb_auto_dir: Path, log=pri
         bad = 0
         for img in imgs:
             pr = agent.vqa_yes(attr_question(name, a), img)
-            bad += int((pr or 0) >= 0.6)
+            bad += int((pr or 0) >= 0.75)  # must_not chỉ bị coi là sai khi ảnh đúng "có" nó một cách chắc chắn
         if bad / len(imgs) <= 0.34:  # ảnh ĐÚNG mà cũng "có" must_not -> must_not sai
             keep_n.append(a); keep_n_vi.append(vi)
         else:

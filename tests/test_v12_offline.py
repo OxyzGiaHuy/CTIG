@@ -1121,6 +1121,8 @@ def test_v17_grounding_bare(tmp):
     (tmp / "kbv" / "ao_dai.json").write_text(_json.dumps(rec, ensure_ascii=False), encoding="utf-8")
     class VqaRef:
         def vqa_yes(self, q, image): return 0.9 if "high stand-up collar" in q else (0.1 if "split skirt" in q else 0.05)
+    class VqaUnsure:  # ảnh cận cảnh: không thấy quần -> điểm lưng chừng, KHÔNG được coi là bác bỏ
+        def vqa_yes(self, q, image): return 0.45 if "trousers" in q else (0.9 if "collar" in q else 0.05)
     ent_v = s.kb.get("ao_dai"); ent_v.notes = (ent_v.notes or "") + " | KB tự sinh (source=auto)"
     got = st_ex.validate_draft(VqaRef(), ent_v, ["r1.jpg", "r2.jpg", "r3.jpg"], tmp / "kbv", log=lambda *a: None)
     check("kiểm KB bằng ảnh thật: giữ thuộc tính ảnh đúng xác nhận, bỏ thuộc tính không kiểm được",
@@ -1136,6 +1138,14 @@ def test_v17_grounding_bare(tmp):
     check("kiểm KB: còn < 2 thuộc tính -> mới lấy bản tay (không lấy khi tự sinh đã đủ)",
           got2 and got2["must_have_en"] == ["high stand-up collar", "worn over wide-legged long trousers"]
           and got2["_meta"]["validated"]["from_hand"] == got2["must_have_en"], str(got2 and got2["must_have_en"]))
+    rec3 = {"must_have": ["cổ đứng", "quần ống rộng"], "must_have_en": ["high stand-up collar", "worn over wide-legged long trousers"],
+            "must_not": [], "must_not_en": [], "attr_sources": {}, "tags_en": [], "neg_tags_en": [], "clip_label": "x", "kind": "object",
+            "prior_strength": 0.5, "_meta": {"entity_id": "x_unsure"}}
+    (tmp / "kbv" / "x_unsure.json").write_text(_json.dumps(rec3, ensure_ascii=False), encoding="utf-8")
+    ent_u = s.kb.add_adhoc("u test", "u test"); ent_u.id = "x_unsure"; s.kb.entities["x_unsure"] = ent_u
+    got3 = st_ex.validate_draft(VqaUnsure(), ent_u, ["a.jpg", "b.jpg", "c.jpg"], tmp / "kbv", log=lambda *a: None)
+    check("kiểm KB: ảnh KHÔNG THẤY (điểm lưng chừng) thì GIỮ thuộc tính, chỉ bỏ khi bị bác bỏ rõ",
+          got3 and "worn over wide-legged long trousers" in got3["must_have_en"], str(got3 and got3["must_have_en"]))
     check("kiểm KB: chạy một lần (đã đánh dấu validated)", st_ex.validate_draft(VqaRef(), ent_v, ["r1.jpg"], tmp / "kbv", log=lambda *a: None) is None)
     check("v1.7.1: thiếu 1 thuộc tính vẫn phải sửa", ag_ref.decide(one_v, sp, gen, [], 2)[0] is not None)
     # VQA yes/no trong Filter: agent giả trả P(Yes) theo bảng; trọng số định danh

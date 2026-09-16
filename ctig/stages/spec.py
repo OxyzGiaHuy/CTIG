@@ -16,8 +16,26 @@ def run(agent, prompt: Prompt, analysis: AnalysisResult, search: SearchResult,
         else:
             dropped.append([se.entity_id, "không có thuộc tính kiểm chứng được"])
     spec.entities, spec.dropped = keep, dropped
+    sync_auto_entities(spec, kb)
     resolve_attr_conflicts(spec)
     return spec
+
+
+def sync_auto_entities(spec: CulturalSpec, kb: KnowledgeBase) -> None:
+    """v1.8: thực thể có bản KB tự sinh -> thuộc tính của SpecEntity lấy thẳng từ Entity (VI/EN/tags/kind/clip_label thẳng hàng),
+    thay cho đường trộn item + dịch LLM (S012: dịch lệch số cụm -> EN rỗng -> Filter 0/0, mọi ảnh 'đạt')."""
+    for se in spec.entities:
+        ent = kb.get(se.entity_id)
+        if ent is None or "KB tự sinh" not in (ent.notes or "") or not ent.must_have_en:
+            continue
+        se.required_attrs, se.required_attrs_en = list(ent.must_have), list(ent.must_have_en)
+        se.forbidden_attrs, se.forbidden_attrs_en = list(ent.must_not), list(ent.must_not_en)
+        se.confusables = list(ent.confusable_with)
+        se.tags_en, se.neg_tags_en = list(ent.tags_en), list(ent.neg_tags_en)
+        se.kind = ent.kind
+        if ent.clip_label:
+            se.clip_label = ent.clip_label
+        spec.dropped.append([se.entity_id, f"thuộc tính lấy từ KB tự sinh ({len(se.required_attrs_en)} must_have, {len(se.forbidden_attrs_en)} must_not)"])
 
 
 _STOP = {"with", "the", "and", "or", "of", "a", "an", "in", "on", "over", "under", "no", "not", "very", "hat", "dress", "long",

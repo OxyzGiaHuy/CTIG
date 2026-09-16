@@ -1021,6 +1021,14 @@ def test_v17_grounding_bare(tmp):
                     "clip_label": "a photo of a Vietnamese ao dai", "kind": "object", "prior_strength": 0.5}
     cfg_auto = SimpleNamespace(extract=True, extract_max_sources=6, evidence_cache=False, auto_kb=True, kb_mode="auto")
     st_ex.run(AoAgent(), sr2, s.kb, cfg_auto, tmp / "ev", log=lambda *a: None)
+    auto_items = [it for it in sr2.items if it.provenance == "kb_auto"]
+    check("kb_mode auto: item kb_auto GIỮ thuộc tính (không bị xoá nhầm cùng item KB tay)", auto_items and auto_items[0].must_have == ["cổ cao đứng", "hai tà xẻ"], str(auto_items[0].must_have if auto_items else None))
+    from ctig.stages.spec import sync_auto_entities
+    from ctig.schema import CulturalSpec as _CS2, SpecEntity as _SE2
+    cs2 = _CS2("t", [_SE2("ao_dai", "Áo dài", "Ao dai", ["x"], [], [], required_attrs_en=[], tags_en=[])])
+    sync_auto_entities(cs2, s.kb)
+    check("spec đồng bộ từ KB tự sinh: EN thẳng hàng với VI, tags, clip_label", cs2.entities[0].required_attrs_en == ao.must_have_en
+          and cs2.entities[0].required_attrs == ao.must_have and cs2.entities[0].tags_en == ao.tags_en and cs2.entities[0].clip_label == ao.clip_label, str(cs2.entities[0].required_attrs_en))
     check("kb_mode auto: áo dài (có bản tay) được dựng lại từ nguồn, item KB tay bị xoá thuộc tính, ghi chú nguồn auto",
           ao.must_have_en == ["high stand-up collar", "two long panels split at the waist"] and kb_item.must_have == []
           and any("tự dựng (auto)" in n for n in sr2.notes), f"{ao.must_have_en[:2]} {kb_item.must_have[:1]} {sr2.notes[-1:]}")

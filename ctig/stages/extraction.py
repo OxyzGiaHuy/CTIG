@@ -49,7 +49,8 @@ def run(agent, search: SearchResult, kb: KnowledgeBase, cfg, cache_dir: Path, lo
             if draft_kb(agent, ent, texts, kb_auto_dir, search, cfg=cfg, log=log):
                 # thuộc tính TAY trên item KB không được trộn vào spec nữa (spec chỉ dùng bản tự dựng)
                 for it in search.items:
-                    if it.entity_id == eid and it.provenance.startswith("kb"):
+                    # chỉ item KB TAY (kb@<version>, kb.notes); KHÔNG đụng item 'kb_auto' vừa thêm (S012 v1.8: xoá nhầm -> spec 0 thuộc tính)
+                    if it.entity_id == eid and it.provenance.startswith("kb") and it.provenance != "kb_auto":
                         it.must_have, it.must_not, it.confusable_with = [], [], []
                 search.notes.append(f"kb {eid}: nguồn thuộc tính = tự dựng (auto)")
                 continue

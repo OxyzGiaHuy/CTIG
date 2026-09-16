@@ -110,6 +110,15 @@ sometimes, usually…), và khi sau kiểm còn < 3 thì **lấy thêm từ bả
 → H20 được ủng hộ trên cả ba model kể cả FLUX, theo CLIP attr. Reviewer chưa dùng được cho tới khi KB đủ thuộc tính.
 Đang chạy `v18_smoke7b4` với KB đầy đủ (5–8 thuộc tính, lọc bằng ảnh thật, bổ sung bản tay có kiểm) + trang so sánh cuối lượt.
 
+**Hai lỗi nữa tìm thấy khi đọc điểm kiểm KB của v4 (đã sửa, `f5750f6` + `81afa6c`):**
+1. *Câu hỏi VQA sai ngữ pháp.* Ghép "Does the ao dai have **worn over wide-legged trousers**?" → Qwen trả No cho cả ảnh áo dài
+   thật (cổ đứng 0,33; quần ống rộng 0,00). Đổi sang dạng phát biểu: `Look carefully at the {name}… Statement: "{attr}". Is this
+   statement true?`. Đo lại trên ảnh thật: cổ đứng 0,91 → 0,93; tà xẻ 0,56 → 0,78; quần ống rộng 0,22 → 0,38. Dùng chung cho
+   **Reviewer** (ảnh hưởng mọi số Filter trước đây) và bước kiểm KB.
+2. *Kho ảnh có bản trùng.* `index_refs` trả 3 ảnh nhưng cùng một file (kho có ảnh giống nhau ở `evidence_images` và
+   `evidence_images_complex`) → "kiểm bằng 3 ảnh thật" thực chất chỉ 1 ảnh. Khử trùng theo (tên, kích thước) khi đánh chỉ mục và
+   theo tên khi chọn ảnh kiểm. **Cần dựng lại `ref_index.npz`** trước lượt tiếp theo.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

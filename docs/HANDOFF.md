@@ -376,7 +376,25 @@ Lưu ý khi đọc bảng đo: nhãn tay là nhãn cho **cả bộ trang phục*
 "cổ đứng" thì ảnh áo liền quần thật sự CÓ cổ đứng, nên con số AUC 0,33 của thuộc tính đó là do nhãn không hợp, không
 phải do phép đo sai.
 
-Đang chạy `v192` (S001, S012 × 8 hàng, commit `5dbff82`) để xem ảnh cuối và số vòng loop có đổi không.
+### Kết quả `v192` (xong 14:53, commit `5dbff82`) — lỗi người dùng chỉ ra đã hết
+
+| prompt · model nền | v191 ảnh cuối / điểm / vòng | v192 ảnh cuối / điểm / vòng |
+|---|---|---|
+| S001 · sdxl_base | `c1` **áo liền quần** +1,00 · **0 vòng** | `c0` **áo dài tà dài** +0,84 · **2 vòng** |
+| S001 · realvis_xl | `inpaint_c1` +0,93 · 3 vòng | `ref_c1` (iter1) +1,00 · 1 vòng |
+| S001 · sd35_medium | `c3` +0,67, ghi thiếu "wide-legged trousers" | `c0` +0,80, không còn ghi thiếu giả |
+| S012 · sdxl_base | — | `ref_c0` (iter2) +1,00 · 2 vòng |
+| S012 · realvis_xl | — | `c0` +1,00 · 0 vòng (bare tốt nhất +0,00) |
+| S012 · sd35_medium | — | `c0` +1,00 · 0 vòng |
+
+Ba điều đã đổi đúng như mong đợi:
+1. Ảnh áo liền quần **không còn được chọn**; ảnh cuối của `sdxl_base` là `c0` — tà dài, khe xẻ hông rõ, quần trắng riêng.
+2. Loop **chạy thật** (2 vòng, dừng vì hai vòng liền không cải thiện) thay vì tắt ngay ở "ứng viên đầu đạt".
+3. `sd35_medium` không còn bị ghi thiếu "worn over wide-legged long trousers" — thuộc tính đó đã bị loại khỏi bảng kiểm.
+
+Cần lưu ý: ngưỡng chặt hơn **làm đổi cả cột bare**, nên các số bare-so-system của v1.7–v1.9 không so trực tiếp với v1.9.3
+được. S001·realvis: bare tốt nhất +1,00 bằng system; S012·realvis: bare +0,00 so với system +1,00. Phải đo lại trên tập
+rộng hơn trước khi kết luận "system hơn bare" ở mức mới.
 
 ## 4. Lỗi/rủi ro còn mở
 

@@ -29,6 +29,32 @@ _PARTS = ("collar", "neckline", "sleeve", "sleeves", "trousers", "pants", "sash"
 #: bộ phận đứng riêng được (không cần gắn với thực thể cha)
 _STANDALONE = {"tree", "lantern", "tray", "envelope", "envelopes", "blossom", "blossoms", "hat", "oar", "paddle"}
 
+#: Bộ phận NHỎ và xác định rõ, vẽ lại một hộp là hợp lý (v1.9.5). Những phần còn lại của _PARTS (quần, tà, váy, gấu,
+#: khe xẻ) là THÂN trang phục: sửa chúng nghĩa là vẽ lại gần hết bộ đồ, đó là việc của nấc sinh lại chứ không phải inpaint.
+#: Bằng chứng S001/sdxl_base v192: thuộc tính "fitted bodice with flowing loose panels" -> định vị 'panels' ra vùng ống
+#: chân -> vẽ lại biến khe xẻ và quần riêng (vốn ĐÚNG) thành váy liền. Ba ảnh inpaint đều thấp hơn ảnh gốc (+0,64 / +0,31
+#: / +0,66 so với +0,84).
+_LOCAL_PARTS = {"collar", "neckline", "sleeve", "sleeves", "cuff", "sash", "belt", "waist", "brim", "strap",
+                "button", "buttons", "placket", "headscarf", "turban", "hat", "lantern", "tray", "envelope",
+                "envelopes", "tree", "blossom", "blossoms", "oar", "paddle", "bow", "stern", "hull", "tip"}
+
+
+def part_nouns_all(attr_en: str) -> set[str]:
+    """MỌI danh từ bộ phận có trong thuộc tính. part_noun() chỉ trả cái dài nhất, không đủ cho cụm ghép."""
+    low = attr_en.lower()
+    return {p for p in _PARTS if p in low}
+
+
+def locally_fixable(attr_en: str) -> bool:
+    """Thuộc tính này có sửa được bằng cách vẽ lại MỘT vùng nhỏ không? Dáng tổng thể và thân áo thì không.
+
+    Phải xét MỌI danh từ bộ phận, không chỉ cái đầu tiên: "long-sleeved tunic split at the hips into front and back
+    panels" có cả 'sleeve' (nhỏ) lẫn 'panels' (thân áo); chỗ thiếu là tà chứ không phải tay áo, nên vẽ lại tay áo
+    không sửa được gì. Chỉ nhận khi TẤT CẢ bộ phận được nhắc đều là bộ phận nhỏ.
+    """
+    ps = part_nouns_all(attr_en)
+    return bool(ps) and ps <= _LOCAL_PARTS
+
 
 def part_noun(attr_en: str) -> str | None:
     """Danh từ bộ phận ngắn trong thuộc tính, hoặc None. 'high stand-up mandarin collar' -> 'collar'."""

@@ -35,7 +35,11 @@ def decide(v0: FilterVerdict | None, spec: CulturalSpec, gen: GenSpec, memory: l
 
     plan = plan_from_verdict(v0, spec, gen)
     # nấc 'inpaint' (sửa cục bộ) chỉ khi thiếu ĐÚNG MỘT thuộc tính, không must_not, và họ model inpaint được
-    inpaint_ok = have_inpaint and len(v0.missing_must_have) == 1 and not v0.matched_must_not and v0.keep
+    from .inpaint import locally_fixable
+
+    inpaint_ok = (have_inpaint and len(v0.missing_must_have) == 1 and not v0.matched_must_not and v0.keep
+                  # v1.9.5: chỉ sửa cục bộ được bộ phận nhỏ; thiếu dáng tổng thể thì vẽ lại vùng chỉ làm hỏng phần đang đúng
+                  and locally_fixable(v0.missing_must_have[0]))
     ladder = [s for s in LADDER if (have_refs or s not in ("ground_refs", "attr_refs", "more_refs")) and (inpaint_ok or s != "inpaint")]
     if inpaint_ok:
         base_fix = "inpaint"

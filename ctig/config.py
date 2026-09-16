@@ -264,6 +264,10 @@ class AgentsConfig:
     #: Filter + Rank trên top-k ứng viên sau multigen
     candidate_review: bool = True
     k_candidates: int = 8
+    #: Ảnh MỐC để vào vòng sửa (v1.9.6). "first" = ảnh đầu tiên của hàng hệ thống trần, CÙNG SEED với hàng bare,
+    #: và ảnh cuối chỉ chọn giữa mốc đó với các ảnh do vòng sửa tạo ra. "best" = ảnh tốt nhất trong cả lô (cũ).
+    #: Dùng "first" vì nhánh bare không có bước chọn ảnh nào; so best-of-N với bare-một-ảnh là so lệch.
+    anchor: str = "first"
     #: số vòng Reflector/Refiner tối đa (v1.7: 3; A100 ~30 s/vòng, T4 ~4 phút/vòng). 0 = chỉ Reviewer + Rank.
     max_revisions: int = 3
     #: dừng sớm khi liên tiếp `patience` vòng không cải thiện điểm Reviewer

@@ -588,6 +588,19 @@ class Session:
                 if cand.path in bare_paths:
                     continue
                 groups.setdefault(label_of_repo[_repo(m)], []).append((cand, m))
+            # v1.9.6: ảnh MỐC cùng seed với hàng bare = ảnh c0 của hàng hệ thống TRẦN (không +ref, không LoRA).
+            # `cands` đã bị xếp lại theo metric nên phải lấy thứ tự gốc từ res.runs.
+            first_of: dict[str, str] = {}
+            for r in res.runs:
+                if not r.output or not r.output.candidates or "#bare" in r.model_key:
+                    continue
+                lbl = label_of_repo.get(_repo(r.model_key))
+                if lbl is None:
+                    continue
+                if r.model_key == lbl:                       # hàng trần đúng bằng khoá model nền
+                    first_of[lbl] = r.output.candidates[0].path
+                elif lbl not in first_of:                    # lùi: hàng hệ thống nào cũng được
+                    first_of[lbl] = r.output.candidates[0].path
             self.log(f"  [reviewer] tầng 1 VLM: {len(flt.kept)}/{len(cands)} ảnh qua; {len(groups)} model nền: {', '.join(groups)}")
 
             def review_group(label: str, gcands: list) -> CandidateReview:
@@ -625,15 +638,28 @@ class Session:
                 if not best or v0 is None:
                     cr.stop_reason = "không có ảnh nào của nhánh hệ thống"
                     return cr
-                # Mốc cải thiện = ảnh có điểm Reviewer CAO NHẤT trong pool của nhóm; hoà thì theo thứ tự Rank.
                 rank_pos = {pth: i for i, pth in enumerate(rk.final_order)}
-                kept_v = [v_by[cm[0].path] for cm in gcands if v_by[cm[0].path].keep] or [v0]
                 cand_by = {cm[0].path: cm[0] for cm in gcands}
-                best_v = max(kept_v, key=lambda v: score_tb(v, vqa_all, cand_by) + (-rank_pos.get(v.path, 99),))
+                anchor = first_of.get(label)
+                if getattr(c, "anchor", "first") == "first" and anchor in v_by:
+                    # v1.9.6: mốc là ảnh c0 cùng seed với bare, và ảnh cuối chỉ chọn giữa mốc với ảnh vòng sửa.
+                    # Trước đây mốc là ảnh TỐT NHẤT trong 6 ảnh -> hệ thống được hưởng thêm một bộ chọn mà bare không có.
+                    best_v = v_by[anchor]
+                    cr.pool = {anchor: score_of(best_v)}
+                    cr.best_path = cr.final_path = anchor
+                    cr.best_model = model_of.get(anchor, cr.best_model)
+                    if anchor not in rank_pos:
+                        rk.final_order.insert(0, anchor)
+                    cr.notes.append(f"mốc cùng seed với bare: {Path(anchor).name}")
+                else:
+                    # Mốc cải thiện = ảnh có điểm Reviewer CAO NHẤT trong pool của nhóm; hoà thì theo thứ tự Rank.
+                    kept_v = [v_by[cm[0].path] for cm in gcands if v_by[cm[0].path].keep] or [v0]
+                    best_v = max(kept_v, key=lambda v: score_tb(v, vqa_all, cand_by) + (-rank_pos.get(v.path, 99),))
+                    if best_v.path != v0.path:
+                        cr.notes.append(f"mốc cải thiện: {Path(best_v.path).name} ({score_of(best_v):+.2f}) "
+                                        f"thay top-1 Rank ({score_of(v0):+.2f})")
+                        cr.final_path = best_v.path
                 best_score = score_of(best_v)
-                if best_v.path != v0.path:
-                    cr.notes.append(f"mốc cải thiện: {Path(best_v.path).name} ({best_score:+.2f}) thay top-1 Rank ({score_of(v0):+.2f})")
-                    cr.final_path = best_v.path
                 memory: list[dict] = []
                 regen_model = model_of.get(best_v.path) or cr.best_model or label
                 if c.loop_models and label not in c.loop_models:

@@ -2,8 +2,8 @@
 
     python scripts/overview_grid.py <run_dir> [out.png] [--cell 300] [--ids S001,S012] [--html]
 
-Ô bare = ảnh bare tốt nhất của model nền đó theo điểm Reviewer.
-Ô system = ảnh CUỐI mà vòng sửa thật sự chọn cho model nền đó (không phải ảnh tốt nhất của lô).
+Ô bare = ảnh bare ĐẦU TIÊN, cùng seed với ảnh mốc của system (--bare best để lấy ảnh bare tốt nhất, làm ablation).
+Ô system = ảnh CUỐI mà vòng sửa thật sự chọn cho model nền đó.
 Viền đỏ = bare, viền xanh = system; ô nào thắng trong cặp thì viền dày và có dấu sao.
 """
 
@@ -46,7 +46,7 @@ def is_bare(k: str) -> bool:
     return "#bare" in k
 
 
-def collect(run: str, ids: list[str] | None, bare_pick: str = "best"):
+def collect(run: str, ids: list[str] | None, bare_pick: str = "first"):
     """[(prompt_id, prompt_en, {model nền: {'bare': (path, score), 'system': (path, score, nguồn, số vòng)}})]"""
     out, models = [], []
     for mg in sorted(glob.glob(f"{run}/*/multigen.json")):
@@ -102,7 +102,7 @@ def collect(run: str, ids: list[str] | None, bare_pick: str = "best"):
     return out, models
 
 
-def build(run: str, out_png: str, cell: int = 300, ids: list[str] | None = None, bare_pick: str = "best",
+def build(run: str, out_png: str, cell: int = 300, ids: list[str] | None = None, bare_pick: str = "first",
           log=print) -> str:
     from PIL import Image, ImageDraw
 
@@ -193,8 +193,8 @@ def main(argv=None):
     ap.add_argument("out", nargs="?", default=None)
     ap.add_argument("--cell", type=int, default=300)
     ap.add_argument("--ids", default=None)
-    ap.add_argument("--bare", choices=("best", "first"), default="best",
-                    help="best = ảnh bare tốt nhất (khắt khe nhất); first = ảnh bare đầu, cùng seed với system")
+    ap.add_argument("--bare", choices=("best", "first"), default="first",
+                    help="first (mặc định) = ảnh bare đầu, CÙNG SEED với mốc của system; best = ảnh bare tốt nhất, dùng làm ablation")
     a = ap.parse_args(argv)
     out = a.out or str(Path(a.run) / "overview_grid.png")
     build(a.run, out, a.cell, [i.strip() for i in a.ids.split(",")] if a.ids else None, a.bare)

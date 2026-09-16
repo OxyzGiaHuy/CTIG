@@ -99,6 +99,17 @@ bare/system bắt đầu phân biệt được. Nhưng KB áo dài còn **1 must
 reaching past the wrist"). Sửa tiếp: bước 2 xin **5-8** thuộc tính (lọc sau bằng ảnh thật), loại cách viết mơ hồ (either/or,
 sometimes, usually…), và khi sau kiểm còn < 3 thì **lấy thêm từ bản tay nhưng cũng phải qua kiểm ảnh thật** (ghi `_meta.validated.from_hand`).
 
+**Số đo S001 lượt v3** (KB chỉ còn 1 thuộc tính nên điểm Reviewer = 0 cho mọi ảnh, nhưng CLIP attr vẫn phân biệt):
+
+| model nền | CLIP attr bare | CLIP attr system | hạng ensemble bare → system |
+|---|---|---|---|
+| RealVis XL | 0,92 | 0,95 | 0,68 → 0,90 |
+| SD 3.5 Medium | 0,82 | 0,90 | 0,37 → 0,54 |
+| FLUX.1-dev | 0,74 | 0,86 | 0,21 → 0,40 |
+
+→ H20 được ủng hộ trên cả ba model kể cả FLUX, theo CLIP attr. Reviewer chưa dùng được cho tới khi KB đủ thuộc tính.
+Đang chạy `v18_smoke7b4` với KB đầy đủ (5–8 thuộc tính, lọc bằng ảnh thật, bổ sung bản tay có kiểm) + trang so sánh cuối lượt.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

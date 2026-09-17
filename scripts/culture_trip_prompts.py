@@ -134,6 +134,22 @@ def clip_tokens(text: str, tok=None) -> int:
     return int(len(text.split()) * 1.35)
 
 
+#: Wikimedia siết mạnh User-Agent mặc định của thư viện `wikipedia` ("wikipedia (https://github.com/goldsmith/…)").
+#: Sau vài chục truy vấn API trả HTTP 429 kèm text/plain, thư viện gọi r.json() nên nổ JSONDecodeError ở char 0 và
+#: Culture-TRIP hỏng TOÀN BỘ (10/10 prompt rơi về câu gốc). Khai tên dự án + giãn nhịp thì hết.
+WIKI_UA = "CTIG-research/0.1 (https://github.com/OxyzGiaHuy/CTIG)"
+
+
+def configure_wikipedia(min_wait_s: float = 1.0, log=print) -> None:
+    from datetime import timedelta
+
+    import wikipedia
+
+    wikipedia.set_user_agent(WIKI_UA)
+    wikipedia.set_rate_limiting(True, min_wait=timedelta(seconds=min_wait_s))
+    log(f"[wikipedia] User-Agent riêng + giãn nhịp {min_wait_s}s/truy vấn (tránh HTTP 429)")
+
+
 _SCORE_KEYS = ("Clarity", "Visual_detail", "Background", "Purpose", "Comparable_object")
 
 
@@ -198,6 +214,7 @@ def load_culture_trip(repo: str, model: str, log=print):
     os.chdir(repo)                       # utils/custom_wiki.py và .env đọc theo thư mục hiện hành
     try:
         backend = install_search_shim(log)
+        configure_wikipedia(log=log)
         import iterative_refinement.iterative_refinement as IR
 
         if getattr(IR.llm, "model", None) != model:
@@ -228,8 +245,17 @@ def refine_one(culture_trip, repo: str, nouns: list[str], prompt_en: str, thresh
         for noun in nouns:
             t0 = time.time()
             try:
-                out = culture_trip(noun, cur, threshold, False)
-                out = " ".join(str(out).split())
+                out = ""
+                for attempt in range(3):          # 429 vẫn có thể lọt qua -> lùi dần rồi thử lại
+                    try:
+                        out = " ".join(str(culture_trip(noun, cur, threshold, False)).split())
+                        break
+                    except Exception as e2:  # noqa: BLE001
+                        if attempt == 2 or "JSONDecode" not in type(e2).__name__:
+                            raise
+                        wait = 10 * (attempt + 1)
+                        log(f"    [{noun}] có thể bị siết truy vấn, chờ {wait}s rồi thử lại")
+                        time.sleep(wait)
             except Exception as exc:  # noqa: BLE001
                 log(f"    [{noun}] LỖI {type(exc).__name__}: {str(exc)[:90]} -> giữ câu trước")
                 steps.append({"culture_noun": noun, "error": f"{type(exc).__name__}: {str(exc)[:200]}",

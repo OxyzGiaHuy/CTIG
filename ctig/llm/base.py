@@ -121,6 +121,11 @@ def get_backend(cfg) -> LLMBackend:
 
         return QwenVLBackend(cfg.model, cfg.device, cfg.dtype, cfg.max_new_tokens,
                              cfg.temperature, cfg.json_retries)
+    if cfg.backend == "mistral_vl":
+        from .mistral_vl import MistralVLBackend
+
+        return MistralVLBackend(cfg.model, cfg.device, cfg.dtype, cfg.max_new_tokens,
+                                cfg.temperature, cfg.json_retries, getattr(cfg, "quant", None))
     if cfg.backend == "anthropic":
         from .anthropic_backend import AnthropicBackend
 

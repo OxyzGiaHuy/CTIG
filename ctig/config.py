@@ -11,7 +11,8 @@ ROOT = Path(__file__).resolve().parent.parent
 
 @dataclass
 class LLMConfig:
-    #: "qwen_vl" (local, GPU) | "anthropic" (API) | "rule" (offline, không cần model)
+    #: "qwen_vl" (local, GPU) | "mistral_vl" (local, GPU, bộ chấm theo T2I-Copilot) |
+    #: "anthropic" (API) | "rule" (offline, không cần model)
     backend: str = "qwen_vl"
     model: str = "Qwen/Qwen2.5-VL-3B-Instruct"
     device: str = "cuda:0"
@@ -23,6 +24,9 @@ class LLMConfig:
     #: Cache mọi lần gọi model theo (backend, model, system, user, ảnh) trên đĩa.
     #: Chạy lại cell trong notebook không tốn API/VLM. Tắt nếu muốn đầu ra đa dạng.
     cache: bool = True
+    #: Lượng tử hoá cho backend local: None | "8bit" | "4bit". Mistral 24B bf16 tốn ~48 GB VRAM;
+    #: "4bit" hạ còn ~14 GB để chạy chung với FLUX (đỉnh 51,98 GB) trên một card 80 GB.
+    quant: str | None = None
 
 
 @dataclass

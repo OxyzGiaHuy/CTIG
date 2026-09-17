@@ -79,6 +79,9 @@ def main(argv=None):
     set_dotted(ov, "t2i.render", "bare")
     set_dotted(ov, "multigen.adaptive.enabled", "false")
     set_dotted(ov, "multigen.n_candidates", "1")
+    # Bộ chấm Mistral-Small-3.1-24B chiếm ~48 GB; giữ thêm pipeline thường trú là tràn card 80 GB.
+    # Vòng sửa chạy một prompt một lần nên cũng chẳng tiết kiệm được gì.
+    set_dotted(ov, "multigen.keep_loaded", "0")
     cfg = Config.load(a.config, ov)
     prompt = {p.id: p for p in load_prompts(cfg.prompts_path)}[a.id]
     run_dir = Path(cfg.runs_dir) / a.run_name

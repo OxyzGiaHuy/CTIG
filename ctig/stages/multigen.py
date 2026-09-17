@@ -467,7 +467,8 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                                        "xem log [3b] của Session để biết điểm cao nhất")
                 log(f"  [4b] nạp {key} ({mspec.repo}) ...")
                 try:
-                    pipe = loader(mspec, cfg.device, cfg.cpu_offload, log=log, scheduler=getattr(cfg, "scheduler", None))
+                    pipe = loader(mspec, cfg.device, cfg.cpu_offload, log=log, scheduler=getattr(cfg, "scheduler", None),
+                                  keep_loaded=int(getattr(cfg, "keep_loaded", 0) or 0))
                 except TypeError:  # loader tiêm từ test có chữ ký cũ
                     pipe = loader(mspec, cfg.device, cfg.cpu_offload)
                 run_rec.notes.append(f"scheduler {type(pipe.scheduler).__name__}" if hasattr(pipe, "scheduler") else "")
@@ -560,7 +561,10 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
                     except Exception:  # noqa: BLE001
                         pass
                 g = None
-            if pipe is not None:
+            if pipe is not None and model_loader.is_resident(pipe):
+                pipe = None                       # giữ trên GPU cho prompt sau; chỉ bỏ tham chiếu ở đây
+                model_loader.free_vram()
+            elif pipe is not None:
                 model_loader.unload(pipe, log=log)
                 pipe = None
             else:

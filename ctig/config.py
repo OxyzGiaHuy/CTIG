@@ -237,6 +237,11 @@ class MultiGenConfig:
     ensemble: bool = True
     #: cách tìm vùng thực thể để cắt ảnh tham chiếu: "owlvit" (phát hiện theo chữ, lùi về clip khi lỗi) | "clip" (quét lưới)
     ref_detector: str = "owlvit"
+    #: Số pipeline giữ THƯỜNG TRÚ trên GPU giữa các prompt (0 = tắt, như cũ: nạp rồi trả cho từng prompt).
+    #: Đo trên A800 80 GB, lô 3 model nền: sinh ảnh 38 s/prompt nhưng tổng 72 s — 34 s là nạp lại từ đĩa.
+    #: SDXL 10 + RealVis 10 + FLUX 32 = 52 GB nên giữ được cả ba. CHỈ áp cho pipeline không trạng thái
+    #: (không LoRA, không IP-Adapter); hàng '+ref' và hàng LoRA vẫn nạp rồi trả như cũ.
+    keep_loaded: int = 0
     #: v1.5.1: CLIP identity và BLIP-2 ITM danh tính bão hoà 0,95-1,00 trên mọi ảnh (p001 v1.3-v1.5) -> mặc định KHÔNG tính
     #: ITM danh tính, không hiện hai cột này, không đưa vào điểm chọn. True để bật lại cho prompt khó.
     saturated_metrics: bool = False

@@ -42,9 +42,42 @@ def set_scheduler(pipe, name: str | None, log=print) -> str | None:
         return None
 
 
-def load_pipeline(spec: ModelSpec, device: str = "cuda:0", cpu_offload: bool = True, log=print, scheduler: str | None = None):
+#: Pipeline giữ thường trú trên GPU giữa các prompt, khoá theo (repo, family, dtype-ish).
+#: Chỉ dùng cho pipeline KHÔNG trạng thái: không LoRA, không IP-Adapter, không scheduler lạ — nghĩa là đúng
+#: các hàng '#bare'. Pipeline có LoRA hay IP-Adapter mang trạng thái dính vào trọng số, dùng lại sẽ rò sang
+#: prompt sau, nên tuyệt đối không cache.
+_RESIDENT: dict[str, object] = {}
+
+
+def resident_key(spec: ModelSpec, device: str) -> str | None:
+    """Khoá cache, hoặc None nếu pipeline này KHÔNG được phép giữ lại."""
+    if spec.lora or spec.ip_adapter or getattr(spec, "init_image", False):
+        return None
+    return f"{spec.repo}|{spec.family}|{device}|{spec.vae}|{spec.scheduler}"
+
+
+def resident_clear(log=None) -> int:
+    """Trả hết pipeline thường trú. Gọi trước khi nạp model nặng khác (Mistral 48 GB, FLUX+ref 52 GB)."""
+    n = len(_RESIDENT)
+    for pipe in list(_RESIDENT.values()):
+        _RESIDENT.clear()
+        unload(pipe, log=log)
+    _RESIDENT.clear()
+    free_vram()
+    if n and log:
+        log(f"[loader] trả {n} pipeline thường trú")
+    return n
+
+
+def load_pipeline(spec: ModelSpec, device: str = "cuda:0", cpu_offload: bool = True, log=print, scheduler: str | None = None,
+                  keep_loaded: int = 0):
     import torch
     from diffusers import AutoPipelineForText2Image
+
+    rkey = resident_key(spec, device) if keep_loaded > 0 else None
+    if rkey and rkey in _RESIDENT:
+        log(f"[loader] dùng lại {spec.key} đang thường trú trên GPU")
+        return _RESIDENT[rkey]
 
     # Họ DiT (sd3, flux) chạy bf16 khi GPU hỗ trợ (A100/H100): fp16 tràn số ra ảnh lỗi; SDXL/SD1.5 giữ fp16 (T4 không có bf16).
     dtype = torch.float16
@@ -83,7 +116,18 @@ def load_pipeline(spec: ModelSpec, device: str = "cuda:0", cpu_offload: bool = T
     want = spec.scheduler if spec.scheduler is not None else scheduler
     if spec.family in ("sdxl", "sd15") and want and want != "keep":
         set_scheduler(pipe, want, log=log)
+    if rkey:
+        while len(_RESIDENT) >= keep_loaded:      # hết chỗ thì trả cái cũ nhất
+            old_key = next(iter(_RESIDENT))
+            old_pipe = _RESIDENT.pop(old_key)
+            unload(old_pipe, log=log)
+        _RESIDENT[rkey] = pipe
+        log(f"[loader] giữ {spec.key} thường trú ({len(_RESIDENT)}/{keep_loaded} chỗ)")
     return pipe
+
+
+def is_resident(pipe) -> bool:
+    return any(p is pipe for p in _RESIDENT.values())
 
 
 def img2img_from(pipe):

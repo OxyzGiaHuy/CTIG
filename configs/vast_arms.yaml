@@ -54,6 +54,9 @@ multigen:
   ensemble: false
   saturated_metrics: false
   ref_detector: owlvit
+  # Giữ cả 3 model nền thường trú trên GPU (SDXL 10 + RealVis 10 + FLUX 32 = 52 GB trên card 80 GB).
+  # Đo được: sinh ảnh 38 s/prompt nhưng tổng 72 s, phần dôi là nạp lại từ đĩa cho TỪNG prompt.
+  keep_loaded: 3
 
 t2i:        {backend: sdxl, model: stabilityai/stable-diffusion-xl-base-1.0, render: bare,
              device: "cuda:0", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 5.0,

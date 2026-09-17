@@ -74,6 +74,10 @@ def main(argv=None):
         if pid not in prompts:
             log(f"[{pid}] không có trong bộ prompt"); continue
         s = Session(cfg, prompts[pid], run_dir=Path(cfg.runs_dir) / "abtest", log=lambda *x: None)
+        # DÙNG CHUNG một agent cho mọi prompt: mỗi Session mới sẽ tự nạp thêm một bản Mistral 48 GB
+        # và tràn VRAM ngay ở prompt thứ hai.
+        if agent is not None:
+            s._agent = agent
         agent = s.agent
         # ảnh thật phải KHÁC bộ đã dùng làm điều kiện IP-Adapter
         used = set(s.prompt_refs(include_candidates=False))

@@ -1,10 +1,106 @@
-# Phần báo cáo: Bộ prompt và ảnh tham chiếu
+# CTIG - Cultural Text-to-Image cho miền Việt Nam: báo cáo tiến độ
 
-*Soạn từ thư mục `Data/` trên Drive SOICT'26 (12/09/2026): `prompts_vi.jsonl`, `prompts_complex.json`,
-`ref_images.zip`, `ref_images_complex.zip`. Số liệu tính trực tiếp trên file. Ảnh minh hoạ trong `report_assets/`
-là ảnh tham chiếu tải từ web, chỉ dùng nội bộ cho báo cáo tiến độ.*
+*Nhóm SOICT'26 · 12/09/2026 · mã nguồn: github.com/OxyzGiaHuy/CTIG (v1.3.1) · dữ liệu: Drive SOICT'26/Data*
 
-## 1. Mục tiêu của bộ prompt
+## 1. Bài toán và kiến trúc
+
+Mô hình text-to-image (SDXL và họ hàng) khi nhận prompt về văn hoá Việt Nam hay **thay thực thể** bằng thực thể của
+văn hoá đông dữ liệu hơn: áo dài thành qipao hoặc váy liền xẻ tà không quần, bánh chưng thành zongzi, Tết thành lồng
+đèn Trung Quốc. Đề tài xây một pipeline agentic bám theo bản draft ban đầu:
+
+```
+Prompt (VI) ─► [1] Analysis agent: keywords, thực thể ─► [2] Search: Wikipedia · web · ảnh (API, tiếng Việt)
+            ─► [2b] Rút bằng chứng: must_have / must_not / dễ nhầm với ─► [3] Hợp đồng văn hoá → prompt sinh
+            ─► [4] Sinh ảnh nhiều model (SDXL, RealVisXL, LoRA áo dài, IP-Adapter ảnh tham chiếu)
+            ─► [5] Chấm: CLIP thuộc tính · BLIP-2 ITM · PickScore ─► (Review loop VLM: cờ, đang tắt để tối ưu ảnh trước)
+```
+
+Mọi bước ghi đầu ra ra đĩa và có ba lớp cache (gọi LLM, web, từng bước) nên chạy lại không tốn API; notebook Kaggle
+hiển thị đầu ra từng bước để kiểm bằng mắt.
+
+## 2. Trạng thái từng khối
+
+| khối | trạng thái | ghi chú |
+|---|---|---|
+| Analysis (Qwen2.5-VL-3B) | chạy, có cache | tách keywords, dịch EN, giới hạn 6 thực thể ứng viên có căn cứ |
+| Search (Wikipedia VI, DuckDuckGo VI/EN, Commons) | chạy, có cache | truy vấn theo thực thể cho văn bản, theo prompt gốc cho ảnh; tải toàn văn 3 trang đầu |
+| Rút bằng chứng (VLM đọc văn bản) | chạy | mỗi thuộc tính kèm câu gốc; lọc rác; thuộc tính trùng tri thức viết tay tính là "xác nhận" |
+| Hợp đồng văn hoá → prompt | chạy | must_have EN vào prompt, must_not EN vào negative (từ v1.2.1) |
+| Sinh ảnh nhiều model | chạy | 7 model, 4 ứng viên/model, DPM++ 2M Karras, compel cho prompt dài, hires ×1,5 |
+| Chấm điểm | chạy | CLIP thuộc tính là thước đo tách được lỗi; PickScore đo thẩm mỹ (mới nạp được ở lần chạy 12/09) |
+| Review loop (VLM phê bình, sửa prompt) | tắt | VLM 3B trả "có" cho mọi câu hỏi đóng; cần thiết kế lại sau khi ảnh nền đã tốt |
+| Đánh giá người dùng (user study) | chưa | đã có mẫu `user_study.csv` xuất từ pipeline |
+
+## 3. Kết quả thực nghiệm trên p001 qua các phiên bản
+
+Prompt p001: *"Một cô gái mặc áo dài trắng đứng trước cổng trường."* Cùng seed 1234, cùng hợp đồng văn hoá, chỉ đổi
+cách sinh và bộ model. Thước đo chính là **CLIP attr**: phần xác suất CLIP dành cho câu "áo dài với &lt;must_have&gt;"
+(quần dài ống rộng, cổ đứng, hai tà xẻ hông) so với "với &lt;must_not&gt;" (váy liền không quần, obi, cổ chéo). Danh tính
+CLIP và BLIP-2 ITM bão hoà 0,95 đến 1,00 ở mọi ảnh nên không dùng để xếp hạng.
+
+### 3.1. v1.2.1 (11/09): 6 model × 2 ứng viên, negative chỉ có tên kimono/qipao/hanbok
+
+| model | attr TB | attr tốt nhất | ITM attr TB | giây | VRAM |
+|---|---|---|---|---|---|
+| sdxl_turbo | 0,43 | 0,45 | 0,78 | 51 | 7,1 GB |
+| dreamshaper8 (SD1.5) | 0,42 | 0,67 | 0,85 | 22 | 2,6 GB |
+| sdxl_base | 0,42 | 0,45 | 0,41 | 69 | 7,1 GB |
+| sdxl_aodai (LoRA) | 0,46 | 0,52 | 0,74 | 84 | 7,2 GB |
+| sdxl_ref (IP-Adapter) | 0,42 | 0,51 | 0,60 | 94 | 11,2 GB |
+| playground25 | 0,16 | 0,18 | 0,79 | 91 | 7,1 GB |
+
+Nhìn grid: 4/12 ảnh là váy liền xẻ tà **không quần** ("qipao hoá"), 1 ảnh có đai đỏ. CLIP attr xếp đúng các ảnh này
+xuống dưới, trong khi danh tính vẫn cho 0,99. Cùng một model, hai seed lệch nhau nhiều hơn hai model khác nhau.
+
+![Grid p001 v1.2.1](report_assets/v121_grid.jpg)
+
+*Hình 1. p001 v1.2.1, 6 model × 2 ứng viên. Hàng 2 ảnh 2, hàng 3 ảnh 2, hàng 5 ảnh 2 và hàng 6: váy liền không quần.*
+
+### 3.2. v1.3 (12/09): 7 model × 4 ứng viên, negative theo must_not, DPM++ Karras, hires ×1,5
+
+| model | attr TB | attr tốt nhất | ITM attr TB | giây/4 ảnh | VRAM |
+|---|---|---|---|---|---|
+| dreamshaper8 (SD1.5) | 0,53 | 0,67 | 0,92 | 52 | 2,6 GB |
+| sdxl_base | 0,56 | 0,61 | 0,86 | 230 | 13,4 GB |
+| **realvis_xl** | **0,75** | 0,80 | 0,96 | 230 | 13,4 GB |
+| sdxl_aodai (SDXL + LoRA) | 0,59 | 0,70 | 0,90 | 261 | 13,4 GB |
+| **realvis_aodai** (RealVis + LoRA) | 0,60 | **0,86** | 0,96 | 255 | 13,4 GB |
+| sdxl_refplus (IP-Adapter Plus, 3 ảnh) | 0,80 | 0,89 | 0,74 | 217 | 9,2 GB |
+| playground25 | 0,16 | 0,21 | 0,87 | 239 | 7,2 GB |
+
+![Grid p001 v1.3](report_assets/v13_grid.jpg)
+
+*Hình 2. p001 v1.3, 7 model × 4 ứng viên (viền xanh: ứng viên CLIP chọn). Gần như tất cả 28 ảnh có quần dài.*
+
+Ba kết luận từ lần chạy này:
+
+1. **Negative theo must_not chặn được "qipao hoá".** Từ 8/12 ảnh có quần lên ~28/28. Tác dụng phụ: dreamshaper8 cho
+   2 ảnh kiểu vest trắng, sdxl_base cho kiểu áo khoác dài; điểm thuộc tính vẫn xếp đúng các ca này thấp.
+2. **RealVisXL hơn SDXL base trên cùng seed** (attr 0,75 so với 0,56); RealVisXL cộng LoRA áo dài cho ảnh tốt nhất
+   toàn grid (0,86). Playground v2.5 bạc màu ở cả 4 ảnh vì lỗi thay VAE của chúng tôi, đã hoàn lại.
+3. **IP-Adapter với ảnh tham chiếu nhóm kéo theo bố cục**: 3/4 ảnh có 3 đến 4 người dù prompt là "một cô gái"; điểm
+   thuộc tính cao nhưng ITM attr thấp. Đã hạ trọng số và đổi cách chọn ảnh tham chiếu (mục 5.4).
+
+![Hàng realvis_aodai](report_assets/v13_realvis_aodai_row.jpg)
+
+*Hình 3. Hàng RealVisXL + LoRA áo dài: ứng viên 3 đạt attr 0,86, cao nhất 28 ảnh.*
+
+## 4. Kết luận đến nay và giả thuyết đang kiểm
+
+**Đã có bằng chứng (n nhỏ, cần thêm prompt):**
+- Thước đo danh tính (CLIP, BLIP-2 ITM) bão hoà trên prompt dễ; **thước đo mức thuộc tính** (must_have với must_not)
+  mới tách được ảnh đúng và ảnh sai văn hoá, khớp mắt người.
+- Lỗi thay thế văn hoá của áo dài trong họ SDXL là "qipao hoá" (váy liền không quần), không phải kimono; negative
+  theo tên confusable không chặn được, negative theo thuộc tính thì được.
+- Search từ keywords tốt hơn cho **văn bản** (ra Wikipedia, bài cấu tạo), search từ prompt gốc tốt hơn cho **ảnh**.
+- Phương sai theo seed lớn hơn phương sai giữa model ở n=2, nên so model cần n ≥ 4 (đã nâng lên 4).
+
+**Đang kiểm:** best-of-4 chọn theo điểm tổng cho ảnh cuối đúng hơn ảnh seed đầu (H10); hires ×1,5 tăng PickScore
+mà không giảm attr (H11); RealVisXL hơn SDXL base trên ≥ 4 prompt trang phục (H12); LoRA áo dài hơn model gốc (H8).
+
+## 5. Bộ prompt và ảnh tham chiếu
+
+### 1. Mục tiêu của bộ prompt
 
 Bộ prompt là thước đo của toàn đề tài: mỗi prompt mô tả một cảnh mang thực thể văn hoá Việt Nam mà mô hình
 text-to-image hay vẽ sai hoặc thay bằng thực thể của văn hoá lân cận (áo dài thành qipao hay kimono, bánh chưng thành
@@ -14,7 +110,7 @@ truy hồi bằng chứng, (c) khối Đánh giá có căn cứ chấm "đúng h
 
 Hiện có hai bộ, xây theo hai giai đoạn.
 
-## 2. Bộ 1: 50 prompt cơ bản (`prompts_vi.jsonl`)
+### 2. Bộ 1: 50 prompt cơ bản (`prompts_vi.jsonl`)
 
 Mỗi prompt xoay quanh **một** thực thể chính (35/50 prompt có đúng một thực thể vàng), câu ngắn (trung bình 14 từ),
 đủ để cô lập một lỗi văn hoá. Trường dữ liệu: `id`, `text_vi`, `text_en`, `gold_entities` (mã thực thể trong cơ sở
@@ -30,7 +126,7 @@ tri thức 38 thực thể của pipeline), `category`, `difficulty`, `note`.
 đàn bầu là khó vì mô hình gần như không biết và sẽ thay bằng thứ gần nhất nó biết. Bộ này đang được dùng để chạy
 pipeline trên Kaggle (p001, p012, p031, p050).
 
-## 3. Bộ 2: 45 prompt phức hợp (`prompts_complex.json`)
+### 3. Bộ 2: 45 prompt phức hợp (`prompts_complex.json`)
 
 Đây là bước chuẩn bị cho bộ prompt cuối. Khác bộ 1 ở ba điểm:
 
@@ -56,7 +152,7 @@ chưa gắn mã trong cơ sở tri thức.
 *bỏ sót* (mô hình vẽ 2 trong 4 thực thể) và lỗi *trộn văn hoá* (vẽ đúng áo tứ thân nhưng thuyền rồng thành thuyền
 Trung Quốc). Đây cũng là dạng prompt người dùng thật hay viết.
 
-## 4. Ảnh tham chiếu từ API search
+### 4. Ảnh tham chiếu từ API search
 
 Với mỗi prompt, nhóm đã dùng API tìm ảnh (truy vấn bằng `text_vi`, lùi về `text_en` khi cần) và tải về:
 
@@ -127,7 +223,7 @@ theo độ khớp với prompt.*
 *Hình 5. Hàng `realvis_aodai` (RealVisXL + LoRA áo dài), p001 v1.3. Ứng viên thứ ba đạt điểm thuộc tính 0,86, cao
 nhất trong 28 ảnh của lần chạy.*
 
-## 5. Liên hệ với pipeline và việc còn lại
+### 5. Liên hệ với pipeline và việc còn lại
 
 - **Độ phủ cơ sở tri thức.** Chỉ 47/118 lượt thực thể của bộ 2 có trong cơ sở tri thức 38 thực thể viết tay hiện nay
   (khớp tên hoặc tên gọi khác). 70 thực thể còn lại (đàn nguyệt, trống bản, Điện Thái Hoà, mâm ngũ quả, lễ hội Katê,
@@ -139,3 +235,15 @@ nhất trong 28 ảnh của lần chạy.*
 - **Bộ prompt cuối** dự kiến: giữ cấu trúc bộ 2, cân lại độ khó (bộ 2 hơi thiên dễ: 17 dễ / 9 khó, ngược với bộ 1),
   bổ sung nhóm còn mỏng (Customs & Rituals 5, Landscape 9), mỗi prompt kèm mã thực thể, thuộc tính thị giác kiểm được,
   và 3 đến 5 ảnh tham chiếu đã lọc, có nguồn, không qua công cụ AI.
+
+
+## 6. Kế hoạch
+
+1. Chạy p001 lại với v1.3.1 (đang chạy; PickScore đã nạp), rồi p031 (áo tứ thân), p050 (Tết), p012 (thuyền thúng)
+   để kiểm H10 đến H12 trên thực thể prior thấp, xuất báo cáo HTML ảnh gốc từ pipeline.
+2. Gắn mã thực thể cho 45 prompt phức hợp bằng Analysis agent rồi người kiểm; mở rộng cơ sở tri thức cho 70 thực thể
+   chưa có bằng bước rút bằng chứng tự động.
+3. Lọc lại ảnh tham chiếu: bỏ ảnh qua công cụ AI, ghi URL nguồn, ưu tiên ảnh một chủ thể; thêm Openverse (ảnh CC) làm
+   nguồn ảnh có giấy phép.
+4. Thiết kế lại review loop (câu hỏi đóng có đối chứng, judge BLIP-2 thay VLM 3B) sau khi ảnh nền ổn; chuẩn bị user
+   study trên bộ prompt cuối.

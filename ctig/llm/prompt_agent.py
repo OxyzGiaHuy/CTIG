@@ -559,7 +559,7 @@ class PromptAgent:
         if fn is None:
             return None
         try:
-            out = fn(question, [image], tuple("ABC"[:n]))
+            out = fn(question, [image], tuple("ABCDEF"[:n]))
             return [float(x) for x in out]
         except Exception:  # noqa: BLE001
             return None

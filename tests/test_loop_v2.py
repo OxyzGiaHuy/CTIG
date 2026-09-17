@@ -112,3 +112,27 @@ noref = C.evaluate(ag, "/xau.png", REPORT, [], log=lambda *a: None)
 assert noref.axes["culture"] == 10.0 * noref.identity_p and any("không có ảnh thật" in n for n in noref.notes)
 print("thiếu ảnh thật: không lỗi, trục văn hoá còn mỗi câu ép chọn")
 print("ĐẠT")
+
+# --- hai cổng lọc thêm 2026-09-17, sau lượt chạy thật S001 với bộ chấm Mistral ------------------
+
+# Lỗi thật: positive 'V-neck collar, long sleeves, fitted skirt, silk fabric' đi kèm negative
+# ['wide collar', 'long sleeves', 'wide skirt', 'black book'] -> 'long sleeves' vừa bảo vẽ vừa cấm vẽ.
+_neg = C._drop_contradictions("V-neck collar, long sleeves, fitted skirt, silk fabric",
+                              ["wide collar", "long sleeves", "wide skirt", "black book"], log=lambda *a: None)
+assert "long sleeves" not in _neg, _neg
+assert _neg == ["wide collar", "wide skirt", "black book"], _neg
+# không được cắt nhầm: 'short sleeves' ngược hẳn với 'long sleeves' nên phải giữ
+_neg2 = C._drop_contradictions("Long silk dress with long sleeves, high collar",
+                               ["short sleeves", "wide collar"], log=lambda *a: None)
+assert _neg2 == ["short sleeves", "wide collar"], _neg2
+print("cổng mâu thuẫn dương/âm: bỏ %d cụm, giữ %d" % (4 - len(_neg), len(_neg)))
+
+# Lỗi thật: ô 'chi tiết văn hoá khác' trả về 'red flowers in bouquet' và 'black book' - đạo cụ trong cảnh,
+# không phải dấu hiệu văn hoá, mà vẫn kéo trục văn hoá từ 10 xuống 0.
+assert not C._names_a_culture("red flowers in bouquet")
+assert not C._names_a_culture("black book")
+assert not C._names_a_culture("large hoop earrings")
+assert C._names_a_culture("Chinese floral brocade panel")
+assert C._names_a_culture("cheongsam-style side fastening")
+print("cổng 'phải nêu tên nền văn hoá': đạo cụ bị loại, hoa văn Trung Quốc được giữ")
+print("ĐẠT (phần bổ sung)")

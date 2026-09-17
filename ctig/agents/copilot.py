@@ -67,6 +67,22 @@ def _clean_item(v, allow_absence: bool = True) -> str:
     return t
 
 
+#: Ô "chi tiết thuộc văn hoá khác" chỉ có nghĩa nếu nói ĐƯỢC đó là văn hoá nào. Lượt S001 đầu tiên trả về
+#: "bó hoa đỏ" và "quyển sách đen" — đồ vật trong cảnh, không phải dấu hiệu của nền văn hoá nào, mà vẫn kéo
+#: trục văn hoá từ 10 xuống 0. Bắt buộc nêu tên thì lọc được bằng máy, và cũng đúng với chữ "DIFFERENT NAMED
+#: culture" trong câu lệnh gửi cho model.
+_CULTURES = ("chinese", "china", "japanese", "japan", "korean", "korea", "thai", "thailand", "indian", "india",
+             "western", "european", "american", "arab", "persian", "turkish", "mongolian", "tibetan", "khmer",
+             "cambodian", "lao", "laotian", "burmese", "myanmar", "malay", "indonesian", "filipino", "russian",
+             "french", "british", "qipao", "cheongsam", "hanbok", "kimono", "yukata", "sari", "obi", "hanfu",
+             "geisha", "samurai", "mandarin square", "dragon motif", "cherry blossom")
+
+
+def _names_a_culture(text: str) -> bool:
+    low = text.lower()
+    return any(c in low for c in _CULTURES)
+
+
 def _tag(path: str) -> str:
     """Nhãn ngắn cho log: tên thư mục vòng nếu có, không thì tên tệp."""
     from pathlib import Path as _P
@@ -204,7 +220,8 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
             d2 = {}
         ev.differences = [x for x in (_clean_item(v) for v in (d2.get("differences") or [])) if x][:3]
         # "no hat" từng lọt vào ô văn hoá khác: thiếu một thứ KHÔNG phải là chi tiết của nền văn hoá khác.
-        ev.foreign = [x for x in (_clean_item(v, allow_absence=False) for v in (d2.get("foreign_elements") or [])) if x][:2]
+        ev.foreign = [x for x in (_clean_item(v, allow_absence=False) for v in (d2.get("foreign_elements") or []))
+                      if x and _names_a_culture(x)][:2]
     else:
         ev.notes.append("không có ảnh thật -> bỏ tiểu mục so sánh")
 
@@ -276,9 +293,34 @@ def suggestions(agent, ev: EvalResult, entity_en: str = "", log=print) -> tuple[
     if pos and any(b in pos.lower() for b in bad):
         log(f"  [suggestions] câu mô tả còn phủ định -> bỏ: {pos[:70]}")
         pos = ""
+    neg = _drop_contradictions(pos, neg, log)
     if not pos:                           # lùi an toàn: thà không thêm gì còn hơn thêm từ sai
-        neg = neg or [x for x in ev.differences + ev.foreign]
+        neg = neg or _drop_contradictions("", [x for x in ev.differences + ev.foreign], log)
     return pos, neg
+
+
+def _drop_contradictions(pos: str, neg: list[str], log=print) -> list[str]:
+    """Bỏ khỏi negative những cụm mà positive đang YÊU CẦU. Hai lệnh ngược nhau thì triệt tiêu nhau.
+
+    Gặp thật ở lượt S001 đầu tiên: positive 'V-neck collar, long sleeves, fitted skirt, silk fabric' đi kèm
+    negative ['wide collar', 'long sleeves', 'wide skirt', 'black book'] — 'long sleeves' vừa được bảo vẽ vừa
+    bị cấm vẽ. LLM viết hai danh sách trong một lượt nên không tự thấy mâu thuẫn.
+
+    Luật: bỏ cụm negative nếu MỌI từ có nghĩa của nó đều đã có trong positive. 'long sleeves' bị bỏ vì cả
+    'long' lẫn 'sleeves' đều nằm trong positive; 'wide collar' được giữ vì 'wide' không nằm trong đó.
+    """
+    if not pos or not neg:
+        return neg
+    filler = {"a", "an", "the", "of", "with", "and", "in", "on", "is", "are", "too"}
+    pos_words = {w.strip(".,;:'\"") for w in pos.lower().split()} - filler
+    out = []
+    for phrase in neg:
+        words = {w.strip(".,;:'\"") for w in phrase.lower().split()} - filler
+        if words and words <= pos_words:
+            log(f"  [suggestions] '{phrase}' vừa ở prompt dương vừa ở prompt âm -> bỏ khỏi negative")
+            continue
+        out.append(phrase)
+    return out
 
 
 # ------------------------------------------------------------------ 2b. ĐÃ THỬ VÀ BỎ: chọn bằng so cặp

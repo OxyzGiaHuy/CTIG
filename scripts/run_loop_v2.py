@@ -105,13 +105,19 @@ def main(argv=None):
 
     def make(positive: str, negative: list[str], n: int) -> str | None:
         # positive vào prompt, negative vào negative_prompt. KHÔNG bao giờ dán nhận xét thô vào prompt.
+        #
+        # Vòng 0 KHÔNG dùng ảnh tham chiếu. Ảnh mốc phải giống hệt ảnh nhánh B (cùng prompt, cùng seed,
+        # cùng model trần) thì hiệu số B->C mới đo đúng công của vòng sửa. Bản trước cho cả vòng 0 chạy
+        # '+ref', nên C xuất phát từ một ảnh khác hẳn B và hiệu số trộn lẫn công của IP-Adapter.
+        # Ảnh tham chiếu là một HÀNH ĐỘNG SỬA, chỉ vào cuộc từ vòng 1.
+        use_refs = refs if n > 0 else []
         g = replace(gen, prompt_terms=base_terms + ([positive] if positive else []),
                     negative_terms=base_neg + [x for x in (negative or []) if x not in base_neg],
-                    iteration=n, ip_adapter_image=(refs or None), ip_adapter_scale=cfg.multigen.ref_scale)
-        key = a.model if not refs else (a.model if "+ref" in a.model else a.model + "+ref")
+                    iteration=n, ip_adapter_image=(use_refs or None), ip_adapter_scale=cfg.multigen.ref_scale)
+        key = a.model if not use_refs else (a.model if "+ref" in a.model else a.model + "+ref")
         r = mg.run(g, s.spec()[0], s.kb, [key], cfg.multigen, out_dir / f"iter{n}", clip=s.clip, itm=None,
                    t2i_cfg=cfg.t2i, prompt_en=s.analysis()[0].prompt_en, log=log,
-                   ref_images=refs, force_refs=bool(refs))
+                   ref_images=use_refs, force_refs=bool(use_refs))
         for run_rec in r.runs:
             if run_rec.output and run_rec.output.candidates:
                 return run_rec.output.candidates[0].path

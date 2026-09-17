@@ -19,7 +19,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 #: T2I-Copilot chấm 0-10 mỗi tiểu mục rồi so trung bình với ngưỡng 8,0, tối đa 3 vòng.
-DEFAULT_THRESHOLD = 7.5
+DEFAULT_THRESHOLD = 8.0
 DEFAULT_MAX_ROUNDS = 3
 #: Trục văn hoá nhân đôi: đó là thứ bài này quan tâm, hai trục kia là của họ.
 AXIS_WEIGHT = {"prompt": 1.0, "aesthetic": 1.0, "culture": 2.0}
@@ -62,7 +62,9 @@ def interpret(agent, prompt_vi: str, prompt_en: str, refined_en: str = "", evide
         "You prepare a structured analysis report for a text-to-image system. Read the prompt and the reference "
         "notes, then list what the picture must show. Be concrete and visual. For the main cultural object, also "
         "list the objects from OTHER cultures that image models most often draw by mistake instead of it. "
-        "Base the look-alikes on the reference notes and general knowledge, not on guesswork about the prompt."
+        "Each look-alike must be a NAMED object of a NAMED culture, for example 'a Japanese kimono', "
+        "'a Chinese qipao', 'a Welsh coracle', 'an Indian parisal'. Do not write generic categories such as "
+        "'a wooden boat' or 'a long dress' - a generic answer makes the check useless."
     )
     user = (f"PROMPT (Vietnamese): {prompt_vi}\nPROMPT (English): {prompt_en}\n"
             + (f"EXPANDED PROMPT: {refined_en}\n" if refined_en else "")
@@ -175,7 +177,10 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
     ev.axes["culture"] = sum(culture) / len(culture)
     w = sum(AXIS_WEIGHT[k] for k in ev.axes)
     ev.overall = sum(AXIS_WEIGHT[k] * v for k, v in ev.axes.items()) / w
-    ev.passed = ev.overall >= threshold and not ev.foreign
+    # Đạt = trên ngưỡng VÀ không còn khiếm khuyết nêu tên được. Bộ chấm đã chỉ ra "thiếu mái chèo" thì đó là
+    # việc sửa được, không có lý do dừng. T2I-Copilot chỉ so trung bình với ngưỡng, nhưng họ không có trục nào
+    # trả về danh sách lỗi cụ thể; ta có, nên dùng.
+    ev.passed = ev.overall >= threshold and not ev.foreign and not ev.differences
     log(f"  [evaluator] {ev.overall:.1f}/10 (prompt {ev.axes['prompt']:.1f} · thẩm mỹ {ev.axes['aesthetic']:.1f} "
         f"· văn hoá {ev.axes['culture']:.1f}) · nhận là '{ev.identity[:26]}' p={ev.identity_p:.2f}"
         + (f" · khác ảnh thật: {'; '.join(ev.differences)}" if ev.differences else "")

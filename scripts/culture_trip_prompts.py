@@ -134,6 +134,61 @@ def clip_tokens(text: str, tok=None) -> int:
     return int(len(text.split()) * 1.35)
 
 
+_SCORE_KEYS = ("Clarity", "Visual_detail", "Background", "Purpose", "Comparable_object")
+
+
+def patch_scoring(IR, log=print) -> None:
+    """Làm nút chấm điểm của Culture-TRIP chịu được JSON hỏng mà LLM nhỏ hay trả về.
+
+    Mã gốc `scoring()` làm `json.loads` trên cụm `{...}` đầu tiên. llama3:8b trả `{'Clarity': 9.5, …}` dùng
+    NHÁY ĐƠN nên `json.loads` vỡ, và 7/10 prompt rơi về câu gốc — tức nhánh Culture-TRIP thành y hệt nhánh
+    không có gì, thí nghiệm mất nghĩa. Bản vá chỉ đổi CÁCH ĐỌC số, không đổi câu hỏi chấm điểm, không đổi
+    ngưỡng, không đổi luồng. Phải vá TRƯỚC khi import graph_workflow vì nó `from … import scoring`.
+    """
+    import ast
+    import json as _json
+    import re as _re
+
+    def scoring(state):
+        resp = IR.scoring_llm.invoke({"culture_noun": state["culture_noun"],
+                                      "refined_prompt": state["refined_prompt"]})
+        score = None
+        m = _re.search(r"\{.*?\}", resp, _re.DOTALL)
+        if m:
+            for parse in (_json.loads, ast.literal_eval):
+                try:
+                    got = parse(m.group(0))
+                    if isinstance(got, dict):
+                        score = got
+                        break
+                except Exception:  # noqa: BLE001
+                    continue
+        if not isinstance(score, dict):          # lùi tiếp: nhặt từng cặp "tên: số" trong văn bản
+            score = {}
+            for k in _SCORE_KEYS:
+                mm = _re.search(k.replace("_", "[ _]") + r"\D{0,14}?(\d+(?:\.\d+)?)", resp, _re.I)
+                if mm:
+                    score[k] = float(mm.group(1))
+        vals = {}
+        for k in _SCORE_KEYS:
+            try:
+                vals[k] = float(score.get(k, 5))
+            except (TypeError, ValueError):
+                vals[k] = 5.0
+        try:
+            vals["Total_score"] = float(score["Total_score"])
+        except (KeyError, TypeError, ValueError):
+            vals["Total_score"] = sum(vals[k] for k in _SCORE_KEYS)
+        sh = state["score_history"]
+        for k in sh:
+            if k in vals:
+                sh[k].append(vals[k])
+        return IR.GraphState(score=vals, score_history=sh)
+
+    IR.scoring = scoring
+    log("[culture-trip] vá nút chấm điểm: chấp nhận JSON nháy đơn và văn bản tự do (8B hay trả sai khuôn)")
+
+
 def load_culture_trip(repo: str, model: str, log=print):
     """Nạp hàm culture_trip() từ checkout của họ; ép LLM sang `model`."""
     repo = str(Path(repo).resolve())
@@ -156,6 +211,7 @@ def load_culture_trip(repo: str, model: str, log=print):
             IR.scoring_llm = scoring_prompt | IR.llm | StrOutputParser()
             IR.feedback_llm = feedback_prompt | IR.llm | StrOutputParser()
             log(f"[culture-trip] LLM ép về {model} (bài gốc dùng llama3:70b)")
+        patch_scoring(IR, log)           # phải vá TRƯỚC import dưới đây (graph_workflow `from … import scoring`)
         from iterative_refinement.graph_workflow import culture_trip
 
         return culture_trip, backend, repo

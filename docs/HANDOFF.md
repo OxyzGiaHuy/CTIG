@@ -641,13 +641,43 @@ không. Danh sách ở (2) chính là góp ý gửi bộ sinh, thay cho `missing
 Ảnh: `runs/loop_v2_S012.png`. Trục nhận dạng chạy đúng: ảnh mốc bị nhận là thuyền gỗ, sau một vòng có ảnh
 tham chiếu thì thành thuyền thúng rõ. Điểm đi từ 3,8 lên 6,5.
 
-### Ba chỗ còn yếu, đã thấy bằng số
+### Vì sao thân thuyền không tròn lên được — LỖI CỦA MÃ, không phải giới hạn model
 
-1. **Xếp hạng lệch nhẹ.** Nhìn mắt thì vòng 1 tròn nhất, máy chấm vòng 2 cao hơn (6,5 so với 6,3).
-2. **Góp ý lặp mà không sửa được.** "hull is oval instead of circular" xuất hiện cả bốn vòng; ảnh có đổi
-   nhưng thân thuyền vẫn không tròn. Prompt + IP-Adapter chưa đủ để nắn hình dáng.
-3. **Dương tính giả ở ô văn-hoá-khác.** Vòng 0 báo "blue boat" là chi tiết văn hoá khác, làm tiểu mục đó về 0
-   và kéo trục văn hoá xuống 1,5. Con số 3,8 của vòng 0 vì thế bị thổi thấp.
+Chuỗi ghép vào prompt sinh ảnh là **nguyên văn bản nhận xét**:
+
+> `Fix on the object: hull is oval instead of circular; sides are planked wood instead of woven bamboo…
+> Remove details from other cultures: blue boat. The object must clearly read as the Vietnamese one, not as
+> wooden fishing boat.`
+
+Mô hình khuếch tán **không có phủ định**: mọi từ trong prompt đều là thứ NÊN VẼ. Ta đang yêu cầu SDXL vẽ
+"oval", "planked wood", "blue boat", "wooden fishing boat" — đúng những thứ muốn bỏ.
+
+Hai lần sửa, mỗi lần đo lại:
+
+| bản | thay đổi | điểm từng vòng | tốt nhất |
+|---|---|---|---|
+| c | dán nhận xét thẳng vào prompt | 3,8 → 6,3 → 6,5 → 5,4 | 6,5 |
+| d | `suggestions()` nhờ LLM đổi thành **câu mô tả ĐÚNG** + danh sách cho **negative prompt** | 3,8 → 6,3 → 6,5 → 5,4 | 6,5 (ảnh khác và đẹp hơn) |
+| e | cắt **cả ảnh thật** trước khi so, giảm 3 → 2 ảnh thật | 5,5 → 6,8 → **7,0** → 5,9 | **7,0** |
+
+Ảnh: `runs/loop_v2_S012_e.png`. Vòng 2 của bản e là chiếc thúng tròn, đan tre rõ. Mắt người xếp hạng trùng
+với máy ở bản e.
+
+### Chỗ còn yếu, đã thấy bằng số
+
+
+
+1. **Câu ép chọn thực thể thì ĐÁNG TIN.** 0,35 cho ảnh mốc (bị nhận là thuyền gỗ) rồi 0,98–0,99 cho các
+   vòng sau; bám sát cái mắt người thấy. Đây là tín hiệu văn hoá dùng được.
+2. **Danh sách khác biệt thì KHÔNG đáng tin.** Bản e vẫn lặp "hull is oval instead of circular" cho đúng tấm
+   ảnh thuyền tròn rõ ràng, và một lần nói ngược hẳn: *"hull is rounded instead of oval"*. Qwen2.5-VL-7B nhìn
+   ảnh sinh cạnh ảnh thật rồi so chi tiết là việc quá sức nó, có lúc lẫn cả chiều so sánh.
+3. **Hai trục của T2I-Copilot gần như không đổi.** Trục khớp prompt đứng yên ở 5,8 suốt mọi vòng, thẩm mỹ chỉ
+   nhảy giữa 5,5 và 6,5. Không phân biệt được gì.
+
+**Hướng xử tiếp:** dựa vào câu ép chọn làm tín hiệu chính; thay câu hỏi so-sánh-mở bằng vài câu có/không nhắm
+đúng một thuộc tính trên MỘT ảnh (ví dụ "đường viền thuyền có khép thành hình tròn không"), vì đó là việc 7B
+làm được; hoặc đổi VLM mạnh hơn cho riêng bộ chấm.
 
 Hai lần sửa đã làm trong ngày: ngưỡng 7,5 → **8,0** như bài gốc và "đạt" phải không còn khiếm khuyết nêu tên
 được (trước đó dừng ngay ở ảnh đầu dù đã chỉ ra lỗi); và siết chỉ dẫn so ảnh để chỉ nhận khác biệt về **cấu

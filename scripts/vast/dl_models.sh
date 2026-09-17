@@ -36,6 +36,10 @@ JOBS = [
       "scheduler/*", "tokenizer/*", "tokenizer_2/*"]),
     ("madebyollin/sdxl-vae-fp16-fix", ["config.json", "diffusion_pytorch_model.safetensors"]),
     ("Qwen/Qwen2.5-VL-7B-Instruct", ["*.json", "*.txt", "*.safetensors"]),
+    # Bộ chấm của vòng sửa (nhánh model mở của T2I-Copilot). Kho có cả consolidated.safetensors 44,7 GB
+    # định dạng mistral-inference mà transformers KHÔNG đọc -> chỉ lấy bản chia mảnh, tiết kiệm đúng nửa kho.
+    ("mistralai/Mistral-Small-3.1-24B-Instruct-2503",
+     ["*.json", "model-*-of-*.safetensors", "tokenizer*", "*.txt"]),
     # Kho này KHÔNG có bản safetensors, bắt buộc lấy .bin.
     ("openai/clip-vit-base-patch32", ["*.json", "*.txt", "*.bin"]),
     ("h94/IP-Adapter", ["sdxl_models/ip-adapter-plus_sdxl_vit-h.safetensors",

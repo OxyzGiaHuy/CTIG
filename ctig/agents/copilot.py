@@ -37,6 +37,7 @@ class EvalResult:
     identity_p: float = 0.0            # xác suất của lựa chọn ĐÚNG (thực thể Việt)
     differences: list[str] = field(default_factory=list)   # khác ảnh thật ở đâu, trên chính vật thể
     foreign: list[str] = field(default_factory=list)       # chi tiết thuộc văn hoá khác
+    fidelity: float = -1.0             # điểm trung thành văn hoá 0-10 do bộ chấm cho thẳng; -1 = không có
     axes: dict[str, float] = field(default_factory=dict)
     overall: float = 0.0
     passed: bool = False
@@ -207,12 +208,20 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
             "image quality. NEVER report something as missing just because it appears in a photograph.\n"
             "If the object is built correctly, return an empty list.\n"
             "Separately, list details that are PRESENT in the generated image and belong to a DIFFERENT named "
-            "culture. Only things you can see; never write a missing thing there.")
+            "culture. Only things you can see; never write a missing thing there.\n"
+            "Finally give cultural_fidelity, an integer 0-10, judged by HOW WRONG the object is, not by how "
+            "many remarks you made:\n"
+            "  10 = built the same way as the real photographs; only lighting or angle differ\n"
+            "   8 = clearly the right object; small details differ (size, shade, count)\n"
+            "   5 = recognisable, but one DEFINING feature is wrong or missing\n"
+            "   2 = looks like a similar object from a different culture\n"
+            "   0 = not this object at all")
         user2 = (f"OBJECT: {entity}\nReturn JSON: "
-                 '{"differences": [".." up to 3], "foreign_elements": [".." up to 2]}')
+                 '{"differences": [".." up to 3], "foreign_elements": [".." up to 2], "cultural_fidelity": 0-10}')
         schema2 = {"type": "object", "properties": {
             "differences": {"type": "array", "items": {"type": "string"}},
-            "foreign_elements": {"type": "array", "items": {"type": "string"}}}}
+            "foreign_elements": {"type": "array", "items": {"type": "string"}},
+            "cultural_fidelity": {"type": "number"}}}
         try:
             d2 = agent.llm.complete_json(system2, user2, schema2, images=[img] + refs) or {}
         except Exception as exc:  # noqa: BLE001
@@ -222,17 +231,37 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
         # "no hat" từng lọt vào ô văn hoá khác: thiếu một thứ KHÔNG phải là chi tiết của nền văn hoá khác.
         ev.foreign = [x for x in (_clean_item(v, allow_absence=False) for v in (d2.get("foreign_elements") or []))
                       if x and _names_a_culture(x)][:2]
+        ev.fidelity = _num(d2.get("cultural_fidelity"), default=-1.0)
     else:
         ev.notes.append("không có ảnh thật -> bỏ tiểu mục so sánh")
 
     # --- gộp điểm
     ev.axes["prompt"] = sum(ev.prompt_scores.values()) / max(1, len(ev.prompt_scores))
     ev.axes["aesthetic"] = sum(ev.aesthetic_scores.values()) / max(1, len(ev.aesthetic_scores))
-    culture = [10.0 * ev.identity_p]
-    if refs:
-        culture.append(max(0.0, 10.0 - 3.0 * len(ev.differences)))
-        culture.append(10.0 if not ev.foreign else 0.0)
-    ev.axes["culture"] = sum(culture) / len(culture)
+    # Trục văn hoá: ĐIỂM THEO MỨC NGHIÊM TRỌNG, không phải theo SỐ LỜI CHÊ.
+    #
+    # Bản trước lấy trung bình của [10·identity_p, 10−3·số_khác_biệt, 10 nếu không có ngoại lai]. Đo trên
+    # S002/S003 ngày 2026-09-17: identity_p = 1,00 ở mọi lần chấm và danh sách ngoại lai luôn rỗng, nên hai
+    # thành phần là hằng số và trục rút gọn còn mỗi việc đếm lời chê. Bộ chấm được bảo "liệt kê tối đa 3" thì
+    # gần như luôn trả đủ 3, nên hết lỗi lớn nó đi tìm lỗi nhỏ và điểm không đổi: trục chỉ nhận đúng hai giá
+    # trị 7,0 và 8,0. S002 sửa đúng khiếm khuyết định danh (thiếu đòn gánh) mà điểm văn hoá y nguyên 7,0.
+    # Một bộ chấm luôn đưa ra N lời chê, rồi chấm bằng cách đếm lời chê, không thể thưởng cho cải thiện.
+    #
+    # Nay điểm chính là `cultural_fidelity` do bộ chấm cho thẳng theo thang có neo. Hai thứ kia thành HÌNH
+    # PHẠT chứ không phải một phần ba điểm: nhận nhầm sang vật khác thì trần điểm bị kéo xuống, mỗi chi tiết
+    # thuộc văn hoá khác trừ 3.
+    if refs and ev.fidelity >= 0:
+        c = ev.fidelity
+        if ev.identity_p < 0.5:                       # đọc ra vật của nền văn hoá khác -> chặn trần
+            c = min(c, 10.0 * ev.identity_p)
+        c -= 3.0 * len(ev.foreign)
+        ev.axes["culture"] = max(0.0, min(10.0, c))
+    elif refs:
+        ev.notes.append("bộ chấm không trả cultural_fidelity -> lùi về cách đếm khác biệt")
+        ev.axes["culture"] = sum([10.0 * ev.identity_p, max(0.0, 10.0 - 3.0 * len(ev.differences)),
+                                  10.0 if not ev.foreign else 0.0]) / 3.0
+    else:
+        ev.axes["culture"] = 10.0 * ev.identity_p
     w = sum(AXIS_WEIGHT[k] for k in ev.axes)
     ev.overall = sum(AXIS_WEIGHT[k] * v for k, v in ev.axes.items()) / w
     # Đạt = trên ngưỡng VÀ không còn khiếm khuyết nêu tên được. Bộ chấm đã chỉ ra "thiếu mái chèo" thì đó là
@@ -240,7 +269,8 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
     # trả về danh sách lỗi cụ thể; ta có, nên dùng.
     ev.passed = ev.overall >= threshold and not ev.foreign and not ev.differences
     log(f"  [evaluator] {ev.overall:.1f}/10 (prompt {ev.axes['prompt']:.1f} · thẩm mỹ {ev.axes['aesthetic']:.1f} "
-        f"· văn hoá {ev.axes['culture']:.1f}) · nhận là '{ev.identity[:26]}' p={ev.identity_p:.2f}"
+        f"· văn hoá {ev.axes['culture']:.1f}" + (f" [fid {ev.fidelity:.0f}]" if ev.fidelity >= 0 else "")
+        + f") · nhận là '{ev.identity[:26]}' p={ev.identity_p:.2f}"
         + (f" · khác ảnh thật: {'; '.join(ev.differences)}" if ev.differences else "")
         + (f" · LAI: {'; '.join(ev.foreign)}" if ev.foreign else ""))
     return ev
@@ -343,7 +373,9 @@ class Memory:
         out = []
         for d in diffs:
             words = _content_words(d)
-            hit = next((c for c in self.asked if c and c <= words), None)
+            # Trùng từ HAI từ trở lên là đủ coi như chê chính điều đã yêu cầu. Luật cũ đòi bao trọn cụm nên
+            # lọt ca thật: đã yêu cầu 'Large round woven baskets' rồi bị chê 'baskets are round instead of oval'.
+            hit = next((c for c in self.asked if len(c & words) >= 2), None)
             if hit:
                 log(f"  [memory] '{d[:52]}' chê đúng thứ đã yêu cầu ({' '.join(sorted(hit))}) -> bỏ")
                 continue

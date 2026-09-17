@@ -149,3 +149,41 @@ assert _m.filter(["sleeves are too long", "collar is too wide"], _lg) == ["colla
 assert _m.filter(["collar is too wide", "fabric is too thick"], _lg) == ["fabric is too thick"]
 print("bộ nhớ: bỏ lời chê ngược, và bỏ lời chê lặp lần thứ 3")
 print("ĐẠT (bộ nhớ)")
+
+# --- trục văn hoá phải theo MỨC NGHIÊM TRỌNG, không theo SỐ lời chê (sửa 2026-09-17) ------------
+# Lỗi thật trên S002: vòng 0 chê "thiếu đòn gánh" (khiếm khuyết định danh), vòng 1 sửa đúng rồi nhưng
+# bộ chấm chuyển sang chê "thúng hơi nhỏ / chưa đủ sâu / chưa đủ tròn" — vẫn đủ 3 lời chê nên điểm văn
+# hoá y nguyên 7,0. Công thức cũ 10−3·số_khác_biệt chỉ nhận được hai giá trị 7,0 và 8,0 trên thực tế.
+class _FidAgent(FakeAgent):
+    """Trả cùng SỐ lời chê cho hai ảnh, nhưng mức nghiêm trọng khác hẳn."""
+    def __init__(self, fid):
+        super().__init__()
+        self._fid = fid
+
+    class _LLM(FakeAgent._LLM):
+        def complete_json(self, system, user, schema, images=None, **kw):
+            if "differences" in str(schema) and "positive" not in str(schema):
+                return {"differences": ["a", "b", "c"], "foreign_elements": [],
+                        "cultural_fidelity": self.o._fid}
+            return super().complete_json(system, user, schema, images=images, **kw)
+
+
+def _culture(fid):
+    ag = _FidAgent(fid)
+    ag.llm = _FidAgent._LLM(ag)
+    return C.evaluate(ag, "/dep.png", REPORT, ["/ref1.jpg", "/ref2.jpg"], log=lambda *a: None).axes["culture"]
+
+
+_nghiem_trong = _culture(2)    # trông như vật của nền văn hoá khác
+_nhe = _culture(9)             # đúng vật, khác vài chi tiết nhỏ
+assert _nghiem_trong == 2.0 and _nhe == 9.0, (_nghiem_trong, _nhe)
+assert _nhe - _nghiem_trong == 7.0, "cùng 3 lời chê mà mức nghiêm trọng khác thì điểm phải khác"
+print("trục văn hoá: cùng 3 lời chê, fid 2 -> %.1f và fid 9 -> %.1f (cũ thì cả hai đều 7,0)"
+      % (_nghiem_trong, _nhe))
+
+# bộ nhớ: luật mới khớp 2 từ chung, bắt được ca đã lọt lưới
+_m2 = C.Memory()
+_m2.record("Large round woven baskets on a shoulder pole")
+assert _m2.filter(["baskets are round instead of oval"], lambda *a: None) == []
+print("bộ nhớ: bắt được 'baskets are round instead of oval' sau khi đã yêu cầu thúng tròn")
+print("ĐẠT (trục văn hoá theo mức nghiêm trọng)")

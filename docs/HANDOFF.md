@@ -782,6 +782,52 @@ Ba lỗi đã sửa (commit `6a9626a`, có test trong `tests/test_loop_v2.py`):
 **Chưa sửa, cần đo thêm:** bộ chấm dao động "tay áo quá ngắn" → "quá dài" → "quá ngắn" trên chính ảnh vừa sửa
 theo lời nó; và "cổ quá rộng" bị nêu ở cả 4 lần chấm mà không vòng nào sửa nổi.
 
+## 3p. HAI KẾT QUẢ QUYẾT ĐỊNH (2026-09-17 chiều muộn)
+
+### Bộ chấm không phân biệt nổi ảnh chụp thật với ảnh máy vẽ
+
+`scripts/judge_ab_test.py`, theo phép thử A/B của FAGER (arXiv 2605.19111). Ghép một ảnh thật lấy từ
+`candidates/` (KHÁC bộ `selected/` đã dùng cho IP-Adapter) với một ảnh sinh, hỏi Mistral cái nào là ảnh chụp
+thật. Hỏi cả hai thứ tự rồi lấy trung bình. **Không cần nhãn người.**
+
+12 cặp, 3 prompt: **độ chính xác 0,58** · P(nhận đúng) trung bình 0,46 · **thiên lệch vị trí 0,42**.
+Mốc: FAGER 0,97 · FineGRAIN 0,83 · VQAScore 0,47 · tung đồng xu 0,50.
+
+Thiên lệch vị trí mới là điều đáng sợ. S002 bốn cặp: thứ tự 1 cho 0,94/0,97/0,96/0,98, thứ tự 2 cho
+0,16/0,06/0,02/0,71. **Mistral gần như luôn trả lời "ảnh đứng trước là ảnh thật", bất kể nội dung.** Chỉ hỏi
+một thứ tự sẽ thu được 0,90 và kết luận sai rằng bộ chấm rất tốt. **Mọi phép đo dạng trắc nghiệm của dự án
+này từ nay phải hỏi cả hai thứ tự.**
+
+Ngoại lệ: S001 vòng 1-3 (áo dài trắng đúng kiểu), nó kiên định ở CẢ HAI thứ tự rằng ảnh MÁY VẼ mới là ảnh
+thật — 0,01 / 0,08 / 0,03. Tức khi thật sự phán đoán theo nội dung thì nó phán ngược: "thật" trong đầu nó là
+ảnh bóng bẩy, không phải chân thực văn hoá. Ảnh SDXL sạch, sáng đều; ảnh thật tải từ web thì mờ, nền lộn xộn.
+
+**Hệ quả:** chuẩn đối chiếu của cả trục văn hoá là ảnh thật, mà bộ chấm coi ảnh thật là kém thật hơn ảnh sinh
+— nên càng giống ảnh thật càng bị trừ điểm. Điều này giải thích gọn mọi nghịch lý: ảnh đúng bị chấm thấp hơn
+ảnh sai, bốn ảnh khác hẳn nhau cùng đúng 2,0 điểm, sửa đúng đòn gánh mà điểm giảm.
+
+### Vòng sửa KHÔNG hơn bốc thăm (ablation C3)
+
+`scripts/bestofn_control.py`. Cùng ngân sách 4 ảnh, cùng bộ chấm, cùng prompt nhánh B. Bốc thăm = 4 seed,
+không lời phê, không ảnh tham chiếu.
+
+| prompt | bốc thăm 4 seed | vòng sửa | |
+|---|---|---|---|
+| S001 | [6,44 6,69 4,94 **6,75**] | 6,4 | bốc thăm thắng |
+| S002 | [4,62 4,56 4,62 **4,75**] | 4,6 | bốc thăm thắng |
+| S003 | [4,88 4,88 4,81 4,56] | **6,1** | vòng sửa thắng |
+
+1 thắng 2 thua, n=3 nên coi như hoà. Khớp với Ma et al. (arXiv 2501.09732): trên FLUX cùng ngân sách,
+best-of-N cho ImageReward 1,58 còn tinh chỉnh lặp 1,49-1,50, vì "vòng lặp" trong KHÔNG GIAN NHIỄU thua bốc
+thăm tự do. Cũng khớp với ablation của chính T2I-Copilot: bỏ hẳn Quality Evaluator chỉ mất 0,008.
+
+Thêm: ở S002 và S003, **cả 4 ảnh bốc thăm đều đúng 2,0 điểm văn hoá**, không lệch một phần mười.
+
+**Kết luận chung của hai phép đo:** đừng đổi hành động sửa trước khi chữa thước đo. Hai bài thắng cuộc
+(2601.15286 và FAGER) đều thắng nhờ đổi hành động sửa, nhưng cả hai đều đã có sẵn thước đo dùng được. Ta
+chưa. Đổi hành động sửa khi thước đo mù thì chỉ là thay một cách bốc thăm bằng cách khác, và không biết
+tốt hay tệ.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

@@ -675,6 +675,32 @@ với máy ở bản e.
 3. **Hai trục của T2I-Copilot gần như không đổi.** Trục khớp prompt đứng yên ở 5,8 suốt mọi vòng, thẩm mỹ chỉ
    nhảy giữa 5,5 và 6,5. Không phân biệt được gì.
 
+### Đấu cặp cũng hỏng — quy luật đã rõ
+
+Thử chọn ảnh cuối bằng **đấu vòng tròn từng cặp** (ảnh A, ảnh B, một ảnh thật; hỏi cái nào giống hơn; hai
+thứ tự rồi lấy trung bình) thay cho lấy điểm cao nhất. Kết quả trên S012:
+
+    iter0=1,64 · iter1=1,63 · iter2=1,39 · iter3=1,34   -> chọn iter0
+
+**iter0 là ảnh mốc, chiếc thuyền dài màu xanh, tệ nhất trong bốn tấm.** Điểm gần như phẳng (1,34–1,64 trên
+thang 0–3), tức VLM trả lời gần như ngẫu nhiên.
+
+Gộp với các quan sát trước, quy luật rất rõ:
+
+| dạng câu hỏi | số ảnh đưa vào | kết quả |
+|---|---|---|
+| ép chọn thực thể (1 ảnh + danh sách chữ) | 1 | **đáng tin**: 0,35 cho ảnh mốc, 0,98–0,99 cho các vòng sau, bám sát mắt người |
+| so khác biệt với ảnh thật | 3 (1 sinh + 2 thật) | lặp lại và có lúc nói **ngược chiều** |
+| đấu cặp | 3 (2 sinh + 1 thật) | **gần như ngẫu nhiên**, chọn đúng ảnh tệ nhất |
+
+**Kết luận: Qwen2.5-VL-7B làm được câu hỏi trên MỘT ảnh với lựa chọn bằng CHỮ, không làm được bất cứ việc gì
+cần so nhiều ảnh.** Muốn giữ phần so ảnh thì phải đổi VLM cho riêng bộ chấm.
+
+**VLM của T2I-Copilot:** mặc định GPT-4o-mini; đường mã nguồn mở của họ (`--use_open_llm`) mặc định
+**Mistral-Small-3.1-24B-Instruct-2503**, hoặc Qwen2.5-VL-7B-Instruct (đúng cái ta đang dùng, và đang hỏng).
+Bản q4 của 24B khoảng 15 GB. Đĩa hiện còn 12 GB sau khi xoá `llama3:8b`, `runs/v193`, `runs/v194`. Muốn tải
+24B phải bỏ thêm FLUX (32 GB).
+
 **Hướng xử tiếp:** dựa vào câu ép chọn làm tín hiệu chính; thay câu hỏi so-sánh-mở bằng vài câu có/không nhắm
 đúng một thuộc tính trên MỘT ảnh (ví dụ "đường viền thuyền có khép thành hình tròn không"), vì đó là việc 7B
 làm được; hoặc đổi VLM mạnh hơn cho riêng bộ chấm.

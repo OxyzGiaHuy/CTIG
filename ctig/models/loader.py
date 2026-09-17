@@ -130,6 +130,27 @@ def is_resident(pipe) -> bool:
     return any(p is pipe for p in _RESIDENT.values())
 
 
+def resident_gb(device: str = "cuda:0") -> float:
+    """VRAM mà các pipeline thường trú đang chiếm, để bộ dò rò rỉ của multigen trừ ra."""
+    if not _RESIDENT:
+        return 0.0
+    import torch
+
+    total = 0
+    seen: set[int] = set()
+    for pipe in _RESIDENT.values():
+        for name in list(getattr(pipe, "components", {}) or {}):
+            mod = getattr(pipe, name, None)
+            if not hasattr(mod, "parameters"):
+                continue
+            for prm in mod.parameters():
+                if prm.device.type == "cuda" and id(prm) not in seen:
+                    seen.add(id(prm))
+                    total += prm.numel() * prm.element_size()
+    del torch
+    return round(total / 1e9, 2)
+
+
 def img2img_from(pipe):
     """Pipeline img2img dùng CHUNG trọng số với pipe text2img (không tốn thêm VRAM) cho hires fix."""
     from diffusers import AutoPipelineForImage2Image

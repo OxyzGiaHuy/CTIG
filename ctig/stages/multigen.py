@@ -450,7 +450,8 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
         try:
             # v1.4.3: kiểm VRAM trước khi nạp. v1.4 p001: 14,4 GB còn cấp phát từ hàng trước -> 4 hàng OOM ngay lúc nạp.
             held = model_loader.allocated_gb(cfg.device)
-            if held is not None and held > baseline + 1.0:
+            resident = model_loader.resident_gb(cfg.device)   # pipeline giữ cố ý, không phải rò
+            if held is not None and held > baseline + resident + 1.0:
                 model_loader.free_vram()
                 held2 = model_loader.allocated_gb(cfg.device)
                 msg = (f"VRAM còn giữ {held} GB trước khi nạp (nền {baseline} GB)" + (f", sau gc {held2} GB" if held2 != held else "")
@@ -572,8 +573,9 @@ def run(gen: GenSpec, spec: CulturalSpec, kb: KnowledgeBase, model_keys: list[st
             held = model_loader.allocated_gb(cfg.device)
             if held is not None:
                 run_rec.notes.append(f"VRAM sau giải phóng {held} GB" + (f" (nền {baseline} GB)" if baseline > 0.5 else ""))
-                if held > baseline + 1.0:
-                    log(f"  [4b] {key}: CẢNH BÁO còn {held} GB cấp phát sau khi giải phóng (nền {baseline} GB)")
+                if held > baseline + model_loader.resident_gb(cfg.device) + 1.0:
+                    log(f"  [4b] {key}: CẢNH BÁO còn {held} GB cấp phát sau khi giải phóng (nền {baseline} GB, "
+                        f"thường trú {model_loader.resident_gb(cfg.device)} GB)")
         result.runs.append(run_rec)
         _save(result, out_dir)
         if on_model_done:

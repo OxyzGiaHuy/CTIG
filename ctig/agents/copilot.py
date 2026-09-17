@@ -281,7 +281,11 @@ def suggestions(agent, ev: EvalResult, entity_en: str = "", log=print) -> tuple[
     return pos, neg
 
 
-# ------------------------------------------------------------------ 2b. Chọn ảnh cuối bằng SO CẶP
+# ------------------------------------------------------------------ 2b. ĐÃ THỬ VÀ BỎ: chọn bằng so cặp
+# Giữ lại mã và kết quả đo để không thử lại. Trên S012, đấu vòng tròn 4 ảnh (mỗi cặp kèm một ảnh thật, hỏi
+# cái nào giống hơn, hai thứ tự lấy trung bình) cho iter0=1,64 iter1=1,63 iter2=1,39 iter3=1,34 — gần như
+# phẳng trên thang 0-3, và chọn đúng ảnh TỆ NHẤT (ảnh mốc). Qwen2.5-VL-7B không so được nhiều ảnh.
+# Chỉ bật lại khi bộ chấm chạy bằng VLM mạnh hơn.
 def compare_pair(agent, img_a: str, img_b: str, ref: str, entity_en: str = "") -> float:
     """P(ảnh A giống ảnh thật hơn ảnh B). Hỏi CẢ HAI thứ tự rồi lấy trung bình để khử thiên lệch vị trí.
 
@@ -343,7 +347,7 @@ def run_loop(agent, report: dict, first_image: str, generate, refs=None, crop=No
     if ev.passed:
         log(f"  [loop] ảnh đầu đạt ({ev.overall:.1f} >= {threshold}) -> dừng")
         return {"final": first_image, "best": best.to_dict(), "rounds": rounds, "kept": kept,
-                "pair_wins": {}, "stop": "ảnh đầu đạt"}
+                "stop": "ảnh đầu đạt"}
     for n in range(1, max_rounds + 1):
         pos, neg = suggestions(agent, ev, entity, log)
         tip = critique(ev, entity)
@@ -366,13 +370,10 @@ def run_loop(agent, report: dict, first_image: str, generate, refs=None, crop=No
             break
     else:
         stop = f"hết {max_rounds} vòng"
-    # Chọn cuối bằng ĐẤU CẶP trên mọi ảnh đã giữ, không lấy ảnh điểm cao nhất: điểm tuyệt đối của VLM gần như
-    # đứng yên giữa các vòng, còn câu "cái nào giống ảnh thật hơn" thì nó trả lời được.
-    pick, wins = pick_best(agent, kept, (refs or [None])[0], entity, crop=None, log=log)
-    if pick and pick != best_img:
-        log(f"  [chọn cuối] đấu cặp chọn {_tag(pick)} thay cho ảnh điểm cao nhất "
-            f"{_tag(best_img)} ({best.overall:.1f})")
-    final = pick or best_img
-    return {"final": final, "best": best.to_dict(), "rounds": rounds, "kept": kept, "pair_wins": wins,
-            "stop": stop + (f", đấu cặp chọn {_tag(final)}" if wins else
-                            f", giữ ảnh tốt nhất {best.overall:.1f}")}
+    # Ảnh cuối = ảnh ĐIỂM CAO NHẤT trong mọi vòng, không phải ảnh vòng cuối. Vòng 3 sinh kém thì vẫn giữ
+    # ảnh vòng 1 hoặc 2. Đã thử chọn bằng đấu cặp (mỗi cặp kèm một ảnh thật, hỏi cái nào giống hơn): điểm ra
+    # gần như phẳng 1,34-1,64 trên thang 0-3 và nó chọn đúng ảnh TỆ NHẤT, nên bỏ.
+    log(f"  [chọn cuối] {_tag(best_img)} điểm {best.overall:.1f} trong {len(kept)} ảnh: "
+        + " · ".join(f"{_tag(i)}" for i in kept))
+    return {"final": best_img, "best": best.to_dict(), "rounds": rounds, "kept": kept,
+            "stop": stop + f", giữ ảnh tốt nhất {_tag(best_img)} ({best.overall:.1f})"}

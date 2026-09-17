@@ -100,14 +100,12 @@ out2 = C.run_loop(ag, REPORT, "/xau.png", lambda pos, neg, n: "/xau2.png", refs=
 assert len(out2["rounds"]) == C.DEFAULT_MAX_ROUNDS and "hết 3 vòng" in out2["stop"], out2["stop"]
 print("không cải thiện:", out2["stop"])
 
-# đấu cặp: giữ mọi ảnh, chọn ảnh thắng nhiều nhất chứ không lấy ảnh điểm cao nhất
+# giữ mọi ảnh, ảnh cuối là ảnh ĐIỂM CAO NHẤT chứ không phải ảnh vòng cuối
 seq = iter(["/xau2.png", "/dep.png", "/xau3.png"])
 out3 = C.run_loop(ag, REPORT, "/xau.png", lambda pos, neg, n: next(seq), refs=refs, log=lambda *a: None)
 assert set(out3["kept"]) == {"/xau.png", "/xau2.png", "/dep.png"}, out3["kept"]
-assert out3["final"] == "/dep.png", out3["final"]
-assert out3["pair_wins"]["/dep.png"] > out3["pair_wins"]["/xau.png"], out3["pair_wins"]
-print("đấu cặp: giữ %d ảnh, chọn %s (%s)" % (len(out3["kept"]), out3["final"],
-      ", ".join(f"{k.split('/')[-1]}={v}" for k, v in out3["pair_wins"].items())))
+assert out3["final"] == "/dep.png", "vòng 3 kém hơn thì phải giữ ảnh vòng 2"
+print("giữ %d ảnh, vòng cuối kém -> vẫn lấy %s" % (len(out3["kept"]), out3["final"]))
 
 # không có ảnh thật -> vẫn chạy, trục văn hoá chỉ còn câu ép chọn
 noref = C.evaluate(ag, "/xau.png", REPORT, [], log=lambda *a: None)

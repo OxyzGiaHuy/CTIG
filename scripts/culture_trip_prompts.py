@@ -124,6 +124,42 @@ def clean_refined(text: str) -> tuple[str, bool]:
     return t, cut
 
 
+_JUNK = ("refined prompt", "base prompt", "culture noun", "feedback", "clarity", "score",
+         "here is", "here's", "based on the", "i refined", "i added", "### ")
+
+EXTRACT_SYS = (
+    "You extract the final image-generation prompt from a noisy text produced by a prompt-refinement system.\n"
+    "Output ONLY the prompt itself: one paragraph of plain descriptive English about what the picture shows.\n"
+    "Remove every heading, label, quote mark, score, criterion, and any sentence that talks about the prompt, "
+    "the refinement, the feedback, or the instructions. Do not add anything new. Do not explain. "
+    "If the text contains several versions, take the most complete descriptive one."
+)
+
+
+def looks_clean(t: str) -> bool:
+    low = " " + t.lower()
+    return bool(t) and len(t.split()) >= 8 and not any(j in low for j in _JUNK)
+
+
+def extract_prompt_llm(llm, raw: str, log=print) -> str:
+    """Nhờ chính LLM bóc câu prompt ra khỏi chuỗi nhiễu. Trả "" nếu không dùng được.
+
+    Regex không đuổi kịp: llama3:8b bọc kết quả mỗi lần một kiểu ("### Refined Prompt:", ngoặc kép rồi
+    "SCORE: {...}", "Based on the provided INFORMATION, I refined the BASE PROMPT to…", "The refined prompt
+    aims to: 1. 2. 3."). Sau bốn vòng vá regex vẫn còn 6/10 tệp dính rác, nên chuyển sang bóc bằng LLM và giữ
+    regex làm lớp trước. Kết quả chỉ được nhận nếu SẠCH và NGẮN HƠN chuỗi vào.
+    """
+    try:
+        r = llm.invoke(EXTRACT_SYS + "\n\nTEXT:\n" + raw + "\n\nPROMPT ONLY:")
+        out = " ".join(str(getattr(r, "content", r)).split()).strip(' "\u201c\u201d')
+    except Exception as exc:  # noqa: BLE001
+        log(f"    [bóc bằng LLM] lỗi {type(exc).__name__}")
+        return ""
+    if not looks_clean(out) or len(out.split()) > len(raw.split()):
+        return ""
+    return out
+
+
 def clip_tokens(text: str, tok=None) -> int:
     """Số token CLIP thật nếu có transformers, không thì ước lượng theo số từ."""
     if tok is not None:
@@ -236,7 +272,7 @@ def load_culture_trip(repo: str, model: str, log=print):
         os.chdir(cwd)
 
 
-def refine_one(culture_trip, repo: str, nouns: list[str], prompt_en: str, threshold: int, log=print):
+def refine_one(culture_trip, repo: str, nouns: list[str], prompt_en: str, threshold: int, log=print, llm=None):
     """Nối chuỗi qua từng culture noun; trả (câu cuối, [bước]) ."""
     cwd = os.getcwd()
     os.chdir(repo)
@@ -262,11 +298,20 @@ def refine_one(culture_trip, repo: str, nouns: list[str], prompt_en: str, thresh
                               "seconds": round(time.time() - t0, 1), "out": cur})
                 continue
             clean, was_cut = clean_refined(out)
+            how = "regex" if was_cut else "nguyên văn"
+            if not looks_clean(clean):        # regex không đuổi kịp -> nhờ chính LLM bóc
+                alt = extract_prompt_llm(llm, out, log) if llm is not None else ""
+                if alt:
+                    clean, was_cut, how = alt, True, "llm"
+                else:
+                    how = "CÒN RÁC"
+
             steps.append({"culture_noun": noun, "in": cur, "out_raw": out, "out": clean,
                           "words_raw": len(out.split()), "words": len(clean.split()), "post_processed": was_cut,
-                          "seconds": round(time.time() - t0, 1)})
+                          "cleaned_by": how, "seconds": round(time.time() - t0, 1)})
             log(f"    [{noun}] {len(cur.split())} -> {len(out.split())} từ thô"
-                + (f", bóc còn {len(clean.split())} từ" if was_cut else "") + f", {time.time() - t0:.0f}s")
+                + (f", bóc còn {len(clean.split())} từ [{how}]" if was_cut else f" [{how}]")
+                + f", {time.time() - t0:.0f}s")
             if clean:
                 cur = clean
         return cur, steps
@@ -300,6 +345,9 @@ def main(argv=None):
     out_dir.mkdir(parents=True, exist_ok=True)
 
     culture_trip, backend, repo = load_culture_trip(a.repo, a.model, log)
+    import iterative_refinement.iterative_refinement as _IR   # dùng lại đúng LLM đó để bóc prompt
+
+    llm = _IR.llm
     log(f"{len(recs)} prompt · model {a.model} · ngưỡng {a.threshold} · tìm kiếm {backend} · ra {out_dir}")
 
     done = skip = fail = n_over = 0
@@ -328,7 +376,7 @@ def main(argv=None):
             continue
         log(f"[{r['id']}] {len(nouns)} thực thể: {', '.join(nouns)}")
         t0 = time.time()
-        refined, steps = refine_one(culture_trip, repo, nouns, r["text_en"], a.threshold, log)
+        refined, steps = refine_one(culture_trip, repo, nouns, r["text_en"], a.threshold, log, llm)
         ok = bool(refined) and refined != r["text_en"]
         n_tok = clip_tokens(refined, tok)
         dst.write_text(json.dumps({

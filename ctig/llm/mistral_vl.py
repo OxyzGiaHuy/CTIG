@@ -50,7 +50,12 @@ class MistralVLBackend(JSONChatMixin):
             dt = getattr(torch, dtype)
 
         self.model = _load_model(model, dt, device, quant)
-        self.processor = AutoProcessor.from_pretrained(model)
+        # fix_mistral_regex: kho của Mistral khai sai mẫu regex tách token; không bật thì transformers cảnh báo
+        # "This will lead to incorrect tokenization". Cờ này mới có ở transformers gần đây nên có đường lùi.
+        try:
+            self.processor = AutoProcessor.from_pretrained(model, fix_mistral_regex=True)
+        except TypeError:
+            self.processor = AutoProcessor.from_pretrained(model)
 
     # --- phần dùng chung: dựng messages theo đúng khuôn chat template của Mistral3 ---
     def _messages(self, system: str, user: str, images: list[str] | None):

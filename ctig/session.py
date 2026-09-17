@@ -825,9 +825,27 @@ class Session:
         self.log(f"[session] prompt ngoài: {len(text.split())} từ (câu gốc {len(old.split())} từ); spec giữ nguyên")
         return old
 
+    def skip_grounding(self) -> None:
+        """Bỏ hẳn Analysis/Search/Spec cho những nhánh KHÔNG dùng bảng kiểm.
+
+        Nhánh A và B của thí nghiệm ba nhánh chạy `t2i.render: bare`, tức prompt_terms đúng bằng prompt_en và
+        không có thuộc tính KB nào chen vào. Grounding vẫn chạy chỉ vì đường ống gọi tuần tự, tốn 22-191 giây
+        mỗi prompt (đo trên nhánh A: S024 mất 191 s, gần hết là tải trang web). `_memo` ghi cache theo TỪNG
+        thư mục run nên nhánh sau cũng không dùng lại được của nhánh trước.
+
+        Cái giá: run này không có `step_spec.json`, nên `scripts/label_tool.py` phải lấy bảng thuộc tính từ
+        một run CÓ grounding của cùng prompt. Spec giống nhau ở cả ba nhánh theo thiết kế (tính từ câu gốc,
+        trước khi tiêm prompt ngoài), nên dùng chung là đúng chứ không phải chắp vá.
+        """
+        self._no_grounding = True
+
     def analysis(self, force: bool = False) -> tuple[AnalysisResult, str]:
         from .stages import analysis as st
 
+        if getattr(self, "_no_grounding", False):
+            return AnalysisResult(prompt_id=self.prompt.id, keywords=[], candidate_entity_ids=[],
+                                  prompt_en=self.prompt.text_en or self.prompt.text_vi,
+                                  notes="bỏ qua grounding (nhánh không dùng bảng kiểm)"), "bỏ qua"
         key = _h(self._base_key())
         return self._memo("analysis", key, AnalysisResult,
                           lambda: st.run(self.agent, self.prompt, self.kb, self.cfg.max_candidate_entities), force)
@@ -872,6 +890,8 @@ class Session:
     def spec(self, force: bool = False) -> tuple[CulturalSpec, str]:
         from .stages import spec as st_spec
 
+        if getattr(self, "_no_grounding", False):
+            return CulturalSpec(prompt_id=self.prompt.id, entities=[]), "bỏ qua"
         a, _ = self.analysis()
         s, _ = self.retrieve()
         c = self.cfg

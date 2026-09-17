@@ -40,7 +40,8 @@ def load_external_prompt(source: str, prompt_id: str, log) -> str:
     return " ".join(str(d.get("refined_prompt", "")).split())
 
 
-def run_one(cfg: Config, prompt: Prompt, run_dir: Path, agents: bool, log, prompt_source: str = "original") -> Path:
+def run_one(cfg: Config, prompt: Prompt, run_dir: Path, agents: bool, log, prompt_source: str = "original",
+            grounding: bool = True) -> Path:
     t0 = time.time()
     s = Session(cfg, prompt, run_dir=run_dir, log=log)
     report = viz.Report(f"CTIG walkthrough · {prompt.id}")
@@ -52,21 +53,27 @@ def run_one(cfg: Config, prompt: Prompt, run_dir: Path, agents: bool, log, promp
         log(f"[{prompt.id}] {name}: {time.time() - t:.0f}s")
         return out
 
-    g, src = step("1 grounding", s.grounding)
-    report.parts.append(viz.grounding_table(g, s.kb, source=src))
-    # chẩn đoán từng bước con (đã memo, không tốn thêm)
-    a, src = s.analysis()
-    report.parts.append(viz.keywords_table(a, s.kb, cfg.max_spec_entities, source=src))
-    cmp, src = s.compare()
-    report.parts.append(viz.query_comparison(cmp, cfg.search_viz.k_text, cfg.search_viz.k_images, source=src))
-    search, src = s.retrieve()
-    report.parts.append(viz.evidence_table(search, s.kb, source=src))
-    if g["briefs"]:
-        report.parts.append(viz.brief_card(g["briefs"], g["spec"], source=src))
-    spec, src = s.spec()
-    report.parts.append(viz.spec_card(spec, source=src))
-    if cfg.retrieval.auto_kb and getattr(cfg.retrieval, "kb_mode", "auto") != "hand_only":
-        step("1a kiểm KB bằng ảnh thật", s.validate_kb)
+    if not grounding:
+        # Nhánh chạy render=bare không đọc bảng kiểm, nên mọi bước Analysis/Search/Spec là công cốc.
+        s.skip_grounding()
+        spec, _ = s.spec()
+        log(f"[{prompt.id}] 1 grounding: BỎ QUA")
+    else:
+        g, src = step("1 grounding", s.grounding)
+        report.parts.append(viz.grounding_table(g, s.kb, source=src))
+        # chẩn đoán từng bước con (đã memo, không tốn thêm)
+        a, src = s.analysis()
+        report.parts.append(viz.keywords_table(a, s.kb, cfg.max_spec_entities, source=src))
+        cmp, src = s.compare()
+        report.parts.append(viz.query_comparison(cmp, cfg.search_viz.k_text, cfg.search_viz.k_images, source=src))
+        search, src = s.retrieve()
+        report.parts.append(viz.evidence_table(search, s.kb, source=src))
+        if g["briefs"]:
+            report.parts.append(viz.brief_card(g["briefs"], g["spec"], source=src))
+        spec, src = s.spec()
+        report.parts.append(viz.spec_card(spec, source=src))
+        if cfg.retrieval.auto_kb and getattr(cfg.retrieval, "kb_mode", "auto") != "hand_only":
+            step("1a kiểm KB bằng ảnh thật", s.validate_kb)
     # v2: thay câu prompt bằng chuỗi từ ngoài (Culture-TRIP) SAU khi spec đã chốt theo câu gốc, để ba nhánh
     # dùng chung một bảng kiểm. Xem Session.set_prompt_en.
     if prompt_source != "original":
@@ -113,6 +120,10 @@ def main(argv=None):
                     help="original = câu tiếng Anh gốc; tên thư mục dưới data/ (ví dụ culture_trip) = dùng "
                          "refined_prompt trong data/<nguồn>/<prompt_id>.json")
     ap.add_argument("--no-agents", action="store_true")
+    ap.add_argument("--no-grounding", action="store_true",
+                    help="bỏ Analysis/Search/Spec. Chỉ dùng với t2i.render=bare, nơi prompt_terms đúng bằng "
+                         "prompt_en nên grounding không ảnh hưởng ảnh. Tiết kiệm 22-191 s mỗi prompt. "
+                         "Đổi lại run không có step_spec.json, label_tool phải lấy bảng thuộc tính từ run khác.")
     ap.add_argument("--report", action="store_true", help="dựng progress_report.html cho cả run sau khi xong")
     a = ap.parse_args(argv)
 
@@ -138,7 +149,7 @@ def main(argv=None):
         + (f" · prompt từ data/{a.prompt_source}/" if a.prompt_source != "original" else ""))
     for p in prompts:
         try:
-            run_one(cfg, p, run_dir, not a.no_agents, log, a.prompt_source)
+            run_one(cfg, p, run_dir, not a.no_agents, log, a.prompt_source, not a.no_grounding)
         except Exception as exc:  # noqa: BLE001 - một prompt lỗi không dừng cả lô
             log(f"[{p.id}] LỖI {type(exc).__name__}: {exc}")
     if a.report:

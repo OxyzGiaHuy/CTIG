@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C032",
+ "sig": "256a048493a1",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.62,
+ "prompt_en": "A woman in a conical leaf hat carries a shoulder pole of street goods along an Old Quarter street in Hanoi in the early morning.",
+ "culture_nouns": [
+  "nón lá",
+  "gánh hàng rong"
+ ],
+ "refined_prompt": "A woman in a conical leaf hat carries a shoulder pole of street goods along an Old Quarter street in Hanoi in the early morning. In the early morning light of a bustling Vietnamese city, a woman prepares for her day as a street vendor. She dons a traditional conical leaf hat, the \"nón lá,\" to shield herself from the sun and sudden showers. She wears a simple white blouse and black trousers, which harmonize with her hat. She carefully inspects her goods, a vibrant assortment of ripe mangoes, crispy spring rolls, and sweet pastries, ensuring each item is fresh and appealing. With a long bamboo pole balanced across her shoulders, she moves gracefully through the lively streets, carrying her colorful array of goods. The rhythmic ring of bicycle bells and the cheerful chatter of early morning shoppers mingle with the mouth-watering aroma of steaming pho from nearby food stalls. Her hat’s pointed tip shields her face as she navigates the bustling scene, mentally checking off items on her list. Each sale and step contributes to the rich tapestry of her community, reflecting the resilience and spirit of Vietnamese street vendors. The tradition of \"gánh hàng rong\" is deeply rooted in Vietnamese culture, sustaining livelihoods and fostering community ties, providing affordable goods to local residents and embodying the entrepreneurial spirit of Vietnamese women.",
+ "words_in": 25,
+ "words_out": 223,
+ "clip_tokens": 301,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "nón lá",
+   "in": "A woman in a conical leaf hat carries a shoulder pole of street goods along an Old Quarter street in Hanoi in the early morning.",
+   "out_raw": "### Revised Refined Prompt: A woman prepares for a day of street vending by walking through Hanoi's Old Quarter early in the morning. She wears a traditional Vietnamese conical leaf hat, known as \"nón lá,\" which resembles an upside-down cone and provides shade and protection from the early morning sun and unexpected rain. The woven patterns of the \"nón lá\" in a natural green color with occasional brown stripes create a unique texture and aesthetic. Carrying a shoulder pole laden with various colorful fruits and snacks, she moves through the bustling street, where the smell of steaming pho from nearby food stalls mixes with the chatter of early morning shoppers and the clatter of bicycle wheels. The pointed tip of her hat shields her face as she navigates the lively scene, ready to start her day, and she mentally checks off items on her list, reflecting on the importance of her daily routine in sustaining her family's livelihood. ### Revised SCORE: - **Clarity:** 10 (Explicit cultural context and purpose) - **Visual_detail:** 9 (More detailed description of textures and colors) - **Background:** 8 (More sensory and spatial details) - **Purpose:** 8 (Internal thought and routine reflection) - **Comparable_object:** 7 (Comparison added) - **Total_score:** 42",
+   "out": "A woman prepares for a day of street vending by walking through Hanoi's Old Quarter early in the morning. She wears a traditional Vietnamese conical leaf hat, known as \"nón lá,\" which resembles an upside-down cone and provides shade and protection from the early morning sun and unexpected rain. The woven patterns of the \"nón lá\" in a natural green color with occasional brown stripes create a unique texture and aesthetic. Carrying a shoulder pole laden with various colorful fruits and snacks, she moves through the bustling street, where the smell of steaming pho from nearby food stalls mixes with the chatter of early morning shoppers and the clatter of bicycle wheels. The pointed tip of her hat shields her face as she navigates the lively scene, ready to start her day, and she mentally checks off items on her list, reflecting on the importance of her daily routine in sustaining her family's livelihood.",
+   "words_raw": 203,
+   "words": 154,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 142.4,
+   "scene_keep_raw": 0.77
+  },
+  {
+   "culture_noun": "gánh hàng rong",
+   "in": "A woman prepares for a day of street vending by walking through Hanoi's Old Quarter early in the morning. She wears a traditional Vietnamese conical leaf hat, known as \"nón lá,\" which resembles an upside-down cone and provides shade and protection from the early morning sun and unexpected rain. The woven patterns of the \"nón lá\" in a natural green color with occasional brown stripes create a unique texture and aesthetic. Carrying a shoulder pole laden with various colorful fruits and snacks, she moves through the bustling street, where the smell of steaming pho from nearby food stalls mixes with the chatter of early morning shoppers and the clatter of bicycle wheels. The pointed tip of her hat shields her face as she navigates the lively scene, ready to start her day, and she mentally checks off items on her list, reflecting on the importance of her daily routine in sustaining her family's livelihood.",
+   "out_raw": "### Revised Refined Prompt In the early morning light of a bustling Vietnamese city, a woman prepares for her day as a street vendor. She dons a traditional conical leaf hat, the \"nón lá,\" to shield herself from the sun and sudden showers. The intricate woven patterns of the green and brown \"nón lá\" harmonize with her simple white blouse and black trousers, providing a striking yet humble look. She carefully inspects her goods, a vibrant assortment of ripe mangoes, crispy spring rolls, and sweet pastries, ensuring each item is fresh and appealing. With a long bamboo pole balanced across her shoulders, she moves gracefully through the lively streets, carrying her colorful array of goods. The rhythmic ring of bicycle bells and the cheerful chatter of early morning shoppers mingle with the mouth-watering aroma of steaming pho from nearby food stalls. Her hat’s pointed tip shields her face as she navigates the bustling scene, mentally checking off items on her list. Each sale and step contributes to the rich tapestry of her community, reflecting the resilience and spirit of Vietnamese street vendors. The tradition of \"gánh hàng rong,\" deeply rooted in Vietnamese culture, has been passed down through generations, sustaining livelihoods and fostering community ties. This tradition provides affordable goods to local residents, supporting the economic fabric of the city and embodying the entrepreneurial spirit of Vietnamese women. Unlike other Southeast Asian street vending traditions, \"gánh hàng rong\" is unique in its vibrant colors, the use of the conical hat, and the intimate connection it fosters between vendors and their communities. It is not just a means of livelihood but a cultural heritage that shapes the social fabric of Vietnamese cities, connecting generations through its enduring legacy.",
+   "out": "In the early morning light of a bustling Vietnamese city, a woman prepares for her day as a street vendor. She dons a traditional conical leaf hat, the \"nón lá,\" to shield herself from the sun and sudden showers. She wears a simple white blouse and black trousers, which harmonize with her hat. She carefully inspects her goods, a vibrant assortment of ripe mangoes, crispy spring rolls, and sweet pastries, ensuring each item is fresh and appealing. With a long bamboo pole balanced across her shoulders, she moves gracefully through the lively streets, carrying her colorful array of goods. The rhythmic ring of bicycle bells and the cheerful chatter of early morning shoppers mingle with the mouth-watering aroma of steaming pho from nearby food stalls. Her hat’s pointed tip shields her face as she navigates the bustling scene, mentally checking off items on her list. Each sale and step contributes to the rich tapestry of her community, reflecting the resilience and spirit of Vietnamese street vendors. The tradition of \"gánh hàng rong\" is deeply rooted in Vietnamese culture, sustaining livelihoods and fostering community ties, providing affordable goods to local residents and embodying the entrepreneurial spirit of Vietnamese women.",
+   "words_raw": 287,
+   "words": 198,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 359.5,
+   "scene_keep_raw": 0.62
+  }
+ ],
+ "seconds": 501.9
+}

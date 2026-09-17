@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C036",
+ "sig": "f78f6d72fc4c",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.88,
+ "prompt_en": "A group of Central Highlands performers plays bronze gongs arranged in a circle around a bonfire, a tall-roofed rong house behind them.",
+ "culture_nouns": [
+  "cồng chiêng Tây Nguyên",
+  "nhà rông Tây Nguyên"
+ ],
+ "refined_prompt": "A group of Central Highlands performers plays bronze gongs arranged in a circle around a bonfire, a tall-roofed rong house behind them. In the heart of Vietnam's Central Highlands, a group of performers from ethnic groups such as the Rade, Jarai, and Bahnar come together around a bonfire, playing bronze gongs in a circle. These gongs, known as cồng chiêng Tây Nguyên, are an important part of their cultural and spiritual heritage. The performers are dressed in intricate traditional clothing adorned with vibrant colors and patterns, each detail telling a unique story of their culture. The deep, resonant sounds of the gongs fill the air, creating a mesmerizing rhythm that echoes through the surrounding forest. Behind the performers, a tall-roofed rong house stands prominently. The rong house, or nhà rông Tây Nguyên, is a central communal space for gatherings and spiritual ceremonies. Its tall, sweeping roof is often adorned with intricate carvings and decorations, and the interior houses sacred objects and traditional artwork, reflecting the rich cultural heritage of the ethnic communities. For centuries, the nhà rông Tây Nguyên has served as a symbol of communal unity and cultural continuity, playing a vital role in ethnic traditions by marking important life events and connecting the living with their ancestors. Like the role of church bells in Western culture, the cồng chiêng Tây Nguyên serves as a powerful link between the spiritual and the everyday life of the community. The house and the gongs together create a vibrant tapestry of cultural and spiritual significance, ensuring the continuity of traditions and practices that have been handed down through generations.",
+ "words_in": 22,
+ "words_out": 267,
+ "clip_tokens": 360,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cồng chiêng Tây Nguyên",
+   "in": "A group of Central Highlands performers plays bronze gongs arranged in a circle around a bonfire, a tall-roofed rong house behind them.",
+   "out_raw": "### Revised Refined Prompt: In the heart of Vietnam's Central Highlands, a group of performers from ethnic groups such as the Rade, Jarai, and Bahnar gather around a bonfire, playing bronze gongs arranged in a circle. Cồng chiêng Tây Nguyên, a unique musical and spiritual tradition, is an integral part of their culture, recognized by UNESCO as a Masterpiece of the Intangible Heritage of Humanity in 2005. The performers wear intricate traditional clothing adorned with vibrant colors and patterns that tell stories of their heritage. The gongs' deep, resonant sounds fill the air, creating a mesmerizing rhythm that echoes through the forest. Behind them, a tall-roofed rong house stands as a symbol of communal gatherings and spiritual significance. For centuries, cồng chiêng Tây Nguyên has played a vital role in ethnic traditions, marking important life events and connecting the living with their ancestors. Like the role of church bells in Western culture, cồng chiêng Tây Nguyên serves as a powerful link between the spiritual and the everyday life of the community.",
+   "out": "In the heart of Vietnam's Central Highlands, a group of performers from ethnic groups such as the Rade, Jarai, and Bahnar gather around a bonfire, playing bronze gongs arranged in a circle. Cồng chiêng Tây Nguyên, a unique musical and spiritual tradition, is an integral part of their culture, recognized by UNESCO as a Masterpiece of the Intangible Heritage of Humanity in 2005. The performers wear intricate traditional clothing adorned with vibrant colors and patterns that tell stories of their heritage. The gongs' deep, resonant sounds fill the air, creating a mesmerizing rhythm that echoes through the forest. Behind them, a tall-roofed rong house stands as a symbol of communal gatherings and spiritual significance. For centuries, cồng chiêng Tây Nguyên has played a vital role in ethnic traditions, marking important life events and connecting the living with their ancestors. Like the role of church bells in Western culture, cồng chiêng Tây Nguyên serves as a powerful link between the spiritual and the everyday life of the community.",
+   "words_raw": 171,
+   "words": 167,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 76.6,
+   "scene_keep_raw": 0.94
+  },
+  {
+   "culture_noun": "nhà rông Tây Nguyên",
+   "in": "In the heart of Vietnam's Central Highlands, a group of performers from ethnic groups such as the Rade, Jarai, and Bahnar gather around a bonfire, playing bronze gongs arranged in a circle. Cồng chiêng Tây Nguyên, a unique musical and spiritual tradition, is an integral part of their culture, recognized by UNESCO as a Masterpiece of the Intangible Heritage of Humanity in 2005. The performers wear intricate traditional clothing adorned with vibrant colors and patterns that tell stories of their heritage. The gongs' deep, resonant sounds fill the air, creating a mesmerizing rhythm that echoes through the forest. Behind them, a tall-roofed rong house stands as a symbol of communal gatherings and spiritual significance. For centuries, cồng chiêng Tây Nguyên has played a vital role in ethnic traditions, marking important life events and connecting the living with their ancestors. Like the role of church bells in Western culture, cồng chiêng Tây Nguyên serves as a powerful link between the spiritual and the everyday life of the community.",
+   "out_raw": "### Revised Refined Prompt: In the heart of Vietnam's Central Highlands, a group of performers from ethnic groups such as the Rade, Jarai, and Bahnar come together around a bonfire, playing bronze gongs in a circle. These gongs, known as cồng chiêng Tây Nguyên, are an important part of their cultural and spiritual heritage. The performers are dressed in intricate traditional clothing adorned with vibrant colors and patterns, each detail telling a unique story of their culture. The deep, resonant sounds of the gongs fill the air, creating a mesmerizing rhythm that echoes through the surrounding forest. Behind the performers, a tall-roofed rong house stands prominently. The rong house, or nhà rông Tây Nguyên, is a central communal space for gatherings and spiritual ceremonies. Its tall, sweeping roof is often adorned with intricate carvings and decorations, and the interior houses sacred objects and traditional artwork, reflecting the rich cultural heritage of the ethnic communities. For centuries, the nhà rông Tây Nguyên has served as a symbol of communal unity and cultural continuity, playing a vital role in ethnic traditions by marking important life events and connecting the living with their ancestors. Like the role of church bells in Western culture, the cồng chiêng Tây Nguyên serves as a powerful link between the spiritual and the everyday life of the community. The house and the gongs together create a vibrant tapestry of cultural and spiritual significance, ensuring the continuity of traditions and practices that have been handed down through generations.",
+   "out": "In the heart of Vietnam's Central Highlands, a group of performers from ethnic groups such as the Rade, Jarai, and Bahnar come together around a bonfire, playing bronze gongs in a circle. These gongs, known as cồng chiêng Tây Nguyên, are an important part of their cultural and spiritual heritage. The performers are dressed in intricate traditional clothing adorned with vibrant colors and patterns, each detail telling a unique story of their culture. The deep, resonant sounds of the gongs fill the air, creating a mesmerizing rhythm that echoes through the surrounding forest. Behind the performers, a tall-roofed rong house stands prominently. The rong house, or nhà rông Tây Nguyên, is a central communal space for gatherings and spiritual ceremonies. Its tall, sweeping roof is often adorned with intricate carvings and decorations, and the interior houses sacred objects and traditional artwork, reflecting the rich cultural heritage of the ethnic communities. For centuries, the nhà rông Tây Nguyên has served as a symbol of communal unity and cultural continuity, playing a vital role in ethnic traditions by marking important life events and connecting the living with their ancestors. Like the role of church bells in Western culture, the cồng chiêng Tây Nguyên serves as a powerful link between the spiritual and the everyday life of the community. The house and the gongs together create a vibrant tapestry of cultural and spiritual significance, ensuring the continuity of traditions and practices that have been handed down through generations.",
+   "words_raw": 249,
+   "words": 245,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 102.8,
+   "scene_keep_raw": 0.88
+  }
+ ],
+ "seconds": 179.4
+}

@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C028",
+ "sig": "8b3fbe6ee09c",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.8,
+ "prompt_en": "At midday under the harsh sun, a salt worker rakes salt with a long wooden rake across a salt field, white mounds of salt lined up in rows on the ground.",
+ "culture_nouns": [
+  "ruộng muối",
+  "cào muối gỗ",
+  "ụ muối"
+ ],
+ "refined_prompt": "At midday under the harsh sun, a salt worker rakes salt with a long wooden rake across a salt field, white mounds of salt lined up in rows on the ground. In the heart of summer in Vietnam, at midday when the sun is at its peak, a salt worker meticulously rakes salt across a vast salt field, stretching as far as several football fields. Rows of white salt mounds, neatly arranged and glistening under the intense sunlight, cover the landscape. The worker uses a long wooden rake, known as a \"cào muối gỗ,\" to carefully spread the salt across the field, each movement deliberate, scraping and spreading the salt to ensure it is evenly distributed and of the highest quality. The rhythmic sound of the rake scraping against the salt is accompanied by the shimmering light reflecting off the salt crystals, while the smell of salt water fills the air. Each salt mound, roughly the size of a large dining table, is precisely spaced to ensure optimal exposure to the sun and wind for the drying process. This practice, deeply rooted in the cultural fabric of Vietnam, has been celebrated in folklore and festivals for generations.",
+ "words_in": 31,
+ "words_out": 197,
+ "clip_tokens": 265,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "ruộng muối",
+   "in": "At midday under the harsh sun, a salt worker rakes salt with a long wooden rake across a salt field, white mounds of salt lined up in rows on the ground.",
+   "out_raw": "### Refined Prompt: At midday in peak summer, under the harsh sun of Vietnam, a salt worker rakes salt across a vast salt field, a critical part of the rural economy. The salt field stretches as far as several football fields, with white mounds of salt neatly lined up in rows, glistening under the intense sunlight. Using a long wooden rake, which is as long as the worker's height, the salt worker methodically moves across the field, ensuring the salt is evenly distributed and of the highest quality. This process is part of a centuries-old tradition that has shaped the local economy and culture, with festivals and rituals celebrating the harvest. The salt field is a vital resource, not only for the community's livelihood but also for preserving their food and cultural heritage, reflecting the deep-rooted significance of salt production in Vietnamese rural life. --- **Updated SCORE:** - **Clarity**: 9.0 - **Visual Detail**: 8.0 - **Background**: 8.0 - **Purpose**: 8.0 - **Comparable Object**: 7.0 - **Total Score**: 40.0 This refined prompt provides a clear and detailed description of the salt field and the work of the salt worker in the context of Vietnamese rural life, including the historical and cultural significance of salt production.",
+   "out": "At midday in peak summer, under the harsh sun of Vietnam, a salt worker rakes salt across a vast salt field, a critical part of the rural economy. The salt field stretches as far as several football fields, with white mounds of salt neatly lined up in rows, glistening under the intense sunlight. Using a long wooden rake, which is as long as the worker's height, the salt worker methodically moves across the field, ensuring the salt is evenly distributed and of the highest quality. This process is part of a centuries-old tradition that has shaped the local economy and culture, with festivals and rituals celebrating the harvest. The salt field is a vital resource, not only for the community's livelihood but also for preserving their food and cultural heritage, reflecting the deep-rooted significance of salt production in Vietnamese rural life. --- Updated",
+   "words_raw": 204,
+   "words": 143,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 82.4,
+   "scene_keep_raw": 0.93
+  },
+  {
+   "culture_noun": "cào muối gỗ",
+   "in": "At midday in peak summer, under the harsh sun of Vietnam, a salt worker rakes salt across a vast salt field, a critical part of the rural economy. The salt field stretches as far as several football fields, with white mounds of salt neatly lined up in rows, glistening under the intense sunlight. Using a long wooden rake, which is as long as the worker's height, the salt worker methodically moves across the field, ensuring the salt is evenly distributed and of the highest quality. This process is part of a centuries-old tradition that has shaped the local economy and culture, with festivals and rituals celebrating the harvest. The salt field is a vital resource, not only for the community's livelihood but also for preserving their food and cultural heritage, reflecting the deep-rooted significance of salt production in Vietnamese rural life. --- Updated",
+   "out_raw": "### Refined Prompt: At midday in the peak of summer, under the scorching sun of Vietnam, a salt worker carefully rakes salt across a vast salt field, an essential part of the local rural economy. This salt field stretches for several football fields, with rows of white salt mounds neatly arranged, glistening under the intense sunlight. Using a long wooden rake, known as a cào muối gỗ, which is about twice the height of the worker, the salt worker meticulously moves across the field, scraping and spreading the salt to ensure it is evenly distributed and of the highest quality. The cào muối gỗ, with its rough, weathered wood, is an indispensable tool that has been used for centuries to refine salt, contributing significantly to the community's livelihood and food preservation practices. This ancient tradition involves not only the daily work of salt production but also celebrates the harvest through special festivals and rituals, where the cào muối gỗ is honored as a symbol of cultural heritage and economic importance. ### Explanation: The refined prompt now highlights the mechanics of using the cào muối gỗ more clearly, providing a step-by-step description of how the rake is utilized. The sensory details have been expanded to include the sounds of the rake scraping against the salt and the physical sensations of the worker under the sun. The cultural background has been enriched by referencing specific festivals and rituals that celebrate the salt harvest, emphasizing the significance of the cào muối gỗ beyond just its practical use. The historical evolution of the tool is mentioned, and its impact on the community's economic and cultural life is explained in greater detail. Lastly, comparisons have been refined to better describe the dimensions of the salt field and the size of the rake relative to the worker, ensuring a vivid and comprehensive description.",
+   "out": "At midday in the peak of summer in Vietnam, a salt worker carefully rakes salt across a vast salt field, stretching for several football fields, with rows of white salt mounds neatly arranged and glistening under the intense sunlight. Using a long wooden rake, known as a cào muối gỗ, about twice the height of the worker, the salt worker meticulously moves across the field, scraping and spreading the salt to ensure it is evenly distributed and of the highest quality. This ancient tradition involves daily work and special festivals celebrating the harvest, where the cào muối gỗ is honored as a symbol of cultural heritage and economic importance.",
+   "words_raw": 307,
+   "words": 109,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 150.1,
+   "scene_keep_raw": 0.8
+  },
+  {
+   "culture_noun": "ụ muối",
+   "in": "At midday in the peak of summer in Vietnam, a salt worker carefully rakes salt across a vast salt field, stretching for several football fields, with rows of white salt mounds neatly arranged and glistening under the intense sunlight. Using a long wooden rake, known as a cào muối gỗ, about twice the height of the worker, the salt worker meticulously moves across the field, scraping and spreading the salt to ensure it is evenly distributed and of the highest quality. This ancient tradition involves daily work and special festivals celebrating the harvest, where the cào muối gỗ is honored as a symbol of cultural heritage and economic importance.",
+   "out_raw": "### Revised Prompt In the heart of summer in Vietnam, at midday when the sun is at its peak, a salt worker meticulously rakes salt across a vast salt field, stretching as far as several football fields. Rows of white salt mounds, neatly arranged and glistening under the intense sunlight, cover the landscape. The worker uses a long wooden rake, known as a \"cào muối gỗ\" (salt rake), which is about twice the height of the worker, to carefully spread the salt across the field. Each movement of the rake is deliberate, scraping and spreading the salt to ensure it is evenly distributed and of the highest quality. The rhythmic sound of the rake scraping against the salt is accompanied by the shimmering light reflecting off the salt crystals, while the smell of salt water fills the air. Salt harvesting, an ancient tradition dating back centuries, is a cornerstone of Vietnamese coastal communities. It involves daily labor and special festivals celebrating the harvest, where the \"cào muối gỗ\" is honored as a symbol of cultural heritage and economic importance. Each salt mound, roughly the size of a large dining table, is precisely spaced to ensure optimal exposure to the sun and wind for the drying process. This practice, deeply rooted in the cultural fabric of Vietnam, has been celebrated in folklore and festivals for generations. It is not only an essential economic activity but also a cultural practice that has been passed down through generations, sustaining livelihoods and preserving heritage. ### Updated SCORE: {'Clarity': 9.0, 'Visual_detail': 10.0, 'Background': 8.0, 'Purpose': 7.5, 'Comparable_object': 7.0, 'Total_score': 41.5} The refined prompt provides a clear and vivid description of the salt harvesting scene in Vietnam. It integrates the historical and cultural significance, enhances visual and sensory details, and clarifies the purpose of the activity. The comparison to familiar objects and landscapes helps readers better visualize the scale and layout of the salt fields.",
+   "out": "In the heart of summer in Vietnam, at midday when the sun is at its peak, a salt worker meticulously rakes salt across a vast salt field, stretching as far as several football fields. Rows of white salt mounds, neatly arranged and glistening under the intense sunlight, cover the landscape. The worker uses a long wooden rake, known as a \"cào muối gỗ,\" to carefully spread the salt across the field, each movement deliberate, scraping and spreading the salt to ensure it is evenly distributed and of the highest quality. The rhythmic sound of the rake scraping against the salt is accompanied by the shimmering light reflecting off the salt crystals, while the smell of salt water fills the air. Each salt mound, roughly the size of a large dining table, is precisely spaced to ensure optimal exposure to the sun and wind for the drying process. This practice, deeply rooted in the cultural fabric of Vietnam, has been celebrated in folklore and festivals for generations.",
+   "words_raw": 319,
+   "words": 166,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 179.2,
+   "scene_keep_raw": 0.8
+  }
+ ],
+ "seconds": 411.7
+}

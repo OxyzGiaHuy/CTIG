@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C027",
+ "sig": "549ed9fcb42d",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.53,
+ "prompt_en": "In an incense village's drying yard, hundreds of incense stick bundles fan out across the brick yard, while a worker sits tying another bundle.",
+ "culture_nouns": [
+  "làng hương",
+  "bó chân hương"
+ ],
+ "refined_prompt": "In an incense village's drying yard, hundreds of incense stick bundles fan out across the brick yard, while a worker sits tying another bundle. In the village of Làng Hương, hundreds of bó chân hương, or bundles of sandalwood incense sticks, are meticulously arranged on brick beds in the drying yard. Each bundle, resembling a small temple pagoda, stands as a symbol of the harmony between man and nature in Vietnamese spirituality. The sticks are smooth and have a golden-brown color that complements the natural surroundings, creating a picturesque sight. The yard buzzes with the earthy scent of sandalwood and the subtle sounds of gentle rustling as the wind carries the fragrance across the village. Artisans carefully manage the drying process to ensure the sticks burn evenly and release a consistent, soothing aroma during rituals. These sticks are indispensable during Lunar New Year and Mid-Autumn Festival celebrations, where they are used to honor ancestors and invoke blessings.",
+ "words_in": 24,
+ "words_out": 157,
+ "clip_tokens": 211,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "làng hương",
+   "in": "In an incense village's drying yard, hundreds of incense stick bundles fan out across the brick yard, while a worker sits tying another bundle.",
+   "out_raw": "### Revised Refined Prompt: The village of Làng Hương serves as a sacred center for producing high-quality incense, essential for religious and cultural rituals. Founded in the 13th century, it has been a cornerstone of incense production, renowned for its high-quality incense used in sacred ceremonies and daily rituals, reflecting deep cultural ties to the practice. Incense production here is not just a craft but a sacred art, rooted in centuries of tradition and passed down through generations. In the village's drying yard, hundreds of bundles of sandalwood incense sticks are spread out across the brick yard. Each bundle is meticulously arranged to maximize air circulation, ensuring that the drying process is efficient and that the aroma is preserved. The weathered and worn bricks form a perfect backdrop for this delicate process, adding a sense of history and tradition to the scene. The scent of drying sandalwood fills the air, evoking a sense of calm and reverence. Unlike the process of drying tea leaves, which requires the leaves to be spread thinly to prevent moisture from accumulating, the incense sticks are laid out in a more compact formation. This arrangement helps retain moisture, which is crucial for preserving the fragrant oils within the sticks. Ensuring the sticks burn evenly and release a consistent, soothing aroma during rituals, artisans carefully manage the drying process to maintain the high quality of the incense. The gentle breeze carries the sound of rustling leaves and the occasional footsteps of artisans moving between bundles, creating a serene environment dedicated to the art of incense making. This process holds deep spiritual and cultural significance, embodying the essence of the village's identity and heritage. ### Updated SCORE: - **Clarity**: 9.0 (simplified and broken down sentences for better readability) - **Visual Detail**: 9.5 (enhanced sensory details like the color of bricks and tactile sensation of incense sticks) - **Background**: 8.5 (added more historical context about the village's founding and cultural significance) - **Purpose**: 7.5 (more explicitly stated the purpose of the village's incense production) - **Comparable Object**: 7.0 (provided a more detailed comparison between incense stick and tea leaf drying processes) **Total Score**: 41.0",
+   "out": "The village of Làng Hương is a sacred center for producing high-quality incense, essential for religious and cultural rituals. Founded in the 13th century, it has been renowned for its incense used in ceremonies and daily rituals. In the village's drying yard, hundreds of bundles of sandalwood incense sticks are spread out across the brick yard, meticulously arranged to maximize air circulation. The scent of drying sandalwood fills the air, evoking a sense of calm and reverence. Unlike tea leaves, which need to be spread thinly, the incense sticks are laid out compactly to retain moisture, crucial for preserving their fragrant oils. Artisans carefully manage the drying process to ensure the sticks burn evenly and release a consistent, soothing aroma during rituals. The weathered bricks form a perfect backdrop, adding a sense of history and tradition to the serene environment dedicated to the art of incense making.",
+   "words_raw": 356,
+   "words": 147,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 374.9,
+   "scene_keep_raw": 0.53
+  },
+  {
+   "culture_noun": "bó chân hương",
+   "in": "The village of Làng Hương is a sacred center for producing high-quality incense, essential for religious and cultural rituals. Founded in the 13th century, it has been renowned for its incense used in ceremonies and daily rituals. In the village's drying yard, hundreds of bundles of sandalwood incense sticks are spread out across the brick yard, meticulously arranged to maximize air circulation. The scent of drying sandalwood fills the air, evoking a sense of calm and reverence. Unlike tea leaves, which need to be spread thinly, the incense sticks are laid out compactly to retain moisture, crucial for preserving their fragrant oils. Artisans carefully manage the drying process to ensure the sticks burn evenly and release a consistent, soothing aroma during rituals. The weathered bricks form a perfect backdrop, adding a sense of history and tradition to the serene environment dedicated to the art of incense making.",
+   "out_raw": "### Revised Refined Prompt The village of Làng Hương is a sacred center for producing high-quality bó chân hương, or bundles of sandalwood incense sticks, essential for religious and cultural rituals. Founded in the 13th century by ancient Vietnamese kings, the village has been designated as the spiritual heart of sandalwood incense production, ensuring its continued importance through centuries. Làng Hương's bó chân hương has been a cornerstone of Vietnamese spiritual practices for over 700 years, symbolizing reverence and purification. In the village's drying yard, hundreds of bó chân hương are meticulously arranged on brick beds to maximize air circulation. Each bundle, resembling a small temple pagoda, stands as a symbol of the harmony between man and nature in Vietnamese spirituality. The drying yard buzzes with the earthy scent of sandalwood and the subtle sounds of gentle rustling as the wind carries the fragrance across the village. The texture of the sticks is smooth, and their golden-brown color complements the natural surroundings, making the drying process a picturesque sight. Artisans carefully manage the drying process to ensure the sticks burn evenly and release a consistent, soothing aroma during rituals. These sticks are indispensable during Lunar New Year and Mid-Autumn Festival celebrations, where they are used to honor ancestors and invoke blessings. This method of handling the bó chân hương adds a sense of history and tradition to the serene environment dedicated to this sacred craft, which is integral to Vietnamese spiritual practices. This refined prompt emphasizes the historical and cultural significance of bó chân hương, provides vivid visual details, and highlights its role in significant cultural and religious festivals, making it easier for anyone to understand and imagine the scene.",
+   "out": "In the village of Làng Hương, hundreds of bó chân hương, or bundles of sandalwood incense sticks, are meticulously arranged on brick beds in the drying yard. Each bundle, resembling a small temple pagoda, stands as a symbol of the harmony between man and nature in Vietnamese spirituality. The sticks are smooth and have a golden-brown color that complements the natural surroundings, creating a picturesque sight. The yard buzzes with the earthy scent of sandalwood and the subtle sounds of gentle rustling as the wind carries the fragrance across the village. Artisans carefully manage the drying process to ensure the sticks burn evenly and release a consistent, soothing aroma during rituals. These sticks are indispensable during Lunar New Year and Mid-Autumn Festival celebrations, where they are used to honor ancestors and invoke blessings.",
+   "words_raw": 280,
+   "words": 133,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 214.0,
+   "scene_keep_raw": 0.6
+  }
+ ],
+ "seconds": 588.9
+}

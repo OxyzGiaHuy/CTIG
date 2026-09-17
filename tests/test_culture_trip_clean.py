@@ -37,4 +37,27 @@ print("chuỗi đã sạch giữ nguyên; chuỗi rỗng không lỗi")
 assert m.clip_tokens(" ".join(["w"] * 100)) > 77
 assert m.clip_tokens("A woman in ao dai.") < 77
 print("đếm token: câu dài vượt 77, câu ngắn không")
+# bốn khuôn đã gặp trên dữ liệu thật của llama3:8b
+CASES = {
+ "ngoặc kép + SCORE": ('Here is the revised REFINED PROMPT that incorporates the suggested changes: "In a traditional '
+   'Vietnamese setting, banh chung is a square dish wrapped in dong leaves and tied with bamboo strips. The leaves are '
+   'green." SCORE: {\'Clarity\': 9.5, \'Total_score\': 42}', "In a traditional", "green."),
+ "aims to 1.2.3": ('Based on the feedback, I refined the prompt as follows: The One Pillar Pagoda, a Buddhist temple '
+   'near a pond, is famous for its structure. Early morning mist surrounds it in Hanoi. The refined prompt aims to: '
+   '1. Maintain the scene. 2. Provide background.', "The One Pillar", "Hanoi."),
+ "lời rào chồng nhau": ('Here is the refined prompt based on the feedback: ### Refined Prompt: Draw a picture of a '
+   'young woman wearing an ao dai over silk trousers. ### Refine Feedback: more detail.', "Draw a picture", "trousers."),
+}
+for name, (raw, head, tail) in CASES.items():
+    out, cut = m.clean_refined(raw)
+    assert cut and out.startswith(head), (name, out[:60])
+    assert out.endswith(tail), (name, out[-40:])
+    for junk in ("SCORE", "Clarity", "aims to", "Refined Prompt", "Here is", "Based on"):
+        assert junk not in out, (name, junk, out)
+    print("%-22s %3d -> %2d từ, sạch" % (name, len(raw.split()), len(out.split())))
+
+# an toàn: dò sai làm mất gần hết chữ -> trả lại chuỗi ban đầu
+short = "Here is the refined prompt: ok."
+assert m.clean_refined(short) == (short, False)
+print("dò sai còn dưới 8 từ: trả lại chuỗi ban đầu")
 print("ĐẠT")

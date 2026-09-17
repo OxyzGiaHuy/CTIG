@@ -10,8 +10,9 @@ Thay cho vòng lặp ba lượt của `copilot.py`. Lý do đổi, dựa trên s
   đúng prompt gốc với đúng seed, nên nhánh M không bao giờ tệ hơn nhánh nền.
 - Bộ chấm bịa chuẩn văn hoá ("xẻ tà không phổ biến ở áo dài", "đòn gánh khác yoke"). Ở đây Critic CHỈ được
   viện dẫn `contract_id` có thật trong contract; mọi mục bịa ra đều bị loại bằng máy.
-- 99/100 prompt Culture-TRIP vượt 77 token CLIP. Ở đây prompt gốc BẤT BIẾN, chỉ nối thêm một mệnh đề ngắn,
-  và cắt phần THÊM chứ không bao giờ cắt phần gốc.
+- 99/100 prompt Culture-TRIP vượt 77 token CLIP. Ở đây prompt gốc BẤT BIẾN, và mệnh đề sửa đặt lên TRƯỚC
+  nó, vì compel cắt embedding gộp ở 77 token nên phần đuôi gần như không tác dụng (S002 tả rõ 'a balanced
+  pole across her shoulders' mà vẫn ra xe đạp). Chỉ mệnh đề bị giới hạn 25 từ, phần gốc không đụng tới.
 
 Ba agent dùng CHUNG một MLLM, chỉ khác system prompt. Phải khai đúng như vậy trong bài:
 "role-specialized agents sharing the same MLLM backbone", đừng gọi là ba model độc lập.
@@ -32,8 +33,8 @@ import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
-#: Trần token cho CẢ prompt sau khi nối. Vượt thì cắt mệnh đề sửa, không bao giờ cắt prompt gốc.
-MAX_TOKENS = 100
+#: Độ dài tối đa của MỆNH ĐỀ SỬA (từ). Prompt gốc không bị giới hạn và không bao giờ bị cắt.
+MAX_TOKENS = 25
 #: Critic chỉ được nêu tối đa chừng này lỗi. Nhiều hơn thì mệnh đề sửa dài và loãng.
 MAX_VIOLATIONS = 2
 
@@ -247,21 +248,32 @@ def review(agent, m3: dict, m2: dict, contract: dict, log=print) -> dict:
 
 # ------------------------------------------------------------------ ghép prompt
 def append_repair(base_prompt: str, clause: str, max_tokens: int = MAX_TOKENS) -> tuple[str, str]:
-    """Nối mệnh đề sửa vào SAU prompt gốc. Vượt trần thì cắt MỆNH ĐỀ, không bao giờ cắt prompt gốc.
+    """Đặt mệnh đề sửa lên TRƯỚC prompt gốc. Trả (prompt đầy đủ, ghi chú).
 
-    Prompt Culture-TRIP đã 99/100 vượt 77 token CLIP, nên phần thêm phải kỷ luật. Trả (prompt, ghi chú).
+    Vì sao đặt trước chứ không nối sau, dù tên hàm là "append":
+
+    1. Nối sau thì KHÔNG CÒN CHỖ. Prompt Culture-TRIP dài 97-324 từ; với trần 100 token thì mọi mệnh đề
+       sửa đều bị từ chối và cả ba nhánh T/S/M rơi về prompt gốc — bốn ảnh giống hệt nhau, thí nghiệm ra
+       con số không. Đo thật ở lượt chạy thử S001: "prompt gốc đã 97 từ, không còn chỗ".
+    2. Nối sau thì BỊ LOÃNG. compel ghép prompt dài theo từng khối 77 token, nhưng embedding gộp vẫn cắt
+       ở 77. Phần đuôi gần như không tác dụng — đã thấy ở S002: câu tinh chỉnh tả rõ "a balanced pole
+       across her shoulders" mà ảnh vẫn ra xe đạp.
+
+    Prompt gốc vẫn BẤT BIẾN đúng nghĩa: không sửa, không cắt một chữ nào của nó. Chỉ có mệnh đề sửa bị
+    giới hạn độ dài, và nếu nó vượt `max_clause` thì cắt MỆNH ĐỀ.
     """
+    clause = " ".join((clause or "").split())
     if not clause:
         return base_prompt, "không có mệnh đề sửa"
-    words = base_prompt.split()
-    con_lai = max(0, max_tokens - len(words))
-    if con_lai < 6:
-        return base_prompt, f"prompt gốc đã {len(words)} từ, không còn chỗ cho mệnh đề sửa"
+    max_clause = 25
     cw = clause.split()
-    if len(cw) > con_lai:
-        clause = " ".join(cw[:con_lai]).rstrip(",.;") + "."
-        return f"{base_prompt} {clause}", f"cắt mệnh đề còn {con_lai} từ"
-    return f"{base_prompt} {clause}", ""
+    note = ""
+    if len(cw) > max_clause:
+        clause = " ".join(cw[:max_clause]).rstrip(",.;") + "."
+        note = f"cắt mệnh đề từ {len(cw)} còn {max_clause} từ"
+    if not clause.endswith((".", ",")):
+        clause += "."
+    return f"{clause} {base_prompt}", note
 
 
 # ------------------------------------------------------------------ nhánh S: một VLM tự viết

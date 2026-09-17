@@ -125,6 +125,8 @@ def clean_refined(text: str) -> tuple[str, bool]:
     return t, cut
 
 
+_STOP = set("a an the of in on at with and or for to is are was were by from as its their this "
+            "that into over under it his her they them".split())
 _JUNK = ("refined prompt", "base prompt", "culture noun", "feedback", "clarity", "score",
          "here is", "here's", "based on the", "i refined", "i added", "### ")
 
@@ -137,13 +139,20 @@ EXTRACT_SYS = (
 )
 
 
+def grounded(out: str, raw: str) -> float:
+    """Tỉ lệ từ nội dung của chuỗi bóc ra có mặt trong chuỗi thô. Thấp = LLM bịa thêm."""
+    import re as _re
+
+    w = [x for x in _re.findall(r"[a-zà-ỹ]+", out.lower()) if x not in _STOP and len(x) > 3]
+    if not w:
+        return 0.0
+    src = set(_re.findall(r"[a-zà-ỹ]+", raw.lower()))
+    return sum(x in src for x in w) / len(w)
+
+
 def looks_clean(t: str) -> bool:
     low = " " + t.lower()
     return bool(t) and len(t.split()) >= 8 and not any(j in low for j in _JUNK)
-
-
-_STOP = set("a an the of in on at with and or for to is are was were by from as its their this "
-            "that into over under it his her they them".split())
 
 
 def compose(prompt_en: str, refined: str) -> str:
@@ -193,6 +202,12 @@ def extract_prompt_llm(llm, raw: str, log=print) -> str:
         log(f"    [bóc bằng LLM] lỗi {type(exc).__name__}")
         return ""
     if not looks_clean(out) or len(out.split()) > len(raw.split()):
+        return ""
+    # Chốt chặn quan trọng nhất: chuỗi bóc ra phải BÁM vào chuỗi gốc. S015 có bản thô chỉ chứa feedback, không
+    # có prompt nào ("The refined prompt meets the requirements… REFINE FEEDBACK: … ANSWER:"), và LLM đã BỊA ra
+    # "A majestic tiger emerges from a misty forest". Yêu cầu phần lớn từ nội dung phải xuất hiện trong bản thô.
+    if grounded(out, raw) < 0.6:
+        log(f"    [bóc bằng LLM] kết quả không bám bản thô ({grounded(out, raw):.0%}) -> bỏ")
         return ""
     return out
 
@@ -342,6 +357,9 @@ def refine_one(culture_trip, repo: str, nouns: list[str], prompt_en: str, thresh
                     clean, was_cut, how = alt, True, "llm"
                 else:
                     how = "CÒN RÁC"
+                    if grounded(clean, out) < 0.6 or len(clean.split()) < 8:
+                        clean, how = "", "BẢN THÔ KHÔNG CÓ PROMPT"
+                        log(f"    [{noun}] bản thô chỉ có feedback, không có prompt -> giữ câu trước")
 
             steps.append({"culture_noun": noun, "in": cur, "out_raw": out, "out": clean,
                           "words_raw": len(out.split()), "words": len(clean.split()), "post_processed": was_cut,

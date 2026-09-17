@@ -59,47 +59,25 @@ def grid(images: list[tuple[str, str]], out_png: Path, cell: int = 420, log=prin
     log(f"{out_png} · {len(ok)} ảnh")
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--config", required=True)
-    ap.add_argument("--id", required=True)
-    ap.add_argument("--model", default="sdxl_base")
-    ap.add_argument("--prompt-source", default="culture_trip")
-    ap.add_argument("--threshold", type=float, default=copilot.DEFAULT_THRESHOLD)
-    ap.add_argument("--rounds", type=int, default=copilot.DEFAULT_MAX_ROUNDS)
-    ap.add_argument("--run-name", default="loopv2")
-    ap.add_argument("--park-vlm", action="store_true",
-                    help="gửi bộ chấm xuống RAM trong lúc sinh ảnh. Cần trên card 48 GB: giữ cả Mistral 24B "
-                         "(48 GB) lẫn SDXL (đỉnh 24,7 GB) là 57,6 GB. Mất ~3 giây mỗi chiều qua PCIe, rẻ hơn "
-                         "nạp lại từ đĩa và rẻ hơn cái giá chất lượng của việc lượng tử hoá.")
-    ap.add_argument("--seed-mode", default="fixed", choices=("fixed", "vary"),
-                    help="fixed (mặc định): mọi vòng dùng chung seed, khác biệt giữa các vòng chỉ do prompt. "
-                         "vary: như bản cũ, mỗi vòng một seed -> các vòng là mẫu độc lập, không so được với nhau.")
-    ap.add_argument("--set", action="append", default=[])
-    a = ap.parse_args(argv)
-    log = lambda *x: print(*x, flush=True)  # noqa: E731
-
-    ov: dict = {}
-    for kv in a.set:
-        k, _, v = kv.partition("=")
-        set_dotted(ov, k, v)
-    set_dotted(ov, "t2i.render", "bare")
-    set_dotted(ov, "multigen.adaptive.enabled", "false")
-    set_dotted(ov, "multigen.n_candidates", "1")
-    # Bộ chấm Mistral-Small-3.1-24B chiếm ~48 GB; giữ thêm pipeline thường trú là tràn card 80 GB.
-    # Vòng sửa chạy một prompt một lần nên cũng chẳng tiết kiệm được gì.
-    set_dotted(ov, "multigen.keep_loaded", "0")
-    cfg = Config.load(a.config, ov)
-    prompt = {p.id: p for p in load_prompts(cfg.prompts_path)}[a.id]
+def one(cfg, prompt, run_dir, a, shared_agent, log):
+    src, model = a.prompt_source, a.model
     run_dir = Path(cfg.runs_dir) / a.run_name
     s = Session(cfg, prompt, run_dir=run_dir, log=log)
+    if shared_agent[0] is not None:
+        s._agent = shared_agent[0]
 
-    # --- grounding chỉ để lấy ảnh tham chiếu và GenSpec; spec KHÔNG được dùng làm bảng kiểm
-    s.grounding()
-    refined, evidence = external_prompt(a.prompt_source, a.id) if a.prompt_source != "original" else ("", "")
+    # `prompt_refs` đọc thẳng từ đĩa theo prompt_id nên KHÔNG cần grounding, mà grounding tốn
+    # 22-191 giây mỗi prompt (web search + tự sinh KB) và với render=bare thì không ảnh hưởng
+    # ảnh — đã chứng minh bằng md5 trùng khít. Vòng lặp lấy tư liệu từ Culture-TRIP, không từ đây.
+    if a.grounding:
+        s.grounding()
+    else:
+        s.skip_grounding()
+        s.spec()
+    refined, evidence = external_prompt(src, prompt.id) if src != "original" else ("", "")
     if refined:
         s.set_prompt_en(refined)
-        log(f"[prompt] dùng câu từ data/{a.prompt_source}/: {len(refined.split())} từ")
+        log(f"[prompt] dùng câu từ data/{src}/: {len(refined.split())} từ")
     gen, _ = s.genspec()
     refs = s.prompt_refs(include_candidates=False)[:3]
     log(f"[refs] {len(refs)} ảnh thật của prompt: {[Path(r).name for r in refs]}")
@@ -136,7 +114,7 @@ def main(argv=None):
         g = replace(gen, prompt_terms=base_terms + applied, seed=seed,
                     negative_terms=base_neg + [x for x in (negative or []) if x not in base_neg],
                     iteration=n, ip_adapter_image=(use_refs or None), ip_adapter_scale=cfg.multigen.ref_scale)
-        key = a.model if not use_refs else (a.model if "+ref" in a.model else a.model + "+ref")
+        key = model if not use_refs else (model if "+ref" in model else model + "+ref")
         r = mg.run(g, s.spec()[0], s.kb, [key], cfg.multigen, out_dir / f"iter{n}", clip=s.clip, itm=None,
                    t2i_cfg=cfg.t2i, prompt_en=s.analysis()[0].prompt_en, log=log,
                    ref_images=use_refs, force_refs=bool(use_refs))
@@ -155,7 +133,7 @@ def main(argv=None):
     out = copilot.run_loop(s.agent, a_in, first, make, refs=refs, crop=crop,
                            threshold=a.threshold, max_rounds=a.rounds, log=log)
 
-    res = {"prompt_id": a.id, "model": a.model, "prompt_source": a.prompt_source, "seed_mode": a.seed_mode,
+    res = {"prompt_id": prompt.id, "model": model, "prompt_source": src, "seed_mode": a.seed_mode,
            "applied_positive": applied,
            "prompt_used": " ".join(base_terms), "report": a_in, "refs": refs,
            "threshold": a.threshold, **out}
@@ -166,8 +144,56 @@ def main(argv=None):
                                           r.get("image")) for r in out["rounds"]]
     grid(imgs, out_dir / "loop_v2.png", log=log)
     log(f"[xong] {out['stop']} · ảnh cuối {out['final']}")
-    log(f"[xong] {out_dir / 'loop_v2.json'}")
+    shared_agent[0] = s.agent
+    return res
 
 
-if __name__ == "__main__":
-    main()
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", required=True)
+    ap.add_argument("--id", default=None, help="một prompt")
+    ap.add_argument("--ids", default=None, help="nhiều prompt, cách nhau bằng dấu phẩy; dùng CHUNG một agent")
+    ap.add_argument("--grounding", action="store_true",
+                    help="chạy Analysis/Search/Spec. Mặc định TẮT: prompt_refs đọc thẳng từ đĩa, và với "
+                         "render=bare grounding không ảnh hưởng ảnh nhưng tốn 22-191 giây mỗi prompt.")
+    ap.add_argument("--model", default="sdxl_base")
+    ap.add_argument("--prompt-source", default="culture_trip")
+    ap.add_argument("--threshold", type=float, default=copilot.DEFAULT_THRESHOLD)
+    ap.add_argument("--rounds", type=int, default=copilot.DEFAULT_MAX_ROUNDS)
+    ap.add_argument("--run-name", default="loopv2")
+    ap.add_argument("--park-vlm", action="store_true",
+                    help="gửi bộ chấm xuống RAM trong lúc sinh ảnh. Cần trên card 48 GB: giữ cả Mistral 24B "
+                         "(48 GB) lẫn SDXL (đỉnh 24,7 GB) là 57,6 GB. Mất ~3 giây mỗi chiều qua PCIe, rẻ hơn "
+                         "nạp lại từ đĩa và rẻ hơn cái giá chất lượng của việc lượng tử hoá.")
+    ap.add_argument("--seed-mode", default="fixed", choices=("fixed", "vary"),
+                    help="fixed (mặc định): mọi vòng dùng chung seed, khác biệt giữa các vòng chỉ do prompt. "
+                         "vary: như bản cũ, mỗi vòng một seed -> các vòng là mẫu độc lập, không so được với nhau.")
+    ap.add_argument("--set", action="append", default=[])
+    a = ap.parse_args(argv)
+    log = lambda *x: print(*x, flush=True)  # noqa: E731
+
+    ov: dict = {}
+    for kv in a.set:
+        k, _, v = kv.partition("=")
+        set_dotted(ov, k, v)
+    set_dotted(ov, "t2i.render", "bare")
+    set_dotted(ov, "multigen.adaptive.enabled", "false")
+    set_dotted(ov, "multigen.n_candidates", "1")
+    # Bộ chấm Mistral-Small-3.1-24B chiếm ~48 GB; giữ thêm pipeline thường trú là tràn card 80 GB.
+    # Vòng sửa chạy một prompt một lần nên cũng chẳng tiết kiệm được gì.
+    set_dotted(ov, "multigen.keep_loaded", "0")
+    cfg = Config.load(a.config, ov)
+
+    ids = [x.strip() for x in (a.ids or a.id or "").split(",") if x.strip()]
+    allp = {p.id: p for p in load_prompts(cfg.prompts_path)}
+    shared_agent = [None]          # dùng chung MỘT agent: mỗi Session mới tự nạp thêm Mistral 48 GB
+    for pid in ids:
+        if pid not in allp:
+            log(f"[{pid}] không có trong {cfg.prompts_path}"); continue
+        log(f"\n========== {pid} ==========")
+        try:
+            one(cfg, allp[pid], None, a, shared_agent, log)
+        except Exception as exc:  # noqa: BLE001
+            import traceback
+            log(f"[{pid}] LỖI {type(exc).__name__}: {exc}")
+            traceback.print_exc()

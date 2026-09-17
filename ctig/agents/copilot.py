@@ -127,11 +127,16 @@ def _identity_question(entity_en: str, look_alikes: list[str]) -> tuple[str, lis
 
 
 def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, crop: str | None = None,
-             threshold: float = DEFAULT_THRESHOLD, log=print) -> EvalResult:
-    """Ba trục. Trục văn hoá đối chiếu với ẢNH THẬT, không với bảng must_have."""
+             threshold: float = DEFAULT_THRESHOLD, log=print, n_refs: int = 2) -> EvalResult:
+    """Ba trục. Trục văn hoá đối chiếu với ẢNH THẬT, không với bảng must_have.
+
+    `refs` phải là ảnh thật ĐÃ CẮT quanh chủ thể, giống ảnh sinh. Lượt chạy S012 so ảnh sinh đã cắt với ảnh
+    thật nguyên khung, và Qwen2.5-VL-7B phải nhìn 4 ảnh một lúc ở độ phân giải thấp: nó lặp lại "hull is oval"
+    cho đúng tấm ảnh thuyền tròn rõ ràng. Cắt cả hai phía và giảm còn 2 ảnh thật để mỗi ảnh được nhiều pixel hơn.
+    """
     ev = EvalResult(path=image)
     img = crop or image
-    refs = [r for r in (refs or [])][:3]
+    refs = [r for r in (refs or [])][:n_refs]
 
     # --- trục 1 + 2: khớp prompt và thẩm mỹ, đúng 8 tiểu mục kiểu T2I-Copilot
     want = ("; ".join(report.get("subjects") or []) + " | " + "; ".join(report.get("attributes") or [])
@@ -275,6 +280,7 @@ def run_loop(agent, report: dict, first_image: str, generate, refs=None, crop=No
     """
     cr = lambda p: (crop(p) if crop else p)  # noqa: E731
     entity = report.get("entity_en") or ""
+    refs = [cr(r) for r in (refs or [])]      # ảnh thật cũng phải cắt, để so cùng khung với ảnh sinh
     best_img, rounds = first_image, []
     ev = evaluate(agent, first_image, report, refs, cr(first_image), threshold, log)
     best = ev

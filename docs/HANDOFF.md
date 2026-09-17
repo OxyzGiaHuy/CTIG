@@ -712,8 +712,11 @@ tạo** (lượt đầu trả về "no net", "no fish", "no hat" — đồ vật
 ### Trạng thái các lô khác
 
 - `label20` (ảnh để gán nhãn tay): **11/20**, bị dừng khi máy có sự cố.
-- Culture-TRIP `qwen2.5:14b` 100 prompt: **25/100**, cũng bị dừng. Bản `llama3:8b` 68 prompt giữ ở
-  `data/culture_trip_llama8b/` làm bằng chứng cho phần khai báo thay model.
+- Culture-TRIP `qwen2.5:14b` 100 prompt: **100/100, XONG 2026-09-17 09:47** (`47 mới, 53 bỏ qua, 0 có vấn đề`,
+  6.315 s). Kết quả ở `data/culture_trip/` (S001–S050 + C001–C050). Bản `llama3:8b` dừng ở 68/100 (thiếu
+  C019–C050), giữ ở `data/culture_trip_llama8b/` làm bằng chứng cho phần khai báo thay model.
+- **46/47 prompt mới vượt 77 token CLIP.** SDXL/RealVis ghép được nhờ compel; **SD 3.5 Medium sẽ cắt cụt** —
+  phải ghi vào Limitations nếu dùng model đó.
 - Model sinh chốt: **SDXL 1.0, RealVis XL 4.0, FLUX.1-dev**. Đã xoá SD 3.5 Medium, CLIP-L, kho refs cũ,
   `runs/{v17,v17_complex,v18*,v19,v191,v192}`.
 - FLUX cần `multigen.cpu_offload=true` khi có việc khác dùng GPU, nếu không hết VRAM.
@@ -756,10 +759,51 @@ tạo** (lượt đầu trả về "no net", "no fish", "no hat" — đồ vật
 
 ## 5. Máy vast.ai
 
-1× A100 80 GB (Taiwan), đĩa 100 GB. Repo `/workspace/ctig17` (git pull), venv `/venv/main`, `HF_HOME=/workspace/.hf_home`,
-`HF_TOKEN` trong `~/.bashrc` (bashrc return sớm ở shell không tương tác → `export HF_TOKEN=$(grep "^export HF_TOKEN" ~/.bashrc | cut -d= -f2)`).
-Kho ảnh `/workspace/refs` (1.399), index `/workspace/runs/_cache/ref_index.npz`. Log `/workspace/logs/`. Script phụ `/workspace/{summ.py,
-summ_pairs.py,verd.py,compare_pairs.py}`. Chạy nền bằng `setsid nohup ... &`. Host/port SSH đổi sau mỗi Start; Stop giữ đĩa, Destroy mất.
+### Máy hiện tại (từ 2026-09-17)
+
+**1× A800 80 GB PCIE, đĩa 250 GB**, `ssh -p 40011 root@174.27.185.39`. Chọn A800 80 GB vì đã đo đỉnh VRAM
+`flux_dev+ref` = **51,98 GB**, loại hẳn mọi card 40 GB. Repo `/workspace/ctig17`, venv `/venv/main`
+(torch 2.6.0+cu124), `HF_HOME=/workspace/.hf_home`, Ollama chạy với `OLLAMA_NUM_PARALLEL=6
+OLLAMA_MAX_LOADED_MODELS=2` (mặc định là 1, làm mọi worker phía client thành vô nghĩa — đã đo: 3,4 → 2,3
+phút/prompt khi đổi sang 6), `qwen2.5:14b` đã tải.
+
+**Cache model đang phình 170 GB thay vì ~67 GB** vì `snapshot_download()` gọi thiếu `variant="fp16"` và
+`allow_patterns`, kéo cả fp32 lẫn fp16, cả `.bin` lẫn `.safetensors`: SDXL 58 GB (đáng ra 6,5), FLUX 54 GB
+(32), RealVis 26 GB (6,4), IP-Adapter 14 GB (3,2). Cần dọn trước khi chạy lô lớn.
+
+### Chuyển máy: đừng dùng vast copy
+
+Đã đo ba đường truyền, chênh nhau hơn 30 lần:
+
+| đường | tốc độ |
+|---|---|
+| **rsync thẳng máy cũ → máy mới** | **8,9–12,5 MB/s** |
+| vast copy | ~0,28 MB/s |
+| đi vòng qua máy người dùng | 0,23 MB/s (đường lên nhà chỉ 1,8 Mbps) |
+
+Cách dựng đường thẳng: `ssh-keygen` trên máy cũ, thêm khoá công khai vào `~/.ssh/authorized_keys` máy mới,
+rồi `rsync -az -e "ssh -i ~/.ssh/id_ed25519 -p <port>"`. **Hai cái bẫy đã dính:**
+
+1. `authorized_keys` của vast **không có ký tự xuống dòng ở cuối**, nên `echo "$K" >>` dán khoá mới dính vào
+   dòng trước và cả hai thành vô hiệu. Phải kiểm lại bằng `awk '{print $1, $3}'` sau khi thêm.
+2. `/usr/bin/rsync` trên ảnh máy vast là **file 0 byte** ở cả hai máy → `Permission denied`. Sửa bằng
+   `rm -f /usr/bin/rsync && apt-get install -y --reinstall rsync`.
+
+Cũng đừng tin bảng điều khiển vast: nó báo "Done receiving copy" trong khi **không có file nào tới nơi**, và
+báo GPU 87% trong khi máy đã rảnh 40 phút.
+
+### Máy cũ (1× A100 80 GB Taiwan, đĩa 100 GB) — đã rút hết dữ liệu
+
+Bài học đóng gói: `migrate.tgz` đóng lúc 09:06 **không chứa một mục `ctig17/` nào**, trong khi lô Culture-TRIP
+chạy tới 09:47 mới xong. 2,5 GB đó chỉ là `venv_ctrip` + `refs_new`, đều tạo lại được. Phần thật sự không thể
+thay thế chỉ **~2,3 MB**: `data/culture_trip*/`, `ct_review.{html,md}`, và mấy chục script `*.sh`/`*.py` ở
+`/workspace`. Lần sau đóng gói thì liệt kê thứ KHÔNG tạo lại được trước, đừng `tar` cả thư mục.
+`refs_new/` (897 MB, 2.343 ảnh) tải lại từ Drive được: id `1Ay4JgSPhu2tQE9nDaBPPXA3qqg6nvHNS` (simple) và
+`1wMMM6AA1EhThaoPo66ao2sSRPX4zBGLO` (complex).
+
+Chạy nền bằng `setsid nohup ... &`. **KHÔNG** `pkill -f`/`pgrep -f` với chuỗi có trong chính lệnh ssh (đã tự
+giết phiên 3 lần) — dùng pattern ngoặc vuông `[r]sync`. Host/port SSH đổi sau mỗi Start; Stop giữ đĩa,
+Destroy mất.
 
 ## 6. Việc kế tiếp theo thứ tự
 

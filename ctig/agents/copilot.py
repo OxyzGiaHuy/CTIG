@@ -67,6 +67,17 @@ def _clean_item(v, allow_absence: bool = True) -> str:
     return t
 
 
+def _tag(path: str) -> str:
+    """Nhãn ngắn cho log: tên thư mục vòng nếu có, không thì tên tệp."""
+    from pathlib import Path as _P
+
+    q = _P(path)
+    for part in reversed(q.parts[:-1]):
+        if part.startswith("iter"):
+            return part
+    return q.stem
+
+
 def _num(x, lo=0.0, hi=10.0, default=5.0) -> float:
     try:
         return max(lo, min(hi, float(x)))
@@ -270,6 +281,50 @@ def suggestions(agent, ev: EvalResult, entity_en: str = "", log=print) -> tuple[
     return pos, neg
 
 
+# ------------------------------------------------------------------ 2b. Chọn ảnh cuối bằng SO CẶP
+def compare_pair(agent, img_a: str, img_b: str, ref: str, entity_en: str = "") -> float:
+    """P(ảnh A giống ảnh thật hơn ảnh B). Hỏi CẢ HAI thứ tự rồi lấy trung bình để khử thiên lệch vị trí.
+
+    Vì sao so cặp thay vì so điểm tuyệt đối: bộ chấm cho điểm gần như đứng yên (trục khớp prompt 5,8 ở mọi
+    vòng) và có lúc nói ngược chiều so sánh. VLM trả lời "cái nào giống hơn" đáng tin hơn nhiều so với "cái
+    này mấy điểm" — cùng lý do mà bài T2I-Copilot phải đặt ngưỡng tay cho điểm tuyệt đối.
+    """
+    fn = getattr(agent.llm, "choice_prob", None)
+    if fn is None:
+        return 0.5
+    what = entity_en or "the main object"
+    q = (f"Image A and image B are generated. Image C is a real photograph of a {what}. "
+         f"Which generated image shows a {what} built more like the one in the real photograph? "
+         "Judge the object's shape, proportions, material and construction only. Ignore lighting, pose, "
+         "camera angle and background.\nA. image A\nB. image B\nAnswer with only the letter A or B.")
+    try:
+        p1 = fn(q, [img_a, img_b, ref], ("A", "B"))
+        p2 = fn(q, [img_b, img_a, ref], ("A", "B"))
+    except Exception:  # noqa: BLE001
+        return 0.5
+    return (p1[0] + p2[1]) / 2.0
+
+
+def pick_best(agent, images: list[str], ref: str | None, entity_en: str = "", crop=None, log=print) -> tuple[str, dict]:
+    """Đấu vòng tròn từng cặp, ảnh nào thắng nhiều nhất thì chọn. Trả (ảnh, bảng điểm thắng)."""
+    imgs = [i for i in dict.fromkeys(images) if i]
+    if len(imgs) < 2 or not ref:
+        return (imgs[0] if imgs else ""), {}
+    cr = (lambda p: crop(p)) if crop else (lambda p: p)
+    cim = {i: cr(i) for i in imgs}
+    cref = cr(ref)
+    wins = {i: 0.0 for i in imgs}
+    for a in range(len(imgs)):
+        for b in range(a + 1, len(imgs)):
+            ia, ib = imgs[a], imgs[b]
+            p = compare_pair(agent, cim[ia], cim[ib], cref, entity_en)
+            wins[ia] += p
+            wins[ib] += 1.0 - p
+    best = max(imgs, key=lambda i: wins[i])
+    log("  [chọn cuối] đấu cặp: " + " · ".join(f"{_tag(i)}={wins[i]:.2f}" for i in imgs))
+    return best, {i: round(wins[i], 3) for i in imgs}
+
+
 # ------------------------------------------------------------------ 3. Generation Engine, vòng lặp
 def run_loop(agent, report: dict, first_image: str, generate, refs=None, crop=None,
              threshold: float = DEFAULT_THRESHOLD, max_rounds: int = DEFAULT_MAX_ROUNDS, log=print) -> dict:
@@ -281,12 +336,14 @@ def run_loop(agent, report: dict, first_image: str, generate, refs=None, crop=No
     cr = lambda p: (crop(p) if crop else p)  # noqa: E731
     entity = report.get("entity_en") or ""
     refs = [cr(r) for r in (refs or [])]      # ảnh thật cũng phải cắt, để so cùng khung với ảnh sinh
-    best_img, rounds = first_image, []
+    best_img, rounds, kept = first_image, [], [first_image]
+    stop = "chưa chạy vòng nào"
     ev = evaluate(agent, first_image, report, refs, cr(first_image), threshold, log)
     best = ev
     if ev.passed:
         log(f"  [loop] ảnh đầu đạt ({ev.overall:.1f} >= {threshold}) -> dừng")
-        return {"final": first_image, "best": best.to_dict(), "rounds": rounds, "stop": "ảnh đầu đạt"}
+        return {"final": first_image, "best": best.to_dict(), "rounds": rounds, "kept": kept,
+                "pair_wins": {}, "stop": "ảnh đầu đạt"}
     for n in range(1, max_rounds + 1):
         pos, neg = suggestions(agent, ev, entity, log)
         tip = critique(ev, entity)
@@ -301,9 +358,21 @@ def run_loop(agent, report: dict, first_image: str, generate, refs=None, crop=No
         ev = evaluate(agent, new, report, refs, cr(new), threshold, log)
         rounds.append({"n": n, "critique": tip, "positive": pos, "negative": neg,
                        "image": new, "eval": ev.to_dict()})
+        kept.append(new)
         if ev.overall > best.overall:
             best, best_img = ev, new
         if ev.passed:
-            return {"final": best_img, "best": best.to_dict(), "rounds": rounds, "stop": f"đạt ở vòng {n}"}
-    return {"final": best_img, "best": best.to_dict(), "rounds": rounds,
-            "stop": f"hết {max_rounds} vòng, giữ ảnh tốt nhất {best.overall:.1f}"}
+            stop = f"đạt ở vòng {n}"
+            break
+    else:
+        stop = f"hết {max_rounds} vòng"
+    # Chọn cuối bằng ĐẤU CẶP trên mọi ảnh đã giữ, không lấy ảnh điểm cao nhất: điểm tuyệt đối của VLM gần như
+    # đứng yên giữa các vòng, còn câu "cái nào giống ảnh thật hơn" thì nó trả lời được.
+    pick, wins = pick_best(agent, kept, (refs or [None])[0], entity, crop=None, log=log)
+    if pick and pick != best_img:
+        log(f"  [chọn cuối] đấu cặp chọn {_tag(pick)} thay cho ảnh điểm cao nhất "
+            f"{_tag(best_img)} ({best.overall:.1f})")
+    final = pick or best_img
+    return {"final": final, "best": best.to_dict(), "rounds": rounds, "kept": kept, "pair_wins": wins,
+            "stop": stop + (f", đấu cặp chọn {_tag(final)}" if wins else
+                            f", giữ ảnh tốt nhất {best.overall:.1f}")}

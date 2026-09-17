@@ -45,10 +45,18 @@ class FakeAgent:
 
     def __init__(self):
         self.llm = self._LLM(self)
+        self.llm.choice_prob = self._VL()
         self.n_compare = 0
 
     def _complete(self, system, user, schema, max_new_tokens=None):
         return self.llm.complete_json(system, user, schema)
+
+    class _VL:
+        """choice_prob cho câu đấu cặp: ảnh 'dep' luôn thắng ảnh 'xau'."""
+        def __call__(self, q, images, letters):
+            a, b = images[0], images[1]
+            pa = 0.9 if ("dep" in a and "dep" not in b) else (0.1 if ("dep" in b and "dep" not in a) else 0.5)
+            return [pa, 1 - pa]
 
     def vqa_choice(self, q, img, n=3):
         p = 0.15 if "xau" in img else 0.92
@@ -91,6 +99,15 @@ print("vòng lặp:", out["stop"])
 out2 = C.run_loop(ag, REPORT, "/xau.png", lambda pos, neg, n: "/xau2.png", refs=refs, log=lambda *a: None)
 assert len(out2["rounds"]) == C.DEFAULT_MAX_ROUNDS and "hết 3 vòng" in out2["stop"], out2["stop"]
 print("không cải thiện:", out2["stop"])
+
+# đấu cặp: giữ mọi ảnh, chọn ảnh thắng nhiều nhất chứ không lấy ảnh điểm cao nhất
+seq = iter(["/xau2.png", "/dep.png", "/xau3.png"])
+out3 = C.run_loop(ag, REPORT, "/xau.png", lambda pos, neg, n: next(seq), refs=refs, log=lambda *a: None)
+assert set(out3["kept"]) == {"/xau.png", "/xau2.png", "/dep.png"}, out3["kept"]
+assert out3["final"] == "/dep.png", out3["final"]
+assert out3["pair_wins"]["/dep.png"] > out3["pair_wins"]["/xau.png"], out3["pair_wins"]
+print("đấu cặp: giữ %d ảnh, chọn %s (%s)" % (len(out3["kept"]), out3["final"],
+      ", ".join(f"{k.split('/')[-1]}={v}" for k, v in out3["pair_wins"].items())))
 
 # không có ảnh thật -> vẫn chạy, trục văn hoá chỉ còn câu ép chọn
 noref = C.evaluate(ag, "/xau.png", REPORT, [], log=lambda *a: None)

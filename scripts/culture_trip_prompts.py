@@ -118,7 +118,8 @@ def clean_refined(text: str) -> tuple[str, bool]:
     while parts and any(parts[-1].lower().lstrip().startswith(mk) for mk in _META):
         parts.pop()
         cut = True
-    t = " ".join(parts).strip().strip(' :-*#"\u201c\u201d')
+    t = re.sub(r"\*{1,3}", " ", " ".join(parts))
+    t = " ".join(t.split()).strip(' :-#"\u201c\u201d')
     if len(t.split()) < 8:
         return raw, False                 # dò sai -> giữ nguyên, để còn thấy mà sửa
     return t, cut
@@ -139,6 +140,21 @@ EXTRACT_SYS = (
 def looks_clean(t: str) -> bool:
     low = " " + t.lower()
     return bool(t) and len(t.split()) >= 8 and not any(j in low for j in _JUNK)
+
+
+_STOP = set("a an the of in on at with and or for to is are was were by from as its their this "
+            "that into over under it his her they them".split())
+
+
+def scene_keep(prompt_en: str, refined: str) -> float:
+    """Tỉ lệ từ khoá của câu GỐC còn trong câu tinh chỉnh. 1.0 = giữ trọn cảnh."""
+    import re as _re
+
+    src = {w for w in _re.findall(r"[a-z]+", prompt_en.lower()) if w not in _STOP and len(w) > 3}
+    if not src:
+        return 1.0
+    got = set(_re.findall(r"[a-z]+", refined.lower()))
+    return len(src & got) / len(src)
 
 
 def extract_prompt_llm(llm, raw: str, log=print) -> str:
@@ -312,6 +328,17 @@ def refine_one(culture_trip, repo: str, nouns: list[str], prompt_en: str, thresh
             log(f"    [{noun}] {len(cur.split())} -> {len(out.split())} từ thô"
                 + (f", bóc còn {len(clean.split())} từ [{how}]" if was_cut else f" [{how}]")
                 + f", {time.time() - t0:.0f}s")
+            keep = scene_keep(prompt_en, clean)
+            steps[-1]["scene_keep"] = round(keep, 2)
+            if clean and keep < 0.5:
+                # Template của họ ghi rõ "the scene depicted in the BASE PROMPT must remain unchanged", nhưng 8B
+                # có lúc viết lại thành bài từ điển về thực thể và bỏ hẳn cảnh (S001: giữ 0% từ khoá, mất cả
+                # "young woman" lẫn "school gate"). Một baseline sụp đổ thì không còn là baseline; ghép lại câu
+                # gốc với phần mô tả của họ. Đây là can thiệp CÓ LỢI cho baseline, ghi cờ để khai báo.
+                clean = f"{prompt_en.rstrip('.')}. {clean}"
+                steps[-1]["scene_repaired"] = True
+                steps[-1]["scene_keep_after"] = round(scene_keep(prompt_en, clean), 2)
+                log(f"    [{noun}] mất cảnh (giữ {keep:.0%} từ khoá) -> ghép lại câu gốc")
             if clean:
                 cur = clean
         return cur, steps
@@ -383,6 +410,8 @@ def main(argv=None):
             "prompt_id": r["id"], "sig": sig, "model": a.model, "threshold": a.threshold,
             "search_backend": backend, "chained": len(nouns) > 1,
             "post_processed": any(s_.get("post_processed") for s_ in steps),
+            "scene_repaired": any(s_.get("scene_repaired") for s_ in steps),
+            "scene_keep": round(scene_keep(r["text_en"], refined), 2),
             "prompt_en": r["text_en"], "culture_nouns": nouns,
             "refined_prompt": refined, "words_in": len(r["text_en"].split()), "words_out": len(refined.split()),
             "clip_tokens": n_tok, "over_77_tokens": n_tok > 77,

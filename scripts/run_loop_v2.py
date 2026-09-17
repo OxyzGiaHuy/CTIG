@@ -105,8 +105,9 @@ def main(argv=None):
         g = replace(gen, prompt_terms=base_terms + ([suffix] if suffix else []), iteration=n,
                     ip_adapter_image=(refs or None), ip_adapter_scale=cfg.multigen.ref_scale)
         key = a.model if not refs else (a.model if "+ref" in a.model else a.model + "+ref")
-        r = mg.run(g, s.spec()[0], s.kb, [key], cfg, out_dir / f"iter{n}", clip=s.clip, itm=None,
-                   prompt_en=s.analysis()[0].prompt_en, log=log, ref_images=refs, force_refs=bool(refs))
+        r = mg.run(g, s.spec()[0], s.kb, [key], cfg.multigen, out_dir / f"iter{n}", clip=s.clip, itm=None,
+                   t2i_cfg=cfg.t2i, prompt_en=s.analysis()[0].prompt_en, log=log,
+                   ref_images=refs, force_refs=bool(refs))
         for run_rec in r.runs:
             if run_rec.output and run_rec.output.candidates:
                 return run_rec.output.candidates[0].path

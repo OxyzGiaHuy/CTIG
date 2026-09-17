@@ -63,58 +63,64 @@ def install_search_shim(log=print) -> str:
     return name
 
 
-#: Các mốc mà LLM nhỏ hay chèn vào; mọi thứ từ mốc này trở đi không còn là prompt nữa.
+#: Mốc bắt đầu phần KHÔNG còn là prompt (feedback, điểm, giải thích). Dò không phân biệt hoa thường.
 _TAIL = ("### refine feedback", "### feedback", "### score", "### evaluation", "### note",
-         "refine feedback:", "**clarity", "**visual detail", "**background", "**purpose",
-         "**comparable object", "**total")
-_HEAD = ("### refined prompt:", "### refined prompt", "refined prompt:", "answer:")
-_PREFIX = ("here is the refined prompt based on the feedback:", "here is the refined prompt:",
-           "here's the refined prompt:", "sure, here is the refined prompt:")
-#: Câu tự thuật ở cuối: "I added more sensory descriptions…", "This refined prompt improves…". Không phải prompt.
+         "refine feedback:", "score:", "scores:", "total_score", "{'clarity'", '{"clarity"',
+         "**clarity", "**visual detail", "**background", "**purpose", "**comparable object", "**total",
+         "the refined prompt aims", "the revised prompt aims", "the refined prompt provides",
+         "this refined prompt", "the changes i made", "changes made:")
+#: Lời rào mở đầu; bắt bằng regex vì 8B viết mỗi lần một kiểu.
+_INTRO = re.compile(
+    r"^\s*(?:###\s*)?(?:[^.\"']{0,80}?\b(?:refined|revised)\s+prompt\b[^.:]{0,60}:"
+    r"|based on the feedback[^.:]{0,60}:"
+    r"|here(?:'s| is)[^.:]{0,60}:"
+    r"|sure[,!][^.:]{0,60}:"
+    r"|answer\s*:)\s*", re.I)
+#: Câu tự thuật ở cuối: "I added more sensory descriptions…". Không phải prompt.
 _META = ("i added", "i also added", "i have added", "i included", "i made", "i changed", "i rewrote",
-         "i expanded", "i incorporated", "i provided", "this refined prompt", "the refined prompt",
-         "note:", "in this version", "these changes", "this should improve", "by adding")
+         "i expanded", "i incorporated", "i provided", "i refined", "this refined prompt",
+         "the refined prompt", "the revised prompt", "note:", "in this version", "these changes",
+         "this should improve", "by adding", "describe the unique")
 
 
 def clean_refined(text: str) -> tuple[str, bool]:
-    """Bóc phần prompt thật ra khỏi lời rào và phần feedback/điểm mà LLM nhỏ nhả kèm. (câu sạch, có phải cắt không).
+    """Bóc phần prompt thật ra khỏi lời rào, phần feedback và bảng điểm mà LLM nhỏ nhả kèm.
 
-    llama3:8b không giữ đúng khuôn của bài gốc: nó trả về "Here is the refined prompt… ### Refined Prompt: …
-    ### Refine Feedback: … **Clarity (10/10)**…" trong CÙNG một chuỗi, 469 từ cho câu vào 13 từ. Dùng nguyên
-    chuỗi đó làm nhánh baseline là dựng bù nhìn. Đây là sửa PHẦN ĐỌC KẾT QUẢ, không đụng vào phương pháp của
-    họ; với 70B như bài gốc thì khả năng cao không cần bước này. Phải khai báo là có hậu xử lý.
+    Trả (câu sạch, có phải đã cắt không). llama3:8b không giữ khuôn của bài gốc; đã gặp bốn kiểu trên dữ liệu
+    thật: nhãn `### Refined Prompt:`, lời rào `Here is the refined prompt…`, prompt nằm trong NGOẶC KÉP rồi
+    `SCORE: {...}`, và phần `The refined prompt aims to: 1. 2. 3.` ở cuối. Đây là sửa PHẦN ĐỌC KẾT QUẢ, không
+    đụng phương pháp của họ; với 70B như bài gốc nhiều khả năng không cần bước này. Cờ `post_processed` được
+    ghi vào tệp đầu ra để khai báo.
+
+    An toàn: nếu bóc xong còn dưới 8 từ thì coi như dò sai và trả lại chuỗi ban đầu.
     """
-    t = " ".join((text or "").split())
-    if not t:
+    raw = " ".join((text or "").split())
+    if not raw:
         return "", False
-    low = t.lower()
-    cut = False
-    for h in _HEAD:                       # lấy phần SAU nhãn "### Refined Prompt:"
-        i = low.find(h)
-        if i >= 0:
-            t = t[i + len(h):].strip()
-            low = t.lower()
-            cut = True
+    t, cut = raw, False
+    for _ in range(3):                    # lời rào chồng nhau: "Here is the refined prompt: ### Refined Prompt: …"
+        m = _INTRO.match(t)
+        if not m or m.end() == 0:
             break
-    else:
-        for pre in _PREFIX:               # không có nhãn thì bóc lời rào đầu câu
-            if low.startswith(pre):
-                t = t[len(pre):].strip()
-                low = t.lower()
-                cut = True
-                break
-    ends = [low.find(m) for m in _TAIL if low.find(m) > 0]
+        t, cut = t[m.end():].strip(), True
+    # prompt nằm trong ngoặc kép -> lấy phần bên trong
+    for q in ('"', "\u201c", "'"):
+        if t.startswith(q):
+            close = t.find('"' if q == '"' else ("\u201d" if q == "\u201c" else "'"), 1)
+            if close > 30:
+                t, cut = t[1:close].strip(), True
+            break
+    low = t.lower()
+    ends = [low.find(mk) for mk in _TAIL if low.find(mk) > 0]
     if ends:
-        t = t[: min(ends)].strip()
-        cut = True
-    t = " ".join(t.split()).strip(" :-*#")
-    # Bỏ các CÂU CUỐI mà model tự thuật việc mình vừa sửa; 8B hay viết thêm dù không có nhãn ### nào.
-    # Cắt theo câu chứ không theo chuỗi con, để không xén nhầm giữa một câu mô tả.
+        t, cut = t[: min(ends)].strip(), True
     parts = re.split(r"(?<=[.!?])\s+", t)
-    while parts and any(parts[-1].lower().lstrip().startswith(m) for m in _META):
+    while parts and any(parts[-1].lower().lstrip().startswith(mk) for mk in _META):
         parts.pop()
         cut = True
-    t = " ".join(parts).strip()
+    t = " ".join(parts).strip().strip(' :-*#"\u201c\u201d')
+    if len(t.split()) < 8:
+        return raw, False                 # dò sai -> giữ nguyên, để còn thấy mà sửa
     return t, cut
 
 

@@ -222,7 +222,9 @@ def build(runs: list[str], out: str, ids: set[str] | None, per_prompt: int, anno
             skipped += 1
             continue
         vi, subject = prompt_text(runs, pid)
-        data[f"{pid}|{Path(path).name}"] = {
+        # Khoá phải kèm thư mục cha: ảnh các VÒNG của vòng sửa trùng tên tệp (S001_sdxl_base_ref_c0.png ở
+        # iter1, iter2, iter3) nên khoá theo mỗi tên tệp sẽ đè mất, 12 ảnh còn 6.
+        data[f"{pid}|{Path(path).parent.parent.name}/{Path(path).parent.name}/{Path(path).name}"] = {
             "prompt_id": pid, "path": path, "img": b64, "prompt_vi": vi,
             "subject": subject or pid, "attrs": attrs_en, "attrs_en": attrs_en, "sides": sides,
         }

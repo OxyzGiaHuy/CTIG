@@ -48,6 +48,25 @@ class EvalResult:
         return asdict(self)
 
 
+#: Vật ở CẠNH thực thể, không phải cấu tạo của nó. Lượt thử S012 trả về "no net", "no fish", "no hat" —
+#: đó là đồ vật trong ảnh tham chiếu, không nói gì về việc chiếc thuyền thúng được đóng đúng hay sai.
+_NEARBY = ("net", "fish", "hat", "person", "people", "man", "woman", "fisherman", "clothing", "clothes",
+           "cargo", "basket of", "tool", "oar in", "water", "sky", "background", "lighting", "shadow")
+
+
+def _clean_item(v, allow_absence: bool = True) -> str:
+    t = " ".join(str(v or "").split()).strip(" .;")
+    if not t or len(t.split()) < 2:
+        return ""
+    low = t.lower()
+    if not allow_absence and low.startswith(("no ", "not ", "missing", "lack", "absence", "without")):
+        return ""                        # ô "văn hoá khác" chỉ nhận thứ NHÌN THẤY, không nhận thứ thiếu
+    if any(w in low for w in _NEARBY) and not any(w in low for w in ("hull", "shape", "weave", "material",
+                                                                    "frame", "rim", "bottom", "side")):
+        return ""                        # nói về đồ vật cạnh bên, không nói về cấu tạo thực thể
+    return t
+
+
 def _num(x, lo=0.0, hi=10.0, default=5.0) -> float:
     try:
         return max(lo, min(hi, float(x)))
@@ -147,11 +166,16 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
     # --- trục 3b: khác ẢNH THẬT ở đâu; đây chính là góp ý gửi về bộ sinh
     if refs:
         system2 = (
-            "The FIRST image is generated. The other images are real photographs of the same cultural object. "
-            "List what is WRONG on the object itself in the generated image compared with the real photographs. "
-            "Ignore lighting, pose, camera angle, background and image quality. Each item must be one short "
-            "phrase naming a visible part and what is wrong with it. If the object looks right, return an empty "
-            "list. Also list any detail that belongs to a DIFFERENT culture.")
+            "The FIRST image is generated. The other images are real photographs of the same cultural object.\n"
+            "Report only how the OBJECT ITSELF is built differently: its shape, proportions, material, weave, "
+            "structure, how its parts join. Name the part and say what is wrong with it, for example "
+            "'hull is oval instead of circular' or 'sides are planked wood instead of woven bamboo'.\n"
+            "NEVER mention anything that is merely near the object or carried in it: people, clothing, hats, "
+            "nets, fish, cargo, tools, water, sky, background. NEVER mention lighting, pose, camera angle or "
+            "image quality. NEVER report something as missing just because it appears in a photograph.\n"
+            "If the object is built correctly, return an empty list.\n"
+            "Separately, list details that are PRESENT in the generated image and belong to a DIFFERENT named "
+            "culture. Only things you can see; never write a missing thing there.")
         user2 = (f"OBJECT: {entity}\nReturn JSON: "
                  '{"differences": [".." up to 3], "foreign_elements": [".." up to 2]}')
         schema2 = {"type": "object", "properties": {
@@ -162,8 +186,9 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
         except Exception as exc:  # noqa: BLE001
             ev.notes.append(f"so với ảnh thật lỗi ({type(exc).__name__})")
             d2 = {}
-        ev.differences = [str(x).strip() for x in (d2.get("differences") or []) if str(x).strip()][:3]
-        ev.foreign = [str(x).strip() for x in (d2.get("foreign_elements") or []) if str(x).strip()][:2]
+        ev.differences = [x for x in (_clean_item(v) for v in (d2.get("differences") or [])) if x][:3]
+        # "no hat" từng lọt vào ô văn hoá khác: thiếu một thứ KHÔNG phải là chi tiết của nền văn hoá khác.
+        ev.foreign = [x for x in (_clean_item(v, allow_absence=False) for v in (d2.get("foreign_elements") or [])) if x][:2]
     else:
         ev.notes.append("không có ảnh thật -> bỏ tiểu mục so sánh")
 

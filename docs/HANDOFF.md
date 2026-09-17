@@ -721,6 +721,67 @@ tạo** (lượt đầu trả về "no net", "no fish", "no hat" — đồ vật
   `runs/{v17,v17_complex,v18*,v19,v191,v192}`.
 - FLUX cần `multigen.cpu_offload=true` khi có việc khác dùng GPU, nếu không hết VRAM.
 
+## 3m. Lô pilot ba nhánh trên máy A800 (2026-09-17 chiều)
+
+**Cấu hình**: `configs/vast_arms.yaml`. Một model nền cho phép so sạch, ba model nền cho bảng phụ.
+Nhánh A `--prompt-source original --no-agents`, B `--prompt-source culture_trip --no-agents`,
+C `scripts/run_loop_v2.py`. Cả ba `render: bare`, cùng seed 1234, `n_candidates 1`.
+
+**Đã xác minh, không phải suy đoán:**
+
+- A và B **cùng seed 1234, khác đúng câu prompt**; `gen_spec` cho thấy `lora: None`, `ip_adapter_image: None`,
+  `ref_captions: []` ở cả 10 prompt của A và 3 của B. Hai nhánh này **thuần chữ sang ảnh, không thấy ảnh thật**.
+- `--no-grounding` cho ảnh **trùng byte** với lần chạy có grounding (md5 `b0e0a854…` cả hai). Tức Analysis/Search/Spec
+  không hề ảnh hưởng ảnh khi `render: bare` — chỉ tốn 22-191 giây mỗi prompt.
+- `keep_loaded: 3`: prompt sau prompt đầu từ **72 giây xuống 27-28 giây**, nhanh 2,6 lần. Sinh ảnh chỉ tốn 38 s
+  (SDXL 7 + RealVis 7 + FLUX 24); 34 s còn lại trước đây là nạp model từ đĩa cho TỪNG prompt.
+
+**Kết quả A so B trên 3 prompt đầu (ảnh: `docs/report_assets/armAB_pilot.png`, không commit):**
+
+| prompt | nhận xét |
+|---|---|
+| S001 áo dài | **B TỆ HƠN**: hoa văn đỏ kiểu Trung Quốc trên áo, cửa gỗ chạm lưới Trung Hoa thay cổng trường. Câu tinh chỉnh 130 token thêm "intricate patterns embroidered" và tên "áo dài Le Mur" |
+| S002 gánh hàng rong | **B TỐT HƠN**: A ra đàn ông đẩy xe kiểu Nam Á; B ra phụ nữ nón lá, thúng tre. Nhưng **cả hai đều trượt đòn gánh**, B thay bằng xe đạp. Câu tinh chỉnh 324 token |
+| S003 phở | hoà |
+
+Kiểu hỏng ở S001 **chính là thứ trục văn hoá của vòng sửa được thiết kế để bắt** — nhánh B để lại lỗi thật cho
+nhánh C, không phải ta bịa ra lỗi. Mặt khác prompt 130-324 token vượt xa giới hạn 77 của CLIP: compel nối được
+phần theo token nhưng **embedding gộp vẫn cắt ở 77**, nên chi tiết bị loãng (S002 mất đòn gánh dù câu tả rõ).
+
+## 3n. Bộ chấm: Mistral-Small-3.1-24B thay Qwen2.5-VL-7B
+
+Không phải thay `qwen2.5:14b` (con đó chạy Culture-TRIP, đã xong việc) mà thay **Qwen2.5-VL-7B ở vai trò bộ chấm**.
+Đo trên cùng ảnh S001 nhánh B:
+
+| | Qwen2.5-VL-7B | Mistral-Small-3.1-24B |
+|---|---|---|
+| khác ảnh thật ở đâu | **`[]` rỗng** | 3 mục |
+| chi tiết ngoại lai | **`[]` rỗng** | 2 mục |
+| ép chọn áo dài | 0,75 (qipao 0,24) | 1,00 |
+| thời gian câu 3 ảnh | 1 s | 7 s |
+
+Qwen mù hoàn toàn với ảnh có hoa văn Trung Quốc. Mistral bắt được, **nhưng cũng phán sai về văn hoá**: nó nói
+"đường xẻ bên phải lên tới hông không phổ biến ở áo dài truyền thống" — xẻ tà chính là đặc trưng định danh.
+Backend ở `ctig/llm/mistral_vl.py`, chạy local qua transformers nên giữ được `choice_prob` theo logits
+(Ollama/API không có). 24B bf16 ~48 GB VRAM: chạy chung SDXL được, chung FLUX thì không; có `llm.quant: 4bit`.
+
+## 3o. Nhánh C chạy thật lần đầu: 5,5 → 5,9 sau 3 vòng
+
+S001, bộ chấm Mistral. Điểm từng vòng 5,5 → 5,7 → **5,9** → 5,7, giữ ảnh vòng 2. Trục văn hoá 3,7 trong khi
+thẩm mỹ 7,8 và khớp prompt 7,0 — **trục văn hoá có hoạt động**, nó thấy cái mà hai trục kia bỏ qua.
+
+Ba lỗi đã sửa (commit `6a9626a`, có test trong `tests/test_loop_v2.py`):
+
+1. `suggestions()` đưa **cùng một cụm vào cả prompt dương lẫn âm**: positive `'V-neck collar, long sleeves,
+   fitted skirt'` với negative `['wide collar', 'long sleeves', 'wide skirt']`. Thêm `_drop_contradictions`.
+2. Ô chi tiết ngoại lai nhận cả **đạo cụ** ("red flowers in bouquet", "black book") rồi kéo trục văn hoá từ 10
+   xuống 0. Thêm `_names_a_culture`: buộc nêu tên nền văn hoá.
+3. `run_loop_v2` cho **vòng 0 chạy `+ref`**, nên ảnh mốc của C khác hẳn ảnh B và hiệu số B→C trộn công của
+   vòng sửa với công của IP-Adapter. Nay ảnh thật chỉ vào cuộc từ vòng 1.
+
+**Chưa sửa, cần đo thêm:** bộ chấm dao động "tay áo quá ngắn" → "quá dài" → "quá ngắn" trên chính ảnh vừa sửa
+theo lời nó; và "cổ quá rộng" bị nêu ở cả 4 lần chấm mà không vòng nào sửa nổi.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

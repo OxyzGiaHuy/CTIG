@@ -615,6 +615,53 @@ Lệnh: `bash /workspace/run_label20.sh`, log `/workspace/logs/label20.log`.
 **Đĩa**: còn 7,2 GB. Đã xoá `runs/{v17,v17_complex,v18_smoke7b4,v18_v5,v191}`. Còn xoá được `runs/v19` (1,1 GB)
 nếu cần chỗ.
 
+## 3m. Agentic Loop v2 — bỏ KB, theo khung T2I-Copilot (2026-09-17)
+
+Thiết kế: `docs/LOOP_v2.md`. Mã: `ctig/agents/copilot.py`, chạy thử bằng `scripts/run_loop_v2.py`,
+kiểm offline `tests/test_loop_v2.py` (dùng `tokenize` để khẳng định MÃ không chứa `must_have`, `must_not`,
+`CulturalSpec` và không import `ctig.schema`).
+
+Ba agent theo T2I-Copilot (ICCV 2025): `interpret` dựng Analysis Report kèm danh sách vật DỄ NHẦM suy từ tư
+liệu truy hồi; `evaluate` chấm ba trục; `run_loop` dưới ngưỡng thì sinh lại kèm góp ý, tối đa 3 vòng, **không
+có thang leo** (người dùng chốt giữ đúng như họ).
+
+Trục văn hoá thay hoàn toàn bảng must_have: (1) câu ép chọn giữa thực thể Việt và các vật dễ nhầm; (2) đặt ảnh
+sinh cạnh 3 ảnh thật, hỏi khác nhau chỗ nào **trên cấu tạo vật thể**; (3) có chi tiết văn hoá khác lẫn vào
+không. Danh sách ở (2) chính là góp ý gửi bộ sinh, thay cho `missing_must_have`.
+
+### Kết quả chạy thật S012 (thuyền thúng, sdxl_base+ref, prompt Culture-TRIP)
+
+| vòng | điểm | nhận dạng | khác ảnh thật |
+|---|---|---|---|
+| 0 mốc | 3,8 | **wooden fishing boat** p=0,35 | thân bầu dục thay vì tròn; mạn ván gỗ thay vì đan tre |
+| 1 | 6,3 | round basket boat p=0,98 | như trên |
+| 2 | **6,5** | round basket boat p=0,99 | như trên |
+| 3 | 5,4 | round basket boat p=0,47 | như trên |
+
+Ảnh: `runs/loop_v2_S012.png`. Trục nhận dạng chạy đúng: ảnh mốc bị nhận là thuyền gỗ, sau một vòng có ảnh
+tham chiếu thì thành thuyền thúng rõ. Điểm đi từ 3,8 lên 6,5.
+
+### Ba chỗ còn yếu, đã thấy bằng số
+
+1. **Xếp hạng lệch nhẹ.** Nhìn mắt thì vòng 1 tròn nhất, máy chấm vòng 2 cao hơn (6,5 so với 6,3).
+2. **Góp ý lặp mà không sửa được.** "hull is oval instead of circular" xuất hiện cả bốn vòng; ảnh có đổi
+   nhưng thân thuyền vẫn không tròn. Prompt + IP-Adapter chưa đủ để nắn hình dáng.
+3. **Dương tính giả ở ô văn-hoá-khác.** Vòng 0 báo "blue boat" là chi tiết văn hoá khác, làm tiểu mục đó về 0
+   và kéo trục văn hoá xuống 1,5. Con số 3,8 của vòng 0 vì thế bị thổi thấp.
+
+Hai lần sửa đã làm trong ngày: ngưỡng 7,5 → **8,0** như bài gốc và "đạt" phải không còn khiếm khuyết nêu tên
+được (trước đó dừng ngay ở ảnh đầu dù đã chỉ ra lỗi); và siết chỉ dẫn so ảnh để chỉ nhận khác biệt về **cấu
+tạo** (lượt đầu trả về "no net", "no fish", "no hat" — đồ vật cạnh bên, không nói gì về chiếc thuyền).
+
+### Trạng thái các lô khác
+
+- `label20` (ảnh để gán nhãn tay): **11/20**, bị dừng khi máy có sự cố.
+- Culture-TRIP `qwen2.5:14b` 100 prompt: **25/100**, cũng bị dừng. Bản `llama3:8b` 68 prompt giữ ở
+  `data/culture_trip_llama8b/` làm bằng chứng cho phần khai báo thay model.
+- Model sinh chốt: **SDXL 1.0, RealVis XL 4.0, FLUX.1-dev**. Đã xoá SD 3.5 Medium, CLIP-L, kho refs cũ,
+  `runs/{v17,v17_complex,v18*,v19,v191,v192}`.
+- FLUX cần `multigen.cpu_offload=true` khi có việc khác dùng GPU, nếu không hết VRAM.
+
 ## 4. Lỗi/rủi ro còn mở
 
 - **KB tự sinh với Qwen 3B vẫn yếu ở thực thể bối cảnh** (Trung Thu: "gather under the moonlight"); áo dài ra 2 thuộc tính đúng.

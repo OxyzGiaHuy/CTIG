@@ -213,19 +213,56 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
     return ev
 
 
-def suggestions(ev: EvalResult) -> str:
-    """Góp ý gửi về bộ sinh, đúng vai 'improvement suggestions' của T2I-Copilot."""
+def critique(ev: EvalResult, entity_en: str = "") -> str:
+    """Bản nhận xét dạng chữ, để đọc và để đưa cho LLM viết lại. KHÔNG được đưa thẳng vào prompt sinh ảnh."""
     bits = []
     if ev.differences:
-        bits.append("Fix on the object: " + "; ".join(ev.differences) + ".")
+        bits.append("Wrong on the object: " + "; ".join(ev.differences) + ".")
     if ev.foreign:
-        bits.append("Remove details from other cultures: " + "; ".join(ev.foreign) + ".")
+        bits.append("Details from another culture present: " + "; ".join(ev.foreign) + ".")
     if ev.identity_p < 0.5:
-        bits.append(f"The object must clearly read as the Vietnamese one, not as {ev.identity}.")
-    low = [k for k, v in ev.prompt_scores.items() if v < 6]
-    if low:
-        bits.append("Weak on: " + ", ".join(low).replace("_", " ") + ".")
+        bits.append(f"The object currently reads as {ev.identity}, not as {entity_en or 'the Vietnamese one'}.")
     return " ".join(bits)
+
+
+def suggestions(agent, ev: EvalResult, entity_en: str = "", log=print) -> tuple[str, list[str]]:
+    """Biến nhận xét thành (câu MÔ TẢ ĐÚNG để cộng vào prompt, danh sách từ cho negative prompt).
+
+    Đây là chỗ đã sai ở lượt chạy S012 đầu tiên: chuỗi nhận xét được ghép THẲNG vào prompt, nên bộ sinh nhận
+    nguyên văn "hull is oval", "planked wood", "blue boat", "wooden fishing boat". Mô hình khuếch tán không
+    có phủ định, mọi từ trong prompt đều là từ NÊN VẼ, nên ta đang yêu cầu đúng cái mình muốn bỏ. Thân thuyền
+    không tròn lên được là vì vậy, không phải vì model bất lực.
+
+    T2I-Copilot cũng không dán nhận xét vào prompt: `A_gen` của họ "refines inputs, optimizes prompts".
+    """
+    if not (ev.differences or ev.foreign or ev.identity_p < 0.5):
+        return "", []
+    txt = critique(ev, entity_en)
+    system = (
+        "You turn a critique of a generated image into text for a text-to-image model. Diffusion models have "
+        "no negation: every word in the prompt is something to draw.\n"
+        "Return two things. POSITIVE: one short phrase (max 30 words) describing how the object SHOULD look, "
+        "using only the correct shape, material and construction. Never write what is wrong, never write "
+        "'not', 'instead of', 'without', and never repeat the wrong words themselves.\n"
+        "NEGATIVE: 2-6 short noun phrases naming exactly the wrong things to keep out.")
+    user = (f"OBJECT: {entity_en or 'the main object'}\nCRITIQUE: {txt}\n"
+            'Return JSON: {"positive": "..", "negative": [".."]}')
+    schema = {"type": "object", "properties": {"positive": {"type": "string"},
+                                               "negative": {"type": "array", "items": {"type": "string"}}}}
+    pos, neg = "", []
+    try:
+        d = agent._complete(system, user, schema, max_new_tokens=300) or {}
+        pos = " ".join(str(d.get("positive") or "").split())
+        neg = [" ".join(str(x).split()) for x in (d.get("negative") or []) if str(x).strip()][:6]
+    except Exception as exc:  # noqa: BLE001
+        log(f"  [suggestions] LLM lỗi {type(exc).__name__}")
+    bad = ("not ", "instead", "without", "no ", "avoid", "remove")
+    if pos and any(b in pos.lower() for b in bad):
+        log(f"  [suggestions] câu mô tả còn phủ định -> bỏ: {pos[:70]}")
+        pos = ""
+    if not pos:                           # lùi an toàn: thà không thêm gì còn hơn thêm từ sai
+        neg = neg or [x for x in ev.differences + ev.foreign]
+    return pos, neg
 
 
 # ------------------------------------------------------------------ 3. Generation Engine, vòng lặp
@@ -233,9 +270,11 @@ def run_loop(agent, report: dict, first_image: str, generate, refs=None, crop=No
              threshold: float = DEFAULT_THRESHOLD, max_rounds: int = DEFAULT_MAX_ROUNDS, log=print) -> dict:
     """Vòng lặp đúng kiểu T2I-Copilot: chấm, dưới ngưỡng thì SINH LẠI kèm góp ý. Không có thang leo.
 
-    `generate(suggestion_text, round_index) -> đường dẫn ảnh mới hoặc None`; `crop(path) -> path` không bắt buộc.
+    `generate(positive_text, negative_terms, round_index) -> đường dẫn ảnh mới hoặc None`;
+    `crop(path) -> path` không bắt buộc.
     """
     cr = lambda p: (crop(p) if crop else p)  # noqa: E731
+    entity = report.get("entity_en") or ""
     best_img, rounds = first_image, []
     ev = evaluate(agent, first_image, report, refs, cr(first_image), threshold, log)
     best = ev
@@ -243,15 +282,19 @@ def run_loop(agent, report: dict, first_image: str, generate, refs=None, crop=No
         log(f"  [loop] ảnh đầu đạt ({ev.overall:.1f} >= {threshold}) -> dừng")
         return {"final": first_image, "best": best.to_dict(), "rounds": rounds, "stop": "ảnh đầu đạt"}
     for n in range(1, max_rounds + 1):
-        tip = suggestions(ev)
-        log(f"  [loop] vòng {n}: {tip[:150]}")
-        new = generate(tip, n)
+        pos, neg = suggestions(agent, ev, entity, log)
+        tip = critique(ev, entity)
+        log(f"  [loop] vòng {n}: nhận xét: {tip[:110]}")
+        log(f"  [loop] vòng {n}: thêm vào prompt: '{pos[:90]}' · negative: {neg}")
+        new = generate(pos, neg, n)
         if not new:
-            rounds.append({"n": n, "suggestion": tip, "note": "sinh lại không ra ảnh"})
+            rounds.append({"n": n, "critique": tip, "positive": pos, "negative": neg,
+                           "note": "sinh lại không ra ảnh"})
             log(f"  [loop] vòng {n}: sinh lại không ra ảnh -> dừng")
             break
         ev = evaluate(agent, new, report, refs, cr(new), threshold, log)
-        rounds.append({"n": n, "suggestion": tip, "image": new, "eval": ev.to_dict()})
+        rounds.append({"n": n, "critique": tip, "positive": pos, "negative": neg,
+                       "image": new, "eval": ev.to_dict()})
         if ev.overall > best.overall:
             best, best_img = ev, new
         if ev.passed:

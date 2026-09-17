@@ -101,9 +101,13 @@ def main(argv=None):
     out_dir = s.out_dir
     base_terms = list(gen.prompt_terms)
 
-    def make(suffix: str, n: int) -> str | None:
-        g = replace(gen, prompt_terms=base_terms + ([suffix] if suffix else []), iteration=n,
-                    ip_adapter_image=(refs or None), ip_adapter_scale=cfg.multigen.ref_scale)
+    base_neg = list(gen.negative_terms)
+
+    def make(positive: str, negative: list[str], n: int) -> str | None:
+        # positive vào prompt, negative vào negative_prompt. KHÔNG bao giờ dán nhận xét thô vào prompt.
+        g = replace(gen, prompt_terms=base_terms + ([positive] if positive else []),
+                    negative_terms=base_neg + [x for x in (negative or []) if x not in base_neg],
+                    iteration=n, ip_adapter_image=(refs or None), ip_adapter_scale=cfg.multigen.ref_scale)
         key = a.model if not refs else (a.model if "+ref" in a.model else a.model + "+ref")
         r = mg.run(g, s.spec()[0], s.kb, [key], cfg.multigen, out_dir / f"iter{n}", clip=s.clip, itm=None,
                    t2i_cfg=cfg.t2i, prompt_en=s.analysis()[0].prompt_en, log=log,
@@ -113,14 +117,14 @@ def main(argv=None):
                 return run_rec.output.candidates[0].path
         return None
 
-    first = make("", 0)
+    first = make("", [], 0)
     if not first:
         raise SystemExit("không sinh được ảnh đầu")
     log(f"[gen] ảnh đầu {first}")
 
     crop = lambda p: __import__("ctig.agents.describe", fromlist=["x"]).subject_crop(  # noqa: E731
         s.agent, p, [a_in.get("entity_en") or "object", "person"])
-    out = copilot.run_loop(s.agent, a_in, first, lambda tip, n: make(tip, n), refs=refs, crop=crop,
+    out = copilot.run_loop(s.agent, a_in, first, make, refs=refs, crop=crop,
                            threshold=a.threshold, max_rounds=a.rounds, log=log)
 
     res = {"prompt_id": a.id, "model": a.model, "prompt_source": a.prompt_source,

@@ -146,6 +146,27 @@ _STOP = set("a an the of in on at with and or for to is are was were by from as 
             "that into over under it his her they them".split())
 
 
+def compose(prompt_en: str, refined: str) -> str:
+    """Câu cuối = CÂU GỐC + phần mô tả văn hoá mà Culture-TRIP thêm vào.
+
+    Vì sao ghép mọi lúc chứ không chỉ khi mất cảnh: template của chính họ ghi "the scene depicted in the BASE
+    PROMPT must remain unchanged", nhưng llama3:8b có lúc viết lại thành bài từ điển về thực thể và bỏ sạch
+    cảnh (S001 giữ 0% từ khoá, mất cả "young woman" lẫn "school gate"). Ghép có điều kiện thì mỗi prompt hành
+    xử một kiểu, khó mô tả trong bài; ghép đều thì chỉ cần một câu để giải thích, và **hiệu số B−A trở thành
+    đúng phần chi tiết văn hoá mà họ thêm vào**, không lẫn chuyện họ sửa hay bỏ cảnh.
+
+    Ghép được vì SDXL và RealVis bật compel `truncate_long_prompts=False` nên prompt dài được nối embedding,
+    KHÔNG bị cắt. Riêng SD 3.5 Medium (không T5) vẫn cắt ở 77 token, phải chú thích khi báo cáo hàng đó.
+    Câu gốc đặt TRƯỚC để nếu có bị cắt thì cảnh vẫn còn.
+    """
+    base, add = " ".join((prompt_en or "").split()), " ".join((refined or "").split())
+    if not add:
+        return base
+    if not base or base.lower().rstrip(".") in add.lower():
+        return add                        # họ đã giữ nguyên câu gốc -> không lặp lại
+    return f"{base.rstrip('.')}. {add}"
+
+
 def scene_keep(prompt_en: str, refined: str) -> float:
     """Tỉ lệ từ khoá của câu GỐC còn trong câu tinh chỉnh. 1.0 = giữ trọn cảnh."""
     import re as _re
@@ -328,17 +349,7 @@ def refine_one(culture_trip, repo: str, nouns: list[str], prompt_en: str, thresh
             log(f"    [{noun}] {len(cur.split())} -> {len(out.split())} từ thô"
                 + (f", bóc còn {len(clean.split())} từ [{how}]" if was_cut else f" [{how}]")
                 + f", {time.time() - t0:.0f}s")
-            keep = scene_keep(prompt_en, clean)
-            steps[-1]["scene_keep"] = round(keep, 2)
-            if clean and keep < 0.5:
-                # Template của họ ghi rõ "the scene depicted in the BASE PROMPT must remain unchanged", nhưng 8B
-                # có lúc viết lại thành bài từ điển về thực thể và bỏ hẳn cảnh (S001: giữ 0% từ khoá, mất cả
-                # "young woman" lẫn "school gate"). Một baseline sụp đổ thì không còn là baseline; ghép lại câu
-                # gốc với phần mô tả của họ. Đây là can thiệp CÓ LỢI cho baseline, ghi cờ để khai báo.
-                clean = f"{prompt_en.rstrip('.')}. {clean}"
-                steps[-1]["scene_repaired"] = True
-                steps[-1]["scene_keep_after"] = round(scene_keep(prompt_en, clean), 2)
-                log(f"    [{noun}] mất cảnh (giữ {keep:.0%} từ khoá) -> ghép lại câu gốc")
+            steps[-1]["scene_keep_raw"] = round(scene_keep(prompt_en, clean), 2)
             if clean:
                 cur = clean
         return cur, steps
@@ -404,14 +415,15 @@ def main(argv=None):
         log(f"[{r['id']}] {len(nouns)} thực thể: {', '.join(nouns)}")
         t0 = time.time()
         refined, steps = refine_one(culture_trip, repo, nouns, r["text_en"], a.threshold, log, llm)
+        refined = compose(r["text_en"], refined)
         ok = bool(refined) and refined != r["text_en"]
         n_tok = clip_tokens(refined, tok)
         dst.write_text(json.dumps({
             "prompt_id": r["id"], "sig": sig, "model": a.model, "threshold": a.threshold,
             "search_backend": backend, "chained": len(nouns) > 1,
             "post_processed": any(s_.get("post_processed") for s_ in steps),
-            "scene_repaired": any(s_.get("scene_repaired") for s_ in steps),
-            "scene_keep": round(scene_keep(r["text_en"], refined), 2),
+            "composed": True,
+            "scene_keep_raw": min([s_.get("scene_keep_raw", 1.0) for s_ in steps] or [1.0]),
             "prompt_en": r["text_en"], "culture_nouns": nouns,
             "refined_prompt": refined, "words_in": len(r["text_en"].split()), "words_out": len(refined.split()),
             "clip_tokens": n_tok, "over_77_tokens": n_tok > 77,
@@ -425,8 +437,8 @@ def main(argv=None):
             log(f"[{r['id']}] CẢNH BÁO: câu không đổi so với gốc")
     log(f"xong: {done} mới, {skip} bỏ qua (đã có), {fail} có vấn đề · {time.time() - t_all:.0f}s")
     if n_over:
-        log(f"[cảnh báo] {n_over}/{done} prompt vượt 77 token của CLIP -> bộ sinh sẽ CẮT phần cuối. "
-            "Đây là giới hạn sẵn có của cách bung prompt, phải báo cáo.")
+        log(f"[lưu ý] {n_over}/{done} prompt vượt 77 token CLIP. SDXL/RealVis bật compel nên NỐI embedding, "
+            "không cắt; riêng SD 3.5 Medium (không T5) sẽ cắt phần cuối -> chú thích khi báo cáo hàng đó.")
 
 
 if __name__ == "__main__":

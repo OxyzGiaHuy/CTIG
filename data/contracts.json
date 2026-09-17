@@ -1,0 +1,720 @@
+{
+ "S001": {
+  "entity": "Vietnamese ao dai",
+  "entity_vi": "áo dài",
+  "required": [
+   {
+    "id": "side_slits_at_waist",
+    "description": "side slits from the waist making front and back panels",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
+    "id": "worn_over_trousers",
+    "description": "worn over separate long wide-legged trousers",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
+    "id": "ankle_length_panels",
+    "description": "loose panels hanging down to near the ankles",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
+    "id": "high_stand_collar",
+    "description": "a high stand-up collar closed around the neck",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "qipao_cheongsam",
+    "description": "a one-piece fitted dress with one thigh slit, no trousers",
+    "culture": "Chinese"
+   },
+   {
+    "id": "kimono",
+    "description": "a wrapped robe with crossed collar and wide obi sash",
+    "culture": "Japanese"
+   },
+   {
+    "id": "hanbok",
+    "description": "a short jacket over a wide high-waisted flared skirt",
+    "culture": "Korean"
+   }
+  ]
+ },
+ "S002": {
+  "entity": "Vietnamese shoulder-pole street vendor",
+  "entity_vi": "gánh hàng rong",
+  "required": [
+   {
+    "id": "pole_on_one_shoulder",
+    "description": "a long springy pole resting on one shoulder",
+    "source": "https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A0ng_rong"
+   },
+   {
+    "id": "two_loads_at_pole_ends",
+    "description": "two loads hanging one at each end of the pole",
+    "source": "https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A0ng_rong"
+   },
+   {
+    "id": "round_woven_baskets",
+    "description": "shallow round woven baskets holding the goods",
+    "source": "CHƯA CÓ NGUỒN"
+   },
+   {
+    "id": "vendor_on_foot",
+    "description": "vendor walking on foot with no cart or wheels",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "european_neck_yoke",
+    "description": "a shaped yoke across both shoulders behind the neck",
+    "culture": "European"
+   },
+   {
+    "id": "wheeled_food_cart",
+    "description": "a pushed wheeled cart with a glass display case",
+    "culture": "generic/Thai"
+   },
+   {
+    "id": "head_carried_basket",
+    "description": "a single basket balanced on top of the head",
+    "culture": "Indian/African"
+   }
+  ]
+ },
+ "S003": {
+  "entity": "Vietnamese beef pho",
+  "entity_vi": "phở bò",
+  "required": [
+   {
+    "id": "flat_rice_noodles",
+    "description": "flat white rice noodles cut from thin sheets",
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+   },
+   {
+    "id": "clear_broth",
+    "description": "clear thin broth, not milky or thickened",
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+   },
+   {
+    "id": "thin_sliced_beef",
+    "description": "thin slices of beef laid over the noodles",
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+   },
+   {
+    "id": "scallion_and_onion_on_top",
+    "description": "chopped scallion and thin raw onion on top",
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "ramen",
+    "description": "curly yellow wheat noodles with nori and halved egg",
+    "culture": "Japanese"
+   },
+   {
+    "id": "lanzhou_beef_noodle",
+    "description": "round hand-pulled wheat noodles under red chili oil",
+    "culture": "Chinese"
+   },
+   {
+    "id": "udon",
+    "description": "thick round white wheat noodles in pale broth",
+    "culture": "Japanese"
+   }
+  ]
+ },
+ "S004": {
+  "entity": "Banh chung, Vietnamese square sticky rice cake",
+  "entity_vi": "bánh chưng",
+  "required": [
+   {
+    "id": "square_flat_block",
+    "description": "a squat square block, clearly not a cylinder",
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+   },
+   {
+    "id": "dong_leaf_wrapper",
+    "description": "wrapped in broad dark green dong leaves",
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+   },
+   {
+    "id": "bamboo_strip_ties",
+    "description": "tied with flat bamboo strips crossing in a grid",
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+   },
+   {
+    "id": "folded_leaf_corners",
+    "description": "leaf folded into sharp flat corners on top",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "zongzi",
+    "description": "a pyramid or cone bundle in bamboo leaves tied with string",
+    "culture": "Chinese"
+   },
+   {
+    "id": "banana_leaf_tamale",
+    "description": "a soft oblong parcel in pale banana leaf",
+    "culture": "Latin American"
+   },
+   {
+    "id": "banh_tet",
+    "description": "a long cylindrical log wrapped in banana leaves",
+    "culture": "Vietnamese (southern variant, NOT banh chung)"
+   }
+  ]
+ },
+ "S006": {
+  "entity": "One Pillar Pagoda, Hanoi",
+  "entity_vi": "chùa Một Cột",
+  "required": [
+   {
+    "id": "single_stone_pillar",
+    "description": "the whole structure resting on one stone pillar",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+   },
+   {
+    "id": "small_square_pavilion",
+    "description": "one small square wooden pavilion about three metres wide",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+   },
+   {
+    "id": "upturned_tile_roof",
+    "description": "a tiled roof with four upturned curved corners",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+   },
+   {
+    "id": "standing_in_pond",
+    "description": "rising from the middle of a small pond",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+   },
+   {
+    "id": "narrow_stone_stairway",
+    "description": "a narrow stone stairway climbing to the pavilion door",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "multi_tier_pagoda",
+    "description": "a tall tower of many stacked roof tiers",
+    "culture": "Chinese/Japanese"
+   },
+   {
+    "id": "floating_torii_shrine",
+    "description": "a red gate or shrine on many pillars over water",
+    "culture": "Japanese"
+   }
+  ]
+ },
+ "S008": {
+  "entity": "Hoi An ancient town at night with silk lanterns",
+  "entity_vi": "đèn lồng Hội An (phố cổ Hội An về đêm)",
+  "required": [
+   {
+    "id": "silk_over_bamboo_ribs",
+    "description": "silk stretched over slender curved bamboo ribs",
+    "source": "http://vanhoanghethuat.vn/nghe-thuat-trang-tri-long-den-hoi-an-gia-tri-can-bao-ton-va-phat-trien.htm"
+   },
+   {
+    "id": "many_lantern_colours",
+    "description": "lanterns glowing in many different colours, not only red",
+    "source": "http://vanhoanghethuat.vn/nghe-thuat-trang-tri-long-den-hoi-an-gia-tri-can-bao-ton-va-phat-trien.htm"
+   },
+   {
+    "id": "ochre_yellow_walls",
+    "description": "ochre-yellow plastered walls along the street",
+    "source": "https://whc.unesco.org/en/list/948/"
+   },
+   {
+    "id": "low_tiled_shophouses",
+    "description": "low one or two storey shophouses with curved tile roofs",
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
+   },
+   {
+    "id": "hung_in_rows_or_clusters",
+    "description": "many lanterns hung in rows or clusters overhead",
+    "source": "CHƯA CÓ NGUỒN — cần người Việt xác nhận"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_palace_lantern",
+    "description": "cylindrical red lantern with gold tassels and Chinese characters",
+    "culture": "Chinese"
+   },
+   {
+    "id": "japanese_chochin",
+    "description": "white paper lantern with horizontal ribs and black kanji",
+    "culture": "Japanese"
+   },
+   {
+    "id": "sky_lantern",
+    "description": "floating paper lanterns rising into the night sky",
+    "culture": "Thai/Taiwanese"
+   }
+  ]
+ },
+ "S009": {
+  "entity": "Dan bau, Vietnamese monochord",
+  "entity_vi": "đàn bầu",
+  "required": [
+   {
+    "id": "single_string",
+    "description": "exactly one string running along the instrument",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+   },
+   {
+    "id": "flexible_rod_at_one_end",
+    "description": "a curved flexible rod standing up at one end",
+    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+   },
+   {
+    "id": "gourd_cup_on_rod",
+    "description": "a gourd-shaped cup mounted on that rod",
+    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+   },
+   {
+    "id": "long_narrow_soundbox",
+    "description": "a long narrow flat soundbox about one metre",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+   },
+   {
+    "id": "laid_flat_and_plucked",
+    "description": "laid flat, plucked with a stick held in one hand",
+    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "guzheng_or_koto",
+    "description": "a wide zither with many strings and movable bridges",
+    "culture": "Chinese/Japanese"
+   },
+   {
+    "id": "erhu",
+    "description": "a small two-string bowed fiddle held upright on the lap",
+    "culture": "Chinese"
+   },
+   {
+    "id": "ektara",
+    "description": "a one-string lute with round gourd body held upright",
+    "culture": "Indian"
+   }
+  ]
+ },
+ "S010": {
+  "entity": "Vietnamese water puppetry",
+  "entity_vi": "múa rối nước",
+  "required": [
+   {
+    "id": "puppets_on_water_surface",
+    "description": "puppets standing half submerged on open water",
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+   },
+   {
+    "id": "water_pavilion_behind",
+    "description": "a tiled-roof pavilion rising out of the pond behind",
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+   },
+   {
+    "id": "curtain_hides_operators",
+    "description": "a hanging screen across the pavilion hiding the puppeteers",
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+   },
+   {
+    "id": "no_strings_above_puppets",
+    "description": "no rods or strings visible above the puppets",
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+   },
+   {
+    "id": "lacquered_wooden_puppets",
+    "description": "carved wooden puppets with glossy painted lacquer",
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "bunraku",
+    "description": "puppets on a dry stage held by visible black-robed handlers",
+    "culture": "Japanese"
+   },
+   {
+    "id": "wayang_kulit",
+    "description": "flat leather shadow puppets against a lit screen",
+    "culture": "Indonesian"
+   },
+   {
+    "id": "marionette",
+    "description": "puppets hanging from strings held from above",
+    "culture": "European"
+   }
+  ]
+ },
+ "S012": {
+  "entity": "Vietnamese basket boat",
+  "entity_vi": "thuyền thúng",
+  "required": [
+   {
+    "id": "round_hull",
+    "description": "a circular bowl-shaped hull",
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+   },
+   {
+    "id": "woven_bamboo",
+    "description": "visible woven bamboo strips forming the body",
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+   },
+   {
+    "id": "no_bow_or_stern",
+    "description": "low curved sides without a pointed bow or stern",
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+   },
+   {
+    "id": "thick_rim_ring",
+    "description": "a thick bamboo or wooden ring around the top edge",
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+   },
+   {
+    "id": "hand_paddled",
+    "description": "moved by hand paddling, no sail and no motor",
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "wooden_sampan",
+    "description": "a long narrow wooden boat with pointed ends",
+    "culture": "generic/Chinese"
+   },
+   {
+    "id": "coracle",
+    "description": "a round hide-covered or tarred canvas bowl boat",
+    "culture": "Welsh/Irish"
+   },
+   {
+    "id": "inflatable_raft",
+    "description": "a round inflatable rubber raft with air tubes",
+    "culture": "generic/modern"
+   }
+  ]
+ },
+ "S013": {
+  "entity": "Vietnamese cyclo",
+  "entity_vi": "xích lô",
+  "required": [
+   {
+    "id": "passenger_seat_in_front",
+    "description": "the passenger seat sits ahead of the driver",
+    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+   },
+   {
+    "id": "driver_pedals_behind",
+    "description": "the driver pedals on a raised saddle at the back",
+    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+   },
+   {
+    "id": "three_wheels_two_in_front",
+    "description": "three wheels, two of them under the front seat",
+    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+   },
+   {
+    "id": "pedal_powered_no_engine",
+    "description": "bicycle pedals and chain, no engine",
+    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "cycle_rickshaw",
+    "description": "a passenger bench behind the cyclist",
+    "culture": "Indian/Bangladeshi"
+   },
+   {
+    "id": "tuk_tuk_auto_rickshaw",
+    "description": "a motorised three-wheeler with an enclosed driver cab",
+    "culture": "Thai/Indian"
+   },
+   {
+    "id": "side_car_trishaw",
+    "description": "passengers seated in a sidecar beside the cyclist",
+    "culture": "Filipino/Singaporean"
+   }
+  ]
+ },
+ "S015": {
+  "entity": "Mekong Delta floating market",
+  "entity_vi": "chợ nổi",
+  "required": [
+   {
+    "id": "bamboo_sample_pole",
+    "description": "a tall bamboo pole on the bow hanging sample produce",
+    "source": "https://en.wikipedia.org/wiki/C%C3%A1i_R%C4%83ng_Floating_Market"
+   },
+   {
+    "id": "produce_laden_wooden_boats",
+    "description": "long wooden boats piled with fruit and vegetables",
+    "source": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1%BB%95i"
+   },
+   {
+    "id": "boats_clustered_on_open_river",
+    "description": "boats crowded together on a wide open river",
+    "source": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1%BB%95i"
+   },
+   {
+    "id": "no_land_stalls",
+    "description": "trading happens boat to boat, no stalls on shore",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "damnoen_saduak_market",
+    "description": "small paddled canoes in a narrow canal lined with stalls",
+    "culture": "Thai"
+   },
+   {
+    "id": "lok_baintan_market",
+    "description": "small dugout canoes with women in wide flat hats",
+    "culture": "Indonesian"
+   }
+  ]
+ },
+ "S017": {
+  "entity": "Quan ho Bac Ninh folk singers",
+  "entity_vi": "quan họ",
+  "required": [
+   {
+    "id": "women_wide_flat_hats",
+    "description": "women wearing very wide flat-brimmed round hats",
+    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183"
+   },
+   {
+    "id": "women_headscarf",
+    "description": "women wearing a dark folded headscarf under the hat",
+    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183"
+   },
+   {
+    "id": "men_black_tunic_and_turban",
+    "description": "men in long dark tunics with wrapped cloth turbans",
+    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183"
+   },
+   {
+    "id": "men_hold_umbrella",
+    "description": "men holding a round long-handled umbrella",
+    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183"
+   },
+   {
+    "id": "women_layered_tunics",
+    "description": "women in several layered tunics of different colours",
+    "source": "https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_opera_performer",
+    "description": "painted face with tall beaded headdress and water sleeves",
+    "culture": "Chinese"
+   },
+   {
+    "id": "geisha",
+    "description": "white face makeup, kimono with obi, holding a folding fan",
+    "culture": "Japanese"
+   },
+   {
+    "id": "hanbok_boat_singer",
+    "description": "short jacket over a wide bell-shaped skirt",
+    "culture": "Korean"
+   }
+  ]
+ },
+ "S018": {
+  "entity": "Central Highlands gong ensemble",
+  "entity_vi": "cồng chiêng Tây Nguyên",
+  "required": [
+   {
+    "id": "hand_carried_bronze_gongs",
+    "description": "flat bronze gongs each carried in one hand",
+    "source": "https://ich.unesco.org/en/RL/space-of-gong-culture-00120"
+   },
+   {
+    "id": "one_gong_per_player",
+    "description": "a row of players each holding one different-sized gong",
+    "source": "https://ich.unesco.org/en/RL/space-of-gong-culture-00120"
+   },
+   {
+    "id": "gongs_not_on_stands",
+    "description": "gongs held by the rim, not mounted on racks",
+    "source": "https://ich.unesco.org/en/RL/space-of-gong-culture-00120"
+   },
+   {
+    "id": "struck_with_mallet_or_fist",
+    "description": "struck with a short padded mallet or the bare fist",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+   },
+   {
+    "id": "highland_woven_dress",
+    "description": "dark woven cloth with red and white geometric bands",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "gamelan",
+    "description": "rows of knobbed gongs mounted on carved wooden racks",
+    "culture": "Indonesian"
+   },
+   {
+    "id": "hanging_chinese_gong",
+    "description": "one large gong hanging in a tall wooden frame",
+    "culture": "Chinese"
+   },
+   {
+    "id": "african_drum_circle",
+    "description": "players seated behind tall hand drums, no metal gongs",
+    "culture": "West African"
+   }
+  ]
+ },
+ "S020": {
+  "entity": "Non quai thao, northern Vietnamese flat hat",
+  "entity_vi": "nón quai thao",
+  "required": [
+   {
+    "id": "wide_flat_disc_brim",
+    "description": "a very wide flat disc brim, no pointed top",
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao"
+   },
+   {
+    "id": "shallow_downturned_rim",
+    "description": "a shallow rim turned down around the outer edge",
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao"
+   },
+   {
+    "id": "inner_head_ring",
+    "description": "a small ring under the centre gripping the head",
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao"
+   },
+   {
+    "id": "silk_tassel_cords",
+    "description": "thick coloured silk tassel cords hanging from the brim",
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_douli",
+    "description": "a plain woven straw flat hat with no tassel cords",
+    "culture": "Chinese/Japanese"
+   },
+   {
+    "id": "straw_boater",
+    "description": "a stiff flat straw hat with a raised cylindrical crown",
+    "culture": "European"
+   },
+   {
+    "id": "non_la",
+    "description": "a pointed conical leaf hat with a thin cloth chinstrap",
+    "culture": "Vietnamese (different hat, NOT non quai thao)"
+   }
+  ]
+ },
+ "S030": {
+  "entity": "Khan ran, southern Vietnamese checkered scarf",
+  "entity_vi": "khăn rằn",
+  "required": [
+   {
+    "id": "small_checkered_grid",
+    "description": "a grid of small squares from crossing stripes",
+    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n"
+   },
+   {
+    "id": "only_two_colours",
+    "description": "only two colours, usually black and white",
+    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n"
+   },
+   {
+    "id": "long_narrow_rectangle",
+    "description": "a long narrow rectangle, roughly one metre long",
+    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n"
+   },
+   {
+    "id": "draped_on_neck_or_head",
+    "description": "draped round the neck or tied over the head",
+    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "keffiyeh",
+    "description": "a large square checked headscarf held by a black cord ring",
+    "culture": "Arab/Palestinian"
+   },
+   {
+    "id": "tartan_plaid",
+    "description": "crossing stripes in three or more colours",
+    "culture": "Scottish"
+   },
+   {
+    "id": "gingham_picnic_cloth",
+    "description": "a wide square red-white checked tablecloth",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S031": {
+  "entity": "Ao tu than, northern Vietnamese four-panel dress",
+  "entity_vi": "áo tứ thân",
+  "required": [
+   {
+    "id": "open_front_two_flaps",
+    "description": "an open front with two separate hanging flaps",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
+   },
+   {
+    "id": "yem_bodice_visible",
+    "description": "a coloured square-cut bodice showing at the chest",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
+   },
+   {
+    "id": "sash_tied_at_waist",
+    "description": "a long cloth sash tied round the waist",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
+   },
+   {
+    "id": "below_knee_length",
+    "description": "the outer garment hanging to below the knee",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
+   },
+   {
+    "id": "no_front_buttons",
+    "description": "no buttons or fastening down the centre front",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "hanfu",
+    "description": "a robe wrapped with a crossed Y-shaped front and wide sleeves",
+    "culture": "Chinese"
+   },
+   {
+    "id": "kimono",
+    "description": "a wrapped robe closed by a wide stiff obi sash",
+    "culture": "Japanese"
+   },
+   {
+    "id": "ao_dai",
+    "description": "a fitted closed tunic over trousers, slit only at the hips",
+    "culture": "Vietnamese (different garment, NOT ao tu than)"
+   }
+  ]
+ }
+}

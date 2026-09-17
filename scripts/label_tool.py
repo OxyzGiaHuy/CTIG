@@ -147,6 +147,14 @@ def collect(runs: list[str], ids: set[str] | None, per_prompt: int, seed: int):
     """[(prompt_id, image_path)] xáo trộn, tối đa per_prompt ảnh mỗi prompt, trải đều các hàng model."""
     by_prompt: dict[str, list[str]] = {}
     for run in runs:
+        # Run của vòng sửa v2 xếp ảnh theo iter{n}/ và ghi loop_v2.json, không có multigen.json ở cấp prompt.
+        # Lấy đúng danh sách `kept` để mỗi VÒNG một ảnh — đây chính là thứ cần nhãn: vòng nào thật sự tốt hơn.
+        for lf in sorted(glob.glob(f"{run}/*/loop_v2.json")):
+            pid = Path(lf).parent.name
+            if ids and pid not in ids:
+                continue
+            d = json.load(open(lf))
+            by_prompt.setdefault(pid, []).extend([x for x in (d.get("kept") or []) if os.path.exists(x)])
         for mg in sorted(glob.glob(f"{run}/*/multigen.json")):
             pid = Path(mg).parent.name
             if ids and pid not in ids:

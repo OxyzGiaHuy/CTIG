@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C043",
+ "sig": "5be77cc7ff4e",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.5,
+ "prompt_en": "Hundreds of limestone karst islands rise from the emerald waters of Ha Long Bay, a small sailboat with a bat-wing sail gliding between them.",
+ "culture_nouns": [
+  "vịnh Hạ Long",
+  "thuyền buồm cánh dơi"
+ ],
+ "refined_prompt": "Hundreds of limestone karst islands rise from the emerald waters of Ha Long Bay, a small sailboat with a bat-wing sail gliding between them. In the heart of northeastern Vietnam, Ha Long Bay, a UNESCO World Heritage Site, a traditional Vietnamese junk known as \"thuyền buồm cánh dơi\" or \"bat-wing sail junk,\" glides gracefully between towering limestone formations. The emerald waters reflect the wooden hull of the junk, which is adorned with vibrant traditional Vietnamese patterns and colors. The bat-wing sails, dating back to the 15th century, stand out against the backdrop of the bay, serving both practical and cultural purposes. The junks play a vital role in Vietnamese culture, embodying maritime heritage and resilience.",
+ "words_in": 24,
+ "words_out": 115,
+ "clip_tokens": 155,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "vịnh Hạ Long",
+   "in": "Hundreds of limestone karst islands rise from the emerald waters of Ha Long Bay, a small sailboat with a bat-wing sail gliding between them.",
+   "out_raw": "### Revised Refined Prompt In the heart of northeastern Vietnam, Ha Long Bay, a UNESCO World Heritage Site, is a natural wonder where emerald waters and towering limestone formations come together to tell a story of timeless beauty and cultural significance. For thousands of years, the bay has been a cultural crossroads, bearing the marks of Chinese influence and early Vietnamese settlements, which have shaped its unique cultural identity. This breathtaking natural landscape is not only a place of stunning beauty but also a cradle of Vietnamese history and culture, rich with legends and myths woven into the fabric of its landscapes. Amidst this serene and timeless beauty, a traditional Vietnamese junk with a bat-wing sail (a triangular sail with a curved edge) glides gracefully between the towering islands, its wooden hull reflecting the emerald green hues of the bay. The soft creaking of the wooden hull and the salty, briny air carry the scent of the ocean and distant pine. The karst formations rise from the water like ancient castles, each peak and crevice telling tales of a forgotten era, creating a surreal cityscape where nature and imagination meet. The bay's limestone islands are home to diverse flora and fauna, including endemic species found nowhere else in the world. During the Mid-Autumn Festival, locals light lanterns and release them into the bay, adding a layer of cultural charm to the natural beauty. Ha Long Bay stands as a living testament to the interplay between nature and human culture, where every rock and wave carries a story of resilience and beauty. Unlike other scenic bays around the world, Ha Long Bay is uniquely rich in cultural heritage, blending natural beauty with deep historical roots, making it a must-see destination for those interested in both the natural and cultural wonders of Vietnam.",
+   "out": "In the heart of northeastern Vietnam, Ha Long Bay, a UNESCO World Heritage Site, is a natural wonder where emerald waters and towering limestone formations come together. A traditional Vietnamese junk with a bat-wing sail glides gracefully between the islands, its wooden hull reflecting the emerald green hues of the bay. The karst formations rise from the water like ancient castles, each peak and crevice telling tales of a forgotten era. During the Mid-Autumn Festival, locals light lanterns and release them into the bay, adding a layer of cultural charm to the natural beauty. The bay is home to diverse flora and fauna, including endemic species found nowhere else in the world.",
+   "words_raw": 301,
+   "words": 112,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 372.2,
+   "scene_keep_raw": 0.71
+  },
+  {
+   "culture_noun": "thuyền buồm cánh dơi",
+   "in": "In the heart of northeastern Vietnam, Ha Long Bay, a UNESCO World Heritage Site, is a natural wonder where emerald waters and towering limestone formations come together. A traditional Vietnamese junk with a bat-wing sail glides gracefully between the islands, its wooden hull reflecting the emerald green hues of the bay. The karst formations rise from the water like ancient castles, each peak and crevice telling tales of a forgotten era. During the Mid-Autumn Festival, locals light lanterns and release them into the bay, adding a layer of cultural charm to the natural beauty. The bay is home to diverse flora and fauna, including endemic species found nowhere else in the world.",
+   "out_raw": "### Revised Refined Prompt In the heart of northeastern Vietnam, Ha Long Bay, a UNESCO World Heritage Site, is a natural wonder where emerald waters and towering limestone formations come together. A traditional Vietnamese junk, known as \"thuyền buồm cánh dơi\" or \"bat-wing sail junk,\" glides gracefully between the islands, its wooden hull reflecting the emerald green hues of the bay. The karst formations rise from the water like ancient castles, each peak and crevice telling tales of a forgotten era. The \"thuyền buồm cánh dơi,\" with its distinctive bat-wing sail, has been an integral part of Vietnam's maritime heritage for centuries. These junks are characterized by their wide, curved sails that allow them to navigate the narrow passages and strong winds of Ha Long Bay with grace and efficiency. The wooden hulls gleam with a natural sheen, polished to perfection, as they cut through the water, leaving a gentle wake that ripples across the surface. The bat-wing sails are adorned with traditional Vietnamese patterns and vibrant colors, making them a striking sight against the backdrop of the emerald bay. Dating back to the 15th century, during the reign of Emperor Lê Thánh Tông, these junks were integral to the development of maritime trade and fishing. They have served multiple purposes, including transportation, fishing, and tourism. The bat-wing sail is not only functional but also holds significant cultural and historical value. During the Mid-Autumn Festival, locals often decorate their junks with colorful lanterns, adding a layer of cultural charm to the natural beauty of Ha Long Bay. These lanterns are typically red, gold, and green, symbolizing prosperity, luck, and happiness. Today, the \"thuyền buồm cánh dơi\" continues to play a vital role in Vietnamese culture, serving both tourism and fishing industries. The gentle lapping of the waves against the wooden hulls and the salty breeze carrying the scent of the sea create a tranquil and immersive atmosphere. Imagine a flotilla of traditional Chinese junks with rectangular sails gliding through the Bay of Nha Trang, but with the distinctive bat-wing sails that make Ha Long Bay’s junks uniquely Vietnamese. The \"thuyền buồm cánh dơi\" stands out with its graceful lines and distinctive sail design, embodying the rich maritime heritage of Vietnam. These junks not only serve practical purposes but also hold a deep cultural significance, serving as a symbol of Vietnamese resilience and connection to the sea. By focusing on these improvements, the prompt will be clearer, more detailed, and more engaging, enhancing the overall score.",
+   "out": "In the heart of northeastern Vietnam, Ha Long Bay, a UNESCO World Heritage Site, a traditional Vietnamese junk known as \"thuyền buồm cánh dơi\" or \"bat-wing sail junk,\" glides gracefully between towering limestone formations. The emerald waters reflect the wooden hull of the junk, which is adorned with vibrant traditional Vietnamese patterns and colors. The bat-wing sails, dating back to the 15th century, stand out against the backdrop of the bay, serving both practical and cultural purposes. The junks play a vital role in Vietnamese culture, embodying maritime heritage and resilience.",
+   "words_raw": 415,
+   "words": 91,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 459.7,
+   "scene_keep_raw": 0.5
+  }
+ ],
+ "seconds": 831.9
+}

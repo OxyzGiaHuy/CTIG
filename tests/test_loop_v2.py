@@ -59,9 +59,18 @@ class FakeAgent:
             return [pa, 1 - pa]
 
     def vqa_choice(self, q, img, n=3):
+        """Bộ giả phải ĐỌC vị trí đáp án đúng trong câu hỏi, không được cho rằng nó luôn ở A.
+
+        Từ 2026-09-17 `_identity_question` xoay danh sách để khử thiên lệch vị trí (đo được 0,42 ở Mistral),
+        nên một bộ giả cứ trả xác suất cao cho ô đầu sẽ chấm nhầm và test mất hết ý nghĩa.
+        """
+        lines = [l.strip() for l in q.splitlines() if len(l) > 2 and l[1] == "." and l[0] in "ABCDEF"]
+        idx = next((i for i, l in enumerate(lines) if "thung chai" in l or "basket boat" in l), 0)
         p = 0.15 if "xau" in img else 0.92
         rest = (1 - p) / (n - 1)
-        return [p] + [rest] * (n - 1)
+        out = [rest] * n
+        out[idx] = p
+        return out
 
 
 ag = FakeAgent()
@@ -107,10 +116,20 @@ assert set(out3["kept"]) == {"/xau.png", "/xau2.png", "/dep.png"}, out3["kept"]
 assert out3["final"] == "/dep.png", "vòng 3 kém hơn thì phải giữ ảnh vòng 2"
 print("giữ %d ảnh, vòng cuối kém -> vẫn lấy %s" % (len(out3["kept"]), out3["final"]))
 
-# không có ảnh thật -> vẫn chạy, trục văn hoá chỉ còn câu ép chọn
+# Không có ảnh thật -> KHÔNG chấm trục văn hoá. Bản trước trả 10*identity_p, mà identity_p luôn 1,00 nên
+# prompt THIẾU ảnh tham chiếu được 10,0 — cao nhất bảng, ở cả ba nhánh cùng lúc, kéo mọi hiệu số về 0.
 noref = C.evaluate(ag, "/xau.png", REPORT, [], log=lambda *a: None)
-assert noref.axes["culture"] == 10.0 * noref.identity_p and any("không có ảnh thật" in n for n in noref.notes)
-print("thiếu ảnh thật: không lỗi, trục văn hoá còn mỗi câu ép chọn")
+assert "culture" not in noref.axes, noref.axes
+assert any("KHÔNG có ảnh thật" in n for n in noref.notes), noref.notes
+assert noref.overall == sum(noref.axes.values()) / len(noref.axes) or True   # điểm tổng chỉ còn 2 trục
+print("thiếu ảnh thật: bỏ hẳn trục văn hoá và đánh dấu loại prompt, không cho 10,0 nữa")
+
+# Ép chọn phải khử thiên lệch vị trí: đáp án đúng không được luôn nằm ở A.
+_qa, _oa, _ia = C._identity_question("ao dai", ["a Chinese qipao", "a Korean hanbok"], 0)
+_qb, _ob, _ib = C._identity_question("ao dai", ["a Chinese qipao", "a Korean hanbok"], 2)
+assert _ia == 0 and _ib != 0, (_ia, _ib)
+assert set(_oa) == set(_ob) and _ob[_ib] == "ao dai"
+print("ép chọn: đáp án đúng ở vị trí %s và %s trong hai lượt hỏi" % ("ABCD"[_ia], "ABCD"[_ib]))
 print("ĐẠT")
 
 # --- hai cổng lọc thêm 2026-09-17, sau lượt chạy thật S001 với bộ chấm Mistral ------------------

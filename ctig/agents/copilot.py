@@ -145,13 +145,26 @@ def interpret(agent, prompt_vi: str, prompt_en: str, refined_en: str = "", evide
 
 
 # ------------------------------------------------------------------ 2. Quality Evaluator
-def _identity_question(entity_en: str, look_alikes: list[str]) -> tuple[str, list[str]]:
+def _identity_question(entity_en: str, look_alikes: list[str], rot: int = 0) -> tuple[str, list[str], int]:
+    """Câu ép chọn thực thể. `rot` xoay danh sách để đáp án đúng KHÔNG luôn nằm ở A.
+
+    Bản trước dựng `opts = [entity_en] + look_alikes + [...]`, tức đáp án đúng luôn là lựa chọn A. Mà phép
+    thử A/B ngày 2026-09-17 đo được Mistral có **thiên lệch vị trí 0,42** — nó gần như luôn chọn phương án
+    đứng trước bất kể nội dung. Nên `identity_p = 1,00` ở mọi ảnh, kể cả ảnh áo hoa văn Trung Quốc, nhiều
+    khả năng là thiên lệch vị trí chứ không phải "đầu vào chết". Phải xoay rồi lấy trung bình mới biết được.
+
+    Trả thêm chỉ số của đáp án đúng sau khi xoay, để người gọi đọc đúng ô xác suất.
+    """
     opts = [entity_en] + list(look_alikes[:4]) + ["none of these / unclear"]
-    letters = "ABCDEF"[: len(opts)]
-    lines = "\n".join(f"{L}. {o}" for L, o in zip(letters, opts))
+    n = len(opts)
+    rot %= n
+    rolled = opts[-rot:] + opts[:-rot] if rot else list(opts)
+    idx = rolled.index(entity_en)
+    letters = "ABCDEF"[:n]
+    lines = "\n".join(f"{L}. {o}" for L, o in zip(letters, rolled))
     q = ("Look at the main object in this photo. Which ONE does it most resemble?\n" + lines
          + f"\nAnswer with only the letter {letters[0]} to {letters[-1]}.")
-    return q, opts
+    return q, rolled, idx
 
 
 def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, crop: str | None = None,
@@ -184,14 +197,18 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
 
     # --- trục 3a: ép chọn giữa thực thể đúng và các vật dễ nhầm
     entity = report.get("entity_en") or "the main object"
-    q, opts = _identity_question(entity, report.get("look_alikes") or [])
-    probs = None
     fn = getattr(agent, "vqa_choice", None)
-    if fn is not None:
-        probs = fn(q, img, len(opts))
-    if probs:
-        ev.identity_p = float(probs[0])
-        ev.identity = opts[max(range(len(probs)), key=lambda i: probs[i])]
+    got = []
+    for rot in (0, 2):                 # hai vị trí khác nhau cho đáp án đúng, để khử thiên lệch vị trí
+        q, opts, idx = _identity_question(entity, report.get("look_alikes") or [], rot)
+        probs = fn(q, img, len(opts)) if fn is not None else None
+        if probs:
+            got.append((float(probs[idx]), opts[max(range(len(probs)), key=lambda i: probs[i])]))
+    if got:
+        ev.identity_p = sum(p for p, _ in got) / len(got)
+        ev.identity = got[0][1]
+        if len(got) == 2 and abs(got[0][0] - got[1][0]) > 0.3:
+            ev.notes.append(f"ép chọn lệch theo vị trí {abs(got[0][0] - got[1][0]):.2f} -> kém tin")
     else:
         ev.notes.append("không chấm được câu ép chọn thực thể")
         ev.identity_p, ev.identity = 0.5, entity
@@ -261,7 +278,11 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
         ev.axes["culture"] = sum([10.0 * ev.identity_p, max(0.0, 10.0 - 3.0 * len(ev.differences)),
                                   10.0 if not ev.foreign else 0.0]) / 3.0
     else:
-        ev.axes["culture"] = 10.0 * ev.identity_p
+        # KHÔNG có ảnh thật thì không chấm được trục văn hoá. Bản trước trả 10*identity_p, mà identity_p
+        # luôn 1,00 (xem trên) -> prompt THIẾU ảnh tham chiếu được 10,0, cao nhất bảng, ở cả ba nhánh cùng
+        # lúc, kéo mọi hiệu số về 0. Nay bỏ trục này khỏi điểm tổng và đánh dấu để loại khỏi bảng kết quả.
+        ev.axes.pop("culture", None)
+        ev.notes.append("KHÔNG có ảnh thật -> bỏ trục văn hoá, prompt này phải loại khỏi kết luận")
     w = sum(AXIS_WEIGHT[k] for k in ev.axes)
     ev.overall = sum(AXIS_WEIGHT[k] * v for k, v in ev.axes.items()) / w
     # Đạt = trên ngưỡng VÀ không còn khiếm khuyết nêu tên được. Bộ chấm đã chỉ ra "thiếu mái chèo" thì đó là
@@ -269,7 +290,8 @@ def evaluate(agent, image: str, report: dict, refs: list[str] | None = None, cro
     # trả về danh sách lỗi cụ thể; ta có, nên dùng.
     ev.passed = ev.overall >= threshold and not ev.foreign and not ev.differences
     log(f"  [evaluator] {ev.overall:.1f}/10 (prompt {ev.axes['prompt']:.1f} · thẩm mỹ {ev.axes['aesthetic']:.1f} "
-        f"· văn hoá {ev.axes['culture']:.1f}" + (f" [fid {ev.fidelity:.0f}]" if ev.fidelity >= 0 else "")
+        + (f"· văn hoá {ev.axes['culture']:.1f}" if "culture" in ev.axes else "· văn hoá KHÔNG CHẤM ĐƯỢC")
+        + (f" [fid {ev.fidelity:.0f}]" if ev.fidelity >= 0 else "")
         + f") · nhận là '{ev.identity[:26]}' p={ev.identity_p:.2f}"
         + (f" · khác ảnh thật: {'; '.join(ev.differences)}" if ev.differences else "")
         + (f" · LAI: {'; '.join(ev.foreign)}" if ev.foreign else ""))

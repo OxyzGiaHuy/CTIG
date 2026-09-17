@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C047",
+ "sig": "1b1c9b8b03aa",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.63,
+ "prompt_en": "A Thai ethnic minority woman wearing an embroidered pieu headscarf sits weaving brocade on a wooden frame loom, the cloth on the loom showing multicolored geometric patterns.",
+ "culture_nouns": [
+  "dệt thổ cẩm",
+  "khung cửi gỗ",
+  "khăn piêu"
+ ],
+ "refined_prompt": "A Thai ethnic minority woman wearing an embroidered pieu headscarf sits weaving brocade on a wooden frame loom, the cloth on the loom showing multicolored geometric patterns. In a serene village in the Mekong Delta region of Vietnam, an ethnic Thai woman sits at a traditional wooden loom known as a khung cửi gỗ, weaving rich and intricate fabric with vibrant geometric patterns. She wears traditional Thai attire, including an embroidered pieu headscarf, which measures approximately 50cm x 90cm and is meticulously decorated with floral motifs and geometric shapes in crimson and gold threads. The loom and the pieu headscarf symbolize the community's resilience and cultural pride, connecting the village to its rich history and ensuring the continuity of cultural heritage.",
+ "words_in": 27,
+ "words_out": 121,
+ "clip_tokens": 163,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "dệt thổ cẩm",
+   "in": "A Thai ethnic minority woman wearing an embroidered pieu headscarf sits weaving brocade on a wooden frame loom, the cloth on the loom showing multicolored geometric patterns.",
+   "out_raw": "### Revised Refined Prompt A Thai ethnic minority woman from Vietnam, dressed in traditional attire including an embroidered pieu headscarf and a vibrantly patterned wrap, is sitting at an ancient wooden frame loom crafted from local teak wood in a peaceful village setting. She is weaving dệt thổ cẩm, an intricate traditional fabric known for its vibrant multicolored geometric patterns with predominant shades of red, blue, and gold. The Mekong Delta region, where this scene unfolds, is renowned for its rich weaving heritage and the Southern Women's Museum in Ho Chi Minh City, which houses significant collections of such textiles. The weaving of dệt thổ cẩm is not only a traditional art form but also a vital cultural and economic activity that holds deep historical and social importance, symbolizing the connection between the Thai people and their ancestors. This tradition has been passed down through generations and is crucial for maintaining cultural identity and community cohesion. Comparatively, dệt thổ cẩm shares similarities with the Ikat weaving of India, both being celebrated for their intricate patterns and craftsmanship, underscoring the universal value of handwoven textiles in preserving cultural heritage. ### Updated SCORE - **Clarity:** 9.5 - **Visual_detail:** 9.0 - **Background:** 9.5 - **Purpose:** 8.5 - **Comparable_object:** 8.0 - **Total_score:** 44.5",
+   "out": "A Thai ethnic minority woman from Vietnam is sitting at an ancient wooden frame loom in a peaceful village setting, weaving dệt thổ cẩm, an intricate traditional fabric known for its vibrant multicolored geometric patterns with predominant shades of red, blue, and gold. She is dressed in traditional attire, including an embroidered pieu headscarf and a vibrantly patterned wrap. The Mekong Delta region, where this scene unfolds, is renowned for its rich weaving heritage.",
+   "words_raw": 209,
+   "words": 74,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 146.6,
+   "scene_keep_raw": 0.74
+  },
+  {
+   "culture_noun": "khung cửi gỗ",
+   "in": "A Thai ethnic minority woman from Vietnam is sitting at an ancient wooden frame loom in a peaceful village setting, weaving dệt thổ cẩm, an intricate traditional fabric known for its vibrant multicolored geometric patterns with predominant shades of red, blue, and gold. She is dressed in traditional attire, including an embroidered pieu headscarf and a vibrantly patterned wrap. The Mekong Delta region, where this scene unfolds, is renowned for its rich weaving heritage.",
+   "out_raw": "### Revised Refined Prompt: In a tranquil village in the Mekong Delta region of Vietnam, an ethnic Thai woman is sitting at an ancient wooden frame loom, known as a khung cửi gỗ. This loom is not just a tool but an essential part of the cultural heritage of the region, used for centuries to create dệt thổ cẩm, a traditional fabric celebrated for its intricate and vibrant geometric patterns. The patterns often feature dominant shades of red, blue, and gold, symbolizing prosperity and unity. The woman, dressed in traditional attire including an embroidered pieu headscarf and a vibrantly patterned wrap, illustrates the deep connection between the Mekong Delta’s rich weaving heritage and its ethnic Thai community. The khung cửi gỗ is to the Mekong Delta what the spinning wheel is to other weaving communities around the world, embodying the spirit and resilience of the people who have maintained this tradition through generations. The weaving process itself is a slow and meticulous art form, with each thread carefully selected and placed to create a masterpiece that tells a story of the village’s history and cultural pride. **Clarity:** 9.0 (The cultural and historical importance of the loom and fabric are clearly emphasized.) **Visual_detail:** 8.0 (More specific descriptions of the loom's appearance and the weaving process have been added.) **Background:** 9.5 (The historical context and the ethnic Thai community's role in preserving this tradition have been elaborated upon.) **Purpose:** 8.0 (The specific purpose of the loom and the fabric's cultural significance are more clearly stated.) **Comparable_object:** 7.0 (A comparison to a globally recognized piece of cultural heritage has been introduced.) **Total_score:** 41.5 This revised prompt should provide a clearer, more detailed, and culturally rich description of the khung cửi gỗ and its significance within the Mekong Delta region.",
+   "out": "In a tranquil village in the Mekong Delta region of Vietnam, an ethnic Thai woman is sitting at an ancient wooden frame loom, known as a khung cửi gỗ. This loom is not just a tool but an essential part of the cultural heritage of the region, used for centuries to create dệt thổ cẩm, a traditional fabric celebrated for its intricate and vibrant geometric patterns. The patterns often feature dominant shades of red, blue, and gold, symbolizing prosperity and unity. The woman, dressed in traditional attire including an embroidered pieu headscarf and a vibrantly patterned wrap, illustrates the deep connection between the Mekong Delta’s rich weaving heritage and its ethnic Thai community. The khung cửi gỗ is to the Mekong Delta what the spinning wheel is to other weaving communities around the world, embodying the spirit and resilience of the people who have maintained this tradition through generations. The weaving process itself is a slow and meticulous art form, with each thread carefully selected and placed to create a masterpiece that tells a story of the village’s history and cultural pride.",
+   "words_raw": 296,
+   "words": 182,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 88.7,
+   "scene_keep_raw": 0.63
+  },
+  {
+   "culture_noun": "khăn piêu",
+   "in": "In a tranquil village in the Mekong Delta region of Vietnam, an ethnic Thai woman is sitting at an ancient wooden frame loom, known as a khung cửi gỗ. This loom is not just a tool but an essential part of the cultural heritage of the region, used for centuries to create dệt thổ cẩm, a traditional fabric celebrated for its intricate and vibrant geometric patterns. The patterns often feature dominant shades of red, blue, and gold, symbolizing prosperity and unity. The woman, dressed in traditional attire including an embroidered pieu headscarf and a vibrantly patterned wrap, illustrates the deep connection between the Mekong Delta’s rich weaving heritage and its ethnic Thai community. The khung cửi gỗ is to the Mekong Delta what the spinning wheel is to other weaving communities around the world, embodying the spirit and resilience of the people who have maintained this tradition through generations. The weaving process itself is a slow and meticulous art form, with each thread carefully selected and placed to create a masterpiece that tells a story of the village’s history and cultural pride.",
+   "out_raw": "### Revised Refined Prompt In a serene village in the Mekong Delta region of Vietnam, an ethnic Thai woman sits at a traditional wooden loom, known as a khung cửi gỗ. This ancient loom has been used for generations to weave dệt thổ cẩm, a rich and intricate fabric known for its vibrant geometric patterns. These patterns often feature bold colors like red, blue, and gold, symbolizing prosperity and unity within the community. Wearing traditional Thai attire, the woman is adorned with an embroidered pieu headscarf. The pieu headscarf measures approximately 50cm x 90cm and is meticulously embroidered with floral motifs and geometric shapes in crimson and gold threads. It feels soft and silky to the touch, with the embroidery adding a slight texture that contrasts beautifully with the smooth fabric beneath. This scarf is worn both during special occasions like weddings and festivals, and on a daily basis, symbolizing cultural identity and pride. The khung cửi gỗ is a symbol of the resilience and spirit of the people who have maintained this weaving tradition through generations. It embodies the same importance that a spinning wheel holds for other weaving communities around the world. However, the khung cửi gỗ is unique in its local craftsmanship and materials, such as the use of mulberry silk threads and traditional dyes, setting it apart from traditional looms found elsewhere. Each thread is carefully selected and placed to create a tapestry that speaks of the village’s rich history and cultural pride. Historically, the pieu headscarf has been passed down through generations, embodying the continuity of cultural practices and traditions. It serves as a testament to the community's resilience and the importance of preserving cultural heritage in the face of modernization. The pieu headscarf not only symbolizes beauty but also acts as a bridge between the past and the present, connecting the community to its roots and ensuring that the cultural legacy is carried forward. ### Updated SCORE: - **Clarity:** 9.0 (Improved sentence structure and clarity) - **Visual Detail:** 9.5 (Enhanced visual descriptions) - **Background:** 8.5 (Added historical context and significance) - **Purpose:** 8.0 (Stressed the cultural significance and daily use) - **Comparable Object:** 7.0 (Provided a clearer comparison and context) **Total Score:** 42.0 This revised prompt provides a richer, more detailed, and culturally informed description of the pieu headscarf and its significance in the Mekong Delta region.",
+   "out": "In a serene village in the Mekong Delta region of Vietnam, an ethnic Thai woman sits at a traditional wooden loom known as a khung cửi gỗ, weaving rich and intricate fabric with vibrant geometric patterns. She wears traditional Thai attire, including an embroidered pieu headscarf, which measures approximately 50cm x 90cm and is meticulously decorated with floral motifs and geometric shapes in crimson and gold threads. The loom and the pieu headscarf symbolize the community's resilience and cultural pride, connecting the village to its rich history and ensuring the continuity of cultural heritage.",
+   "words_raw": 393,
+   "words": 94,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 288.8,
+   "scene_keep_raw": 0.63
+  }
+ ],
+ "seconds": 524.1
+}

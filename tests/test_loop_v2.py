@@ -205,3 +205,21 @@ _ap = C.merge_positive(_ap, "Bare feet on wet sand", keep=3, log=_lgq)
 assert len(_ap) == 3, _ap
 print("prompt cộng dồn: giữ %d câu, câu nói cùng chỗ thì câu mới thắng" % len(_ap))
 print("ĐẠT (cộng dồn câu mô tả)")
+
+# --- ba lỗi soát mã phát hiện 2026-09-17 ------------------------------------------------------
+# 1. Đường lùi của suggestions() đẩy nhận xét THÔ vào negative prompt: 'hull is oval instead of
+#    circular' làm SDXL tránh vẽ 'circular' — cấm đúng thứ mình muốn. Đúng lỗi S012 quay lại cửa sau.
+assert C._wrong_half("hull is oval instead of circular") == "hull is oval"
+assert C._wrong_half("sides are planked wood instead of woven bamboo") == "sides are planked wood"
+assert C._wrong_half("beef slices are thick, not thin") == "beef slices are thick"
+assert C._wrong_half("collar is too wide") == "collar is too wide"   # không có 'instead of' thì giữ nguyên
+print("negative không còn nuốt phần ĐÚNG của câu chê")
+
+# 2. Bộ lọc phủ định so chuỗi con nên 'a kimono sleeve' bị loại vì trong 'kimono ' có 'no '.
+_bad = ("not", "instead", "without", "no", "avoid", "remove", "avoiding", "removing")
+for _s, _want in [("a kimono sleeve", False), ("no collar", True), ("a nostalgic scene", False),
+                  ("not fitted", True), ("a notable pattern", False)]:
+    _hit = bool((C._content_words(_s) | set(_s.lower().split())) & set(_bad))
+    assert _hit == _want, (_s, _hit, _want)
+print("bộ lọc phủ định so theo TỪ: 'kimono' và 'nostalgic' không còn bị loại oan")
+print("ĐẠT (ba lỗi soát mã)")

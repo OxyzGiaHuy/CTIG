@@ -319,14 +319,32 @@ def suggestions(agent, ev: EvalResult, entity_en: str = "", log=print) -> tuple[
         neg = [" ".join(str(x).split()) for x in (d.get("negative") or []) if str(x).strip()][:6]
     except Exception as exc:  # noqa: BLE001
         log(f"  [suggestions] LLM lỗi {type(exc).__name__}")
-    bad = ("not ", "instead", "without", "no ", "avoid", "remove")
-    if pos and any(b in pos.lower() for b in bad):
+    # So theo TỪ, không theo chuỗi con: 'a kimono sleeve' từng bị loại vì trong 'kimono ' có 'no ',
+    # và câu bị loại thì rơi xuống đường lùi bên dưới — đúng chỗ nguy hiểm nhất.
+    bad = ("not", "instead", "without", "no", "avoid", "remove", "avoiding", "removing")
+    if pos and (_content_words(pos) | set(pos.lower().split())) & set(bad):
         log(f"  [suggestions] câu mô tả còn phủ định -> bỏ: {pos[:70]}")
         pos = ""
     neg = _drop_contradictions(pos, neg, log)
     if not pos:                           # lùi an toàn: thà không thêm gì còn hơn thêm từ sai
-        neg = neg or _drop_contradictions("", [x for x in ev.differences + ev.foreign], log)
+        neg = neg or _drop_contradictions("", [_wrong_half(x) for x in ev.differences + ev.foreign], log)
+        neg = [x for x in neg if x]
     return pos, neg
+
+
+def _wrong_half(diff: str) -> str:
+    """Lấy PHẦN SAI của một câu chê, bỏ phần đúng đứng sau 'instead of'.
+
+    Đường lùi cũ đẩy nguyên câu vào negative prompt: 'hull is oval instead of circular' làm SDXL tránh vẽ
+    'circular', và 'sides are planked wood instead of woven bamboo' làm nó tránh 'woven bamboo'. Tức negative
+    prompt đang cấm đúng thứ ta muốn. Chính là lỗi S012 mà hàm suggestions() sinh ra để sửa, quay lại qua
+    cửa sau — vì `_drop_contradictions` thoát ngay khi positive rỗng nên không ai chặn.
+    """
+    import re
+
+    s = " ".join((diff or "").split())
+    s = re.split(r"\b(?:instead of|rather than|and not)\b|,\s*not\b", s, maxsplit=1)[0]
+    return s.strip(" .,;")
 
 
 _FILLER = {"a", "an", "the", "of", "with", "and", "in", "on", "is", "are", "too", "its", "it",

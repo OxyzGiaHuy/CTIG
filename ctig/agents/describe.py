@@ -465,6 +465,24 @@ def subject_labels(spec: CulturalSpec) -> list[str]:
     return [x for x in out if x][:2] + ["person"]
 
 
+def _owlvit_boxes(path: str, labels: list[str]) -> list[dict]:
+    """Đường lùi khi VLM không định vị được: OWL-ViT theo từng nhãn, trả về cùng khuôn với agent.locate()."""
+    try:
+        from PIL import Image
+
+        from ..stages.refcrop import detect_owlvit
+
+        im = Image.open(path).convert("RGB")
+        out = []
+        for lab in labels:
+            hit = detect_owlvit(im, f"a photo of {lab}")
+            if hit:
+                out.append({"label": lab, "bbox": list(hit[0]), "score": hit[1]})
+        return out
+    except Exception:  # noqa: BLE001
+        return []
+
+
 def subject_crop(agent, path: str, labels: list[str] | None = None, pad: float = 0.06) -> str:
     """Cắt quanh chủ thể rồi mới hỏi VQA (v1.9.5). Ảnh 1536px bị thu về ~700px trước khi vào VLM, chủ thể chiếm chưa
     tới một phần ba khung nên cổ áo, khe xẻ hông hay nan tre gần như biến mất. Đo trên 14 ảnh S001 có nhãn tay, AUC
@@ -477,8 +495,7 @@ def subject_crop(agent, path: str, labels: list[str] | None = None, pad: float =
     if key in _CROP_MEMO:
         return _CROP_MEMO[key]
     _CROP_MEMO[key] = path              # đặt trước để lỗi cũng không thử lại
-    if getattr(agent, "locate", None) is None:
-        return path
+    locate = getattr(agent, "locate", None)
     try:
         import hashlib
         import tempfile
@@ -490,7 +507,13 @@ def subject_crop(agent, path: str, labels: list[str] | None = None, pad: float =
         if dst.exists():
             _CROP_MEMO[key] = str(dst)
             return str(dst)
-        boxes = agent.locate(path, labels)
+        boxes = locate(path, labels) if locate else []
+        if not boxes:
+            # Backend Mistral KHÔNG có ground(), nên locate() luôn trả rỗng và việc cắt vùng chủ thể tắt im
+            # lặng đúng lúc đổi bộ chấm (2026-09-17). Mà cắt cả ảnh sinh lẫn ảnh thật là cải thiện lớn nhất
+            # từng đo được: AUC tà xẻ 0,67 -> 0,82, cổ đứng 0,36 -> 0,58, và S012 6,5 -> 7,0.
+            # Lùi về OWL-ViT, vốn đã dùng cho cắt ảnh tham chiếu và cho mặt nạ inpaint.
+            boxes = _owlvit_boxes(path, labels)
         if not boxes:
             return path
         im = Image.open(path).convert("RGB")

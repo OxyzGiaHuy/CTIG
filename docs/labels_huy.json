@@ -1,0 +1,562 @@
+[
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter1/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "long silk trousers",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 66409
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter1/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "long side slits",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 66409
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter1/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "long fitted sleeves",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 66409
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter1/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "sleeve sewn to arm",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 66409
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter1/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "high stand-up mandarin collar",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 66409
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter1/sdxl_base_ref/S003_sdxl_base_ref_c0.png",
+  "attribute_en": "white rice noodle strands",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 31330
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter1/sdxl_base_ref/S003_sdxl_base_ref_c0.png",
+  "attribute_en": "thinly sliced beef",
+  "side": "must_have",
+  "judgement": "khong",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 31330
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter1/sdxl_base_ref/S003_sdxl_base_ref_c0.png",
+  "attribute_en": "side dish of herbs",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 31330
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter0/sdxl_base/S003_sdxl_base_c0.png",
+  "attribute_en": "white rice noodle strands",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 4633
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter0/sdxl_base/S003_sdxl_base_c0.png",
+  "attribute_en": "side dish of herbs",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 4633
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter0/sdxl_base/S003_sdxl_base_c0.png",
+  "attribute_en": "thinly sliced beef",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 4633
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter1/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "round conical leaf hat",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 61480
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter1/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "food in shoulder basket",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 61480
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter1/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "two bamboo shoulder baskets",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 61480
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter1/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "bamboo shoulder carrying pole",
+  "side": "must_have",
+  "judgement": "khong",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 61480
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter1/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "food in bowl",
+  "side": "must_not",
+  "judgement": "khong",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 61480
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter1/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "food in basin",
+  "side": "must_not",
+  "judgement": "khong",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 61480
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter2/sdxl_base_ref/S003_sdxl_base_ref_c0.png",
+  "attribute_en": "side dish of herbs",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 48657
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter2/sdxl_base_ref/S003_sdxl_base_ref_c0.png",
+  "attribute_en": "thinly sliced beef",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 48657
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter2/sdxl_base_ref/S003_sdxl_base_ref_c0.png",
+  "attribute_en": "white rice noodle strands",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "khong_chac",
+  "annotator": "huy",
+  "ms": 48657
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter2/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "high stand-up mandarin collar",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 15740
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter2/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "long silk trousers",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 15740
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter2/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "sleeve sewn to arm",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 15740
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter2/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "long side slits",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 15740
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter2/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "long fitted sleeves",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 15740
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter3/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "sleeve sewn to arm",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 7568
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter3/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "long silk trousers",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 7568
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter3/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "high stand-up mandarin collar",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 7568
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter3/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "long side slits",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 7568
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter3/sdxl_base_ref/S001_sdxl_base_ref_c0.png",
+  "attribute_en": "long fitted sleeves",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 7568
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter3/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "food in basin",
+  "side": "must_not",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 25913
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter3/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "food in bowl",
+  "side": "must_not",
+  "judgement": "khong",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 25913
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter3/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "round conical leaf hat",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 25913
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter3/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "bamboo shoulder carrying pole",
+  "side": "must_have",
+  "judgement": "khong",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 25913
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter3/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "two bamboo shoulder baskets",
+  "side": "must_have",
+  "judgement": "khong",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 25913
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter3/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "food in shoulder basket",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 25913
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter0/sdxl_base/S002_sdxl_base_c0.png",
+  "attribute_en": "round conical leaf hat",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 17306
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter0/sdxl_base/S002_sdxl_base_c0.png",
+  "attribute_en": "food in shoulder basket",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 17306
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter0/sdxl_base/S002_sdxl_base_c0.png",
+  "attribute_en": "bamboo shoulder carrying pole",
+  "side": "must_have",
+  "judgement": "khong_thay",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 17306
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter0/sdxl_base/S002_sdxl_base_c0.png",
+  "attribute_en": "food in basin",
+  "side": "must_not",
+  "judgement": "khong",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 17306
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter0/sdxl_base/S002_sdxl_base_c0.png",
+  "attribute_en": "two bamboo shoulder baskets",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 17306
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter0/sdxl_base/S002_sdxl_base_c0.png",
+  "attribute_en": "food in bowl",
+  "side": "must_not",
+  "judgement": "khong",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 17306
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter0/sdxl_base/S001_sdxl_base_c0.png",
+  "attribute_en": "long silk trousers",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 20951
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter0/sdxl_base/S001_sdxl_base_c0.png",
+  "attribute_en": "long fitted sleeves",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 20951
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter0/sdxl_base/S001_sdxl_base_c0.png",
+  "attribute_en": "sleeve sewn to arm",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 20951
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter0/sdxl_base/S001_sdxl_base_c0.png",
+  "attribute_en": "long side slits",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 20951
+ },
+ {
+  "prompt_id": "S001",
+  "image": "/workspace/runs/pilotC/S001/iter0/sdxl_base/S001_sdxl_base_c0.png",
+  "attribute_en": "high stand-up mandarin collar",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 20951
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter3/sdxl_base_ref/S003_sdxl_base_ref_c0.png",
+  "attribute_en": "side dish of herbs",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 3294
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter3/sdxl_base_ref/S003_sdxl_base_ref_c0.png",
+  "attribute_en": "thinly sliced beef",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 3294
+ },
+ {
+  "prompt_id": "S003",
+  "image": "/workspace/runs/pilotC/S003/iter3/sdxl_base_ref/S003_sdxl_base_ref_c0.png",
+  "attribute_en": "white rice noodle strands",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "dung",
+  "annotator": "huy",
+  "ms": 3294
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter2/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "bamboo shoulder carrying pole",
+  "side": "must_have",
+  "judgement": "khong",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 18928
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter2/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "round conical leaf hat",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 18928
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter2/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "food in shoulder basket",
+  "side": "must_have",
+  "judgement": "khong_thay",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 18928
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter2/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "food in basin",
+  "side": "must_not",
+  "judgement": "khong",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 18928
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter2/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "two bamboo shoulder baskets",
+  "side": "must_have",
+  "judgement": "co",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 18928
+ },
+ {
+  "prompt_id": "S002",
+  "image": "/workspace/runs/pilotC/S002/iter2/sdxl_base_ref/S002_sdxl_base_ref_c0.png",
+  "attribute_en": "food in bowl",
+  "side": "must_not",
+  "judgement": "khong",
+  "overall": "sai",
+  "annotator": "huy",
+  "ms": 18928
+ }
+]

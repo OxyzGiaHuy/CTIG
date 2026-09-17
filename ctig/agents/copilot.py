@@ -391,6 +391,30 @@ class Memory:
         self.asked.extend(_chunks(pos))
 
 
+def merge_positive(applied: list[str], new: str, keep: int = 3, log=print) -> list[str]:
+    """Cộng dồn câu mô tả qua các vòng, bỏ câu cũ nói về CÙNG một chỗ.
+
+    Bản trước chốt `base_terms` một lần rồi mỗi vòng chỉ nối thêm câu của chính vòng đó, nên prompt vòng 3
+    mất sạch những gì vòng 1 và 2 đã sửa — trong khi negative thì cộng dồn. Bất đối xứng đó làm vòng lặp
+    không tích luỹ được: sửa xong tay áo ở vòng 1 thì vòng 2 quên mất, và lỗi cũ quay lại.
+
+    Cộng dồn mù thì prompt phình và tự mâu thuẫn, nên: câu mới chung từ hai từ trở lên với câu cũ thì coi là
+    nói về cùng bộ phận, câu mới thắng. Giữ tối đa `keep` câu vì prompt Culture-TRIP đã 130-324 token CLIP.
+    """
+    new = " ".join((new or "").split())
+    if not new:
+        return list(applied)
+    w = _content_words(new)
+    out = []
+    for old_p in applied:
+        if len(_content_words(old_p) & w) >= 2:
+            log(f"  [prompt] bỏ câu cũ '{old_p[:44]}' vì câu mới nói cùng chỗ")
+            continue
+        out.append(old_p)
+    out.append(new)
+    return out[-keep:]
+
+
 def _drop_contradictions(pos: str, neg: list[str], log=print) -> list[str]:
     """Bỏ khỏi negative những cụm mà positive đang YÊU CẦU. Hai lệnh ngược nhau thì triệt tiêu nhau.
 

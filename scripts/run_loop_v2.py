@@ -68,6 +68,9 @@ def main(argv=None):
     ap.add_argument("--threshold", type=float, default=copilot.DEFAULT_THRESHOLD)
     ap.add_argument("--rounds", type=int, default=copilot.DEFAULT_MAX_ROUNDS)
     ap.add_argument("--run-name", default="loopv2")
+    ap.add_argument("--seed-mode", default="fixed", choices=("fixed", "vary"),
+                    help="fixed (mặc định): mọi vòng dùng chung seed, khác biệt giữa các vòng chỉ do prompt. "
+                         "vary: như bản cũ, mỗi vòng một seed -> các vòng là mẫu độc lập, không so được với nhau.")
     ap.add_argument("--set", action="append", default=[])
     a = ap.parse_args(argv)
     log = lambda *x: print(*x, flush=True)  # noqa: E731
@@ -105,6 +108,7 @@ def main(argv=None):
     base_terms = list(gen.prompt_terms)
 
     base_neg = list(gen.negative_terms)
+    applied: list[str] = []          # câu mô tả CỘNG DỒN qua các vòng, xem copilot.merge_positive
 
     def make(positive: str, negative: list[str], n: int) -> str | None:
         # positive vào prompt, negative vào negative_prompt. KHÔNG bao giờ dán nhận xét thô vào prompt.
@@ -114,7 +118,14 @@ def main(argv=None):
         # '+ref', nên C xuất phát từ một ảnh khác hẳn B và hiệu số trộn lẫn công của IP-Adapter.
         # Ảnh tham chiếu là một HÀNH ĐỘNG SỬA, chỉ vào cuộc từ vòng 1.
         use_refs = refs if n > 0 else []
-        g = replace(gen, prompt_terms=base_terms + ([positive] if positive else []),
+        nonlocal applied
+        applied = copilot.merge_positive(applied, positive, log=log)
+        # Seed hiệu dụng ở bộ sinh là gen.seed + 1000*iteration (ctig/stages/generation.py:356). Ở chế độ
+        # 'fixed' ta bù lại phần 1000*n để MỌI VÒNG dùng chung một seed: khi đó khác biệt giữa hai vòng chỉ
+        # đến từ câu prompt, không từ nhiễu. Chế độ 'vary' giữ như cũ, và khi đó bốn ảnh của bốn vòng là bốn
+        # mẫu ĐỘC LẬP — so sánh giữa các vòng không có nghĩa, và vòng sửa khó hơn best-of-N ở chỗ nào.
+        seed = (cfg.seed - 1000 * n) if a.seed_mode == "fixed" else cfg.seed
+        g = replace(gen, prompt_terms=base_terms + applied, seed=seed,
                     negative_terms=base_neg + [x for x in (negative or []) if x not in base_neg],
                     iteration=n, ip_adapter_image=(use_refs or None), ip_adapter_scale=cfg.multigen.ref_scale)
         key = a.model if not use_refs else (a.model if "+ref" in a.model else a.model + "+ref")
@@ -136,7 +147,8 @@ def main(argv=None):
     out = copilot.run_loop(s.agent, a_in, first, make, refs=refs, crop=crop,
                            threshold=a.threshold, max_rounds=a.rounds, log=log)
 
-    res = {"prompt_id": a.id, "model": a.model, "prompt_source": a.prompt_source,
+    res = {"prompt_id": a.id, "model": a.model, "prompt_source": a.prompt_source, "seed_mode": a.seed_mode,
+           "applied_positive": applied,
            "prompt_used": " ".join(base_terms), "report": a_in, "refs": refs,
            "threshold": a.threshold, **out}
     (out_dir / "loop_v2.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")

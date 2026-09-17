@@ -187,3 +187,21 @@ _m2.record("Large round woven baskets on a shoulder pole")
 assert _m2.filter(["baskets are round instead of oval"], lambda *a: None) == []
 print("bộ nhớ: bắt được 'baskets are round instead of oval' sau khi đã yêu cầu thúng tròn")
 print("ĐẠT (trục văn hoá theo mức nghiêm trọng)")
+
+# --- câu mô tả phải CỘNG DỒN qua các vòng (lỗi tìm ra 2026-09-17) -------------------------------
+# run_loop_v2 chốt base_terms một lần rồi mỗi vòng chỉ nối câu của chính vòng đó, nên prompt vòng 3
+# mất sạch phần vòng 1 và 2 đã sửa — trong khi negative lại cộng dồn. Bất đối xứng đó làm vòng lặp
+# không tích luỹ: sửa xong tay áo ở vòng 1 thì vòng 2 quên, lỗi cũ quay lại.
+_lgq = lambda *a: None
+_ap = C.merge_positive([], "Long silk dress with long sleeves", log=_lgq)
+_ap = C.merge_positive(_ap, "High mandarin collar", log=_lgq)
+assert _ap == ["Long silk dress with long sleeves", "High mandarin collar"], _ap
+# câu mới nói cùng chỗ (chung >= 2 từ) thì thay câu cũ, không chồng hai lệnh ngược nhau
+_ap = C.merge_positive(_ap, "Fitted long sleeves, narrow cuffs", log=_lgq)
+assert "Long silk dress with long sleeves" not in _ap and len(_ap) == 2, _ap
+# giữ tối đa `keep` câu vì prompt Culture-TRIP đã 130-324 token CLIP
+_ap = C.merge_positive(_ap, "White silk fabric", log=_lgq)
+_ap = C.merge_positive(_ap, "Bare feet on wet sand", keep=3, log=_lgq)
+assert len(_ap) == 3, _ap
+print("prompt cộng dồn: giữ %d câu, câu nói cùng chỗ thì câu mới thắng" % len(_ap))
+print("ĐẠT (cộng dồn câu mô tả)")

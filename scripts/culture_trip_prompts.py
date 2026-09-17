@@ -27,6 +27,7 @@ import json
 import os
 import re
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -317,9 +318,24 @@ def load_culture_trip(repo: str, model: str, log=print):
             IR.feedback_llm = feedback_prompt | IR.llm | StrOutputParser()
             log(f"[culture-trip] LLM ép về {model} (bài gốc dùng llama3:70b)")
         patch_scoring(IR, log)           # phải vá TRƯỚC import dưới đây (graph_workflow `from … import scoring`)
-        from iterative_refinement.graph_workflow import culture_trip
+        from iterative_refinement.graph_workflow import culture_trip, setup_workflow
 
-        return culture_trip, backend, repo
+        def run_one_thread_safe(noun, prompt, threshold, show=False):
+            """Như culture_trip() của họ nhưng thread_id RIÊNG mỗi lần gọi.
+
+            Bản gốc cố định `thread_id: 1111` với MemorySaver, nên hai lời gọi song song dùng chung checkpoint
+            và giẫm lên nhau. Đây là đổi KHOÁ CHECKPOINT, không đổi đồ thị, không đổi prompt, không đổi ngưỡng.
+            """
+            from langgraph.checkpoint.memory import MemorySaver
+
+            app = setup_workflow().compile(checkpointer=MemorySaver())
+            out = app.invoke({"culture_noun": noun, "prompt": prompt, "score_threshold": threshold,
+                              "is_intermediate_result_show": show},
+                             config={"configurable": {"thread_id": f"{threading.get_ident()}-{time.time_ns()}"},
+                                     "recursion_limit": 100})
+            return out["refined_prompt"]
+
+        return run_one_thread_safe, backend, repo
     finally:
         os.chdir(cwd)
 
@@ -386,6 +402,7 @@ def main(argv=None):
     ap.add_argument("--ids", default=None)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--force", action="store_true", help="làm lại cả prompt đã có tệp")
+    ap.add_argument("--workers", type=int, default=1, help="số prompt chạy song song (Ollama nhận nhiều request)")
     a = ap.parse_args(argv)
     log = lambda *x: print(*x, flush=True)  # noqa: E731
 
@@ -406,6 +423,7 @@ def main(argv=None):
     llm = _IR.llm
     log(f"{len(recs)} prompt · model {a.model} · ngưỡng {a.threshold} · tìm kiếm {backend} · ra {out_dir}")
 
+    lock = threading.Lock()
     done = skip = fail = n_over = 0
     t_all = time.time()
     tok = None
@@ -415,21 +433,24 @@ def main(argv=None):
         tok = CLIPTokenizerFast.from_pretrained("openai/clip-vit-base-patch32")
     except Exception:  # noqa: BLE001
         log("[cảnh báo] không nạp được tokenizer CLIP -> số token chỉ là ước lượng")
-    for r in recs:
+    def handle(r):
+        nonlocal done, skip, fail, n_over
         dst = out_dir / f"{r['id']}.json"
         sig = hashlib.sha1(f"{r['text_en']}|{a.model}|{a.threshold}".encode()).hexdigest()[:12]
         if dst.exists() and not a.force:
             try:
                 if json.loads(dst.read_text(encoding="utf-8")).get("sig") == sig:
-                    skip += 1
-                    continue
+                    with lock:
+                        skip += 1
+                    return
             except Exception:  # noqa: BLE001
                 pass
         nouns = [n for n in (r.get("entities") or []) if n]
         if not nouns:
             log(f"[{r['id']}] không có culture noun -> bỏ qua")
-            fail += 1
-            continue
+            with lock:
+                fail += 1
+            return
         log(f"[{r['id']}] {len(nouns)} thực thể: {', '.join(nouns)}")
         t0 = time.time()
         refined, steps = refine_one(culture_trip, repo, nouns, r["text_en"], a.threshold, log, llm)
@@ -447,12 +468,24 @@ def main(argv=None):
             "clip_tokens": n_tok, "over_77_tokens": n_tok > 77,
             "per_step": steps, "seconds": round(time.time() - t0, 1),
         }, ensure_ascii=False, indent=1), encoding="utf-8")
-        if n_tok > 77:
-            n_over += 1
-        done += 1
+        with lock:
+            done += 1
+            if n_tok > 77:
+                n_over += 1
+            if not ok:
+                fail += 1
         if not ok:
-            fail += 1
             log(f"[{r['id']}] CẢNH BÁO: câu không đổi so với gốc")
+
+    if a.workers > 1:
+        from concurrent.futures import ThreadPoolExecutor
+
+        log(f"chạy {a.workers} luồng song song (mỗi luồng một app riêng, thread_id riêng)")
+        with ThreadPoolExecutor(max_workers=a.workers) as ex:
+            list(ex.map(handle, recs))
+    else:
+        for r in recs:
+            handle(r)
     log(f"xong: {done} mới, {skip} bỏ qua (đã có), {fail} có vấn đề · {time.time() - t_all:.0f}s")
     if n_over:
         log(f"[lưu ý] {n_over}/{done} prompt vượt 77 token CLIP. SDXL/RealVis bật compel nên NỐI embedding, "

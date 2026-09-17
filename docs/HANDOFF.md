@@ -767,9 +767,28 @@ tạo** (lượt đầu trả về "no net", "no fish", "no hat" — đồ vật
 OLLAMA_MAX_LOADED_MODELS=2` (mặc định là 1, làm mọi worker phía client thành vô nghĩa — đã đo: 3,4 → 2,3
 phút/prompt khi đổi sang 6), `qwen2.5:14b` đã tải.
 
-**Cache model đang phình 170 GB thay vì ~67 GB** vì `snapshot_download()` gọi thiếu `variant="fp16"` và
-`allow_patterns`, kéo cả fp32 lẫn fp16, cả `.bin` lẫn `.safetensors`: SDXL 58 GB (đáng ra 6,5), FLUX 54 GB
-(32), RealVis 26 GB (6,4), IP-Adapter 14 GB (3,2). Cần dọn trước khi chạy lô lớn.
+**Cache model từng phình 170 GB, đã dọn còn 70 GB** (2026-09-17, giải phóng 100,5 GB; đĩa 92/250 GB, còn
+trống 159 GB). Nguyên nhân: `dl_models.sh` gọi `snapshot_download(allow_patterns=None)` cho 8/9 kho nên kéo
+cả fp32 lẫn fp16, cả `.bin` lẫn `.safetensors`, cả ONNX, OpenVINO và checkpoint single-file — SDXL 58 GB
+(đáng ra 6,5), FLUX 54 GB (32), RealVis 26 GB (6,4), IP-Adapter 14 GB. Phần thừa chưa từng được đọc: mã luôn
+nạp `variant="fp16"` + `use_safetensors=True` (`ctig/models/loader.py:53,59`,
+`ctig/stages/generation.py:265,269`) và **không gọi `from_single_file` ở đâu cả**.
+
+Hai script đã vào git: `scripts/vast/dl_models.sh` (bản sửa, có `allow_patterns` riêng từng kho và chặn thêm
+`*.onnx_data`, `*openvino*` — bản cũ chỉ chặn `*.onnx` là phần nhẹ) và `scripts/vast/purge_hf_cache.sh` (dọn
+cache đang có, mặc định dry-run). Lưu ý cách xoá: trong cache HF, xoá symlink dưới `snapshots/` **không giải
+phóng byte nào**, phải xoá cả blob mà nó trỏ tới.
+
+Hai thứ cố tình GIỮ dù trông như thừa: `vae_1_0/*.fp16.safetensors` của SDXL (diffusers 0.40 gom mọi file
+khớp variant toàn kho vào `expected_files` khi kiểm `pipeline_is_cached`, thiếu nó thì mỗi lần nạp phải gọi
+hub và sẽ vỡ nếu bật `HF_HUB_OFFLINE=1`), và `openai/clip-vit-base-patch32/pytorch_model.bin` (kho này không
+có bản safetensors).
+
+Đã kiểm sau khi dọn, với `HF_HUB_OFFLINE=1` để thiếu file là lộ ngay: SDXL, RealVis, IP-Adapter bản base,
+IP-Adapter bản plus, FLUX.1-dev — **cả 5 đều nạp OK**, không còn symlink gãy.
+
+Vẫn CHƯA tải: `stabilityai/stable-diffusion-3.5-medium`, `XLabs-AI/flux-ip-adapter` +
+`openai/clip-vit-large-patch14` (cho hàng `flux_dev+ref`), LoRA áo dài Civitai version 590793.
 
 ### Chuyển máy: đừng dùng vast copy
 

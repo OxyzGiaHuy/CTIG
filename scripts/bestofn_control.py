@@ -30,9 +30,14 @@ from scripts.run_loop_v2 import external_prompt, grid  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def one(cfg: Config, prompt, run_dir: Path, n: int, model: str, source: str, log) -> dict:
+def one(cfg: Config, prompt, run_dir: Path, n: int, model: str, source: str, log, shared=None) -> dict:
     s = Session(cfg, prompt, run_dir=run_dir, log=log)
-    s.grounding()
+    # dùng chung MỘT agent: mỗi Session mới tự nạp thêm Mistral 45 GB
+    if shared is not None and shared[0] is not None:
+        s._agent = shared[0]
+    # prompt_refs() đọc thẳng từ đĩa theo prompt_id nên không cần grounding, mà nó tốn 22-191 s mỗi prompt
+    s.skip_grounding()
+    s.spec()
     refined, evidence = external_prompt(source, prompt.id) if source != "original" else ("", "")
     if refined:
         s.set_prompt_en(refined)
@@ -60,6 +65,8 @@ def one(cfg: Config, prompt, run_dir: Path, n: int, model: str, source: str, log
 
     if not out:
         return {"prompt_id": prompt.id, "samples": []}
+    if shared is not None:
+        shared[0] = s.agent
     best = max(out, key=lambda x: x["eval"]["overall"])
     best_c = max(out, key=lambda x: x["eval"]["axes"]["culture"])
     res = {"prompt_id": prompt.id, "model": model, "prompt_source": source, "n": n, "refs": refs,
@@ -97,12 +104,13 @@ def main(argv=None):
     run_dir = Path(cfg.runs_dir) / a.run_name
     log = lambda *x: print(*x, flush=True)  # noqa: E731
 
+    shared = [None]
     for pid in [x.strip() for x in a.ids.split(",") if x.strip()]:
         if pid not in prompts:
             log(f"[{pid}] không có trong {cfg.prompts_path}")
             continue
         try:
-            one(cfg, prompts[pid], run_dir, a.n, a.model, a.prompt_source, log)
+            one(cfg, prompts[pid], run_dir, a.n, a.model, a.prompt_source, log, shared)
         except Exception as exc:  # noqa: BLE001
             log(f"[{pid}] LỖI {type(exc).__name__}: {exc}")
 

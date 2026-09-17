@@ -299,6 +299,66 @@ def suggestions(agent, ev: EvalResult, entity_en: str = "", log=print) -> tuple[
     return pos, neg
 
 
+_FILLER = {"a", "an", "the", "of", "with", "and", "in", "on", "is", "are", "too", "its", "it",
+           "that", "this", "has", "have", "be", "being", "appears", "looks", "seems", "should"}
+
+
+def _content_words(text: str) -> set[str]:
+    return {w.strip(".,;:'\"()") for w in text.lower().split()} - _FILLER - {""}
+
+
+def _chunks(pos: str) -> list[set[str]]:
+    """Cắt câu mô tả thành từng cụm nhỏ: 'Long dress with long sleeves, high collar' -> {long,dress},
+    {long,sleeves}, {high,collar}. Cần cụm nhỏ thì mới đối chiếu được với một câu chê cụ thể."""
+    import re
+
+    out = []
+    for part in re.split(r"[,;]| and | with ", pos or ""):
+        w = _content_words(part)
+        if w:
+            out.append(w)
+    return out
+
+
+class Memory:
+    """Nhớ vòng sửa đã YÊU CẦU gì, để không quay đầu chê chính điều mình vừa bảo model vẽ.
+
+    Lượt S001 đầu tiên: vòng 1 chê 'sleeves are too short' -> ta thêm 'long sleeves'; vòng 2 chê 'sleeves are
+    too long' -> ta bỏ 'long sleeves' đi; vòng 3 lại 'too short'. Ba vòng đi vòng tròn, điểm nhúc nhích 0,4.
+    Đây là dao động kiểu bang-bang: mỗi vòng sửa hết biên độ theo lời chê mới nhất, không có giảm chấn.
+
+    Hai luật, cả hai đều LOẠI BỎ lời chê chứ không sửa nó:
+      1. Chê đúng thứ ta vừa yêu cầu (mọi từ của một cụm đã yêu cầu đều nằm trong câu chê) -> bỏ.
+         Đánh đổi: nếu model lỡ tay quá đà thật thì ta không sửa nữa. Chấp nhận, vì ảnh cuối chọn theo điểm
+         cao nhất mọi vòng nên một vòng quá đà không làm hỏng kết quả, còn đi vòng tròn thì hỏng cả ba vòng.
+      2. Cùng một lời chê xuất hiện từ lần thứ ba -> bỏ. Ở S001 'collar is too wide' bị nêu cả 4 lần chấm mà
+         không vòng nào sửa nổi: nhắc lại lần nữa chỉ tốn chỗ trong negative prompt.
+    """
+
+    def __init__(self):
+        self.asked: list[set[str]] = []
+        self.seen: dict[str, int] = {}
+
+    def filter(self, diffs: list[str], log=print) -> list[str]:
+        out = []
+        for d in diffs:
+            words = _content_words(d)
+            hit = next((c for c in self.asked if c and c <= words), None)
+            if hit:
+                log(f"  [memory] '{d[:52]}' chê đúng thứ đã yêu cầu ({' '.join(sorted(hit))}) -> bỏ")
+                continue
+            key = " ".join(sorted(words))
+            self.seen[key] = self.seen.get(key, 0) + 1
+            if self.seen[key] >= 3:
+                log(f"  [memory] '{d[:52]}' nêu lần thứ {self.seen[key]} mà chưa sửa được -> bỏ")
+                continue
+            out.append(d)
+        return out
+
+    def record(self, pos: str) -> None:
+        self.asked.extend(_chunks(pos))
+
+
 def _drop_contradictions(pos: str, neg: list[str], log=print) -> list[str]:
     """Bỏ khỏi negative những cụm mà positive đang YÊU CẦU. Hai lệnh ngược nhau thì triệt tiêu nhau.
 
@@ -311,11 +371,10 @@ def _drop_contradictions(pos: str, neg: list[str], log=print) -> list[str]:
     """
     if not pos or not neg:
         return neg
-    filler = {"a", "an", "the", "of", "with", "and", "in", "on", "is", "are", "too"}
-    pos_words = {w.strip(".,;:'\"") for w in pos.lower().split()} - filler
+    pos_words = _content_words(pos)
     out = []
     for phrase in neg:
-        words = {w.strip(".,;:'\"") for w in phrase.lower().split()} - filler
+        words = _content_words(phrase)
         if words and words <= pos_words:
             log(f"  [suggestions] '{phrase}' vừa ở prompt dương vừa ở prompt âm -> bỏ khỏi negative")
             continue
@@ -390,8 +449,11 @@ def run_loop(agent, report: dict, first_image: str, generate, refs=None, crop=No
         log(f"  [loop] ảnh đầu đạt ({ev.overall:.1f} >= {threshold}) -> dừng")
         return {"final": first_image, "best": best.to_dict(), "rounds": rounds, "kept": kept,
                 "stop": "ảnh đầu đạt"}
+    mem = Memory()
     for n in range(1, max_rounds + 1):
+        ev.differences = mem.filter(ev.differences, log)     # bỏ lời chê ngược với điều đã yêu cầu
         pos, neg = suggestions(agent, ev, entity, log)
+        mem.record(pos)
         tip = critique(ev, entity)
         log(f"  [loop] vòng {n}: nhận xét: {tip[:110]}")
         log(f"  [loop] vòng {n}: thêm vào prompt: '{pos[:90]}' · negative: {neg}")

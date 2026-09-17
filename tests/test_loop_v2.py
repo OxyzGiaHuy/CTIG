@@ -136,3 +136,16 @@ assert C._names_a_culture("Chinese floral brocade panel")
 assert C._names_a_culture("cheongsam-style side fastening")
 print("cổng 'phải nêu tên nền văn hoá': đạo cụ bị loại, hoa văn Trung Quốc được giữ")
 print("ĐẠT (phần bổ sung)")
+
+# --- bộ nhớ chống dao động, thêm 2026-09-17 sau lượt S001 -------------------------------------
+_m = C.Memory()
+_lg = lambda *a: None
+assert _m.filter(["sleeves are too short", "collar is too wide"], _lg) == \
+       ["sleeves are too short", "collar is too wide"]
+_m.record("Long silk dress with long sleeves, high collar")
+# vòng sau chê đúng thứ vừa yêu cầu -> bỏ, nếu không sẽ đi vòng tròn ngắn/dài/ngắn
+assert _m.filter(["sleeves are too long", "collar is too wide"], _lg) == ["collar is too wide"]
+# lời chê lặp tới lần thứ ba mà chưa sửa được -> thôi nhắc
+assert _m.filter(["collar is too wide", "fabric is too thick"], _lg) == ["fabric is too thick"]
+print("bộ nhớ: bỏ lời chê ngược, và bỏ lời chê lặp lần thứ 3")
+print("ĐẠT (bộ nhớ)")

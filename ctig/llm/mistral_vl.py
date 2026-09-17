@@ -50,6 +50,8 @@ class MistralVLBackend(JSONChatMixin):
             dt = getattr(torch, dtype)
 
         self.model = _load_model(model, dt, device, quant)
+        self._quantized = quant in ("4bit", "8bit")   # bitsandbytes không cho .to() sau khi nạp
+        self._on_cpu = False
         # fix_mistral_regex: kho của Mistral khai sai mẫu regex tách token; không bật thì transformers cảnh báo
         # "This will lead to incorrect tokenization". Cờ này mới có ở transformers gần đây nên có đường lùi.
         try:
@@ -78,6 +80,7 @@ class MistralVLBackend(JSONChatMixin):
 
     def chat(self, system: str, user: str, images: list[str] | None = None,
              max_new_tokens: int | None = None) -> str:
+        self._ensure_gpu()
         inputs = self._encode(self._messages(system, user, images))
         gen = dict(max_new_tokens=max_new_tokens or self.max_new_tokens)
         if self.temperature > 0:
@@ -92,6 +95,35 @@ class MistralVLBackend(JSONChatMixin):
         trimmed = out[:, inputs["input_ids"].shape[1]:]
         return self.processor.batch_decode(trimmed, skip_special_tokens=True)[0]
 
+    # --- gửi tạm xuống RAM: bộ chấm và bộ sinh ảnh KHÔNG bao giờ chạy cùng lúc ---
+    def to_cpu(self) -> None:
+        """Đưa trọng số xuống RAM để nhường VRAM cho SDXL/FLUX.
+
+        Vì sao cần: Mistral 24B bf16 chiếm ~48 GB và nằm lì trên GPU suốt lượt chạy, nên đỉnh đo được là
+        57,6 GB = Mistral + SDXL. Nhưng sinh ảnh xong mới chấm, chấm xong mới sinh lại — hai thứ không bao
+        giờ cùng lúc. Gửi xuống RAM giữa hai pha thì đỉnh còn max(48, 25) thay vì tổng, và khỏi phải lượng
+        tử hoá bộ chấm — thứ vốn đã là mắt yếu nhất của hệ thống.
+
+        Chuyển 45 GB qua PCIe 4.0 x16 mất khoảng 3 giây mỗi chiều, rẻ hơn nhiều so với nạp lại từ đĩa
+        (`Session.free_vlm` cũ) và rẻ hơn cái giá phải trả về chất lượng khi lượng tử hoá.
+        Model đã lượng tử hoá bằng bitsandbytes KHÔNG chuyển được -> bỏ qua, và khi đó cũng không cần.
+        """
+        if getattr(self, "_quantized", False) or self._on_cpu:
+            return
+        self.model.to("cpu")
+        self._on_cpu = True
+        self.torch.cuda.empty_cache()
+
+    def to_gpu(self) -> None:
+        if getattr(self, "_quantized", False) or not self._on_cpu:
+            return
+        self.model.to(self.device)
+        self._on_cpu = False
+
+    def _ensure_gpu(self) -> None:
+        if self._on_cpu:
+            self.to_gpu()
+
     def choice_prob(self, question: str, images: list[str] | None = None,
                     letters: tuple[str, ...] = ("A", "B", "C")) -> list[float]:
         """Xác suất chuẩn hoá trên chữ cái đầu câu trả lời, một lượt forward, không sinh.
@@ -99,6 +131,7 @@ class MistralVLBackend(JSONChatMixin):
         Giống `QwenVLBackend.choice_prob`: bắt model CHỌN giữa thuộc tính đúng và một mô tả sai cụ thể,
         vì câu có/không cho hai phân bố trùm lên nhau hoàn toàn (xem ghi chú ở bản Qwen).
         """
+        self._ensure_gpu()
         inputs = self._encode(self._messages("Answer with a single letter.", question, images))
         tok = self.processor.tokenizer
         t0 = time.time()

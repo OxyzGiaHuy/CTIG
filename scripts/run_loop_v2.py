@@ -68,6 +68,10 @@ def main(argv=None):
     ap.add_argument("--threshold", type=float, default=copilot.DEFAULT_THRESHOLD)
     ap.add_argument("--rounds", type=int, default=copilot.DEFAULT_MAX_ROUNDS)
     ap.add_argument("--run-name", default="loopv2")
+    ap.add_argument("--park-vlm", action="store_true",
+                    help="gửi bộ chấm xuống RAM trong lúc sinh ảnh. Cần trên card 48 GB: giữ cả Mistral 24B "
+                         "(48 GB) lẫn SDXL (đỉnh 24,7 GB) là 57,6 GB. Mất ~3 giây mỗi chiều qua PCIe, rẻ hơn "
+                         "nạp lại từ đĩa và rẻ hơn cái giá chất lượng của việc lượng tử hoá.")
     ap.add_argument("--seed-mode", default="fixed", choices=("fixed", "vary"),
                     help="fixed (mặc định): mọi vòng dùng chung seed, khác biệt giữa các vòng chỉ do prompt. "
                          "vary: như bản cũ, mỗi vòng một seed -> các vòng là mẫu độc lập, không so được với nhau.")
@@ -125,6 +129,10 @@ def main(argv=None):
         # đến từ câu prompt, không từ nhiễu. Chế độ 'vary' giữ như cũ, và khi đó bốn ảnh của bốn vòng là bốn
         # mẫu ĐỘC LẬP — so sánh giữa các vòng không có nghĩa, và vòng sửa khó hơn best-of-N ở chỗ nào.
         seed = (cfg.seed - 1000 * n) if a.seed_mode == "fixed" else cfg.seed
+        # Bộ chấm xuống RAM trước khi nạp SDXL: hai thứ không bao giờ cần cùng lúc, mà giữ cả hai trên GPU
+        # là 57,6 GB (đo được) — quá chỗ của mọi card 48 GB. Gọi lại tự động ở lần chấm sau.
+        if a.park_vlm and s.park_vlm():
+            log(f"  [vram] bộ chấm xuống RAM, còn trống {__import__('ctig.models.loader', fromlist=['x']).free_gb(cfg.multigen.device)} GB")
         g = replace(gen, prompt_terms=base_terms + applied, seed=seed,
                     negative_terms=base_neg + [x for x in (negative or []) if x not in base_neg],
                     iteration=n, ip_adapter_image=(use_refs or None), ip_adapter_scale=cfg.multigen.ref_scale)

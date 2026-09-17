@@ -784,6 +784,23 @@ class Session:
             self._web = WebClient(self.cfg.retrieval, self.cache_dir)
         return self._web
 
+    def park_vlm(self) -> bool:
+        """Gửi VLM xuống RAM trước khi sinh ảnh; True nếu làm được.
+
+        Khác `free_vlm` ở chỗ không huỷ model: gọi lại chỉ mất ~3 giây chuyển qua PCIe thay vì ~15 giây nạp
+        lại 45 GB từ đĩa, và không mất cache nội bộ. Backend nào không hỗ trợ thì trả False, người gọi tự
+        quyết có dùng `free_vlm` hay không.
+        """
+        llm = getattr(self._agent, "llm", None) if self._agent is not None else None
+        fn = getattr(llm, "to_cpu", None)
+        if fn is None:
+            return False
+        fn()
+        from .models.loader import free_vram
+
+        free_vram()
+        return True
+
     def free_vlm(self) -> None:
         """Giải phóng agent VLM trước bước sinh ảnh (1×T4). Kết quả các bước đã memo vẫn còn."""
         from .models.loader import free_vram

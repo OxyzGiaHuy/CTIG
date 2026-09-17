@@ -843,9 +843,15 @@ class Session:
         from .stages import analysis as st
 
         if getattr(self, "_no_grounding", False):
-            return AnalysisResult(prompt_id=self.prompt.id, keywords=[], candidate_entity_ids=[],
-                                  prompt_en=self.prompt.text_en or self.prompt.text_vi,
-                                  notes="bỏ qua grounding (nhánh không dùng bảng kiểm)"), "bỏ qua"
+            # PHẢI giữ đúng MỘT đối tượng: `set_prompt_en` sửa tại chỗ `analysis.prompt_en`, nên nếu mỗi lần
+            # gọi lại dựng đối tượng mới thì câu Culture-TRIP vừa gán sẽ mất và nhánh B âm thầm chạy bằng
+            # câu gốc. Đã dính thật ngày 2026-09-17: ảnh nhánh B trùng BYTE với nhánh A ở cả 10 prompt.
+            if getattr(self, "_ng_analysis", None) is None:
+                self._ng_analysis = AnalysisResult(
+                    prompt_id=self.prompt.id, keywords=[], candidate_entity_ids=[],
+                    prompt_en=self.prompt.text_en or self.prompt.text_vi,
+                    notes="bỏ qua grounding (nhánh không dùng bảng kiểm)")
+            return self._ng_analysis, "bỏ qua"
         key = _h(self._base_key())
         return self._memo("analysis", key, AnalysisResult,
                           lambda: st.run(self.agent, self.prompt, self.kb, self.cfg.max_candidate_entities), force)
@@ -891,7 +897,9 @@ class Session:
         from .stages import spec as st_spec
 
         if getattr(self, "_no_grounding", False):
-            return CulturalSpec(prompt_id=self.prompt.id, entities=[]), "bỏ qua"
+            if getattr(self, "_ng_spec", None) is None:
+                self._ng_spec = CulturalSpec(prompt_id=self.prompt.id, entities=[])
+            return self._ng_spec, "bỏ qua"
         a, _ = self.analysis()
         s, _ = self.retrieve()
         c = self.cfg

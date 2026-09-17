@@ -53,4 +53,21 @@ with tempfile.TemporaryDirectory() as td:
     assert s.genspec()[0].prompt_terms == [CT]
     print("gọi lại cùng chuỗi / chuỗi rỗng: không phá memo")
 
+# --- 2026-09-17: cờ --no-grounding từng nuốt mất câu prompt ngoài -------------------------------
+# Session.skip_grounding() dựng AnalysisResult mới ở MỖI lần gọi analysis(), mà set_prompt_en lại sửa
+# tại chỗ trên đối tượng đó. Kết quả: nhánh B âm thầm chạy bằng câu GỐC, ảnh trùng BYTE với nhánh A
+# ở cả 10 prompt, và lưới so sánh trông như Culture-TRIP không có tác dụng gì.
+with tempfile.TemporaryDirectory() as td:
+    cfg2 = Config.load(str(ROOT / "configs" / "offline.yaml"), {"runs_dir": td, "t2i": {"render": "bare"}})
+    p2 = Prompt("S001", "Một cô gái mặc áo dài trắng đứng trước cổng trường.",
+                "A young woman in a white ao dai standing at a school gate.")
+    s2 = Session(cfg2, p2, run_dir=Path(td) / "ng", log=lambda *a: None)
+    s2.skip_grounding()
+    s2.spec()
+    s2.set_prompt_en(CT)
+    assert s2.analysis()[0] is s2.analysis()[0], "analysis phải trả CÙNG một đối tượng"
+    assert s2.analysis()[0].prompt_en == CT, s2.analysis()[0].prompt_en
+    assert s2.genspec()[0].prompt_terms == [CT], s2.genspec()[0].prompt_terms
+    print("--no-grounding: câu Culture-TRIP vẫn tới được bộ sinh")
+
 print("ĐẠT")

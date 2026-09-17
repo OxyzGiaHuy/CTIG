@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S029",
+ "sig": "86dc6fd142df",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.89,
+ "prompt_en": "A parcel of young green rice wrapped in lotus leaf tied with rice straw.",
+ "culture_nouns": [
+  "cốm"
+ ],
+ "refined_prompt": "A parcel of young green rice wrapped in lotus leaf tied with rice straw. A traditional Vietnamese autumn delicacy, cốm, is shown in a light green color, crafted from young green rice kernels. The rice has been slowly roasted and gently pounded into thin, chewy sheets. It is often wrapped in a lotus leaf, which imparts a subtle floral aroma, and tied with rice straw. When unwrapped, cốm reveals its stunning light green color and delicate texture, ready to be enjoyed as a seasonal treat during the Mid-Autumn Festival and other cultural events.",
+ "words_in": 14,
+ "words_out": 93,
+ "clip_tokens": 125,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cốm",
+   "in": "A parcel of young green rice wrapped in lotus leaf tied with rice straw.",
+   "out_raw": "### Revised Refined Prompt with Enhanced Details Cốm, a traditional Vietnamese autumn delicacy, is crafted from young green rice kernels through a meticulous process. Here are the steps in detail: 1. **Roasting:** The rice is slowly roasted over low heat for approximately an hour to maintain its vibrant green color and delicate flavor. The rice turns a vivid, light green and becomes soft but retains a subtle crunch. 2. **Pounding:** The roasted rice kernels are gently pounded in a mortar and pestle until they form thin, chewy sheets. The pounded rice takes on a smooth, translucent appearance with a delicate texture that is both chewy and slightly sticky. Often wrapped in a lotus leaf and tied with rice straw, the lotus leaf imparts a subtle floral aroma and flavor, while the rice straw adds a traditional aesthetic. When unwrapped, cốm reveals its stunning light green color and thin, flattened sheets that are ready to be enjoyed as a seasonal treat. This delicacy symbolizes the bounty of the autumn harvest and the rich cultural heritage of Vietnam, often served during the Mid-Autumn Festival and other cultural events such as Tet Trung Thu. Unlike other rice-based snacks from different cultures, such as Japanese mochi or Chinese glutinous rice balls, cốm stands out with its unique flavors and cultural significance. For instance, mochi is known for its soft, glutinous texture, while glutinous rice balls have a chewier consistency. Cốm, however, has a unique blend of softness and crunchiness, with a slightly sweet and nutty taste. With its rich history dating back centuries, cốm is not only a delightful treat but also a symbol of cultural continuity and celebration in Vietnam. Its consumption during cultural events and family gatherings highlights its importance in Vietnamese social bonding and heritage. ### Revised SCORE: - **Clarity:** 9.5 - **Visual_detail:** 8.5 - **Background:** 8.0 - **Purpose:** 8.5 - **Comparable_object:** 7.5 - **Total_score:** 42.0 By making these adjustments, the revised prompt provides a more comprehensive and engaging description of cốm, enhancing its clarity, visual detail, background, purpose, and comparison to other cultural delicacies.",
+   "out": "A traditional Vietnamese autumn delicacy, cốm, is shown in a light green color, crafted from young green rice kernels. The rice has been slowly roasted and gently pounded into thin, chewy sheets. It is often wrapped in a lotus leaf, which imparts a subtle floral aroma, and tied with rice straw. When unwrapped, cốm reveals its stunning light green color and delicate texture, ready to be enjoyed as a seasonal treat during the Mid-Autumn Festival and other cultural events.",
+   "words_raw": 344,
+   "words": 79,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 637.4,
+   "scene_keep_raw": 0.89
+  }
+ ],
+ "seconds": 637.4
+}

@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C015",
+ "sig": "506abff6e781",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.0,
+ "prompt_en": "At a betrothal ceremony, a procession of bearers carries red lacquered trays of betel and areca and husband-and-wife cakes across a brick courtyard.",
+ "culture_nouns": [
+  "lễ ăn hỏi",
+  "tráp sơn đỏ trầu cau",
+  "bánh phu thê"
+ ],
+ "refined_prompt": "At a betrothal ceremony, a procession of bearers carries red lacquered trays of betel and areca and husband-and-wife cakes across a brick courtyard. A bridegroom presents his bride-to-be with a beautifully wrapped bánh phu thê, a traditional dessert made with tapioca flour, mung bean stuffing, and pandan leaves, as a symbol of his love and wishes for a happy future together, surrounded by the serene and peaceful atmosphere of a wedding celebration.",
+ "words_in": 23,
+ "words_out": 72,
+ "clip_tokens": 97,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "lễ ăn hỏi",
+   "in": "At a betrothal ceremony, a procession of bearers carries red lacquered trays of betel and areca and husband-and-wife cakes across a brick courtyard.",
+   "out_raw": "Here is the refined prompt: In Vietnamese culture, \"lễ ăn hỏi\" is a time-honored betrothal ceremony that symbolizes the union of two families. As the procession of bearers carries the ceremonial trays across the courtyard, the soft rustling of silk and the clinking of traditional husband-and-wife cakes create a lively atmosphere. The red lacquered trays, adorned with intricate carvings and filled with betel and areca, are a symbol of good luck and prosperity in the couple's future together, just like a treasured family heirloom. I added a brief summary of \"lễ ăn hỏi\" at the beginning to provide more context for readers who may not be familiar with the ceremony, and emphasized its role in symbolizing the union of two families. I also expanded on the sensory details, adding descriptions of the rustling of silk and the clinking of cakes. Additionally, I provided more cultural context by mentioning the historical significance of \"lễ ăn hỏi\" and its role in Vietnamese society. Finally, I rephrased the sentence comparing the red lacquered trays to a treasured family heirloom to emphasize the cultural significance of the ceremony.",
+   "out": "In Vietnamese culture, the procession of bearers carries the ceremonial trays across the courtyard, with the soft rustling of silk and the clinking of traditional husband-and-wife cakes creating a lively atmosphere.",
+   "words_raw": 184,
+   "words": 31,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 34.1,
+   "scene_keep_raw": 0.6
+  },
+  {
+   "culture_noun": "tráp sơn đỏ trầu cau",
+   "in": "In Vietnamese culture, the procession of bearers carries the ceremonial trays across the courtyard, with the soft rustling of silk and the clinking of traditional husband-and-wife cakes creating a lively atmosphere.",
+   "out_raw": "In Vietnamese culture, a team of football players, dressed in red uniforms, marches across the field, carrying ceremonial trays adorned with intricately decorated incense holders and traditional Vietnamese snacks, surrounded by supporters waving flags and banners, creating a lively atmosphere filled with the chanting of the crowd, the smell of incense wafting through the air, and a sense of excitement and energy emanating from the players, showcasing the unique cultural traditions of Vietnamese football and the significance of Cong An Hanoi FC as a beloved team in Vietnamese football. Note: The refined prompt incorporates the feedback suggestions to improve clarity, visual detail, background, purpose, and comparable object scores.",
+   "out": "In Vietnamese culture, a team of football players, dressed in red uniforms, marches across the field, carrying ceremonial trays adorned with intricately decorated incense holders and traditional Vietnamese snacks, surrounded by supporters waving flags and banners, creating a lively atmosphere filled with the chanting of the crowd, the smell of incense wafting through the air, and a sense of excitement and energy emanating from the players, showcasing the unique cultural traditions of Vietnamese football and the significance of Cong An Hanoi FC as a beloved team in Vietnamese football.",
+   "words_raw": 108,
+   "words": 89,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 26.3,
+   "scene_keep_raw": 0.13
+  },
+  {
+   "culture_noun": "bánh phu thê",
+   "in": "In Vietnamese culture, a team of football players, dressed in red uniforms, marches across the field, carrying ceremonial trays adorned with intricately decorated incense holders and traditional Vietnamese snacks, surrounded by supporters waving flags and banners, creating a lively atmosphere filled with the chanting of the crowd, the smell of incense wafting through the air, and a sense of excitement and energy emanating from the players, showcasing the unique cultural traditions of Vietnamese football and the significance of Cong An Hanoi FC as a beloved team in Vietnamese football.",
+   "out_raw": "Based on the provided INFORMATION, I will refine the BASE PROMPT to create a new prompt that accurately represents the CULTURE NOUN \"bánh phu thê\". REFINED PROMPT: In Vietnamese culture, a bridegroom presents his bride-to-be with a beautifully wrapped bánh phu thê, a traditional dessert made with tapioca flour, mung bean stuffing, and pandan leaves, as a symbol of his love and wishes for a happy future together, surrounded by the serene and peaceful atmosphere of a wedding celebration. I removed the football team and replaced it with the scene of a bridegroom presenting bánh phu thê to his bride-to-be, as described in the INFORMATION. I also kept the serene and peaceful atmosphere to accurately depict the cultural significance of bánh phu thê in Vietnamese weddings.",
+   "out": "A bridegroom presents his bride-to-be with a beautifully wrapped bánh phu thê, a traditional dessert made with tapioca flour, mung bean stuffing, and pandan leaves, as a symbol of his love and wishes for a happy future together, surrounded by the serene and peaceful atmosphere of a wedding celebration.",
+   "words_raw": 126,
+   "words": 49,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 7.2,
+   "scene_keep_raw": 0.0
+  }
+ ],
+ "seconds": 67.6
+}

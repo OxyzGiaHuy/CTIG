@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S044",
+ "sig": "e43d5cb64a52",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A blossoming peach branch in a ceramic vase at Tet.",
+ "culture_nouns": [
+  "cành đào"
+ ],
+ "refined_prompt": "A blossoming peach branch in a ceramic vase at Tet. A blossoming peach branch, known as \"cành đào,\" is placed in a traditional ceramic vase in the main living room during Tet, the Vietnamese Lunar New Year. The delicate pink blossoms and fresh green leaves of the peach branch enhance the festive atmosphere, symbolizing new beginnings and good fortune for the coming year. The scent of the blossoms fills the air, adding to the sensory experience, while the vase, often intricately designed and colored in green or red, complements the branch's hues. This custom, believed to have originated during the Lê dynasty, is an integral part of Tet celebrations across Vietnam, symbolizing peace and prosperity.",
+ "words_in": 10,
+ "words_out": 115,
+ "clip_tokens": 155,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cành đào",
+   "in": "A blossoming peach branch in a ceramic vase at Tet.",
+   "out_raw": "### Revised Refined Prompt: A blossoming peach branch, known as \"cành đào,\" is a central feature during Tet, the Vietnamese Lunar New Year, a time of family reunions and renewal. Tet, which dates back to the 16th century, is the most important Vietnamese holiday celebrating the lunar new year and marking the beginning of spring. The delicate pink blossoms and fresh green leaves of the peach branch are placed in a traditional ceramic vase, often intricately designed and colored in green or red to complement the branch's hues, enhancing the festive atmosphere of the household. The scent of the blossoms fills the air, adding to the sensory experience, and the branches are typically arranged in the main living room, symbolizing new beginnings and good fortune for the coming year. This custom, similar to blooming cherry blossoms in Japan and poinsettias during Christmas in Mexico, is not just a decorative element but a deeply rooted symbol of peace and prosperity in Vietnamese culture. The tradition of displaying cành đào is believed to have originated during the Lê dynasty as a way to ward off evil spirits and bring good luck for the new year, evolving over time to become an integral part of Tet celebrations across Vietnam. ### Revised SCORE: - **Clarity:** 9.5 (Enhanced definition of Tet and its importance) - **Visual_detail:** 9.0 (Added sensory details and described the arrangement and display of the branch) - **Background:** 9.5 (Included historical context and evolution of the tradition) - **Purpose:** 8.5 (Highlighted specific customs and practices related to cành đào) - **Comparable_object:** 8.5 (Elaborated on the symbolic differences and similarities between cành đào, cherry blossoms, and poinsettias) - **Total_score:** 44.5 This refined prompt provides a rich, detailed, and culturally immersive description of the \"cành đào\" tradition, ensuring that readers unfamiliar with Vietnamese culture can appreciate its significance.",
+   "out": "A blossoming peach branch, known as \"cành đào,\" is placed in a traditional ceramic vase in the main living room during Tet, the Vietnamese Lunar New Year. The delicate pink blossoms and fresh green leaves of the peach branch enhance the festive atmosphere, symbolizing new beginnings and good fortune for the coming year. The scent of the blossoms fills the air, adding to the sensory experience, while the vase, often intricately designed and colored in green or red, complements the branch's hues. This custom, believed to have originated during the Lê dynasty, is an integral part of Tet celebrations across Vietnam, symbolizing peace and prosperity.",
+   "words_raw": 304,
+   "words": 105,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 219.4,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 219.4
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S048",
+ "sig": "d4a6bbbaaca0",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.75,
+ "prompt_en": "An artisan throwing pottery on a wheel.",
+ "culture_nouns": [
+  "làm gốm"
+ ],
+ "refined_prompt": "An artisan throwing pottery on a wheel. An artisan is skillfully shaping pottery on a traditional wooden wheel in the village of Bát Tràng, near Hanoi. The artisan's hands move deftly, molding and forming the clay into a delicate vessel. The village of Bát Tràng has a history dating back over 500 years, known for its contributions to the royal court and the flourishing ceramic trade. The workshop is filled with the earthy scent of clay, and the colors range from pale blue to deep green, contrasting beautifully with the rustic wooden wheels. The ceramic pieces are not only works of art but are also used in everyday life, symbolizing the deep connection between art and daily living in Vietnamese culture. While the ceramic techniques in Bát Tràng are unique, they share similarities with Japanese pottery traditions, highlighting a global exchange of ceramic arts.",
+ "words_in": 7,
+ "words_out": 144,
+ "clip_tokens": 194,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "làm gốm",
+   "in": "An artisan throwing pottery on a wheel.",
+   "out_raw": "### Revised Refined Prompt: An artisan is skillfully shaping pottery on a traditional wooden wheel in the village of Bát Tràng, near Hanoi. The artisan's hands move deftly, molding and forming the clay into a delicate vessel. The village of Bát Tràng has a history dating back over 500 years, known for its contributions to the royal court and the flourishing ceramic trade. The workshop is filled with the earthy scent of clay, and the colors range from pale blue to deep green, contrasting beautifully with the rustic wooden wheels. The ceramic pieces are not only works of art but are also used in everyday life, symbolizing the deep connection between art and daily living in Vietnamese culture. While the ceramic techniques in Bát Tràng are unique, they share similarities with Japanese pottery traditions, highlighting a global exchange of ceramic arts.",
+   "out": "An artisan is skillfully shaping pottery on a traditional wooden wheel in the village of Bát Tràng, near Hanoi. The artisan's hands move deftly, molding and forming the clay into a delicate vessel. The village of Bát Tràng has a history dating back over 500 years, known for its contributions to the royal court and the flourishing ceramic trade. The workshop is filled with the earthy scent of clay, and the colors range from pale blue to deep green, contrasting beautifully with the rustic wooden wheels. The ceramic pieces are not only works of art but are also used in everyday life, symbolizing the deep connection between art and daily living in Vietnamese culture. While the ceramic techniques in Bát Tràng are unique, they share similarities with Japanese pottery traditions, highlighting a global exchange of ceramic arts.",
+   "words_raw": 141,
+   "words": 137,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 173.3,
+   "scene_keep_raw": 0.75
+  }
+ ],
+ "seconds": 173.3
+}

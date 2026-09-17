@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S024",
+ "sig": "58b43342d018",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.67,
+ "prompt_en": "Iced milk coffee dripping through an aluminium phin filter on a table.",
+ "culture_nouns": [
+  "cà phê sữa đá"
+ ],
+ "refined_prompt": "Iced milk coffee dripping through an aluminium phin filter on a table. Sweetened condensed milk, smooth and creamy like a dollop of whipped cream, sits atop a traditional metal filter (phin) filled with dark-roast robusta coffee grounds. The aroma of freshly brewed coffee wafts through the air as the phin filter is poised to pour hot water, a crucial step in the cultural tradition of Vietnamese iced milk coffee, cà phê sữa đá.",
+ "words_in": 12,
+ "words_out": 73,
+ "clip_tokens": 98,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cà phê sữa đá",
+   "in": "Iced milk coffee dripping through an aluminium phin filter on a table.",
+   "out_raw": "Based on the provided SCORE and FEEDBACK, I will refine the REFINED PROMPT about CULTURE NOUN. **REFINED PROMPT:** Sweetened condensed milk, smooth and creamy like a dollop of whipped cream, sits atop a traditional metal filter (phin) filled with dark-roast robusta coffee grounds. The aroma of freshly brewed coffee wafts through the air as the phin filter is poised to pour hot water, a crucial step in the cultural tradition of Vietnamese iced milk coffee, cà phê sữa đá. **Changes made:** 1. Incorporated the suggestion to add sensory details, such as the texture of the sweetened condensed milk and the aroma of the coffee. 2. Emphasized the cultural significance of cà phê sữa đá by mentioning its tradition and cultural importance. 3. Compared the sweetened condensed milk to a dollop of whipped cream to help the audience recognize the texture. **Score improvement:** * Clarity: 9.0 (refined prompt is more concise and easy to understand) * Visual detail: 10.0 (added sensory details to enhance the prompt's visual appeal) * Background: 8.0 (emphasized the cultural significance of cà phê sữa đá) * Purpose: 8.0 (clarified the purpose of the prompt, highlighting its cultural importance) * Comparable object: 8.0 (compared the sweetened condensed milk to a dollop of whipped cream) * Total score: 43.0",
+   "out": "Sweetened condensed milk, smooth and creamy like a dollop of whipped cream, sits atop a traditional metal filter (phin) filled with dark-roast robusta coffee grounds. The aroma of freshly brewed coffee wafts through the air as the phin filter is poised to pour hot water, a crucial step in the cultural tradition of Vietnamese iced milk coffee, cà phê sữa đá.",
+   "words_raw": 211,
+   "words": 61,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 33.0,
+   "scene_keep_raw": 0.67
+  }
+ ],
+ "seconds": 33.0
+}

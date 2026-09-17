@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S019",
+ "sig": "8294320895cf",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A Red Dao woman in her red headdress.",
+ "culture_nouns": [
+  "trang phục người Dao Đỏ"
+ ],
+ "refined_prompt": "A Red Dao woman in her red headdress. Draw a picture of a Red Dao woman wearing a traditional red headdress, known as a \"phu quang\", which holds great cultural significance for the Red Dao people. The phu quang is an integral part of their traditional clothing, and is often worn during important cultural ceremonies and celebrations. The woman's outfit should include a long, flowing skirt and a matching blouse with intricate embroidery, showcasing the rich cultural heritage of the Red Dao people.",
+ "words_in": 8,
+ "words_out": 83,
+ "clip_tokens": 112,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "trang phục người Dao Đỏ",
+   "in": "A Red Dao woman in her red headdress.",
+   "out_raw": "Here is the refined prompt: ### Refined Prompt: Draw a picture of a Red Dao woman wearing a traditional red headdress, known as a \"phu quang\", which holds great cultural significance for the Red Dao people. The phu quang is an integral part of their traditional clothing, trang phục người Dao Đỏ, and is often worn during important cultural ceremonies and celebrations. The woman's outfit should include a long, flowing skirt and a matching blouse with intricate embroidery, showcasing the rich cultural heritage of the Red Dao people. The artist should strive to capture the beauty and elegance of the Red Dao woman's traditional clothing, with attention to detail and a sense of cultural significance. In addition to the refined prompt, I also provide feedback on how to improve the clarity, visual detail, background, purpose, and comparable object scores.",
+   "out": "Draw a picture of a Red Dao woman wearing a traditional red headdress, known as a \"phu quang\", which holds great cultural significance for the Red Dao people. The phu quang is an integral part of their traditional clothing, and is often worn during important cultural ceremonies and celebrations. The woman's outfit should include a long, flowing skirt and a matching blouse with intricate embroidery, showcasing the rich cultural heritage of the Red Dao people.",
+   "words_raw": 139,
+   "words": 75,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 56.0,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 56.0
+}

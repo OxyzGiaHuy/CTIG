@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S030",
+ "sig": "4af16c0d10e4",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A woman in a checkered scarf sitting in a small sampan.",
+ "culture_nouns": [
+  "khăn rằn"
+ ],
+ "refined_prompt": "A woman in a checkered scarf sitting in a small sampan. A woman in a khăn rằn, a traditional Vietnamese checkered black-and-white scarf, is sitting in a small sampan. The khăn rằn, known for its intricate black and white patterns, is typically worn around the neck or draped over the shoulders. Originating in the Mekong Delta region, it has a rich history dating back to the 19th century, becoming a symbol of resistance during the Vietnam War and continuing to be an important cultural symbol today.",
+ "words_in": 11,
+ "words_out": 86,
+ "clip_tokens": 116,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "khăn rằn",
+   "in": "A woman in a checkered scarf sitting in a small sampan.",
+   "out_raw": "### Revised Refined Prompt A woman in a khăn rằn, a traditional Vietnamese checkered black-and-white scarf, is sitting in a small sampan. The khăn rằn, known for its intricate black and white patterns, is typically worn around the neck or draped over the shoulders, symbolizing cultural identity and pride in Vietnamese heritage. Originating in the Mekong Delta region of southern Vietnam, the khăn rằn has a rich history dating back to the 19th century when it was adapted from the Cambodian krama and used as a practical item for both protection and identification. During the Vietnam War, the khăn rằn became a powerful symbol of resistance and identity for National Liberation Front soldiers. Today, the khăn rằn continues to be an important cultural symbol, often seen during traditional festivals and worn by locals to express their pride in their cultural heritage. Similar to the kippah in Jewish culture or the shawl in Indian culture, the khăn rằn holds a unique place in Vietnamese society, reflecting both its practical and symbolic significance. ### Explanation: - **Visual Detail:** The khăn rằn is described in detail, including its patterns and how it is worn, providing a clearer image of the scarf. - **Background:** Provides a broader historical context, including its origins and use in different eras. - **Purpose:** Clarifies its current cultural significance and practical use. - **Comparable_object:** Compares the khăn rằn to other cultural symbols for context, making it easier for those unfamiliar with the culture to understand its importance. This refined prompt offers a comprehensive and engaging description of the khăn rằn, allowing someone unfamiliar with the culture to visualize and appreciate its significance.",
+   "out": "A woman in a khăn rằn, a traditional Vietnamese checkered black-and-white scarf, is sitting in a small sampan. The khăn rằn, known for its intricate black and white patterns, is typically worn around the neck or draped over the shoulders. Originating in the Mekong Delta region, it has a rich history dating back to the 19th century, becoming a symbol of resistance during the Vietnam War and continuing to be an important cultural symbol today.",
+   "words_raw": 273,
+   "words": 75,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 291.7,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 291.7
+}

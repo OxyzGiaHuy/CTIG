@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S010",
+ "sig": "0217b646546c",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.67,
+ "prompt_en": "A water puppetry performance at a water pavilion, puppets on the water surface.",
+ "culture_nouns": [
+  "múa rối nước"
+ ],
+ "refined_prompt": "A water puppetry performance at a water pavilion, puppets on the water surface. A traditional Vietnamese water puppetry performance at a waist-deep pool, surrounded by a bamboo screen. The puppets, made of wood and lacquered, appear to be moving over the water as they're controlled by puppeteers hiding behind the screen. Rice fields flood in the background, evoking the rural setting where this ancient tradition originated in the 11th century.",
+ "words_in": 13,
+ "words_out": 70,
+ "clip_tokens": 94,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "múa rối nước",
+   "in": "A water puppetry performance at a water pavilion, puppets on the water surface.",
+   "out_raw": "Based on the provided information, I refined the BASE PROMPT to create a more detailed and accurate description that someone unfamiliar with múa rối nước can read and draw a picture of it. Here's the refined prompt: REFINED PROMPT: A traditional Vietnamese water puppetry performance at a waist-deep pool, surrounded by a bamboo screen. The puppets, made of wood and lacquered, appear to be moving over the water as they're controlled by puppeteers hiding behind the screen. Rice fields flood in the background, evoking the rural setting where this ancient tradition originated in the 11th century. I added details about the bamboo screen, the puppets being controlled by puppeteers, and the rural setting to provide a more accurate representation of múa rối nước. The scene depicted in the BASE PROMPT remains unchanged, but I expanded on the description to provide sufficient detail for someone unfamiliar with the culture to draw a picture of it.",
+   "out": "A traditional Vietnamese water puppetry performance at a waist-deep pool, surrounded by a bamboo screen. The puppets, made of wood and lacquered, appear to be moving over the water as they're controlled by puppeteers hiding behind the screen. Rice fields flood in the background, evoking the rural setting where this ancient tradition originated in the 11th century.",
+   "words_raw": 154,
+   "words": 57,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 8.4,
+   "scene_keep_raw": 0.67
+  }
+ ],
+ "seconds": 8.4
+}

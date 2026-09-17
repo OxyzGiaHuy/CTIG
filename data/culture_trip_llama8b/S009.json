@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S009",
+ "sig": "f33be7b1b01a",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.8,
+ "prompt_en": "A musician playing the dan bau monochord on a small stage.",
+ "culture_nouns": [
+  "đàn bầu"
+ ],
+ "refined_prompt": "A musician playing the dan bau monochord on a small stage. A musician playing the đàn bầu (gourd zither) on a small stage, with a single string stretching across the instrument's resonator, which resembles a gourd. The musician's hands are gently plucking the string, producing a soothing melody. The stage is simple, with a few subtle decorations, evoking a traditional Vietnamese setting, reminiscent of a cultural celebration or traditional music performance, where the đàn bầu is often played to honor Vietnam's rich cultural heritage.",
+ "words_in": 11,
+ "words_out": 84,
+ "clip_tokens": 113,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "đàn bầu",
+   "in": "A musician playing the dan bau monochord on a small stage.",
+   "out_raw": "Based on the provided information and feedback, the refined prompt is: ### Refined Prompt: A musician playing the đàn bầu (gourd zither) on a small stage, with a single string stretching across the instrument's resonator, which resembles a gourd. The musician's hands are gently plucking the string, producing a soothing melody. The stage is simple, with a few subtle decorations, evoking a traditional Vietnamese setting, reminiscent of a cultural celebration or traditional music performance, where the đàn bầu is often played to honor Vietnam's rich cultural heritage.",
+   "out": "A musician playing the đàn bầu (gourd zither) on a small stage, with a single string stretching across the instrument's resonator, which resembles a gourd. The musician's hands are gently plucking the string, producing a soothing melody. The stage is simple, with a few subtle decorations, evoking a traditional Vietnamese setting, reminiscent of a cultural celebration or traditional music performance, where the đàn bầu is often played to honor Vietnam's rich cultural heritage.",
+   "words_raw": 87,
+   "words": 73,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 51.9,
+   "scene_keep_raw": 0.8
+  }
+ ],
+ "seconds": 51.9
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S047",
+ "sig": "a944925f09c0",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.62,
+ "prompt_en": "A Hmong woman in traditional dress standing amid a field of flowers.",
+ "culture_nouns": [
+  "trang phục truyền thống H'Mông"
+ ],
+ "refined_prompt": "A Hmong woman in traditional dress standing amid a field of flowers. A Hmong woman in traditional dress standing in a scenic Vietnamese landscape, possibly surrounded by lush greenery or terraced fields, symbolizing the rich cultural heritage of the H'Mông people. She wears a vibrant áo dài, adorned with intricate embroidery and colorful fabrics, representing the cultural identity of the H'Mông people. The terraced fields in the background are a testament to the H'Mông people's skill in cultivating the land and their connection to the natural world.",
+ "words_in": 12,
+ "words_out": 87,
+ "clip_tokens": 117,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "trang phục truyền thống H'Mông",
+   "in": "A Hmong woman in traditional dress standing amid a field of flowers.",
+   "out_raw": "Here is the refined prompt: A Hmong woman in traditional dress (trang phục truyền thống H'Mông) standing in a scenic Vietnamese landscape, possibly surrounded by lush greenery or terraced fields, symbolizing the rich cultural heritage of the H'Mông people. She wears a vibrant áo dài, adorned with intricate embroidery and colorful fabrics, representing the cultural identity of the H'Mông people. The terraced fields in the background are a testament to the H'Mông people's skill in cultivating the land and their connection to the natural world. Please note that the refined prompt is written to provide sufficient detail for an artist to draw a picture of a Hmong woman in traditional dress, while also incorporating cultural and historical context to ensure an accurate representation of the H'Mông people.",
+   "out": "A Hmong woman in traditional dress standing in a scenic Vietnamese landscape, possibly surrounded by lush greenery or terraced fields, symbolizing the rich cultural heritage of the H'Mông people. She wears a vibrant áo dài, adorned with intricate embroidery and colorful fabrics, representing the cultural identity of the H'Mông people. The terraced fields in the background are a testament to the H'Mông people's skill in cultivating the land and their connection to the natural world.",
+   "words_raw": 127,
+   "words": 75,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 35.1,
+   "scene_keep_raw": 0.62
+  }
+ ],
+ "seconds": 35.1
+}

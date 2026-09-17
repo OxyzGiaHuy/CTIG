@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S022",
+ "sig": "e7f93daf2fc2",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.67,
+ "prompt_en": "A lion dance troupe with the Ong Dia character at a house front.",
+ "culture_nouns": [
+  "múa lân"
+ ],
+ "refined_prompt": "A lion dance troupe with the Ong Dia character at a house front. A group of performers, wearing colorful costumes and masks, mimic a lion's movements as they dance in front of a house.",
+ "words_in": 13,
+ "words_out": 34,
+ "clip_tokens": 45,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "múa lân",
+   "in": "A lion dance troupe with the Ong Dia character at a house front.",
+   "out_raw": "REFINED PROMPT: A group of performers, wearing colorful costumes and masks, mimic a lion's movements as they dance in front of a house. Two main dancers, one controlling the lion's head and the other the tail, move in harmony to the beat of drums, gongs, and cymbals. The dance, led by the Ong Dia character, is a traditional Chinese performance meant to bring good luck, fortune, and prosperity, and is often performed during special occasions and festivals. Note: I refined the prompt to provide more context and details about the lion dance, while maintaining the core scene depicted in the original prompt. I also verified the information provided to ensure its accuracy and relevance to the culture noun \"múa lân\" (lion dance).",
+   "out": "A group of performers, wearing colorful costumes and masks, mimic a lion's movements as they dance in front of a house.",
+   "words_raw": 122,
+   "words": 21,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 8.9,
+   "scene_keep_raw": 0.67
+  }
+ ],
+ "seconds": 8.9
+}

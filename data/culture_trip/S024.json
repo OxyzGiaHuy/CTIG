@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S024",
+ "sig": "b323b31073ee",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.78,
+ "prompt_en": "Iced milk coffee dripping through an aluminium phin filter on a table.",
+ "culture_nouns": [
+  "cà phê sữa đá"
+ ],
+ "refined_prompt": "Iced milk coffee dripping through an aluminium phin filter on a table. Cà phê sữa đá, a traditional Vietnamese iced coffee, is being prepared on a table. Hot water drips slowly through a unique metal filter called a phin, a traditional Vietnamese brewing tool with a distinctive shape, often making a soft, rhythmic sound as it drips. The phin contains dark-roast robusta coffee grounds, which release a strong, bold aroma as the hot water passes through. Once brewed, the rich, dark coffee falls into a small cup that already contains sweetened condensed milk, creating a rich, creamy mixture with a striking contrast in color. The mixture is then stirred and poured over a tall glass filled with ice, turning into a refreshing and smooth iced coffee. Cà phê sữa đá is widely enjoyed throughout Vietnam, often in cafes or at home, serving as a comforting afternoon break or a morning ritual. Its preparation method and rich, creamy texture distinguish it from other iced coffee drinks, and its origins trace back to the French colonial era, making it a symbol of Vietnamese culinary adaptation and cultural pride. Cà phê sữa đá is more than just a drink; it’s an integral part of Vietnamese social life, often shared among friends and family, providing a moment of respite and connection.",
+ "words_in": 12,
+ "words_out": 217,
+ "clip_tokens": 292,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cà phê sữa đá",
+   "in": "Iced milk coffee dripping through an aluminium phin filter on a table.",
+   "out_raw": "### Revised Refined Prompt: Cà phê sữa đá, a traditional Vietnamese iced coffee, is being prepared on a table. Hot water drips slowly through a unique metal filter called a phin, a traditional Vietnamese brewing tool with a distinctive shape, often making a soft, rhythmic sound as it drips. The phin contains dark-roast robusta coffee grounds, which release a strong, bold aroma as the hot water passes through. Once brewed, the rich, dark coffee falls into a small cup that already contains sweetened condensed milk, creating a rich, creamy mixture with a striking contrast in color. The mixture is then stirred and poured over a tall glass filled with ice, turning into a refreshing and smooth iced coffee. Cà phê sữa đá is widely enjoyed throughout Vietnam, often in cafes or at home, serving as a comforting afternoon break or a morning ritual. Its preparation method and rich, creamy texture distinguish it from other iced coffee drinks, and its origins trace back to the French colonial era, making it a symbol of Vietnamese culinary adaptation and cultural pride. Cà phê sữa đá is more than just a drink; it’s an integral part of Vietnamese social life, often shared among friends and family, providing a moment of respite and connection.",
+   "out": "Cà phê sữa đá, a traditional Vietnamese iced coffee, is being prepared on a table. Hot water drips slowly through a unique metal filter called a phin, a traditional Vietnamese brewing tool with a distinctive shape, often making a soft, rhythmic sound as it drips. The phin contains dark-roast robusta coffee grounds, which release a strong, bold aroma as the hot water passes through. Once brewed, the rich, dark coffee falls into a small cup that already contains sweetened condensed milk, creating a rich, creamy mixture with a striking contrast in color. The mixture is then stirred and poured over a tall glass filled with ice, turning into a refreshing and smooth iced coffee. Cà phê sữa đá is widely enjoyed throughout Vietnam, often in cafes or at home, serving as a comforting afternoon break or a morning ritual. Its preparation method and rich, creamy texture distinguish it from other iced coffee drinks, and its origins trace back to the French colonial era, making it a symbol of Vietnamese culinary adaptation and cultural pride. Cà phê sữa đá is more than just a drink; it’s an integral part of Vietnamese social life, often shared among friends and family, providing a moment of respite and connection.",
+   "words_raw": 209,
+   "words": 205,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 717.1,
+   "scene_keep_raw": 0.78
+  }
+ ],
+ "seconds": 717.1
+}

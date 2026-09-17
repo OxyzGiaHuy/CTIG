@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S025",
+ "sig": "9306a842449c",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.44,
+ "prompt_en": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip.",
+ "culture_nouns": [
+  "gỏi cuốn"
+ ],
+ "refined_prompt": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip. A plate of fresh gỏi cuốn wraps, made with delicate rice paper, filled with a medley of flavors including succulent shrimp, savory pork, crunchy vegetables, and soft rice vermicelli.",
+ "words_in": 17,
+ "words_out": 46,
+ "clip_tokens": 62,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "gỏi cuốn",
+   "in": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip.",
+   "out_raw": "Based on the feedback, I will refine the BASE PROMPT to create a REFINED PROMPT that is more detailed, vivid, and culturally contextualized. Here is the refined prompt: A plate of fresh gỏi cuốn wraps, made with delicate rice paper, filled with a medley of flavors including succulent shrimp, savory pork, crunchy vegetables, and soft rice vermicelli. The dish is served at room temperature, allowing the freshness and natural flavors to shine through. Paired with a side of creamy peanut hoisin dip, the perfect accompaniment for wrapping and savoring each bite. Here's an additional sentence to provide more cultural context: Gỏi cuốn is a beloved Vietnamese dish, often served at family gatherings and special occasions, where the freshness and simplicity of the ingredients come together to create a harmonious and satisfying culinary experience. I hope this refined prompt meets your requirements!",
+   "out": "A plate of fresh gỏi cuốn wraps, made with delicate rice paper, filled with a medley of flavors including succulent shrimp, savory pork, crunchy vegetables, and soft rice vermicelli.",
+   "words_raw": 141,
+   "words": 29,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 38.0,
+   "scene_keep_raw": 0.44
+  }
+ ],
+ "seconds": 38.0
+}

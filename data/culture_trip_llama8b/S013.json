@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S013",
+ "sig": "c7ec35978637",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A cyclo carrying a passenger along a street.",
+ "culture_nouns": [
+  "xích lô"
+ ],
+ "refined_prompt": "A cyclo carrying a passenger along a street. A cyclo (also known as a xích lô) is a traditional Vietnamese vehicle, often used as a means of local transport. It's a type of tricycle, with three wheels, and is powered by a rider pedaling to propel the vehicle forward. In this scene, the cyclo is carrying a single passenger along a busy street in Hanoi, highlighting the cyclo's importance in Vietnamese urban transportation. Total",
+ "words_in": 8,
+ "words_out": 74,
+ "clip_tokens": 99,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "xích lô",
+   "in": "A cyclo carrying a passenger along a street.",
+   "out_raw": "Here is the refined prompt that incorporates the feedback: ### REFINED PROMPT: A cyclo (also known as a xích lô) is a traditional Vietnamese vehicle, often used as a means of local transport. It's a type of tricycle, with three wheels, and is powered by a rider pedaling to propel the vehicle forward. In this scene, the cyclo is carrying a single passenger along a busy street in Hanoi, highlighting the cyclo's importance in Vietnamese urban transportation. Total score: 42.0 (estimated) This revised prompt includes the Vietnamese term for cyclo, xích lô, and provides more context about its significance in Vietnamese culture and urban transportation.",
+   "out": "A cyclo (also known as a xích lô) is a traditional Vietnamese vehicle, often used as a means of local transport. It's a type of tricycle, with three wheels, and is powered by a rider pedaling to propel the vehicle forward. In this scene, the cyclo is carrying a single passenger along a busy street in Hanoi, highlighting the cyclo's importance in Vietnamese urban transportation. Total",
+   "words_raw": 105,
+   "words": 66,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 14.9,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 14.9
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S015",
+ "sig": "caea4c9b30b8",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.0,
+ "prompt_en": "A floating market at dawn, fruit boats with sample poles.",
+ "culture_nouns": [
+  "chợ nổi"
+ ],
+ "refined_prompt": "A floating market at dawn, fruit boats with sample poles. A majestic tiger emerges from a misty forest, its tawny coat glistening with dew as it pads silently through the underbrush, its piercing eyes scanning the surroundings for potential prey.",
+ "words_in": 10,
+ "words_out": 40,
+ "clip_tokens": 54,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "chợ nổi",
+   "in": "A floating market at dawn, fruit boats with sample poles.",
+   "out_raw": "The refined prompt meets the requirements and is an improvement over the initial refinement. REFINE FEEDBACK: Based on the feedback, I would estimate the total score to be higher than the initial 34.0, possibly around 40-45. ANSWER:",
+   "out": "A majestic tiger emerges from a misty forest, its tawny coat glistening with dew as it pads silently through the underbrush, its piercing eyes scanning the surroundings for potential prey.",
+   "words_raw": 37,
+   "words": 30,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 47.2,
+   "scene_keep_raw": 0.0
+  }
+ ],
+ "seconds": 47.2
+}

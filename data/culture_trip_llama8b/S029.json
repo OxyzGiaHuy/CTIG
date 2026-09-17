@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S029",
+ "sig": "6a5dbb41179d",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.33,
+ "prompt_en": "A parcel of young green rice wrapped in lotus leaf tied with rice straw.",
+ "culture_nouns": [
+  "cốm"
+ ],
+ "refined_prompt": "A parcel of young green rice wrapped in lotus leaf tied with rice straw. A dish of flattened, chewy green rice, made from young rice kernels roasted over low heat and pounded in a mortar and pestle, served plain or with coconut shavings, with a slightly sweet and nutty flavor.",
+ "words_in": 14,
+ "words_out": 50,
+ "clip_tokens": 67,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "cốm",
+   "in": "A parcel of young green rice wrapped in lotus leaf tied with rice straw.",
+   "out_raw": "Based on the provided INFORMATION, I will refine the BASE PROMPT to provide a more accurate and detailed description of the culture noun \"cốm\". REFINED PROMPT: A dish of flattened, chewy green rice, made from young rice kernels roasted over low heat and pounded in a mortar and pestle, served plain or with coconut shavings, with a slightly sweet and nutty flavor. REFINED FEEDBACK: This refined prompt takes into account the correct process of making cốm, which involves roasting young rice kernels over low heat and pounding them in a mortar and pestle. It also highlights the flavor profile and possible toppings of cốm, which will help someone unfamiliar with the culture noun to draw a more accurate picture of it.",
+   "out": "A dish of flattened, chewy green rice, made from young rice kernels roasted over low heat and pounded in a mortar and pestle, served plain or with coconut shavings, with a slightly sweet and nutty flavor.",
+   "words_raw": 121,
+   "words": 36,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 5.5,
+   "scene_keep_raw": 0.33
+  }
+ ],
+ "seconds": 5.5
+}

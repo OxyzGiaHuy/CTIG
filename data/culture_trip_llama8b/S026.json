@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S026",
+ "sig": "369741ef393d",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A tray of golden fried spring rolls with fresh herbs and dipping sauce.",
+ "culture_nouns": [
+  "nem rán"
+ ],
+ "refined_prompt": "A tray of golden fried spring rolls with fresh herbs and dipping sauce. A vibrant and aromatic tray of golden nem rán, crispy fried spring rolls made with ground pork wrapped in rice paper, accompanied by fresh herbs like mint and basil, and served with a side of sweet and spicy dipping sauce.",
+ "words_in": 13,
+ "words_out": 53,
+ "clip_tokens": 71,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "nem rán",
+   "in": "A tray of golden fried spring rolls with fresh herbs and dipping sauce.",
+   "out_raw": "### REFINED PROMPT: A vibrant and aromatic tray of golden nem rán, crispy fried spring rolls made with ground pork wrapped in rice paper, accompanied by fresh herbs like mint and basil, and served with a side of sweet and spicy dipping sauce. This popular Vietnamese appetizer, often served at gatherings and celebrations, is a symbol of warmth and hospitality. As the sizzling nem rán is devoured, the savory aroma fills the air, tantalizing the taste buds and evoking memories of laughter and togetherness. ### REFINED PROMPT RATIONALE: I refined the BASE PROMPT to provide more specific details about the nem rán, using the INFORMATION provided. I added more descriptive language to help someone unfamiliar with the culture draw a picture of it. The additional details include the ingredients (ground pork and rice paper), the texture (crispy fried), and the accompaniments (fresh herbs and dipping sauce). I also added sensory language to engage the reader's senses, such as the aroma and sizzling sounds associated with the nem rán. Furthermore, I provided more context about the cultural significance and importance of nem rán in Vietnamese culture, highlighting its role as a symbol of warmth and hospitality. By implementing the feedback suggestions, the REFINED PROMPT's score could increase to around 40-42 out of 50.",
+   "out": "A vibrant and aromatic tray of golden nem rán, crispy fried spring rolls made with ground pork wrapped in rice paper, accompanied by fresh herbs like mint and basil, and served with a side of sweet and spicy dipping sauce.",
+   "words_raw": 212,
+   "words": 40,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 24.6,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 24.6
+}

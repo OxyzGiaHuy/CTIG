@@ -1,0 +1,74 @@
+{
+ "prompt_id": "C011",
+ "sig": "ff35c4120849",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.24,
+ "prompt_en": "A don ca tai tu ensemble plays and sings under the canopy of a fruit orchard beside a canal in the Mekong Delta, with one musician on the moon lute and another bowing the two-string fiddle.",
+ "culture_nouns": [
+  "đờn ca tài tử",
+  "đàn kìm",
+  "đàn cò",
+  "vườn cây trái miệt vườn"
+ ],
+ "refined_prompt": "A don ca tai tu ensemble plays and sings under the canopy of a fruit orchard beside a canal in the Mekong Delta, with one musician on the moon lute and another bowing the two-string fiddle. A musician plays the đàn cò, a traditional Vietnamese bowed string instrument with two strings, amidst a serene setting with lush greenery and a calm canal. The instrument's sound box is covered with snakeskin on one end. The musician's fingers deftly draw out the instrument's unique and soothing tones, evoking the cultural heritage of Vietnam.",
+ "words_in": 36,
+ "words_out": 91,
+ "clip_tokens": 122,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "đờn ca tài tử",
+   "in": "A don ca tai tu ensemble plays and sings under the canopy of a fruit orchard beside a canal in the Mekong Delta, with one musician on the moon lute and another bowing the two-string fiddle.",
+   "out_raw": "### Refined Prompt: A don ca tai tu ensemble plays and sings amidst the lush trees of a fruit orchard, situated beside a serene canal in the Mekong Delta. The musicians are accompanied by the sounds of nature, with the soft gurgling of the canal and the rustling of leaves in the gentle breeze. One musician strums the moon lute, while another expertly bows the two-string fiddle, blending traditional instruments with modern modifications, such as the guitar, violin, and steel guitar, to create a unique and enchanting sound. Note: The refined prompt maintains the original scene, adding more descriptive details to help someone unfamiliar with the culture noun draw a picture of it. The additional information from the document is used to provide more context and authenticity to the prompt.",
+   "out": "A don ca tai tu ensemble plays and sings amidst the lush trees of a fruit orchard, situated beside a serene canal in the Mekong Delta.",
+   "words_raw": 130,
+   "words": 26,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 7.7,
+   "scene_keep_raw": 0.53
+  },
+  {
+   "culture_noun": "đàn kìm",
+   "in": "A don ca tai tu ensemble plays and sings amidst the lush trees of a fruit orchard, situated beside a serene canal in the Mekong Delta.",
+   "out_raw": "Based on the provided information and feedback, I will refine the BASE PROMPT to create a new prompt that accurately reflects the culture noun \"đàn kìm\" (also known as \"đàn nguyệt\" or \"nguyệt cầm\") and allows someone unfamiliar with the culture to draw a picture of it. REFINED PROMPT: A musician plays the đàn kìm, a traditional Vietnamese instrument with two nylon or fishing line strings, amidst a serene setting with lush greenery and a calm canal in the Mekong Delta. The đàn kìm's raised frets and low tension strings allow for unique bending tones to be produced, characteristic of traditional Vietnamese music. The musician plucks the strings with a small plectrum, perhaps a plastic guitar pick. This refined prompt aims to provide sufficient detail about the đàn kìm, its characteristics, and its traditional use in Vietnamese music, while maintaining the serene setting from the original BASE PROMPT.",
+   "out": "A musician plays the đàn kìm, a traditional Vietnamese instrument with two nylon or fishing line strings, amidst a serene setting with lush greenery and a calm canal in the Mekong Delta.",
+   "words_raw": 148,
+   "words": 32,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 6.3,
+   "scene_keep_raw": 0.29
+  },
+  {
+   "culture_noun": "đàn cò",
+   "in": "A musician plays the đàn kìm, a traditional Vietnamese instrument with two nylon or fishing line strings, amidst a serene setting with lush greenery and a calm canal in the Mekong Delta.",
+   "out_raw": "Based on the provided INFORMATION and FEEDBACK, I refined the BASE PROMPT to accurately depict the đàn cò, a traditional Vietnamese instrument. Here's the refined prompt: REFINED PROMPT: A musician plays the đàn cò, a traditional Vietnamese bowed string instrument with two strings, amidst a serene setting with lush greenery and a calm canal. The instrument's sound box is covered with snakeskin on one end. The musician's fingers deftly draw out the instrument's unique and soothing tones, evoking the cultural heritage of Vietnam. I made slight modifications to the original prompt to accommodate the correct details about the đàn cò, such as its number of strings, construction, and the fact that it's a bowed instrument. I also added additional information to provide a more accurate representation of the instrument, its appearance, and its cultural significance.",
+   "out": "A musician plays the đàn cò, a traditional Vietnamese bowed string instrument with two strings, amidst a serene setting with lush greenery and a calm canal. The instrument's sound box is covered with snakeskin on one end. The musician's fingers deftly draw out the instrument's unique and soothing tones, evoking the cultural heritage of Vietnam.",
+   "words_raw": 135,
+   "words": 55,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 7.4,
+   "scene_keep_raw": 0.24
+  },
+  {
+   "culture_noun": "vườn cây trái miệt vườn",
+   "in": "A musician plays the đàn cò, a traditional Vietnamese bowed string instrument with two strings, amidst a serene setting with lush greenery and a calm canal. The instrument's sound box is covered with snakeskin on one end. The musician's fingers deftly draw out the instrument's unique and soothing tones, evoking the cultural heritage of Vietnam.",
+   "out_raw": "Here is the refined prompt: **CULTURE NOUN:** vườn cây trái miệt vườn **INFORMATION:** (none) **BASE PROMPT:** A musician plays the đàn cò, a traditional Vietnamese bowed string instrument with two strings, amidst a serene setting with lush greenery and a calm canal. The instrument's sound box is covered with snakeskin on one end. The musician's fingers deftly draw out the instrument's unique and soothing tones, evoking the cultural heritage of Vietnam. **BEFORE REFINED PROMPT:** None **REFINE FEEDBACK:** None **ANSWER:**",
+   "out": "A musician plays the đàn cò, a traditional Vietnamese bowed string instrument with two strings, amidst a serene setting with lush greenery and a calm canal. The instrument's sound box is covered with snakeskin on one end. The musician's fingers deftly draw out the instrument's unique and soothing tones, evoking the cultural heritage of Vietnam.",
+   "words_raw": 79,
+   "words": 55,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 11.0,
+   "scene_keep_raw": 0.24
+  }
+ ],
+ "seconds": 32.4
+}

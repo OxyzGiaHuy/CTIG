@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S026",
+ "sig": "ef4476063419",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A tray of golden fried spring rolls with fresh herbs and dipping sauce.",
+ "culture_nouns": [
+  "nem rán"
+ ],
+ "refined_prompt": "A tray of golden fried spring rolls with fresh herbs and dipping sauce. A tray filled with crispy and golden fried spring rolls, known as \"nem rán\" in Vietnamese cuisine. Each roll is delicately wrapped in translucent rice paper, filled with ground pork and a mix of fresh vegetables like carrots and mung bean sprouts. These rolls are typically served alongside a variety of fresh herbs such as Thai basil and mint, as well as a savory dipping sauce made from fish sauce, sugar, and lime juice.",
+ "words_in": 13,
+ "words_out": 87,
+ "clip_tokens": 117,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "nem rán",
+   "in": "A tray of golden fried spring rolls with fresh herbs and dipping sauce.",
+   "out_raw": "### Refined Prompt: A tray filled with crispy and golden fried spring rolls, known as \"nem rán\" in Vietnamese cuisine. Each roll is delicately wrapped in translucent rice paper, filled with ground pork and a mix of fresh vegetables like carrots and mung bean sprouts. These rolls are typically served alongside a variety of fresh herbs such as Thai basil and mint, as well as a savory dipping sauce made from fish sauce, sugar, and lime juice. \"Nem rán\" is a beloved appetizer in Vietnamese homes and restaurants, often enjoyed during special occasions and casual meals alike, reflecting the rich culinary traditions of Vietnam. ### Refined Feedback: **Clarity (9.0):** The prompt is now very clear, providing specific details about the ingredients and accompaniments used in \"nem rán.\" **Visual_detail (8.0):** The prompt offers a vivid and detailed description, including sensory details like the aroma of frying and the vibrant colors of the herbs. **Background (7.0):** The prompt gives a brief mention of the cultural significance of \"nem rán\" in Vietnamese culture, though there is room for more detailed historical context or cultural importance. **Purpose (8.0):** The purpose of serving \"nem rán\" is clearly stated, noting its role in both special occasions and everyday meals. **Comparable_object (7.0):** The prompt could still benefit from a comparison to a similar dish, such as a Chinese spring roll, to highlight the unique qualities of \"nem rán.\" By addressing these areas, the refined prompt provides a detailed and engaging description of \"nem rán\" that gives readers a clear picture of the dish and its cultural significance.",
+   "out": "A tray filled with crispy and golden fried spring rolls, known as \"nem rán\" in Vietnamese cuisine. Each roll is delicately wrapped in translucent rice paper, filled with ground pork and a mix of fresh vegetables like carrots and mung bean sprouts. These rolls are typically served alongside a variety of fresh herbs such as Thai basil and mint, as well as a savory dipping sauce made from fish sauce, sugar, and lime juice.",
+   "words_raw": 260,
+   "words": 74,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 415.9,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 415.9
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S017",
+ "sig": "737c78d25d8e",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.8,
+ "prompt_en": "Quan ho singers standing and singing on a boat.",
+ "culture_nouns": [
+  "hát quan họ"
+ ],
+ "refined_prompt": "Quan ho singers standing and singing on a boat. Quan Ho singers perform traditional duet-style singing, a UNESCO Intangible Cultural Heritage, on a boat during the Mid-Autumn Festival and the Boat Festival in northern Vietnam. The singers, usually young men and women, wear ao dai, a traditional Vietnamese dress. They perform without musical instruments, emphasizing their vocal talents and the poetic interplay that is a hallmark of Quan Ho. The boat is set on a tranquil river or lake, surrounded by lush greenery and rice paddies, creating a serene and picturesque backdrop. The scent of blooming jasmine flowers and the sound of water contribute to the immersive atmosphere, reflecting the deep cultural importance of this art form.",
+ "words_in": 9,
+ "words_out": 117,
+ "clip_tokens": 157,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "hát quan họ",
+   "in": "Quan ho singers standing and singing on a boat.",
+   "out_raw": "### Revised Refined Prompt Quan Ho singers perform traditional duet-style singing, a UNESCO Intangible Cultural Heritage, on a boat during the Mid-Autumn Festival and the Boat Festival in northern Vietnam. This form of music has a rich history dating back to the 15th century and is deeply rooted in the cultural heritage of the Kinh people, the largest ethnic group in Vietnam. The singers, usually young men and women, wear ao dai, a traditional Vietnamese dress that is elegant and flowing. Ao dai is not just clothing; it symbolizes cultural continuity and pride, essential elements of the Quan Ho performance. The singers perform without musical instruments, emphasizing their vocal talents and the poetic interplay that is a hallmark of Quan Ho. The boat is often set on a tranquil river or lake, surrounded by lush greenery and rice paddies, creating a serene and picturesque backdrop. This setting enhances the cultural experience, adding to the traditional beauty and significance of Quan Ho singing. The scent of blooming jasmine flowers and the sound of water contribute to the immersive atmosphere, reflecting the deep cultural importance of this art form. ### Revised SCORE - **Clarity:** 9.5 (Ao dai is defined, and sentences are simplified for clarity) - **Visual_detail:** 9.0 (Specific sensory details such as jasmine flowers and water sounds are added) - **Background:** 8.5 (Historical and cultural context is expanded) - **Purpose:** 8.0 (Specific functions of Quan Ho singing are clarified) - **Comparable_object:** 7.5 (Similarities and differences with other styles are highlighted) - **Total_score:** 42.5 (Enhancements improve overall quality and understanding) This revised prompt offers a clearer, more vivid, and comprehensive understanding of Quan Ho singing.",
+   "out": "Quan Ho singers perform traditional duet-style singing, a UNESCO Intangible Cultural Heritage, on a boat during the Mid-Autumn Festival and the Boat Festival in northern Vietnam. The singers, usually young men and women, wear ao dai, a traditional Vietnamese dress. They perform without musical instruments, emphasizing their vocal talents and the poetic interplay that is a hallmark of Quan Ho. The boat is set on a tranquil river or lake, surrounded by lush greenery and rice paddies, creating a serene and picturesque backdrop. The scent of blooming jasmine flowers and the sound of water contribute to the immersive atmosphere, reflecting the deep cultural importance of this art form.",
+   "words_raw": 273,
+   "words": 108,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 867.7,
+   "scene_keep_raw": 0.8
+  }
+ ],
+ "seconds": 867.7
+}

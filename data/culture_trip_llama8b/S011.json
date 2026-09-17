@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S011",
+ "sig": "d8c341ca4571",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A cai luong performer in costume on stage.",
+ "culture_nouns": [
+  "cải lương"
+ ],
+ "refined_prompt": "A cai luong performer in costume on stage. A cai luong performer dressed in a colorful, ornate costume, blending traditional southern Vietnamese folk elements with classical Chinese-inspired designs, stands on stage, ready to bring the story to life through a combination of singing, acting, and dancing.",
+ "words_in": 8,
+ "words_out": 46,
+ "clip_tokens": 62,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "cải lương",
+   "in": "A cai luong performer in costume on stage.",
+   "out_raw": "Based on the provided INFORMATION, I've refined the BASE PROMPT to provide a more detailed and accurate description of a cai luong performer. REFINED PROMPT: A cai luong performer dressed in a colorful, ornate costume, blending traditional southern Vietnamese folk elements with classical Chinese-inspired designs, stands on stage, ready to bring the story to life through a combination of singing, acting, and dancing. REFINED PROMPT (expanded for better understanding): The performer wears a vibrant, intricate costume adorned with silk, brocade, and other textiles, reflecting the cultural heritage of southern Vietnam. The outfit combines traditional elements, such as the ao dai (a long, flowing tunic), with classical Chinese-inspired patterns and designs, characteristic of hát tuồng, a classical theater form. The performer's stage presence is poised and confident, ready to engage the audience in a dynamic performance that blends music, drama, and dance.",
+   "out": "A cai luong performer dressed in a colorful, ornate costume, blending traditional southern Vietnamese folk elements with classical Chinese-inspired designs, stands on stage, ready to bring the story to life through a combination of singing, acting, and dancing.",
+   "words_raw": 141,
+   "words": 38,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 11.2,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 11.2
+}

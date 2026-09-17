@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C012",
+ "sig": "f1e1c9ddce14",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.06,
+ "prompt_en": "Beside a wood fire, someone cooks banh xeo in a large cast-iron pan, next to a basket of raw herbs and a bowl of sweet-sour fish sauce.",
+ "culture_nouns": [
+  "bánh xèo",
+  "bếp củi chảo gang",
+  "rau sống"
+ ],
+ "refined_prompt": "Beside a wood fire, someone cooks banh xeo in a large cast-iron pan, next to a basket of raw herbs and a bowl of sweet-sour fish sauce. In Vietnamese cuisine, rau sống is a type of fresh herb used in cooking. A bunch of fresh rau sống is a colorful and vibrant arrangement of various leaves and stems, including mint, Vietnamese mint, and Thai basil leaves. To depict rau sống, draw a picture of a bunch of fresh herbs with different shapes and textures, such as leafy mint and curly Vietnamese mint, arranged in a harmonious way to represent the fresh and lively nature of this ingredient, with a focus on its freshness, texture, and arrangement. Imagine rau sống as a bouquet of fresh flowers, with delicate stems and vibrant leaves that evoke the sensation of a spring morning.",
+ "words_in": 27,
+ "words_out": 139,
+ "clip_tokens": 187,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bánh xèo",
+   "in": "Beside a wood fire, someone cooks banh xeo in a large cast-iron pan, next to a basket of raw herbs and a bowl of sweet-sour fish sauce.",
+   "out_raw": "Here's the refined prompt: Bánh xèo is a crispy, savory pancake filled with a variety of ingredients such as pork, prawns, green onion, and mung bean. Beside a wood fire, someone cooks banh xeo in a large cast-iron pan, next to a steaming hot skillet that sizzles when the rice batter is poured in, making a distinctive sound. The finished pancake is served with a variety of side dishes, including leafy greens, herbs, cucumbers, pickled carrots and radishes, and a dipping sauce made with sweet and sour garlic fish sauce. I refined the prompt by incorporating more details from the information provided, while maintaining the same scene and scenario as the original prompt.",
+   "out": "Bánh xèo is a crispy, savory pancake filled with a variety of ingredients such as pork, prawns, green onion, and mung bean. Beside a wood fire, someone cooks banh xeo in a large cast-iron pan, next to a steaming hot skillet that sizzles when the rice batter is poured in, making a distinctive sound. The finished pancake is served with a variety of side dishes, including leafy greens, herbs, cucumbers, pickled carrots and radishes, and a dipping sauce made with sweet and sour garlic fish sauce.",
+   "words_raw": 113,
+   "words": 86,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 9.1,
+   "scene_keep_raw": 0.88
+  },
+  {
+   "culture_noun": "bếp củi chảo gang",
+   "in": "Bánh xèo is a crispy, savory pancake filled with a variety of ingredients such as pork, prawns, green onion, and mung bean. Beside a wood fire, someone cooks banh xeo in a large cast-iron pan, next to a steaming hot skillet that sizzles when the rice batter is poured in, making a distinctive sound. The finished pancake is served with a variety of side dishes, including leafy greens, herbs, cucumbers, pickled carrots and radishes, and a dipping sauce made with sweet and sour garlic fish sauce.",
+   "out_raw": "Here is the refined prompt based on the provided information and feedback: A bếp củi chảo gang is a traditional cooking stove that uses a wood-fired stove to cook food. The stove is typically placed outdoors and features a cast-iron pan for grilling and frying. Smoke rises into the air as someone cooks in front of the stove, filling the atmosphere with a savory aroma that wafts through the air, reminiscent of a campfire or a backyard BBQ.",
+   "out": "A bếp củi chảo gang is a traditional cooking stove that uses a wood-fired stove to cook food. The stove is typically placed outdoors and features a cast-iron pan for grilling and frying. Smoke rises into the air as someone cooks in front of the stove, filling the atmosphere with a savory aroma that wafts through the air, reminiscent of a campfire or a backyard BBQ.",
+   "words_raw": 78,
+   "words": 66,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 24.7,
+   "scene_keep_raw": 0.29
+  },
+  {
+   "culture_noun": "rau sống",
+   "in": "A bếp củi chảo gang is a traditional cooking stove that uses a wood-fired stove to cook food. The stove is typically placed outdoors and features a cast-iron pan for grilling and frying. Smoke rises into the air as someone cooks in front of the stove, filling the atmosphere with a savory aroma that wafts through the air, reminiscent of a campfire or a backyard BBQ.",
+   "out_raw": "**REFINED PROMPT:** In Vietnamese cuisine, rau sống is a type of fresh herb used in cooking. A bunch of fresh rau sống is a colorful and vibrant arrangement of various leaves and stems, including mint, Vietnamese mint, and Thai basil leaves. To depict rau sống, draw a picture of a bunch of fresh herbs with different shapes and textures, such as leafy mint and curly Vietnamese mint, arranged in a harmonious way to represent the fresh and lively nature of this ingredient, with a focus on its freshness, texture, and arrangement. Imagine rau sống as a bouquet of fresh flowers, with delicate stems and vibrant leaves that evoke the sensation of a spring morning. **REFINE FEEDBACK:** * The refined prompt provides a clear and concise description of rau sống, which is a key ingredient in Vietnamese cuisine. * The prompt focuses on the freshness and variety of herbs, emphasizing their texture and color, which is essential for drawing a representation of rau sống. * The refined prompt does not modify the scene depicted in the base prompt, as instructed. FEEDBACK: * **Clarity:** 9.5 (The prompt is clear and concise, providing a good description of rau sống. It specifies what aspects of the herb to focus on, such as its texture, color, and arrangement.) * **Visual_detail:** 9.0 (The prompt provides a good amount of visual detail, mentioning the different shapes and textures of the herbs. It adds specific details, such as the colors and arrangement of the herbs, to enhance the prompt.) * **Background:** 7.0 (The prompt provides some background information about rau sống, mentioning its significance in Vietnamese cuisine. Adding more context about its common uses in recipes would enhance the prompt.) * **Purpose:** 8.0 (The prompt is clear about the purpose of the drawing, which is to represent rau sống. It specifies what aspects of the herb to highlight, such as its freshness, texture, and arrangement.) * **Comparable_object:** 8.5 (The prompt provides a specific comparison, such as depicting rau sống as a bouquet of fresh flowers, which would enhance the prompt's ability to provide a clear and concise representation of the herb.) * **Total_score:** 40.5",
+   "out": "In Vietnamese cuisine, rau sống is a type of fresh herb used in cooking. A bunch of fresh rau sống is a colorful and vibrant arrangement of various leaves and stems, including mint, Vietnamese mint, and Thai basil leaves. To depict rau sống, draw a picture of a bunch of fresh herbs with different shapes and textures, such as leafy mint and curly Vietnamese mint, arranged in a harmonious way to represent the fresh and lively nature of this ingredient, with a focus on its freshness, texture, and arrangement. Imagine rau sống as a bouquet of fresh flowers, with delicate stems and vibrant leaves that evoke the sensation of a spring morning.",
+   "words_raw": 356,
+   "words": 112,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 50.8,
+   "scene_keep_raw": 0.06
+  }
+ ],
+ "seconds": 84.6
+}

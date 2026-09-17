@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S036",
+ "sig": "103acb8ec761",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.88,
+ "prompt_en": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays.",
+ "culture_nouns": [
+  "lễ ăn hỏi"
+ ],
+ "refined_prompt": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays. Draw a picture of a traditional Vietnamese engagement ceremony, \"lễ ăn hỏi\", where the groom's family presents a proposal to the bride's family. The scene should include the exchange of gifts, food, and drinks. The ceremony should take place in a tranquil garden or a decorated indoor space with a red carpet and ornate decorations. The atmosphere should be festive and celebratory, with the sound of traditional music and the scent of incense wafting through the air. The bride and groom may not be present, but the ceremony atmosphere and the red-draped gift trays are essential elements to depict.",
+ "words_in": 13,
+ "words_out": 112,
+ "clip_tokens": 151,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "lễ ăn hỏi",
+   "in": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays.",
+   "out_raw": "Here is the refined prompt: Draw a picture of a traditional Vietnamese engagement ceremony, \"lễ ăn hỏi\", where the groom's family presents a proposal to the bride's family. The scene should include the exchange of gifts, food, and drinks. The ceremony should take place in a tranquil garden or a decorated indoor space with a red carpet and ornate decorations. The atmosphere should be festive and celebratory, with the sound of traditional music and the scent of incense wafting through the air. The bride and groom may not be present, but the ceremony atmosphere and the red-draped gift trays are essential elements to depict. The refined prompt provides more specific details about the visual elements to be included in the drawing, such as the types of gifts, food, and drinks that are typically exchanged during the ceremony. It also provides more context about the setting of the ceremony, such as the location and decorations, to help the artist create a more immersive and engaging representation of the traditional Vietnamese engagement ceremony.",
+   "out": "Draw a picture of a traditional Vietnamese engagement ceremony, \"lễ ăn hỏi\", where the groom's family presents a proposal to the bride's family. The scene should include the exchange of gifts, food, and drinks. The ceremony should take place in a tranquil garden or a decorated indoor space with a red carpet and ornate decorations. The atmosphere should be festive and celebratory, with the sound of traditional music and the scent of incense wafting through the air. The bride and groom may not be present, but the ceremony atmosphere and the red-draped gift trays are essential elements to depict.",
+   "words_raw": 171,
+   "words": 99,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 21.0,
+   "scene_keep_raw": 0.88
+  }
+ ],
+ "seconds": 21.0
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S028",
+ "sig": "5c1c55d16f7d",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.5,
+ "prompt_en": "Sliced rounds of banh tet arranged on banana leaves.",
+ "culture_nouns": [
+  "bánh tét"
+ ],
+ "refined_prompt": "Sliced rounds of banh tet arranged on banana leaves. A traditional Vietnamese rice cake, bánh tét, wrapped in banana leaves, is shown with a vibrant green exterior and a soft, slightly sticky interior. The cake is made with glutinous rice, mung beans, and pork, and is intricately prepared by soaking the rice and wrapping it in banana leaves. Once cooked, the leaves are peeled back to reveal layers of creamy mung beans and tender pork, creating a visually appealing and appetizing presentation. Slices of the cake are arranged on banana leaves for serving, capturing the essence of Vietnamese culinary traditions and cultural heritage.",
+ "words_in": 9,
+ "words_out": 103,
+ "clip_tokens": 139,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bánh tét",
+   "in": "Sliced rounds of banh tet arranged on banana leaves.",
+   "out_raw": "### Revised Refined Prompt Bánh tét is a traditional Vietnamese rice cake wrapped in banana leaves, often served during Tết (Vietnamese New Year) celebrations. This delicacy has been a cherished part of Vietnamese culture for generations, symbolizing family unity and cultural heritage. Typically made with glutinous rice, mung beans, and pork, bánh tét is meticulously prepared by soaking the rice, preparing the filling, and wrapping the cakes in banana leaves, each step fostering a sense of community and family togetherness. The banana leaves used for wrapping are intricately veined and have a subtle sheen, adding a natural beauty to the preparation. Once the bánh tét is cooked, the leaves are carefully peeled back, revealing a thick, cylindrical cake with a vibrant green exterior and a soft, slightly sticky interior. The cross-section of the cake shows layers of creamy mung beans and tender pork, creating a visually appealing and appetizing presentation. The aroma of freshly cooked bánh tét is captivating, with the fragrance of banana leaves mingling with the rich, savory flavors of the ingredients. Slices of bánh tét are often artistically arranged on banana leaves for serving, allowing the rich flavors and aromatic essence of the cake to be fully appreciated. Its rich, savory taste and chewy texture make it a standout dish in Vietnamese cuisine. During Tết, bánh tét is not just a food item but a symbol of unity and family. Families often come together to prepare and share the cake, creating cherished memories and strengthening familial bonds. This communal activity is deeply rooted in Vietnamese culture, where the act of preparing and sharing food is seen as a way to show love and appreciation for one's family. Unlike other festive foods, such as the Chinese zongzi, bánh tét uniquely encapsulates the essence of Vietnamese culinary traditions, highlighting the harmony between ingredients and cultural values. The preparation and sharing of bánh tét foster a sense of community and strengthen familial bonds, making it a must-try for anyone interested in experiencing the heartwarming traditions of Vietnamese culture. The tradition of making bánh tét is not only about the food but also about the cultural continuity and heritage it represents, passed down through generations and cherished by many. ### Revised SCORE - **Clarity**: 9.5 - **Visual Detail**: 9.0 - **Background**: 9.0 - **Purpose**: 9.0 - **Comparable Object**: 8.5 - **Total Score**: 46.0",
+   "out": "A traditional Vietnamese rice cake, bánh tét, wrapped in banana leaves, is shown with a vibrant green exterior and a soft, slightly sticky interior. The cake is made with glutinous rice, mung beans, and pork, and is intricately prepared by soaking the rice and wrapping it in banana leaves. Once cooked, the leaves are peeled back to reveal layers of creamy mung beans and tender pork, creating a visually appealing and appetizing presentation. Slices of the cake are arranged on banana leaves for serving, capturing the essence of Vietnamese culinary traditions and cultural heritage.",
+   "words_raw": 392,
+   "words": 94,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 634.4,
+   "scene_keep_raw": 0.5
+  }
+ ],
+ "seconds": 634.4
+}

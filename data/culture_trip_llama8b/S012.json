@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S012",
+ "sig": "678193cbf43c",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.33,
+ "prompt_en": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise.",
+ "culture_nouns": [
+  "chèo thuyền thúng"
+ ],
+ "refined_prompt": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise. A traditional Vietnamese boat with a wicker basket, being paddled by a fisherman on a calm morning lake or river, surrounded by lush greenery and vibrant flowers.",
+ "words_in": 14,
+ "words_out": 41,
+ "clip_tokens": 55,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "chèo thuyền thúng",
+   "in": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise.",
+   "out_raw": "Here's the refined prompt: A traditional Vietnamese boat with a wicker basket, being paddled by a fisherman on a calm morning lake or river, surrounded by lush greenery and vibrant flowers. I made slight modifications to the original prompt to provide more visual details and context, while keeping the core idea of the culture noun \"chèo thuyền thúng\" intact. I hope this refined prompt meets your requirements!",
+   "out": "A traditional Vietnamese boat with a wicker basket, being paddled by a fisherman on a calm morning lake or river, surrounded by lush greenery and vibrant flowers.",
+   "words_raw": 67,
+   "words": 27,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 11.9,
+   "scene_keep_raw": 0.33
+  }
+ ],
+ "seconds": 11.9
+}

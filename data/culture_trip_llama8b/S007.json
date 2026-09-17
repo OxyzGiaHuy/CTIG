@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S007",
+ "sig": "91ee76fccb6a",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.89,
+ "prompt_en": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.",
+ "culture_nouns": [
+  "Văn Miếu - Quốc Tử Giám"
+ ],
+ "refined_prompt": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles. Imagine a serene courtyard at the Văn Miếu - Quốc Tử Giám, a temple in Hanoi, Vietnam. In the center of the courtyard stands the iconic Khue Van Cac pavilion, surrounded by rows of stone turtles supporting intricately carved doctoral stelae. The stelae are adorned with inscriptions of scholars' names and dates, paying tribute to the esteemed educators who once studied and taught within these hallowed walls.",
+ "words_in": 17,
+ "words_out": 84,
+ "clip_tokens": 113,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "Văn Miếu - Quốc Tử Giám",
+   "in": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.",
+   "out_raw": "Here's the refined prompt: **REFINED PROMPT:** Imagine a serene courtyard at the Văn Miếu - Quốc Tử Giám, a temple in Hanoi, Vietnam. In the center of the courtyard stands the iconic Khue Van Cac pavilion, surrounded by rows of stone turtles supporting intricately carved doctoral stelae. The stelae are adorned with inscriptions of scholars' names and dates, paying tribute to the esteemed educators who once studied and taught within these hallowed walls. **REFINE FEEDBACK:** To ensure the refined prompt accurately reflects the Văn Miếu - Quốc Tử Giám, I verified the information provided and made slight modifications to the BASE PROMPT. The refined prompt maintains the same scene as the original, adding more detail to help someone unfamiliar with the culture noun (Văn Miếu - Quốc Tử Giám) draw a picture of it.",
+   "out": "Imagine a serene courtyard at the Văn Miếu - Quốc Tử Giám, a temple in Hanoi, Vietnam. In the center of the courtyard stands the iconic Khue Van Cac pavilion, surrounded by rows of stone turtles supporting intricately carved doctoral stelae. The stelae are adorned with inscriptions of scholars' names and dates, paying tribute to the esteemed educators who once studied and taught within these hallowed walls.",
+   "words_raw": 134,
+   "words": 67,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 5.4,
+   "scene_keep_raw": 0.89
+  }
+ ],
+ "seconds": 5.4
+}

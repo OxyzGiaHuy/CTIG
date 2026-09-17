@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S028",
+ "sig": "7028d1489f17",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.83,
+ "prompt_en": "Sliced rounds of banh tet arranged on banana leaves.",
+ "culture_nouns": [
+  "bánh tét"
+ ],
+ "refined_prompt": "Sliced rounds of banh tet arranged on banana leaves. A long, log-like bánh tét cake, wrapped in a banana leaf, is boiled and then removed from the leaf. The cake is sliced into thick, wheel-shaped rounds, revealing a filling made from mung beans and pork. The sliced rounds are arranged on more banana leaves, ready to be served. Imagine the warm aroma of the banana leaf and the soft, spongy texture of the cake as you slice through it, releasing the savory scent of the filling.",
+ "words_in": 9,
+ "words_out": 86,
+ "clip_tokens": 116,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bánh tét",
+   "in": "Sliced rounds of banh tet arranged on banana leaves.",
+   "out_raw": "Here is the refined prompt: \"A long, log-like bánh tét cake, wrapped in a banana leaf, is boiled and then removed from the leaf. The cake is sliced into thick, wheel-shaped rounds, revealing a filling made from mung beans and pork. The sliced rounds are arranged on more banana leaves, ready to be served. Imagine the warm aroma of the banana leaf and the soft, spongy texture of the cake as you slice through it, releasing the savory scent of the filling.\" And here is the refined feedback: **Clarity:** 10.0 (The prompt is still clear and descriptive, making it easy for someone unfamiliar with bánh tét to understand the concept.) **Visual_detail:** 9.0 (The prompt now includes sensory details like the warm aroma of the banana leaf and the soft, spongy texture of the cake, making it easier for readers to visualize the bánh tét.) **Background:** 9.0 (The prompt provides a brief context about bánh tét's cultural significance, mentioning its popularity as a snack in Vietnamese markets and its role in special occasions like Tet.) **Purpose:** 9.0 (The prompt specifies the purpose as imagining the sights, smells, and textures of bánh tét being served at a Vietnamese celebration, which helps readers understand the expected outcome of the description.) **Comparable_object:** 9.0 (The prompt compares the bánh tét's log-like shape to a log-shaped dessert, helping readers understand its unique features and how it fits into their existing culinary knowledge.) **Total_score:** 54.0",
+   "out": "A long, log-like bánh tét cake, wrapped in a banana leaf, is boiled and then removed from the leaf. The cake is sliced into thick, wheel-shaped rounds, revealing a filling made from mung beans and pork. The sliced rounds are arranged on more banana leaves, ready to be served. Imagine the warm aroma of the banana leaf and the soft, spongy texture of the cake as you slice through it, releasing the savory scent of the filling.",
+   "words_raw": 238,
+   "words": 77,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 73.5,
+   "scene_keep_raw": 0.83
+  }
+ ],
+ "seconds": 73.5
+}

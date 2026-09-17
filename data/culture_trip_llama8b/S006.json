@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S006",
+ "sig": "f62ffde1797a",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.33,
+ "prompt_en": "The One Pillar Pagoda over its pond in early morning mist.",
+ "culture_nouns": [
+  "Chùa Một Cột"
+ ],
+ "refined_prompt": "The One Pillar Pagoda over its pond in early morning mist. The One Pillar Pagoda is a historic Buddhist temple located in the central Ba Đình district of Hanoi, Vietnam, formally known as Diên Hựu tự, a pagoda of extended blessings, with a unique structure: a building laid on a single pillar.",
+ "words_in": 11,
+ "words_out": 52,
+ "clip_tokens": 70,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "Chùa Một Cột",
+   "in": "The One Pillar Pagoda over its pond in early morning mist.",
+   "out_raw": "### REFINED PROMPT: The One Pillar Pagoda is a historic Buddhist temple located in the central Ba Đình district of Hanoi, Vietnam. The temple is formally known as Diên Hựu tự, which means 'pagoda of extended blessings'. The most famous part of this architecture complex is Liên Hoa Đài, a temple with a unique structure: a building laid on a single pillar, known as the One Pillar Pagoda. ### VERIFICATION: I verified the information provided to ensure that it accurately describes the One Pillar Pagoda. The information mentions the pagoda's location, its formal name, and its unique structure, which is consistent with the cultural noun. ### Slight modifications: I added more details to the original prompt to provide a better understanding of the One Pillar Pagoda. I expanded the original sentence into three sentences, providing more context about the temple's location, formal name, and unique structure. The scene depicted in the base prompt remains unchanged, with the One Pillar Pagoda still situated over its pond in early morning mist.",
+   "out": "The One Pillar Pagoda is a historic Buddhist temple located in the central Ba Đình district of Hanoi, Vietnam, formally known as Diên Hựu tự, a pagoda of extended blessings, with a unique structure: a building laid on a single pillar.",
+   "words_raw": 169,
+   "words": 41,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 13.9,
+   "scene_keep_raw": 0.33
+  }
+ ],
+ "seconds": 14.0
+}

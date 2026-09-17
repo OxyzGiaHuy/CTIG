@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S030",
+ "sig": "7e7488af07e5",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.83,
+ "prompt_en": "A woman in a checkered scarf sitting in a small sampan.",
+ "culture_nouns": [
+  "khăn rằn"
+ ],
+ "refined_prompt": "A woman in a checkered scarf sitting in a small sampan. A woman wearing a traditional Vietnamese khăn rằn, a checkered black-and-white scarf with stripes, sits comfortably in a small sampan.",
+ "words_in": 11,
+ "words_out": 31,
+ "clip_tokens": 41,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "khăn rằn",
+   "in": "A woman in a checkered scarf sitting in a small sampan.",
+   "out_raw": "### Refined Prompt: A woman wearing a traditional Vietnamese khăn rằn, a checkered black-and-white scarf with stripes, sits comfortably in a small sampan. The scarf, which originated from the Cambodian krama, is a distinctive part of her attire. In the Mekong Delta region of southern Vietnam, this scarf is a symbol of cultural heritage. (Note: I refined the prompt by incorporating the correct information about the khăn rằn, its origin, and its cultural significance, while keeping the original scene unchanged.)",
+   "out": "A woman wearing a traditional Vietnamese khăn rằn, a checkered black-and-white scarf with stripes, sits comfortably in a small sampan.",
+   "words_raw": 80,
+   "words": 20,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 4.5,
+   "scene_keep_raw": 0.83
+  }
+ ],
+ "seconds": 4.5
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S023",
+ "sig": "5c7b70f53b25",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A family around a Tet feast with a kumquat tree and red envelopes.",
+ "culture_nouns": [
+  "mâm cỗ Tết"
+ ],
+ "refined_prompt": "A family around a Tet feast with a kumquat tree and red envelopes. A family gathering around a festive table spread with a traditional Vietnamese Tết feast, featuring a variety of dishes such as bánh chưng (square cakes), bánh tét (sticky rice cakes), and other regional specialties. A kumquat tree, symbolizing good luck and prosperity, stands nearby, with its bright orange fruits spilling onto the table. Red envelopes, filled with lucky money, are scattered among the dishes, awaiting distribution to family members and friends.",
+ "words_in": 13,
+ "words_out": 84,
+ "clip_tokens": 113,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "mâm cỗ Tết",
+   "in": "A family around a Tet feast with a kumquat tree and red envelopes.",
+   "out_raw": "Here is the refined prompt: **REFINED PROMPT:** A family gathering around a festive table spread with a traditional Vietnamese Tết feast, featuring a variety of dishes such as bánh chưng (square cakes), bánh tét (sticky rice cakes), and other regional specialties. A kumquat tree, symbolizing good luck and prosperity, stands nearby, with its bright orange fruits spilling onto the table. Red envelopes, filled with lucky money, are scattered among the dishes, awaiting distribution to family members and friends. **REFINE FEEDBACK:** The refined prompt provides a more detailed and accurate representation of the Tết celebration, highlighting the traditional foods, symbols, and cultural practices that are unique to this important Vietnamese holiday. The inclusion of the kumquat tree and red envelopes adds a sense of festivity and prosperity to the scene, inviting the illustrator to capture the joy and harmony of the family gathering.",
+   "out": "A family gathering around a festive table spread with a traditional Vietnamese Tết feast, featuring a variety of dishes such as bánh chưng (square cakes), bánh tét (sticky rice cakes), and other regional specialties. A kumquat tree, symbolizing good luck and prosperity, stands nearby, with its bright orange fruits spilling onto the table. Red envelopes, filled with lucky money, are scattered among the dishes, awaiting distribution to family members and friends.",
+   "words_raw": 142,
+   "words": 71,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 9.5,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 9.5
+}

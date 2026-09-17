@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S050",
+ "sig": "340ab2d807fd",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.57,
+ "prompt_en": "An adult's hand giving a red lucky money envelope to a child.",
+ "culture_nouns": [
+  "bao lì xì đỏ"
+ ],
+ "refined_prompt": "An adult's hand giving a red lucky money envelope to a child. A person's hand holding a red envelope with a gift of money inside, being presented to a child or a younger person during a special occasion such as a birthday, graduation, or Chinese New Year.",
+ "words_in": 12,
+ "words_out": 47,
+ "clip_tokens": 63,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "bao lì xì đỏ",
+   "in": "An adult's hand giving a red lucky money envelope to a child.",
+   "out_raw": "### REFINED PROMPT: A person's hand holding a red envelope with a gift of money inside, being presented to a child or a younger person during a special occasion such as a birthday, graduation, or Chinese New Year. ### VERIFICATION: The information provided confirms that bao lì xì đỏ refers to the red envelope tradition, which involves giving a gift of money to children or younger people during special occasions. This prompts the refinement of the original prompt to include the context and significance of the red envelope. ### MODIFICATIONS: No significant modifications were made to the original prompt, as the refined prompt still depicts the core scene of an adult giving a red envelope to a child. The additional information provided helped to specify the occasion and context, making the prompt more detailed and accurate.",
+   "out": "A person's hand holding a red envelope with a gift of money inside, being presented to a child or a younger person during a special occasion such as a birthday, graduation, or Chinese New Year.",
+   "words_raw": 136,
+   "words": 35,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 10.3,
+   "scene_keep_raw": 0.57
+  }
+ ],
+ "seconds": 10.3
+}

@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C004",
+ "sig": "f3c985d042d1",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.23,
+ "prompt_en": "A Hmong woman in a pleated brocade skirt stands on a winding stone road across the Dong Van karst plateau.",
+ "culture_nouns": [
+  "váy xòe thổ cẩm H'Mông",
+  "cao nguyên đá Đồng Văn"
+ ],
+ "refined_prompt": "A Hmong woman in a pleated brocade skirt stands on a winding stone road across the Dong Van karst plateau. A H'Mông woman, dressed in a traditional váy xòe thổ cẩm outfit, stands at the edge of a vast, karst-covered landscape, with towering limestone mountains and lush vegetation stretching out before her.",
+ "words_in": 20,
+ "words_out": 52,
+ "clip_tokens": 70,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "váy xòe thổ cẩm H'Mông",
+   "in": "A Hmong woman in a pleated brocade skirt stands on a winding stone road across the Dong Van karst plateau.",
+   "out_raw": "### Refined Prompt: A H'Mông woman, dressed in a traditional váy xòe thổ cẩm outfit, stands on a winding stone road across the Dong Van karst plateau. Her váy xòe thổ cẩm attire is characterized by a pleated brocade skirt, intricately embroidered with traditional patterns and designs. The scenery behind her features the dramatic landscape of the Dong Van karst plateau, with towering limestone mountains and lush vegetation. ### Refined Feedback: I've refined the prompt to provide more context and details about the váy xòe thổ cẩm attire, which is a traditional clothing item of the H'Mông people. I've also highlighted the unique scenery of the Dong Van karst plateau to give a better sense of the setting.",
+   "out": "A H'Mông woman, dressed in a traditional váy xòe thổ cẩm outfit, stands on a winding stone road across the Dong Van karst plateau. Her váy xòe thổ cẩm attire is characterized by a pleated brocade skirt, intricately embroidered with traditional patterns and designs. The scenery behind her features the dramatic landscape of the Dong Van karst plateau, with towering limestone mountains and lush vegetation.",
+   "words_raw": 118,
+   "words": 65,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 10.2,
+   "scene_keep_raw": 0.92
+  },
+  {
+   "culture_noun": "cao nguyên đá Đồng Văn",
+   "in": "A H'Mông woman, dressed in a traditional váy xòe thổ cẩm outfit, stands on a winding stone road across the Dong Van karst plateau. Her váy xòe thổ cẩm attire is characterized by a pleated brocade skirt, intricately embroidered with traditional patterns and designs. The scenery behind her features the dramatic landscape of the Dong Van karst plateau, with towering limestone mountains and lush vegetation.",
+   "out_raw": "Based on the provided information, I will refine the BASE PROMPT to create a new prompt that accurately represents the Cao nguyên đá Đồng Văn culture noun. ### REFINED PROMPT: A H'Mông woman, dressed in a traditional váy xòe thổ cẩm outfit, stands at the edge of a vast, karst-covered landscape, with towering limestone mountains and lush vegetation stretching out before her. The Cao nguyên đá Đồng Văn geopark, a UNESCO Global Geopark, is her home, with its unique blend of natural beauty and cultural heritage. In the distance, the winding stone road snakes its way through the mountains, connecting villages and communities across this breathtaking plateau. ### REFINED PROMPT RATIONALE: I added the information that Cao nguyên đá Đồng Văn is a UNESCO Global Geopark to provide context and emphasize the significance of this cultural heritage site. I also expanded the original sentence about the scenery behind the H'Mông woman to better describe the unique features of the Cao nguyên đá Đồng Văn geopark.",
+   "out": "A H'Mông woman, dressed in a traditional váy xòe thổ cẩm outfit, stands at the edge of a vast, karst-covered landscape, with towering limestone mountains and lush vegetation stretching out before her.",
+   "words_raw": 165,
+   "words": 32,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 10.3,
+   "scene_keep_raw": 0.23
+  }
+ ],
+ "seconds": 20.6
+}

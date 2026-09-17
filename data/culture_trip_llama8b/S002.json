@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S002",
+ "sig": "e12ce3be9cfe",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.88,
+ "prompt_en": "A woman carrying a shoulder pole of street goods along a street in the morning.",
+ "culture_nouns": [
+  "gánh hàng rong"
+ ],
+ "refined_prompt": "A woman carrying a shoulder pole of street goods along a street in the morning. A bustling morning street in Year Căn, Vietnam, where a vendor, often referred to as a \"woman carrying a shoulder pole of street goods\", is expertly navigating the crowded market with her load of goods, such as fresh produce, snacks, or other local products.",
+ "words_in": 15,
+ "words_out": 59,
+ "clip_tokens": 79,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "gánh hàng rong",
+   "in": "A woman carrying a shoulder pole of street goods along a street in the morning.",
+   "out_raw": "Based on the provided INFORMATION, I will refine the BASE PROMPT to accurately depict the CULTURE NOUN \"gánh hàng rong\" (Year Căn). **REFINED PROMPT:** A bustling morning street in Year Căn, Vietnam, where a vendor, often referred to as a \"woman carrying a shoulder pole of street goods\" (gánh hàng rong), is expertly navigating the crowded market with her load of goods, such as fresh produce, snacks, or other local products. The street scene is characterized by vibrant colors, the sounds of vendors calling out their wares, and the aroma of street food wafting through the air. In the background, you may see the Year Căn Commune's administrative buildings, with its lush greenery and bustling activity, giving a glimpse into the daily life of the 8,023 people residing in this ward. **BEFORE REFINED PROMPT:** None (the REFINED PROMPT is based on the provided INFORMATION) **FEEDBACK:** The REFINED PROMPT aims to provide a comprehensive and accurate representation of the CULTURE NOUN \"gánh hàng rong\" (Year Căn), incorporating details about the street vendor, the market atmosphere, and the surrounding environment.",
+   "out": "A bustling morning street in Year Căn, Vietnam, where a vendor, often referred to as a \"woman carrying a shoulder pole of street goods\", is expertly navigating the crowded market with her load of goods, such as fresh produce, snacks, or other local products.",
+   "words_raw": 178,
+   "words": 44,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 7.8,
+   "scene_keep_raw": 0.88
+  }
+ ],
+ "seconds": 7.8
+}

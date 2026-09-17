@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S008",
+ "sig": "70ab06f2e4d1",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.88,
+ "prompt_en": "Hoi An ancient town at night, silk lanterns along ochre walls.",
+ "culture_nouns": [
+  "phố cổ Hội An"
+ ],
+ "refined_prompt": "Hoi An ancient town at night, silk lanterns along ochre walls. Hội An Old Town, a UNESCO World Heritage Site, is a charming ancient trading post at night, with a network of 1360 unique monuments and heritage sites, including 1068 preserved houses and the iconic Japanese Bridge. The old town is famous for its well-preserved architecture, featuring ochre-colored walls and charming streets lined with silk lanterns. As the sun sets, the town comes alive with the soft glow of these lanterns, casting a warm and cozy ambiance over the entire scene.",
+ "words_in": 11,
+ "words_out": 91,
+ "clip_tokens": 122,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "phố cổ Hội An",
+   "in": "Hoi An ancient town at night, silk lanterns along ochre walls.",
+   "out_raw": "### Refined Prompt: Hội An Old Town, a UNESCO World Heritage Site, is a charming ancient trading post at night, with a network of 1360 unique monuments and heritage sites, including 1068 preserved houses and the iconic Japanese Bridge. The old town is famous for its well-preserved architecture, featuring ochre-colored walls and charming streets lined with silk lanterns. As the sun sets, the town comes alive with the soft glow of these lanterns, casting a warm and cozy ambiance over the entire scene. ### Refined Feedback: The refined prompt aims to provide a more detailed and accurate depiction of the Hội An Old Town, highlighting its cultural and historical significance as a UNESCO World Heritage Site. The additional information about the town's architecture, landmarks, and ambiance is intended to help the person drawing the picture get a better sense of the town's unique character.",
+   "out": "Hội An Old Town, a UNESCO World Heritage Site, is a charming ancient trading post at night, with a network of 1360 unique monuments and heritage sites, including 1068 preserved houses and the iconic Japanese Bridge. The old town is famous for its well-preserved architecture, featuring ochre-colored walls and charming streets lined with silk lanterns. As the sun sets, the town comes alive with the soft glow of these lanterns, casting a warm and cozy ambiance over the entire scene.",
+   "words_raw": 144,
+   "words": 80,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 12.2,
+   "scene_keep_raw": 0.88
+  }
+ ],
+ "seconds": 12.2
+}

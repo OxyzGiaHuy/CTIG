@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S037",
+ "sig": "597650ecc234",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.86,
+ "prompt_en": "Morning at a sidewalk coffee shop with customers on low plastic stools.",
+ "culture_nouns": [
+  "quán cà phê vỉa hè"
+ ],
+ "refined_prompt": "Morning at a sidewalk coffee shop with customers on low plastic stools. A bustling street in Vietnam's urban landscape, with a small sidewalk coffee shop, quán cà phê vỉa hè, where customers sit on low plastic stools and enjoy a cup of coffee, surrounded by the vibrant energy of the street.",
+ "words_in": 12,
+ "words_out": 51,
+ "clip_tokens": 68,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "quán cà phê vỉa hè",
+   "in": "Morning at a sidewalk coffee shop with customers on low plastic stools.",
+   "out_raw": "### Refining the BASE PROMPT: The INFORMATION provided does not seem to be related to the CULTURE NOUN \"quán cà phê vỉa hè\". As such, I will carefully verify the details to ensure accuracy. After verifying, I found that \"quán cà phê vỉa hè\" refers to a sidewalk coffee shop, a popular cultural phenomenon in Vietnam. The Vietnamese term \"vỉa hè\" literally means \"sidewalk\" or \"street\", and \"quán cà phê\" means \"coffee shop\". These shops are often small, family-run businesses that serve coffee and other local treats to locals and tourists alike. Given this information, I will refine the BASE PROMPT to better accommodate the CULTURE NOUN. Here's the revised prompt: REFINED PROMPT: A bustling street in Vietnam's urban landscape, with a small sidewalk coffee shop, quán cà phê vỉa hè, where customers sit on low plastic stools and enjoy a cup of coffee, surrounded by the vibrant energy of the street. I have expanded the original sentence into three sentences to provide sufficient detail, while maintaining the same scene as the BASE PROMPT. This refined prompt should allow someone unfamiliar with the culture to draw a picture of a typical sidewalk coffee shop in Vietnam.",
+   "out": "A bustling street in Vietnam's urban landscape, with a small sidewalk coffee shop, quán cà phê vỉa hè, where customers sit on low plastic stools and enjoy a cup of coffee, surrounded by the vibrant energy of the street.",
+   "words_raw": 196,
+   "words": 39,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 6.9,
+   "scene_keep_raw": 0.86
+  }
+ ],
+ "seconds": 6.9
+}

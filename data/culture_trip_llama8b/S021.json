@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S021",
+ "sig": "1e89195f3c6d",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.64,
+ "prompt_en": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night.",
+ "culture_nouns": [
+  "Tết Trung Thu"
+ ],
+ "refined_prompt": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night. Children carrying star-shaped lanterns, masks, and toy figurines, accompanied by adults holding traditional Vietnamese lanterns, parade through a neighborhood courtyard on the 14th to 15th night of the 8th lunar month. This festive procession marks the celebration of Tết Trung Thu, a traditional Vietnamese festival where children look forward to receiving gifts and treats from adults. As the moon rises high in the night sky, children eagerly await the full moon to sing, dance, and receive gifts, while others watch the mooncakes being devoured and lion or dragon dances being performed.",
+ "words_in": 12,
+ "words_out": 103,
+ "clip_tokens": 139,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "Tết Trung Thu",
+   "in": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night.",
+   "out_raw": "Here is the refined prompt: Children carrying star-shaped lanterns, masks, and toy figurines, accompanied by adults holding traditional Vietnamese lanterns, parade through a neighborhood courtyard on the 14th to 15th night of the 8th lunar month. This festive procession marks the celebration of Tết Trung Thu, a traditional Vietnamese festival where children look forward to receiving gifts and treats from adults. As the moon rises high in the night sky, children eagerly await the full moon to sing, dance, and receive gifts, while others watch the mooncakes being devoured and lion or dragon dances being performed. I incorporated the suggested improvements from the feedback, including: * Providing more context about the purpose of the parade and the significance of the star-shaped lanterns, masks, and toy figurines * Adding more specific details about the costumes, props, and decorations to create a more immersive experience * Providing more background information about the cultural significance of Tết Trung Thu and why the festivities are important to the Vietnamese community * Highlighting the unique aspects of Tết Trung Thu and how it compares to other cultural celebrations I hope this refined prompt meets the desired score of 42.0!",
+   "out": "Children carrying star-shaped lanterns, masks, and toy figurines, accompanied by adults holding traditional Vietnamese lanterns, parade through a neighborhood courtyard on the 14th to 15th night of the 8th lunar month. This festive procession marks the celebration of Tết Trung Thu, a traditional Vietnamese festival where children look forward to receiving gifts and treats from adults. As the moon rises high in the night sky, children eagerly await the full moon to sing, dance, and receive gifts, while others watch the mooncakes being devoured and lion or dragon dances being performed.",
+   "words_raw": 194,
+   "words": 91,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 29.2,
+   "scene_keep_raw": 0.64
+  }
+ ],
+ "seconds": 29.2
+}

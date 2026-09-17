@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C025",
+ "sig": "4760306ae15a",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.33,
+ "prompt_en": "A cyclo driver pedals a passenger past the front of St. Joseph's Cathedral in Hanoi.",
+ "culture_nouns": [
+  "xích lô",
+  "Nhà thờ Lớn Hà Nội"
+ ],
+ "refined_prompt": "A cyclo driver pedals a passenger past the front of St. Joseph's Cathedral in Hanoi. In the heart of Hanoi, St. Joseph's Cathedral, known as 'Nhà thờ Lớn Hà Nội,' stands as a cornerstone of the city's Roman Catholic community, with its Gothic Revival architecture inspired by Notre Dame de Paris. Its towering spires and intricate stained glass windows, adorned with elaborate carvings and detailed stonework, draw attention from passersby and worshippers alike. Meanwhile, vibrant cycle rickshaws, or cyclos, glide through the narrow, bustling streets of Hanoi, passing the cathedral's imposing facade. Each rickshaw is decorated with traditional Vietnamese patterns and colorful flowers, creating a vivid visual tapestry that captures the essence of Hanoi's cultural richness.",
+ "words_in": 15,
+ "words_out": 116,
+ "clip_tokens": 156,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "xích lô",
+   "in": "A cyclo driver pedals a passenger past the front of St. Joseph's Cathedral in Hanoi.",
+   "out_raw": "### Revised Refined Prompt: A cycle rickshaw, also known as a cyclo, is pedaled by a driver through the bustling streets of Hanoi, passing the front of St. Joseph's Cathedral. The vibrant tricycles, often decorated with colorful flowers and traditional Vietnamese patterns, are a common sight and serve as a staple of Hanoi's cultural landscape. The driver, typically wearing a conical hat and traditional Vietnamese attire, manually powers the cycle rickshaw by pedaling, setting it apart from other forms of rickshaws that are either pulled by hand or motorized. The cyclo has been an integral part of Hanoi’s transportation system since the early 20th century, offering a unique mode of short-distance travel that is especially well-suited to the city’s narrow and winding streets. Its practical benefits, such as the ability to navigate through crowded areas where other vehicles struggle, make it a favored option for both locals and tourists seeking an intimate and traditional exploration of Hanoi’s vibrant city life.",
+   "out": "A cycle rickshaw, also known as a cyclo, is pedaled by a driver through the bustling streets of Hanoi, passing the front of St. Joseph's Cathedral. The vibrant tricycles, often decorated with colorful flowers and traditional Vietnamese patterns, are a common sight and serve as a staple of Hanoi's cultural landscape. The driver, typically wearing a conical hat and traditional Vietnamese attire, manually powers the cycle rickshaw by pedaling, setting it apart from other forms of rickshaws that are either pulled by hand or motorized. The cyclo has been an integral part of Hanoi’s transportation system since the early 20th century, offering a unique mode of short-distance travel that is especially well-suited to the city’s narrow and winding streets. Its practical benefits, such as the ability to navigate through crowded areas where other vehicles struggle, make it a favored option for both locals and tourists seeking an intimate and traditional exploration of Hanoi’s vibrant city life.",
+   "words_raw": 160,
+   "words": 156,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 72.8,
+   "scene_keep_raw": 0.67
+  },
+  {
+   "culture_noun": "Nhà thờ Lớn Hà Nội",
+   "in": "A cycle rickshaw, also known as a cyclo, is pedaled by a driver through the bustling streets of Hanoi, passing the front of St. Joseph's Cathedral. The vibrant tricycles, often decorated with colorful flowers and traditional Vietnamese patterns, are a common sight and serve as a staple of Hanoi's cultural landscape. The driver, typically wearing a conical hat and traditional Vietnamese attire, manually powers the cycle rickshaw by pedaling, setting it apart from other forms of rickshaws that are either pulled by hand or motorized. The cyclo has been an integral part of Hanoi’s transportation system since the early 20th century, offering a unique mode of short-distance travel that is especially well-suited to the city’s narrow and winding streets. Its practical benefits, such as the ability to navigate through crowded areas where other vehicles struggle, make it a favored option for both locals and tourists seeking an intimate and traditional exploration of Hanoi’s vibrant city life.",
+   "out_raw": "### Revised Refined Prompt In the heart of Hanoi, St. Joseph's Cathedral, locally known as 'Nhà thờ Lớn Hà Nội,' stands as a cornerstone of the city's Roman Catholic community, established in the late 19th century. Its Gothic Revival architecture, inspired by Notre Dame de Paris, makes it a focal point of Hanoi's skyline, symbolizing the enduring influence of European architectural styles in Vietnam. The cathedral's towering spires and intricate stained glass windows, adorned with elaborate carvings and detailed stonework, draw attention from passersby and worshippers alike. Meanwhile, vibrant cycle rickshaws, or cyclos, glide through the narrow, bustling streets of Hanoi, passing the cathedral's imposing facade. Each rickshaw is decorated with traditional Vietnamese patterns and colorful flowers, creating a vivid visual tapestry that captures the essence of Hanoi's cultural richness. These cycle rickshaws are more than just a mode of transport; they are a symbol of Hanoi's vibrant cultural identity and a favored way to explore the city's narrow streets and historical landmarks. As the cyclo glides past the cathedral, it evokes comparisons to the iconic rickshaw rides in Kyoto, Japan. However, the vibrant decorations and traditional attire of the Hanoi driver imbue the experience with a uniquely Vietnamese character, reflecting the city's rich tapestry of history and culture.",
+   "out": "In the heart of Hanoi, St. Joseph's Cathedral, known as 'Nhà thờ Lớn Hà Nội,' stands as a cornerstone of the city's Roman Catholic community, with its Gothic Revival architecture inspired by Notre Dame de Paris. Its towering spires and intricate stained glass windows, adorned with elaborate carvings and detailed stonework, draw attention from passersby and worshippers alike. Meanwhile, vibrant cycle rickshaws, or cyclos, glide through the narrow, bustling streets of Hanoi, passing the cathedral's imposing facade. Each rickshaw is decorated with traditional Vietnamese patterns and colorful flowers, creating a vivid visual tapestry that captures the essence of Hanoi's cultural richness.",
+   "words_raw": 209,
+   "words": 101,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 207.2,
+   "scene_keep_raw": 0.33
+  }
+ ],
+ "seconds": 280.0
+}

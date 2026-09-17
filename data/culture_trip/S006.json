@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S006",
+ "sig": "85de09413420",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "The One Pillar Pagoda over its pond in early morning mist.",
+ "culture_nouns": [
+  "Chùa Một Cột"
+ ],
+ "refined_prompt": "The One Pillar Pagoda over its pond in early morning mist. The One Pillar Pagoda, known as Chùa Một Cột in Vietnamese, is a historic Buddhist temple located in the central Ba Đình district of Hanoi, the capital of Vietnam. Built by Emperor Lý Thái Tông in 1049 as a symbol of his relationship with the Buddhist deity Manjushri, the pagoda is part of an architecture complex called Diên Hựu tự, which means \"pagoda of extended blessings.\" Its unique structure, a building perched on a single pillar, resembles a lotus flower emerging from a pond, making it a distinctive landmark in Vietnamese culture. The temple, which is adorned with intricate carvings and vibrant colors, is surrounded by a serene pond filled with lotus flowers. In the early morning mist, the pagoda stands over its pond, creating a serene and spiritual atmosphere. It serves as an important site for religious ceremonies and pilgrimages, reflecting its significance in Vietnamese Buddhism and its status as a national heritage site.",
+ "words_in": 11,
+ "words_out": 166,
+ "clip_tokens": 224,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "Chùa Một Cột",
+   "in": "The One Pillar Pagoda over its pond in early morning mist.",
+   "out_raw": "### Revised Refined Prompt: The One Pillar Pagoda, known as Chùa Một Cột in Vietnamese, is a historic Buddhist temple located in the central Ba Đình district of Hanoi, the capital of Vietnam. Built by Emperor Lý Thái Tông in 1049 as a symbol of his relationship with the Buddhist deity Manjushri, the pagoda is part of an architecture complex called Diên Hựu tự, which means \"pagoda of extended blessings.\" Its unique structure, a building perched on a single pillar, resembles a lotus flower emerging from a pond, making it a distinctive landmark in Vietnamese culture. The temple, which is adorned with intricate carvings and vibrant colors, is surrounded by a serene pond filled with lotus flowers. In the early morning mist, the pagoda stands over its pond, creating a serene and spiritual atmosphere. It serves as an important site for religious ceremonies and pilgrimages, reflecting its significance in Vietnamese Buddhism and its status as a national heritage site.",
+   "out": "The One Pillar Pagoda, known as Chùa Một Cột in Vietnamese, is a historic Buddhist temple located in the central Ba Đình district of Hanoi, the capital of Vietnam. Built by Emperor Lý Thái Tông in 1049 as a symbol of his relationship with the Buddhist deity Manjushri, the pagoda is part of an architecture complex called Diên Hựu tự, which means \"pagoda of extended blessings.\" Its unique structure, a building perched on a single pillar, resembles a lotus flower emerging from a pond, making it a distinctive landmark in Vietnamese culture. The temple, which is adorned with intricate carvings and vibrant colors, is surrounded by a serene pond filled with lotus flowers. In the early morning mist, the pagoda stands over its pond, creating a serene and spiritual atmosphere. It serves as an important site for religious ceremonies and pilgrimages, reflecting its significance in Vietnamese Buddhism and its status as a national heritage site.",
+   "words_raw": 159,
+   "words": 155,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 243.3,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 243.3
+}

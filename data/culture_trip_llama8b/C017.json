@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C017",
+ "sig": "0a0e7fa4284b",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.21,
+ "prompt_en": "A bowl of yellow mi Quang noodles with shrimp, pork and a sesame rice cracker is set on a plastic table at a modest street eatery.",
+ "culture_nouns": [
+  "mì Quảng",
+  "bánh tráng mè",
+  "quán ăn bình dân"
+ ],
+ "refined_prompt": "A bowl of yellow mi Quang noodles with shrimp, pork and a sesame rice cracker is set on a plastic table at a modest street eatery. A vibrant \"quán ăn\" plate, filled with a variety of traditional Vietnamese dishes such as grilled pork, steamed shrimp, and fresh vegetables, is placed on a colorful tablecloth, surrounded by the warm glow of candles and the soft chatter of family and friends gathered together for a celebration. The plate is adorned with a crispy bánh tráng mè, a rice flour pancake that is often used as a utensil to pick up food or as a wrap to enclose a delicious meal.",
+ "words_in": 26,
+ "words_out": 108,
+ "clip_tokens": 145,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "mì Quảng",
+   "in": "A bowl of yellow mi Quang noodles with shrimp, pork and a sesame rice cracker is set on a plastic table at a modest street eatery.",
+   "out_raw": "### Refined Prompt: A delicious bowl of yellow mì Quảng noodles is set on a vibrant red and green tablecloth, adorned with a festive atmosphere, as if served at a family party or celebration. The noodles are topped with a medley of ingredients, including succulent shrimp, tender pork, and other local favorites. In the background, a colorful sesame rice cracker and a few fresh herbs add a pop of color and texture to the scene. I refined the prompt to better convey the cultural significance and festive atmosphere associated with mì Quảng, as mentioned in the information. I also added more details about the ingredients and the table setting to provide a more vivid and engaging description.",
+   "out": "A delicious bowl of yellow mì Quảng noodles is set on a vibrant red and green tablecloth, adorned with a festive atmosphere, as if served at a family party or celebration. The noodles are topped with a medley of ingredients, including succulent shrimp, tender pork, and other local favorites. In the background, a colorful sesame rice cracker and a few fresh herbs add a pop of color and texture to the scene.",
+   "words_raw": 117,
+   "words": 72,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 19.2,
+   "scene_keep_raw": 0.57
+  },
+  {
+   "culture_noun": "bánh tráng mè",
+   "in": "A delicious bowl of yellow mì Quảng noodles is set on a vibrant red and green tablecloth, adorned with a festive atmosphere, as if served at a family party or celebration. The noodles are topped with a medley of ingredients, including succulent shrimp, tender pork, and other local favorites. In the background, a colorful sesame rice cracker and a few fresh herbs add a pop of color and texture to the scene.",
+   "out_raw": "Based on the provided INFORMATION, I will refine the BASE PROMPT to accurately represent the CULTURE NOUN, bánh tráng mè. REFINED PROMPT: A plate of fresh and colorful bánh tráng mè is placed on a vibrant red and green tablecloth, surrounded by a lively atmosphere, as if served at a family gathering or celebration. The bánh tráng mè, made from a combination of rice flour and tapioca flour, is crisp and delicate, awaiting its filling of succulent shrimp, tender pork, and other local favorites. In the background, a few fresh herbs and a vibrant bowl of yellow mì Quảng noodles add a pop of color and texture to the scene. Before refining the prompt, I verified the information to ensure its accuracy and pertinence to the CULTURE NOUN, bánh tráng mè. I expanded the original sentence to provide sufficient detail, while keeping the original scene depicted in the BASE PROMPT unchanged.",
+   "out": "A plate of fresh and colorful bánh tráng mè is placed on a vibrant red and green tablecloth, surrounded by a lively atmosphere, as if served at a family gathering or celebration. The bánh tráng mè, made from a combination of rice flour and tapioca flour, is crisp and delicate, awaiting its filling of succulent shrimp, tender pork, and other local favorites.",
+   "words_raw": 151,
+   "words": 62,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 26.8,
+   "scene_keep_raw": 0.21
+  },
+  {
+   "culture_noun": "quán ăn bình dân",
+   "in": "A plate of fresh and colorful bánh tráng mè is placed on a vibrant red and green tablecloth, surrounded by a lively atmosphere, as if served at a family gathering or celebration. The bánh tráng mè, made from a combination of rice flour and tapioca flour, is crisp and delicate, awaiting its filling of succulent shrimp, tender pork, and other local favorites.",
+   "out_raw": "Here is the refined prompt: A vibrant \"quán ăn\" plate, filled with a variety of traditional Vietnamese dishes such as grilled pork, steamed shrimp, and fresh vegetables, is placed on a colorful tablecloth, surrounded by the warm glow of candles and the soft chatter of family and friends gathered together for a celebration. The plate is adorned with a crispy bánh tráng mè, a rice flour pancake that is often used as a utensil to pick up food or as a wrap to enclose a delicious meal. The aroma of sizzling pork and the sound of laughter and chatter fill the air, creating a lively and welcoming atmosphere. Refined feedback: **Clarity: 9.0** (improved by adding more descriptive language) The prompt is now even clearer and more descriptive, helping readers to visualize the scene and its cultural significance. **Visual_detail: 8.0** (improved by adding more sensory details) The prompt now includes more sensory details, such as the warm glow of candles and the soft chatter of family and friends, to help readers immerse themselves in the scene. **Background: 7.0** (improved by providing more cultural context) The prompt now provides more context about Vietnamese culture and the significance of the \"quán ăn\" plate, helping readers to better understand the cultural relevance of the scene. **Purpose: 9.0** (improved by emphasizing the cultural significance) The prompt's purpose is now even clearer, emphasizing the cultural significance of the \"quán ăn\" plate and the importance of family gatherings in Vietnamese culture. **Comparable_object: 8.0** (improved by providing a clear comparison) The prompt now includes a clear comparison, comparing the \"quán ăn\" plate to a Western-style buffet, to help readers understand the cultural significance of the scene. **Total_score: 42.0** (potential for further improvement) Overall, the refined prompt is well-written and provides a clear and engaging description of the \"quán ăn\" plate and its cultural significance.",
+   "out": "A vibrant \"quán ăn\" plate, filled with a variety of traditional Vietnamese dishes such as grilled pork, steamed shrimp, and fresh vegetables, is placed on a colorful tablecloth, surrounded by the warm glow of candles and the soft chatter of family and friends gathered together for a celebration. The plate is adorned with a crispy bánh tráng mè, a rice flour pancake that is often used as a utensil to pick up food or as a wrap to enclose a delicious meal.",
+   "words_raw": 306,
+   "words": 82,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 93.2,
+   "scene_keep_raw": 0.21
+  }
+ ],
+ "seconds": 139.2
+}

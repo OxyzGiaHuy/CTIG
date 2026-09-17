@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S018",
+ "sig": "8d6ec0ff941a",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.29,
+ "prompt_en": "A Central Highlands gong ensemble performing around a fire.",
+ "culture_nouns": [
+  "cồng chiêng Tây Nguyên"
+ ],
+ "refined_prompt": "A Central Highlands gong ensemble performing around a fire. A group of people from the Rade, Jarai, Bahnar, Mạ, or Lạch (Koho) ethnic groups gathered around a fire, surrounded by longhouses, stilt houses, and nearby forests. They are holding and playing various types of gongs, which are believed to house deities and hold spiritual significance. The setting sun casts a warm glow over the scene, and the smell of freshly harvested rice wafts through the air, filling the atmosphere with the sounds and rhythms of traditional music.",
+ "words_in": 9,
+ "words_out": 87,
+ "clip_tokens": 117,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cồng chiêng Tây Nguyên",
+   "in": "A Central Highlands gong ensemble performing around a fire.",
+   "out_raw": "Here is the refined prompt: A group of people from the Rade, Jarai, Bahnar, Mạ, or Lạch (Koho) ethnic groups gathered around a fire, surrounded by longhouses, stilt houses, and nearby forests. They are holding and playing various types of gongs, which are believed to house deities and hold spiritual significance. The setting sun casts a warm glow over the scene, and the smell of freshly harvested rice wafts through the air, filling the atmosphere with the sounds and rhythms of traditional music. I refined the prompt by incorporating the cultural context and specific details mentioned in the information, such as the ethnic groups involved, the types of structures present, and the spiritual significance of the gongs. I also added sensory details to help bring the scene to life.",
+   "out": "A group of people from the Rade, Jarai, Bahnar, Mạ, or Lạch (Koho) ethnic groups gathered around a fire, surrounded by longhouses, stilt houses, and nearby forests. They are holding and playing various types of gongs, which are believed to house deities and hold spiritual significance. The setting sun casts a warm glow over the scene, and the smell of freshly harvested rice wafts through the air, filling the atmosphere with the sounds and rhythms of traditional music.",
+   "words_raw": 129,
+   "words": 78,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 9.5,
+   "scene_keep_raw": 0.29
+  }
+ ],
+ "seconds": 9.5
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S031",
+ "sig": "3465910dec93",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.88,
+ "prompt_en": "A northern Vietnamese young woman in a four-panel dress with a sash.",
+ "culture_nouns": [
+  "áo tứ thân"
+ ],
+ "refined_prompt": "A northern Vietnamese young woman in a four-panel dress with a sash. A young woman in northern Vietnam is wearing an áo tứ thân, a traditional four-panel dress often worn during cultural events and ceremonies. Crafted from soft silk, the áo tứ thân features intricate embroidery with vibrant floral patterns along the cuffs and hem, creating a flowing silhouette when the panels are sewn together. This dress is an essential part of Vietnamese culture, symbolizing grace and elegance, and it is frequently seen at traditional celebrations such as weddings and Tet (Lunar New Year). The áo tứ thân is distinct from other traditional Vietnamese dresses due to its unique four-panel design. It is often paired with traditional búp bê shoes, small embroidered slippers that complement the dress perfectly.",
+ "words_in": 12,
+ "words_out": 128,
+ "clip_tokens": 172,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "áo tứ thân",
+   "in": "A northern Vietnamese young woman in a four-panel dress with a sash.",
+   "out_raw": "### Revised Refined Prompt A young woman in northern Vietnam is wearing an áo tứ thân, a traditional four-panel dress often worn during cultural events and ceremonies. Crafted from soft silk, the áo tứ thân features intricate embroidery with vibrant floral patterns along the cuffs and hem, creating a flowing silhouette when the panels are sewn together. This dress is an essential part of Vietnamese culture, symbolizing grace and elegance, and it is frequently seen at traditional celebrations such as weddings and Tet (Lunar New Year). The áo tứ thân is distinct from other traditional Vietnamese dresses like the áo ngũ thân (five-panel dress) and áo đối khâm (pair of symmetrical panels) due to its unique four-panel design. It is often paired with traditional footwear such as búp bê shoes, which are small, embroidered slippers that complement the dress perfectly. The áo tứ thân has a rich history, dating back to the 9th century, and it remains a significant symbol of Vietnamese heritage and cultural pride. ### Updated SCORE: - **Clarity:** 9.0/10 - **Visual_detail:** 8.5/10 - **Background:** 8.0/10 - **Purpose:** 8.5/10 - **Comparable_object:** 8.5/10 - **Total_score:** 42.5/50",
+   "out": "A young woman in northern Vietnam is wearing an áo tứ thân, a traditional four-panel dress often worn during cultural events and ceremonies. Crafted from soft silk, the áo tứ thân features intricate embroidery with vibrant floral patterns along the cuffs and hem, creating a flowing silhouette when the panels are sewn together. This dress is an essential part of Vietnamese culture, symbolizing grace and elegance, and it is frequently seen at traditional celebrations such as weddings and Tet (Lunar New Year). The áo tứ thân is distinct from other traditional Vietnamese dresses due to its unique four-panel design. It is often paired with traditional búp bê shoes, small embroidered slippers that complement the dress perfectly.",
+   "words_raw": 187,
+   "words": 116,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 239.9,
+   "scene_keep_raw": 0.88
+  }
+ ],
+ "seconds": 239.9
+}

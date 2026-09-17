@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S033",
+ "sig": "eb9a2b7e958d",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.25,
+ "prompt_en": "A Hue royal court music ensemble performing in a gilded palace hall.",
+ "culture_nouns": [
+  "nhã nhạc cung đình Huế"
+ ],
+ "refined_prompt": "A Hue royal court music ensemble performing in a gilded palace hall. A group of musicians dressed in intricately embroidered áo dài, seated in a grand, ornate hall with golden decorations, intricately carved wooden panels, and vibrant silk tapestries. The ensemble consists of a variety of instruments, including the dan tranh (16-string zither), dan day (2-string fiddle), and trống (drums), among others. The musicians' hands move deftly over their instruments, creating a rich and harmonious sound that fills the opulent space.",
+ "words_in": 12,
+ "words_out": 81,
+ "clip_tokens": 109,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "nhã nhạc cung đình Huế",
+   "in": "A Hue royal court music ensemble performing in a gilded palace hall.",
+   "out_raw": "Here is the refined prompt based on the feedback and score: ### TODO: CULTURE NOUN: nhã nhạc cung đình Huế INFORMATION: <document><title>Nhã nhạc</title><content>Nhã nhạc (Vietnamese: [ɲǎːˀ ɲàːˀk], 雅樂, \"elegant music\") is a traditional music of Vietnam. Vietnamese court music is very diverse, but the term nhã nhạc refers specifically to the Vietnamese court music performed from the Trần dynasty of the 13th century to the Nguyễn dynasty at the end of the 20th century.</content></document> BASE PROMPT: A Hue royal court music ensemble performing in a gilded palace hall. ### Replied Prompt: To draw a picture of nhã nhạc cung đình Huế, imagine a group of musicians dressed in intricately embroidered áo dài, seated in a grand, ornate hall with golden decorations, intricately carved wooden panels, and vibrant silk tapestries. The ensemble consists of a variety of instruments, including the dan tranh (16-string zither), dan day (2-string fiddle), and trống (drums), among others. The musicians' hands move deftly over their instruments, creating a rich and harmonious sound that fills the opulent space, a testament to the cultural significance and beauty of Vietnamese royal court music. ### Feedback: The refined prompt provides a more detailed description of the scene, including the traditional clothing, instruments, and setting, to help draw a clear and accurate picture of nhã nhạc cung đình Huế.",
+   "out": "A group of musicians dressed in intricately embroidered áo dài, seated in a grand, ornate hall with golden decorations, intricately carved wooden panels, and vibrant silk tapestries. The ensemble consists of a variety of instruments, including the dan tranh (16-string zither), dan day (2-string fiddle), and trống (drums), among others. The musicians' hands move deftly over their instruments, creating a rich and harmonious sound that fills the opulent space.",
+   "words_raw": 218,
+   "words": 69,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 38.2,
+   "scene_keep_raw": 0.25
+  }
+ ],
+ "seconds": 38.2
+}

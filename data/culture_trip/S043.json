@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S043",
+ "sig": "2bcd9cae4905",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.86,
+ "prompt_en": "An artisan printing Dong Ho folk prints in a small workshop.",
+ "culture_nouns": [
+  "tranh Đông Hồ"
+ ],
+ "refined_prompt": "An artisan printing Dong Ho folk prints in a small workshop. In a small traditional Vietnamese workshop, an artisan carefully prints Dong Ho folk prints using age-old techniques. Dong Ho paintings, also known as Tranh Đông Hồ, are a type of Vietnamese folk woodcut painting originating from Đông Hồ village in the province of Bắc Ninh. These vibrant and colorful prints often depict scenes from daily life, traditional festivals, and popular folk tales, and are an important part of Vietnamese cultural heritage. The artisan uses bamboo sticks to spread natural dyes over intricately carved woodblocks to create these culturally significant works of art. Dong Ho paintings feature a variety of vibrant colors and intricate designs, including common motifs such as the sun, moon, and various animals. They are an essential part of Vietnamese cultural identity, used in various traditional contexts such as Lunar New Year decorations and as gifts, reflecting the rich history and heritage of Vietnam. Unlike European woodcuts or Japanese ukiyo-e, Dong Ho paintings stand out for their use of natural pigments and their unique, handcrafted quality, making them a distinctive form of traditional Vietnamese art.",
+ "words_in": 11,
+ "words_out": 188,
+ "clip_tokens": 253,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "tranh Đông Hồ",
+   "in": "An artisan printing Dong Ho folk prints in a small workshop.",
+   "out_raw": "**Revised Refined Prompt:** In a small traditional Vietnamese workshop, an artisan carefully prints Dong Ho folk prints using age-old techniques. Dong Ho paintings, also known as Tranh Đông Hồ, are a type of Vietnamese folk woodcut painting originating from Đông Hồ village in the province of Bắc Ninh. These vibrant and colorful prints often depict scenes from daily life, traditional festivals, and popular folk tales, and are an important part of Vietnamese cultural heritage. The artisan uses bamboo sticks to spread natural dyes over intricately carved woodblocks to create these culturally significant works of art. Dong Ho paintings feature a variety of vibrant colors and intricate designs, including common motifs such as the sun, moon, and various animals. They are an essential part of Vietnamese cultural identity, used in various traditional contexts such as Lunar New Year decorations and as gifts, reflecting the rich history and heritage of Vietnam. Unlike European woodcuts or Japanese ukiyo-e, Dong Ho paintings stand out for their use of natural pigments and their unique, handcrafted quality, making them a distinctive form of traditional Vietnamese art.",
+   "out": "In a small traditional Vietnamese workshop, an artisan carefully prints Dong Ho folk prints using age-old techniques. Dong Ho paintings, also known as Tranh Đông Hồ, are a type of Vietnamese folk woodcut painting originating from Đông Hồ village in the province of Bắc Ninh. These vibrant and colorful prints often depict scenes from daily life, traditional festivals, and popular folk tales, and are an important part of Vietnamese cultural heritage. The artisan uses bamboo sticks to spread natural dyes over intricately carved woodblocks to create these culturally significant works of art. Dong Ho paintings feature a variety of vibrant colors and intricate designs, including common motifs such as the sun, moon, and various animals. They are an essential part of Vietnamese cultural identity, used in various traditional contexts such as Lunar New Year decorations and as gifts, reflecting the rich history and heritage of Vietnam. Unlike European woodcuts or Japanese ukiyo-e, Dong Ho paintings stand out for their use of natural pigments and their unique, handcrafted quality, making them a distinctive form of traditional Vietnamese art.",
+   "words_raw": 180,
+   "words": 177,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 132.3,
+   "scene_keep_raw": 0.86
+  }
+ ],
+ "seconds": 132.3
+}

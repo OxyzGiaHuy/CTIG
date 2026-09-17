@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S032",
+ "sig": "7a997fae0866",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.67,
+ "prompt_en": "A woman playing a dan tranh zither with finger picks.",
+ "culture_nouns": [
+  "đàn tranh"
+ ],
+ "refined_prompt": "A woman playing a dan tranh zither with finger picks. A woman is playing a đàn tranh, a traditional Vietnamese zither with a long neck and a slender soundbox, featuring numerous steel strings strung over movable bridges. She is wearing a traditional Vietnamese áo dài. Her fingers are gracefully moving over the strings, either for a solo performance or to accompany a vocalist. The đàn tranh holds significant cultural importance in Vietnamese weddings, festivals, and religious ceremonies.",
+ "words_in": 10,
+ "words_out": 77,
+ "clip_tokens": 103,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "đàn tranh",
+   "in": "A woman playing a dan tranh zither with finger picks.",
+   "out_raw": "### Revised Refined Prompt: A woman is playing a đàn tranh, a traditional Vietnamese zither with a long neck and a slender soundbox. It features numerous steel strings strung over movable bridges and is larger than a guitar but smaller than a harp. The đàn tranh closely resembles a Chinese guzheng or a Japanese koto, with a distinctive design that includes intricate carvings and a glossy finish. She is wearing traditional Vietnamese áo dài, a flowing robe-like garment, and her fingers are gracefully moving over the strings, either for a solo performance or to accompany a vocalist. The đàn tranh holds significant cultural importance in Vietnamese weddings, festivals, and religious ceremonies, symbolizing the rich musical heritage and traditions of the country. ### Revised SCORE: - **Clarity:** 9.5 (The prompt is now very clear and concise, defining the đàn tranh and its cultural importance directly.) - **Visual_detail:** 8.5 (More specific visual details have been added about the appearance and the player's attire, enhancing the mental image.) - **Background:** 7.5 (The setting and cultural context have been expanded to provide a richer background.) - **Purpose:** 9.5 (The purpose of the đàn tranh in Vietnamese culture is now more explicitly stated, highlighting its role in various cultural events.) - **Comparable_object:** 7.5 (Better comparisons are provided, linking the đàn tranh to familiar instruments like the guzheng and koto.) - **Total_score:** 42.0",
+   "out": "A woman is playing a đàn tranh, a traditional Vietnamese zither with a long neck and a slender soundbox, featuring numerous steel strings strung over movable bridges. She is wearing a traditional Vietnamese áo dài. Her fingers are gracefully moving over the strings, either for a solo performance or to accompany a vocalist. The đàn tranh holds significant cultural importance in Vietnamese weddings, festivals, and religious ceremonies.",
+   "words_raw": 227,
+   "words": 67,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 264.3,
+   "scene_keep_raw": 0.67
+  }
+ ],
+ "seconds": 264.3
+}

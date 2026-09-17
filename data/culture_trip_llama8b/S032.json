@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S032",
+ "sig": "48ab527ee494",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.33,
+ "prompt_en": "A woman playing a dan tranh zither with finger picks.",
+ "culture_nouns": [
+  "đàn tranh"
+ ],
+ "refined_prompt": "A woman playing a dan tranh zither with finger picks. Imagine a traditional Vietnamese zither, the đàn tranh, with 16 strings and a resonator box. Its shape is long and narrow, with movable bridges and tuning pegs positioned on its top. The instrument has a rich history, originating in the 17th century, and has played a significant role in Vietnamese music and culture, often accompanying traditional performances and ceremonies.",
+ "words_in": 10,
+ "words_out": 69,
+ "clip_tokens": 93,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "đàn tranh",
+   "in": "A woman playing a dan tranh zither with finger picks.",
+   "out_raw": "Here is the refined prompt: **REFINED PROMPT**: Imagine a traditional Vietnamese zither, the đàn tranh, with 16 strings and a resonator box. Its shape is long and narrow, with movable bridges and tuning pegs positioned on its top. The instrument has a rich history, originating in the 17th century, and has played a significant role in Vietnamese music and culture, often accompanying traditional performances and ceremonies. This refined prompt aims to provide a detailed and accurate representation of the đàn tranh, exploring its unique characteristics, cultural significance, and historical context, while highlighting its differences from other traditional Vietnamese instruments. Feedback and SCORE: **Clarity**: 9.0 (Improved from 8.0) The refined prompt now provides a clear definition and explanation of the đàn tranh, making it easy for readers to understand. **Visual_detail**: 8.0 (Improved from 6.0) The refined prompt includes more descriptive language about the physical appearance of the đàn tranh, such as its shape, size, and distinctive features. **Background**: 8.0 (Improved from 7.0) The refined prompt provides more specific information about the instrument's history, its role in Vietnamese music and culture, and any notable performances or recordings. **Purpose**: 8.0 (Maintained from 8.0) The refined prompt's purpose remains well-defined, aiming to provide a detailed and accurate representation of the đàn tranh. **Comparable_object**: 8.0 (Improved from 7.0) The refined prompt highlights the đàn tranh's unique characteristics and its place within Vietnamese music culture, comparing it to other traditional Vietnamese instruments. **Total_score**: 42.0 (Potential to increase) By incorporating the feedback provided, the refined prompt has the potential to score even higher, with a focus on further refining the visual detail and comparable object aspects.",
+   "out": "Imagine a traditional Vietnamese zither, the đàn tranh, with 16 strings and a resonator box. Its shape is long and narrow, with movable bridges and tuning pegs positioned on its top. The instrument has a rich history, originating in the 17th century, and has played a significant role in Vietnamese music and culture, often accompanying traditional performances and ceremonies.",
+   "words_raw": 269,
+   "words": 59,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 25.8,
+   "scene_keep_raw": 0.33
+  }
+ ],
+ "seconds": 25.8
+}

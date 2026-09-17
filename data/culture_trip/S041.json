@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S041",
+ "sig": "aca2dc1c75bc",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A Tet market in a northern village with peach branches.",
+ "culture_nouns": [
+  "chợ Tết"
+ ],
+ "refined_prompt": "A Tet market in a northern village with peach branches. A Tết market in a northern Vietnamese village is bustling with activity, adorned with bright red banners and lanterns hanging from the stalls. The air is filled with the scent of incense and fresh flowers, particularly peach branches, which are traditional symbols of good fortune and happiness. Vendors offer a variety of goods, from traditional food items like bánh chưng to ornate decorations and clothing. The lively chatter and laughter of visitors, the sound of vendors calling out their wares, and the vibrant colors of the market create a unique and unforgettable experience that captures the spirit of Tết.",
+ "words_in": 10,
+ "words_out": 109,
+ "clip_tokens": 147,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "chợ Tết",
+   "in": "A Tet market in a northern village with peach branches.",
+   "out_raw": "### Refined Prompt: A Tết market in a northern Vietnamese village is bustling with activity, adorned with bright red banners and lanterns hanging from the stalls. Tết, the Vietnamese Lunar New Year, is a time of vibrant celebration, and the market is a central hub where families and friends gather to prepare for the upcoming holiday. The air is filled with the scent of incense and fresh flowers, particularly peach branches, which are traditional symbols of good fortune and happiness. Alongside the colorful decorations and festive music, vendors offer a variety of goods, from traditional food items like bánh chưng to ornate decorations and clothing. The market serves not only as a place for shopping but also as a community event where people come together to share in the joy and excitement of the new year. The lively chatter and laughter of visitors, the sound of vendors calling out their wares, and the vibrant colors of the market create a unique and unforgettable experience that captures the spirit of Tết. ### Explanation: The refined prompt now includes clear references to Tết being the Vietnamese Lunar New Year and highlights its importance in Vietnamese culture. It describes the market as a central hub for preparation and celebration, emphasizing its role as a place for community gathering. The prompt adds sensory details such as the sounds and textures of the goods sold, and mentions traditional items like bánh chưng to enhance the reader's understanding of the market's offerings. Furthermore, it explains the broader cultural context and the emotional significance of the Tết market, providing a more comprehensive and vivid depiction of the scene.",
+   "out": "A Tết market in a northern Vietnamese village is bustling with activity, adorned with bright red banners and lanterns hanging from the stalls. The air is filled with the scent of incense and fresh flowers, particularly peach branches, which are traditional symbols of good fortune and happiness. Vendors offer a variety of goods, from traditional food items like bánh chưng to ornate decorations and clothing. The lively chatter and laughter of visitors, the sound of vendors calling out their wares, and the vibrant colors of the market create a unique and unforgettable experience that captures the spirit of Tết.",
+   "words_raw": 271,
+   "words": 99,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 149.9,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 149.9
+}

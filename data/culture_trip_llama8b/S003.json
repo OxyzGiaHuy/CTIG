@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S003",
+ "sig": "e5268738e735",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A steaming bowl of beef pho on a wooden table.",
+ "culture_nouns": [
+  "phở bò"
+ ],
+ "refined_prompt": "A steaming bowl of beef pho on a wooden table, surrounded by fresh herbs (like basil and mint), with thin rice noodles (bánh phở) and slices of beef floating in the savory broth. The aroma of the dish fills the air, and a few chili slices and bean sprouts are arranged artfully on the side. A spoon and a pair of chopsticks sit nearby, inviting you to take a delicious bite. Context: Pho is a beloved Vietnamese dish that brings people together, and its popularity extends beyond Vietnam to become a staple in many international cuisines. With its rich broth, springy noodles, and tender beef, pho is a culinary experience that transcends borders and cultures.",
+ "words_in": 10,
+ "words_out": 115,
+ "clip_tokens": 155,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "phở bò",
+   "in": "A steaming bowl of beef pho on a wooden table.",
+   "out_raw": "**REFINED PROMPT:** A steaming bowl of beef pho on a wooden table, surrounded by fresh herbs (like basil and mint), with thin rice noodles (bánh phở) and slices of beef floating in the savory broth. The aroma of the dish fills the air, and a few chili slices and bean sprouts are arranged artfully on the side. A spoon and a pair of chopsticks sit nearby, inviting you to take a delicious bite. **Context:** Pho is a beloved Vietnamese dish that brings people together, and its popularity extends beyond Vietnam to become a staple in many international cuisines. With its rich broth, springy noodles, and tender beef, pho is a culinary experience that transcends borders and cultures. **Purpose:** This prompt aims to transport the reader to a sensory experience, evoking the warmth and comfort of a steaming bowl of pho on a cold day. By exploring the cultural significance of pho, the reader can gain a deeper understanding of its importance in Vietnamese culture and its role in bringing people together. **Comparable_object:** Imagine taking a bite of a warm, comforting bowl of pho on a chilly evening, just as you would curl up with a good book on a rainy day. Pho is that perfect comfort food that soothes the soul and warms the heart. **Total_score:** 42.0",
+   "out": "A steaming bowl of beef pho on a wooden table, surrounded by fresh herbs (like basil and mint), with thin rice noodles (bánh phở) and slices of beef floating in the savory broth. The aroma of the dish fills the air, and a few chili slices and bean sprouts are arranged artfully on the side. A spoon and a pair of chopsticks sit nearby, inviting you to take a delicious bite. Context: Pho is a beloved Vietnamese dish that brings people together, and its popularity extends beyond Vietnam to become a staple in many international cuisines. With its rich broth, springy noodles, and tender beef, pho is a culinary experience that transcends borders and cultures.",
+   "words_raw": 217,
+   "words": 115,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 22.3,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 22.3
+}

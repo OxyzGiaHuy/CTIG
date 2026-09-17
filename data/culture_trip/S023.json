@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S023",
+ "sig": "628832ee0488",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A family around a Tet feast with a kumquat tree and red envelopes.",
+ "culture_nouns": [
+  "mâm cỗ Tết"
+ ],
+ "refined_prompt": "A family around a Tet feast with a kumquat tree and red envelopes. During the Vietnamese Lunar New Year celebration, known as Tết, a family gathers around a mâm cỗ Tết, a traditional feast that is the centerpiece of the Tết celebration. The mâm cỗ Tết is an elaborate spread featuring dishes such as bánh chưng (sticky rice cake), giò lụa (pork roll), and other festive foods, arranged beautifully on traditional serving platters adorned with vibrant red and gold decorations. These platters often showcase intricate patterns and designs that reflect the beauty and importance of the occasion. The feast is not only a communal dining experience but also a gathering place for family and friends to express gratitude, share wishes for the future, and honor ancestors. In the center of the feast is a small kumquat tree, symbolizing good fortune and prosperity for the coming year, and red envelopes, known as lì xì, are also present, representing wishes for good luck and wealth. The origins of the mâm cỗ Tết can be traced back to ancient times when it served as a means to honor ancestors and welcome the new year. Similar to Western holiday feasts such as Thanksgiving or Christmas dinner, the feast plays a crucial role in strengthening family bonds, preserving cultural heritage and traditions, and fostering a sense of continuity and community among family members. The preparation of the mâm cỗ Tết involves specific rituals and practices that are passed down through generations, ensuring that the cultural significance of the feast is maintained and celebrated year after year.",
+ "words_in": 13,
+ "words_out": 261,
+ "clip_tokens": 352,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "mâm cỗ Tết",
+   "in": "A family around a Tet feast with a kumquat tree and red envelopes.",
+   "out_raw": "### Revised Refined Prompt: During the Vietnamese Lunar New Year celebration, known as Tết, a family gathers around a mâm cỗ Tết, a traditional feast that is the centerpiece of the Tết celebration. The mâm cỗ Tết is an elaborate spread featuring dishes such as bánh chưng (sticky rice cake), giò lụa (pork roll), and other festive foods, arranged beautifully on traditional serving platters adorned with vibrant red and gold decorations. These platters often showcase intricate patterns and designs that reflect the beauty and importance of the occasion. The feast is not only a communal dining experience but also a gathering place for family and friends to express gratitude, share wishes for the future, and honor ancestors. In the center of the feast is a small kumquat tree, symbolizing good fortune and prosperity for the coming year, and red envelopes, known as lì xì, are also present, representing wishes for good luck and wealth. The origins of the mâm cỗ Tết can be traced back to ancient times when it served as a means to honor ancestors and welcome the new year. Similar to Western holiday feasts such as Thanksgiving or Christmas dinner, the feast plays a crucial role in strengthening family bonds, preserving cultural heritage and traditions, and fostering a sense of continuity and community among family members. The preparation of the mâm cỗ Tết involves specific rituals and practices that are passed down through generations, ensuring that the cultural significance of the feast is maintained and celebrated year after year. This refined prompt enhances the clarity, visual detail, background, purpose, and includes a comparable object, making it easier for someone unfamiliar with the CULTURE NOUN to understand and visualize the scene.",
+   "out": "During the Vietnamese Lunar New Year celebration, known as Tết, a family gathers around a mâm cỗ Tết, a traditional feast that is the centerpiece of the Tết celebration. The mâm cỗ Tết is an elaborate spread featuring dishes such as bánh chưng (sticky rice cake), giò lụa (pork roll), and other festive foods, arranged beautifully on traditional serving platters adorned with vibrant red and gold decorations. These platters often showcase intricate patterns and designs that reflect the beauty and importance of the occasion. The feast is not only a communal dining experience but also a gathering place for family and friends to express gratitude, share wishes for the future, and honor ancestors. In the center of the feast is a small kumquat tree, symbolizing good fortune and prosperity for the coming year, and red envelopes, known as lì xì, are also present, representing wishes for good luck and wealth. The origins of the mâm cỗ Tết can be traced back to ancient times when it served as a means to honor ancestors and welcome the new year. Similar to Western holiday feasts such as Thanksgiving or Christmas dinner, the feast plays a crucial role in strengthening family bonds, preserving cultural heritage and traditions, and fostering a sense of continuity and community among family members. The preparation of the mâm cỗ Tết involves specific rituals and practices that are passed down through generations, ensuring that the cultural significance of the feast is maintained and celebrated year after year.",
+   "words_raw": 283,
+   "words": 248,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 472.8,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 472.8
+}

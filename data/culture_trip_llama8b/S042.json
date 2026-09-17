@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S042",
+ "sig": "1a666474ef25",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.86,
+ "prompt_en": "Limestone karst islands rising from the emerald waters of Ha Long Bay.",
+ "culture_nouns": [
+  "vịnh Hạ Long"
+ ],
+ "refined_prompt": "Limestone karst islands rising from the emerald waters of Ha Long Bay. In the heart of Vietnam's Quảng Ninh province, thousands of limestone karst islands, shaped by millions of years of geological formation, rise majestically from the emerald waters of Ha Long Bay, a UNESCO World Heritage Site. The islands, ranging in size and shape, are scattered across the bay's vast area, creating a breathtakingly unique landscape.",
+ "words_in": 12,
+ "words_out": 67,
+ "clip_tokens": 90,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "vịnh Hạ Long",
+   "in": "Limestone karst islands rising from the emerald waters of Ha Long Bay.",
+   "out_raw": "Based on the provided information and feedback, I refined the BASE PROMPT to provide a clear and accurate description of Ha Long Bay that can be used to draw a picture: REFINED PROMPT: In the heart of Vietnam's Quảng Ninh province, thousands of limestone karst islands, shaped by millions of years of geological formation, rise majestically from the emerald waters of Ha Long Bay, a UNESCO World Heritage Site. The islands, ranging in size and shape, are scattered across the bay's vast area, creating a breathtakingly unique landscape. As the tropical wet climate has shaped the karst over millions of years, the bay is now home to an incredible array of flora and fauna, making it a popular travel destination and a significant cultural heritage site. Note: I carefully verified the information to ensure accuracy and made slight modifications to the BASE PROMPT to provide a clear and detailed description of Ha Long Bay. The scene depicted in the original BASE PROMPT remains unchanged.",
+   "out": "In the heart of Vietnam's Quảng Ninh province, thousands of limestone karst islands, shaped by millions of years of geological formation, rise majestically from the emerald waters of Ha Long Bay, a UNESCO World Heritage Site. The islands, ranging in size and shape, are scattered across the bay's vast area, creating a breathtakingly unique landscape.",
+   "words_raw": 164,
+   "words": 55,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 7.0,
+   "scene_keep_raw": 0.86
+  }
+ ],
+ "seconds": 7.0
+}

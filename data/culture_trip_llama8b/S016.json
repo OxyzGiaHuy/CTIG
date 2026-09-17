@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S016",
+ "sig": "d6738e291579",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A Central Highlands rong house in a village.",
+ "culture_nouns": [
+  "nhà rông Tây Nguyên"
+ ],
+ "refined_prompt": "A Central Highlands rong house in a village. In a lush village nestled in the Central Highlands, a traditional rong house stands tall, its sturdy wooden structure adorned with intricate carvings and adorned with vibrant greenery. The rong house is a symbol of the cultural heritage of the Tây Nguyên people, with its curved roof resembling a giant bell and its sturdy walls telling stories of the community's rich history. (Note: I verified the information provided about the Nguyễn dynasty and Tây Nguyên culture to ensure accuracy.",
+ "words_in": 8,
+ "words_out": 87,
+ "clip_tokens": 117,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "nhà rông Tây Nguyên",
+   "in": "A Central Highlands rong house in a village.",
+   "out_raw": "### Refined Prompt: In a lush village nestled in the Central Highlands, a traditional rong house stands tall, its sturdy wooden structure adorned with intricate carvings and adorned with vibrant greenery. The rong house is a symbol of the cultural heritage of the Tây Nguyên people, with its curved roof resembling a giant bell and its sturdy walls telling stories of the community's rich history. (Note: I verified the information provided about the Nguyễn dynasty and Tây Nguyên culture to ensure accuracy. I expanded the original sentence into three sentences to provide sufficient detail while maintaining the original scene depicted in the BASE PROMPT.)",
+   "out": "In a lush village nestled in the Central Highlands, a traditional rong house stands tall, its sturdy wooden structure adorned with intricate carvings and adorned with vibrant greenery. The rong house is a symbol of the cultural heritage of the Tây Nguyên people, with its curved roof resembling a giant bell and its sturdy walls telling stories of the community's rich history. (Note: I verified the information provided about the Nguyễn dynasty and Tây Nguyên culture to ensure accuracy.",
+   "words_raw": 104,
+   "words": 79,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 8.0,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 8.0
+}

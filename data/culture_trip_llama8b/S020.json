@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S020",
+ "sig": "fb9a549b6a57",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.89,
+ "prompt_en": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat.",
+ "culture_nouns": [
+  "nón quai thao"
+ ],
+ "refined_prompt": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat. A northern Vietnamese young woman wearing a traditional flat palm hat, \"nón quai thao\", with a flat brim and a distinctive silver ornament hanging from a silk string attached around the brim.",
+ "words_in": 11,
+ "words_out": 43,
+ "clip_tokens": 58,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "nón quai thao",
+   "in": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat.",
+   "out_raw": "### REFINED PROMPT: A northern Vietnamese young woman wearing a traditional flat palm hat, \"nón quai thao\", with a flat brim and a distinctive silver ornament hanging from a silk string attached around the brim. The hat is typically worn as an accessory to elegant garments, often at special occasions or to add a touch of elegance to everyday attire. For comparison, imagine a hat similar to a wide-brimmed sun hat, but with a more delicate and ornate design, and you'll get an idea of the \"nón quai thao\"'s unique appearance. ### RATIONALE: The refined prompt incorporates feedback to improve clarity, visual detail, and background information. The added sentences provide more context about the hat's cultural significance and typical uses, making it easier for someone unfamiliar with the culture to visualize the hat and its wearer. The revised prompt also includes more descriptive language about the hat's appearance and compares it to a familiar object, making it more accessible and engaging for readers.",
+   "out": "A northern Vietnamese young woman wearing a traditional flat palm hat, \"nón quai thao\", with a flat brim and a distinctive silver ornament hanging from a silk string attached around the brim.",
+   "words_raw": 163,
+   "words": 32,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 28.9,
+   "scene_keep_raw": 0.89
+  }
+ ],
+ "seconds": 28.9
+}

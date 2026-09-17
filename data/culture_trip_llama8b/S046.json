@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S046",
+ "sig": "efbba2b15239",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.75,
+ "prompt_en": "A monkey bridge made of a bamboo trunk spanning a small canal.",
+ "culture_nouns": [
+  "cầu khỉ"
+ ],
+ "refined_prompt": "A monkey bridge made of a bamboo trunk spanning a small canal. A monkey bridge, also known as a coconut bridge or bamboo bridge, is a handmade passway made of bamboo or coconut tree trunks. Spanning a small stream or gully, these bridges are unique to Vietnamese culture. Without handrails, they can be challenging and potentially dangerous for those who are not familiar with them. The bridge's weathered bamboo planks creak and groan with each step, as the scent of fresh coconut and damp earth fills the air. The sound of running water and chirping birds creates a soothing background hum, while the rustling of leaves and snapping of twigs underfoot add to the sense of being in a lush, tropical environment. The monkey bridge is an integral part of Vietnamese daily life, with locals relying on them to traverse the many streams and gullies that crisscross the countryside. The bridges are often built and maintained by the local community, reflecting the importance of collective effort and cooperation in Vietnamese culture. Locals have been known to carry heavy loads, such as 20-50 kg, while crossing the bridge, which is a testament to their resourcefulness and adaptability. The construction process of the monkey bridge is similar to building a traditional Japanese tatami mat, where individual components are carefully crafted and fitted together to create a sturdy and elegant structure. Similarly, the way the bridge spans the stream is reminiscent of a suspension bridge, with its delicate balance between strength and fragility.",
+ "words_in": 12,
+ "words_out": 250,
+ "clip_tokens": 337,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cầu khỉ",
+   "in": "A monkey bridge made of a bamboo trunk spanning a small canal.",
+   "out_raw": "Here is the refined prompt: A monkey bridge, also known as a coconut bridge or bamboo bridge, is a handmade passway made of bamboo or coconut tree trunks. Spanning a small stream or gully, these bridges are unique to Vietnamese culture. Without handrails, they can be challenging and potentially dangerous for those who are not familiar with them. The bridge's weathered bamboo planks creak and groan with each step, as the scent of fresh coconut and damp earth fills the air. The sound of running water and chirping birds creates a soothing background hum, while the rustling of leaves and snapping of twigs underfoot add to the sense of being in a lush, tropical environment. The monkey bridge is an integral part of Vietnamese daily life, with locals relying on them to traverse the many streams and gullies that crisscross the countryside. The bridges are often built and maintained by the local community, reflecting the importance of collective effort and cooperation in Vietnamese culture. Locals have been known to carry heavy loads, such as 20-50 kg, while crossing the bridge, which is a testament to their resourcefulness and adaptability. The construction process of the monkey bridge is similar to building a traditional Japanese tatami mat, where individual components are carefully crafted and fitted together to create a sturdy and elegant structure. Similarly, the way the bridge spans the stream is reminiscent of a suspension bridge, with its delicate balance between strength and fragility. This refined prompt incorporates the suggestions from the feedback, including breaking down the prompt into shorter sentences, adding sensory details, and highlighting the cultural significance of the bridge in Vietnamese culture.",
+   "out": "A monkey bridge, also known as a coconut bridge or bamboo bridge, is a handmade passway made of bamboo or coconut tree trunks. Spanning a small stream or gully, these bridges are unique to Vietnamese culture. Without handrails, they can be challenging and potentially dangerous for those who are not familiar with them. The bridge's weathered bamboo planks creak and groan with each step, as the scent of fresh coconut and damp earth fills the air. The sound of running water and chirping birds creates a soothing background hum, while the rustling of leaves and snapping of twigs underfoot add to the sense of being in a lush, tropical environment. The monkey bridge is an integral part of Vietnamese daily life, with locals relying on them to traverse the many streams and gullies that crisscross the countryside. The bridges are often built and maintained by the local community, reflecting the importance of collective effort and cooperation in Vietnamese culture. Locals have been known to carry heavy loads, such as 20-50 kg, while crossing the bridge, which is a testament to their resourcefulness and adaptability. The construction process of the monkey bridge is similar to building a traditional Japanese tatami mat, where individual components are carefully crafted and fitted together to create a sturdy and elegant structure. Similarly, the way the bridge spans the stream is reminiscent of a suspension bridge, with its delicate balance between strength and fragility.",
+   "words_raw": 274,
+   "words": 238,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 64.6,
+   "scene_keep_raw": 0.75
+  }
+ ],
+ "seconds": 64.6
+}

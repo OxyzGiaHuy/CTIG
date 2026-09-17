@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C013",
+ "sig": "ef8d62ada204",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.12,
+ "prompt_en": "A Dong Ho folk-print artisan presses a carved woodblock onto shimmering diep paper, with many finished prints displayed on the wall behind him.",
+ "culture_nouns": [
+  "tranh Đông Hồ",
+  "ván khắc gỗ",
+  "giấy điệp"
+ ],
+ "refined_prompt": "A Dong Ho folk-print artisan presses a carved woodblock onto shimmering diep paper, with many finished prints displayed on the wall behind him. Create a picture of a traditional Vietnamese artisan creating Dó paper (giấy dó) from the inner bark of the dó (poonah) tree (Rhamnoneuron balansae). The artisan is carefully peeling the bark, taking care to preserve the delicate fibers. This handmade paper is a preferred support in some traditions of Vietnamese art.",
+ "words_in": 23,
+ "words_out": 74,
+ "clip_tokens": 99,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "tranh Đông Hồ",
+   "in": "A Dong Ho folk-print artisan presses a carved woodblock onto shimmering diep paper, with many finished prints displayed on the wall behind him.",
+   "out_raw": "### Refined Prompt: In a small village, a Dong Ho folk-print artisan carefully presses a carved woodblock onto shimmering diep paper, creating a beautiful and intricate design. The artisan's hands move with precision and skill, as they have been passed down through generations. Behind them, rows of finished prints adorn the walls, showcasing the vibrant colors and delicate patterns that are characteristic of Dong Ho folk paintings. ### Reasoning: The refined prompt takes into account the correct information about Dong Ho folk paintings being a type of Vietnamese folk painting originating from Đông Hồ village. It also adds more detail to the original prompt to help someone unfamiliar with the culture draw a picture of it. The additional sentences provide more context about the artisan's process and the finished prints, giving a better representation of the culture.",
+   "out": "A small village, a Dong Ho folk-print artisan carefully presses a carved woodblock onto shimmering diep paper, creating a beautiful and intricate design.",
+   "words_raw": 137,
+   "words": 23,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 6.3,
+   "scene_keep_raw": 0.65
+  },
+  {
+   "culture_noun": "ván khắc gỗ",
+   "in": "A small village, a Dong Ho folk-print artisan carefully presses a carved woodblock onto shimmering diep paper, creating a beautiful and intricate design.",
+   "out_raw": "I'm satisfied with the revised Refined Prompt and SCORE. The revised prompt provides a clearer and more detailed description of the artisan's process, highlighting the importance of Vietnamese woodblock art in the country's culture. The added cultural context, sensory details, and comparison to other art forms enhance the prompt's clarity and visual detail. The revised SCORE reflects the improvements made to the prompt. Revised Refined Prompt: Same as the one provided earlier. Revised SCORE: {'Clarity': 9.0, 'Visual_detail': 8.0, 'Background': 9.0, 'Purpose': 9.0, 'Comparable_object': 8.0, 'Total_score': 42.0} I'm confident that the revised prompt effectively conveys the essence of Vietnamese woodblock art, \"ván khắc gỗ\", and will help someone unfamiliar with the culture to draw a picture of it.",
+   "out": "I'm satisfied with the revised Refined Prompt and SCORE. The revised prompt provides a clearer and more detailed description of the artisan's process, highlighting the importance of Vietnamese woodblock art in the country's culture. The added cultural context, sensory details, and comparison to other art forms enhance the prompt's clarity and visual detail. The revised SCORE reflects the improvements made to the prompt. Revised Refined Prompt: Same as the one provided earlier. Revised",
+   "words_raw": 117,
+   "words": 73,
+   "post_processed": true,
+   "cleaned_by": "CÒN RÁC",
+   "seconds": 22.8,
+   "scene_keep_raw": 0.12
+  },
+  {
+   "culture_noun": "giấy điệp",
+   "in": "I'm satisfied with the revised Refined Prompt and SCORE. The revised prompt provides a clearer and more detailed description of the artisan's process, highlighting the importance of Vietnamese woodblock art in the country's culture. The added cultural context, sensory details, and comparison to other art forms enhance the prompt's clarity and visual detail. The revised SCORE reflects the improvements made to the prompt. Revised Refined Prompt: Same as the one provided earlier. Revised",
+   "out_raw": "Here is the refined prompt: **REFINED PROMPT:** Create a picture of a traditional Vietnamese artisan creating Dó paper (giấy dó) from the inner bark of the dó (poonah) tree (Rhamnoneuron balansae). The artisan is carefully peeling the bark, taking care to preserve the delicate fibers. This handmade paper is a preferred support in some traditions of Vietnamese art. **SCORE:**",
+   "out": "Create a picture of a traditional Vietnamese artisan creating Dó paper (giấy dó) from the inner bark of the dó (poonah) tree (Rhamnoneuron balansae). The artisan is carefully peeling the bark, taking care to preserve the delicate fibers. This handmade paper is a preferred support in some traditions of Vietnamese art.",
+   "words_raw": 59,
+   "words": 51,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 4.9,
+   "scene_keep_raw": 0.12
+  }
+ ],
+ "seconds": 34.0
+}

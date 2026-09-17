@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S038",
+ "sig": "1c717c1b04a2",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.86,
+ "prompt_en": "White mounds of salt lined up in rows on a salt field under the midday sun.",
+ "culture_nouns": [
+  "ruộng muối"
+ ],
+ "refined_prompt": "White mounds of salt lined up in rows on a salt field under the midday sun. In coastal Vietnam, salt fields known as \"ruộng muối\" are vast expanses where salt is traditionally harvested under the scorching midday sun. White mounds of salt are neatly lined up in rows, reflecting the sun’s light in dazzling brilliance. The tradition of salt production, dating back to early dynastic periods, is integral to Vietnamese coastal communities, reflecting the country’s deep agricultural heritage and the importance of salt to its economy and cuisine. Salt workers meticulously harvest the precious crystals that flavor traditional dishes and support local communities.",
+ "words_in": 16,
+ "words_out": 103,
+ "clip_tokens": 139,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "ruộng muối",
+   "in": "White mounds of salt lined up in rows on a salt field under the midday sun.",
+   "out_raw": "### Revised Refined Prompt: In coastal Vietnam, \"ruộng muối,\" or salt fields, are vast expanses where salt is traditionally harvested under the scorching midday sun. White mounds of salt are neatly lined up in rows, reflecting the sun’s light in dazzling brilliance. The tradition of salt production, which dates back to early dynastic periods, is integral to Vietnamese coastal communities, reflecting the country’s deep agricultural heritage and the importance of salt to its economy and cuisine. Historically, salt production was a crucial part of trade and food preservation, with salt workers meticulously harvesting the precious crystals that not only flavor traditional dishes but also support local communities. ### Updated SCORE: - **Clarity (9.0):** The prompt begins by defining \"ruộng muối\" and immediately sets the scene, ensuring that readers understand the subject matter. - **Visual_detail (8.0):** The description includes sensory details such as the reflection of sunlight on the salt crystals, enhancing the visual experience. - **Background (10.0):** The prompt provides historical context about the importance of salt production in Vietnamese trade and food preservation, enriching the overall background. - **Purpose (8.0):** The role of salt in supporting the economy and enhancing traditional Vietnamese dishes is clearly stated, highlighting its significance. - **Comparable_object (7.0):** While a direct comparison to another well-known agricultural product isn't explicitly made, the historical and cultural context provides a unique perspective on the importance of \"ruộng muối.\" This revised prompt should effectively convey the significance and beauty of \"ruộng muối\" to readers unfamiliar with the concept.",
+   "out": "In coastal Vietnam, salt fields known as \"ruộng muối\" are vast expanses where salt is traditionally harvested under the scorching midday sun. White mounds of salt are neatly lined up in rows, reflecting the sun’s light in dazzling brilliance. The tradition of salt production, dating back to early dynastic periods, is integral to Vietnamese coastal communities, reflecting the country’s deep agricultural heritage and the importance of salt to its economy and cuisine. Salt workers meticulously harvest the precious crystals that flavor traditional dishes and support local communities.",
+   "words_raw": 249,
+   "words": 87,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 313.7,
+   "scene_keep_raw": 0.86
+  }
+ ],
+ "seconds": 313.7
+}

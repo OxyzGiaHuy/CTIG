@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S005",
+ "sig": "de8a9003bda0",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.4,
+ "prompt_en": "A banh mi stuffed with pork, pickles and cilantro.",
+ "culture_nouns": [
+  "bánh mì"
+ ],
+ "refined_prompt": "A banh mi stuffed with pork, pickles and cilantro. Draw a picture of a crispy, golden-brown baguette, reminiscent of a French baguette, but with a softer interior. The baguette is split lengthwise and filled with a vibrant mix of ingredients, including juicy pork, crunchy pickled carrots, and fresh cilantro leaves.",
+ "words_in": 9,
+ "words_out": 50,
+ "clip_tokens": 67,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "bánh mì",
+   "in": "A banh mi stuffed with pork, pickles and cilantro.",
+   "out_raw": "I've refined the prompt based on the feedback: ### REFINED PROMPT: Draw a picture of a crispy, golden-brown baguette, reminiscent of a French baguette, but with a softer interior. The baguette is split lengthwise and filled with a vibrant mix of ingredients, including juicy pork, crunchy pickled carrots, and fresh cilantro leaves. This popular Vietnamese sandwich, bánh mì, is a staple in many Vietnamese households and is often served as a snack or light meal. Your drawing should capture the essence of this beloved dish and its significance in Vietnamese culture. I've added more descriptive language to provide more visual detail, and also included cultural context and information about the significance of bánh mì in Vietnamese culture. Additionally, I've clarified the purpose of the drawing, which is to capture the essence of this beloved dish and its significance in Vietnamese culture.",
+   "out": "Draw a picture of a crispy, golden-brown baguette, reminiscent of a French baguette, but with a softer interior. The baguette is split lengthwise and filled with a vibrant mix of ingredients, including juicy pork, crunchy pickled carrots, and fresh cilantro leaves.",
+   "words_raw": 141,
+   "words": 41,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 35.0,
+   "scene_keep_raw": 0.4
+  }
+ ],
+ "seconds": 35.0
+}

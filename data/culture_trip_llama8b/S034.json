@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S034",
+ "sig": "35166e9beaad",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A northern village communal house with a sagging tiled roof and an old banyan in the yard.",
+ "culture_nouns": [
+  "đình làng"
+ ],
+ "refined_prompt": "A northern village communal house with a sagging tiled roof and an old banyan in the yard. A northern Vietnamese village communal house with a sagging tiled roof and an old banyan tree in the yard. The exterior is adorned with traditional Vietnamese architectural features, such as intricate carvings and ornate tile work.",
+ "words_in": 17,
+ "words_out": 53,
+ "clip_tokens": 71,
+ "over_77_tokens": false,
+ "per_step": [
+  {
+   "culture_noun": "đình làng",
+   "in": "A northern village communal house with a sagging tiled roof and an old banyan in the yard.",
+   "out_raw": "### REFINED PROMPT: A northern Vietnamese village communal house (đình làng) with a sagging tiled roof and an old banyan tree (banyan in the yard). The communal house is a central gathering place for the village, serving as a cultural and spiritual hub. The exterior is adorned with traditional Vietnamese architectural features, such as intricate carvings and ornate tile work. ### VERIFICATION: I verified that the information provided is accurate and relevant to the culture noun \"đình làng\", which refers to a communal house in northern Vietnamese villages. ### MODIFICATIONS: I made slight modifications to the base prompt to better reflect the cultural significance and architectural features of a traditional Vietnamese village communal house. ### FEEDBACK: The refined prompt should provide sufficient detail for someone unfamiliar with the culture noun \"đình làng\" to draw a picture of it.",
+   "out": "A northern Vietnamese village communal house with a sagging tiled roof and an old banyan tree in the yard. The exterior is adorned with traditional Vietnamese architectural features, such as intricate carvings and ornate tile work.",
+   "words_raw": 138,
+   "words": 36,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 12.6,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 12.6
+}

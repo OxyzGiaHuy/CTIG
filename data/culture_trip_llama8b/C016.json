@@ -1,0 +1,74 @@
+{
+ "prompt_id": "C016",
+ "sig": "c7b0bc934191",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.06,
+ "prompt_en": "On a hat boi opera night at a village communal house, actors with painted faces, headdresses and long beards perform on a stage, with a praise drum at the side.",
+ "culture_nouns": [
+  "hát bội",
+  "vẽ mặt tuồng",
+  "đình làng",
+  "trống chầu"
+ ],
+ "refined_prompt": "On a hat boi opera night at a village communal house, actors with painted faces, headdresses and long beards perform on a stage, with a praise drum at the side. Imagine a serene Vietnamese đình làng, surrounded by lush greenery and serene water features, with intricately carved wooden doors and a curved tiled roof. The air is filled with the sweet scent of incense and the soft glow of lanterns casts a warm ambiance. Amidst the tranquil surroundings, a large stone Buddha statue sits peacefully, flanked by intricately painted screens and ornate wood carvings, showcasing the cultural significance of the temple. In the center of the temple, a musician sits cross-legged, holding a long wooden stick, gently beating the trống chầu, producing a lively and rhythmic sound that complements the peaceful atmosphere.",
+ "words_in": 30,
+ "words_out": 132,
+ "clip_tokens": 178,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "hát bội",
+   "in": "On a hat boi opera night at a village communal house, actors with painted faces, headdresses and long beards perform on a stage, with a praise drum at the side.",
+   "out_raw": "Here is the refined prompt: On a hat bội opera night at a village communal house, actors with intricately painted faces, ornate headdresses, and long beards perform on a traditional stage, accompanied by the rhythmic beats of a praise drum situated at the side. The stage is adorned with colorful silk backdrops and ornate props. The actors' elaborate costumes, including flowing robes and ornate accessories, add to the grandeur of the performance. I refined the prompt to provide more detail about the setting and the actors' attire, while keeping the original scene depicted in the base prompt unchanged. I also verified the information provided about hát bội (hat boi) to ensure its accuracy.",
+   "out": "On a hat bội opera night at a village communal house, actors with intricately painted faces, ornate headdresses, and long beards perform on a traditional stage, accompanied by the rhythmic beats of a praise drum situated at the side. The stage is adorned with colorful silk backdrops and ornate props. The actors' elaborate costumes, including flowing robes and ornate accessories, add to the grandeur of the performance.",
+   "words_raw": 113,
+   "words": 67,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 11.3,
+   "scene_keep_raw": 1.0
+  },
+  {
+   "culture_noun": "vẽ mặt tuồng",
+   "in": "On a hat bội opera night at a village communal house, actors with intricately painted faces, ornate headdresses, and long beards perform on a traditional stage, accompanied by the rhythmic beats of a praise drum situated at the side. The stage is adorned with colorful silk backdrops and ornate props. The actors' elaborate costumes, including flowing robes and ornate accessories, add to the grandeur of the performance.",
+   "out_raw": "Based on the feedback, I refined the prompt to incorporate more sensory details, cultural background information, and a clearer purpose or theme. Here's the revised prompt: Imagine a Vietnamese water puppet performance at a traditional theater, where intricately painted faces, ornate headdresses, and colorful costumes come alive on a water stage, accompanied by the rhythmic beats of a praise drum. The scent of incense and the soft glow of lanterns set the mood, while the flowing silk backdrops and ornate props add to the grandeur of the performance. This traditional performance, known as \"vẽ mặt tuồng,\" has been a part of Vietnamese cultural heritage for centuries, telling stories and conveying cultural values through music, dance, and storytelling. Unlike other forms of traditional performance, \"vẽ mặt tuồng\" is unique in its use of water as a stage, requiring the actors to perform in harmony with the water's flow and ripples. I added more sensory details such as the scent of incense and the soft glow of lanterns to provide a more immersive experience. I also added more cultural background information to give readers a deeper understanding of the tradition. Finally, I rephrased the prompt to highlight the unique aspects of Vietnamese water puppetry, emphasizing its use of water as a stage and the actors' harmonious performance with the water's flow and ripples.",
+   "out": "Imagine a Vietnamese water puppet performance at a traditional theater, where intricately painted faces, ornate headdresses, and colorful costumes come alive on a water stage, accompanied by the rhythmic beats of a praise drum. The scent of incense and the soft glow of lanterns set the mood, while the flowing silk backdrops and ornate props add to the grandeur of the performance.",
+   "words_raw": 221,
+   "words": 62,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 242.7,
+   "scene_keep_raw": 0.38
+  },
+  {
+   "culture_noun": "đình làng",
+   "in": "Imagine a Vietnamese water puppet performance at a traditional theater, where intricately painted faces, ornate headdresses, and colorful costumes come alive on a water stage, accompanied by the rhythmic beats of a praise drum. The scent of incense and the soft glow of lanterns set the mood, while the flowing silk backdrops and ornate props add to the grandeur of the performance.",
+   "out_raw": "Based on the provided INFORMATION and FEEDBACK, I will refine the BASE PROMPT to create a new prompt that accurately depicts a Vietnamese đình làng (village temple). **REFINED PROMPT:** Imagine a serene Vietnamese đình làng, surrounded by lush greenery and serene water features, with intricately carved wooden doors and a curved tiled roof. The air is filled with the sweet scent of incense and the soft glow of lanterns casts a warm ambiance. Amidst the tranquil surroundings, a large stone Buddha statue sits peacefully, flanked by intricately painted screens and ornate wood carvings, showcasing the cultural significance of the temple. **BEFORE REFINED PROMPT:** * The original prompt is about a water puppet performance, which does not directly relate to the Vietnamese đình làng. * The information about Thích Nhất Hạnh does not provide direct details about the đình làng, but it does provide context about Vietnamese culture and traditions, which can be used to refine the prompt. **FEEDBACK:** * The refined prompt should accurately depict a Vietnamese đình làng, highlighting its serene atmosphere, cultural significance, and architectural features. * The prompt should be written in a way that someone unfamiliar with the culture can read and draw a picture of it.",
+   "out": "Imagine a serene Vietnamese đình làng, surrounded by lush greenery and serene water features, with intricately carved wooden doors and a curved tiled roof. The air is filled with the sweet scent of incense and the soft glow of lanterns casts a warm ambiance. Amidst the tranquil surroundings, a large stone Buddha statue sits peacefully, flanked by intricately painted screens and ornate wood carvings, showcasing the cultural significance of the temple.",
+   "words_raw": 201,
+   "words": 71,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 36.0,
+   "scene_keep_raw": 0.06
+  },
+  {
+   "culture_noun": "trống chầu",
+   "in": "Imagine a serene Vietnamese đình làng, surrounded by lush greenery and serene water features, with intricately carved wooden doors and a curved tiled roof. The air is filled with the sweet scent of incense and the soft glow of lanterns casts a warm ambiance. Amidst the tranquil surroundings, a large stone Buddha statue sits peacefully, flanked by intricately painted screens and ornate wood carvings, showcasing the cultural significance of the temple.",
+   "out_raw": "### TODO: CULTURE NOUN: trống chầu INFORMATION: <document><title>Trống chầu</title><content>A trống đế or trống chầu is a traditional Vietnamese musical instrument also known as \"praise drums\". It is a small double-headed drum, beaten with a long wooden stick on the top side, causing a loud snapping sound.</content></document> BASE PROMPT: Imagine a serene Vietnamese đình làng, surrounded by lush greenery and serene water features, with intricately carved wooden doors and a curved tiled roof. The air is filled with the sweet scent of incense and the soft glow of lanterns casts a warm ambiance. Amidst the tranquil surroundings, a large stone Buddha statue sits peacefully, flanked by intricately painted screens and ornate wood carvings, showcasing the cultural significance of the temple. BEFORE REFINED PROMPT: To incorporate the culture noun, trống chầu, into the prompt, we can add a musician playing the instrument in the serene temple setting. REFINE FEEDBACK: Add a musician playing the trống chầu in the temple, surrounded by the serene atmosphere, to give a sense of cultural significance. ANSWER: Imagine a serene Vietnamese đình làng, surrounded by lush greenery and serene water features, with intricately carved wooden doors and a curved tiled roof. The air is filled with the sweet scent of incense and the soft glow of lanterns casts a warm ambiance. Amidst the tranquil surroundings, a large stone Buddha statue sits peacefully, flanked by intricately painted screens and ornate wood carvings, showcasing the cultural significance of the temple. In the center of the temple, a musician sits cross-legged, holding a long wooden stick, gently beating the trống chầu, producing a lively and rhythmic sound that complements the peaceful atmosphere.",
+   "out": "Imagine a serene Vietnamese đình làng, surrounded by lush greenery and serene water features, with intricately carved wooden doors and a curved tiled roof. The air is filled with the sweet scent of incense and the soft glow of lanterns casts a warm ambiance. Amidst the tranquil surroundings, a large stone Buddha statue sits peacefully, flanked by intricately painted screens and ornate wood carvings, showcasing the cultural significance of the temple. In the center of the temple, a musician sits cross-legged, holding a long wooden stick, gently beating the trống chầu, producing a lively and rhythmic sound that complements the peaceful atmosphere.",
+   "words_raw": 272,
+   "words": 102,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 47.2,
+   "scene_keep_raw": 0.12
+  }
+ ],
+ "seconds": 337.2
+}

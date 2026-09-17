@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S021",
+ "sig": "7ca8800d932f",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.82,
+ "prompt_en": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night.",
+ "culture_nouns": [
+  "Tết Trung Thu"
+ ],
+ "refined_prompt": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night. On the night of Tết Trung Thu, also known as the Moon-Viewing Festival, which falls on the 15th day of the 8th lunar month, children parade through a neighborhood courtyard carrying vibrant five-pointed star lanterns, each decorated with intricate patterns and colorful designs. This traditional Vietnamese festival, with origins dating back centuries, celebrates the full moon, symbolizing unity, joy, and the importance of family and community. It is a time when children eagerly await receiving toys and mooncakes from adults. In addition to the star lanterns, children often receive other toys like masks, kéo quân lamps, which are small carriages with miniature figurines, and tò he figurines, which are sweet rice treats shaped into various animals and characters. These gifts are not just toys but symbols of nurturing and guidance for the next generation. As the full moon rises high in the sky, families gather to watch it, its silvery light reflecting off the lanterns and toys, singing and dancing together, enjoying the festive atmosphere and celebrating the unity and joy of the holiday. In a way, Tết Trung Thu can be compared to Thanksgiving or Halloween in Western cultures, where family gatherings, the sharing of food, and the celebration of cultural traditions play a central role.",
+ "words_in": 12,
+ "words_out": 219,
+ "clip_tokens": 295,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "Tết Trung Thu",
+   "in": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night.",
+   "out_raw": "### Refined Prompt: On the night of Tết Trung Thu, also known as the Moon-Viewing Festival, which falls on the 15th day of the 8th lunar month, children parade through a neighborhood courtyard carrying vibrant five-pointed star lanterns, each decorated with intricate patterns and colorful designs. This traditional Vietnamese festival, with origins dating back centuries, celebrates the full moon, symbolizing unity, joy, and the importance of family and community. It is a time when children eagerly await receiving toys and mooncakes from adults. In addition to the star lanterns, children often receive other toys like masks, kéo quân lamps, which are small carriages with miniature figurines, and tò he figurines, which are sweet rice treats shaped into various animals and characters. These gifts are not just toys but symbols of nurturing and guidance for the next generation. As the full moon rises high in the sky, families gather to watch it, its silvery light reflecting off the lanterns and toys, singing and dancing together, enjoying the festive atmosphere and celebrating the unity and joy of the holiday. In a way, Tết Trung Thu can be compared to Thanksgiving or Halloween in Western cultures, where family gatherings, the sharing of food, and the celebration of cultural traditions play a central role.",
+   "out": "On the night of Tết Trung Thu, also known as the Moon-Viewing Festival, which falls on the 15th day of the 8th lunar month, children parade through a neighborhood courtyard carrying vibrant five-pointed star lanterns, each decorated with intricate patterns and colorful designs. This traditional Vietnamese festival, with origins dating back centuries, celebrates the full moon, symbolizing unity, joy, and the importance of family and community. It is a time when children eagerly await receiving toys and mooncakes from adults. In addition to the star lanterns, children often receive other toys like masks, kéo quân lamps, which are small carriages with miniature figurines, and tò he figurines, which are sweet rice treats shaped into various animals and characters. These gifts are not just toys but symbols of nurturing and guidance for the next generation. As the full moon rises high in the sky, families gather to watch it, its silvery light reflecting off the lanterns and toys, singing and dancing together, enjoying the festive atmosphere and celebrating the unity and joy of the holiday. In a way, Tết Trung Thu can be compared to Thanksgiving or Halloween in Western cultures, where family gatherings, the sharing of food, and the celebration of cultural traditions play a central role.",
+   "words_raw": 210,
+   "words": 207,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 379.4,
+   "scene_keep_raw": 0.82
+  }
+ ],
+ "seconds": 379.5
+}

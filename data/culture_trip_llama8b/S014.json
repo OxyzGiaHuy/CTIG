@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S014",
+ "sig": "361d069c449b",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.83,
+ "prompt_en": "Terraced fields in the water season reflecting the evening sky.",
+ "culture_nouns": [
+  "ruộng bậc thang"
+ ],
+ "refined_prompt": "Terraced fields in the water season reflecting the evening sky. Ruộng bậc thang are a traditional farming method in Vietnam, characterized by stepped fields of rice and other crops grown on hillsides and mountainsides. The terracing allows for efficient use of land and water, and is often used in areas where the flat land is scarce. In the water season, the terraced fields reflect the evening sky, with the green crops and water creating a beautiful harmony with the natural surroundings.",
+ "words_in": 10,
+ "words_out": 81,
+ "clip_tokens": 109,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "ruộng bậc thang",
+   "in": "Terraced fields in the water season reflecting the evening sky.",
+   "out_raw": "Here is the refined prompt: Ruộng bậc thang are a traditional farming method in Vietnam, characterized by stepped fields of rice and other crops grown on hillsides and mountainsides. The terracing allows for efficient use of land and water, and is often used in areas where the flat land is scarce. In the water season, the terraced fields reflect the evening sky, with the green crops and water creating a beautiful harmony with the natural surroundings. I refined the prompt by using the provided information about ruộng bậc thang, which is a traditional farming method in Vietnam. I added more details to help someone unfamiliar with the concept draw a picture of it.",
+   "out": "Ruộng bậc thang are a traditional farming method in Vietnam, characterized by stepped fields of rice and other crops grown on hillsides and mountainsides. The terracing allows for efficient use of land and water, and is often used in areas where the flat land is scarce. In the water season, the terraced fields reflect the evening sky, with the green crops and water creating a beautiful harmony with the natural surroundings.",
+   "words_raw": 113,
+   "words": 71,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 6.4,
+   "scene_keep_raw": 0.83
+  }
+ ],
+ "seconds": 6.4
+}

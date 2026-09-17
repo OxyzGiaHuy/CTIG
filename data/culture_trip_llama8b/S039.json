@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S039",
+ "sig": "0432dbed778f",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.83,
+ "prompt_en": "An ancient Cham tower standing on a hill in the afternoon sun.",
+ "culture_nouns": [
+  "tháp Chăm"
+ ],
+ "refined_prompt": "An ancient Cham tower standing on a hill in the afternoon sun. An ancient Cham tower stands tall on a hill, its intricate carvings and sculptures depicting scenes from Cham mythology and daily life. The tower's architecture is characterized by its unique blend of Indian, Chinese, and Southeast Asian influences, reflecting the cultural exchange and trading networks of the ancient Cham civilization. In the afternoon sun, the tower's stone walls glow with a warm, golden light, as if infused with the spirit of the Cham people who built it centuries ago.",
+ "words_in": 12,
+ "words_out": 91,
+ "clip_tokens": 122,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "tháp Chăm",
+   "in": "An ancient Cham tower standing on a hill in the afternoon sun.",
+   "out_raw": "### TODO: CULTURE NOUN: tháp Chăm INFORMATION: <document><title>Phan Rang–Tháp Chàm</title><content>Phan Rang–Tháp Chàm, commonly known as Phan Rang, is a former city in Vietnam and the capital of Ninh Thuận Province. The community has a population of 207,998 (2023), of which 196,459 (2023) live in the main city.</content></document> BASE PROMPT: An ancient Cham tower standing on a hill in the afternoon sun. BEFORE REFINED PROMPT: Verify that the information pertains to the culture noun \"tháp Chăm\". The information provides details about Phan Rang-Tháp Chàm, a former city in Vietnam, which is closely related to the culture noun \"tháp Chăm\". The culture noun refers to ancient Cham towers, which are a significant part of Cham culture and history. REFINE FEEDBACK: To refine the base prompt, we can add more details about the ancient Cham tower to help someone unfamiliar with the culture noun draw a picture of it. Here's the refined prompt: An ancient Cham tower stands tall on a hill, its intricate carvings and sculptures depicting scenes from Cham mythology and daily life. The tower's architecture is characterized by its unique blend of Indian, Chinese, and Southeast Asian influences, reflecting the cultural exchange and trading networks of the ancient Cham civilization. In the afternoon sun, the tower's stone walls glow with a warm, golden light, as if infused with the spirit of the Cham people who built it centuries ago. ANSWER:",
+   "out": "An ancient Cham tower stands tall on a hill, its intricate carvings and sculptures depicting scenes from Cham mythology and daily life. The tower's architecture is characterized by its unique blend of Indian, Chinese, and Southeast Asian influences, reflecting the cultural exchange and trading networks of the ancient Cham civilization. In the afternoon sun, the tower's stone walls glow with a warm, golden light, as if infused with the spirit of the Cham people who built it centuries ago.",
+   "words_raw": 230,
+   "words": 79,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 8.9,
+   "scene_keep_raw": 0.83
+  }
+ ],
+ "seconds": 8.9
+}

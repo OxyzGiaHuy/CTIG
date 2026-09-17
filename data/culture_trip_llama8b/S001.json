@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S001",
+ "sig": "80aa33fa19dc",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.67,
+ "prompt_en": "A young woman in a white ao dai standing at a school gate.",
+ "culture_nouns": [
+  "áo dài"
+ ],
+ "refined_prompt": "A young woman in a white ao dai standing at a school gate. A young woman wearing a traditional Vietnamese Áo Dài with delicate silk embroidery depicting Vietnamese motifs, stands at a school gate amidst a vibrant street scene with colorful lanterns and ancient trees, celebrating the Mid-Autumn Festival and honoring her cultural heritage, while her intricate embroidery patterns shimmer in the evening light.",
+ "words_in": 13,
+ "words_out": 64,
+ "clip_tokens": 86,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "áo dài",
+   "in": "A young woman in a white ao dai standing at a school gate.",
+   "out_raw": "Here is the refined prompt based on the feedback: **REFINED PROMPT:** A young woman wearing a traditional Vietnamese Áo Dài with delicate silk embroidery depicting Vietnamese motifs, stands at a school gate amidst a vibrant street scene with colorful lanterns and ancient trees, celebrating the Mid-Autumn Festival and honoring her cultural heritage, while her intricate embroidery patterns shimmer in the evening light. I made the following changes: * Combined the description of the Áo Dài with the scene to improve clarity * Added more specific details about the Áo Dài's design and texture to enhance visual detail * Added context about the cultural significance and occasion where the Áo Dài is worn to improve the background and purpose scores * Incorporated the suggestion to add more comparable object details to provide a clearer understanding of the Áo Dài's design and significance",
+   "out": "A young woman wearing a traditional Vietnamese Áo Dài with delicate silk embroidery depicting Vietnamese motifs, stands at a school gate amidst a vibrant street scene with colorful lanterns and ancient trees, celebrating the Mid-Autumn Festival and honoring her cultural heritage, while her intricate embroidery patterns shimmer in the evening light.",
+   "words_raw": 141,
+   "words": 51,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 46.8,
+   "scene_keep_raw": 0.67
+  }
+ ],
+ "seconds": 46.8
+}

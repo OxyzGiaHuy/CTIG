@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S019",
+ "sig": "7f7d6cb98e83",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A Red Dao woman in her red headdress.",
+ "culture_nouns": [
+  "trang phục người Dao Đỏ"
+ ],
+ "refined_prompt": "A Red Dao woman in her red headdress. A Red Dao woman wears a traditional red headdress, a symbol of her high social status and cultural heritage. The headdress is crafted from intricately woven silk with vibrant red and gold patterns, adorned with gold thread and red beads. She is dressed in a full traditional costume featuring a long, pleated skirt with intricate floral embroidery and a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns. Silk threads of varying textures and colors are used to create the vibrant and intricate designs that represent the wearer's marital status and social standing. This attire is typically worn during significant social and cultural events, where it signifies the wearer's marital status and social standing. Each color and pattern in the Red Dao's traditional clothing has specific meanings tied to their history and social norms, such as red signifying bravery and gold representing wealth and prosperity.",
+ "words_in": 8,
+ "words_out": 157,
+ "clip_tokens": 211,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "trang phục người Dao Đỏ",
+   "in": "A Red Dao woman in her red headdress.",
+   "out_raw": "### Revised Refined Prompt The Red Dao people, an ethnic minority primarily residing in the mountainous regions of northern Vietnam, have a rich cultural heritage deeply rooted in textile arts and weaving techniques that date back centuries. Their traditional clothing is distinguished by its vibrant colors, intricate embroidery patterns, and unique headdress designs, which are unparalleled compared to other ethnic groups in Vietnam. A Red Dao woman wears a traditional red headdress, a symbol of her high social status and cultural heritage. This headdress is crafted from intricately woven silk with vibrant red and gold patterns, adorned with gold thread and red beads, setting her apart within her community. The intricate beadwork and gold threading on the headdress are more elaborate than those of the simpler, yet beautiful, headdress designs worn by the Miao people. She is dressed in a full traditional costume featuring a long, pleated skirt with intricate floral embroidery and a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns. Silk threads of varying textures and colors are used to create the vibrant and intricate designs that represent the wearer's marital status and social standing. This attire is typically worn during significant social and cultural events, such as weddings and festivals, where it signifies the wearer's marital status and social standing. The Red Dao's traditional clothing holds deep cultural and historical significance, with each color and pattern having specific meanings tied to their history and social norms. For instance, the use of red signifies bravery, while gold represents wealth and prosperity. These traditions have been passed down through generations, making the Red Dao attire a symbol of cultural pride and heritage. This revised prompt provides a clear and vivid description of the traditional attire of a Red Dao woman, enhancing the visual detail, cultural background, and historical context, making it easier for readers to visualize and understand the significance of the Red Dao's cultural heritage. ### Revised SCORE: - **Clarity:** 9.5 - **Visual_detail:** 9.0 - **Background:** 8.5 - **Purpose:** 7.5 - **Comparable_object:** 8.5 - **Total_score:** 43.0",
+   "out": "A Red Dao woman wears a traditional red headdress, a symbol of her high social status and cultural heritage. The headdress is crafted from intricately woven silk with vibrant red and gold patterns, adorned with gold thread and red beads. She is dressed in a full traditional costume featuring a long, pleated skirt with intricate floral embroidery and a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns. Silk threads of varying textures and colors are used to create the vibrant and intricate designs that represent the wearer's marital status and social standing. This attire is typically worn during significant social and cultural events, where it signifies the wearer's marital status and social standing. Each color and pattern in the Red Dao's traditional clothing has specific meanings tied to their history and social norms, such as red signifying bravery and gold representing wealth and prosperity.",
+   "words_raw": 343,
+   "words": 149,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 798.1,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 798.1
+}

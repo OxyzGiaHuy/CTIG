@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S027",
+ "sig": "0b9832b88b2f",
+ "model": "llama3:8b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A steaming bowl of bun bo Hue on a table in the morning.",
+ "culture_nouns": [
+  "bún bò Huế"
+ ],
+ "refined_prompt": "A steaming bowl of bun bo Hue on a table in the morning. Reefined Prompt: A steaming bowl of bún bò Huế sits on a table in the morning, filled with a savory mixture of sliced beef, chả lụa, and sometimes pork knuckles, served over a bed of thicker and cylindrical rice noodles. The aroma of lemongrass and shrimp paste wafts up, mingling with the sounds of a bustling Vietnamese market. As the morning sun streams in, the dish is ready to be devoured, its spicy, salty, and savory flavors a perfect start to the day.",
+ "words_in": 13,
+ "words_out": 96,
+ "clip_tokens": 129,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bún bò Huế",
+   "in": "A steaming bowl of bun bo Hue on a table in the morning.",
+   "out_raw": "### Reefined Prompt: A steaming bowl of bún bò Huế sits on a table in the morning, filled with a savory mixture of sliced beef, chả lụa, and sometimes pork knuckles, served over a bed of thicker and cylindrical rice noodles. The aroma of lemongrass and shrimp paste wafts up, mingling with the sounds of a bustling Vietnamese market. As the morning sun streams in, the dish is ready to be devoured, its spicy, salty, and savory flavors a perfect start to the day. Note: I added additional details from the INFORMATION to provide a more vivid and accurate depiction of bún bò Huế, while maintaining the original scene described in the BASE PROMPT.",
+   "out": "Reefined Prompt: A steaming bowl of bún bò Huế sits on a table in the morning, filled with a savory mixture of sliced beef, chả lụa, and sometimes pork knuckles, served over a bed of thicker and cylindrical rice noodles. The aroma of lemongrass and shrimp paste wafts up, mingling with the sounds of a bustling Vietnamese market. As the morning sun streams in, the dish is ready to be devoured, its spicy, salty, and savory flavors a perfect start to the day.",
+   "words_raw": 114,
+   "words": 83,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 8.0,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 8.0
+}

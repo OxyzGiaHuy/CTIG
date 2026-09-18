@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C024",
+ "sig": "f8743d110508",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.9,
+ "prompt_en": "A potter shapes a vase on a wheel, an old multi-chambered brick dragon kiln behind.",
+ "culture_nouns": [
+  "làm gốm",
+  "lò bầu gạch cổ"
+ ],
+ "refined_prompt": "A potter shapes a vase on a wheel, an old multi-chambered brick dragon kiln behind. In the heart of Bát Tràng village, a skilled potter meticulously crafts a delicate vase on a traditional pottery wheel. Bát Tràng is renowned for its rich heritage in Vietnamese pottery. Behind the potter stands an ancient, multi-chambered brick dragon kiln, known as \"lò bầu gạch cổ,\" symbolizing centuries of pottery-making traditions. This traditional kiln, constructed over a hundred years ago, is a testament to the village's dedication to preserving ancient techniques. It is made of bricks arranged in a dragon-like structure, designed to efficiently control the heat during the firing process, which contributes to the unique beauty and durability of the pottery. The workshop walls are decorated with intricate patterns and family crests, reflecting the rich history and cultural heritage of Vietnamese pottery. The potter's skilled hands move gracefully, transforming clay into art, embodying the pride and legacy of Vietnamese craftsmanship. This scene is captured in the Bát Tràng Pottery Museum in Hanoi, where visitors can admire similar intricate vases and learn about the cultural significance of each piece, understanding how the traditional kiln's craftsmanship contributes to the distinctive beauty and durability of the pottery.",
+ "words_in": 15,
+ "words_out": 201,
+ "clip_tokens": 271,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "làm gốm",
+   "in": "A potter shapes a vase on a wheel, an old multi-chambered brick dragon kiln behind.",
+   "out_raw": "### Refined Prompt: A skilled potter meticulously shapes a delicate vase on a traditional pottery wheel in the Bát Tràng village, a renowned center for Vietnamese pottery. Behind the potter, an old, multi-chambered brick dragon kiln stands as a testament to centuries of pottery-making traditions. The workshop walls are adorned with intricate patterns and family crests, reflecting the rich history and cultural heritage of Vietnamese pottery. This scene captures the essence of Bát Tràng’s pottery techniques, which are celebrated in the Bát Tràng Pottery Museum in Hanoi, where visitors can see similar intricate vases and learn about the cultural significance of each piece. The potter’s hands move gracefully, transforming clay into art, embodying the legacy and pride of Vietnamese craftsmanship. **New SCORE:** - **Clarity:** 9.5 - **Visual_detail:** 8.5 - **Background:** 9.0 - **Purpose:** 8.0 - **Comparable_object:** 7.5 - **Total_score:** 42.5 ### Summary: The refined prompt provides a richer, more detailed description of the scene, enhancing the visual and cultural elements while making the purpose clearer and more relevant. It vividly depicts the traditional craft of pottery-making in Bát Tràng village and connects it to the cultural significance recognized in the Bát Tràng Pottery Museum in Hanoi.",
+   "out": "A skilled potter meticulously shapes a delicate vase on a traditional pottery wheel in the Bát Tràng village, a renowned center for Vietnamese pottery. Behind the potter, an old, multi-chambered brick dragon kiln stands as a testament to centuries of pottery-making traditions. The workshop walls are adorned with intricate patterns and family crests, reflecting the rich history and cultural heritage of Vietnamese pottery. This scene captures the essence of Bát Tràng’s pottery techniques, which are celebrated in the Bát Tràng Pottery Museum in Hanoi, where visitors can see similar intricate vases and learn about the cultural significance of each piece. The potter’s hands move gracefully, transforming clay into art, embodying the legacy and pride of Vietnamese craftsmanship. New",
+   "words_raw": 196,
+   "words": 118,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 65.7,
+   "scene_keep_raw": 1.0
+  },
+  {
+   "culture_noun": "lò bầu gạch cổ",
+   "in": "A skilled potter meticulously shapes a delicate vase on a traditional pottery wheel in the Bát Tràng village, a renowned center for Vietnamese pottery. Behind the potter, an old, multi-chambered brick dragon kiln stands as a testament to centuries of pottery-making traditions. The workshop walls are adorned with intricate patterns and family crests, reflecting the rich history and cultural heritage of Vietnamese pottery. This scene captures the essence of Bát Tràng’s pottery techniques, which are celebrated in the Bát Tràng Pottery Museum in Hanoi, where visitors can see similar intricate vases and learn about the cultural significance of each piece. The potter’s hands move gracefully, transforming clay into art, embodying the legacy and pride of Vietnamese craftsmanship. New",
+   "out_raw": "### REFINED PROMPT: In the heart of Bát Tràng village, a skilled potter meticulously crafts a delicate vase on a traditional pottery wheel. Bát Tràng is renowned for its rich heritage in Vietnamese pottery. Behind the potter stands an ancient, multi-chambered brick dragon kiln, known as \"lò bầu gạch cổ,\" symbolizing centuries of pottery-making traditions. This traditional kiln, constructed over a hundred years ago, is a testament to the village's dedication to preserving ancient techniques. It is made of bricks arranged in a dragon-like structure, designed to efficiently control the heat during the firing process, which contributes to the unique beauty and durability of the pottery. The workshop walls are decorated with intricate patterns and family crests, reflecting the rich history and cultural heritage of Vietnamese pottery. The potter's skilled hands move gracefully, transforming clay into art, embodying the pride and legacy of Vietnamese craftsmanship. This scene is captured in the Bát Tràng Pottery Museum in Hanoi, where visitors can admire similar intricate vases and learn about the cultural significance of each piece, understanding how the traditional kiln's craftsmanship contributes to the distinctive beauty and durability of the pottery. --- This refined prompt clearly explains the term \"lò bầu gạch cổ,\" provides detailed context about its historical and cultural significance, and enhances the visual imagery and background information about the pottery-making process in Bát Tràng village.",
+   "out": "In the heart of Bát Tràng village, a skilled potter meticulously crafts a delicate vase on a traditional pottery wheel. Bát Tràng is renowned for its rich heritage in Vietnamese pottery. Behind the potter stands an ancient, multi-chambered brick dragon kiln, known as \"lò bầu gạch cổ,\" symbolizing centuries of pottery-making traditions. This traditional kiln, constructed over a hundred years ago, is a testament to the village's dedication to preserving ancient techniques. It is made of bricks arranged in a dragon-like structure, designed to efficiently control the heat during the firing process, which contributes to the unique beauty and durability of the pottery. The workshop walls are decorated with intricate patterns and family crests, reflecting the rich history and cultural heritage of Vietnamese pottery. The potter's skilled hands move gracefully, transforming clay into art, embodying the pride and legacy of Vietnamese craftsmanship. This scene is captured in the Bát Tràng Pottery Museum in Hanoi, where visitors can admire similar intricate vases and learn about the cultural significance of each piece, understanding how the traditional kiln's craftsmanship contributes to the distinctive beauty and durability of the pottery.",
+   "words_raw": 226,
+   "words": 186,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 154.2,
+   "scene_keep_raw": 0.9
+  }
+ ],
+ "seconds": 219.9
+}

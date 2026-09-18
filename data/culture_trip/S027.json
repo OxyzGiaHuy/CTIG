@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S027",
+ "sig": "c80021f91ab0",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A steaming bowl of bun bo Hue on a table in the morning.",
+ "culture_nouns": [
+  "bún bò Huế"
+ ],
+ "refined_prompt": "A steaming bowl of bun bo Hue on a table in the morning. A steaming bowl of bún bò Huế sits invitingly on a table in the morning, its rich flavors and unique combination of ingredients making it a standout among Vietnamese noodle soups. Chả lụa, a type of pork sausage, and thinly sliced pork, are key ingredients in this dish. Visual Description: The bowl is filled with thick, cylindrical rice noodles, perfectly complemented by slices of tender raw beef and chả lụa. Garnished with fresh herbs like cilantro and basil, and lime slices, the dish is a feast for the eyes, with vibrant green herbs and red slices of raw beef contrasting against the deep reddish-brown broth infused with lemongrass and shrimp paste. Key Ingredients and Flavors: The dish features a unique mix of textures and flavors, with the noodles being thicker and more robust compared to other Vietnamese noodle soups like phở or bún riêu. The broth, a deep reddish-brown color, is rich and flavorful, offering a unique combination of spices and ingredients that create a memorable culinary experience. Cultural Significance: Unlike other noodle soups, bún bò Huế is deeply rooted in the cultural and historical significance of Huế, a city known for its royal culinary traditions and former status as the imperial capital of Vietnam. The dish reflects the careful preparation methods and intricate flavor profiles that are characteristic of Huế’s royal cuisine. This makes bún bò Huế not just a meal but a symbol of Huế’s rich culinary heritage.",
+ "words_in": 13,
+ "words_out": 253,
+ "clip_tokens": 341,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bún bò Huế",
+   "in": "A steaming bowl of bun bo Hue on a table in the morning.",
+   "out_raw": "### Revised Refined Prompt for Bún Bò Huế **Introduction:** A steaming bowl of bún bò Huế sits invitingly on a table in the morning, its rich flavors and unique combination of ingredients making it a standout among Vietnamese noodle soups. Chả lụa, a type of pork sausage, and thinly sliced pork, are key ingredients in this dish. **Visual Description:** The bowl is filled with thick, cylindrical rice noodles, perfectly complemented by slices of tender raw beef and chả lụa. Garnished with fresh herbs like cilantro and basil, and lime slices, the dish is a feast for the eyes, with vibrant green herbs and red slices of raw beef contrasting against the deep reddish-brown broth infused with lemongrass and shrimp paste. **Key Ingredients and Flavors:** The dish features a unique mix of textures and flavors, with the noodles being thicker and more robust compared to other Vietnamese noodle soups like phở or bún riêu. The broth, a deep reddish-brown color, is rich and flavorful, offering a unique combination of spices and ingredients that create a memorable culinary experience. **Cultural Significance:** Unlike other noodle soups, bún bò Huế is deeply rooted in the cultural and historical significance of Huế, a city known for its royal culinary traditions and former status as the imperial capital of Vietnam. The dish reflects the careful preparation methods and intricate flavor profiles that are characteristic of Huế’s royal cuisine. This makes bún bò Huế not just a meal but a symbol of Huế’s rich culinary heritage. **Purpose:** Bún bò Huế is often served during special occasions and is enjoyed for its unique combination of textures and flavors, making it a cherished part of Huế’s culinary landscape. It is also a popular choice for everyday dining among locals, bridging the traditions of the royal court with the tastes of modern-day Huế. **Comparison with Other Noodles:** Unlike phở, which is known for its simpler preparation and beef broth, bún bò Huế stands out for its complex and robust broth, the interplay of beef and pork, and its intricate preparation method. Additionally, bún bò Huế differs from bún riêu, which is a tomato-based soup with crab, and mi quang, a noodle soup with yellow rice noodles and pork, in its distinct combination of ingredients and flavor profile. This makes bún bò Huế a must-try for anyone interested in the diverse and rich culinary heritage of Vietnam. --- By incorporating these details, the revised prompt provides a comprehensive and engaging description of bún bò Huế, enhancing the overall understanding and appreciation of this unique dish.",
+   "out": "A steaming bowl of bún bò Huế sits invitingly on a table in the morning, its rich flavors and unique combination of ingredients making it a standout among Vietnamese noodle soups. Chả lụa, a type of pork sausage, and thinly sliced pork, are key ingredients in this dish. Visual Description: The bowl is filled with thick, cylindrical rice noodles, perfectly complemented by slices of tender raw beef and chả lụa. Garnished with fresh herbs like cilantro and basil, and lime slices, the dish is a feast for the eyes, with vibrant green herbs and red slices of raw beef contrasting against the deep reddish-brown broth infused with lemongrass and shrimp paste. Key Ingredients and Flavors: The dish features a unique mix of textures and flavors, with the noodles being thicker and more robust compared to other Vietnamese noodle soups like phở or bún riêu. The broth, a deep reddish-brown color, is rich and flavorful, offering a unique combination of spices and ingredients that create a memorable culinary experience. Cultural Significance: Unlike other noodle soups, bún bò Huế is deeply rooted in the cultural and historical significance of Huế, a city known for its royal culinary traditions and former status as the imperial capital of Vietnam. The dish reflects the careful preparation methods and intricate flavor profiles that are characteristic of Huế’s royal cuisine. This makes bún bò Huế not just a meal but a symbol of Huế’s rich culinary heritage.",
+   "words_raw": 424,
+   "words": 240,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 619.6,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 619.6
+}

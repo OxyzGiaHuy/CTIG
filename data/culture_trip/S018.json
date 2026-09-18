@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S018",
+ "sig": "a6de97edd606",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.86,
+ "prompt_en": "A Central Highlands gong ensemble performing around a fire.",
+ "culture_nouns": [
+  "cồng chiêng Tây Nguyên"
+ ],
+ "refined_prompt": "A Central Highlands gong ensemble performing around a fire. A Central Highlands gong ensemble performs around a crackling fire during the annual Gong Culture Festival, celebrating the rich spiritual and cultural heritage of the region. The gongs, each representing a sacred deity, emit a resonant melody that echoes through the mountainous landscape, symbolizing unity and community. The musicians, dressed in vibrant traditional attire, gather in a longhouse or stilt house, playing their gongs in a circular formation. The scene is a testament to an ancient tradition that dates back centuries, emphasizing the enduring importance of gong culture for the communities in the Central Highlands. The gong ensemble serves multiple purposes, including rites of passage, ancestral worship, and community bonding, reflecting the deep spiritual and cultural significance of gongs in the region. Just as the fire serves as the focal point for the community, the gong ensemble acts as the heart of the Central Highlands, uniting people from various ethnic groups such as the Rade, Jarai, Bahnar, Mạ, and Lạch in a shared cultural experience.",
+ "words_in": 9,
+ "words_out": 174,
+ "clip_tokens": 234,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cồng chiêng Tây Nguyên",
+   "in": "A Central Highlands gong ensemble performing around a fire.",
+   "out_raw": "### Refined Prompt: A Central Highlands gong ensemble performs around a crackling fire during the annual Gong Culture Festival, celebrating the rich spiritual and cultural heritage of the region. The gongs, each representing a sacred deity, emit a resonant melody that echoes through the mountainous landscape, symbolizing unity and community. The musicians, dressed in vibrant traditional attire, gather in a longhouse or stilt house, playing their gongs in a circular formation. The scene is a testament to an ancient tradition that dates back centuries, emphasizing the enduring importance of gong culture for the communities in the Central Highlands. The gong ensemble serves multiple purposes, including rites of passage, ancestral worship, and community bonding, reflecting the deep spiritual and cultural significance of gongs in the region. Just as the fire serves as the focal point for the community, the gong ensemble acts as the heart of the Central Highlands, uniting people from various ethnic groups such as the Rade, Jarai, Bahnar, Mạ, and Lạch in a shared cultural experience. ### Explanation: This refined prompt maintains the core imagery of a gong ensemble performing around a fire while providing extensive detail about the cultural and spiritual significance of the gong culture. It elaborates on the sensory and visual elements of the scene, such as the sounds of the gongs and the attire of the musicians, to paint a vivid picture. The prompt also adds a historical context and emphasizes the multifaceted roles of the gong ensemble, making it clear that the gong culture serves as a central element in the community's traditions and daily life. The comparison to the fire as the heart of the community underscores the pivotal role of the gong ensemble in fostering unity and cultural identity among the diverse ethnic groups of the Central Highlands.",
+   "out": "A Central Highlands gong ensemble performs around a crackling fire during the annual Gong Culture Festival, celebrating the rich spiritual and cultural heritage of the region. The gongs, each representing a sacred deity, emit a resonant melody that echoes through the mountainous landscape, symbolizing unity and community. The musicians, dressed in vibrant traditional attire, gather in a longhouse or stilt house, playing their gongs in a circular formation. The scene is a testament to an ancient tradition that dates back centuries, emphasizing the enduring importance of gong culture for the communities in the Central Highlands. The gong ensemble serves multiple purposes, including rites of passage, ancestral worship, and community bonding, reflecting the deep spiritual and cultural significance of gongs in the region. Just as the fire serves as the focal point for the community, the gong ensemble acts as the heart of the Central Highlands, uniting people from various ethnic groups such as the Rade, Jarai, Bahnar, Mạ, and Lạch in a shared cultural experience.",
+   "words_raw": 297,
+   "words": 165,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 496.1,
+   "scene_keep_raw": 0.86
+  }
+ ],
+ "seconds": 496.1
+}

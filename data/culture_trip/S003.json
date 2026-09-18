@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S003",
+ "sig": "3c3b2f49f1d3",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A steaming bowl of beef pho on a wooden table.",
+ "culture_nouns": [
+  "phở bò"
+ ],
+ "refined_prompt": "A steaming bowl of beef pho on a wooden table. A steaming bowl of beef pho is set on a rustic wooden table, inviting diners with its clear, flavorful broth enriched with star anise, cinnamon, and cloves, along with wide rice noodles, tender slices of beef, and garnished with fresh basil, bean sprouts, and cilantro. The soft, chewy texture of the wide rice noodles contrasts beautifully with the tender beef, and the gentle sound of the broth bubbling adds to the sensory experience. Originating in the early 20th century as a street food in Nam Định, Vietnam, phở bò has become a beloved culinary tradition, cherished for its rich cultural heritage and the emotional connections it fosters among Vietnamese people. Unlike other noodle soups, phở bò's unique blend of flavors, herbs, and cultural significance sets it apart as a singular culinary experience, inviting patrons to savor both its taste and the stories it carries. Revised Total",
+ "words_in": 10,
+ "words_out": 156,
+ "clip_tokens": 210,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "phở bò",
+   "in": "A steaming bowl of beef pho on a wooden table.",
+   "out_raw": "### Revised Refined Prompt: A steaming bowl of beef pho is set on a rustic wooden table, inviting diners with its clear, flavorful broth enriched with star anise, cinnamon, and cloves, along with wide rice noodles, tender slices of beef, and garnished with fresh basil, bean sprouts, and cilantro. The soft, chewy texture of the wide rice noodles contrasts beautifully with the tender beef, and the gentle sound of the broth bubbling adds to the sensory experience. Originating in the early 20th century as a street food in Nam Định, Vietnam, phở bò has become a beloved culinary tradition, cherished for its rich cultural heritage and the emotional connections it fosters among Vietnamese people. Unlike other noodle soups, phở bò's unique blend of flavors, herbs, and cultural significance sets it apart as a singular culinary experience, inviting patrons to savor both its taste and the stories it carries. **Revised Total Score:** - Clarity: 9.5 - Visual_detail: 9.5 - Background: 9.0 - Purpose: 8.0 - Comparable_object: 7.0 - Total_score: 43.0 This revised prompt enhances the clarity, visual detail, and background information, making it easier for someone unfamiliar with phở bò to understand and appreciate its cultural and culinary importance.",
+   "out": "A steaming bowl of beef pho is set on a rustic wooden table, inviting diners with its clear, flavorful broth enriched with star anise, cinnamon, and cloves, along with wide rice noodles, tender slices of beef, and garnished with fresh basil, bean sprouts, and cilantro. The soft, chewy texture of the wide rice noodles contrasts beautifully with the tender beef, and the gentle sound of the broth bubbling adds to the sensory experience. Originating in the early 20th century as a street food in Nam Định, Vietnam, phở bò has become a beloved culinary tradition, cherished for its rich cultural heritage and the emotional connections it fosters among Vietnamese people. Unlike other noodle soups, phở bò's unique blend of flavors, herbs, and cultural significance sets it apart as a singular culinary experience, inviting patrons to savor both its taste and the stories it carries. Revised Total",
+   "words_raw": 198,
+   "words": 146,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 361.7,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 361.7
+}

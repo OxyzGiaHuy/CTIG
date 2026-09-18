@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S008",
+ "sig": "8fae6afafcc3",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.75,
+ "prompt_en": "Hoi An ancient town at night, silk lanterns along ochre walls.",
+ "culture_nouns": [
+  "phố cổ Hội An"
+ ],
+ "refined_prompt": "Hoi An ancient town at night, silk lanterns along ochre walls. A serene and enchanting scene of Hoi An at night, showcasing its historical and cultural significance. The narrow, winding streets are lined with ochre-colored walls and historic houses adorned with intricate wooden carvings. Silk lanterns in vibrant hues of red, yellow, and orange hang from rooftops, casting a warm, flickering glow on the cobblestone pathways. The Japanese Bridge stands prominently, symbolizing cultural and historical exchanges. During the Lantern Festival, lanterns are released into the river, symbolizing the town's enduring cultural heritage and welcoming spirit. The sounds of the river and the scent of incense and fresh food create an immersive, tranquil atmosphere.",
+ "words_in": 11,
+ "words_out": 113,
+ "clip_tokens": 152,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "phố cổ Hội An",
+   "in": "Hoi An ancient town at night, silk lanterns along ochre walls.",
+   "out_raw": "### Revised Refined Prompt This description aims to capture the serene and enchanting atmosphere of Hoi An at night, emphasizing its historical and cultural significance. Hoi An ancient town is a UNESCO World Heritage Site, showcasing its vibrant trading history from the 15th to the 19th century. The town is renowned for its narrow, winding streets lined with ochre-colored walls and historic houses adorned with intricate wooden carvings and traditional architecture. Silk lanterns in vibrant hues of red, yellow, and orange hang from the rooftops and overhanging eaves, casting a warm, flickering glow on the cobblestone pathways. The Japanese Bridge stands prominently at the heart of the town, a testament to the cultural and historical exchanges that shaped Hoi An. During the full moon, Hoi An hosts the famous Lantern Festival, where locals and tourists alike release lanterns into the river, symbolizing the town's enduring cultural heritage and welcoming spirit. The sounds of the river flowing gently and the scent of incense and fresh food create an immersive experience that contrasts the bustling modern cities of today. Comparing Hoi An's Lantern Festival to Kyoto's Gion Festival or Venice's Carnevale highlights the unique cultural significance and charm of this ancient Vietnamese trading town.",
+   "out": "A serene and enchanting scene of Hoi An at night, showcasing its historical and cultural significance. The narrow, winding streets are lined with ochre-colored walls and historic houses adorned with intricate wooden carvings. Silk lanterns in vibrant hues of red, yellow, and orange hang from rooftops, casting a warm, flickering glow on the cobblestone pathways. The Japanese Bridge stands prominently, symbolizing cultural and historical exchanges. During the Lantern Festival, lanterns are released into the river, symbolizing the town's enduring cultural heritage and welcoming spirit. The sounds of the river and the scent of incense and fresh food create an immersive, tranquil atmosphere.",
+   "words_raw": 202,
+   "words": 102,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 322.2,
+   "scene_keep_raw": 0.75
+  }
+ ],
+ "seconds": 322.2
+}

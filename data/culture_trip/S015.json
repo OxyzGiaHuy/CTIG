@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S015",
+ "sig": "375cc996eb9f",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A floating market at dawn, fruit boats with sample poles.",
+ "culture_nouns": [
+  "chợ nổi"
+ ],
+ "refined_prompt": "A floating market at dawn, fruit boats with sample poles. At dawn, the Cái Răng Floating Market on the Cần Thơ River in Vietnam is bustling with activity. Fruit boats, each adorned with sample poles displaying a rainbow of fruits and vegetables, weave through the waterways like a vibrant bazaar on the river. The market, where vendors call out the freshness and variety of their goods, is not just a place of commerce but a lively social space where the community gathers to exchange goods, share stories, and maintain cultural traditions. The aroma of fresh produce, the vibrant colors of the fruits, and the sounds of cheerful chatter and business transactions create a lively atmosphere, reflecting the rich tapestry of Vietnamese life and heritage.",
+ "words_in": 10,
+ "words_out": 124,
+ "clip_tokens": 167,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "chợ nổi",
+   "in": "A floating market at dawn, fruit boats with sample poles.",
+   "out_raw": "### Revised Refined Prompt: At dawn, the Cái Răng Floating Market on the Cần Thơ River in Vietnam is bustling with activity. This unique market, which has been a crucial trading hub since the early 20th century, is an integral part of the local culture and a significant tourist attraction, recognized as a national intangible cultural heritage by the Vietnamese government. Fruit boats, each adorned with sample poles displaying a rainbow of fruits and vegetables, weave through the waterways like a vibrant bazaar on the river. The market, where vendors call out the freshness and variety of their goods, is not just a place of commerce but a lively social space where the community gathers to exchange goods, share stories, and maintain cultural traditions. The aroma of fresh produce, the vibrant colors of the fruits, and the sounds of cheerful chatter and business transactions create a lively atmosphere, reflecting the rich tapestry of Vietnamese life and heritage. ### Revised SCORE: - **Clarity:** 9.5/10 - **Visual_detail:** 8.5/10 - **Background:** 9.5/10 - **Purpose:** 9.0/10 - **Comparable_object:** 8.0/10 - **Total_score:** 44.5/50 This revised prompt enhances the reader's understanding and engagement by adding sensory details and highlighting the historical and cultural significance of the Cái Răng Floating Market.",
+   "out": "At dawn, the Cái Răng Floating Market on the Cần Thơ River in Vietnam is bustling with activity. Fruit boats, each adorned with sample poles displaying a rainbow of fruits and vegetables, weave through the waterways like a vibrant bazaar on the river. The market, where vendors call out the freshness and variety of their goods, is not just a place of commerce but a lively social space where the community gathers to exchange goods, share stories, and maintain cultural traditions. The aroma of fresh produce, the vibrant colors of the fruits, and the sounds of cheerful chatter and business transactions create a lively atmosphere, reflecting the rich tapestry of Vietnamese life and heritage.",
+   "words_raw": 204,
+   "words": 114,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 221.4,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 221.4
+}

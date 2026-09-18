@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S012",
+ "sig": "08709fe56d3b",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.78,
+ "prompt_en": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise.",
+ "culture_nouns": [
+  "chèo thuyền thúng"
+ ],
+ "refined_prompt": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise. In central Vietnam, as the sun rises over a picturesque beach, a fisherman paddles a traditional round basket boat made of woven bamboo, known locally as a \"thúng\". This boat is essential for fishing in shallow coastal waters. The morning air is filled with the scent of salt and fresh bamboo, as the fisherman’s paddle cuts through the calm water, creating ripples that disturb the morning mist. The thúng has been a staple in local festivals and daily life, symbolizing the resilience and ingenuity of the fishing community. Its light and maneuverable design allows fishermen to navigate the shallow coastal areas with ease, making it ideal for catching small fish and shrimp. Its compact size and agility also enable it to reach areas that larger boats cannot, maximizing the fisherman's catch and ensuring a sustainable livelihood for the community.",
+ "words_in": 14,
+ "words_out": 153,
+ "clip_tokens": 206,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "chèo thuyền thúng",
+   "in": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise.",
+   "out_raw": "### Revised Refined Prompt In central Vietnam, as the sun begins to rise over a picturesque beach, a fisherman paddles a traditional round basket boat made of woven bamboo, known locally as a \"thúng\". This boat is essential for fishing in shallow coastal waters. The morning air is filled with the scent of salt and fresh bamboo, as the fisherman’s paddle cuts through the calm water, creating ripples that disturb the morning mist. The thúng has been a staple in local festivals and daily life, symbolizing the resilience and ingenuity of the fishing community. Unlike heavier wooden fishing boats designed for deeper waters, the thúng’s light and maneuverable design allows fishermen to navigate the shallow coastal areas with ease, making it ideal for catching small fish and shrimp. Its compact size and agility also enable it to reach areas that larger boats cannot, maximizing the fisherman's catch and ensuring a sustainable livelihood for the community. ### Revised SCORE: - **Clarity:** 9.5 (Explanation simplified for clarity) - **Visual_detail:** 9.0 (Added sensory details for vivid imagery) - **Background:** 9.5 (Emphasized cultural impact and historical significance) - **Purpose:** 9.0 (Detailed comparison with other boats) - **Comparable_object:** 8.0 (Enhanced comparison highlighting unique advantages) - **Total_score:** 45.0 This revised prompt effectively captures the essence of \"chèo thuyền thúng,\" providing a clear, detailed, and culturally rich depiction of the traditional Vietnamese fishing method.",
+   "out": "In central Vietnam, as the sun rises over a picturesque beach, a fisherman paddles a traditional round basket boat made of woven bamboo, known locally as a \"thúng\". This boat is essential for fishing in shallow coastal waters. The morning air is filled with the scent of salt and fresh bamboo, as the fisherman’s paddle cuts through the calm water, creating ripples that disturb the morning mist. The thúng has been a staple in local festivals and daily life, symbolizing the resilience and ingenuity of the fishing community. Its light and maneuverable design allows fishermen to navigate the shallow coastal areas with ease, making it ideal for catching small fish and shrimp. Its compact size and agility also enable it to reach areas that larger boats cannot, maximizing the fisherman's catch and ensuring a sustainable livelihood for the community.",
+   "words_raw": 227,
+   "words": 139,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 467.2,
+   "scene_keep_raw": 0.78
+  }
+ ],
+ "seconds": 467.2
+}

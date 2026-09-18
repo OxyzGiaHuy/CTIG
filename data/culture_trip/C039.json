@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C039",
+ "sig": "1737ad27ccbb",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.27,
+ "prompt_en": "An elderly man in a traditional silk tunic and wrapped turban stands reading a ritual prayer text before a smoking ancestral altar.",
+ "culture_nouns": [
+  "áo the khăn xếp",
+  "đọc văn tế",
+  "bàn thờ gia tiên"
+ ],
+ "refined_prompt": "An elderly man in a traditional silk tunic and wrapped turban stands reading a ritual prayer text before a smoking ancestral altar. A traditional Vietnamese ritual called Đọc văn tế takes place during significant events such as Tết (the Lunar New Year) or death anniversaries. Families gather around the bàn thờ gia tiên, a dedicated family altar beautifully decorated with vibrant colors and intricate designs, featuring offerings of fresh flowers, traditional food, and incense sticks. Participants dress in traditional attire and recite ancestral prayers passed down through generations, creating a deeply reverent and peaceful atmosphere filled with the scent of incense and the sound of prayers.",
+ "words_in": 22,
+ "words_out": 106,
+ "clip_tokens": 143,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "áo the khăn xếp",
+   "in": "An elderly man in a traditional silk tunic and wrapped turban stands reading a ritual prayer text before a smoking ancestral altar.",
+   "out_raw": "### Revised Refined Prompt: The khăn xếp is a traditional Vietnamese head covering, similar to a turban, that has become a symbol of cultural heritage and respect, especially during ancestral rituals like Tết. Made by folding and coiling a long piece of cloth, the khăn xếp became popular during the Nguyễn lords' reign and is often worn with a silk tunic, known as an áo the. This turban is an essential part of Vietnamese cultural attire, worn during important rituals such as Tết and the death anniversary of loved ones. The khăn xếp, with its intricate patterns and vibrant colors, complements the smooth texture and traditional motifs of the áo the, creating a harmonious display of Vietnamese cultural attire. Its cultural significance lies in its role as a symbol of identity and respect, paying homage to one’s ancestors. ### Re-Scoring: - **Clarity:** 9.0 (Starts with clear definitions and cultural significance) - **Visual_detail:** 9.0 (Detailed descriptions remain vivid and engaging) - **Background:** 8.0 (Cohesive background information provided upfront) - **Purpose:** 9.0 (Explicitly states the khăn xếp's cultural and ritual significance) - **Comparable_object:** 7.0 (Comparison to a turban helps relate to the khăn xếp) - **Total_score:** 42.0 (Improved scores across the board, reflecting better structure and clarity)",
+   "out": "The khăn xếp is a traditional Vietnamese head covering, similar to a turban, that has become a symbol of cultural heritage and respect, especially during ancestral rituals like Tết. Made by folding and coiling a long piece of cloth, it became popular during the Nguyễn lords' reign and is often worn with a silk tunic, known as an áo the. This turban is an essential part of Vietnamese cultural attire, worn during important rituals such as Tết and the death anniversary of loved ones. The khăn xếp, with its intricate patterns and vibrant colors, complements the smooth texture and traditional motifs of the áo the, creating a harmonious display of Vietnamese cultural attire. Its cultural significance lies in its role as a symbol of identity and respect, paying homage to one’s ancestors.",
+   "words_raw": 205,
+   "words": 132,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 143.8,
+   "scene_keep_raw": 0.33
+  },
+  {
+   "culture_noun": "đọc văn tế",
+   "in": "The khăn xếp is a traditional Vietnamese head covering, similar to a turban, that has become a symbol of cultural heritage and respect, especially during ancestral rituals like Tết. Made by folding and coiling a long piece of cloth, it became popular during the Nguyễn lords' reign and is often worn with a silk tunic, known as an áo the. This turban is an essential part of Vietnamese cultural attire, worn during important rituals such as Tết and the death anniversary of loved ones. The khăn xếp, with its intricate patterns and vibrant colors, complements the smooth texture and traditional motifs of the áo the, creating a harmonious display of Vietnamese cultural attire. Its cultural significance lies in its role as a symbol of identity and respect, paying homage to one’s ancestors.",
+   "out_raw": "### Revised Refined Prompt **Đọc văn tế** is a traditional Vietnamese ritual where people recite or chant ancestral prayers during significant events such as Tết or death anniversaries. This practice is deeply rooted in the cultural value of filial piety, emphasizing respect and remembrance for one's ancestors. **Setting and Participants:** During Đọc văn tế, participants gather at temples or family altars, dressed in traditional attire such as khăn xếp (a traditional Vietnamese headscarf) and áo dài (a traditional Vietnamese long dress). The serene and reverent atmosphere is filled with the soft sound of chanting and the sweet scent of incense. **Altar and Offerings:** The altar is beautifully decorated with vibrant colors and intricate designs, featuring offerings of fresh flowers like lotus or orchids, trays of traditional food such as bánh chưng (a traditional Vietnamese sticky rice cake), and incense sticks. The altar setup is an essential part of the ritual, symbolizing the connection between the living and their ancestors. **Prayers and Hymns:** The recitation of ancestral prayers in Đọc văn tế includes specific texts and hymns that vary by family and region, often passed down through generations. Participants recite these prayers with reverence, honoring and connecting with the spirits of past family members. **Historical and Cultural Significance:** Historically, the practice of Đọc văn tế has been influenced by various cultural and religious traditions, evolving over centuries to become a cornerstone of Vietnamese culture. The ritual often includes offerings of food, flowers, and incense, as well as specific gestures and prayers that vary by region and family tradition. **Purpose and Impact:** Participants may experience a sense of peace, continuity, and connection with their ancestors, fostering a deeper understanding and appreciation of their cultural roots. The purpose of Đọc văn tế is to honor and remember ancestors while strengthening familial bonds and preserving cultural heritage. **Comparative Analysis:** Comparable rituals found in other cultures, such as the Japanese Obon festival and the Chinese Qingming festival, highlight the universal human practice of honoring ancestors but also underscore the unique characteristics of Đọc văn tế in its expression and significance within Vietnamese society. While the Obon festival in Japan involves lanterns and dancing, Đọc văn tế focuses more on the recitation of ancestral prayers and the presentation of offerings in a more solemn setting.",
+   "out": "A traditional Vietnamese ritual called Đọc văn tế takes place during significant events such as Tết or death anniversaries. Participants gather at temples or family altars, dressed in traditional attire, in a serene and reverent atmosphere filled with the soft sound of chanting and the sweet scent of incense. The altar is beautifully decorated with vibrant colors and intricate designs, featuring offerings of fresh flowers, traditional food, and incense sticks. The recitation of ancestral prayers, passed down through generations, is an essential part of the ritual, symbolizing the connection between the living and their ancestors. Historically influenced by various cultural and religious traditions, Đọc văn tế is a cornerstone of Vietnamese culture, fostering a sense of peace, continuity, and connection with ancestors while strengthening familial bonds and preserving cultural heritage.",
+   "words_raw": 379,
+   "words": 130,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 235.3,
+   "scene_keep_raw": 0.27
+  },
+  {
+   "culture_noun": "bàn thờ gia tiên",
+   "in": "A traditional Vietnamese ritual called Đọc văn tế takes place during significant events such as Tết or death anniversaries. Participants gather at temples or family altars, dressed in traditional attire, in a serene and reverent atmosphere filled with the soft sound of chanting and the sweet scent of incense. The altar is beautifully decorated with vibrant colors and intricate designs, featuring offerings of fresh flowers, traditional food, and incense sticks. The recitation of ancestral prayers, passed down through generations, is an essential part of the ritual, symbolizing the connection between the living and their ancestors. Historically influenced by various cultural and religious traditions, Đọc văn tế is a cornerstone of Vietnamese culture, fostering a sense of peace, continuity, and connection with ancestors while strengthening familial bonds and preserving cultural heritage.",
+   "out_raw": "### Refined Prompt: A traditional Vietnamese ritual called Đọc văn tế takes place during significant events such as Tết (the Lunar New Year) or death anniversaries. In Vietnamese homes, families gather around the family altar, known as bàn thờ gia tiên, which is a dedicated space for honoring ancestors. The altar is typically placed in a prominent location in the home and is beautifully decorated with vibrant colors and intricate designs, featuring offerings of fresh flowers, traditional food, and incense sticks. Participants dress in traditional attire and recite ancestral prayers, which are passed down through generations, creating a deeply reverent and peaceful atmosphere. The scent of incense fills the air, and the sound of prayers being recited adds to the solemnity of the occasion. Historically influenced by various cultural and religious traditions, such as Confucianism and Buddhism, Đọc văn tế is a cornerstone of Vietnamese culture. This ritual fosters a strong connection between the living and their ancestors, reinforcing family values and collective memory, and it is akin to practices in other Asian cultures like Japanese Shinto or Chinese Taoist traditions, but uniquely emphasizes filial piety and the importance of preserving cultural heritage. ### Explanation: The refined prompt provides a vivid and detailed description of the bàn thờ gia tiên, including its placement, decorations, and the offerings made during the Đọc văn tế ritual. It also emphasizes the cultural and historical context, the emotional and spiritual significance of the practice, and its comparison to similar rituals in other Asian cultures, making it accessible and engaging for readers unfamiliar with Vietnamese traditions.",
+   "out": "A traditional Vietnamese ritual called Đọc văn tế takes place during significant events such as Tết (the Lunar New Year) or death anniversaries. Families gather around the bàn thờ gia tiên, a dedicated family altar beautifully decorated with vibrant colors and intricate designs, featuring offerings of fresh flowers, traditional food, and incense sticks. Participants dress in traditional attire and recite ancestral prayers passed down through generations, creating a deeply reverent and peaceful atmosphere filled with the scent of incense and the sound of prayers.",
+   "words_raw": 261,
+   "words": 84,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 104.4,
+   "scene_keep_raw": 0.27
+  }
+ ],
+ "seconds": 483.5
+}

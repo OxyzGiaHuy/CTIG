@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S035",
+ "sig": "e959b08f25cb",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "An elderly man in a traditional gown and turban reading a ritual text before an altar.",
+ "culture_nouns": [
+  "đọc văn tế"
+ ],
+ "refined_prompt": "An elderly man in a traditional gown and turban reading a ritual text before an altar. An elderly man in a traditional Vietnamese gown and turban is reading a ritual text, known as \"đọc văn tế,\" before an altar adorned with offerings and incense. The text is a prayer to ancestors and deities for protection and prosperity. The scene takes place in a quiet, traditional Vietnamese home, where specific offerings such as fruits, tea, and rice are displayed, illustrating the cultural and historical significance of the ritual. The man's careful and respectful demeanor reflects the cultural importance of this ceremony.",
+ "words_in": 16,
+ "words_out": 100,
+ "clip_tokens": 135,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "đọc văn tế",
+   "in": "An elderly man in a traditional gown and turban reading a ritual text before an altar.",
+   "out_raw": "### Revised Refined Prompt: An elderly man in a traditional Vietnamese gown and turban is reading a ritual text, known as \"đọc văn tế,\" before an altar adorned with offerings and incense. The text, written in classical Vietnamese script, is a prayer to ancestors and deities for protection and prosperity. The scene takes place in a quiet, traditional Vietnamese home, where the practice of reading ritual texts is an important part of honoring ancestors and celebrating religious occasions. This custom has roots in ancient Vietnamese traditions and has evolved to include both historical and contemporary elements. The description of specific offerings, such as fruits, tea, and rice, helps illustrate the cultural and historical significance of the ritual. The man's careful and respectful demeanor reflects the cultural importance of this ceremony, which is similar to the Japanese Shinto ritual of \"norito,\" where sacred words are recited to commune with divine spirits. ### Explanation: - **Contextual Details:** The prompt includes the specific context of the ritual text being a prayer for protection and prosperity, and mentions the cultural significance of reading \"đọc văn tế\" in honoring ancestors and celebrating religious occasions. - **Visual Detail:** Specific offerings (fruits, tea, and rice) are mentioned, providing clear visual cues for readers. - **Cultural Significance:** Historical roots and evolution of the practice are highlighted, giving a deeper understanding of its cultural importance. - **Purpose:** The specific purpose of the ritual (praying for protection and prosperity) is clearly stated. - **Comparable Object:** A reference to the Japanese Shinto ritual of \"norito\" is included, offering a point of cultural comparison. ### Revised SCORE: - **Clarity:** 9.5 - **Visual_detail:** 9.0 - **Background:** 9.5 - **Purpose:** 8.5 - **Comparable_object:** 8.0 - **Total_score:** 44.5 This refined prompt ensures that readers unfamiliar with the practice of \"đọc văn tế\" can visualize and understand the cultural significance of the ritual, while also providing historical context and a comparative cultural reference.",
+   "out": "An elderly man in a traditional Vietnamese gown and turban is reading a ritual text, known as \"đọc văn tế,\" before an altar adorned with offerings and incense. The text is a prayer to ancestors and deities for protection and prosperity. The scene takes place in a quiet, traditional Vietnamese home, where specific offerings such as fruits, tea, and rice are displayed, illustrating the cultural and historical significance of the ritual. The man's careful and respectful demeanor reflects the cultural importance of this ceremony.",
+   "words_raw": 317,
+   "words": 84,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 164.9,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 164.9
+}

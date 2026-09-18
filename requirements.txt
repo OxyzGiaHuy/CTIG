@@ -1,0 +1,8 @@
+torch>=2.6
+transformers>=4.51
+diffusers>=0.32
+accelerate
+compel>=2.0
+pillow
+numpy
+huggingface_hub

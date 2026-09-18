@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S049",
+ "sig": "2e08bcfe198a",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "An elderly man in a traditional silk tunic and wrapped turban stands in a house yard.",
+ "culture_nouns": [
+  "áo the khăn xếp"
+ ],
+ "refined_prompt": "An elderly man in a traditional silk tunic and wrapped turban stands in a house yard. An elderly man in a traditional silk tunic stands in a house yard. He is wearing a wrapped turban, known as an \"áo the khăn xếp,\" symbolizing high social status and respect. The khăn xếp, made from silk or cotton with intricate patterns and vibrant colors, reflects his social standing and cultural heritage. This wrapped turban is an essential part of Vietnamese cultural heritage, distinct from other headwear in Southeast Asia, and holds a special place signifying tradition, honor, and respect for one's heritage during solemn and joyous occasions.",
+ "words_in": 16,
+ "words_out": 105,
+ "clip_tokens": 141,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "áo the khăn xếp",
+   "in": "An elderly man in a traditional silk tunic and wrapped turban stands in a house yard.",
+   "out_raw": "### Revised Prompt: An elderly man in a traditional silk tunic stands in a house yard. He is wearing a wrapped turban, known as an \"áo the khăn xếp,\" which symbolizes high social status and respect. The khăn xếp is made by coiling a long piece of cloth around the head and is traditionally worn during important ceremonies, such as weddings or religious festivals. It is often crafted from silk or cotton and can be adorned with intricate patterns and vibrant colors, reflecting the wearer's social standing and cultural heritage. For instance, a khăn xếp might feature elaborate embroidery, subtle elegant designs, or vibrant hues depending on the occasion and the region. This wrapped turban is an essential part of Vietnamese cultural heritage, distinct from other headwear in Southeast Asia, such as the sampot of Cambodia or the turban of Laos, each with its own unique design and cultural significance. The khăn xếp holds a special place in Vietnamese culture, signifying tradition, honor, and respect for one's heritage, and is an integral element during solemn and joyous occasions. ### Explanation: - **Clarity:** The term \"áo the khăn xếp\" is explained, making it accessible for those unfamiliar with Vietnamese culture. - **Visual Detail:** Specific details about the texture, patterns, and colors of the khăn xếp are provided to enhance the mental image. - **Background:** The historical and cultural significance of the khăn xếp is maintained and expanded upon. - **Purpose:** The significance of the khăn xếp in various ceremonies and its role in displaying social status and cultural heritage are clearly stated. - **Comparable Object:** A more detailed comparison to headwear from neighboring countries highlights specific cultural and design differences. This revised prompt ensures that readers unfamiliar with Vietnamese culture can understand and visualize the traditional attire and its cultural significance.",
+   "out": "An elderly man in a traditional silk tunic stands in a house yard. He is wearing a wrapped turban, known as an \"áo the khăn xếp,\" symbolizing high social status and respect. The khăn xếp, made from silk or cotton with intricate patterns and vibrant colors, reflects his social standing and cultural heritage. This wrapped turban is an essential part of Vietnamese cultural heritage, distinct from other headwear in Southeast Asia, and holds a special place signifying tradition, honor, and respect for one's heritage during solemn and joyous occasions.",
+   "words_raw": 300,
+   "words": 89,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 374.6,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 374.6
+}

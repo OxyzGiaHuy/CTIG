@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C050",
+ "sig": "e40849361ead",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.12,
+ "prompt_en": "A Mid-Autumn festival tray with a golden-brown baked mooncake stamped with a decorative pattern, cut in half to reveal its mixed filling around a salted egg yolk.",
+ "culture_nouns": [
+  "mâm cỗ Trung Thu",
+  "bánh nướng"
+ ],
+ "refined_prompt": "A Mid-Autumn festival tray with a golden-brown baked mooncake stamped with a decorative pattern, cut in half to reveal its mixed filling around a salted egg yolk. A vibrant street food market in Ho Chi Minh City, Vietnam, is bustling with the smell of grilling and the chatter of people enjoying a delicious snack. Along the market stalls, various types of bánh tráng nướng are being prepared right in front of you. A vendor grills a large, round rice paper with sesame seeds and egg, while another prepares a version with ground pork and dried shrimp, sprinkled with fried shallots and a drizzle of scallion oil. The finished bánh tráng nướng is crispy and golden, with a golden-brown exterior and a soft, gooey center, shattered into smaller pieces, making them perfect for snacking on the go. The sizzling sound of the bánh tráng nướng on the grill and the aroma of the ingredients cooking create an inviting atmosphere that draws in many eager customers.",
+ "words_in": 27,
+ "words_out": 164,
+ "clip_tokens": 221,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "mâm cỗ Trung Thu",
+   "in": "A Mid-Autumn festival tray with a golden-brown baked mooncake stamped with a decorative pattern, cut in half to reveal its mixed filling around a salted egg yolk.",
+   "out_raw": "### Revised Prompt: During the Mid-Autumn Festival, also known as Tết Trung Thu, in Vietnam, a mâm cỗ Trung Thu (Mid-Autumn festival tray) is traditionally set up to celebrate the full moon and bring families together. This elaborate centerpiece includes a variety of foods such as golden-brown baked mooncakes, which are stamped with decorative patterns, and a rich salted egg yolk inside, symbolizing the beauty and fullness of the moon. Alongside the mooncakes, the mâm cỗ features fresh fruits, pastries, and beverages, contributing to the festival's vibrant atmosphere. The Mid-Autumn Festival has ancient origins and is celebrated to honor the full moon, express gratitude for the harvest, and encourage children's education and happiness. In Vietnamese culture, the mâm cỗ Trung Thu serves as a communal offering, representing family reunion and community unity. While the mooncakes share similarities with those in the Chinese Mid-Autumn Festival, the Vietnamese tradition emphasizes the importance of community and family through these offerings. --- By incorporating these elements, the refined prompt provides a comprehensive and vivid description of the mâm cỗ Trung Thu, making it easier for anyone unfamiliar with the Vietnamese Mid-Autumn Festival to understand and visualize the cultural significance and traditions.",
+   "out": "During the Mid-Autumn Festival, also known as Tết Trung Thu, in Vietnam, a mâm cỗ Trung Thu (Mid-Autumn festival tray) is traditionally set up to celebrate the full moon and bring families together. This elaborate centerpiece includes a variety of foods such as golden-brown baked mooncakes, which are stamped with decorative patterns, and a rich salted egg yolk inside, symbolizing the beauty and fullness of the moon. Alongside the mooncakes, the mâm cỗ features fresh fruits, pastries, and beverages, contributing to the festival's vibrant atmosphere. The Mid-Autumn Festival has ancient origins and is celebrated to honor the full moon, express gratitude for the harvest, and encourage children's education and happiness. In Vietnamese culture, the mâm cỗ Trung Thu serves as a communal offering, representing family reunion and community unity. While the mooncakes share similarities with those in the Chinese Mid-Autumn Festival, the Vietnamese tradition emphasizes the importance of community and family through these offerings. --- By incorporating these elements,",
+   "words_raw": 197,
+   "words": 159,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 86.2,
+   "scene_keep_raw": 0.59
+  },
+  {
+   "culture_noun": "bánh nướng",
+   "in": "During the Mid-Autumn Festival, also known as Tết Trung Thu, in Vietnam, a mâm cỗ Trung Thu (Mid-Autumn festival tray) is traditionally set up to celebrate the full moon and bring families together. This elaborate centerpiece includes a variety of foods such as golden-brown baked mooncakes, which are stamped with decorative patterns, and a rich salted egg yolk inside, symbolizing the beauty and fullness of the moon. Alongside the mooncakes, the mâm cỗ features fresh fruits, pastries, and beverages, contributing to the festival's vibrant atmosphere. The Mid-Autumn Festival has ancient origins and is celebrated to honor the full moon, express gratitude for the harvest, and encourage children's education and happiness. In Vietnamese culture, the mâm cỗ Trung Thu serves as a communal offering, representing family reunion and community unity. While the mooncakes share similarities with those in the Chinese Mid-Autumn Festival, the Vietnamese tradition emphasizes the importance of community and family through these offerings. --- By incorporating these elements,",
+   "out_raw": "### Revised Refined Prompt for Bánh Tráng Nướng Imagine a vibrant street food market in Ho Chi Minh City, Vietnam, bustling with the smell of grilling and the chatter of people enjoying a delicious snack. Along the market stalls, you see various types of bánh tráng nướng being prepared right in front of you. Bánh tráng nướng, a variation of bánh tráng (rice paper), is a large, round, and thick rice cracker, often topped with a variety of ingredients. \"Bánh tráng\" translates to rice paper, and \"nướng\" means grilled or baked, making bánh tráng nướng a specific type of snack made by grilling large sheets of rice paper with toppings. In one stall, a vendor is grilling a large, round rice paper with sesame seeds and egg, while another is preparing a version with ground pork and dried shrimp, sprinkled with fried shallots and a drizzle of scallion oil. The finished bánh tráng nướng is crispy and golden, with a golden-brown exterior and a soft, gooey center, shattered into smaller pieces, making them perfect for snacking on the go. The sizzling sound of the bánh tráng nướng on the grill, the aroma of the ingredients cooking, and the crisp texture of the crackers create an inviting atmosphere that draws in many eager customers. Bánh tráng nướng has a rich history in Vietnamese cuisine, evolving from traditional methods passed down through generations to become an integral part of Vietnamese street food culture, particularly popular in Đà Lạt and other urban areas. These crackers are not only enjoyed as a quick snack but also make an appearance in various dishes, such as vermicelli noodle bowls, contributing to the rich culinary heritage of Vietnam. Unlike other Vietnamese snacks such as bánh mì (Vietnamese baguette) or bánh xèo (crispy Vietnamese pancake), bánh tráng nướng stands out with its unique preparation and flavor, making it a beloved snack in Vietnam. The versatility of bánh tráng nướng extends beyond snacking, as it is also enjoyed in communal settings, such as family gatherings and street food stalls, highlighting its cultural importance. ### Summary of Improvements - **Clarity:** 9.5 (Enhanced by providing clearer distinctions and brief explanations) - **Visual Detail:** 9.0 (Adding more sensory details to enrich the experience) - **Background:** 8.0 (Providing a more in-depth look at its cultural significance and origins) - **Purpose:** 8.5 (Highlighting additional contexts and social significance) - **Comparable Object:** 7.0 (Expanding comparisons to other Vietnamese street foods) - **Total Score:** 42.0 By implementing these suggestions, the refined prompt for bánh tráng nướng offers a more comprehensive and engaging description, enhancing the overall understanding and appreciation of this Vietnamese delicacy.",
+   "out": "A vibrant street food market in Ho Chi Minh City, Vietnam, is bustling with the smell of grilling and the chatter of people enjoying a delicious snack. Along the market stalls, various types of bánh tráng nướng are being prepared right in front of you. A vendor grills a large, round rice paper with sesame seeds and egg, while another prepares a version with ground pork and dried shrimp, sprinkled with fried shallots and a drizzle of scallion oil. The finished bánh tráng nướng is crispy and golden, with a golden-brown exterior and a soft, gooey center, shattered into smaller pieces, making them perfect for snacking on the go. The sizzling sound of the bánh tráng nướng on the grill and the aroma of the ingredients cooking create an inviting atmosphere that draws in many eager customers.",
+   "words_raw": 437,
+   "words": 137,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 288.4,
+   "scene_keep_raw": 0.12
+  }
+ ],
+ "seconds": 374.6
+}

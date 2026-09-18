@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S046",
+ "sig": "cce7128aa1ed",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.62,
+ "prompt_en": "A monkey bridge made of a bamboo trunk spanning a small canal.",
+ "culture_nouns": [
+  "cầu khỉ"
+ ],
+ "refined_prompt": "A monkey bridge made of a bamboo trunk spanning a small canal. A monkey bridge, also known as a cầu khỉ in Vietnam, is a handmade structure typically made from bamboo or wood that spans small streams or gullies. Commonly found in the lush, rural landscapes of central and southern Vietnam, these bridges serve as vital links between remote communities and are integral to daily life. The cầu khỉ is designed to connect two points across water, providing a simple yet crucial means of passage for local communities. Constructed without handrails and close to the water, these bridges can be quite challenging and dangerous for those who are not accustomed to them. However, for those familiar with them, carrying heavy loads of 20–50 kg while crossing the bridge is a common practice. Historically, the cầu khỉ has played a significant role in Vietnamese culture, symbolizing the resilience and resourcefulness of the local people. While the bridge may appear primitive compared to modern suspension bridges, it reflects the ingenuity and adaptability of rural communities in the face of challenging terrain. The materials used in the construction of a cầu khỉ, such as bamboo or wood, create a rustic and natural appearance that blends seamlessly with the surrounding environment.",
+ "words_in": 12,
+ "words_out": 207,
+ "clip_tokens": 279,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cầu khỉ",
+   "in": "A monkey bridge made of a bamboo trunk spanning a small canal.",
+   "out_raw": "### Revised Refined Prompt: A monkey bridge, also known as a cầu khỉ in Vietnam, is a handmade structure typically made from bamboo or wood that spans small streams or gullies. Commonly found in the lush, rural landscapes of central and southern Vietnam, these bridges serve as vital links between remote communities and are integral to daily life. The cầu khỉ is designed to connect two points across water, providing a simple yet crucial means of passage for local communities. Constructed without handrails and close to the water, these bridges can be quite challenging and dangerous for those who are not accustomed to them. However, for those familiar with them, carrying heavy loads of 20–50 kg while crossing the bridge is a common practice. Historically, the cầu khỉ has played a significant role in Vietnamese culture, symbolizing the resilience and resourcefulness of the local people. While the bridge may appear primitive compared to modern suspension bridges, it reflects the ingenuity and adaptability of rural communities in the face of challenging terrain. The materials used in the construction of a cầu khỉ, such as bamboo or wood, create a rustic and natural appearance that blends seamlessly with the surrounding environment.",
+   "out": "A monkey bridge, also known as a cầu khỉ in Vietnam, is a handmade structure typically made from bamboo or wood that spans small streams or gullies. Commonly found in the lush, rural landscapes of central and southern Vietnam, these bridges serve as vital links between remote communities and are integral to daily life. The cầu khỉ is designed to connect two points across water, providing a simple yet crucial means of passage for local communities. Constructed without handrails and close to the water, these bridges can be quite challenging and dangerous for those who are not accustomed to them. However, for those familiar with them, carrying heavy loads of 20–50 kg while crossing the bridge is a common practice. Historically, the cầu khỉ has played a significant role in Vietnamese culture, symbolizing the resilience and resourcefulness of the local people. While the bridge may appear primitive compared to modern suspension bridges, it reflects the ingenuity and adaptability of rural communities in the face of challenging terrain. The materials used in the construction of a cầu khỉ, such as bamboo or wood, create a rustic and natural appearance that blends seamlessly with the surrounding environment.",
+   "words_raw": 199,
+   "words": 195,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 128.0,
+   "scene_keep_raw": 0.62
+  }
+ ],
+ "seconds": 128.0
+}

@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C038",
+ "sig": "dec33bd23efa",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.45,
+ "prompt_en": "A female musician in an ao dai patterned with lotus flowers wears finger picks and plays the dan tranh zither.",
+ "culture_nouns": [
+  "áo dài",
+  "đàn tranh"
+ ],
+ "refined_prompt": "A female musician in an ao dai patterned with lotus flowers wears finger picks and plays the dan tranh zither. In a serene garden setting during a Vietnamese cultural festival, a female musician in a traditional Vietnamese áo dài performs on the đàn tranh. The áo dài features intricate lotus flower embroidery, symbolizing Vietnamese cultural elegance. The đàn tranh, a slender and versatile instrument, has a rich, dark rosewood soundbox adorned with carved motifs of traditional Vietnamese patterns, 16 steel strings in a light silver tone, and ornate tuning pegs with gold accents. The garden is adorned with colorful lanterns, traditional decorations, and vibrant flowers such as cherry blossoms and chrysanthemums, which symbolize the ephemeral beauty of life and longevity.",
+ "words_in": 20,
+ "words_out": 120,
+ "clip_tokens": 162,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "áo dài",
+   "in": "A female musician in an ao dai patterned with lotus flowers wears finger picks and plays the dan tranh zither.",
+   "out_raw": "### Revised Refined Prompt: A female musician in a traditional Vietnamese áo dài, a long, split tunic over silk trousers, is dressed in a fabric featuring intricate lotus flower embroidery. Wearing finger picks, she plays the dan tranh zither, a traditional Vietnamese musical instrument, at a tranquil garden setting during a cultural festival. The áo dài is often compared to an elegant evening gown, highlighting its cultural significance and aesthetic appeal in Vietnamese traditions. ### Explanation: - **Cultural Accuracy**: The prompt now specifies the áo dài as a traditional Vietnamese garment and highlights its cultural importance and aesthetic value through a comparison to an evening gown. - **Description Detail**: Details such as the intricate lotus flower embroidery and the setting of a tranquil garden enhance the visual imagery of the garment and the performance. - **Context Preservation**: The core scene of a female musician playing the dan tranh zither while dressed in an áo dài is preserved and enriched with additional cultural and visual context. - **Purpose**: Mentioning a cultural festival provides a clear purpose and setting for the performance, adding depth to the scene. - **Comparable Object**: The comparison to an evening gown helps readers unfamiliar with the áo dài understand its formality and elegance within Vietnamese culture.",
+   "out": "A female musician in a traditional Vietnamese áo dài, featuring intricate lotus flower embroidery, plays the dan tranh zither at a tranquil garden setting during a cultural festival. The áo dài is compared to an elegant evening gown, highlighting its cultural significance and aesthetic appeal.",
+   "words_raw": 209,
+   "words": 45,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 69.4,
+   "scene_keep_raw": 0.55
+  },
+  {
+   "culture_noun": "đàn tranh",
+   "in": "A female musician in a traditional Vietnamese áo dài, featuring intricate lotus flower embroidery, plays the dan tranh zither at a tranquil garden setting during a cultural festival. The áo dài is compared to an elegant evening gown, highlighting its cultural significance and aesthetic appeal.",
+   "out_raw": "### Revised Refined Prompt In a serene garden setting during a Vietnamese cultural festival, a female musician in a traditional Vietnamese áo dài, featuring intricate lotus flower embroidery, performs on the đàn tranh, a unique Vietnamese zither-like instrument. The đàn tranh has a rich, dark rosewood soundbox adorned with carved motifs of traditional Vietnamese patterns, 16 steel strings in a light silver tone, movable bridges, and ornate tuning pegs with gold accents positioned along its top. Unlike the Chinese guzheng, which features 21 strings and a wider body, the đàn tranh is more slender and versatile, producing a distinct, softer sound that is characteristic of Vietnamese music. The instrument's sound is gentle and melodic, complementing the soft fabric and flowing motion of the musician's áo dài. The musician's áo dài, symbolizing Vietnamese cultural elegance and significance, complements the visual appeal of the performance with vibrant colors and intricate patterns. This serene garden setting, adorned with colorful lanterns, traditional decorations, and vibrant flowers such as cherry blossoms and chrysanthemums, highlights the historical and cultural importance of the đàn tranh in Vietnamese music. Cherry blossoms symbolize the ephemeral beauty of life, while chrysanthemums represent longevity and endurance, adding layers of cultural meaning to the performance. The đàn tranh is used not only in traditional weddings and Tet celebrations but also in storytelling and spiritual ceremonies. In storytelling, the đàn tranh accompanies tales of Vietnamese mythology and historical events, adding depth to narratives with its unique sound. In spiritual ceremonies, the instrument plays a role in invoking ancestral spirits and conveying messages of peace and harmony. Its history dates back several centuries, making it an integral part of Vietnamese music, often featured in both formal and informal settings to convey emotions and spiritual significance beyond musical accompaniment. This refined prompt aims to provide a detailed and engaging description of the đàn tranh, enhancing the clarity, visual detail, cultural background, and the emotional and spiritual significance of the instrument.",
+   "out": "In a serene garden setting during a Vietnamese cultural festival, a female musician in a traditional Vietnamese áo dài performs on the đàn tranh. The áo dài features intricate lotus flower embroidery, symbolizing Vietnamese cultural elegance. The đàn tranh, a slender and versatile instrument, has a rich, dark rosewood soundbox adorned with carved motifs of traditional Vietnamese patterns, 16 steel strings in a light silver tone, and ornate tuning pegs with gold accents. The garden is adorned with colorful lanterns, traditional decorations, and vibrant flowers such as cherry blossoms and chrysanthemums, which symbolize the ephemeral beauty of life and longevity.",
+   "words_raw": 325,
+   "words": 100,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 372.0,
+   "scene_keep_raw": 0.45
+  }
+ ],
+ "seconds": 441.4
+}

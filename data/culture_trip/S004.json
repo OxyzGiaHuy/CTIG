@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S004",
+ "sig": "31ce48303fe6",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.8,
+ "prompt_en": "Square banh chung wrapped in dong leaves tied with bamboo strips on a tray.",
+ "culture_nouns": [
+  "bánh chưng"
+ ],
+ "refined_prompt": "Square banh chung wrapped in dong leaves tied with bamboo strips on a tray. A traditional Vietnamese dish called bánh chưng is square-shaped, wrapped in green, fragrant dong leaves, and tied with thin bamboo strips. It is made from glutinous rice, mung beans, and pork, carefully layered inside the leaves to create a compact, uniform package. Bánh ch Chung is an essential part of the Tết holiday, typically displayed on the family altar, symbolizing the earth. After being steamed for hours, the bánh ch Chung is unwrapped, revealing its rich, golden color and inviting aroma, ready to be enjoyed.",
+ "words_in": 14,
+ "words_out": 99,
+ "clip_tokens": 133,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bánh chưng",
+   "in": "Square banh chung wrapped in dong leaves tied with bamboo strips on a tray.",
+   "out_raw": "### Refined Prompt Bánh chưng is a traditional Vietnamese dish that is often square-shaped, wrapped in green, fragrant dong leaves, and tied with thin bamboo strips. It is made from glutinous rice, mung beans, and pork, which are carefully layered inside the leaves to create a compact, uniform package. Bánh chưng is an essential part of the Tết (Vietnamese Lunar New Year) holiday and is typically displayed on the family altar, symbolizing the earth. According to legend, bánh chưng was created by Prince Lang Lieu as a tribute to his father, the King, during a competition to become the next ruler. Families gather to prepare bánh chưng together, reinforcing bonds and traditions. Like the bánh tét (a cylindrical version of bánh chưng), which symbolizes the sky, bánh chưng is a symbol of balance and harmony in nature and culture. After being steamed for hours, the bánh chưng is carefully unwrapped and placed on a tray, revealing its rich, golden color and inviting aroma, ready to be enjoyed. ### Updated SCORE - **Clarity:** 9.5 - **Visual Detail:** 8.5 - **Background:** 9.0 - **Purpose:** 8.5 - **Comparable Object:** 7.5 - **Total Score:** 43.0 The refined prompt now provides a clear, detailed, and culturally rich description of bánh chưng, making it easier for anyone to understand and visualize this traditional Vietnamese dish.",
+   "out": "A traditional Vietnamese dish called bánh chưng is square-shaped, wrapped in green, fragrant dong leaves, and tied with thin bamboo strips. It is made from glutinous rice, mung beans, and pork, carefully layered inside the leaves to create a compact, uniform package. Bánh ch Chung is an essential part of the Tết holiday, typically displayed on the family altar, symbolizing the earth. After being steamed for hours, the bánh ch Chung is unwrapped, revealing its rich, golden color and inviting aroma, ready to be enjoyed.",
+   "words_raw": 219,
+   "words": 85,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 325.1,
+   "scene_keep_raw": 0.8
+  }
+ ],
+ "seconds": 325.1
+}

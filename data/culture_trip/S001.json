@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S001",
+ "sig": "e9ab10368584",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.83,
+ "prompt_en": "A young woman in a white ao dai standing at a school gate.",
+ "culture_nouns": [
+  "áo dài"
+ ],
+ "refined_prompt": "A young woman in a white ao dai standing at a school gate. A young woman in a white áo dài, a modern design called \"áo dài Le Mur,\" is standing at the entrance of a school on a sunny morning, preparing to attend a formal event. The áo dài is crafted from smooth, glossy silk with intricate patterns embroidered on the front and back panels. The close-fitting top features delicate button detailing, while the trousers are sleek and form-fitting, complementing the wearer’s silhouette. The school is adorned with Vietnamese flags and banners, creating a festive atmosphere.",
+ "words_in": 13,
+ "words_out": 97,
+ "clip_tokens": 130,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "áo dài",
+   "in": "A young woman in a white ao dai standing at a school gate.",
+   "out_raw": "### Refined Prompt: The áo dài is a traditional Vietnamese garment, known for its elegance and cultural significance. A young woman in a white áo dài, a modern design called \"áo dài Le Mur,\" is standing at the entrance of a school on a sunny morning, preparing to attend a formal event. The áo dài is crafted from smooth, glossy silk with intricate patterns embroidered on the front and back panels. The close-fitting top features delicate button detailing, while the trousers are sleek and form-fitting, complementing the wearer’s silhouette. In contrast to Western formal wear such as a suit or a dress, the áo dài stands out for its unique design and cultural significance. The school is adorned with Vietnamese flags and banners, creating a festive atmosphere, and the áo dài is not only a symbol of Vietnamese culture but also a formal attire worn for important occasions such as a school graduation ceremony. ### Updated Score: - **Clarity:** 9.0 - **Visual_detail:** 8.5 - **Background:** 7.5 - **Purpose:** 8.0 - **Comparable_object:** 7.0 - **Total_score:** 40.0",
+   "out": "A young woman in a white áo dài, a modern design called \"áo dài Le Mur,\" is standing at the entrance of a school on a sunny morning, preparing to attend a formal event. The áo dài is crafted from smooth, glossy silk with intricate patterns embroidered on the front and back panels. The close-fitting top features delicate button detailing, while the trousers are sleek and form-fitting, complementing the wearer’s silhouette. The school is adorned with Vietnamese flags and banners, creating a festive atmosphere.",
+   "words_raw": 175,
+   "words": 84,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 217.2,
+   "scene_keep_raw": 0.83
+  }
+ ],
+ "seconds": 217.2
+}

@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C040",
+ "sig": "27d46d3c6f10",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.92,
+ "prompt_en": "A bride in a red ao dai and a groom in a traditional silk tunic stand together at a traditional betrothal ceremony, red-draped gift trays in front of them.",
+ "culture_nouns": [
+  "áo dài cô dâu chú rể",
+  "mâm quả phủ khăn đỏ",
+  "lễ ăn hỏi"
+ ],
+ "refined_prompt": "A bride in a red ao dai and a groom in a traditional silk tunic stand together at a traditional betrothal ceremony, red-draped gift trays in front of them. A bride and groom stand together at a traditional Vietnamese betrothal ceremony, known as \"lễ ăn hỏi,\" dressed in cultural attire that reflects their heritage. The bride wears a modern red ao dai, an elegant Vietnamese tunic with intricate embroidery featuring gold and deep red patterns, symbolizing her cultural pride. The groom is dressed in a traditional silk tunic with vibrant red and gold embroidery, complementing her outfit. In front of them, several gift trays, known as \"mâm quả phủ khăn đỏ\" (red-covered trays), are displayed. These trays are covered with vibrant red and gold patterns and symbolize the exchange of gifts during the ceremony. Each tray contains specific items such as fruits, sweets, and other symbolic gifts. For example, lotus seeds symbolize fertility and a fruitful marriage, while dates represent longevity and prosperity. The \"lễ ăn hỏi\" ceremony not only marks the engagement but also the couple's commitment to building a harmonious family and securing their future together. This ceremony is a significant step in Vietnamese culture, similar to engagement traditions in other cultures but distinct in its depth of symbolism and community involvement. The ceremony involves the participation of both families, showcasing the importance of family unity and community support in Vietnamese society.",
+ "words_in": 29,
+ "words_out": 234,
+ "clip_tokens": 315,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "áo dài cô dâu chú rể",
+   "in": "A bride in a red ao dai and a groom in a traditional silk tunic stand together at a traditional betrothal ceremony, red-draped gift trays in front of them.",
+   "out_raw": "### Revised Refined Prompt: A bride and groom stand together at a traditional Vietnamese betrothal ceremony, a pre-wedding ritual that celebrates the couple's engagement and the union of their families. The bride is dressed in a modern red ao dai, a symbol of Vietnamese cultural heritage. The ao dai is a traditional Vietnamese tunic with a close-fitting design, split sides, and intricate embroidery. It is worn over silk trousers and is a significant part of Vietnamese weddings, reflecting the cultural pride and respect of the couple. The ao dai has evolved over time, from simpler forms of clothing to its current elegant and symbolic design, embodying Vietnam’s rich cultural history. The groom is dressed in a traditional silk tunic, complementing the bride's attire with its rich cultural significance. Red-draped gift trays are placed in front of them, symbolizing the exchange of gifts during the ceremony. The ao dai, a unique symbol of Vietnamese culture, is often compared to wedding attire from other cultures, such as the Japanese kimono or Western wedding dresses. Each of these attires has its own unique cultural significance and symbolism, but the ao dai stands out for its graceful design and deep cultural roots, highlighting its significance and uniqueness in its design and cultural importance. This revised prompt enhances the clarity, visual detail, background information, and purpose, making it easier for someone unfamiliar with Vietnamese culture to understand the significance of the ao dai in the context of a traditional Vietnamese wedding ceremony.",
+   "out": "A bride and groom stand together at a traditional Vietnamese betrothal ceremony, dressed in cultural attire that reflects their heritage. The bride wears a modern red ao dai, an elegant Vietnamese tunic with intricate embroidery, symbolizing her cultural pride. The groom is dressed in a traditional silk tunic, complementing her outfit. Red-draped gift trays are placed in front of them, symbolizing the exchange of gifts during the ceremony.",
+   "words_raw": 247,
+   "words": 68,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 148.1,
+   "scene_keep_raw": 1.0
+  },
+  {
+   "culture_noun": "mâm quả phủ khăn đỏ",
+   "in": "A bride and groom stand together at a traditional Vietnamese betrothal ceremony, dressed in cultural attire that reflects their heritage. The bride wears a modern red ao dai, an elegant Vietnamese tunic with intricate embroidery, symbolizing her cultural pride. The groom is dressed in a traditional silk tunic, complementing her outfit. Red-draped gift trays are placed in front of them, symbolizing the exchange of gifts during the ceremony.",
+   "out_raw": "### Revised Prompt: A bride and groom stand together at a traditional Vietnamese betrothal ceremony, dressed in cultural attire that reflects their heritage. The bride is wearing a modern red ao dai, an elegant Vietnamese tunic with intricate embroidery, symbolizing her cultural pride. The groom is dressed in a traditional silk tunic, complementing her outfit. In front of them, gift trays known as \"mâm quả phủ khăn đỏ\" (red-covered trays) are displayed, symbolizing the exchange of gifts during the ceremony. Each tray, covered with vibrant red and gold patterns, contains specific items such as fruits, sweets, and other symbolic gifts. The red cloth covering the trays is typically silk or velvet, adding a luxurious texture to the display. The mâm quả tradition has deep roots in Vietnamese culture, dating back centuries, and each item within the trays carries auspicious meanings and is carefully selected to represent the families' respect and goodwill. For example, lotus seeds symbolize fertility and a fruitful marriage, while dates symbolize longevity and prosperity. This ceremony can be compared to similar customs in other cultures, such as the Japanese \"sakuhon,\" a gift-giving ceremony, and the Chinese \"hongbao,\" red envelopes containing money as a good luck symbol. These comparisons provide insight into the universal importance of gift exchange in cultural and familial rites, highlighting the unique and significant role of mâm quả in Vietnamese betrothal traditions. This revised prompt enhances clarity, visual detail, background context, and the purpose of the mâm quả, while also strengthening the comparative aspect to other cultural traditions.",
+   "out": "A bride and groom stand together at a traditional Vietnamese betrothal ceremony, dressed in cultural attire that reflects their heritage. The bride is wearing a modern red ao dai, an elegant Vietnamese tunic with intricate embroidery, symbolizing her cultural pride. The groom is dressed in a traditional silk tunic, complementing her outfit. In front of them, gift trays known as \"mâm quả phủ khăn đỏ\" (red-covered trays) are displayed, symbolizing the exchange of gifts during the ceremony. Each tray, covered with vibrant red and gold patterns, contains specific items such as fruits, sweets, and other symbolic gifts. For example, lotus seeds symbolize fertility and a fruitful marriage, while dates symbolize longevity and prosperity.",
+   "words_raw": 254,
+   "words": 113,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 157.5,
+   "scene_keep_raw": 0.92
+  },
+  {
+   "culture_noun": "lễ ăn hỏi",
+   "in": "A bride and groom stand together at a traditional Vietnamese betrothal ceremony, dressed in cultural attire that reflects their heritage. The bride is wearing a modern red ao dai, an elegant Vietnamese tunic with intricate embroidery, symbolizing her cultural pride. The groom is dressed in a traditional silk tunic, complementing her outfit. In front of them, gift trays known as \"mâm quả phủ khăn đỏ\" (red-covered trays) are displayed, symbolizing the exchange of gifts during the ceremony. Each tray, covered with vibrant red and gold patterns, contains specific items such as fruits, sweets, and other symbolic gifts. For example, lotus seeds symbolize fertility and a fruitful marriage, while dates symbolize longevity and prosperity.",
+   "out_raw": "### Revised Refined Prompt: A bride and groom stand together at a traditional Vietnamese betrothal ceremony, known as \"lễ ăn hỏi,\" dressed in cultural attire that reflects their heritage. The bride wears a modern red ao dai, an elegant Vietnamese tunic with intricate embroidery featuring gold and deep red patterns, symbolizing her cultural pride. The groom is dressed in a traditional silk tunic with vibrant red and gold embroidery, complementing her outfit. In front of them, several gift trays, known as \"mâm quả phủ khăn đỏ\" (red-covered trays), are displayed. These trays are covered with vibrant red and gold patterns and symbolize the exchange of gifts during the ceremony. Each tray contains specific items such as fruits, sweets, and other symbolic gifts. For example, lotus seeds symbolize fertility and a fruitful marriage, while dates represent longevity and prosperity. The \"lễ ăn hỏi\" ceremony not only marks the engagement but also the couple's commitment to building a harmonious family and securing their future together. This ceremony is a significant step in Vietnamese culture, similar to engagement traditions in other cultures but distinct in its depth of symbolism and community involvement. The ceremony involves the participation of both families, showcasing the importance of family unity and community support in Vietnamese society.",
+   "out": "A bride and groom stand together at a traditional Vietnamese betrothal ceremony, known as \"lễ ăn hỏi,\" dressed in cultural attire that reflects their heritage. The bride wears a modern red ao dai, an elegant Vietnamese tunic with intricate embroidery featuring gold and deep red patterns, symbolizing her cultural pride. The groom is dressed in a traditional silk tunic with vibrant red and gold embroidery, complementing her outfit. In front of them, several gift trays, known as \"mâm quả phủ khăn đỏ\" (red-covered trays), are displayed. These trays are covered with vibrant red and gold patterns and symbolize the exchange of gifts during the ceremony. Each tray contains specific items such as fruits, sweets, and other symbolic gifts. For example, lotus seeds symbolize fertility and a fruitful marriage, while dates represent longevity and prosperity. The \"lễ ăn hỏi\" ceremony not only marks the engagement but also the couple's commitment to building a harmonious family and securing their future together. This ceremony is a significant step in Vietnamese culture, similar to engagement traditions in other cultures but distinct in its depth of symbolism and community involvement. The ceremony involves the participation of both families, showcasing the importance of family unity and community support in Vietnamese society.",
+   "words_raw": 209,
+   "words": 205,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 88.4,
+   "scene_keep_raw": 0.92
+  }
+ ],
+ "seconds": 394.0
+}

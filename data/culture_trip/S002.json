@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S002",
+ "sig": "940c10795df0",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.5,
+ "prompt_en": "A woman carrying a shoulder pole of street goods along a street in the morning.",
+ "culture_nouns": [
+  "gánh hàng rong"
+ ],
+ "refined_prompt": "A woman carrying a shoulder pole of street goods along a street in the morning. In the early morning of a bustling Vietnamese market street, a woman carries a traditional Vietnamese street vending cart known as a \"gánh hàng rong\" (a balanced pole across her shoulders with robust, intricately woven bamboo baskets on either end) — a practice that has been a cornerstone of Vietnamese markets for centuries, reflecting the country’s cultural resilience and entrepreneurial spirit. The pole and baskets are made of lightweight and durable bamboo, a traditional material in Vietnam that ensures the cart is both strong and easy to handle. The baskets, resembling large woven shopping bags but more robust and intricately designed, are filled with fresh fruits and vegetables in vibrant colors and textures, such as ripe oranges, crisp lettuce, and fresh tomatoes. The woman carefully navigates the narrow pathway, maintaining her balance as she sets off to sell her wares for the day. The market is already alive with activity, vendors shouting prices and the clinking of metal containers, customers bargaining over the day’s fresh catch, creating a vibrant tapestry of sights, sounds, and scents like the aroma of freshly brewed coffee and the sight of colorful flowers. The \"gánh hàng rong\" not only serves as a means of livelihood for many Vietnamese but also preserves a rich cultural tradition that dates back generations, embodying the spirit of ingenuity and resilience that defines Vietnamese culture.",
+ "words_in": 15,
+ "words_out": 240,
+ "clip_tokens": 324,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "gánh hàng rong",
+   "in": "A woman carrying a shoulder pole of street goods along a street in the morning.",
+   "out_raw": "### Revised Refined Prompt: In the early morning of a bustling Vietnamese market street, a woman carries a traditional Vietnamese street vending cart known as a \"gánh hàng rong\" (a balanced pole across her shoulders with robust, intricately woven bamboo baskets on either end) — a practice that has been a cornerstone of Vietnamese markets for centuries, reflecting the country’s cultural resilience and entrepreneurial spirit. The pole and baskets are made of lightweight and durable bamboo, a traditional material in Vietnam that ensures the cart is both strong and easy to handle. The baskets, resembling large woven shopping bags but more robust and intricately designed, are filled with fresh fruits and vegetables in vibrant colors and textures, such as ripe oranges, crisp lettuce, and fresh tomatoes. The woman carefully navigates the narrow pathway, maintaining her balance as she sets off to sell her wares for the day. The market is already alive with activity, vendors shouting prices and the clinking of metal containers, customers bargaining over the day’s fresh catch, creating a vibrant tapestry of sights, sounds, and scents like the aroma of freshly brewed coffee and the sight of colorful flowers. The \"gánh hàng rong\" not only serves as a means of livelihood for many Vietnamese but also preserves a rich cultural tradition that dates back generations, embodying the spirit of ingenuity and resilience that defines Vietnamese culture.",
+   "out": "In the early morning of a bustling Vietnamese market street, a woman carries a traditional Vietnamese street vending cart known as a \"gánh hàng rong\" (a balanced pole across her shoulders with robust, intricately woven bamboo baskets on either end) — a practice that has been a cornerstone of Vietnamese markets for centuries, reflecting the country’s cultural resilience and entrepreneurial spirit. The pole and baskets are made of lightweight and durable bamboo, a traditional material in Vietnam that ensures the cart is both strong and easy to handle. The baskets, resembling large woven shopping bags but more robust and intricately designed, are filled with fresh fruits and vegetables in vibrant colors and textures, such as ripe oranges, crisp lettuce, and fresh tomatoes. The woman carefully navigates the narrow pathway, maintaining her balance as she sets off to sell her wares for the day. The market is already alive with activity, vendors shouting prices and the clinking of metal containers, customers bargaining over the day’s fresh catch, creating a vibrant tapestry of sights, sounds, and scents like the aroma of freshly brewed coffee and the sight of colorful flowers. The \"gánh hàng rong\" not only serves as a means of livelihood for many Vietnamese but also preserves a rich cultural tradition that dates back generations, embodying the spirit of ingenuity and resilience that defines Vietnamese culture.",
+   "words_raw": 229,
+   "words": 225,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 479.2,
+   "scene_keep_raw": 0.5
+  }
+ ],
+ "seconds": 479.2
+}

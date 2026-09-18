@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S022",
+ "sig": "a9b155dc0601",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A lion dance troupe with the Ong Dia character at a house front.",
+ "culture_nouns": [
+  "múa lân"
+ ],
+ "refined_prompt": "A lion dance troupe with the Ong Dia character at a house front. A lion dance troupe is performing in front of a house during Chinese New Year. The performers, dressed in elaborate and vibrant lion costumes with intricate patterns and colors, mimic the movements of a lion to bring good luck and fortune to the household. Ong Dia, a character known for his humorous and clownish behavior, interacts with the audience and the performers, adding to the festive atmosphere. The performance is accompanied by the rhythmic beats of drums, the sounds of gongs and cymbals, and the excited cheers of the onlookers. The performers engage in specific rituals, such as touching the ground with the lion's head to bless the area and performing acrobatic stunts to demonstrate skill and bravery.",
+ "words_in": 13,
+ "words_out": 131,
+ "clip_tokens": 176,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "múa lân",
+   "in": "A lion dance troupe with the Ong Dia character at a house front.",
+   "out_raw": "### Revised Refined Prompt A lion dance troupe is performing in front of a house during Chinese New Year, a traditional Chinese festival celebrating the lunar new year. The performers, dressed in elaborate and vibrant lion costumes with intricate patterns and colors, mimic the movements of a lion to bring good luck and fortune to the household. Ong Dia, a character known for his humorous and clownish behavior, adds to the festive atmosphere by interacting with the audience and the performers. The performance is accompanied by the rhythmic beats of drums, the sounds of gongs and cymbals, and the excited cheers of the onlookers. The lion dance is a significant tradition in Chinese culture, believed to ward off evil spirits and bring prosperity to the household. The performers engage in specific rituals, such as touching the ground with the lion's head to bless the area and performing acrobatic stunts to demonstrate skill and bravery. This practice is comparable to Morris dancing in Europe, where performers also wear elaborate costumes and dance for festive occasions, but the lion dance is uniquely tied to the cultural significance of Chinese New Year. ### Updated SCORE - **Clarity**: 9.0 - **Visual_detail**: 8.0 - **Background**: 8.0 - **Purpose**: 8.0 - **Comparable_object**: 8.0 - **Total_score**: 41.0 This revised prompt enhances the clarity, visual detail, background information, and cultural significance of the lion dance, providing a richer and more engaging description of the cultural practice.",
+   "out": "A lion dance troupe is performing in front of a house during Chinese New Year. The performers, dressed in elaborate and vibrant lion costumes with intricate patterns and colors, mimic the movements of a lion to bring good luck and fortune to the household. Ong Dia, a character known for his humorous and clownish behavior, interacts with the audience and the performers, adding to the festive atmosphere. The performance is accompanied by the rhythmic beats of drums, the sounds of gongs and cymbals, and the excited cheers of the onlookers. The performers engage in specific rituals, such as touching the ground with the lion's head to bless the area and performing acrobatic stunts to demonstrate skill and bravery.",
+   "words_raw": 238,
+   "words": 118,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 333.9,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 333.9
+}

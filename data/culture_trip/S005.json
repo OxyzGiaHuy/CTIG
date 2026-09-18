@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S005",
+ "sig": "08472aec1a10",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.2,
+ "prompt_en": "A banh mi stuffed with pork, pickles and cilantro.",
+ "culture_nouns": [
+  "bánh mì"
+ ],
+ "refined_prompt": "A banh mi stuffed with pork, pickles and cilantro. A bánh mì sandwich is a visually appealing and culturally significant Vietnamese dish, featuring a golden-brown baguette with vibrant green cilantro, bright red pickled carrots, and white daikon, creating a striking contrast that tempts the eye. The sandwich offers a symphony of textures and flavors: the crunchiness of the baguette, the softness of chả lụa (Vietnamese sausage), the tanginess of the pickled vegetables, and the freshness of the herbs, reflecting the cultural fusion between French and Vietnamese culinary traditions.",
+ "words_in": 9,
+ "words_out": 88,
+ "clip_tokens": 118,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bánh mì",
+   "in": "A banh mi stuffed with pork, pickles and cilantro.",
+   "out_raw": "### Revised Refined Prompt: Bánh mì is a popular Vietnamese sandwich known for its unique blend of flavors and ingredients, representing the cultural fusion between French and Vietnamese culinary traditions. This dish not only reflects the historical and cultural fusion but also serves as a symbol of Vietnamese culinary ingenuity and cultural resilience. Though the baguette was introduced by the French in the 19th century, Vietnamese chefs ingeniously incorporated traditional Vietnamese ingredients to create a uniquely Vietnamese sandwich. French colonial influence brought the baguette, but Vietnamese culinary traditions quickly adapted it with local ingredients, showcasing the resilience and creativity of Vietnamese culture. Visually, the bánh mì is a feast for the eyes with its golden-brown baguette, vibrant green cilantro, bright red pickled carrots, and white daikon, creating a striking contrast that tempts the eye. The aroma of the crispy baguette and the freshness of the herbs and vegetables create a sensory experience that is as delightful as it is memorable. Each bite offers a symphony of textures and flavors: the crunchiness of the baguette, the softness of chả lụa (Vietnamese sausage), the tanginess of the pickled vegetables, and the freshness of the herbs. Unlike the typically simplistic French baguette sandwich, the bánh mì is a more complex culinary experience, featuring a rich tapestry of textures, flavors, and cultural influences. This dish is enjoyed widely in everyday settings, from street corners to upscale restaurants, reflecting its versatility and deep cultural significance in contemporary Vietnamese society. **Note:** The baguette was introduced by the French in the 19th century, not the 9th century, highlighting the cultural adaptation and resilience of Vietnamese cuisine. ### Updated SCORE: - **Clarity:** 9.5 (Explicitly detailing the adaptation process) - **Visual_detail:** 8.5 (Including more sensory details beyond visuals) - **Background:** 8.0 (Adding specific examples of cultural exchanges) - **Purpose:** 8.5 (Explicitly stating the symbolic importance) - **Comparable_object:** 8.0 (Detailed comparison highlighting differences) **Total_score:** 42.5",
+   "out": "A bánh mì sandwich is a visually appealing and culturally significant Vietnamese dish, featuring a golden-brown baguette with vibrant green cilantro, bright red pickled carrots, and white daikon, creating a striking contrast that tempts the eye. The sandwich offers a symphony of textures and flavors: the crunchiness of the baguette, the softness of chả lụa (Vietnamese sausage), the tanginess of the pickled vegetables, and the freshness of the herbs, reflecting the cultural fusion between French and Vietnamese culinary traditions.",
+   "words_raw": 315,
+   "words": 79,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 485.4,
+   "scene_keep_raw": 0.2
+  }
+ ],
+ "seconds": 485.4
+}

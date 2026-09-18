@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S010",
+ "sig": "f8da35f26110",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.83,
+ "prompt_en": "A water puppetry performance at a water pavilion, puppets on the water surface.",
+ "culture_nouns": [
+  "múa rối nước"
+ ],
+ "refined_prompt": "A water puppetry performance at a water pavilion, puppets on the water surface. A traditional water puppetry performance takes place in a small village in Vietnam, where puppeteers stand behind a waist-deep pool. The puppets, made of wood and lacquered to a glossy finish, move gracefully over the water's surface, performing ancient tales such as the Legend of the Golden Turtle and the Story of King Le Loi. The show is a vibrant spectacle that has been part of the local culture since the 11th century, originating in the Red River Delta region. Over the centuries, the tradition has evolved to include more intricate movements and storytelling techniques, reflecting the changing cultural and societal landscape of Vietnam. Unlike marionettes, the water puppets create a dynamic interplay between the performers and the water, making each performance a unique and immersive experience that celebrates the rich cultural heritage of the Vietnamese people.",
+ "words_in": 13,
+ "words_out": 150,
+ "clip_tokens": 202,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "múa rối nước",
+   "in": "A water puppetry performance at a water pavilion, puppets on the water surface.",
+   "out_raw": "### Refined Prompt: Imagine a traditional water puppetry performance taking place in a small village in Vietnam, where the puppeteers stand behind a waist-deep pool. The puppets, made of wood and lacquered to a glossy finish, move gracefully over the water's surface, performing ancient tales such as the Legend of the Golden Turtle and the Story of King Le Loi. The show is a vibrant spectacle that has been part of the local culture since the 11th century, originating in the Red River Delta region. Over the centuries, the tradition has evolved to include more intricate movements and storytelling techniques, reflecting the changing cultural and societal landscape of Vietnam. Unlike marionettes, the water puppets create a dynamic interplay between the performers and the water, making each performance a unique and immersive experience that celebrates the rich cultural heritage of the Vietnamese people. ### Updated SCORE: - **Clarity**: 9.0 (Adding specific stories and tales enhances clarity) - **Visual_detail**: 8.0 (More detailed descriptions of puppet movements and colors) - **Background**: 9.0 (Adding evolution of the tradition maintains the score) - **Purpose**: 7.0 (Elaborating on the cultural significance and purpose improves the score) - **Comparable_object**: 6.0 (Adding a comparison to marionettes improves the score) **Total_score**: 40.0",
+   "out": "A traditional water puppetry performance takes place in a small village in Vietnam, where puppeteers stand behind a waist-deep pool. The puppets, made of wood and lacquered to a glossy finish, move gracefully over the water's surface, performing ancient tales such as the Legend of the Golden Turtle and the Story of King Le Loi. The show is a vibrant spectacle that has been part of the local culture since the 11th century, originating in the Red River Delta region. Over the centuries, the tradition has evolved to include more intricate movements and storytelling techniques, reflecting the changing cultural and societal landscape of Vietnam. Unlike marionettes, the water puppets create a dynamic interplay between the performers and the water, making each performance a unique and immersive experience that celebrates the rich cultural heritage of the Vietnamese people.",
+   "words_raw": 203,
+   "words": 137,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 338.8,
+   "scene_keep_raw": 0.83
+  }
+ ],
+ "seconds": 338.8
+}

@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C007",
+ "sig": "59f0f7608b04",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.71,
+ "prompt_en": "During the harvest season on the Mu Cang Chai rice terraces, villagers cut ripe rice with sickles and stack the bundles on the terrace edges.",
+ "culture_nouns": [
+  "ruộng bậc thang Mù Cang Chải",
+  "liềm gặt lúa",
+  "bó lúa"
+ ],
+ "refined_prompt": "During the harvest season on the Mu Cang Chai rice terraces, villagers cut ripe rice with sickles and stack the bundles on the terrace edges. In the autumn harvest season on the Mu Cang Chai rice terraces, villagers use traditional sickles to cut the ripe, golden rice. After cutting, the farmers bundle the rice stalks into bó lúa, compact bundles around 1 meter in length with golden stalks tied together with colorful ribbons. These bó lúa bundles, practical for drying and storage, are also a symbol of unity and prosperity, playing a central role in traditional festivals celebrating the rice harvest.",
+ "words_in": 25,
+ "words_out": 101,
+ "clip_tokens": 136,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "ruộng bậc thang Mù Cang Chải",
+   "in": "During the harvest season on the Mu Cang Chai rice terraces, villagers cut ripe rice with sickles and stack the bundles on the terrace edges.",
+   "out_raw": "### Revised Refined Prompt During the autumn harvest season on the Mu Cang Chai rice terraces, villagers use traditional sickles, curved blades that have been handed down through generations, to cut ripe golden rice. After harvesting, the villagers bundle the rice and stack the sheaves on the edges of the terraces, allowing them to dry in the warm autumn sun. The terraces themselves are a breathtaking sight, stretching across the mountain slopes in a series of stepped fields, reflecting the vibrant hues of the season. These terraces have been meticulously maintained for centuries, symbolizing the resilience and ingenuity of the Mu Cang Chai people. They are not just a source of sustenance but also a central part of the community's cultural celebrations, such as the rice harvest festival, which honors the land and the ancestors. During the festival, villagers perform traditional dances, pray for bountiful harvests, and express gratitude for the land’s blessings. The terraces of Mu Cang Chai are often compared to those of Banaue in the Philippines, but Mu Cang Chai's terraces are uniquely Vietnamese. They feature more steeply inclined steps and intricate irrigation systems that have evolved over time to cope with the unique challenges of the region, such as steep slopes and varied rainfall patterns. This landscape is a testament to the deep connection between the people and their land, showcasing the harmony between nature and human endeavor, and the economic and social fabric of the community.",
+   "out": "During the autumn harvest season on the Mu Cang Chai rice terraces, villagers use traditional sickles to cut ripe golden rice. After harvesting, the rice is bundled and stacked on the edges of the terraces to dry in the warm autumn sun. The terraces themselves are a breathtaking sight, stretching across the mountain slopes in a series of stepped fields reflecting vibrant autumn hues. These terraces have been meticulously maintained for centuries, symbolizing resilience and ingenuity, and are a central part of cultural celebrations like the rice harvest festival, which honors the land and ancestors. The festival includes traditional dances, prayers for bountiful harvests, and expressions of gratitude. The terraces are uniquely Vietnamese, featuring steeply inclined steps and intricate irrigation systems that have evolved to cope with the region's challenges. This landscape showcases the harmony between nature and human endeavor, and the economic and social fabric of the community.",
+   "words_raw": 241,
+   "words": 149,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 314.2,
+   "scene_keep_raw": 0.79
+  },
+  {
+   "culture_noun": "liềm gặt lúa",
+   "in": "During the autumn harvest season on the Mu Cang Chai rice terraces, villagers use traditional sickles to cut ripe golden rice. After harvesting, the rice is bundled and stacked on the edges of the terraces to dry in the warm autumn sun. The terraces themselves are a breathtaking sight, stretching across the mountain slopes in a series of stepped fields reflecting vibrant autumn hues. These terraces have been meticulously maintained for centuries, symbolizing resilience and ingenuity, and are a central part of cultural celebrations like the rice harvest festival, which honors the land and ancestors. The festival includes traditional dances, prayers for bountiful harvests, and expressions of gratitude. The terraces are uniquely Vietnamese, featuring steeply inclined steps and intricate irrigation systems that have evolved to cope with the region's challenges. This landscape showcases the harmony between nature and human endeavor, and the economic and social fabric of the community.",
+   "out_raw": "### Revised Refined Prompt: During the autumn harvest season on the Mu Cang Chai rice terraces, villagers use traditional sickles known as \"liềm gặt lúa\" to cut the ripe, golden rice. These sickles, with their distinct curved blades and wooden handles, are essential tools for the labor-intensive task of harvesting. The curved blade of the sickle is designed to glide smoothly through the rice stalks, allowing farmers to efficiently gather the harvest. After harvesting, the rice is bundled and stacked along the edges of the terraces to dry in the warm autumn sun, creating a striking scene of vibrant autumn hues against the mountain backdrop. The terraces themselves, featuring steeply inclined steps and intricate irrigation systems, are a breathtaking sight, stretching across the mountain slopes in a series of stepped fields. These terraces have been meticulously maintained for centuries, symbolizing resilience and ingenuity, and are a central part of cultural celebrations like the rice harvest festival. During the festival, traditional dances, prayers for bountiful harvests, and expressions of gratitude highlight the sickle’s importance. Unlike common scythes in Western agriculture, the \"liềm gặt lúa\" reflects the unique challenges and solutions of the Vietnamese rice terraces, showcasing the harmony between nature and human endeavor, and the economic and social fabric of the community.",
+   "out": "During the autumn harvest season on the Mu Cang Chai rice terraces, villagers use traditional sickles known as \"liềm gặt lúa\" to cut the ripe, golden rice. These sickles, with their distinct curved blades and wooden handles, are essential tools for the labor-intensive task of harvesting. The curved blade of the sickle is designed to glide smoothly through the rice stalks, allowing farmers to efficiently gather the harvest. After harvesting, the rice is bundled and stacked along the edges of the terraces to dry in the warm autumn sun, creating a striking scene of vibrant autumn hues against the mountain backdrop. The terraces themselves, featuring steeply inclined steps and intricate irrigation systems, are a breathtaking sight, stretching across the mountain slopes in a series of stepped fields. These terraces have been meticulously maintained for centuries, symbolizing resilience and ingenuity, and are a central part of cultural celebrations like the rice harvest festival. During the festival, traditional dances, prayers for bountiful harvests, and expressions of gratitude highlight the sickle’s importance. Unlike common scythes in Western agriculture, the \"liềm gặt lúa\" reflects the unique challenges and solutions of the Vietnamese rice terraces, showcasing the harmony between nature and human endeavor, and the economic and social fabric of the community.",
+   "words_raw": 211,
+   "words": 207,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 85.7,
+   "scene_keep_raw": 0.79
+  },
+  {
+   "culture_noun": "bó lúa",
+   "in": "During the autumn harvest season on the Mu Cang Chai rice terraces, villagers use traditional sickles known as \"liềm gặt lúa\" to cut the ripe, golden rice. These sickles, with their distinct curved blades and wooden handles, are essential tools for the labor-intensive task of harvesting. The curved blade of the sickle is designed to glide smoothly through the rice stalks, allowing farmers to efficiently gather the harvest. After harvesting, the rice is bundled and stacked along the edges of the terraces to dry in the warm autumn sun, creating a striking scene of vibrant autumn hues against the mountain backdrop. The terraces themselves, featuring steeply inclined steps and intricate irrigation systems, are a breathtaking sight, stretching across the mountain slopes in a series of stepped fields. These terraces have been meticulously maintained for centuries, symbolizing resilience and ingenuity, and are a central part of cultural celebrations like the rice harvest festival. During the festival, traditional dances, prayers for bountiful harvests, and expressions of gratitude highlight the sickle’s importance. Unlike common scythes in Western agriculture, the \"liềm gặt lúa\" reflects the unique challenges and solutions of the Vietnamese rice terraces, showcasing the harmony between nature and human endeavor, and the economic and social fabric of the community.",
+   "out_raw": "### Revised Refined Prompt During the autumn harvest season on the Mu Cang Chai rice terraces, villagers use traditional sickles known as \"liềm gặt lúa\" to cut the ripe, golden rice. These sickles feature distinct curved blades and wooden handles, essential tools designed to glide smoothly through the rice stalks, enabling farmers to efficiently gather the harvest. After cutting the rice, the farmers bundle it into \"bó lúa,\" which refers to the practice of tying the cut rice stalks into compact bundles. Each bó lúa is typically around 1 meter in length, featuring golden stalks tightly bound with colorful ribbons, creating a striking visual pattern when stacked along the terraces. The bó lúa, with its tightly bound form and vibrant colors, is not only a practical agricultural tool but also a symbol of unity and prosperity in Mu Cang Chai communities. The practice of bundling rice into bó lúa dates back centuries and is a testament to the ingenuity of Mu Cang Chai ancestors, who adapted their agricultural techniques to the challenging mountainous terrain. Unlike drying racks commonly used in other rice-growing regions, the bó lúa practice in Mu Cang Chai is uniquely suited to the steep terraces and mountainous environment, allowing for efficient drying and storage without requiring extensive infrastructure. The bó lúa serves both practical and cultural purposes, facilitating the drying and storage of rice while also playing a central role in traditional festivals such as the rice harvest festival, where bó lúa bundles are prominently displayed and celebrated. This practice not only serves practical purposes such as drying the rice and preparing it for storage but also holds significant cultural value, playing a key role in the community’s rice harvest festival, which celebrates the hard work and blessings of the community.",
+   "out": "In the autumn harvest season on the Mu Cang Chai rice terraces, villagers use traditional sickles to cut the ripe, golden rice. After cutting, the farmers bundle the rice stalks into bó lúa, compact bundles around 1 meter in length with golden stalks tied together with colorful ribbons. These bó lúa bundles, practical for drying and storage, are also a symbol of unity and prosperity, playing a central role in traditional festivals celebrating the rice harvest.",
+   "words_raw": 294,
+   "words": 76,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 288.6,
+   "scene_keep_raw": 0.71
+  }
+ ],
+ "seconds": 688.5
+}

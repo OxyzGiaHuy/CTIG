@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S045",
+ "sig": "8b727e6a5637",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "An ancestral altar at Tet with a five-fruit tray and burning incense.",
+ "culture_nouns": [
+  "bàn thờ gia tiên"
+ ],
+ "refined_prompt": "An ancestral altar at Tet with a five-fruit tray and burning incense. An ancestral altar during the Tet holiday features a five-fruit tray and burning incense. The altar, known as \"bàn thờ gia tiên,\" is typically found in the living room or a dedicated space within a Vietnamese home, symbolizing respect and remembrance for family ancestors. This altar is a central focal point during Tet, where family members gather to honor their ancestors by offering prayers, fruits, incense, and other offerings. The altar itself may include items such as candles, photos of the deceased relatives, and flowers, and the surrounding space is often decorated with traditional red and gold paper decorations to celebrate the festive occasion.",
+ "words_in": 12,
+ "words_out": 116,
+ "clip_tokens": 156,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bàn thờ gia tiên",
+   "in": "An ancestral altar at Tet with a five-fruit tray and burning incense.",
+   "out_raw": "### Revised Refined Prompt: An ancestral altar during the Tet holiday features a five-fruit tray and burning incense. The altar, known as \"bàn thờ gia tiên,\" is typically found in the living room or a dedicated space within a Vietnamese home, symbolizing respect and remembrance for family ancestors. This altar is a central focal point during Tet, where family members gather to honor their ancestors by offering prayers, fruits, incense, and other offerings. The altar itself may include items such as candles, photos of the deceased relatives, and flowers, and the surrounding space is often decorated with traditional red and gold paper decorations to celebrate the festive occasion. During this time, family members dress in traditional clothing and gather around the altar, fostering a strong connection to their heritage and traditions. This practice is akin to, but distinct from, similar traditions in other cultures, such as the Japanese Buddhist altar (butsudan) or the Christian practice of honoring saints, reflecting the unique cultural and spiritual significance of ancestral worship in Vietnamese culture. ### Revised SCORE: - **Clarity**: 9.5 (The prompt now clearly explains what an ancestral altar is and its significance.) - **Visual_detail**: 8.5 (The prompt includes more sensory details about the items on the altar and the decorations around it.) - **Background**: 8.8 (The prompt now provides more details about the festive atmosphere during Tet and how the ancestral altar fits into the overall celebration.) - **Purpose**: 8.7 (The prompt elaborates more on the spiritual and emotional significance of the offerings and prayers, emphasizing cultural importance.) - **Comparable_object**: 7.7 (The prompt includes a comparison to similar practices in other cultures, highlighting the uniqueness of the Vietnamese tradition.) - **Total_score**: 43.2",
+   "out": "An ancestral altar during the Tet holiday features a five-fruit tray and burning incense. The altar, known as \"bàn thờ gia tiên,\" is typically found in the living room or a dedicated space within a Vietnamese home, symbolizing respect and remembrance for family ancestors. This altar is a central focal point during Tet, where family members gather to honor their ancestors by offering prayers, fruits, incense, and other offerings. The altar itself may include items such as candles, photos of the deceased relatives, and flowers, and the surrounding space is often decorated with traditional red and gold paper decorations to celebrate the festive occasion.",
+   "words_raw": 280,
+   "words": 104,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 168.7,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 168.7
+}

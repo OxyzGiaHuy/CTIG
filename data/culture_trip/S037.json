@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S037",
+ "sig": "c6e9fa3a2c26",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "Morning at a sidewalk coffee shop with customers on low plastic stools.",
+ "culture_nouns": [
+  "quán cà phê vỉa hè"
+ ],
+ "refined_prompt": "Morning at a sidewalk coffee shop with customers on low plastic stools. In the bustling streets of Vietnam, a typical morning finds a sidewalk coffee shop alive with activity. Customers perch on vivid blue plastic stools under vibrant red umbrellas, sipping steaming cups of aromatic coffee from delicate ceramic mugs. Simple yet cheerful decorations, such as colorful lanterns and lush green plants, adorn the makeshift tables, creating a lively and inviting atmosphere. The elderly find refuge and companionship here, while students gather to study and chat. These sidewalk cafes are integral to Vietnamese daily life, offering a space for people to socialize, work, and conduct business, uniquely embodying the essence of the city's vibrant culture and daily life.",
+ "words_in": 12,
+ "words_out": 118,
+ "clip_tokens": 159,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "quán cà phê vỉa hè",
+   "in": "Morning at a sidewalk coffee shop with customers on low plastic stools.",
+   "out_raw": "### Updated Refined Prompt In the bustling streets of Vietnam, a typical morning finds a \"quán cà phê vỉa hè\" (sidewalk coffee shop) alive with activity. These shops, which have been a part of Vietnamese street culture for decades, originally served as simple resting places but have evolved into vibrant social hubs where people come together. Customers perch on vivid blue plastic stools under vibrant red umbrellas, sipping steaming cups of aromatic coffee from delicate ceramic mugs. The air is filled with the scent of freshly brewed coffee and the sounds of street vendors and passersby. Simple yet cheerful decorations, such as colorful lanterns and lush green plants, adorn the makeshift tables, creating a lively and inviting atmosphere. These sidewalk cafes are not just places to sip coffee; they are integral to Vietnamese daily life, offering a space for people to socialize, work, and conduct business. The elderly find refuge and companionship here, while students gather to study and chat. They uniquely embody the essence of the city's vibrant culture and daily life, blending the roles of a community center and a casual meeting spot. Unlike the quiet terraces of Parisian cafes or the bustling street cafes of Marrakech, \"quán cà phê vỉa hè\" reflect the unique energy and warmth of Vietnamese urban life, where every day is an opportunity for connection and community.",
+   "out": "In the bustling streets of Vietnam, a typical morning finds a sidewalk coffee shop alive with activity. Customers perch on vivid blue plastic stools under vibrant red umbrellas, sipping steaming cups of aromatic coffee from delicate ceramic mugs. Simple yet cheerful decorations, such as colorful lanterns and lush green plants, adorn the makeshift tables, creating a lively and inviting atmosphere. The elderly find refuge and companionship here, while students gather to study and chat. These sidewalk cafes are integral to Vietnamese daily life, offering a space for people to socialize, work, and conduct business, uniquely embodying the essence of the city's vibrant culture and daily life.",
+   "words_raw": 224,
+   "words": 106,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 564.2,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 564.2
+}

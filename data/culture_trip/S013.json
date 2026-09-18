@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S013",
+ "sig": "402cae4ab4f0",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.8,
+ "prompt_en": "A cyclo carrying a passenger along a street.",
+ "culture_nouns": [
+  "xích lô"
+ ],
+ "refined_prompt": "A cyclo carrying a passenger along a street. A cycle rickshaw, also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street, the passenger sits comfortably behind the driver, feeling the gentle breeze and the rhythmic clicking of the pedals. The driver skillfully navigates through narrow lanes and past vibrant colonial architecture, offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.",
+ "words_in": 8,
+ "words_out": 127,
+ "clip_tokens": 171,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "xích lô",
+   "in": "A cyclo carrying a passenger along a street.",
+   "out_raw": "### Revised Refined Prompt A cycle rickshaw, also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street, the passenger sits comfortably behind the driver, feeling the gentle breeze and the rhythmic clicking of the pedals. The driver skillfully navigates through narrow lanes and past vibrant colonial architecture, offering a unique glimpse into the city's rich history and cultural heritage. Unlike the tuk-tuk found in other parts of Southeast Asia, the cyclo provides a distinctive mode of transportation that highlights the unique character of Vietnam's urban landscapes. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike. **Revised SCORE:** - **Clarity**: 9.0/10 - **Visual_detail**: 8.5/10 - **Background**: 8.0/10 - **Purpose**: 9.0/10 - **Comparable_object**: 8.5/10 - **Total_score**: 42.5/50 This refined prompt enhances clarity, visual detail, and background information, making it a more comprehensive and engaging description of the cyclo.",
+   "out": "A cycle rickshaw, also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street, the passenger sits comfortably behind the driver, feeling the gentle breeze and the rhythmic clicking of the pedals. The driver skillfully navigates through narrow lanes and past vibrant colonial architecture, offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.",
+   "words_raw": 191,
+   "words": 119,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 380.6,
+   "scene_keep_raw": 0.8
+  }
+ ],
+ "seconds": 380.6
+}

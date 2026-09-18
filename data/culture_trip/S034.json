@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S034",
+ "sig": "9d579b8b4034",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A northern village communal house with a sagging tiled roof and an old banyan in the yard.",
+ "culture_nouns": [
+  "đình làng"
+ ],
+ "refined_prompt": "A northern village communal house with a sagging tiled roof and an old banyan in the yard. In a northern Vietnamese village, there stands a traditional communal house known as a đình làng, a structure rich in cultural and historical significance. Its sagging tiled roof, adorned with intricate carvings that tell stories of village history and mythology, often depicting local deities and ancestral figures, reflects the age and storied past of the structure. Each tile bears a unique green patina, a testament to the passage of time. Inside, the đình is filled with statues of village guardians and ancestral altars, symbolizing its role as a center for religious and social activities. The walls are lined with finely carved wooden panels, their texture inviting to the touch, while the polished wood floors creak softly with each step, echoing the footsteps of generations past. Surrounding the communal house is a large yard, where an ancient banyan tree provides shade and a sense of history, its sprawling branches reaching out like the arms of a wise elder. The đình serves as a gathering place for community meetings, religious ceremonies, and cultural festivals, embodying the heart and soul of the village. Ancestral worship is a central activity, with families regularly visiting to honor their ancestors and seek guidance. The đình also plays a key role in village governance, where elders and community leaders meet to discuss and resolve issues affecting the village, ensuring harmony and stability. Additionally, it hosts workshops and cultural events that ensure the continuity of traditional practices. The scent of incense during ceremonies and the sound of wind chimes hanging around the ancient banyan tree add to the rich sensory experience, making the đình a revered and cherished part of Vietnamese heritage.",
+ "words_in": 17,
+ "words_out": 291,
+ "clip_tokens": 392,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "đình làng",
+   "in": "A northern village communal house with a sagging tiled roof and an old banyan in the yard.",
+   "out_raw": "### Revised Refined Prompt In a northern Vietnamese village, there stands a traditional communal house known as a đình làng, a structure rich in cultural and historical significance. Its sagging tiled roof, adorned with intricate carvings that tell stories of village history and mythology, often depicting local deities and ancestral figures, reflects the age and storied past of the structure. Each tile bears a unique green patina, a testament to the passage of time. Inside, the đình is filled with statues of village guardians and ancestral altars, symbolizing its role as a center for religious and social activities. The walls are lined with finely carved wooden panels, their texture inviting to the touch, while the polished wood floors creak softly with each step, echoing the footsteps of generations past. Surrounding the communal house is a large yard, where an ancient banyan tree provides shade and a sense of history, its sprawling branches reaching out like the arms of a wise elder. Established during the Lê Dynasty in the 7th century, the đình serves as a gathering place for community meetings, religious ceremonies, and cultural festivals. It embodies the heart and soul of the village, much like a grand cathedral in medieval Europe. Ancestral worship, an integral part of Vietnamese culture, is a central activity, with families regularly visiting to honor their ancestors and seek guidance. For instance, during the Tết (Lunar New Year) festival, villagers gather at the đình to pray for good fortune and health for the coming year. The đình is also a site of village governance, where elders and community leaders meet to discuss and resolve issues affecting the village, ensuring harmony and stability. For example, decisions about water distribution or land use are often made here, reflecting the đình's crucial role in village life. Additionally, the đình plays a key role in community education and cultural preservation, hosting workshops and cultural events that ensure the continuity of traditional practices. The scent of incense during ceremonies and the sound of wind chimes hanging around the ancient banyan tree add to the rich sensory experience, making the đình a revered and cherished part of Vietnamese heritage. This revised prompt enhances clarity, visual detail, background, purpose, and provides a more robust and culturally rich comparison, offering a deeper and more nuanced understanding of the đình làng.",
+   "out": "In a northern Vietnamese village, there stands a traditional communal house known as a đình làng, a structure rich in cultural and historical significance. Its sagging tiled roof, adorned with intricate carvings that tell stories of village history and mythology, often depicting local deities and ancestral figures, reflects the age and storied past of the structure. Each tile bears a unique green patina, a testament to the passage of time. Inside, the đình is filled with statues of village guardians and ancestral altars, symbolizing its role as a center for religious and social activities. The walls are lined with finely carved wooden panels, their texture inviting to the touch, while the polished wood floors creak softly with each step, echoing the footsteps of generations past. Surrounding the communal house is a large yard, where an ancient banyan tree provides shade and a sense of history, its sprawling branches reaching out like the arms of a wise elder. The đình serves as a gathering place for community meetings, religious ceremonies, and cultural festivals, embodying the heart and soul of the village. Ancestral worship is a central activity, with families regularly visiting to honor their ancestors and seek guidance. The đình also plays a key role in village governance, where elders and community leaders meet to discuss and resolve issues affecting the village, ensuring harmony and stability. Additionally, it hosts workshops and cultural events that ensure the continuity of traditional practices. The scent of incense during ceremonies and the sound of wind chimes hanging around the ancient banyan tree add to the rich sensory experience, making the đình a revered and cherished part of Vietnamese heritage.",
+   "words_raw": 387,
+   "words": 274,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 665.6,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 665.6
+}

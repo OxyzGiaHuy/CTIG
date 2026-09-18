@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S011",
+ "sig": "785a508a6a9b",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "A cai luong performer in costume on stage.",
+ "culture_nouns": [
+  "cải lương"
+ ],
+ "refined_prompt": "A cai luong performer in costume on stage. A cai luong performer, dressed in a vibrant, intricately patterned traditional Vietnamese costume featuring bright red and gold hues with intricate phoenix and dragon motifs, stands center stage. The performer’s costume includes flowing fabric and detailed embroidery, reflecting the rich cultural heritage of Vietnam. The performance blends elements of southern Vietnamese folk songs, classical music, and hát tuồng, a classical theatre form based on Chinese opera, to create a unique and dynamic style. The performer’s expressive gestures and melodic voice bring the story to life, engaging the audience with a mix of music, drama, and narrative. Originating in the late 19th century, cai luong reflects the socio-cultural changes of Vietnamese society, serving as a bridge between traditional and modern forms of entertainment. Unlike Chinese opera, which relies heavily on elaborate costumes and masks, cai luong emphasizes spoken dialogue and a narrative-driven performance style. This blend of tradition and innovation in cai luong not only entertains but also educates the audience about Vietnamese history and cultural values, such as loyalty and filial piety.",
+ "words_in": 8,
+ "words_out": 180,
+ "clip_tokens": 243,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "cải lương",
+   "in": "A cai luong performer in costume on stage.",
+   "out_raw": "### Revised Refined Prompt: A cai luong performer, dressed in a vibrant, intricately patterned traditional Vietnamese costume featuring bright red and gold hues with intricate phoenix and dragon motifs, stands center stage. The performer’s costume includes flowing fabric and detailed embroidery, reflecting the rich cultural heritage of Vietnam. The performance blends elements of southern Vietnamese folk songs, classical music, and hát tuồng, a classical theatre form based on Chinese opera, to create a unique and dynamic style. The performer’s expressive gestures and melodic voice bring the story to life, engaging the audience with a mix of music, drama, and narrative. Originating in the late 19th century, cai luong reflects the socio-cultural changes of Vietnamese society, serving as a bridge between traditional and modern forms of entertainment. Unlike Chinese opera, which relies heavily on elaborate costumes and masks, cai luong emphasizes spoken dialogue and a narrative-driven performance style. This blend of tradition and innovation in cai luong not only entertains but also educates the audience about Vietnamese history and cultural values, such as loyalty and filial piety.",
+   "out": "A cai luong performer, dressed in a vibrant, intricately patterned traditional Vietnamese costume featuring bright red and gold hues with intricate phoenix and dragon motifs, stands center stage. The performer’s costume includes flowing fabric and detailed embroidery, reflecting the rich cultural heritage of Vietnam. The performance blends elements of southern Vietnamese folk songs, classical music, and hát tuồng, a classical theatre form based on Chinese opera, to create a unique and dynamic style. The performer’s expressive gestures and melodic voice bring the story to life, engaging the audience with a mix of music, drama, and narrative. Originating in the late 19th century, cai luong reflects the socio-cultural changes of Vietnamese society, serving as a bridge between traditional and modern forms of entertainment. Unlike Chinese opera, which relies heavily on elaborate costumes and masks, cai luong emphasizes spoken dialogue and a narrative-driven performance style. This blend of tradition and innovation in cai luong not only entertains but also educates the audience about Vietnamese history and cultural values, such as loyalty and filial piety.",
+   "words_raw": 176,
+   "words": 172,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 379.7,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 379.7
+}

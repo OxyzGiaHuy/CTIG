@@ -1,0 +1,61 @@
+{
+ "prompt_id": "C003",
+ "sig": "36128199bf14",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.53,
+ "prompt_en": "During a daytime water puppet performance, wooden puppets glide across the water in front of a tiled-roof water pavilion while spectators sit around the pond.",
+ "culture_nouns": [
+  "múa rối nước",
+  "rối gỗ",
+  "thủy đình"
+ ],
+ "refined_prompt": "During a daytime water puppet performance, wooden puppets glide across the water in front of a tiled-roof water pavilion while spectators sit around the pond. In a traditional thủy đình performance, intricately crafted wooden puppets, painted in vivid and traditional Vietnamese colors such as red, gold, and green, are maneuvered by puppeteers wearing traditional Vietnamese costumes, standing in waist-deep water behind a wooden screen adorned with intricate carvings. The puppets glide across the water’s surface with fluid, graceful movements, performing scenes from folk tales and cultural legends. Spectators gather around the pond, marveling at the skill and artistry of the puppeteers as they bring to life the rich cultural heritage of Vietnam.",
+ "words_in": 25,
+ "words_out": 112,
+ "clip_tokens": 151,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "múa rối nước",
+   "in": "During a daytime water puppet performance, wooden puppets glide across the water in front of a tiled-roof water pavilion while spectators sit around the pond.",
+   "out_raw": "### Refined Prompt: During a daytime water puppet performance, wooden puppets painted with vibrant colors and lacquered for durability glide across the water in front of a tiled-roof water pavilion. The puppets are manipulated by puppeteers hidden behind a screen, using long bamboo rods to create the illusion that the puppets are moving freely on the water's surface. Spectators gather around the pond, enjoying the show that has been a beloved tradition in Vietnamese culture for centuries. The puppets often depict scenes from Vietnamese folk tales and cultural legends, such as the story of the Turtle God, and the performance is accompanied by the sound of water splashing and the scent of traditional incense. Water puppetry has its roots in the 11th century, serving as both a form of entertainment and a means of cultural preservation. Unlike marionettes or shadow puppets, the unique method of manipulating puppets on water makes it a distinctive art form that symbolizes the ingenuity and creativity of Vietnamese artisans. ### Explanation: - **Clarity:** Specific scenes from Vietnamese folklore are mentioned to provide more context and enhance understanding. - **Visual Detail:** Added sensory details such as sounds and smells to make the scene more vivid and engaging. - **Background:** Provided a brief historical context and highlighted the cultural significance of water puppetry. - **Purpose:** Emphasized the purpose of the performance beyond entertainment, focusing on cultural preservation and community bonding. - **Comparable Object:** Introduced a comparison with other types of puppetry to highlight the uniqueness of water puppetry. This refined prompt should provide a clear and detailed description of a water puppet performance, making it easier for someone unfamiliar with the concept to visualize and appreciate the cultural significance of múa rối nước.",
+   "out": "During a daytime water puppet performance, wooden puppets painted with vibrant colors and lacquered for durability glide across the water in front of a tiled-roof water pavilion. The puppets are manipulated by puppeteers hidden behind a screen, using long bamboo rods to create the illusion that the puppets are moving freely on the water's surface. Spectators gather around the pond, enjoying the show that has been a beloved tradition in Vietnamese culture for centuries. The puppets often depict scenes from Vietnamese folk tales and cultural legends, such as the story of the Turtle God, and the performance is accompanied by the sound of water splashing and the scent of traditional incense. Water puppetry has its roots in the 11th century, serving as both a form of entertainment and a means of cultural preservation. Unlike marionettes or shadow puppets, the unique method of manipulating puppets on water makes it a distinctive art form that symbolizes the ingenuity and creativity of Vietnamese artisans.",
+   "words_raw": 286,
+   "words": 161,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 173.0,
+   "scene_keep_raw": 0.94
+  },
+  {
+   "culture_noun": "rối gỗ",
+   "in": "During a daytime water puppet performance, wooden puppets painted with vibrant colors and lacquered for durability glide across the water in front of a tiled-roof water pavilion. The puppets are manipulated by puppeteers hidden behind a screen, using long bamboo rods to create the illusion that the puppets are moving freely on the water's surface. Spectators gather around the pond, enjoying the show that has been a beloved tradition in Vietnamese culture for centuries. The puppets often depict scenes from Vietnamese folk tales and cultural legends, such as the story of the Turtle God, and the performance is accompanied by the sound of water splashing and the scent of traditional incense. Water puppetry has its roots in the 11th century, serving as both a form of entertainment and a means of cultural preservation. Unlike marionettes or shadow puppets, the unique method of manipulating puppets on water makes it a distinctive art form that symbolizes the ingenuity and creativity of Vietnamese artisans.",
+   "out_raw": "### Revised Refined Prompt Rối gỗ, a traditional Vietnamese art form, has captivated audiences for centuries with its intricately crafted wooden puppets painted in vibrant colors and lacquered for durability. Originating in the 18th century, this art form was initially used to entertain royalty and has since become a beloved cultural tradition, often performed at festivals and special occasions. Puppeteers stand in waist-deep water behind a wooden screen, using long bamboo rods to control the puppets on the water's surface. During a daytime performance, the puppets glide smoothly across a pond, performing scenes from Vietnamese folk tales and cultural legends, such as the story of the Turtle God. Spectators gather around the pond, marveling at the skill and artistry of the puppeteers as the puppets dance, fight, and tell stories through their movements. The performance is accompanied by the soft sound of water splashing, the subtle scent of traditional incense, and the rhythmic movement of the puppeteers' rods. Unlike marionettes or shadow puppets, the unique method of manipulating puppets on water makes it a distinctive art form that symbolizes the ingenuity and creativity of Vietnamese artisans. Rối gỗ not only entertains but also preserves cultural heritage, passing down stories and traditions from one generation to the next. ### Revised SCORE: - **Clarity**: 9.5 (The prompt is clear and easy to understand, with a smooth flow that enhances readability.) - **Visual_detail**: 9.0 (The prompt offers a vivid description with sensory details that make the scene immersive.) - **Background**: 8.5 (The prompt provides a good overview of the tradition's origin and cultural significance, enriching the historical context.) - **Purpose**: 9.0 (The role of rối gỗ in storytelling and cultural preservation is well-defined and emphasized.) - **Comparable_object**: 8.0 (The comparison with other types of puppetry highlights the unique aspects of manipulating puppets on water, focusing on the technical challenges and artistic achievements of rối gỗ.) - **Total_score**: 44.0",
+   "out": "A traditional Vietnamese art form called rối gỗ, with intricately crafted wooden puppets painted in vibrant colors, is performed on a pond during the daytime. Puppeteers stand in waist-deep water behind a wooden screen, using long bamboo rods to manipulate the puppets, which glide smoothly across the water's surface, performing scenes from Vietnamese folk tales and cultural legends. Spectators gather around the pond, marveling at the skill and artistry of the puppeteers as the puppets dance, fight, and tell stories through their movements, accompanied by the soft sound of water splashing and the subtle scent of traditional incense.",
+   "words_raw": 315,
+   "words": 98,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 227.6,
+   "scene_keep_raw": 0.59
+  },
+  {
+   "culture_noun": "thủy đình",
+   "in": "A traditional Vietnamese art form called rối gỗ, with intricately crafted wooden puppets painted in vibrant colors, is performed on a pond during the daytime. Puppeteers stand in waist-deep water behind a wooden screen, using long bamboo rods to manipulate the puppets, which glide smoothly across the water's surface, performing scenes from Vietnamese folk tales and cultural legends. Spectators gather around the pond, marveling at the skill and artistry of the puppeteers as the puppets dance, fight, and tell stories through their movements, accompanied by the soft sound of water splashing and the subtle scent of traditional incense.",
+   "out_raw": "### Revised Refined Prompt Water puppetry, or thủy đình, is a unique form of Vietnamese entertainment that has been a cornerstone of cultural expression in rural northern Vietnam for over a millennium. Rooted in the agricultural communities of the Red River Delta region, thủy đình is a vibrant art form that conveys folk tales and cultural legends through intricately crafted wooden puppets. Unlike shadow puppetry, which uses light and shadow, thủy đình is a distinct art form that uses water as its stage, making it a unique cultural treasure. In a traditional thủy đình performance, intricately crafted wooden puppets, painted in vivid and traditional Vietnamese colors such as red, gold, and green, are maneuvered by puppeteers wearing traditional Vietnamese costumes, standing in waist-deep water behind a wooden screen adorned with intricate carvings. The puppets glide across the water’s surface with fluid, graceful movements, performing scenes from folk tales and cultural legends. The soft sound of water splashing and the subtle scent of traditional incense create an immersive experience that captivates audiences. These puppets are meticulously designed to depict a wide range of characters and animals, from majestic dragons to humble farmers, each movement and gesture telling a story of Vietnamese history and folklore. Spectators gather around the pond, marveling at the skill and artistry of the puppeteers as they bring to life the rich cultural heritage of Vietnam. Water puppetry not only entertains but also serves as a vital means of preserving and sharing Vietnamese cultural traditions, especially during important community events and festivals. It fosters community unity and cultural identity, making thủy đình an essential part of Vietnamese social gatherings and cultural heritage preservation. **SCORE:** - **Clarity:** 10.0 - **Visual_detail:** 9.0 - **Background:** 9.0 - **Purpose:** 9.0 - **Comparable_object:** 8.0 - **Total_score:** 45.0",
+   "out": "In a traditional thủy đình performance, intricately crafted wooden puppets, painted in vivid and traditional Vietnamese colors such as red, gold, and green, are maneuvered by puppeteers wearing traditional Vietnamese costumes, standing in waist-deep water behind a wooden screen adorned with intricate carvings. The puppets glide across the water’s surface with fluid, graceful movements, performing scenes from folk tales and cultural legends. Spectators gather around the pond, marveling at the skill and artistry of the puppeteers as they bring to life the rich cultural heritage of Vietnam.",
+   "words_raw": 294,
+   "words": 87,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 456.9,
+   "scene_keep_raw": 0.53
+  }
+ ],
+ "seconds": 857.5
+}

@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C022",
+ "sig": "193fbc1cf29a",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.56,
+ "prompt_en": "A Gia Rai man in traditional brocade attire plays the t'rung bamboo xylophone beside a stream.",
+ "culture_nouns": [
+  "đàn t'rưng",
+  "trang phục thổ cẩm Gia Rai"
+ ],
+ "refined_prompt": "A Gia Rai man in traditional brocade attire plays the t'rung bamboo xylophone beside a stream. A man from the Gia Rai ethnic group, indigenous to the Central Highlands of Vietnam, is wearing a traditional costume adorned with intricate red and black patterns. He is playing a t'rung, a bamboo xylophone, near a serene, crystal-clear stream lined with lush green vegetation. The t'rung, crafted from polished bamboo tubes of varying lengths, produces a beautiful melody when struck, resonating in harmony with the gentle babbling of the stream and the sweet scent of the surrounding flora. The instrument is an essential part of their cultural heritage, used in daily life and special occasions such as religious ceremonies and festivals.",
+ "words_in": 16,
+ "words_out": 118,
+ "clip_tokens": 159,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "đàn t'rưng",
+   "in": "A Gia Rai man in traditional brocade attire plays the t'rung bamboo xylophone beside a stream.",
+   "out_raw": "### Updated REFINED PROMPT: A man from the Gia Rai ethnic group, dressed in vibrant red and black brocade clothing, is playing a t'rung, a traditional bamboo xylophone, beside a serene, crystal-clear stream in the lush greenery of the Central Highlands of Vietnam. The t'rung, made up of polished bamboo tubes of varying lengths, produces a melodic sound when struck. This xylophone is not only a key element in the cultural heritage of the Gia Rai and Bahnar people but also a significant part of daily life and special occasions such as weddings and festivals. For the Gia Rai and Bahnar people, the t'rung serves as a vital means of expressing joy, mourning, and unity, reflecting their deep connection to nature and community. Its importance is comparable to that of the kora in West African music traditions or the didgeridoo in Aboriginal Australian culture, highlighting its significance in the cultural tapestry of Vietnam.",
+   "out": "A man from the Gia Rai ethnic group, dressed in vibrant red and black brocade clothing, is playing a t'rung, a traditional bamboo xylophone, beside a serene, crystal-clear stream in the lush greenery of the Central Highlands of Vietnam. The t'rung, made up of polished bamboo tubes of varying lengths, produces a melodic sound when struck. This xylophone is not only a key element in the cultural heritage of the Gia Rai and Bahnar people but also a significant part of daily life and special occasions such as weddings and festivals. For the Gia Rai and Bahnar people, the t'rung serves as a vital means of expressing joy, mourning, and unity, reflecting their deep connection to nature and community. Its importance is comparable to that of the kora in West African music traditions or the didgeridoo in Aboriginal Australian culture, highlighting its significance in the cultural tapestry of Vietnam.",
+   "words_raw": 153,
+   "words": 149,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 105.9,
+   "scene_keep_raw": 0.78
+  },
+  {
+   "culture_noun": "trang phục thổ cẩm Gia Rai",
+   "in": "A man from the Gia Rai ethnic group, dressed in vibrant red and black brocade clothing, is playing a t'rung, a traditional bamboo xylophone, beside a serene, crystal-clear stream in the lush greenery of the Central Highlands of Vietnam. The t'rung, made up of polished bamboo tubes of varying lengths, produces a melodic sound when struck. This xylophone is not only a key element in the cultural heritage of the Gia Rai and Bahnar people but also a significant part of daily life and special occasions such as weddings and festivals. For the Gia Rai and Bahnar people, the t'rung serves as a vital means of expressing joy, mourning, and unity, reflecting their deep connection to nature and community. Its importance is comparable to that of the kora in West African music traditions or the didgeridoo in Aboriginal Australian culture, highlighting its significance in the cultural tapestry of Vietnam.",
+   "out_raw": "### Revised Refined Prompt A man from the Gia Rai ethnic group, indigenous to the Central Highlands of Vietnam, is wearing a traditional costume adorned with intricate red and black patterns. The vibrant and detailed fabric, woven from natural fibers and dyed with traditional methods, feels soft yet durable, reflecting the rich cultural heritage of the Gia Rai people. He is playing a t'rung, a bamboo xylophone, near a serene, crystal-clear stream lined with lush green vegetation. The t'rung, crafted from polished bamboo tubes of varying lengths, produces a beautiful melody when struck, resonating in harmony with the gentle babbling of the stream and the sweet scent of the surrounding flora. For the Gia Rai people, the t'rung is an essential part of their cultural heritage, used in daily life and special occasions such as religious ceremonies, community gatherings, and festivals. The instrument not only expresses emotions and fosters community unity but also serves as a means of storytelling and communication between generations, reflecting their deep connection to nature and community. During the annual New Rice Festival, the t'rung is played to celebrate the harvest and thank the spirits for their blessings. The melodic sounds of the t'rung are not just a form of entertainment but also a spiritual and communal expression, often conveying stories and historical events, and playing a key role in cultural preservation. The cultural significance of the t'rung is comparable to that of the kora in West African music traditions or the didgeridoo in Aboriginal Australian culture, as these instruments also serve as vital means of cultural and spiritual expression. However, the t'rung is uniquely important to the Gia Rai people, embodying their traditions and daily life in a profound way, particularly through its role in storytelling and fostering a sense of unity within the community. ### Revised SCORE - **Clarity**: 9.5 - **Visual Detail**: 9.0 - **Background**: 9.0 - **Purpose**: 8.5 - **Comparable Object**: 7.5 - **Total Score**: 43.5 This revised prompt enhances each aspect, providing a richer and more engaging description of the cultural context and significance of the t'rung within Gia Rai culture.",
+   "out": "A man from the Gia Rai ethnic group, indigenous to the Central Highlands of Vietnam, is wearing a traditional costume adorned with intricate red and black patterns. He is playing a t'rung, a bamboo xylophone, near a serene, crystal-clear stream lined with lush green vegetation. The t'rung, crafted from polished bamboo tubes of varying lengths, produces a beautiful melody when struck, resonating in harmony with the gentle babbling of the stream and the sweet scent of the surrounding flora. The instrument is an essential part of their cultural heritage, used in daily life and special occasions such as religious ceremonies and festivals.",
+   "words_raw": 350,
+   "words": 102,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 329.2,
+   "scene_keep_raw": 0.56
+  }
+ ],
+ "seconds": 435.2
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S042",
+ "sig": "41264e6f2a3d",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "Limestone karst islands rising from the emerald waters of Ha Long Bay.",
+ "culture_nouns": [
+  "vịnh Hạ Long"
+ ],
+ "refined_prompt": "Limestone karst islands rising from the emerald waters of Ha Long Bay. Ha Long Bay, a natural wonder in northeastern Vietnam, is celebrated for its thousands of limestone karst islands and islets rising majestically from the emerald waters. These geological formations range in size from small rocks to towering peaks, creating a mesmerizing landscape. The bay, located in the Gulf of Tonkin, is renowned for its crystal-clear waters, lush greenery, and vibrant marine ecosystems teeming with colorful fish, coral reefs, and dolphins. Visitors can kayak between the islands, explore hidden coves, and discover the myriad of marine life that calls this stunning bay home. Ha Long Bay is also a cultural treasure, with ancient fishing villages, traditional boat tours, and preserved indigenous traditions offering a unique glimpse into the area’s rich history and heritage.",
+ "words_in": 12,
+ "words_out": 134,
+ "clip_tokens": 180,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "vịnh Hạ Long",
+   "in": "Limestone karst islands rising from the emerald waters of Ha Long Bay.",
+   "out_raw": "### Revised Refined Prompt Ha Long Bay, a natural wonder in northeastern Vietnam, is a UNESCO World Heritage Site celebrated for its thousands of limestone karst islands and islets rising majestically from the emerald waters. These geological formations, sculpted over millions of years by the forces of nature, range in size from small rocks to towering peaks, creating a mesmerizing landscape. The bay, located in the Gulf of Tonkin, is renowned for its crystal-clear waters, lush greenery, and vibrant marine ecosystems, teeming with colorful fish, coral reefs, and dolphins. Visitors can kayak between the islands, explore hidden coves, and discover the myriad of marine life that calls this stunning bay home. Ha Long Bay is not only a geological marvel but also a cultural treasure, with ancient fishing villages, traditional boat tours, and preserved indigenous traditions offering a unique glimpse into the area’s rich history and heritage. ### Revised SCORE with Suggestions - **Clarity:** 9.8 (Adding an introductory definition of Ha Long Bay) - **Visual Detail:** 9.5 (Including sensory details and marine life descriptions) - **Background:** 8.5 (Adding historical and cultural context) - **Purpose:** 8.0 (Highlighting the benefits of activities and attractions) - **Comparable Object:** 7.5 (Including comparisons with other famous bays) - **Total Score:** 43.3 (Overall improvement due to detailed enhancements)",
+   "out": "Ha Long Bay, a natural wonder in northeastern Vietnam, is celebrated for its thousands of limestone karst islands and islets rising majestically from the emerald waters. These geological formations range in size from small rocks to towering peaks, creating a mesmerizing landscape. The bay, located in the Gulf of Tonkin, is renowned for its crystal-clear waters, lush greenery, and vibrant marine ecosystems teeming with colorful fish, coral reefs, and dolphins. Visitors can kayak between the islands, explore hidden coves, and discover the myriad of marine life that calls this stunning bay home. Ha Long Bay is also a cultural treasure, with ancient fishing villages, traditional boat tours, and preserved indigenous traditions offering a unique glimpse into the area’s rich history and heritage.",
+   "words_raw": 212,
+   "words": 122,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 223.1,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 223.1
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S047",
+ "sig": "443cb2b70551",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.5,
+ "prompt_en": "A Hmong woman in traditional dress standing amid a field of flowers.",
+ "culture_nouns": [
+  "trang phục truyền thống H'Mông"
+ ],
+ "refined_prompt": "A Hmong woman in traditional dress standing amid a field of flowers. A H'Mông woman from the northern regions of Vietnam, dressed in her traditional attire for the H'Mông New Year festival, stands in a lush green valley surrounded by towering mountains. Her outfit features intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script, along with silver coins and decorative brooches. The field around her is filled with native flowers, including tulips and peonies, adding to the festive atmosphere. Her hair is styled intricately, held in place with a beautifully crafted silver headpiece adorned with colorful beads.",
+ "words_in": 12,
+ "words_out": 99,
+ "clip_tokens": 133,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "trang phục truyền thống H'Mông",
+   "in": "A Hmong woman in traditional dress standing amid a field of flowers.",
+   "out_raw": "### Revised Refined Prompt: A H'Mông woman from the northern regions of Vietnam, particularly the mountainous areas around the Red River Delta, is dressed in her traditional attire for the H'Mông New Year festival, a time of cultural celebration and spiritual renewal for her community. She is standing in a lush green valley surrounded by towering mountains, with cherry blossoms and native flowers in full bloom, creating a serene and vibrant backdrop for the festival. Her traditional outfit features intricate embroidery on her jacket, which includes motifs such as dragons, phoenixes, and traditional H'Mông script, symbolizing her community's rich cultural heritage. The jacket and pleated skirt are also adorned with silver coins and decorative brooches, showcasing the craftsmanship and beauty of H'Mông culture. The field around her is filled with native flowers, including tulips and peonies, which add to the festive atmosphere of the celebration. Her hair is intricately styled and held in place with a beautifully crafted silver headpiece adorned with colorful beads, further emphasizing the cultural pride and beauty of the H'Mông people. Compared to traditional attire worn by other ethnic groups in Vietnam, such as the Ao Dai of the Kinh people or the Yi Peng festival attire of the Dai ethnic group, the H'Mông attire stands out for its intricate embroidery and deep cultural significance. The woman's role in the community is to wear this attire to honor the spirits and celebrate the New Year, marking a time of renewal and cultural pride for the H'Mông people. --- This revised prompt enhances clarity, provides rich visual detail, and offers a culturally specific background and purpose, making the scene vivid and informative for anyone unfamiliar with H'Mông culture.",
+   "out": "A H'Mông woman from the northern regions of Vietnam, dressed in her traditional attire for the H'Mông New Year festival, stands in a lush green valley surrounded by towering mountains. Her outfit features intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script, along with silver coins and decorative brooches. The field around her is filled with native flowers, including tulips and peonies, adding to the festive atmosphere. Her hair is styled intricately, held in place with a beautifully crafted silver headpiece adorned with colorful beads.",
+   "words_raw": 281,
+   "words": 87,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 366.4,
+   "scene_keep_raw": 0.5
+  }
+ ],
+ "seconds": 366.4
+}

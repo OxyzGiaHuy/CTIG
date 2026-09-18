@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S036",
+ "sig": "8f50e7d16120",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.75,
+ "prompt_en": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays.",
+ "culture_nouns": [
+  "lễ ăn hỏi"
+ ],
+ "refined_prompt": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays. A traditional betrothal ceremony, known as \"lễ ăn hỏi\" in Vietnamese culture, is taking place. The room is adorned with vibrant red and gold decorations, and family members wear traditional áo dài, typically in bright colors with intricate embroidery. Red-draped gift trays filled with betel nuts, seasonal fruits, and traditional sweets are exchanged as a sign of respect and goodwill.",
+ "words_in": 13,
+ "words_out": 73,
+ "clip_tokens": 98,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "lễ ăn hỏi",
+   "in": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays.",
+   "out_raw": "### Revised Refined Prompt A traditional betrothal ceremony, known as \"lễ ăn hỏi\" in Vietnamese culture, is taking place. This formal engagement ceremony precedes the wedding and is a significant event in Vietnamese tradition, symbolizing the union of two families. The bride and groom are not present at this ceremony because their roles are primarily ceremonial, to be honored at the wedding, while their families gather to exchange red-draped gift trays filled with betel nuts, seasonal fruits, and traditional sweets, such as bánh mứt and bánh kẹo, as a sign of respect and goodwill. The room is adorned with vibrant red and gold decorations, and family members wear traditional áo dài, typically in bright colors with intricate embroidery, enhancing the celebratory atmosphere. Historically, \"lễ ăn hỏi\" has its roots in ancient Vietnamese customs, serving to seek approval from both families and to formalize the engagement publicly, ensuring the couple's union is recognized by their social circles. In comparison to a Western engagement party, which often centers on the couple, \"lễ ăn hỏi\" focuses more on family approval and the exchange of gifts, reflecting the cultural emphasis on familial ties and respect. The gifts exchanged are not just symbolic but carry deep cultural significance, often including items that represent longevity, prosperity, and good fortune. This ceremony is a crucial step in Vietnamese wedding traditions, setting the stage for the upcoming wedding celebrations by solidifying the relationship between the two families.",
+   "out": "A traditional betrothal ceremony, known as \"lễ ăn hỏi\" in Vietnamese culture, is taking place. The room is adorned with vibrant red and gold decorations, and family members wear traditional áo dài, typically in bright colors with intricate embroidery. Red-draped gift trays filled with betel nuts, seasonal fruits, and traditional sweets are exchanged as a sign of respect and goodwill.",
+   "words_raw": 239,
+   "words": 60,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 458.7,
+   "scene_keep_raw": 0.75
+  }
+ ],
+ "seconds": 458.7
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S007",
+ "sig": "c936813c241d",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.89,
+ "prompt_en": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.",
+ "culture_nouns": [
+  "Văn Miếu - Quốc Tử Giám"
+ ],
+ "refined_prompt": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles. The Văn Miếu - Quốc Tử Giám is Vietnam’s most important educational and cultural site, showcasing the nation's Confucian heritage and scholarly traditions. Founded in 1070, it served as the Imperial Academy until 1779, nurturing scholars and promoting intellectual and cultural growth. At its heart is the Khue Van Cac pavilion, known for its detailed carvings and vibrant colors, featuring dragons and phoenixes, symbols of power, longevity, and good fortune. Rows of doctoral stelae mounted on stone turtles surround the pavilion, commemorating the academic achievements of scholars who passed the imperial exams. The temple complex includes several pavilions, halls, and statues, each intricately designed to honor the value of learning and culture. Today, the temple remains a vital center for cultural and educational activities, hosting workshops, exhibitions, and educational seminars, playing a crucial role in preserving and promoting Vietnamese culture and heritage.",
+ "words_in": 17,
+ "words_out": 159,
+ "clip_tokens": 214,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "Văn Miếu - Quốc Tử Giám",
+   "in": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.",
+   "out_raw": "### Revised Refined Prompt The Văn Miếu - Quốc Tử Giám is Vietnam’s most important educational and cultural site, showcasing the nation's Confucian heritage and scholarly traditions. Founded in 1070 during the reign of Emperor Lý Thánh Tông, it served as the Imperial Academy from 1076 to 1779, nurturing scholars and promoting intellectual and cultural growth in Vietnam. Located south of the Imperial Citadel of Thăng Long, this historic temple honors Confucius and the scholars of ancient Vietnam. At its heart is the Khue Van Cac pavilion, known for its detailed carvings and vibrant colors, featuring dragons and phoenixes, symbols of power, longevity, and good fortune, reflecting Vietnam's cultural richness. The temple complex includes several pavilions, halls, and statues, each intricately designed to honor the value of learning and culture. Surrounding the Khue Van Cac pavilion, rows of doctoral stelae are mounted on stone turtles. Each stela commemorates the academic achievements of scholars who passed the imperial exams. These stelae are an essential part of Vietnam's cultural heritage, representing the academic excellence of scholars from various eras. Today, the temple remains a vital center for cultural and educational activities, hosting workshops, exhibitions, and educational seminars. These activities play a crucial role in preserving and promoting Vietnamese culture and heritage. For example, calligraphists gather here before the Tết Vietnamese New Year to write wishes in Chữ Hán, which are then given away as gifts or used as home decorations for special occasions. Comparable to the Confucius Temple in Beijing, China, the Văn Miếu - Quốc Tử Giám uniquely symbolizes the enduring influence of Confucianism on Vietnam’s intellectual and cultural development. It is especially recognized for its doctoral stelae, which honor the academic achievements of scholars across various eras. With its rich history, vibrant culture, and ongoing educational initiatives, the Văn Miếu - Quốc Tử Giám continues to be a significant site for both Vietnamese and international visitors, offering a deep dive into the cultural and educational legacy of Vietnam.",
+   "out": "The Văn Miếu - Quốc Tử Giám is Vietnam’s most important educational and cultural site, showcasing the nation's Confucian heritage and scholarly traditions. Founded in 1070, it served as the Imperial Academy until 1779, nurturing scholars and promoting intellectual and cultural growth. At its heart is the Khue Van Cac pavilion, known for its detailed carvings and vibrant colors, featuring dragons and phoenixes, symbols of power, longevity, and good fortune. Rows of doctoral stelae mounted on stone turtles surround the pavilion, commemorating the academic achievements of scholars who passed the imperial exams. The temple complex includes several pavilions, halls, and statues, each intricately designed to honor the value of learning and culture. Today, the temple remains a vital center for cultural and educational activities, hosting workshops, exhibitions, and educational seminars, playing a crucial role in preserving and promoting Vietnamese culture and heritage.",
+   "words_raw": 328,
+   "words": 142,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 833.0,
+   "scene_keep_raw": 0.89
+  }
+ ],
+ "seconds": 833.0
+}

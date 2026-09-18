@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S050",
+ "sig": "126585c1974b",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 1.0,
+ "prompt_en": "An adult's hand giving a red lucky money envelope to a child.",
+ "culture_nouns": [
+  "bao lì xì đỏ"
+ ],
+ "refined_prompt": "An adult's hand giving a red lucky money envelope to a child. An adult's hand is giving a red lucky money envelope, known as a \"bao lì xì đỏ\" or \"hóngbāo,\" to a child. The red envelope is often adorned with traditional Chinese characters and decorative patterns such as dragons or flowers, symbolizing good fortune and blessings. This traditional practice is widely observed in China and other East Asian cultures during holidays, weddings, and other special occasions.",
+ "words_in": 12,
+ "words_out": 77,
+ "clip_tokens": 103,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bao lì xì đỏ",
+   "in": "An adult's hand giving a red lucky money envelope to a child.",
+   "out_raw": "### Revised Refined Prompt: An adult's hand is giving a red lucky money envelope, known as a \"bao lì xì đỏ\" or \"hóngbāo,\" to a child. This traditional practice is widely observed in China and other East Asian cultures during holidays, weddings, and other special occasions. The red envelope, often adorned with traditional Chinese characters and decorative patterns such as dragons or flowers, carries money as a gift symbolizing good fortune and blessings. Historically, this custom dates back centuries, serving to strengthen familial ties and express goodwill. In recent years, with the advancement of technology, digital red envelopes have also become popular, especially through messaging apps like WeChat during the Chinese New Year celebrations. The act of giving bao lì xì not only represents a monetary gift but also conveys deep emotional and familial bonds, similar to the Western tradition of Christmas gifts but with a unique cultural significance. ### Revised SCORE: - **Clarity:** 10.0 - **Visual Detail:** 8.0 - **Background:** 9.0 - **Purpose:** 8.0 - **Comparable Object:** 6.0 - **Total Score:** 41.0 This refined prompt ensures that someone unfamiliar with the custom can understand its cultural significance and visual details, enhancing their ability to imagine the scene vividly.",
+   "out": "An adult's hand is giving a red lucky money envelope, known as a \"bao lì xì đỏ\" or \"hóngbāo,\" to a child. The red envelope is often adorned with traditional Chinese characters and decorative patterns such as dragons or flowers, symbolizing good fortune and blessings. This traditional practice is widely observed in China and other East Asian cultures during holidays, weddings, and other special occasions.",
+   "words_raw": 199,
+   "words": 65,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 208.8,
+   "scene_keep_raw": 1.0
+  }
+ ],
+ "seconds": 208.8
+}

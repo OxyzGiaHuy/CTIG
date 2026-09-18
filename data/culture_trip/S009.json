@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S009",
+ "sig": "81e2fc769776",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.8,
+ "prompt_en": "A musician playing the dan bau monochord on a small stage.",
+ "culture_nouns": [
+  "đàn bầu"
+ ],
+ "refined_prompt": "A musician playing the dan bau monochord on a small stage. A musician is performing on the đàn bầu, a unique Vietnamese monochord instrument, on a small, traditional stage adorned with intricate wooden carvings and colorful lanterns. The đàn bầu, also known as the \"gourd zither,\" features a long bamboo neck with a single string stretched over it and a large, intricately carved gourd resonator. As the musician’s fingers pluck the string, a distinctive and ethereal sound fills the air, captivating the audience and evoking a sense of cultural pride and nostalgia. This performance is part of a vibrant cultural festival celebrating the rich heritage and artistic expression of Vietnamese culture, emphasizing the đàn bầu's role as a symbol of traditional artistry and craftsmanship. Revised",
+ "words_in": 11,
+ "words_out": 125,
+ "clip_tokens": 168,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "đàn bầu",
+   "in": "A musician playing the dan bau monochord on a small stage.",
+   "out_raw": "### Revised Refined Prompt: A musician is performing on the đàn bầu, a unique Vietnamese monochord instrument, on a small, traditional stage adorned with intricate wooden carvings and colorful lanterns. The đàn bầu, also known as the \"gourd zither,\" features a long bamboo neck with a single string stretched over it and a large, intricately carved gourd resonator. As the musician’s fingers pluck the string, a distinctive and ethereal sound fills the air, captivating the audience and evoking a sense of cultural pride and nostalgia. This performance is part of a vibrant cultural festival celebrating the rich heritage and artistic expression of Vietnamese culture, emphasizing the đàn bầu's role as a symbol of traditional artistry and craftsmanship. **Revised SCORE:** - Clarity: 9.5 (All terms are clearly explained and accessible) - Visual_detail: 9.0 (More sensory details and audience reactions added) - Background: 8.5 (Detailed historical context and cultural significance included) - Purpose: 9.0 (Role in cultural heritage and specific events mentioned) - Comparable_object: 8.0 (Distinctiveness highlighted through construction and playing techniques) - Total_score: 44.0 (Overall enhancement and clarity improvement) This refined prompt ensures that anyone unfamiliar with the đàn bầu can visualize and understand the cultural significance of this unique instrument.",
+   "out": "A musician is performing on the đàn bầu, a unique Vietnamese monochord instrument, on a small, traditional stage adorned with intricate wooden carvings and colorful lanterns. The đàn bầu, also known as the \"gourd zither,\" features a long bamboo neck with a single string stretched over it and a large, intricately carved gourd resonator. As the musician’s fingers pluck the string, a distinctive and ethereal sound fills the air, captivating the audience and evoking a sense of cultural pride and nostalgia. This performance is part of a vibrant cultural festival celebrating the rich heritage and artistic expression of Vietnamese culture, emphasizing the đàn bầu's role as a symbol of traditional artistry and craftsmanship. Revised",
+   "words_raw": 200,
+   "words": 114,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 402.9,
+   "scene_keep_raw": 0.8
+  }
+ ],
+ "seconds": 402.9
+}

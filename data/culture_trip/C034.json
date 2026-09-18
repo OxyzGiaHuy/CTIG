@@ -1,0 +1,48 @@
+{
+ "prompt_id": "C034",
+ "sig": "cc01c72c7661",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": true,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.3,
+ "prompt_en": "A banh mi stuffed with pork, pickled vegetables and cilantro sits on a roadside food cart.",
+ "culture_nouns": [
+  "bánh mì",
+  "xe đẩy bán hàng rong"
+ ],
+ "refined_prompt": "A banh mi stuffed with pork, pickled vegetables and cilantro sits on a roadside food cart. A bustling street corner in Vietnam features a small, vibrant xe đẩy bán hàng rong with colorful decorations and inviting aromas. The mobile food stall offers bánh mì, a culinary masterpiece with a variety of savory ingredients such as chả lụa, pickled carrots and daikon, and fresh cilantro. The baguette is a short, crusty bread with a soft interior, creating a unique balance of flavors. The sizzle of the grilling chả lụa and the crunch of the baguette contribute to an immersive experience, highlighting the importance of street food in the daily life of Vietnamese people.",
+ "words_in": 16,
+ "words_out": 112,
+ "clip_tokens": 151,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "bánh mì",
+   "in": "A banh mi stuffed with pork, pickled vegetables and cilantro sits on a roadside food cart.",
+   "out_raw": "### Revised and Improved Prompt Imagine a bustling street corner in Vietnam, where the vibrant colors of a food cart adorned with red and yellow banners catch the eye. The cart is filled with the inviting aroma of freshly baked baguettes and grilling chả lụa (Vietnamese pork floss). The bánh mì, a short baguette with a thin, crisp crust and a soft, airy interior, is a culinary masterpiece born from the fusion of French and Vietnamese culinary traditions during colonial times. Unlike a classic French baguette, this bánh mì is typically split lengthwise and filled with a variety of savory ingredients such as chả lụa, pickled carrots and daikon, and fresh cilantro. The combination of meats, fresh vegetables, and French-inspired condiments creates a unique balance of flavors, reminiscent of a gourmet Reuben but with a distinctly Asian twist. The sizzle of the grilling chả lụa, the crunch of the baguette, and the lively atmosphere around the food cart all contribute to an immersive experience. This dish, cherished in Vietnamese culture, is often enjoyed as a quick and satisfying meal, whether for lunch or as a casual snack.",
+   "out": "Revised and Improved Prompt Imagine a bustling street corner in Vietnam, where the vibrant colors of a food cart adorned with red and yellow banners catch the eye. The cart is filled with the inviting aroma of freshly baked baguettes and grilling chả lụa (Vietnamese pork floss). The bánh mì, a short baguette with a thin, crisp crust and a soft, airy interior, is a culinary masterpiece born from the fusion of French and Vietnamese culinary traditions during colonial times. Unlike a classic French baguette, this bánh mì is typically split lengthwise and filled with a variety of savory ingredients such as chả lụa, pickled carrots and daikon, and fresh cilantro. The combination of meats, fresh vegetables, and French-inspired condiments creates a unique balance of flavors, reminiscent of a gourmet Reuben but with a distinctly Asian twist. The sizzle of the grilling chả lụa, the crunch of the baguette, and the lively atmosphere around the food cart all contribute to an immersive experience. This dish, cherished in Vietnamese culture, is often enjoyed as a quick and satisfying meal, whether for lunch or as a casual snack.",
+   "words_raw": 187,
+   "words": 186,
+   "post_processed": false,
+   "cleaned_by": "nguyên văn",
+   "seconds": 356.3,
+   "scene_keep_raw": 0.6
+  },
+  {
+   "culture_noun": "xe đẩy bán hàng rong",
+   "in": "Revised and Improved Prompt Imagine a bustling street corner in Vietnam, where the vibrant colors of a food cart adorned with red and yellow banners catch the eye. The cart is filled with the inviting aroma of freshly baked baguettes and grilling chả lụa (Vietnamese pork floss). The bánh mì, a short baguette with a thin, crisp crust and a soft, airy interior, is a culinary masterpiece born from the fusion of French and Vietnamese culinary traditions during colonial times. Unlike a classic French baguette, this bánh mì is typically split lengthwise and filled with a variety of savory ingredients such as chả lụa, pickled carrots and daikon, and fresh cilantro. The combination of meats, fresh vegetables, and French-inspired condiments creates a unique balance of flavors, reminiscent of a gourmet Reuben but with a distinctly Asian twist. The sizzle of the grilling chả lụa, the crunch of the baguette, and the lively atmosphere around the food cart all contribute to an immersive experience. This dish, cherished in Vietnamese culture, is often enjoyed as a quick and satisfying meal, whether for lunch or as a casual snack.",
+   "out_raw": "### Revised Refined Prompt: Imagine a bustling street corner in Vietnam, where a small, vibrant xe đẩy bán hàng rong catches the eye with its colorful decorations and inviting aromas. This mobile food stall, a common sight on Vietnamese streets, offers a quick and satisfying meal to locals and tourists alike. The xe đẩy bán hàng rong is a wheeled cart that serves as a vital part of the local food culture, symbolizing the convenience and accessibility of street food. A signature dish on these carts is the bánh mì, a culinary masterpiece that emerged from the fusion of French and Vietnamese culinary traditions during colonial times. Unlike a classic French baguette, this Vietnamese sandwich is typically split lengthwise and filled with a variety of savory ingredients such as chả lụa (sweet, savory, and smoky pork floss), pickled carrots and daikon, and fresh cilantro. The baguette itself is a short, crusty bread with a soft interior, and the combination of meats, fresh vegetables, and French-inspired condiments creates a unique balance of flavors, reminiscent of a gourmet Reuben but with a distinctly Asian twist. The sizzle of the grilling chả lụa, the crunch of the baguette, and the lively atmosphere around the food cart all contribute to an immersive experience. This dish, cherished in Vietnamese culture, is often enjoyed as a quick and satisfying meal, whether for breakfast, lunch, or as a casual snack, highlighting the importance of street food in the daily life of Vietnamese people. Additionally, the xe đẩy bán hàng rong represents the economic and social fabric of Vietnamese society, providing a source of income and sustenance for many. ### Explanation: This revised prompt enhances the clarity and visual detail of the original while emphasizing the cultural significance of the xe đẩy bán hàng rong and the bánh mì. It provides a clear description of the mobile food cart and its role in Vietnamese culture, as well as the unique flavors and textures of the bánh mì. By incorporating sensory details and the broader social context, the prompt allows readers to fully appreciate the scene and its cultural importance.",
+   "out": "A bustling street corner in Vietnam features a small, vibrant xe đẩy bán hàng rong with colorful decorations and inviting aromas. The mobile food stall offers bánh mì, a culinary masterpiece with a variety of savory ingredients such as chả lụa, pickled carrots and daikon, and fresh cilantro. The baguette is a short, crusty bread with a soft interior, creating a unique balance of flavors. The sizzle of the grilling chả lụa and the crunch of the baguette contribute to an immersive experience, highlighting the importance of street food in the daily life of Vietnamese people.",
+   "words_raw": 351,
+   "words": 96,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 199.3,
+   "scene_keep_raw": 0.3
+  }
+ ],
+ "seconds": 555.6
+}

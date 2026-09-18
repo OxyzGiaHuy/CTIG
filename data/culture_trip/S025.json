@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S025",
+ "sig": "f56d5ac41265",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.89,
+ "prompt_en": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip.",
+ "culture_nouns": [
+  "gỏi cuốn"
+ ],
+ "refined_prompt": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip. A plate holds several fresh gỏi cuốn, a traditional Vietnamese dish often served at special occasions and family gatherings. Gỏi cuốn, which translates to \"salad rolls,\" is made by carefully wrapping a thin rice paper around a mix of shrimp, pork, bún (rice vermicelli), and fresh vegetables. Each roll is meticulously filled with crisp, green lettuce, bright, orange shredded carrots, and fragrant mint leaves, creating a delightful array of flavors and textures. A small bowl of peanut hoisin dip is placed beside the plate, offering a perfect accompaniment to the fresh, crunchy rolls. Gỏi cuốn symbolizes the Vietnamese appreciation for fresh, healthy ingredients and communal dining experiences, making it a cherished dish for its cultural significance. Unlike the crispy, fried spring rolls (nem rán), which are cooked and have a different taste profile, gỏi cuốn showcases the beauty of fresh, delicate flavors and textures. During Tết (Vietnamese New Year) and other family gatherings, gỏi cuốn is served to bring people together, reflecting the cultural importance of sharing food and celebrating life's special moments.",
+ "words_in": 17,
+ "words_out": 190,
+ "clip_tokens": 256,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "gỏi cuốn",
+   "in": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip.",
+   "out_raw": "### Revised Refined Prompt: A plate holds several fresh gỏi cuốn, a traditional Vietnamese dish often served at special occasions and family gatherings. Gỏi cuốn, which translates to \"salad rolls,\" is made by carefully wrapping a thin rice paper around a mix of shrimp, pork, bún (rice vermicelli), and fresh vegetables. Each roll is meticulously filled with crisp, green lettuce, bright, orange shredded carrots, and fragrant mint leaves, creating a delightful array of flavors and textures. A small bowl of peanut hoisin dip is placed beside the plate, offering a perfect accompaniment to the fresh, crunchy rolls. Gỏi cuốn symbolizes the Vietnamese appreciation for fresh, healthy ingredients and communal dining experiences, making it a cherished dish for its cultural significance. Unlike the crispy, fried spring rolls (nem rán), which are cooked and have a different taste profile, gỏi cuốn showcases the beauty of fresh, delicate flavors and textures. During Tết (Vietnamese New Year) and other family gatherings, gỏi cuốn is served to bring people together, reflecting the cultural importance of sharing food and celebrating life's special moments. This refined prompt enhances the clarity, visual detail, background, purpose, and comparison with nem rán, providing a more comprehensive and engaging portrayal of gỏi cuốn.",
+   "out": "A plate holds several fresh gỏi cuốn, a traditional Vietnamese dish often served at special occasions and family gatherings. Gỏi cuốn, which translates to \"salad rolls,\" is made by carefully wrapping a thin rice paper around a mix of shrimp, pork, bún (rice vermicelli), and fresh vegetables. Each roll is meticulously filled with crisp, green lettuce, bright, orange shredded carrots, and fragrant mint leaves, creating a delightful array of flavors and textures. A small bowl of peanut hoisin dip is placed beside the plate, offering a perfect accompaniment to the fresh, crunchy rolls. Gỏi cuốn symbolizes the Vietnamese appreciation for fresh, healthy ingredients and communal dining experiences, making it a cherished dish for its cultural significance. Unlike the crispy, fried spring rolls (nem rán), which are cooked and have a different taste profile, gỏi cuốn showcases the beauty of fresh, delicate flavors and textures. During Tết (Vietnamese New Year) and other family gatherings, gỏi cuốn is served to bring people together, reflecting the cultural importance of sharing food and celebrating life's special moments.",
+   "words_raw": 202,
+   "words": 173,
+   "post_processed": true,
+   "cleaned_by": "regex",
+   "seconds": 335.5,
+   "scene_keep_raw": 0.89
+  }
+ ],
+ "seconds": 335.5
+}

@@ -1,0 +1,35 @@
+{
+ "prompt_id": "S039",
+ "sig": "7e63b2c03d51",
+ "model": "qwen2.5:14b",
+ "threshold": 40,
+ "search_backend": "wikipedia_only",
+ "chained": false,
+ "post_processed": true,
+ "composed": true,
+ "scene_keep_raw": 0.83,
+ "prompt_en": "An ancient Cham tower standing on a hill in the afternoon sun.",
+ "culture_nouns": [
+  "tháp Chăm"
+ ],
+ "refined_prompt": "An ancient Cham tower standing on a hill in the afternoon sun. An ancient Cham tower rises majestically on a hill, its intricate stone carvings catching the golden afternoon sun. The texture of the weathered stone feels rough under the touch of the wind, while the scent of the fresh rice paddies fills the air. Lush greenery and rolling rice fields surround the tower, creating a serene and picturesque setting. This tower, a symbol of the rich Cham heritage, stands tall in Phan Rang–Tháp Chàm, a city in Vietnam known for its historical significance and cultural importance. Similar to the Taj Mahal in India, the Cham tower holds a revered place in the community, reflecting the deep spiritual and historical roots of the region.",
+ "words_in": 12,
+ "words_out": 124,
+ "clip_tokens": 167,
+ "over_77_tokens": true,
+ "per_step": [
+  {
+   "culture_noun": "tháp Chăm",
+   "in": "An ancient Cham tower standing on a hill in the afternoon sun.",
+   "out_raw": "### Revised Refined Prompt An ancient Cham tower rises majestically on a hill, its intricate stone carvings catching the golden afternoon sun. The texture of the weathered stone feels rough under the touch of the wind, while the scent of the fresh rice paddies fills the air. Lush greenery and rolling rice fields surround the tower, creating a serene and picturesque setting. This tower, a symbol of the rich Cham heritage, stands tall in Phan Rang–Tháp Chàm, a city in Vietnam known for its historical significance and cultural importance. Similar to the Taj Mahal in India, the Cham tower holds a revered place in the community, reflecting the deep spiritual and historical roots of the region. ### Revised SCORE - **Clarity**: 9.0 (The description is now more focused and concise, directly addressing the Cham tower and its setting.) - **Visual_detail**: 8.0 (Sensory details such as texture, sound, and smell have been added to enhance the visual experience.) - **Background**: 9.0 (The historical context of the city is seamlessly integrated into the scene description.) - **Purpose**: 8.0 (The cultural and religious significance of the Cham tower is highlighted.) - **Comparable_object**: 6.0 (A comparison to the Taj Mahal is provided to give context to the tower’s importance.) - **Total_score**: 40.0 (The prompt is now more engaging and informative, addressing all the feedback points effectively.)",
+   "out": "An ancient Cham tower rises majestically on a hill, its intricate stone carvings catching the golden afternoon sun. The texture of the weathered stone feels rough under the touch of the wind, while the scent of the fresh rice paddies fills the air. Lush greenery and rolling rice fields surround the tower, creating a serene and picturesque setting. This tower, a symbol of the rich Cham heritage, stands tall in Phan Rang–Tháp Chàm, a city in Vietnam known for its historical significance and cultural importance. Similar to the Taj Mahal in India, the Cham tower holds a revered place in the community, reflecting the deep spiritual and historical roots of the region.",
+   "words_raw": 222,
+   "words": 112,
+   "post_processed": true,
+   "cleaned_by": "llm",
+   "seconds": 181.5,
+   "scene_keep_raw": 0.83
+  }
+ ],
+ "seconds": 181.5
+}

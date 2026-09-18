@@ -43,8 +43,9 @@ def main(argv=None):
                 prompts[r["id"]] = r
     ids = [i.strip() for i in a.ids.split(",")] if a.ids else sorted(c)
 
+    selected_path = a.contracts or "data/contracts_v2.json (mặc định; fallback data/contracts.json)"
     out = ["# Contract — đúng thứ Critic đọc\n",
-           "Sửa `data/contracts.json` là đổi hẳn thứ hệ thống đi tìm; không cần đụng vào mã.\n",
+           f"Nguồn đang đọc: `{selected_path}`. Sửa file này là đổi thứ Critic đi tìm.\n",
            "Cột `part` (đánh dấu ✍) là chỗ VIẾT TAY tên bộ phận cho Observer đi soi; bỏ trống thì hệ "
            "thống tự dò từ mô tả, và tự dò hay trượt.\n",
            "Ba chỗ đáng soi: **mục nào không có bộ phận tương ứng** thì Observer sẽ không nhắc tới và Critic "
@@ -63,7 +64,7 @@ def main(argv=None):
             out.append(f"> prompt gốc: {pr['text_en']}\n")
         out.append(f"\n**Observer được chỉ soi:** `{', '.join(parts) or '(KHÔNG CÓ — Observer sẽ tả tự do)'}`\n")
         out.append("\n**Critic đọc nguyên văn:**\n\n```\n" + vr._contract_text(v) + "\n```\n")
-        out.append("\n| mục | mô tả | bộ phận Observer soi | nguồn |\n|---|---|---|---|\n")
+        out.append("\n| mục | mô tả | chính sách chấm | bộ phận Observer soi | nguồn |\n|---|---|---|---|---|\n")
         for r in v.get("required", []):
             tay = str(r.get("part") or "").strip()
             co = tay or next((w for w in str(r["description"]).lower().replace(",", " ").split()
@@ -73,9 +74,10 @@ def main(argv=None):
                 thieu_nguon += 1
             src_txt = "**CHƯA CÓ NGUỒN**" if "CHƯA" in src else (src[:46] + "…" if len(src) > 46 else src)
             oc = f"`{co}`" + (" ✍" if tay else "") if co else "**KHÔNG AI SOI**"
-            out.append(f"| `{r['id']}` | {r['description']} | {oc} | {src_txt} |\n")
+            policy = f"{r.get('visibility', 'legacy')} / {r.get('scoring', 'legacy')} / p{r.get('importance', '-')}"
+            out.append(f"| `{r['id']}` | {r['description']} | {policy} | {oc} | {src_txt} |\n")
         for x in v.get("confusables", []):
-            out.append(f"| ~~`{x['id']}`~~ dễ nhầm | {x['description']} | — | {x.get('culture', '')} |\n")
+            out.append(f"| ~~`{x['id']}`~~ dễ nhầm | {x['description']} | confusable | — | {x.get('culture', '')} |\n")
 
     out.append(f"\n---\n\n{len(ids)} thực thể · "
                f"{sum(len(c[i].get('required', [])) for i in ids if i in c)} mục required · "

@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/OxyzGiaHuy/CTIG/data/contract_schema.json",
+  "title": "CTIG Visual Contract v2",
+  "description": "Fifty prompt-indexed, human-verified cultural visual contracts.",
+  "type": "object",
+  "minProperties": 50,
+  "maxProperties": 50,
+  "patternProperties": {
+    "^S(00[1-9]|0[1-4][0-9]|050)$": {
+      "$ref": "#/$defs/contract"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceUrl": {
+      "type": "string",
+      "pattern": "^https://(en|vi)\\.wikipedia\\.org/wiki/"
+    },
+    "requirement": {
+      "type": "object",
+      "required": [
+        "id",
+        "description",
+        "source",
+        "visual_evidence",
+        "visibility",
+        "scoring",
+        "requirement_type",
+        "importance",
+        "repairable"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "description": {"$ref": "#/$defs/nonEmptyString"},
+        "part": {"type": "string"},
+        "source": {"$ref": "#/$defs/sourceUrl"},
+        "visual_evidence": {"$ref": "#/$defs/nonEmptyString"},
+        "visibility": {
+          "enum": ["must_be_visible", "check_if_visible", "optional"]
+        },
+        "scoring": {"enum": ["required", "conditional", "excluded"]},
+        "requirement_type": {
+          "enum": ["identity", "prompt_action", "prompt_context"]
+        },
+        "importance": {"type": "integer", "minimum": 1, "maximum": 3},
+        "repairable": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "confusable": {
+      "type": "object",
+      "required": [
+        "id",
+        "description",
+        "culture",
+        "source",
+        "name_en",
+        "avoid_cues",
+        "distinguishing_required_ids"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "description": {"$ref": "#/$defs/nonEmptyString"},
+        "culture": {"$ref": "#/$defs/nonEmptyString"},
+        "source": {"$ref": "#/$defs/sourceUrl"},
+        "name_en": {"$ref": "#/$defs/nonEmptyString"},
+        "avoid_cues": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/nonEmptyString"}
+        },
+        "distinguishing_required_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9_]+$"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "contract": {
+      "type": "object",
+      "required": [
+        "contract_version",
+        "prompt_id",
+        "prompt_text_en",
+        "entity",
+        "entity_vi",
+        "main_entity",
+        "required",
+        "confusables",
+        "generation_guidance",
+        "verification"
+      ],
+      "properties": {
+        "contract_version": {"const": "2.0"},
+        "prompt_id": {"type": "string", "pattern": "^S[0-9]{3}$"},
+        "prompt_text_en": {"$ref": "#/$defs/nonEmptyString"},
+        "entity": {"$ref": "#/$defs/nonEmptyString"},
+        "entity_vi": {"$ref": "#/$defs/nonEmptyString"},
+        "main_entity": {
+          "type": "object",
+          "required": ["name_en", "name_vi", "identity_definition"],
+          "properties": {
+            "name_en": {"$ref": "#/$defs/nonEmptyString"},
+            "name_vi": {"$ref": "#/$defs/nonEmptyString"},
+            "identity_definition": {"$ref": "#/$defs/nonEmptyString"}
+          },
+          "additionalProperties": false
+        },
+        "required": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/requirement"}
+        },
+        "confusables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/confusable"}
+        },
+        "generation_guidance": {
+          "type": "object",
+          "required": ["positive_cues", "negative_cues", "do_not_overconstrain"],
+          "properties": {
+            "positive_cues": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"$ref": "#/$defs/nonEmptyString"}
+            },
+            "negative_cues": {
+              "type": "array",
+              "items": {"$ref": "#/$defs/nonEmptyString"}
+            },
+            "do_not_overconstrain": {
+              "type": "array",
+              "items": {"$ref": "#/$defs/nonEmptyString"}
+            }
+          },
+          "additionalProperties": false
+        },
+        "verification": {
+          "type": "object",
+          "required": ["status", "changes_vi"],
+          "properties": {
+            "status": {"enum": ["verified", "corrected", "limited"]},
+            "changes_vi": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

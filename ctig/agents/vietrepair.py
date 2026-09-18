@@ -47,7 +47,11 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 
 
 def load_contracts(path: str | Path | None = None) -> dict:
-    p = Path(path or ROOT / "data" / "contracts.json")
+    # Prefer the visibility-aware v2 artifact.  The legacy keys are preserved in
+    # that file, so old callers remain compatible.  An explicit path always wins.
+    p = Path(path) if path else ROOT / "data" / "contracts_v2.json"
+    if not path and not p.exists():
+        p = ROOT / "data" / "contracts.json"
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
 
 
@@ -183,6 +187,10 @@ def _cho_can_ta(contract: dict, toi_da: int = 8) -> list[str]:
     """
     seen, out = set(), []
     for r in contract.get("required", []):
+        # v2: a factual-but-unobservable item may be retained for provenance while
+        # explicitly excluded from judging and repair.
+        if r.get("scoring") == "excluded" or r.get("visibility") == "optional":
+            continue
         tay = str(r.get("part") or "").strip().lower()
         if tay:
             for w in tay.split("|"):
@@ -268,15 +276,30 @@ CRITIC_SCHEMA = {"type": "object", "properties": {
 
 
 def _contract_text(contract: dict) -> str:
-    req = "\n".join(f"  - id={r['id']}: {r['description']}" for r in contract.get("required", []))
+    required = [r for r in contract.get("required", [])
+                if r.get("scoring", "required") == "required"]
+    conditional = [r for r in contract.get("required", [])
+                   if r.get("scoring") == "conditional"]
+    req = "\n".join(
+        f"  - id={r['id']} [priority={r.get('importance', 3)}]: {r['description']}"
+        for r in sorted(required, key=lambda x: -int(x.get("importance", 3)))
+    )
+    cond = "\n".join(
+        f"  - id={r['id']} [priority={r.get('importance', 2)}]: {r['description']}"
+        for r in conditional
+    )
     con = "\n".join(f"  - id={c['id']}: {c['description']}" for c in contract.get("confusables", []))
-    return (f"VISUAL CONTRACT for {contract.get('entity', '?')}\nREQUIRED (each must be visible):\n{req}"
+    return (f"VISUAL CONTRACT for {contract.get('entity', '?')}\nREQUIRED VISIBLE EVIDENCE:\n{req}"
+            + ("\nCONDITIONAL (judge only when that part is visible; absence/occlusion is not a violation):\n"
+               + cond if cond else "")
             + (f"\nCONFUSABLE OBJECTS (must NOT be what is shown):\n{con}" if con else ""))
 
 
 def critique(agent, m1: dict, contract: dict, prompt_en: str, log=print) -> dict:
     """A2: soi quan sát với contract. Chỉ được viện dẫn id CÓ THẬT — chặn bịa chuẩn văn hoá bằng máy."""
-    ok_ids = {r["id"] for r in contract.get("required", [])} | {c["id"] for c in contract.get("confusables", [])}
+    ok_ids = {r["id"] for r in contract.get("required", [])
+              if r.get("scoring", "required") != "excluded"} | \
+             {c["id"] for c in contract.get("confusables", [])}
     d = _json(agent, CRITIC_SYSTEM,
               f"{_contract_text(contract)}\n\nORIGINAL REQUEST: {prompt_en}\n\n"
               f"OBSERVATION OF THE GENERATED IMAGE:\n{json.dumps(m1, ensure_ascii=False)}\n\n"
@@ -530,8 +553,11 @@ def text_only(agent, base_prompt: str, contract: dict, log=print) -> dict:
     Không có nhánh này thì M thắng B cũng có thể chỉ vì prompt được nối thêm chữ, chẳng liên quan gì
     tới việc hệ thống đã nhìn thấy ảnh.
     """
+    active = [r for r in contract.get("required", [])
+              if r.get("scoring", "required") == "required"]
+    active.sort(key=lambda r: -int(r.get("importance", 3)))
     gia_dinh = {"violations": [{"contract_id": r["id"], "evidence": "(không nhìn ảnh)", "severity": "major"}
-                               for r in contract.get("required", [])[:MAX_VIOLATIONS]],
+                               for r in active[:MAX_VIOLATIONS]],
                 "preserve": [], "repair_priority": []}
     m3 = refine(agent, base_prompt, gia_dinh, contract, log=log)
     log("  [T không nhìn ảnh] dùng đúng contract, giả định mọi mục required đều thiếu")
@@ -652,7 +678,10 @@ def _chon_vat(agent, image: str, contract: dict, log=print) -> dict:
     """
     import hashlib
 
-    dung = "; ".join(r["description"] for r in contract.get("required", [])[:3])
+    active = [r for r in contract.get("required", [])
+              if r.get("scoring", "required") == "required"]
+    active.sort(key=lambda r: -int(r.get("importance", 3)))
+    dung = "; ".join(r["description"] for r in active[:3])
     ds = [("__dung__", f"{contract.get('entity', 'the intended object')}: {dung}")] + \
          [(x["id"], x["description"]) for x in contract.get("confusables", [])]
     k = int(hashlib.sha1(str(image).encode()).hexdigest(), 16)
@@ -676,17 +705,24 @@ def _chon_vat(agent, image: str, contract: dict, log=print) -> dict:
 def kiem_tung_muc(agent, image: str, contract: dict, log=print) -> dict:
     """Rà toàn bộ contract: mỗi mục required một câu chấm 0-10, cộng MỘT câu trắc nghiệm confusable.
 
-    Điểm của ảnh = trung bình các mục PHÁN ĐƯỢC (mục ngoài khung bị loại khỏi mẫu số, không bị tính 0).
+    Điểm của ảnh = trung bình có trọng số importance của các mục PHÁN ĐƯỢC
+    (mục ngoài khung bị loại khỏi mẫu số, không bị tính 0; mục excluded không được hỏi).
     Lẫn confusable là CỬA CHẶN chứ không phải trừ điểm: còn lẫn thì không bao giờ được coi là đạt, dù
     điểm trung bình có cao đến đâu — sinh ra nhầm hẳn vật khác không thể bù bằng chi tiết đúng.
     """
     bang, thieu = [], []
-    for r in contract.get("required", []):
+    active_required = [r for r in contract.get("required", [])
+                       if r.get("scoring", "required") != "excluded"]
+    for r in active_required:
         d = _hoi_mot_muc(agent, image, r["description"], str(r.get("part") or ""))
-        bang.append({"contract_id": r["id"], "loai": "required", **d})
+        importance = max(1, min(3, int(r.get("importance", 1))))
+        bang.append({"contract_id": r["id"], "loai": "required",
+                     "importance": importance, **d})
         if d["in_frame"] and d["score"] < NGUONG_HONG:
             thieu.append({"contract_id": r["id"], "evidence": d["evidence"],
-                          "score": d["score"], "severity": "major"})
+                          "score": d["score"],
+                          "severity": "major" if importance == 3 else "minor",
+                          "importance": importance})
 
     ch = _chon_vat(agent, image, contract, log)
     lan = []
@@ -702,10 +738,12 @@ def kiem_tung_muc(agent, image: str, contract: dict, log=print) -> dict:
     req = [b for b in bang if b["loai"] == "required"]
     ngoai = [b["contract_id"] for b in req if not b["in_frame"]]
     phan_duoc = [b for b in req if b["in_frame"]]
-    diem = round(sum(b["score"] for b in phan_duoc) / len(phan_duoc), 2) if phan_duoc else 0.0
-    thieu.sort(key=lambda t: t["score"])          # hỏng nặng nhất lên trước
+    tong_trong_so = sum(b["importance"] for b in phan_duoc)
+    diem = (round(sum(b["score"] * b["importance"] for b in phan_duoc) / tong_trong_so, 2)
+            if tong_trong_so else 0.0)
+    thieu.sort(key=lambda t: (-t["importance"], t["score"]))  # ưu tiên lỗi định danh, rồi lỗi nặng
     ket = {"bang": bang, "thieu": thieu, "lan": lan, "diem": diem,
-           "so_phan_duoc": len(phan_duoc), "so_required": len(contract.get("required", [])),
+           "so_phan_duoc": len(phan_duoc), "so_required": len(active_required),
            "ngoai_khung": ngoai, "dat": diem >= NGUONG_DAT and not lan}
     log(f"  [rà contract] điểm {diem:.1f}/10 trên {len(phan_duoc)} mục"
         f"{' (ngoài khung: ' + ', '.join(ngoai) + ')' if ngoai else ''}"

@@ -33,6 +33,24 @@ def _font(size, bold=False):
     return ImageFont.load_default()
 
 
+def _theo_json(duong_dan: str, unit_dir: Path) -> str:
+    """Đổi đường dẫn TUYỆT ĐỐI trong arms.json thành đường dẫn theo vị trí file JSON.
+
+    arms.json lưu đường dẫn tuyệt đối lúc sinh. Đổi tên hoặc chép thư mục run đi chỗ khác là mọi đường
+    dẫn trỏ sai — tệ nhất là trỏ sang một run KHÁC trùng tên cũ, và lưới sẽ lấy nhầm ảnh của run đó.
+    Đã dính thật: đổi tên arms16 thành arms16_loc_hong trong khi một run mới đang ghi vào arms16, hai
+    hàng đầu lấy ảnh của run mới còn 30 hàng sau trắng trơn.
+    """
+    if not duong_dan:
+        return ""
+    ten = unit_dir.name
+    parts = Path(duong_dan).parts
+    if ten in parts:                       # cắt lấy phần SAU tên thư mục đơn vị
+        i = len(parts) - 1 - parts[::-1].index(ten)
+        return str(unit_dir.joinpath(*parts[i + 1:]))
+    return duong_dan
+
+
 def doc(run: Path) -> list[dict]:
     out = []
     for f in sorted(run.glob("*/arms.json")):
@@ -41,6 +59,8 @@ def doc(run: Path) -> list[dict]:
         except Exception:  # noqa: BLE001
             continue          # đang ghi dở
         d["_tag"] = f.parent.name
+        d["draft"] = _theo_json(d.get("draft", ""), f.parent)
+        d["images"] = {k: _theo_json(v, f.parent) for k, v in (d.get("images") or {}).items()}
         out.append(d)
     return out
 

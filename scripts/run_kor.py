@@ -344,6 +344,22 @@ def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C", i0=
                 fixed.append(act)
     else:
         fixed = fixed_llm
+    # 2d. Chấm thêm IDENTITY CUE của K trên I0/I1. Vì sao: FLUX S001 sửa đúng (qipao -> áo dài dài tay chấm
+    # gót) nhưng ba action R viết không trúng chỗ ảnh đổi (cổ cao đã có sẵn, đường may chéo không vẽ được),
+    # nên "fixed theo action" = 0/3 và cổng trả I0. Cổng phải đo ĐỊNH DANH, không chỉ đo việc R nói.
+    fixed_identity, bang_cue = [], []
+    if i0 and i1:
+        ce = (cards.get("cultural_evidence") or {})
+        cues = [c.get("cue_en") for c in (ce.get("identity_cues") or [])] + \
+               [c.get("target_appearance_en") for c in (ce.get("positive_disambiguators") or [])]
+        for cue in [c for c in cues if c and len(str(c)) > 3][:5]:
+            c0, _ = hoi_action(agent, so_tay, pid, i0, cue, f"cue_I0_{nhan}")
+            c1, e1 = hoi_action(agent, so_tay, pid, i1, cue, f"cue_I1_{nhan}")
+            ok = (c1 is not None and c1 >= 8) and (c0 is None or c0 <= 4 or c1 - c0 >= 3)
+            bang_cue.append({"cue": cue, "I0": c0, "I1": c1, "fixed": ok, "ev_I1": e1})
+            if ok:
+                fixed_identity.append(cue)
+    fixed = fixed + [f"[định danh] {c}" for c in fixed_identity]
     regs = [r for r in (d.get("regressions") or []) if isinstance(r, dict) and str(r.get("what") or "").strip()]
 
     # Bốn luật máy, mỗi luật chặn một lỗi đã thấy ở lô kor_20260918_1322:
@@ -391,7 +407,7 @@ def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C", i0=
             veto = {"sim_I0": round(sim0, 4), "sim_I1": round(sim1, 4)}
             if sim1 < sim0 - 0.02 and chon == "I1":
                 chon, ly_do = "I0", f"phủ quyết: I1 xa ảnh thật cất riêng hơn I0 ({sim1:.3f} < {sim0:.3f} - 0,02)"
-    out = {"fixed": fixed, "fixed_llm": fixed_llm, "bang_action": bang_action, "regressions": regs,
+    out = {"fixed": fixed, "fixed_llm": fixed_llm, "bang_action": bang_action, "bang_cue": bang_cue, "regressions": regs,
            "selection": chon, "ly_do": ly_do, "veto_anh_that": veto}
     so_tay.ghi(pid, "GATE", f"luat_{nhan}", "(luật cổng, tính bằng máy)", "", out)
     log(f"  [cổng·{nhan}] fixed {len(fixed)}/{len(actions)} (LLM khai {len(fixed_llm)}) · regression {len(regs)} (nặng {len(nang)})"
@@ -482,6 +498,43 @@ def transcript_md(so_tay: SoTay, out_md: Path):
             L.append(f"\n```json\n{json.dumps(x['response'], ensure_ascii=False, indent=1)}\n```\n")
     out_md.write_text("".join(L), encoding="utf-8")
 
+# ------------------------------------------------------------------ chạy lại cổng
+def regate(a, cfg, log):
+    """Đọc kor.json của lô đã có, chấm lại cổng với luật mới trên đúng ảnh cũ, ghi đè gate_* + lưới + transcript."""
+    run_dir = Path(a.regate); j = json.loads((run_dir / "kor.json").read_text(encoding="utf-8"))
+    tong, so_tay = j["don_vi"], SoTay(); so_tay.dong = j.get("giao_tiep", [])
+    allp = {p.id: p for p in load_prompts(cfg.prompts_path)}
+    M = {"sdxl_base": "SDXL", "realvis_xl": "RealVisXL", "flux_dev": "FLUX.1-dev"}.get(
+        (tong[0].get("model") or a.model).split("#")[0], a.model)
+    NHAN = {"A": M, "B (I0)": f"{M} + Culture-TRIP", "C (I1)": f"{M} + {a.method_name}",
+            "C-text": f"{M} + {a.method_name} (text-only)", "C-i2i": f"{M} + img2img (đối chứng)"}
+    shared = [None]; hang = []
+    for u in tong:
+        pid = u["prompt_id"]; out_dir = run_dir / pid
+        s = Session(cfg, allp[pid], run_dir=out_dir, log=lambda *x: None)
+        if shared[0] is not None: s._agent = shared[0]
+        s.skip_grounding(); s.spec(); shared[0] = s.agent
+        _, eval_refs = ref_split(cfg.retrieval.ref_dir, pid, 5)
+        kiem = lambda img, _e=eval_refs: ref_similarity(s.clip, img, _e)  # noqa: E731
+        i0 = u["images"].get("B (I0)"); rep0 = u.get("report_I0") or {}; actions = u.get("actions") or []
+        log(f"\n===== regate {pid} · {len(actions)} action =====")
+        ghi = {"B (I0)": "= I0", "A": "prompt gốc"}
+        for key, gk, nhan in (("C (I1)", "gate_C", "C"), ("C-text", "gate_text", "text"), ("C-i2i", "gate_i2i", "i2i")):
+            i1 = u["images"].get(key)
+            if not i1 or i1 == i0 or not actions:
+                continue
+            rep1 = agent_O(s.agent, so_tay, pid, i1, f"I1_regate_{nhan}", log)
+            u[gk] = cong_gate(s.agent, so_tay, pid, u["cards"], rep0, rep1, actions, log, f"regate_{nhan}", i0=i0, i1=i1, kiem=kiem)
+            ghi[key] = f"chọn {u[gk]['selection']}"
+        (out_dir / "kor.json").write_text(json.dumps(u, ensure_ascii=False, indent=1), encoding="utf-8")
+        hang.append((pid, u["images"], ghi))
+    cot = [c for c in ("A", "B (I0)", "C (I1)", "C-text", "C-i2i") if any(c in u["images"] for u in tong)]
+    ve_luoi(hang, cot, run_dir / "kor_grid.png", nhan=NHAN, ten_hang={u["prompt_id"]: f"{u['prompt_id']}: {u['prompt_vi']}" for u in tong})
+    (run_dir / "kor.json").write_text(json.dumps({"don_vi": tong, "giao_tiep": so_tay.dong}, ensure_ascii=False, indent=1), encoding="utf-8")
+    transcript_md(so_tay, run_dir / "kor_transcript.md")
+    log("\nREGATE_DONE")
+
+
 # ------------------------------------------------------------------ main
 def main(argv=None):
     ap = argparse.ArgumentParser()
@@ -493,6 +546,7 @@ def main(argv=None):
     ap.add_argument("--flux-ip-scale", type=float, default=0.6)
     ap.add_argument("--run-name", default=None, help="mặc định kor_<YYYYmmdd_HHMM> để không ghi đè lô cũ")
     ap.add_argument("--append-run", default=None, help="nối prompt mới vào lô đã có (đường dẫn thư mục run); lưới vẽ lại gồm cả cũ")
+    ap.add_argument("--regate", default=None, help="chạy lại CHỈ bước cổng cho lô đã có (không sinh ảnh): đường dẫn thư mục run")
     ap.add_argument("--seed", type=int, default=5000)
     ap.add_argument("--strength", type=float, default=0.60)   # 0.35 giữ bố cục tốt tới mức không đổi được vật thể
     ap.add_argument("--wiki", default=str(ROOT / "data" / "wiki_curated" / "S001_S003.json"))
@@ -512,6 +566,8 @@ def main(argv=None):
     wiki = json.loads(Path(a.wiki).read_text(encoding="utf-8"))
     allp = {p.id: p for p in load_prompts(cfg.prompts_path)}
     ids = [i.strip() for i in a.ids.split(",") if i.strip() in allp]
+    if a.regate:
+        return regate(a, cfg, log)
     if a.append_run:
         run_dir = Path(a.append_run)
     else:
@@ -618,6 +674,25 @@ def main(argv=None):
         mo_rong = p_ct[len(p_orig):].strip() if p_ct.startswith(p_orig) else ""
         gap = agent_R(s.agent, so_tay, pid, p_orig, cards, rep0, log, mo_rong=mo_rong)
         actions = gap.get("repair_actions") or []
+        # Chấm từng action trên I0 TRƯỚC khi dùng: mục I0 đã >= 8 là thứ không hỏng -> bỏ (S001 FLUX: "high
+        # collar" 10 -> 10 chiếm một trong ba suất). Thiếu suất thì bù bằng identity cue của K.
+        giu_act, bo_act = [], []
+        for act in actions:
+            sc, _ = hoi_action(s.agent, so_tay, pid, i0, act, "pre_I0")
+            (bo_act if (sc is not None and sc >= 8) else giu_act).append((act, sc))
+        if len(giu_act) < 3:
+            for c in (cards.get("cultural_evidence") or {}).get("identity_cues") or []:
+                cue = str(c.get("cue_en") or "").strip()
+                if cue and all(cue.lower() not in a_.lower() for a_, _ in giu_act):
+                    sc, _ = hoi_action(s.agent, so_tay, pid, i0, cue, "pre_I0")
+                    if sc is None or sc < 8:
+                        giu_act.append((f"clearly visible: {cue}", sc))
+                if len(giu_act) >= 3: break
+        actions = [a_ for a_, _ in giu_act][:3]
+        so_tay.ghi(pid, "R", "may_kiem_I0", "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)", "",
+                   {"giu": giu_act, "bo_da_dat": bo_act})
+        if bo_act:
+            log(f"  [R] bỏ {len(bo_act)} action I0 đã đạt: {[a_[:40] for a_, _ in bo_act]}")
         p1 = dung_P1(p_ct, actions, cards.get("prompt_preservation"), p0=p_orig, drop=gap.get("drop_phrases"))
         if gap.get("drop_phrases"):
             log(f"  [P1] cắt khỏi phần mở rộng: {gap['drop_phrases']}")

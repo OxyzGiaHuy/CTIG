@@ -79,6 +79,69 @@ def _json(agent, system: str, user: str, schema: dict, images=None, max_new_toke
         return {}
 
 
+
+#: Từ đồng nghĩa hay gặp ở trang phục và vật dụng. Cần vì Observer viết "pants" còn contract viết
+#: "trousers", nên so chữ thuần sẽ không thấy hai cái là một.
+_DONG_NGHIA = {
+    "pants": "trousers", "slacks": "trousers", "trouser": "trousers",
+    "tunic": "top", "blouse": "top", "shirt": "top", "gown": "dress", "robe": "dress",
+    "hat": "hat", "conical": "conical", "basket": "basket", "baskets": "basket",
+    "pole": "pole", "yoke": "pole", "boat": "boat", "hull": "hull",
+    "sleeve": "sleeves", "slit": "slits", "panel": "panels", "colour": "color", "colours": "color",
+}
+
+
+def _chuan(w: str) -> str:
+    w = w.strip(".,;:'\"()-").lower()
+    return _DONG_NGHIA.get(w, w)
+
+
+def _tu(text: str) -> set[str]:
+    filler = {"a", "an", "the", "of", "with", "and", "in", "on", "is", "are", "to", "at", "for",
+              "that", "this", "it", "its", "no", "not", "be", "as", "by", "from", "over", "under"}
+    return {_chuan(w) for w in str(text or "").split()} - filler - {""}
+
+
+def _co_can_cu(evidence: str, m1: dict) -> bool:
+    """Bằng chứng của Critic phải THẬT SỰ nằm trong quan sát của Observer.
+
+    Lỗi thật ở S001: Observer nói 'white pants' (tức CÓ quần), Critic vẫn báo vi phạm
+    'worn_over_trousers' với bằng chứng 'sleek and form-fitting' — cụm đó không có trong quan sát.
+    Nhắc trong system prompt là không đủ; phải kiểm bằng máy.
+
+    Luật: bằng chứng phải chung ít nhất hai từ có nghĩa với MỘT mục quan sát nào đó.
+    """
+    e = _tu(evidence)
+    if not e:
+        return False
+    for f in (m1.get("visible_features") or []) + (m1.get("uncertain_features") or []) + [m1.get("subject", "")]:
+        if len(e & _tu(f)) >= 2 or e <= _tu(f):
+            return True
+    return False
+
+
+def _bo_negative_pha_prompt(neg: list[str], base_prompt: str, contract: dict, log=print) -> list[str]:
+    """Bỏ từ cấm mà thật ra ta ĐANG MUỐN vẽ.
+
+    Lỗi thật ở S001: negative của nhánh M chứa 'white pants'. Nhưng áo dài trắng thì MẶC VỚI QUẦN
+    TRẮNG, và chính contract có mục 'worn over separate long wide-legged trousers'. Cấm đúng thứ mình
+    yêu cầu nên SDXL vẽ ra áo choàng không quần — ảnh tệ nhất trong cả năm nhánh.
+
+    Luật: bỏ cụm negative nếu MỌI từ có nghĩa của nó đều nằm trong prompt gốc hoặc trong các mục
+    required. Khi đó nó không cấm được gì mới, chỉ cấm mất thứ đang cần.
+    'sleek and form-fitting trousers' vẫn được giữ vì 'sleek' không nằm trong hai nguồn đó.
+    """
+    duoc_bao_ve = _tu(base_prompt) | {w for r in contract.get("required", []) for w in _tu(r["description"])}
+    out = []
+    for phrase in neg:
+        w = _tu(phrase)
+        if w and w <= duoc_bao_ve:
+            log(f"  [negative] bỏ '{phrase}' — mọi từ của nó đều là thứ prompt/contract ĐANG YÊU CẦU")
+            continue
+        out.append(phrase)
+    return out
+
+
 # ------------------------------------------------------------------ A1 Visual Observer
 OBSERVER_SYSTEM = (
     "You describe what is visible in a photograph. Nothing else.\n"
@@ -157,7 +220,11 @@ def critique(agent, m1: dict, contract: dict, prompt_en: str, log=print) -> dict
         if cid not in ok_ids:
             bo.append(cid or "(rỗng)")      # id bịa ra -> loại bằng máy, không cần tin model
             continue
-        viol.append({"contract_id": cid, "evidence": str(v.get("evidence") or "")[:200],
+        ev_txt = str(v.get("evidence") or "")[:200]
+        if not _co_can_cu(ev_txt, m1):
+            bo.append(f"{cid}(bằng chứng không có trong quan sát)")
+            continue
+        viol.append({"contract_id": cid, "evidence": ev_txt,
                      "severity": str(v.get("severity") or "major")})
     viol = viol[:MAX_VIOLATIONS]
     m2 = {"violations": viol,
@@ -209,6 +276,7 @@ def refine(agent, base_prompt: str, m2: dict, contract: dict, log=print) -> dict
     if low & {"not", "no", "without", "instead", "never", "avoid"}:
         log(f"  [A3 Refiner] mệnh đề còn phủ định -> bỏ: {clause[:60]}")
         clause = ""
+    neg = _bo_negative_pha_prompt(neg, base_prompt, contract, log)
     m3 = {"repair_clause": clause, "negative_terms": neg}
     log(f"  [A3 Refiner] '{clause[:70]}' · negative {neg}")
     return m3
@@ -301,9 +369,11 @@ def single_agent(agent, image: str, base_prompt: str, contract: dict | None, log
     low = set(clause.lower().replace(",", " ").split())
     if low & {"not", "no", "without", "instead", "never", "avoid"}:
         clause = ""
-    m3 = {"repair_clause": clause,
-          "negative_terms": [" ".join(str(x).split()) for x in (d.get("negative_terms") or [])][:4]}
-    log(f"  [S một agent] '{clause[:70]}'")
+    neg = [" ".join(str(x).split()) for x in (d.get("negative_terms") or [])][:4]
+    if contract:
+        neg = _bo_negative_pha_prompt(neg, base_prompt, contract, log)
+    m3 = {"repair_clause": clause, "negative_terms": neg}
+    log(f"  [S một agent] '{clause[:70]}' · negative {neg}")
     return m3
 
 

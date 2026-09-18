@@ -29,7 +29,7 @@ class FluxGen:
         import torch
         from diffusers import FluxPipeline
 
-        self.torch, self.log = torch, log
+        self.torch, self.log, self.device, self.offload = torch, log, device, offload
         self.steps, self.guidance, self.width, self.height, self.ip_scale = steps, guidance, width, height, ip_scale
         t0 = time.time()
         self.pipe = FluxPipeline.from_pretrained(REPO, torch_dtype=torch.bfloat16)
@@ -49,6 +49,13 @@ class FluxGen:
         enc = getattr(self.pipe, "image_encoder", None)
         if enc is not None:
             enc.to(dtype=self.torch.bfloat16)
+        # Đường multigen chết ở đúng chỗ này: "Input type (torch.cuda.HalfTensor) and weight type (torch.HalfTensor)"
+        # — encoder ảnh gắn SAU khi bật offload nên không được móc hook, nằm lại CPU. Bật offload lại để
+        # đăng ký hook cho mọi thành phần (kể cả encoder mới); không offload thì đưa encoder lên GPU.
+        if self.offload:
+            self.pipe.enable_model_cpu_offload(device=self.device)
+        elif enc is not None:
+            enc.to(self.device)
         self._ipa = True
         self.log(f"  [FluxGen] gắn XLabs IP-Adapter (encoder {IPA_ENCODER}) trong {time.time() - t0:.0f}s")
 
@@ -64,7 +71,13 @@ class FluxGen:
             self.pipe.set_ip_adapter_scale(self.ip_scale)
             kw["ip_adapter_image"] = Image.open(refs[0]).convert("RGB").resize((self.width, self.height))   # XLabs: 1 ảnh
         elif self._ipa:
-            self.pipe.set_ip_adapter_scale(0.0)          # cùng pipe, tắt adapter cho hàng không ref
+            # KHÔNG dùng scale 0: FluxPipeline có adapter gắn sẵn sẽ đòi ip_adapter_image và duyệt None ->
+            # "TypeError: 'NoneType' object is not iterable" (đã dính ở hàng C-text ngay sau hàng C). Gỡ adapter
+            # ra; lần ref kế tiếp gắn lại mất ~1 s vì trọng số đã trong cache.
+            self.pipe.unload_ip_adapter()
+            self._ipa = False
+            if self.offload:
+                self.pipe.enable_model_cpu_offload(device=self.device)
         t0 = time.time()
         img = self.pipe(**kw).images[0]
         img.save(out_path)

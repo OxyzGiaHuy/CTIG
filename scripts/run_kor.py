@@ -369,14 +369,14 @@ def _font(size, bold=False):
     return ImageFont.truetype(p, size) if Path(p).exists() else ImageFont.load_default()
 
 
-def ve_luoi(hang, cot, out_png, cell=300):
+def ve_luoi(hang, cot, out_png, cell=300, nhan=None):
     from PIL import Image, ImageDraw
     gut, head, pad, cap = 70, 30, 6, 22
     cw, ch = cell + pad, cell + cap + pad
     W, H = gut + len(cot) * cw + pad, head + len(hang) * ch + pad
     im = Image.new("RGB", (W, H), "white"); d = ImageDraw.Draw(im)
     for i, c in enumerate(cot):
-        d.text((gut + i * cw + 3, 8), c, font=_font(14, True), fill=(20, 20, 20))
+        d.text((gut + i * cw + 3, 8), (nhan or {}).get(c, c), font=_font(14, True), fill=(20, 20, 20))
     for r, (pid, o, ghi) in enumerate(hang):
         y = head + r * ch
         d.text((4, y + 6), pid, font=_font(13), fill=(20, 20, 20))
@@ -425,6 +425,7 @@ def main(argv=None):
     ap.add_argument("--strength", type=float, default=0.60)   # 0.35 giữ bố cục tốt tới mức không đổi được vật thể
     ap.add_argument("--wiki", default=str(ROOT / "data" / "wiki_curated" / "S001_S003.json"))
     ap.add_argument("--i2i", action="store_true", help="thêm cột tham khảo C-i2i (img2img từ I0, không ref)")
+    ap.add_argument("--method-name", default="CG-MAPR", help="tên phương pháp in trên lưới (Contract-Guided Multi-Agent Prompt Repair)")
     ap.add_argument("--set", action="append", default=[])
     a = ap.parse_args(argv)
 
@@ -455,6 +456,8 @@ def main(argv=None):
     # C = cùng seed + IP-Adapter ảnh thật + P1. Đo hai lô: img2img 0.35 và 0.60 đều không đổi được vật thể
     # sai (xe đẩy vẫn xe đẩy, hoa vẫn hoa), còn IP-Adapter sửa đúng 2/2 (S001 áo dài, S002 gánh hàng rong).
     cot = ["A", "B (I0)", "C (I1)"] + (["C-i2i"] if a.i2i else [])
+    M = {"sdxl_base": "SDXL", "realvis_xl": "RealVisXL", "flux_dev": "FLUX.1-dev"}.get(a.model.split("#")[0].split("+")[0], a.model)
+    NHAN = {"A": M, "B (I0)": f"{M} + Culture-TRIP", "C (I1)": f"{M} + {a.method_name}", "C-i2i": f"{M} + img2img (đối chứng)"}
     hang, tong = [], []
     so_tay = so_tay
     cu_json = run_dir / "kor.json"
@@ -568,7 +571,7 @@ def main(argv=None):
                "gate_C": gate_C, "gate_i2i": gate_i2i, "refs": refs if actions else []}
         (out_dir / "kor.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
         tong.append(rec); hang.append((pid, anh, ghi))
-        ve_luoi(hang, cot, run_dir / "kor_grid.png")
+        ve_luoi(hang, cot, run_dir / "kor_grid.png", nhan=NHAN)
         (run_dir / "kor.json").write_text(json.dumps({"don_vi": tong, "giao_tiep": so_tay.dong},
                                                      ensure_ascii=False, indent=1), encoding="utf-8")
         transcript_md(so_tay, run_dir / "kor_transcript.md")

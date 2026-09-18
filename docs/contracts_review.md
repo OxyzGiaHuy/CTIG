@@ -1,5 +1,6 @@
 # Contract — đúng thứ Critic đọc
 Sửa `data/contracts.json` là đổi hẳn thứ hệ thống đi tìm; không cần đụng vào mã.
+Cột `part` (đánh dấu ✍) là chỗ VIẾT TAY tên bộ phận cho Observer đi soi; bỏ trống thì hệ thống tự dò từ mô tả, và tự dò hay trượt.
 Ba chỗ đáng soi: **mục nào không có bộ phận tương ứng** thì Observer sẽ không nhắc tới và Critic không bao giờ bắt được lỗi ở đó; **mục CHƯA CÓ NGUỒN**; và **mục không phải lúc nào cũng xuất hiện** — mục kiểu đó làm Critic bắt lỗi oan rồi hệ thống sửa hỏng ảnh vốn đúng.
 
 ---
@@ -23,11 +24,11 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=hanbok: a short jacket over a wide high-waisted flared skirt
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `side_slits_at_waist` | side slits from the waist making front and back panels | có | https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i |
-| `worn_over_trousers` | worn over separate long wide-legged trousers | có | https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i |
-| `ankle_length_panels` | loose panels hanging down to near the ankles | có | https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i |
+| `side_slits_at_waist` | side slits from the waist making front and back panels | `slits` | https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i |
+| `worn_over_trousers` | worn over separate long wide-legged trousers | `trousers` | https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i |
+| `ankle_length_panels` | loose panels hanging down to near the ankles | `panels` | https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i |
 | ~~`qipao_cheongsam`~~ dễ nhầm | a one-piece fitted dress with one thigh slit, no trousers | — | Chinese |
 | ~~`kimono`~~ dễ nhầm | a wrapped robe with crossed collar and wide obi sash | — | Japanese |
 | ~~`hanbok`~~ dễ nhầm | a short jacket over a wide high-waisted flared skirt | — | Korean |
@@ -53,11 +54,11 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=head_carried_basket: a single basket balanced on top of the head
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `pole_on_one_shoulder` | a long springy pole resting on one shoulder | có | https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A… |
-| `two_loads_at_pole_ends` | two loads hanging one at each end of the pole | có | https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A… |
-| `containers_at_both_ends` | baskets, flat trays, wooden boxes or small glass cases | có | người Việt xác nhận 2026-09-18 |
+| `pole_on_one_shoulder` | a long springy pole resting on one shoulder | `pole` | https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A… |
+| `two_loads_at_pole_ends` | two loads hanging one at each end of the pole | `pole` | https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A… |
+| `containers_at_both_ends` | baskets, flat trays, wooden boxes or small glass cases | `baskets` | người Việt xác nhận 2026-09-18 |
 | ~~`european_neck_yoke`~~ dễ nhầm | a shaped yoke across both shoulders behind the neck | — | European |
 | ~~`wheeled_food_cart`~~ dễ nhầm | a pushed wheeled cart with a glass display case | — | generic/Thai |
 | ~~`head_carried_basket`~~ dễ nhầm | a single basket balanced on top of the head | — | Indian/African |
@@ -67,7 +68,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S003 · phở bò — *Vietnamese beef pho*
 > prompt gốc: A steaming bowl of beef pho on a wooden table.
 
-**Observer được chỉ soi:** `noodles, broth, beef`
+**Observer được chỉ soi:** `noodles, broth, beef, toppings`
 
 **Critic đọc nguyên văn:**
 
@@ -84,12 +85,12 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=udon: thick round white wheat noodles in pale broth
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `flat_rice_noodles` | flat white rice noodles cut from thin sheets | có | https://vi.wikipedia.org/wiki/Ph%E1%BB%9F |
-| `clear_broth` | clear thin broth, not milky or thickened | có | https://vi.wikipedia.org/wiki/Ph%E1%BB%9F |
-| `thin_sliced_beef` | thin slices of beef laid over the noodles | có | https://vi.wikipedia.org/wiki/Ph%E1%BB%9F |
-| `scallion_and_onion_on_top` | chopped scallion and thin raw onion on top | **KHÔNG** | https://vi.wikipedia.org/wiki/Ph%E1%BB%9F |
+| `flat_rice_noodles` | flat white rice noodles cut from thin sheets | `noodles` | https://vi.wikipedia.org/wiki/Ph%E1%BB%9F |
+| `clear_broth` | clear thin broth, not milky or thickened | `broth` | https://vi.wikipedia.org/wiki/Ph%E1%BB%9F |
+| `thin_sliced_beef` | thin slices of beef laid over the noodles | `beef` | https://vi.wikipedia.org/wiki/Ph%E1%BB%9F |
+| `scallion_and_onion_on_top` | chopped scallion and thin raw onion on top | `toppings` ✍ | https://vi.wikipedia.org/wiki/Ph%E1%BB%9F |
 | ~~`ramen`~~ dễ nhầm | curly yellow wheat noodles with nori and halved egg | — | Japanese |
 | ~~`lanzhou_beef_noodle`~~ dễ nhầm | round hand-pulled wheat noodles under red chili oil | — | Chinese |
 | ~~`udon`~~ dễ nhầm | thick round white wheat noodles in pale broth | — | Japanese |
@@ -99,7 +100,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S004 · bánh chưng — *Banh chung, Vietnamese square sticky rice cake*
 > prompt gốc: Square banh chung wrapped in dong leaves tied with bamboo strips on a tray.
 
-**Observer được chỉ soi:** `leaves, bamboo, grid, corners`
+**Observer được chỉ soi:** `overall shape, leaves, bamboo, grid, corners`
 
 **Critic đọc nguyên văn:**
 
@@ -116,12 +117,12 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=banh_tet: a long cylindrical log wrapped in banana leaves
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `square_flat_block` | a squat square block, clearly not a cylinder | **KHÔNG** | https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%… |
-| `dong_leaf_wrapper` | wrapped in broad dark green dong leaves | có | https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%… |
-| `bamboo_strip_ties` | tied with flat bamboo strips crossing in a grid | có | https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%… |
-| `folded_leaf_corners` | leaf folded into sharp flat corners on top | có | **CHƯA CÓ NGUỒN** |
+| `square_flat_block` | a squat square block, clearly not a cylinder | `overall shape` ✍ | https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%… |
+| `dong_leaf_wrapper` | wrapped in broad dark green dong leaves | `leaves` | https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%… |
+| `bamboo_strip_ties` | tied with flat bamboo strips crossing in a grid | `bamboo` | https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%… |
+| `folded_leaf_corners` | leaf folded into sharp flat corners on top | `corners` | **CHƯA CÓ NGUỒN** |
 | ~~`zongzi`~~ dễ nhầm | a pyramid or cone bundle in bamboo leaves tied with string | — | Chinese |
 | ~~`banana_leaf_tamale`~~ dễ nhầm | a soft oblong parcel in pale banana leaf | — | Latin American |
 | ~~`banh_tet`~~ dễ nhầm | a long cylindrical log wrapped in banana leaves | — | Vietnamese (southern variant, NOT banh chung) |
@@ -131,7 +132,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S006 · chùa Một Cột — *One Pillar Pagoda, Hanoi*
 > prompt gốc: The One Pillar Pagoda over its pond in early morning mist.
 
-**Observer được chỉ soi:** `pillar, roof, corners, pond, stairway`
+**Observer được chỉ soi:** `pillar, pavilion, roof, corners, pond, stairway`
 
 **Critic đọc nguyên văn:**
 
@@ -148,13 +149,13 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=floating_torii_shrine: a red gate or shrine on many pillars over water
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `single_stone_pillar` | the whole structure resting on one stone pillar | có | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
-| `small_square_pavilion` | one small square wooden pavilion about three metres wide | **KHÔNG** | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
-| `upturned_tile_roof` | a tiled roof with four upturned curved corners | có | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
-| `standing_in_pond` | rising from the middle of a small pond | có | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
-| `narrow_stone_stairway` | a narrow stone stairway climbing to the pavilion door | có | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
+| `single_stone_pillar` | the whole structure resting on one stone pillar | `pillar` | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
+| `small_square_pavilion` | one small square wooden pavilion about three metres wide | `pavilion` ✍ | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
+| `upturned_tile_roof` | a tiled roof with four upturned curved corners | `roof` | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
+| `standing_in_pond` | rising from the middle of a small pond | `pond` | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
+| `narrow_stone_stairway` | a narrow stone stairway climbing to the pavilion door | `stairway` | https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%B… |
 | ~~`multi_tier_pagoda`~~ dễ nhầm | a tall tower of many stacked roof tiers | — | Chinese/Japanese |
 | ~~`floating_torii_shrine`~~ dễ nhầm | a red gate or shrine on many pillars over water | — | Japanese |
 
@@ -163,7 +164,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S008 · đèn lồng Hội An (phố cổ Hội An về đêm) — *Hoi An ancient town at night with silk lanterns*
 > prompt gốc: Hoi An ancient town at night, silk lanterns along ochre walls.
 
-**Observer được chỉ soi:** `silk, bamboo, ribs, lanterns, colours`
+**Observer được chỉ soi:** `silk, bamboo, ribs, lanterns, colours, inner glow`
 
 **Critic đọc nguyên văn:**
 
@@ -179,11 +180,11 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=sky_lantern: floating paper lanterns rising into the night sky
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `silk_over_bamboo_ribs` | silk stretched over slender curved bamboo ribs | có | http://vanhoanghethuat.vn/nghe-thuat-trang-tri… |
-| `many_lantern_colours` | lanterns glowing in many different colours, not only red | có | http://vanhoanghethuat.vn/nghe-thuat-trang-tri… |
-| `lit_from_inside` | each lantern glowing with light from inside | **KHÔNG** | hiển nhiên trong cảnh đêm; prompt nói rõ 'at n… |
+| `silk_over_bamboo_ribs` | silk stretched over slender curved bamboo ribs | `silk` | http://vanhoanghethuat.vn/nghe-thuat-trang-tri… |
+| `many_lantern_colours` | lanterns glowing in many different colours, not only red | `lanterns` | http://vanhoanghethuat.vn/nghe-thuat-trang-tri… |
+| `lit_from_inside` | each lantern glowing with light from inside | `inner glow` ✍ | hiển nhiên trong cảnh đêm; prompt nói rõ 'at n… |
 | ~~`chinese_palace_lantern`~~ dễ nhầm | cylindrical red lantern with gold tassels and Chinese characters | — | Chinese |
 | ~~`japanese_chochin`~~ dễ nhầm | white paper lantern with horizontal ribs and black kanji | — | Japanese |
 | ~~`sky_lantern`~~ dễ nhầm | floating paper lanterns rising into the night sky | — | Thai/Taiwanese |
@@ -193,7 +194,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S009 · đàn bầu — *Dan bau, Vietnamese monochord*
 > prompt gốc: A musician playing the dan bau monochord on a small stage.
 
-**Observer được chỉ soi:** `string`
+**Observer được chỉ soi:** `string, rod at one end, gourd cup, soundbox, playing position`
 
 **Critic đọc nguyên văn:**
 
@@ -211,13 +212,13 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=ektara: a one-string lute with round gourd body held upright
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `single_string` | exactly one string running along the instrument | có | https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
-| `flexible_rod_at_one_end` | a curved flexible rod standing up at one end | **KHÔNG** | https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
-| `gourd_cup_on_rod` | a gourd-shaped cup mounted on that rod | **KHÔNG** | https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
-| `long_narrow_soundbox` | a long narrow flat soundbox about one metre | **KHÔNG** | https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
-| `laid_flat_and_plucked` | laid flat, plucked with a stick held in one hand | **KHÔNG** | https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
+| `single_string` | exactly one string running along the instrument | `string` | https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
+| `flexible_rod_at_one_end` | a curved flexible rod standing up at one end | `rod at one end` ✍ | https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
+| `gourd_cup_on_rod` | a gourd-shaped cup mounted on that rod | `gourd cup` ✍ | https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
+| `long_narrow_soundbox` | a long narrow flat soundbox about one metre | `soundbox` ✍ | https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
+| `laid_flat_and_plucked` | laid flat, plucked with a stick held in one hand | `playing position` ✍ | https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%… |
 | ~~`guzheng_or_koto`~~ dễ nhầm | a wide zither with many strings and movable bridges | — | Chinese/Japanese |
 | ~~`erhu`~~ dễ nhầm | a small two-string bowed fiddle held upright on the lap | — | Chinese |
 | ~~`ektara`~~ dễ nhầm | a one-string lute with round gourd body held upright | — | Indian |
@@ -227,7 +228,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S010 · múa rối nước — *Vietnamese water puppetry*
 > prompt gốc: A water puppetry performance at a water pavilion, puppets on the water surface.
 
-**Observer được chỉ soi:** `puppets, water, pond, strings`
+**Observer được chỉ soi:** `puppets, water, pond, screen behind the stage, strings`
 
 **Critic đọc nguyên văn:**
 
@@ -245,13 +246,13 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=marionette: puppets hanging from strings held from above
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `puppets_on_water_surface` | puppets standing half submerged on open water | có | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
-| `water_pavilion_behind` | a tiled-roof pavilion rising out of the pond behind | có | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
-| `curtain_hides_operators` | a hanging screen across the pavilion hiding the puppeteers | **KHÔNG** | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
-| `no_strings_above_puppets` | no rods or strings visible above the puppets | có | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
-| `lacquered_wooden_puppets` | carved wooden puppets with glossy painted lacquer | có | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
+| `puppets_on_water_surface` | puppets standing half submerged on open water | `puppets` | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
+| `water_pavilion_behind` | a tiled-roof pavilion rising out of the pond behind | `pond` | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
+| `curtain_hides_operators` | a hanging screen across the pavilion hiding the puppeteers | `screen behind the stage` ✍ | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
+| `no_strings_above_puppets` | no rods or strings visible above the puppets | `strings` | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
+| `lacquered_wooden_puppets` | carved wooden puppets with glossy painted lacquer | `puppets` | https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB… |
 | ~~`bunraku`~~ dễ nhầm | puppets on a dry stage held by visible black-robed handlers | — | Japanese |
 | ~~`wayang_kulit`~~ dễ nhầm | flat leather shadow puppets against a lit screen | — | Indonesian |
 | ~~`marionette`~~ dễ nhầm | puppets hanging from strings held from above | — | European |
@@ -261,7 +262,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S012 · thuyền thúng — *Vietnamese basket boat*
 > prompt gốc: A fisherman paddling a round basket boat off a central Vietnam beach at sunrise.
 
-**Observer được chỉ soi:** `hull, bamboo, sides, bow, stern`
+**Observer được chỉ soi:** `hull, bamboo, sides, bow, stern, means of propulsion`
 
 **Critic đọc nguyên văn:**
 
@@ -279,13 +280,13 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=inflatable_raft: a round inflatable rubber raft with air tubes
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `round_hull` | a circular bowl-shaped hull | có | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
-| `woven_bamboo` | visible woven bamboo strips forming the body | có | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
-| `no_bow_or_stern` | low curved sides without a pointed bow or stern | có | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
-| `thick_rim_ring` | a thick bamboo or wooden ring around the top edge | có | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
-| `hand_paddled` | moved by hand paddling, no sail and no motor | **KHÔNG** | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
+| `round_hull` | a circular bowl-shaped hull | `hull` | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
+| `woven_bamboo` | visible woven bamboo strips forming the body | `bamboo` | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
+| `no_bow_or_stern` | low curved sides without a pointed bow or stern | `sides` | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
+| `thick_rim_ring` | a thick bamboo or wooden ring around the top edge | `bamboo` | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
+| `hand_paddled` | moved by hand paddling, no sail and no motor | `means of propulsion` ✍ | https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_t… |
 | ~~`wooden_sampan`~~ dễ nhầm | a long narrow wooden boat with pointed ends | — | generic/Chinese |
 | ~~`coracle`~~ dễ nhầm | a round hide-covered or tarred canvas bowl boat | — | Welsh/Irish |
 | ~~`inflatable_raft`~~ dễ nhầm | a round inflatable rubber raft with air tubes | — | generic/modern |
@@ -312,12 +313,12 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=side_car_trishaw: passengers seated in a sidecar beside the cyclist
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `passenger_seat_in_front` | the passenger seat sits ahead of the driver | có | https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B… |
-| `driver_pedals_behind` | the driver pedals on a raised saddle at the back | có | https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B… |
-| `three_wheels_two_in_front` | three wheels, two of them under the front seat | có | https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B… |
-| `pedal_powered_no_engine` | bicycle pedals and chain, no engine | có | https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B… |
+| `passenger_seat_in_front` | the passenger seat sits ahead of the driver | `seat` | https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B… |
+| `driver_pedals_behind` | the driver pedals on a raised saddle at the back | `pedals` | https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B… |
+| `three_wheels_two_in_front` | three wheels, two of them under the front seat | `wheels` | https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B… |
+| `pedal_powered_no_engine` | bicycle pedals and chain, no engine | `pedals` | https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B… |
 | ~~`cycle_rickshaw`~~ dễ nhầm | a passenger bench behind the cyclist | — | Indian/Bangladeshi |
 | ~~`tuk_tuk_auto_rickshaw`~~ dễ nhầm | a motorised three-wheeler with an enclosed driver cab | — | Thai/Indian |
 | ~~`side_car_trishaw`~~ dễ nhầm | passengers seated in a sidecar beside the cyclist | — | Filipino/Singaporean |
@@ -327,7 +328,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S015 · chợ nổi — *Mekong Delta floating market*
 > prompt gốc: A floating market at dawn, fruit boats with sample poles.
 
-**Observer được chỉ soi:** `bamboo, pole, bow, boats`
+**Observer được chỉ soi:** `bamboo, pole, bow, boats, shore`
 
 **Critic đọc nguyên văn:**
 
@@ -343,12 +344,12 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=lok_baintan_market: small dugout canoes with women in wide flat hats
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `bamboo_sample_pole` | a tall bamboo pole on the bow hanging sample produce | có | https://en.wikipedia.org/wiki/C%C3%A1i_R%C4%83… |
-| `produce_laden_wooden_boats` | long wooden boats piled with fruit and vegetables | có | https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1… |
-| `boats_clustered_on_open_river` | boats crowded together on a wide open river | có | https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1… |
-| `no_land_stalls` | trading happens boat to boat, no stalls on shore | **KHÔNG** | **CHƯA CÓ NGUỒN** |
+| `bamboo_sample_pole` | a tall bamboo pole on the bow hanging sample produce | `bamboo` | https://en.wikipedia.org/wiki/C%C3%A1i_R%C4%83… |
+| `produce_laden_wooden_boats` | long wooden boats piled with fruit and vegetables | `boats` | https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1… |
+| `boats_clustered_on_open_river` | boats crowded together on a wide open river | `boats` | https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1… |
+| `no_land_stalls` | trading happens boat to boat, no stalls on shore | `shore` ✍ | **CHƯA CÓ NGUỒN** |
 | ~~`damnoen_saduak_market`~~ dễ nhầm | small paddled canoes in a narrow canal lined with stalls | — | Thai |
 | ~~`lok_baintan_market`~~ dễ nhầm | small dugout canoes with women in wide flat hats | — | Indonesian |
 
@@ -373,11 +374,11 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=hanbok_boat_singer: short jacket over a wide bell-shaped skirt
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `women_wide_flat_hats` | women wearing very wide flat-brimmed round hats | có | https://ich.unesco.org/en/RL/quan-ho-bac-ninh-… |
-| `women_headscarf` | women wearing a dark folded headscarf under the hat | có | https://ich.unesco.org/en/RL/quan-ho-bac-ninh-… |
-| `women_layered_tunics` | women in several layered tunics of different colours | có | https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D |
+| `women_wide_flat_hats` | women wearing very wide flat-brimmed round hats | `hats` | https://ich.unesco.org/en/RL/quan-ho-bac-ninh-… |
+| `women_headscarf` | women wearing a dark folded headscarf under the hat | `headscarf` | https://ich.unesco.org/en/RL/quan-ho-bac-ninh-… |
+| `women_layered_tunics` | women in several layered tunics of different colours | `colours` | https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D |
 | ~~`chinese_opera_performer`~~ dễ nhầm | painted face with tall beaded headdress and water sleeves | — | Chinese |
 | ~~`geisha`~~ dễ nhầm | white face makeup, kimono with obi, holding a folding fan | — | Japanese |
 | ~~`hanbok_boat_singer`~~ dễ nhầm | short jacket over a wide bell-shaped skirt | — | Korean |
@@ -387,7 +388,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S018 · cồng chiêng Tây Nguyên — *Central Highlands gong ensemble*
 > prompt gốc: A Central Highlands gong ensemble performing around a fire.
 
-**Observer được chỉ soi:** `gongs, rim`
+**Observer được chỉ soi:** `gongs, rim, beaters, clothing`
 
 **Critic đọc nguyên văn:**
 
@@ -405,13 +406,13 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=african_drum_circle: players seated behind tall hand drums, no metal gongs
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `hand_carried_bronze_gongs` | flat bronze gongs each carried in one hand | có | https://ich.unesco.org/en/RL/space-of-gong-cul… |
-| `one_gong_per_player` | a row of players each holding one different-sized gong | **KHÔNG** | https://ich.unesco.org/en/RL/space-of-gong-cul… |
-| `gongs_not_on_stands` | gongs held by the rim, not mounted on racks | có | https://ich.unesco.org/en/RL/space-of-gong-cul… |
-| `struck_with_mallet_or_fist` | struck with a short padded mallet or the bare fist | **KHÔNG** | https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi… |
-| `highland_woven_dress` | dark woven cloth with red and white geometric bands | **KHÔNG** | **CHƯA CÓ NGUỒN** |
+| `hand_carried_bronze_gongs` | flat bronze gongs each carried in one hand | `gongs` | https://ich.unesco.org/en/RL/space-of-gong-cul… |
+| `one_gong_per_player` | a row of players each holding one different-sized gong | `gongs` ✍ | https://ich.unesco.org/en/RL/space-of-gong-cul… |
+| `gongs_not_on_stands` | gongs held by the rim, not mounted on racks | `gongs` | https://ich.unesco.org/en/RL/space-of-gong-cul… |
+| `struck_with_mallet_or_fist` | struck with a short padded mallet or the bare fist | `beaters` ✍ | https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi… |
+| `highland_woven_dress` | dark woven cloth with red and white geometric bands | `clothing` ✍ | **CHƯA CÓ NGUỒN** |
 | ~~`gamelan`~~ dễ nhầm | rows of knobbed gongs mounted on carved wooden racks | — | Indonesian |
 | ~~`hanging_chinese_gong`~~ dễ nhầm | one large gong hanging in a tall wooden frame | — | Chinese |
 | ~~`african_drum_circle`~~ dễ nhầm | players seated behind tall hand drums, no metal gongs | — | West African |
@@ -421,7 +422,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S020 · nón quai thao — *Non quai thao, northern Vietnamese flat hat*
 > prompt gốc: A northern Vietnamese young woman wearing a flat-brimmed quai thao hat.
 
-**Observer được chỉ soi:** `brim, rim, silk`
+**Observer được chỉ soi:** `brim, rim, inner ring, silk`
 
 **Critic đọc nguyên văn:**
 
@@ -438,12 +439,12 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=non_la: a pointed conical leaf hat with a thin cloth chinstrap
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `wide_flat_disc_brim` | a very wide flat disc brim, no pointed top | có | https://vi.wikipedia.org/wiki/N%C3%B3n_quai_th… |
-| `shallow_downturned_rim` | a shallow rim turned down around the outer edge | có | https://vi.wikipedia.org/wiki/N%C3%B3n_quai_th… |
-| `inner_head_ring` | a small ring under the centre gripping the head | **KHÔNG** | https://vi.wikipedia.org/wiki/N%C3%B3n_quai_th… |
-| `silk_tassel_cords` | thick coloured silk tassel cords hanging from the brim | có | https://vi.wikipedia.org/wiki/N%C3%B3n_quai_th… |
+| `wide_flat_disc_brim` | a very wide flat disc brim, no pointed top | `brim` | https://vi.wikipedia.org/wiki/N%C3%B3n_quai_th… |
+| `shallow_downturned_rim` | a shallow rim turned down around the outer edge | `rim` | https://vi.wikipedia.org/wiki/N%C3%B3n_quai_th… |
+| `inner_head_ring` | a small ring under the centre gripping the head | `inner ring` ✍ | https://vi.wikipedia.org/wiki/N%C3%B3n_quai_th… |
+| `silk_tassel_cords` | thick coloured silk tassel cords hanging from the brim | `silk` | https://vi.wikipedia.org/wiki/N%C3%B3n_quai_th… |
 | ~~`chinese_douli`~~ dễ nhầm | a plain woven straw flat hat with no tassel cords | — | Chinese/Japanese |
 | ~~`straw_boater`~~ dễ nhầm | a stiff flat straw hat with a raised cylindrical crown | — | European |
 | ~~`non_la`~~ dễ nhầm | a pointed conical leaf hat with a thin cloth chinstrap | — | Vietnamese (different hat, NOT non quai thao) |
@@ -453,7 +454,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S030 · khăn rằn — *Khan ran, southern Vietnamese checkered scarf*
 > prompt gốc: A woman in a checkered scarf sitting in a small sampan.
 
-**Observer được chỉ soi:** `grid, colours`
+**Observer được chỉ soi:** `grid, colours, overall shape, where it is worn`
 
 **Critic đọc nguyên văn:**
 
@@ -470,12 +471,12 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=gingham_picnic_cloth: a wide square red-white checked tablecloth
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `small_checkered_grid` | a grid of small squares from crossing stripes | có | https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%B… |
-| `only_two_colours` | only two alternating colours, any pair | có | https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%B… |
-| `long_narrow_rectangle` | a long narrow rectangle, roughly one metre long | **KHÔNG** | https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%B… |
-| `draped_on_neck_or_head` | draped round the neck or tied over the head | **KHÔNG** | https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%B… |
+| `small_checkered_grid` | a grid of small squares from crossing stripes | `grid` | https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%B… |
+| `only_two_colours` | only two alternating colours, any pair | `colours` | https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%B… |
+| `long_narrow_rectangle` | a long narrow rectangle, roughly one metre long | `overall shape` ✍ | https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%B… |
+| `draped_on_neck_or_head` | draped round the neck or tied over the head | `where it is worn` ✍ | https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%B… |
 | ~~`keffiyeh`~~ dễ nhầm | a large square checked headscarf held by a black cord ring | — | Arab/Palestinian |
 | ~~`tartan_plaid`~~ dễ nhầm | crossing stripes in three or more colours | — | Scottish |
 | ~~`gingham_picnic_cloth`~~ dễ nhầm | a wide square red-white checked tablecloth | — | generic/Western |
@@ -485,7 +486,7 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
 ## S031 · áo tứ thân — *Ao tu than, northern Vietnamese four-panel dress*
 > prompt gốc: A northern Vietnamese young woman in a four-panel dress with a sash.
 
-**Observer được chỉ soi:** `sash, buttons`
+**Observer được chỉ soi:** `front opening, sash, garment length, buttons`
 
 **Critic đọc nguyên văn:**
 
@@ -502,12 +503,12 @@ CONFUSABLE OBJECTS (must NOT be what is shown):
   - id=ao_dai: a fitted closed tunic over trousers, slit only at the hips
 ```
 
-| mục | mô tả | có trong danh sách soi? | nguồn |
+| mục | mô tả | bộ phận Observer soi | nguồn |
 |---|---|---|---|
-| `open_front_two_flaps` | an open front with two separate hanging flaps | **KHÔNG** | https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%… |
-| `sash_tied_at_waist` | a long cloth sash tied round the waist | có | https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%… |
-| `below_knee_length` | the outer garment hanging to below the knee | **KHÔNG** | https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%… |
-| `no_front_buttons` | no buttons or fastening down the centre front | có | https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%… |
+| `open_front_two_flaps` | an open front with two separate hanging flaps | `front opening` ✍ | https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%… |
+| `sash_tied_at_waist` | a long cloth sash tied round the waist | `sash` | https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%… |
+| `below_knee_length` | the outer garment hanging to below the knee | `garment length` ✍ | https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%… |
+| `no_front_buttons` | no buttons or fastening down the centre front | `buttons` | https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%… |
 | ~~`hanfu`~~ dễ nhầm | a robe wrapped with a crossed Y-shaped front and wide sleeves | — | Chinese |
 | ~~`kimono`~~ dễ nhầm | a wrapped robe closed by a wide stiff obi sash | — | Japanese |
 | ~~`ao_dai`~~ dễ nhầm | a fitted closed tunic over trousers, slit only at the hips | — | Vietnamese (different garment, NOT ao tu than) |

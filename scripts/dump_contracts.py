@@ -45,6 +45,8 @@ def main(argv=None):
 
     out = ["# Contract — đúng thứ Critic đọc\n",
            "Sửa `data/contracts.json` là đổi hẳn thứ hệ thống đi tìm; không cần đụng vào mã.\n",
+           "Cột `part` (đánh dấu ✍) là chỗ VIẾT TAY tên bộ phận cho Observer đi soi; bỏ trống thì hệ "
+           "thống tự dò từ mô tả, và tự dò hay trượt.\n",
            "Ba chỗ đáng soi: **mục nào không có bộ phận tương ứng** thì Observer sẽ không nhắc tới và Critic "
            "không bao giờ bắt được lỗi ở đó; **mục CHƯA CÓ NGUỒN**; và **mục không phải lúc nào cũng xuất "
            "hiện** — mục kiểu đó làm Critic bắt lỗi oan rồi hệ thống sửa hỏng ảnh vốn đúng.\n"]
@@ -61,14 +63,17 @@ def main(argv=None):
             out.append(f"> prompt gốc: {pr['text_en']}\n")
         out.append(f"\n**Observer được chỉ soi:** `{', '.join(parts) or '(KHÔNG CÓ — Observer sẽ tả tự do)'}`\n")
         out.append("\n**Critic đọc nguyên văn:**\n\n```\n" + vr._contract_text(v) + "\n```\n")
-        out.append("\n| mục | mô tả | có trong danh sách soi? | nguồn |\n|---|---|---|---|\n")
+        out.append("\n| mục | mô tả | bộ phận Observer soi | nguồn |\n|---|---|---|---|\n")
         for r in v.get("required", []):
-            co = any(w in parts for w in str(r["description"]).lower().replace(",", " ").split())
+            tay = str(r.get("part") or "").strip()
+            co = tay or next((w for w in str(r["description"]).lower().replace(",", " ").split()
+                              if w in parts), "")
             src = str(r.get("source", ""))
             if "CHƯA" in src:
                 thieu_nguon += 1
             src_txt = "**CHƯA CÓ NGUỒN**" if "CHƯA" in src else (src[:46] + "…" if len(src) > 46 else src)
-            out.append(f"| `{r['id']}` | {r['description']} | {'có' if co else '**KHÔNG**'} | {src_txt} |\n")
+            oc = f"`{co}`" + (" ✍" if tay else "") if co else "**KHÔNG AI SOI**"
+            out.append(f"| `{r['id']}` | {r['description']} | {oc} | {src_txt} |\n")
         for x in v.get("confusables", []):
             out.append(f"| ~~`{x['id']}`~~ dễ nhầm | {x['description']} | — | {x.get('culture', '')} |\n")
 

@@ -97,7 +97,8 @@
    {
     "id": "scallion_and_onion_on_top",
     "description": "chopped scallion and thin raw onion on top",
-    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F",
+    "part": "toppings"
    }
   ],
   "confusables": [
@@ -125,7 +126,8 @@
    {
     "id": "square_flat_block",
     "description": "a squat square block, clearly not a cylinder",
-    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng",
+    "part": "overall shape"
    },
    {
     "id": "dong_leaf_wrapper",
@@ -173,7 +175,8 @@
    {
     "id": "small_square_pavilion",
     "description": "one small square wooden pavilion about three metres wide",
-    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t",
+    "part": "pavilion"
    },
    {
     "id": "upturned_tile_roof",
@@ -221,7 +224,8 @@
    {
     "id": "lit_from_inside",
     "description": "each lantern glowing with light from inside",
-    "source": "hiển nhiên trong cảnh đêm; prompt nói rõ 'at night'"
+    "source": "hiển nhiên trong cảnh đêm; prompt nói rõ 'at night'",
+    "part": "inner glow"
    }
   ],
   "confusables": [
@@ -254,22 +258,26 @@
    {
     "id": "flexible_rod_at_one_end",
     "description": "a curved flexible rod standing up at one end",
-    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u",
+    "part": "rod at one end"
    },
    {
     "id": "gourd_cup_on_rod",
     "description": "a gourd-shaped cup mounted on that rod",
-    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u",
+    "part": "gourd cup"
    },
    {
     "id": "long_narrow_soundbox",
     "description": "a long narrow flat soundbox about one metre",
-    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u",
+    "part": "soundbox"
    },
    {
     "id": "laid_flat_and_plucked",
     "description": "laid flat, plucked with a stick held in one hand",
-    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u",
+    "part": "playing position"
    }
   ],
   "confusables": [
@@ -307,7 +315,8 @@
    {
     "id": "curtain_hides_operators",
     "description": "a hanging screen across the pavilion hiding the puppeteers",
-    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc",
+    "part": "screen behind the stage"
    },
    {
     "id": "no_strings_above_puppets",
@@ -365,7 +374,8 @@
    {
     "id": "hand_paddled",
     "description": "moved by hand paddling, no sail and no motor",
-    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng",
+    "part": "means of propulsion"
    }
   ],
   "confusables": [
@@ -451,7 +461,8 @@
    {
     "id": "no_land_stalls",
     "description": "trading happens boat to boat, no stalls on shore",
-    "source": "CHƯA CÓ NGUỒN"
+    "source": "CHƯA CÓ NGUỒN",
+    "part": "shore"
    }
   ],
   "confusables": [
@@ -517,7 +528,8 @@
    {
     "id": "one_gong_per_player",
     "description": "a row of players each holding one different-sized gong",
-    "source": "https://ich.unesco.org/en/RL/space-of-gong-culture-00120"
+    "source": "https://ich.unesco.org/en/RL/space-of-gong-culture-00120",
+    "part": "gongs"
    },
    {
     "id": "gongs_not_on_stands",
@@ -527,12 +539,14 @@
    {
     "id": "struck_with_mallet_or_fist",
     "description": "struck with a short padded mallet or the bare fist",
-    "source": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng",
+    "part": "beaters"
    },
    {
     "id": "highland_woven_dress",
     "description": "dark woven cloth with red and white geometric bands",
-    "source": "CHƯA CÓ NGUỒN"
+    "source": "CHƯA CÓ NGUỒN",
+    "part": "clothing"
    }
   ],
   "confusables": [
@@ -570,7 +584,8 @@
    {
     "id": "inner_head_ring",
     "description": "a small ring under the centre gripping the head",
-    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao"
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao",
+    "part": "inner ring"
    },
    {
     "id": "silk_tassel_cords",
@@ -613,12 +628,14 @@
    {
     "id": "long_narrow_rectangle",
     "description": "a long narrow rectangle, roughly one metre long",
-    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n"
+    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n",
+    "part": "overall shape"
    },
    {
     "id": "draped_on_neck_or_head",
     "description": "draped round the neck or tied over the head",
-    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n"
+    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n",
+    "part": "where it is worn"
    }
   ],
   "confusables": [
@@ -646,7 +663,8 @@
    {
     "id": "open_front_two_flaps",
     "description": "an open front with two separate hanging flaps",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n",
+    "part": "front opening"
    },
    {
     "id": "sash_tied_at_waist",
@@ -656,7 +674,8 @@
    {
     "id": "below_knee_length",
     "description": "the outer garment hanging to below the knee",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n",
+    "part": "garment length"
    },
    {
     "id": "no_front_buttons",

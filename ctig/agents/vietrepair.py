@@ -157,7 +157,7 @@ _BO_PHAN = {
 }
 
 
-def _cho_can_ta(contract: dict, toi_da: int = 6) -> list[str]:
+def _cho_can_ta(contract: dict, toi_da: int = 8) -> list[str]:
     """Rút danh sách BỘ PHẬN cần mô tả từ contract, đã bóc hết đáp án.
 
     Vì sao cần: ở S001, Observer trả về danh sách cụm rời rạc ('white pants', 'white top with red
@@ -167,9 +167,25 @@ def _cho_can_ta(contract: dict, toi_da: int = 6) -> list[str]:
 
     Chỉ nêu TÊN BỘ PHẬN, không nêu giá trị đúng. Observer vẫn không biết chuẩn văn hoá là gì, nên vẫn
     giữ được tính khách quan; nó chỉ biết phải soi những chỗ nào.
+
+    Ưu tiên trường `part` viết tay trong contract; không có thì mới dò từ `description` bằng `_BO_PHAN`.
+    Vì sao phải có `part`: bản dò tự động BỎ SÓT 19/65 mục — `scallion_and_onion_on_top`,
+    `gourd_cup_on_rod`, `curtain_hides_operators`, `open_front_two_flaps`, ... đều không chứa từ nào
+    trong `_BO_PHAN`, nên Observer không bao giờ được chỉ đi soi chỗ đó, Critic không bao giờ thấy nó
+    trong quan sát, và mục đó thành CHẾT: có nằm trong contract cũng như không. Đã thấy hậu quả ở S012,
+    nơi mệnh đề sửa bàn về mái chèo thay vì cái thân thuyền tròn. Viết tay `part` là cách chỉnh hệ
+    thống theo từng prompt mà không phải đụng vào mã; nhiều bộ phận cho một mục thì ngăn bằng "|".
     """
     seen, out = set(), []
     for r in contract.get("required", []):
+        tay = str(r.get("part") or "").strip().lower()
+        if tay:
+            for w in tay.split("|"):
+                w = " ".join(w.split())
+                if w and w not in seen:
+                    seen.add(w)
+                    out.append(w)
+            continue
         for w in str(r.get("description", "")).lower().replace(",", " ").split():
             w = w.strip(".,;:()")
             if w in _BO_PHAN and w not in seen:

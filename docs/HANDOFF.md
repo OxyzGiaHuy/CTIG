@@ -939,3 +939,25 @@ Destroy mất.
    `v18_complex` → `scripts/kb_auto_export.py` cho nhóm duyệt.
 3. `scripts/compare_pairs.py` cho hai run; cập nhật research-log, research-state (H20, H21, thêm H22 "negative có cần không" từ FLUX).
 4. Sau đó: dev set rộng hơn (3 luồng), LoRA áo tứ thân, đánh giá người theo cặp, tách nguồn chấm khỏi nguồn sinh.
+
+---
+
+## 2026-09-18 · Bàn chỉnh contract (`docs/contract_work/`)
+
+Gom ba thứ cạnh nhau để chỉnh contract theo bộ prompt: `contracts.json` (liên kết tới
+`data/contracts.json`, sửa ở đây là sửa bản gốc), `contracts_review.md` (đúng văn bản Critic đọc), và
+`anh/S0xx.png` (lưới 6 cột nháp·B·R·T·S·M của lô 32 đơn vị, **không commit** — đã cho vào `.gitignore`).
+Cách dùng và ba cần gạt: `docs/contract_work/README.md`.
+
+**Lỗ hổng đã bịt: 19/65 mục contract trước đây không ai soi.** Observer nhận danh sách bộ phận cần tả,
+danh sách đó trước đây dò tự động từ `description` bằng từ điển cố định `_BO_PHAN`. Mục nào không chứa
+từ nào trong từ điển thì không sinh ra bộ phận nào — `scallion_and_onion_on_top`, `gourd_cup_on_rod`,
+`curtain_hides_operators`, `open_front_two_flaps`, … Observer không nhắc tới, Critic không bao giờ bắt
+được lỗi ở đó, mục nằm trong contract cũng như không. Đúng là chuyện đã xảy ra ở S012: mệnh đề sửa bàn
+về mái chèo thay vì thân thuyền tròn.
+
+Cách sửa: thêm trường **`part`** viết tay cho từng mục required; `_cho_can_ta` ưu tiên `part`, không có
+mới dò tự động. Đã điền `part` cho đúng 19 mục đó, trần nâng 6 → 8 bộ phận mỗi thực thể. Kiểm lại: 65/65
+mục đều có bộ phận, không thực thể nào bị cắt vì quá trần. Đã đồng bộ sang máy thuê.
+
+Còn treo, chưa quyết: chia 8 prompt chỉnh / 8 prompt cất đi để số đo còn giá trị sau khi overfit.

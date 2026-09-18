@@ -293,8 +293,42 @@ REFINER_SYSTEM = (
     "- Do not introduce any object, place, colour or person that is not already in the prompt or the\n"
     "  contract. Adding new nouns changes the picture instead of repairing it.\n"
     "- The clause must be at most 25 words, one sentence.\n"
-    "- negative_terms: 2 to 4 short noun phrases naming exactly the wrong things to keep out."
+    "- NEVER change how the picture is framed. Do not mention close-up, portrait, wide shot, full body,\n"
+    "  top-down, flat lay, overhead, zoom, crop, angle, composition, lighting or background. Write only\n"
+    "  about the object itself. Changing the framing is the most common way a repair makes things worse.\n"
+    "- negative_terms: 2 to 4 short noun phrases naming exactly the wrong things to keep out.\n"
+    "  Negative terms must also never mention framing, composition, lighting or camera angle."
 )
+
+#: Từ về KHUNG HÌNH. Đo trên 8 đơn vị đầu: mệnh đề sửa làm đổi bố cục có hệ thống — S001 chuyển từ toàn
+#: thân sang cận cảnh (nên KHÔNG còn thấy quần, mà quần mới là thứ phân biệt áo dài với qipao), S003
+#: chuyển từ một tô sang ảnh chụp từ trên xuống bày cả mâm. Khi đó người gán nhãn trả lời câu "ảnh nào
+#: Việt hơn" theo khung hình chứ không theo văn hoá, và cả phép so mất nghĩa.
+_KHUNG_HINH = {"close-up", "closeup", "close", "portrait", "wide", "shot", "full-body", "fullbody",
+               "body", "top-down", "topdown", "overhead", "flat", "lay", "flatlay", "zoom", "zoomed",
+               "crop", "cropped", "angle", "composition", "framing", "framed", "lighting", "lit",
+               "background", "backdrop", "perspective", "viewpoint", "camera", "macro", "detail",
+               "closer", "wider", "scene", "spread", "arrangement", "arranged"}
+
+
+def _bo_khung_hinh(clause: str, neg: list[str], log=print) -> tuple[str, list[str]]:
+    """Loại mọi thứ nói về khung hình khỏi mệnh đề sửa và khỏi negative.
+
+    Nhắc trong system prompt là không đủ — mô hình vẫn viết 'shown in a wider shot'. Chặn bằng máy:
+    mệnh đề chứa từ khung hình thì BỎ CẢ MỆNH ĐỀ (rơi về no-op, an toàn hơn là sửa nửa vời), còn
+    negative thì chỉ bỏ cụm vi phạm.
+    """
+    w = {x.strip(".,;:()").lower() for x in (clause or "").split()}
+    if w & _KHUNG_HINH:
+        log(f"  [khung hình] mệnh đề nói về bố cục -> bỏ: {clause[:60]}")
+        clause = ""
+    out = []
+    for phrase in neg or []:
+        if {x.strip(".,;:()").lower() for x in phrase.split()} & _KHUNG_HINH:
+            log(f"  [khung hình] bỏ negative '{phrase}'")
+            continue
+        out.append(phrase)
+    return clause, out
 
 REFINER_SCHEMA = {"type": "object", "properties": {
     "repair_clause": {"type": "string"},
@@ -325,6 +359,7 @@ def refine(agent, base_prompt: str, m2: dict, contract: dict, log=print) -> dict
         log(f"  [A3 Refiner] mệnh đề còn phủ định -> bỏ: {clause[:60]}")
         clause = ""
     neg = _bo_negative_pha_prompt(neg, base_prompt, contract, log)
+    clause, neg = _bo_khung_hinh(clause, neg, log)
     m3 = {"repair_clause": clause, "negative_terms": neg}
     log(f"  [A3 Refiner] '{clause[:70]}' · negative {neg}")
     return m3
@@ -420,6 +455,7 @@ def single_agent(agent, image: str, base_prompt: str, contract: dict | None, log
     neg = [" ".join(str(x).split()) for x in (d.get("negative_terms") or [])][:4]
     if contract:
         neg = _bo_negative_pha_prompt(neg, base_prompt, contract, log)
+    clause, neg = _bo_khung_hinh(clause, neg, log)
     m3 = {"repair_clause": clause, "negative_terms": neg}
     log(f"  [S một agent] '{clause[:70]}' · negative {neg}")
     return m3

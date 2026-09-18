@@ -64,6 +64,28 @@ class DanhGia:
         return 0.5, ans          # không đọc được -> không chắc, không thiên về bên nào
 
 
+def vqa_yes(ev: "DanhGia", image: str, prompt_en: str) -> float:
+    """VQAScore (Lin et al. 2024) = P(Yes | 'Does this figure show "<prompt>"?'), tính từ logits token đầu.
+
+    Backbone ở đây là Qwen2.5-VL-7B, KHÔNG phải clip-flant5-xxl của bài gốc: t2v_metrics 3.0 kéo theo chuỗi
+    phụ thuộc (LLaVA-OV, torch 2.5.1, transformers 4.49) và vẫn lỗi trong forward T5 trên máy này sau
+    bốn lần vá. Công thức giữ nguyên; phải ghi rõ backbone trong bảng.
+    """
+    from PIL import Image
+    q = f'Does this figure show "{prompt_en.strip()}"? Please answer yes or no.'
+    msgs = [{"role": "user", "content": [{"type": "image", "image": Image.open(image).convert("RGB")}, {"type": "text", "text": q}]}]
+    text = ev.proc.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
+    inputs = ev.proc(text=[text], images=[Image.open(image).convert("RGB")], return_tensors="pt").to(ev.model.device)
+    with ev.torch.no_grad():
+        logits = ev.model(**inputs).logits[0, -1]
+    tok = ev.proc.tokenizer
+    ids_yes = {tok.encode(w, add_special_tokens=False)[0] for w in ("Yes", " Yes", "yes", " yes")}
+    ids_no = {tok.encode(w, add_special_tokens=False)[0] for w in ("No", " No", "no", " no")}
+    pr = ev.torch.softmax(logits.float(), dim=-1)
+    py, pn = float(sum(pr[i] for i in ids_yes)), float(sum(pr[i] for i in ids_no))
+    return py / (py + pn) if (py + pn) > 0 else 0.5
+
+
 def _bootstrap(vals: list[float], n=2000, seed=0):
     v = np.array([x for x in vals if x is not None], dtype=float)
     if len(v) == 0:
@@ -82,6 +104,8 @@ def main(argv=None):
     ap.add_argument("-o", "--out", required=True)
     ap.add_argument("--evaluator", default="Qwen/Qwen2.5-VL-7B-Instruct")
     ap.add_argument("--vqa-model", default="clip-flant5-xl")
+    ap.add_argument("--vqa-backend", choices=["t2v", "qwen"], default="qwen",
+                    help="qwen = P(Yes) bằng chính evaluator Qwen2.5-VL (mặc định, chạy được); t2v = t2v_metrics clip-flant5")
     ap.add_argument("--caire-csv", default=None, help="combined_outputs.csv của CAIRE (nếu đã chạy), ghép theo đường dẫn ảnh")
     ap.add_argument("--vqa-json", default=None, help="vqa.json từ scripts/vqascore_only.py (venv riêng); có thì không chạy t2v trong tiến trình này")
     ap.add_argument("--seed", type=int, default=7)
@@ -148,8 +172,13 @@ def main(argv=None):
             if Path(img).stem in sc:
                 vqa[key] = sc[Path(img).stem]
         log(f"VQAScore đọc từ {a.vqa_json}: {len(vqa)} ảnh")
+    if not vqa and a.vqa_backend == "qwen":
+        for key, img in anh.items():
+            vqa[key] = vqa_yes(ev, img, prompts[key[1]]["text_en"])
+        a.vqa_model = "Qwen2.5-VL-7B P(Yes) (không phải clip-flant5)"
+        log(f"VQAScore (Qwen2.5-VL P(Yes)) xong {len(vqa)} ảnh")
     try:
-        if vqa: raise RuntimeError("đã có vqa.json")
+        if vqa: raise RuntimeError("đã có VQA")
         import t2v_metrics
         del ev.model; ev.torch.cuda.empty_cache()
         vq = t2v_metrics.VQAScore(model=a.vqa_model)

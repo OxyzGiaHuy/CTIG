@@ -109,19 +109,29 @@ merged with `--caire-csv`.
 We report I0, I1 and Δ = I1 − I0 per generator, plus paired counts (NRG > 0 / = 0 / < 0 / N/A). Human
 pairwise preference is the primary evidence and is collected separately.
 
-### Preliminary results (10 prompts S001–S010, one seed)
+### Results — 50 prompts, one seed (S001–S050)
+
+Independent evaluator Qwen2.5-VL-7B (blind to arm and order); contract `contracts_v2.json` frozen before
+generation; 95% bootstrap CIs by prompt (2000 resamples). Full tables and every raw evaluator answer are in
+`results/metrics_50/`.
 
 | generator | arm | VQAScore¹ ↑ | VCFS ↑ | CCR ↓ | NRG ↑ |
 |---|---|---:|---:|---:|---:|
-| SDXL | I0 (Culture-TRIP) | 0.670 | 46.9 | 18.3 | – |
-| SDXL | **I1 (SAVIER)** | **0.820** | **66.4** | 21.7 | **44.8** [15.6, 75.0] |
-| SDXL | Δ | +0.16 [−0.15, +0.43] | **+19.6** [+1.7, +38.8] | +3.3 [−6.7, +13.3] | |
-| FLUX.1-dev | I0 (Culture-TRIP) | 0.710 | 53.8 | 21.7 | – |
-| FLUX.1-dev | **I1 (SAVIER)** | **0.910** | **71.7** | **15.0** | **40.6** [2.6, 75.0] |
-| FLUX.1-dev | Δ | **+0.19** [+0.04, +0.39] | **+18.0** [+6.2, +30.6] | −6.7 [−20.0, +3.3] | |
+| SDXL 1.0 | A · prompt only | 0.720 | 52.9 | 20.8 | – |
+| SDXL 1.0 | I0 · Culture-TRIP | 0.610 | 55.6 | 15.3 | – |
+| SDXL 1.0 | **I1 · SAVIER** | **0.740** | **68.9** | 16.2 | **41.2** [26.8, 55.4] |
+| SDXL 1.0 | Δ (I1 − I0) | **+0.12** [+0.01, +0.25] | **+13.3** [+5.4, +21.4] | +0.8 [−4.5, +5.8] | |
+| FLUX.1-dev | A · prompt only | 0.670 | 44.8 | 13.3 | – |
+| FLUX.1-dev | I0 · Culture-TRIP | 0.700 | 59.1 | 15.0 | – |
+| FLUX.1-dev | **I1 · SAVIER** | **0.770** | **66.3** | **13.0** | **21.1** [5.5, 36.2] |
+| FLUX.1-dev | Δ (I1 − I0) | +0.07 [−0.01, +0.16] | **+7.3** [+0.4, +13.7] | −2.0 [−7.7, +3.7] | |
 
-¹ Qwen2.5-VL-7B backbone. Paired: SDXL NRG > 0 in 5/10, = 0 in 3/10, N/A in 2/10; FLUX NRG > 0 in 5/10,
-< 0 in 1/10, N/A in 3/10. n = 10 — intervals are wide; treat as a smoke test, not a result.
+Paired outcome of I1 vs I0 (NRG): SDXL 24 > 0 · 13 = 0 · **1 < 0** · 12 N/A (I0 already complete);
+FLUX 19 > 0 · 16 = 0 · **5 < 0** · 10 N/A. No-op rate (Refiner found nothing to repair): SDXL 2/50, FLUX 5/50.
+
+¹ VQAScore here uses a Qwen2.5-VL-7B backbone (same question and P(Yes) formula as the paper, different
+model); it is comparable across arms in this table, not with numbers published for `clip-flant5-xxl`.
+CAIRE (Vietnam / China relevance, 1–5) and human pairwise preference are reported separately when available.
 
 ## Repository layout
 

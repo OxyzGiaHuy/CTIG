@@ -961,3 +961,32 @@ mới dò tự động. Đã điền `part` cho đúng 19 mục đó, trần nâ
 mục đều có bộ phận, không thực thể nào bị cắt vì quá trần. Đã đồng bộ sang máy thuê.
 
 Còn treo, chưa quyết: chia 8 prompt chỉnh / 8 prompt cất đi để số đo còn giá trị sau khi overfit.
+
+---
+
+## 2026-09-18 tối · Flow K/O/R (CG-MAPR) — các lô `runs/kor*`, `runs/flux_smoke_1436`
+
+Flow chốt: K Prompt & Cultural Analyst (text) → Preservation Card + Cultural Evidence Card (quote nguyên
+văn từ Wikipedia vi đã chọn tay, `data/wiki_curated/`) · O Blind Visual Observer (VLM, chỉ ảnh) · R Gap
+Analyzer & Refiner (text, ≤3 action dương tính) · G = generator. Ba vai chung một Mistral-24B. Một vòng
+sửa, cổng không-thoái-lui đo theo Preservation Card. Không negative prompt. `scripts/run_kor.py`.
+
+Nhánh: A = prompt gốc · B = Culture-TRIP (gốc ở đầu) = I0 · C = cùng seed + IP-Adapter 2 ảnh `selected/`
+đã cắt + P1. P1 = P_ct nguyên văn + "Preserve… Keep clearly visible: <vật phụ card>" + ≤3 action.
+
+| lô | gì | kết quả chính |
+|---|---|---|
+| `kor` (v1) | img2img 0,35 | K cụt JSON 2/3 → card rỗng; C ≈ I0; cổng phạt việc bỏ vật sai |
+| `kor_20260918_1322` | K tách 2 lời gọi, cắt bài 4k; img2img 0,60 | K ra cue thật; img2img vẫn không đổi được vật thể; cổng từ chối 6/6 (bịa, mâu thuẫn, chép tên trường) |
+| `kor_20260918_1349` | **C = IP-Adapter**; cổng 4 luật máy; S001–S010 | C sửa đúng định danh S001 (áo dài), S002 (gánh), S004 (bánh chưng ← I0 ra bánh tét); cổng chọn I1 7/10, từ chối S001/S004 vì mất "cổng trường"/"mâm" (đúng theo prompt) → P1 nay liệt kê vật phụ |
+| `flux_smoke_1436` | FLUX.1-dev `#bare`, cpu_offload, XLabs IP-Adapter 1 ảnh | chạy được cạnh Mistral (≈40 s/ảnh, 3,5 phút/prompt). S001: K/R đúng, nhưng FLUX+ref vẫn ra qipao tay ngắn; Observer khai "hai tà" không có → cổng chọn I1 sai |
+
+Bốn lỗi đã bắt được và vá bằng máy (đều ghi trong docstring `run_kor.py`): (1) K cụt JSON khi bài dài →
+trần 4k TỔNG, hai lời gọi; (2) quote nguyên văn ≠ suy diễn — "stone bowl" kèm quote về nước dùng sôi (thực
+ra là bằng chứng cho *khói*) → ≥1 từ của cue phải nằm trong quote; (3) cổng lấy I0 làm chuẩn → lấy card
+làm chuẩn + 4 luật (mâu thuẫn fixed, chỉ so giá trị, có căn cứ I0/I1, bỏ thứ không nhìn được); (4) img2img
+không đổi được vật thể → C đi đường ref, img2img còn là đối chứng `--i2i`.
+
+Vận hành: `pgrep -f "[r]un_kor"` KHÔNG match chính pgrep nhưng match câu relaunch nằm cùng dòng ssh → tự giết
+phiên. Tách kill và relaunch thành hai phiên ssh. Lưới gộp nhiều model: `scripts/kor_grid_models.py`.
+FLUX là gated: token chỉ qua `export HF_TOKEN` trong phiên của người dùng rồi chạy `/workspace/dl_flux.sh`.

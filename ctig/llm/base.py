@@ -116,6 +116,11 @@ class Agent(Protocol):
 
 
 def get_backend(cfg) -> LLMBackend:
+    if cfg.backend == "hf_text":
+        from .hf_text import HFTextBackend
+
+        return HFTextBackend(cfg.model, cfg.device, cfg.dtype, cfg.max_new_tokens,
+                             cfg.temperature, cfg.json_retries)
     if cfg.backend == "qwen_vl":
         from .qwen_vl import QwenVLBackend
 

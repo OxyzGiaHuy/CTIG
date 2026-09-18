@@ -11,7 +11,8 @@ ROOT = Path(__file__).resolve().parent.parent
 
 @dataclass
 class LLMConfig:
-    #: "qwen_vl" (local, GPU) | "mistral_vl" (local, GPU, bộ chấm theo T2I-Copilot) |
+    #: "hf_text" (Qwen3/PhoGPT local) | "qwen_vl" (local, GPU) |
+    #: "mistral_vl" (local, GPU, bộ chấm theo T2I-Copilot) |
     #: "anthropic" (API) | "rule" (offline, không cần model)
     backend: str = "qwen_vl"
     model: str = "Qwen/Qwen2.5-VL-3B-Instruct"

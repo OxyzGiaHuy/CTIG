@@ -300,15 +300,20 @@ REFINER_SYSTEM = (
     "  Negative terms must also never mention framing, composition, lighting or camera angle."
 )
 
-#: Từ về KHUNG HÌNH. Đo trên 8 đơn vị đầu: mệnh đề sửa làm đổi bố cục có hệ thống — S001 chuyển từ toàn
-#: thân sang cận cảnh (nên KHÔNG còn thấy quần, mà quần mới là thứ phân biệt áo dài với qipao), S003
-#: chuyển từ một tô sang ảnh chụp từ trên xuống bày cả mâm. Khi đó người gán nhãn trả lời câu "ảnh nào
-#: Việt hơn" theo khung hình chứ không theo văn hoá, và cả phép so mất nghĩa.
-_KHUNG_HINH = {"close-up", "closeup", "close", "portrait", "wide", "shot", "full-body", "fullbody",
-               "body", "top-down", "topdown", "overhead", "flat", "lay", "flatlay", "zoom", "zoomed",
-               "crop", "cropped", "angle", "composition", "framing", "framed", "lighting", "lit",
-               "background", "backdrop", "perspective", "viewpoint", "camera", "macro", "detail",
-               "closer", "wider", "scene", "spread", "arrangement", "arranged"}
+#: CỤM chỉ khung hình. Phải là cụm, không được là từ đơn — bản đầu lọc theo từ đơn và giết mất 12/32
+#: mệnh đề sửa, toàn những mệnh đề quan trọng nhất, chỉ vì chữ "flat":
+#:   "The flat white rice noodles are cut from thin sheets"   (bánh phở SỢI DẸT — đặc trưng định danh)
+#:   "tied with flat bamboo strips"                           (lạt tre bánh chưng)
+#:   "very wide flat-brimmed round hats"                      (nón quai thao)
+#:   "a long narrow flat soundbox"                            (đàn bầu)
+#: "flat" và "wide" là từ mô tả cốt lõi của ít nhất bốn trong mười sáu thực thể. Lọc theo từ đơn ở đây
+#: gây hại nhiều hơn lợi.
+_KHUNG_HINH = ("close-up", "close up", "closeup", "wide shot", "wide-angle", "long shot",
+               "full body shot", "full-body shot", "top-down", "top down", "overhead view",
+               "flat lay", "flat-lay", "bird's eye", "birds eye", "zoomed in", "zoom in",
+               "camera angle", "point of view", "shallow depth", "depth of field",
+               "in the background", "soft lighting", "studio lighting", "cropped to",
+               "framed as", "portrait shot", "medium shot")
 
 
 def _bo_khung_hinh(clause: str, neg: list[str], log=print) -> tuple[str, list[str]]:
@@ -318,14 +323,17 @@ def _bo_khung_hinh(clause: str, neg: list[str], log=print) -> tuple[str, list[st
     mệnh đề chứa từ khung hình thì BỎ CẢ MỆNH ĐỀ (rơi về no-op, an toàn hơn là sửa nửa vời), còn
     negative thì chỉ bỏ cụm vi phạm.
     """
-    w = {x.strip(".,;:()").lower() for x in (clause or "").split()}
-    if w & _KHUNG_HINH:
-        log(f"  [khung hình] mệnh đề nói về bố cục -> bỏ: {clause[:60]}")
+    low = " " + " ".join((clause or "").lower().replace(",", " ").split()) + " "
+    hit = next((c for c in _KHUNG_HINH if c in low), None)
+    if hit:
+        log(f"  [khung hình] mệnh đề nói về bố cục ('{hit}') -> bỏ: {clause[:60]}")
         clause = ""
     out = []
     for phrase in neg or []:
-        if {x.strip(".,;:()").lower() for x in phrase.split()} & _KHUNG_HINH:
-            log(f"  [khung hình] bỏ negative '{phrase}'")
+        pl = " " + " ".join(phrase.lower().replace(",", " ").split()) + " "
+        h2 = next((c for c in _KHUNG_HINH if c in pl), None)
+        if h2:
+            log(f"  [khung hình] bỏ negative '{phrase}' ('{h2}')")
             continue
         out.append(phrase)
     return clause, out

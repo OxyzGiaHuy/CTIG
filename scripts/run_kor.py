@@ -280,16 +280,39 @@ def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C"):
             f"{json.dumps(rep1, ensure_ascii=False)}\n\nReturn JSON.")
     d = goi_text(agent, so_tay, pid, "R", f"gate_{nhan}", GATE_SYSTEM, user, GATE_SCHEMA, max_new_tokens=700)
     fixed = [str(x) for x in (d.get("fixed") or [])]
-    regs = [r for r in (d.get("regressions") or []) if isinstance(r, dict)]
-    card_txt = _norm(json.dumps(cards.get("prompt_preservation"), ensure_ascii=False))
-    def _trong_card(r):          # ít nhất một từ nội dung của regression phải có trong card
-        tu = [w for w in _norm(r.get("what")).split() if len(w) > 3]
-        return any(w in card_txt for w in tu)
-    nang = [r for r in regs if _norm(r.get("severity")).startswith("sev") and _trong_card(r)]
+    regs = [r for r in (d.get("regressions") or []) if isinstance(r, dict) and str(r.get("what") or "").strip()]
+
+    # Bốn luật máy, mỗi luật chặn một lỗi đã thấy ở lô kor_20260918_1322:
+    #  1. regression trùng nội dung với một mục fixed -> mâu thuẫn, bỏ   (S002: "no longer gánh hàng rong" + fixed "Add a shoulder pole")
+    #  2. chỉ so với GIÁ TRỊ của card, không so khoá JSON                 (S003: regression = "main entity", "visual effect")
+    #  3. regression phải có căn cứ trong report I0 và KHÔNG còn trong report I1 (S001: "school gate is missing" khi I1 có sân trường)
+    #  4. thứ không nhìn được (giờ trong ngày) không bao giờ là regression (S002: "no longer in the morning")
+    def _gia_tri(o):
+        if isinstance(o, dict): return " ".join(_gia_tri(v) for v in o.values())
+        if isinstance(o, list): return " ".join(_gia_tri(v) for v in o)
+        return str(o or "")
+    card_txt = _norm(_gia_tri(cards.get("prompt_preservation")))
+    txt0, txt1 = _norm(_gia_tri(rep0)), _norm(_gia_tri(rep1))
+    fixed_tu = {w for f in fixed for w in _norm(f).split() if len(w) > 3}
+    KHONG_NHIN = ("morning", "evening", "buổi sáng", "time of day", "noon", "afternoon", "hour")
+    def _tu(s_): return [w for w in _norm(s_).split() if len(w) > 3 and w not in ("longer", "missing", "changed", "instead", "there")]
+    giu, ha = [], []
     for r in regs:
-        if _norm(r.get("severity")).startswith("sev") and not _trong_card(r):
-            r["severity"] = "minor(hạ: không có trong Preservation Card)"
-    # LUẬT, không phải lời model: có regression nặng -> I0; không sửa được gì -> I0; còn lại -> I1
+        w = str(r.get("what")); tu = _tu(w); sev = _norm(r.get("severity")).startswith("sev")
+        if any(k in w.lower() for k in KHONG_NHIN):
+            ha.append((w, "không nhìn được")); continue
+        if tu and len(set(tu) & fixed_tu) >= 2:
+            ha.append((w, "mâu thuẫn với fixed")); continue
+        trong_card = sum(1 for x in tu if x in card_txt)
+        co_o_I0 = sum(1 for x in tu if x in txt0); con_o_I1 = sum(1 for x in tu if x in txt1)
+        if sev and not (trong_card >= 1 and co_o_I0 >= 1 and con_o_I1 < co_o_I0):
+            r = dict(r, severity="minor(hạ: không đủ căn cứ card/I0/I1)")
+        giu.append(r)
+    regs = giu
+    so_tay.ghi(pid, "GATE", f"may_kiem_{nhan}", "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)", "",
+               {"bo": ha, "giu": [(r.get("what"), r.get("severity")) for r in regs]})
+    nang = [r for r in regs if _norm(r.get("severity")).startswith("sev")]
+    # LUẬT chọn, không phải chữ của model: regression nặng -> I0; không sửa được gì -> I0; còn lại -> I1
     if nang:
         chon, ly_do = "I0", f"{len(nang)} regression nghiêm trọng"
     elif not fixed:
@@ -372,7 +395,7 @@ def main(argv=None):
     ap.add_argument("--seed", type=int, default=5000)
     ap.add_argument("--strength", type=float, default=0.60)   # 0.35 giữ bố cục tốt tới mức không đổi được vật thể
     ap.add_argument("--wiki", default=str(ROOT / "data" / "wiki_curated" / "S001_S003.json"))
-    ap.add_argument("--no-cref", action="store_true", help="bỏ cột C+ref")
+    ap.add_argument("--i2i", action="store_true", help="thêm cột tham khảo C-i2i (img2img từ I0, không ref)")
     ap.add_argument("--set", action="append", default=[])
     a = ap.parse_args(argv)
 
@@ -397,7 +420,9 @@ def main(argv=None):
     from ctig.stages.generation import DiffusersGenerator
     REGISTRY = getattr(REG, "MODELS", None) or getattr(REG, "REGISTRY")
 
-    cot = ["A", "B (I0)", "C (I1)"] + ([] if a.no_cref else ["C+ref"])
+    # C = cùng seed + IP-Adapter ảnh thật + P1. Đo hai lô: img2img 0.35 và 0.60 đều không đổi được vật thể
+    # sai (xe đẩy vẫn xe đẩy, hoa vẫn hoa), còn IP-Adapter sửa đúng 2/2 (S001 áo dài, S002 gánh hàng rong).
+    cot = ["A", "B (I0)", "C (I1)"] + (["C-i2i"] if a.i2i else [])
     hang, tong = [], []
     shared = [None]
     for pid in ids:
@@ -415,7 +440,7 @@ def main(argv=None):
             log(f"  [!] Culture-TRIP không bắt đầu bằng prompt gốc -> chèn P_orig lên đầu")
             p_ct = f"{p_orig} {p_ct}"
         gen0, _ = s.genspec()
-        dem = {"A": 0, "B": 0, "C": 0, "C+ref": 0}
+        dem = {"A": 0, "B": 0, "C": 0, "C-i2i": 0}
 
         def sinh(prompt, sub, nhanh, refs=None, seed=None):
             dem[nhanh] += 1
@@ -429,7 +454,7 @@ def main(argv=None):
 
         def sinh_i2i(prompt, init, sub):
             """I1 = img2img(I0, P1, strength thấp): giữ bố cục, chỉ sửa chi tiết. Không IP-Adapter, không negative."""
-            dem["C"] += 1
+            dem["C-i2i"] += 1
             mspec = REGISTRY[a.model]
             pipe = ML.load_pipeline(mspec, cfg.multigen.device, cfg.multigen.cpu_offload, log=lambda *x: None,
                                     scheduler=cfg.multigen.scheduler, keep_loaded=1)
@@ -449,7 +474,13 @@ def main(argv=None):
             log("  không có I0 -> bỏ prompt"); continue
 
         # ---- K: hai card (text, không nhìn ảnh)
-        tu_khoa = list(getattr(pr, "entities", None) or []) + [w for w in pr.text_vi.split() if len(w) > 3]
+        tu_khoa = list(getattr(pr, "gold_entities", None) or []) + [w for w in pr.text_vi.split() if len(w) > 3]
+        try:   # danh từ trong contract v2 của team (entity_vi, part, mô tả) làm mỏ neo cắt bài Wikipedia
+            cv = json.loads((ROOT / "data" / "contracts_v2.json").read_text(encoding="utf-8")).get(pid, {})
+            tu_khoa += [cv.get("entity_vi", "")] + [str(r.get("part", "")).replace("|", " ") for r in cv.get("required", [])]
+            tu_khoa += [w for r in cv.get("required", []) for w in str(r.get("description", "")).split() if len(w) > 5]
+        except Exception:  # noqa: BLE001
+            pass
         cards = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log, tu_khoa=tu_khoa)
         # ---- O: quan sát mù I0
         rep0 = agent_O(s.agent, so_tay, pid, i0, "I0", log)
@@ -461,37 +492,37 @@ def main(argv=None):
 
         anh = {"A": anh_A, "B (I0)": i0}
         ghi = {"B (I0)": "= I0", "A": "prompt gốc"}
-        gate_C = gate_Cref = None
+        gate_C = gate_i2i = None
         if not actions:
             log("  [C] no-op: R không có action hợp lệ -> I1 = I0")
             anh["C (I1)"] = i0; ghi["C (I1)"] = "no-op (= I0)"
-            if not a.no_cref:
-                anh["C+ref"] = i0; ghi["C+ref"] = "no-op (= I0)"
+            if a.i2i:
+                anh["C-i2i"] = i0; ghi["C-i2i"] = "no-op (= I0)"
         else:
-            # ---- C: img2img từ I0
-            i1 = sinh_i2i(p1, i0, "C_i2i")
-            log(f"  [C] img2img strength {a.strength} -> {i1}")
+            # ---- C: cùng seed, text2img, IP-Adapter trên ảnh thật đã cắt về chủ thể, prompt P1
+            refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5)
+            refs = refs[:cfg.multigen.ref_images]
+            if refs and cfg.multigen.ref_crop:
+                refs = s.crop_refs(refs, s.spec()[0])
+            i1 = sinh(p1, "C_ref", "C", refs=refs) if refs else None
+            log(f"  [C] cùng seed + IP-Adapter {len(refs)} ảnh thật + P1 -> {i1}")
             rep1 = agent_O(s.agent, so_tay, pid, i1, "I1", log) if i1 else {}
             gate_C = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1, actions, log, "C") if i1 else None
             anh["C (I1)"] = i1 or i0
-            ghi["C (I1)"] = f"chọn {gate_C['selection']}" if gate_C else "sinh hỏng"
-            # ---- C+ref: cùng seed text2img + IP-Adapter ảnh thật (cột tham khảo, không phải flow chính)
-            if not a.no_cref:
-                refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5)
-                refs = refs[:cfg.multigen.ref_images]
-                if refs and cfg.multigen.ref_crop:
-                    refs = s.crop_refs(refs, s.spec()[0])
-                i1r = sinh(p1, "C_ref", "C+ref", refs=refs) if refs else None
-                log(f"  [C+ref] cùng seed, IP-Adapter {len(refs)} ảnh thật -> {i1r}")
-                rep1r = agent_O(s.agent, so_tay, pid, i1r, "I1ref", log) if i1r else {}
-                gate_Cref = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1r, actions, log, "Cref") if i1r else None
-                anh["C+ref"] = i1r or i0
-                ghi["C+ref"] = f"chọn {gate_Cref['selection']}" if gate_Cref else "không ref"
+            ghi["C (I1)"] = f"chọn {gate_C['selection']}" if gate_C else ("không có ảnh thật" if not refs else "sinh hỏng")
+            # ---- C-i2i (tuỳ chọn): img2img từ I0, để đối chứng
+            if a.i2i:
+                i1b = sinh_i2i(p1, i0, "C_i2i")
+                log(f"  [C-i2i] img2img strength {a.strength} -> {i1b}")
+                rep1b = agent_O(s.agent, so_tay, pid, i1b, "I1i2i", log) if i1b else {}
+                gate_i2i = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1b, actions, log, "i2i") if i1b else None
+                anh["C-i2i"] = i1b or i0
+                ghi["C-i2i"] = f"chọn {gate_i2i['selection']}" if gate_i2i else "sinh hỏng"
 
         rec = {"prompt_id": pid, "prompt_vi": pr.text_vi, "P_orig": p_orig, "P_ct": p_ct, "P1": p1, "seed": a.seed,
                "model": a.model, "strength_i2i": a.strength, "images": anh, "so_lan_sinh": dem,
                "cards": cards, "report_I0": rep0, "gap": gap, "actions": actions,
-               "gate_C": gate_C, "gate_Cref": gate_Cref}
+               "gate_C": gate_C, "gate_i2i": gate_i2i, "refs": refs if actions else []}
         (out_dir / "kor.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
         tong.append(rec); hang.append((pid, anh, ghi))
         ve_luoi(hang, cot, run_dir / "kor_grid.png")

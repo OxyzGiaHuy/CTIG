@@ -6,3 +6,5 @@ outputs/
 *.jpg
 !docs/*.png
 .env
+!results/**/*.png
+!results/*.png

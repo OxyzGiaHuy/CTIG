@@ -1,22 +1,27 @@
-"""Chạy bốn nhánh B / T / S / M của VietRepair trên cùng một ảnh nháp.
+"""Sáu nhánh của thí nghiệm chính. Mỗi nhánh đúng MỘT ảnh.
 
-    python scripts/run_arms.py --config configs/vast_arms.yaml --ids S001,S002 --reps 2 --run-name arms
+    python scripts/run_arms.py --config configs/vast_arms.yaml --ids S001 --reps 1
+    python scripts/run_arms.py --config configs/vast_arms.yaml --reps 2 --run-name full
 
-Mỗi (prompt, lần lặp) sinh 5 ảnh: ảnh nháp I0 ở seed s0, rồi bốn nhánh ĐỀU sinh ở seed s1.
-Giữ nhiễu cố định giữa bốn nhánh là điều kiện để so được với nhau; chỉ CÂU PROMPT khác nhau.
+| nhánh | thấy I0 | contract | ảnh thật | là gì |
+|---|---:|---:|---:|---|
+| B | | | | prompt Culture-TRIP để nguyên. Ảnh của B CHÍNH LÀ I0 mà ba agent nhìn |
+| P | | ✓ | | Refiner đọc contract, KHÔNG bao giờ nhìn ảnh |
+| R | | | ✓ | IP-Adapter trên ảnh thật đã chọn tay, không agent nào |
+| S | ✓ | ✓ | ✓ | một VLM nhìn ảnh rồi tự viết mệnh đề sửa |
+| M | ✓ | ✓ | ✓ | Observer -> Critic -> Refiner |
+| K | | | | sinh lại ngẫu nhiên: cùng prompt B, SEED KHÁC |
 
-| nhánh | thấy gì | trả lời câu hỏi nào |
-|---|---|---|
-| B | không agent, đúng prompt Culture-TRIP | mốc dưới |
-| T | Refiner có contract nhưng KHÔNG nhìn ảnh | prompt dài thêm có phải là lý do không? |
-| S | một VLM nhìn ảnh rồi tự viết mệnh đề sửa | phân vai có ích, hay chỉ cần nhìn ảnh? |
-| M | Observer -> Critic -> Refiner -> Critic duyệt | đủ sơ đồ |
+Kết luận đọc được:  M>B cả hệ có ích · M>R agent hơn được ảnh thật · M>S phân vai có ích ·
+P>B contract dạng chữ đã đủ · M>K hơn được chuyện sinh lại nhiều lần.
+M không hơn S -> bỏ claim multi-agent. M không hơn R -> phần lớn cải thiện là do ảnh thật.
 
-M > B nói phản hồi có ích · M > T nói NHÌN ẢNH có ích · M > S nói PHÂN VAI có ích.
-Thiếu S thì sơ đồ ba agent chỉ là trang trí, và đó là lỗ hổng lớn nhất của thiết kế cũ.
+Seed: I0 và mọi ảnh sửa dùng CHUNG seed `s1`; chỉ K dùng seed khác. Không nhánh nào được lấy best-of-N.
+`so_lan_sinh` đếm từng lần gọi generator cho mỗi nhánh và được ghi vào arms.json, để chênh lệch chi phí
+là số liệu chứ không phải chuyện tranh cãi về sau. Nhánh no-op KHÔNG sinh thêm lần nào.
 
-Ghi lại TOÀN BỘ M1/M2/M3 và bước duyệt vào `trace.json` để đưa vào supplementary: người đọc phải kiểm
-được rằng bốn agent thật sự trao đổi chứ không phải sơ đồ vẽ cho đẹp.
+Điểm contract ghi dưới khoá `chan_doan` và CHỈ để chẩn đoán, đo tương quan với nhãn người. Không nhánh
+nào được chọn ảnh bằng điểm đó — agent tối ưu thẳng vào chính nó.
 """
 
 from __future__ import annotations
@@ -30,26 +35,24 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from ctig.agents import vietrepair as vr  # noqa: E402
-from ctig.evaluation import ref_split  # noqa: E402
 from ctig.config import Config, set_dotted  # noqa: E402
+from ctig.evaluation import ref_split  # noqa: E402
 from ctig.pipeline import load_prompts  # noqa: E402
 from ctig.session import Session  # noqa: E402
 from scripts.run_loop_v2 import external_prompt, grid  # noqa: E402
 
-#: R = prompt nhánh B + IP-Adapter trên ảnh thật, KHÔNG agent nào. Thêm sau khi soi lại lô vòng lặp cũ:
-#: ở đó vòng 0 chạy 'sdxl_base' (không ref) cho ra áo hoa văn Trung Quốc, còn vòng 1-3 chạy 'sdxl_base_ref'
-#: (IP-Adapter, 2 ảnh thật) cho ra áo dài trắng đúng kiểu. Tức thứ sửa được ảnh nhiều khả năng là ẢNH THẬT,
-#: không phải lời phê bình. Không có R thì mọi cải thiện của M đều có thể quy cho ảnh thật.
-#:   R so B  -> ảnh tham chiếu có ích không
-#:   M so R  -> agent có hơn được ảnh tham chiếu không
-ARMS = ("B", "T", "S", "M", "R")
+ARMS = ("B", "P", "R", "S", "M", "K")
+#: nhánh nào sinh KÈM ảnh thật qua IP-Adapter
+CO_REF = {"R", "S", "M"}
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
-    ap.add_argument("--ids", default=None, help="mặc định: mọi prompt có trong data/contracts.json")
-    ap.add_argument("--reps", type=int, default=2, help="số cặp seed mỗi prompt")
+    ap.add_argument("--ids", default=None, help="mặc định: mọi prompt có contract; nên truyền 1-3 khi thử")
+    ap.add_argument("--reps", type=int, default=1)
+    ap.add_argument("--arms", default=",".join(ARMS))
+    ap.add_argument("--k-seeds", type=int, default=2)
     ap.add_argument("--model", default="sdxl_base")
     ap.add_argument("--prompt-source", default="culture_trip")
     ap.add_argument("--run-name", default="arms")
@@ -64,29 +67,30 @@ def main(argv=None):
     set_dotted(ov, "t2i.render", "bare")
     set_dotted(ov, "multigen.adaptive.enabled", "false")
     set_dotted(ov, "multigen.n_candidates", "1")
-    set_dotted(ov, "multigen.keep_loaded", "0")   # bộ chấm 24B đã ~48 GB, không giữ thêm pipeline
+    set_dotted(ov, "multigen.keep_loaded", "0")   # bộ chấm 24B đã ~45 GB, không giữ thêm pipeline
     cfg = Config.load(a.config, ov)
 
+    arms = [x.strip() for x in a.arms.split(",") if x.strip() in ARMS]
     contracts = vr.load_contracts(a.contracts)
     if not contracts:
-        raise SystemExit("không đọc được data/contracts.json")
+        raise SystemExit("không đọc được contract")
     allp = {p.id: p for p in load_prompts(cfg.prompts_path)}
     ids = [i.strip() for i in a.ids.split(",")] if a.ids else [i for i in sorted(contracts) if i in allp]
     run_dir = Path(cfg.runs_dir) / a.run_name
     log = lambda *x: print(*x, flush=True)  # noqa: E731
-    log(f"{len(ids)} prompt × {a.reps} lần lặp × 5 ảnh = {len(ids) * a.reps * 5} ảnh")
+    log(f"{len(ids)} prompt × {a.reps} lần lặp × nhánh {arms} (K={a.k_seeds} seed)")
 
     from ctig.stages import multigen as mg
 
-    shared = [None]
+    shared = [None]          # MỘT agent dùng chung: Session mới cho mỗi prompt sẽ nạp bản 24B thứ hai và OOM
     for pid in ids:
-        if pid not in contracts:
-            log(f"[{pid}] không có contract -> bỏ"); continue
+        if pid not in contracts or pid not in allp:
+            log(f"[{pid}] thiếu contract hoặc thiếu prompt -> bỏ"); continue
         contract = contracts[pid]
         for rep in range(a.reps):
-            s0, s1 = 1000 + rep * 77, 5000 + rep * 77      # cặp seed cố định, lặp lại được
+            s1 = 5000 + rep * 77
             tag = f"{pid}_r{rep}"
-            log(f"\n========== {tag}  (nháp seed {s0}, bốn nhánh seed {s1}) ==========")
+            log(f"\n========== {tag} · {contract.get('entity_vi', '')} · seed {s1} ==========")
             try:
                 out_dir = run_dir / tag
                 s = Session(cfg, allp[pid], run_dir=out_dir, log=lambda *x: None)
@@ -101,70 +105,89 @@ def main(argv=None):
                 base_prompt = " ".join(gen.prompt_terms)
                 base_neg = list(gen.negative_terms)
 
-                # Ảnh cho IP-Adapter lấy từ selected/; tập candidates/ cất riêng để chấm, rời nhau theo
-                # băm nội dung. Không tách thì nhánh R được chấm bằng chính ảnh nó vừa chép.
-                loop_refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5)
-                loop_refs = loop_refs[:2]
+                # selected/ để điều kiện IP-Adapter; candidates/ cất riêng để chấm, rời nhau theo băm
+                refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5)
+                refs = refs[:cfg.multigen.ref_images]
 
-                def sinh(prompt_terms, neg, seed, sub, refs=None):
-                    g = replace(gen, prompt_terms=prompt_terms, negative_terms=neg, seed=seed, iteration=0,
-                                ip_adapter_image=(refs or None), ip_adapter_scale=cfg.multigen.ref_scale)
-                    key = a.model + "+ref" if refs else a.model
-                    r = mg.run(g, s.spec()[0], s.kb, [key], cfg.multigen, out_dir / sub, clip=s.clip,
-                               itm=None, t2i_cfg=cfg.t2i, prompt_en=s.analysis()[0].prompt_en,
-                               log=lambda *x: None, ref_images=refs or [], force_refs=bool(refs))
-                    for rr in r.runs:
-                        if rr.output and rr.output.candidates:
-                            return rr.output.candidates[0].path
-                    return None
+                dem = {k: 0 for k in ARMS}
+                nhanh_dang_chay = ["B"]
 
-                # --- ảnh nháp I0: ba agent nhìn cái này
-                i0 = sinh(list(gen.prompt_terms), base_neg, s0, "draft")
+                def sinh(prompt_terms, neg, sub, dung_ref=False, seed=None):
+                    dem[nhanh_dang_chay[0]] += 1
+                    rf = refs if (dung_ref and refs) else []
+                    g = replace(gen, prompt_terms=prompt_terms, negative_terms=base_neg + [
+                        x for x in (neg or []) if x not in base_neg],
+                        seed=s1 if seed is None else seed, iteration=0,
+                        ip_adapter_image=(rf or None), ip_adapter_scale=cfg.multigen.ref_scale)
+                    r = mg.run(g, s.spec()[0], s.kb, [a.model + "+ref" if rf else a.model], cfg.multigen,
+                               out_dir / sub, clip=s.clip, itm=None, t2i_cfg=cfg.t2i,
+                               prompt_en=s.analysis()[0].prompt_en, log=lambda *x: None,
+                               ref_images=rf, force_refs=bool(rf))
+                    return next((rr.output.candidates[0].path for rr in r.runs
+                                 if rr.output and rr.output.candidates), None)
+
+                # ---- B: prompt gốc, không ref. Ảnh này CŨNG là I0 cho S và M.
+                i0 = sinh(list(gen.prompt_terms), [], "B")
                 if not i0:
-                    log(f"[{tag}] không sinh được ảnh nháp -> bỏ"); continue
+                    log(f"[{tag}] không sinh được ảnh nền -> bỏ"); continue
                 shared[0] = s.agent
+                anh = {"B": i0}
+                ket: dict = {}
+                log(f"  [B] {i0}")
 
-                # --- ba nhánh có can thiệp; mỗi nhánh trả (mệnh đề, negative, trace)
-                traces = {}
-                log("  --- M: Observer -> Critic -> Refiner -> duyệt ---")
-                tm = vr.run_multi(s.agent, i0, base_prompt, contract, pid, log)
-                traces["M"] = tm.to_dict()
-                log("  --- S: một VLM tự viết ---")
-                ms = vr.single_agent(s.agent, i0, base_prompt, contract, log)
-                traces["S"] = ms
-                log("  --- T: có contract, KHÔNG nhìn ảnh ---")
-                mt = vr.text_only(s.agent, base_prompt, contract, log)
-                traces["T"] = mt
+                # ---- R: ảnh thật, không agent
+                if "R" in arms and refs:
+                    nhanh_dang_chay[0] = "R"
+                    anh["R"] = sinh(list(gen.prompt_terms), [], "R", True)
+                    log(f"  [R] IP-Adapter, {len(refs)} ảnh thật, không agent")
+                elif "R" in arms:
+                    log("  [R] không có ảnh thật cho prompt này -> bỏ nhánh R")
 
-                de_xuat = {"B": ("", []), "R": ("", []),
-                           "T": (mt.get("repair_clause", ""), mt.get("negative_terms") or []),
-                           "S": (ms.get("repair_clause", ""), ms.get("negative_terms") or []),
-                           "M": (tm.repair_clause, tm.negative_terms)}
+                # ---- P / S / M: một lượt sửa prompt
+                for arm in [x for x in ("P", "S", "M") if x in arms]:
+                    nhanh_dang_chay[0] = arm
+                    log(f"  --- {arm} ---")
+                    r = vr.run_once(s.agent, sinh, i0, base_prompt, contract, allp[pid].text_en,
+                                    pid, arm=arm, dung_ref=(arm in CO_REF), log=log)
+                    anh[arm] = r["anh"]
+                    ket[arm] = r
 
-                # --- bốn nhánh sinh ở CÙNG seed s1, chỉ khác câu prompt
-                anh, ghi_chu = {}, {}
-                for arm in ARMS:
-                    if arm == "R" and not loop_refs:
-                        log("  [R] không có ảnh thật cho prompt này -> bỏ nhánh R"); continue
-                    clause, neg = de_xuat[arm]
-                    full, note = vr.append_repair(base_prompt, clause, allp[pid].text_en)
-                    ghi_chu[arm] = note
-                    terms = [full] if clause else list(gen.prompt_terms)
-                    anh[arm] = sinh(terms, base_neg + [x for x in neg if x not in base_neg], s1, arm,
-                                    refs=loop_refs if arm == "R" else None)
-                    log(f"  [{arm}] " + ("IP-Adapter, %d ảnh thật, không agent" % len(loop_refs) if arm == "R"
-                        else ('no-op, dùng prompt gốc' if not clause else clause[:64]))
-                        + (f"  ({note})" if note else ""))
+                # ---- K: sinh lại ngẫu nhiên, seed khác, cùng prompt B
+                K = []
+                if "K" in arms:
+                    nhanh_dang_chay[0] = "K"
+                    for i in range(a.k_seeds):
+                        sk = s1 + 1000 + i
+                        pk = sinh(list(gen.prompt_terms), [], f"K_seed{sk}", False, sk)
+                        if pk:
+                            K.append({"seed": sk, "anh": pk})
+                    if K:
+                        anh["K"] = K[0]["anh"]          # K là control, KHÔNG được chọn best-of-N
 
-                res = {"prompt_id": pid, "rep": rep, "seed_draft": s0, "seed_arms": s1,
-                       "base_prompt": base_prompt, "draft": i0, "images": anh,
-                       "proposals": {k: {"clause": v[0], "negative": v[1]} for k, v in de_xuat.items()},
-                       "notes": ghi_chu, "traces": traces, "loop_refs": loop_refs,
-                       "noop_M": tm.noop, "ly_do_noop_M": tm.ly_do_noop}
-                (out_dir / "arms.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
-                grid([("nháp I0", i0)] + [(arm, anh[arm]) for arm in ARMS if anh.get(arm)],
-                     out_dir / "arms.png", log=lambda *x: None)
-                log(f"  -> {out_dir / 'arms.json'}" + ("  [M no-op: " + tm.ly_do_noop + "]" if tm.noop else ""))
+                # ---- chẩn đoán: chấm contract mọi ảnh. CHỈ để debug và đo tương quan với nhãn người.
+                chan_doan = {}
+                for k, pth in anh.items():
+                    if pth:
+                        chan_doan[k] = vr.kiem_tung_muc(s.agent, pth, contract, lambda *x: None)
+
+                res = {"prompt_id": pid, "rep": rep, "seed": s1, "model": a.model,
+                       "base_prompt": base_prompt, "refs": refs,
+                       "images": anh, "K_ung_vien": K,
+                       "clause": {k: v["clause"] for k, v in ket.items()},
+                       "negative": {k: v["negative"] for k, v in ket.items()},
+                       "noop": {k: v["noop"] for k, v in ket.items()},
+                       "ly_do_noop": {k: v["ly_do_noop"] for k, v in ket.items()},
+                       "traces": {k: v["trace"] for k, v in ket.items()},
+                       "so_lan_sinh": dem,
+                       "chan_doan": {k: {"diem": v.get("diem"), "bang": v.get("bang")}
+                                     for k, v in chan_doan.items()}}
+                (out_dir / "arms.json").write_text(json.dumps(res, ensure_ascii=False, indent=1),
+                                                   encoding="utf-8")
+                grid([(f"{k}{' no-op' if ket.get(k, {}).get('noop') else ''}", anh[k])
+                      for k in ARMS if anh.get(k)], out_dir / "arms.png", log=lambda *x: None)
+                log(f"  sinh: {dict((k, v) for k, v in dem.items() if v)} · no-op: "
+                    + (", ".join(k for k, v in ket.items() if v["noop"]) or "không")
+                    + f"\n  -> {out_dir / 'arms.json'}")
             except Exception as exc:  # noqa: BLE001
                 import traceback
                 log(f"[{tag}] LỖI {type(exc).__name__}: {exc}")

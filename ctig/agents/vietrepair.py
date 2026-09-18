@@ -34,9 +34,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 #: Độ dài tối đa của MỆNH ĐỀ SỬA (từ). Prompt gốc không bị giới hạn và không bao giờ bị cắt.
-MAX_TOKENS = 25
-#: Critic chỉ được nêu tối đa chừng này lỗi. Nhiều hơn thì mệnh đề sửa dài và loãng.
-MAX_VIOLATIONS = 2
+MAX_TOKENS = 20
+#: Critic chỉ được nêu ĐÚNG MỘT lỗi. Hai lỗi thì mệnh đề sửa phải nói hai việc trong 20 từ, và đã đo
+#: được là nó loãng ra thành tả lại cả cảnh. Nhiều lỗi cùng cháy thì phá hoà bằng `importance` của
+#: contract v2 (số càng lớn càng quan trọng), sau đó tới severity.
+MAX_VIOLATIONS = 1
 #: Ngưỡng dừng, thang 0-10, lấy theo T2I-Copilot (ICCV'25): điểm > 8,0 là xong, không cần đủ điểm tối đa.
 #: Bắt phải đủ tối đa là lý do vòng lặp chạy hết số vòng rồi làm hỏng ảnh đã đúng.
 NGUONG_DAT = 8.0
@@ -215,14 +217,19 @@ OBSERVER_SYSTEM = (
     "- Never name a country, culture, ethnicity or historical period.\n"
     "- Never compare the image to anything you have seen before.\n"
     "- Describe only what a camera captured: shapes, materials, how parts join, counts, colours.\n"
-    "- If a detail is hidden, occluded or ambiguous, put it in uncertain_features instead of guessing.\n"
+    "- If a part is hidden behind something, or too small or blurred to be sure, put it in\n"
+    "  uncertain_features instead of guessing.\n"
+    "- If a part lies OUTSIDE the picture — cut off by the frame, below or beyond an edge — list it in\n"
+    "  out_of_frame. Never describe or guess at anything outside the picture. Saying a garment reaches\n"
+    "  the ankles when the ankles are not in the picture is the single worst mistake you can make here.\n"
     "Write short noun phrases, 3-10 words each."
 )
 
 OBSERVER_SCHEMA = {"type": "object", "properties": {
     "subject": {"type": "string"},
     "visible_features": {"type": "array", "items": {"type": "string"}},
-    "uncertain_features": {"type": "array", "items": {"type": "string"}}},
+    "uncertain_features": {"type": "array", "items": {"type": "string"}},
+    "out_of_frame": {"type": "array", "items": {"type": "string"}}},
     "required": ["subject", "visible_features"]}
 
 
@@ -242,13 +249,16 @@ def observe(agent, image: str, log=print, contract: dict | None = None) -> dict:
                    "is correct — that is not your job.")
     d = _json(agent, OBSERVER_SYSTEM,
               "Describe this photograph." + huong_dan + "\nReturn JSON: "
-              '{"subject": "..", "visible_features": [".." up to 10], "uncertain_features": [".." up to 3]}',
+              '{"subject": "..", "visible_features": [".." up to 10], "uncertain_features": [".." up to 3], '
+              '"out_of_frame": [".." up to 3]}',
               OBSERVER_SCHEMA, images=[image])
     m1 = {"subject": str(d.get("subject") or "").strip(),
           "visible_features": [str(x).strip() for x in (d.get("visible_features") or []) if str(x).strip()][:10],
-          "uncertain_features": [str(x).strip() for x in (d.get("uncertain_features") or []) if str(x).strip()][:3]}
-    log(f"  [A1 Observer] '{m1['subject'][:44]}' · {len(m1['visible_features'])} đặc điểm nhìn thấy, "
-        f"{len(m1['uncertain_features'])} không chắc")
+          "uncertain_features": [str(x).strip() for x in (d.get("uncertain_features") or []) if str(x).strip()][:3],
+          "out_of_frame": [str(x).strip() for x in (d.get("out_of_frame") or []) if str(x).strip()][:3]}
+    log(f"  [A1 Observer] '{m1['subject'][:44]}' · {len(m1['visible_features'])} thấy, "
+        f"{len(m1['uncertain_features'])} không chắc, {len(m1['out_of_frame'])} ngoài khung"
+        + (f" {m1['out_of_frame']}" if m1["out_of_frame"] else ""))
     return m1
 
 
@@ -261,7 +271,10 @@ CRITIC_SYSTEM = (
     "  If you cannot cite one, do not report it.\n"
     "- Base each violation on a quote from the observation. If the observation does not mention the\n"
     f"  feature at all, it is NOT a violation — say nothing about it.\n"
-    "- Report at most {MAX_VIOLATIONS} violations, the most visually important ones.\n"
+    "- Report EXACTLY ONE violation: the single error that most damages the identity of the object.\n"
+    "  Each contract item carries a priority number; prefer the higher one when several are wrong.\n"
+    "- An item marked CONDITIONAL is not a violation when the observation says that part is hidden\n"
+    "  or outside the picture. Only judge it when the observation actually describes it.\n"
     "- Also list what must be preserved: things already correct or already asked for by the prompt.\n"
     "- If nothing is violated, return an empty violations list. That is a good outcome, not a failure."
 ).replace("{MAX_VIOLATIONS}", str(MAX_VIOLATIONS))
@@ -318,11 +331,31 @@ def critique(agent, m1: dict, contract: dict, prompt_en: str, log=print) -> dict
             continue
         viol.append({"contract_id": cid, "evidence": ev_txt,
                      "severity": str(v.get("severity") or "major")})
-    viol = viol[:MAX_VIOLATIONS]
+    # Bỏ vi phạm CONDITIONAL mà Observer đã khai là ngoài khung / không chắc: mục loại này theo định
+    # nghĩa của contract v2 thì che khuất KHÔNG phải lỗi. Chặn bằng máy chứ không tin lời dặn trong
+    # system prompt — đã đo được model vẫn báo thiếu quần trên ảnh cắt ngang hông.
+    mo_ho = " ".join((m1.get("out_of_frame") or []) + (m1.get("uncertain_features") or [])).lower()
+    dk = {r["id"] for r in contract.get("required", []) if r.get("scoring") == "conditional"}
+    con = []
+    for v in viol:
+        r = next((x for x in contract.get("required", []) if x["id"] == v["contract_id"]), None)
+        bp = str((r or {}).get("part") or "").replace("|", " ").lower().split()
+        if v["contract_id"] in dk and bp and any(w in mo_ho for w in bp):
+            bo.append(f"{v['contract_id']}(conditional, Observer khai ngoài khung/không chắc)")
+            continue
+        con.append(v)
+
+    # ĐÚNG MỘT lỗi: phá hoà bằng `importance` của contract v2, rồi tới severity.
+    def _uu_tien(v):
+        r = next((x for x in contract.get("required", []) if x["id"] == v["contract_id"]), None)
+        return (-int((r or {}).get("importance", 3)), 0 if v.get("severity") == "major" else 1)
+
+    con.sort(key=_uu_tien)
+    viol = con[:MAX_VIOLATIONS]
     m2 = {"violations": viol,
           "preserve": [str(x) for x in (d.get("preserve") or [])][:5],
           "repair_priority": [str(x) for x in (d.get("repair_priority") or [])][:2]}
-    log(f"  [A2 Critic] {len(viol)} lỗi: " + (", ".join(v["contract_id"] for v in viol) or "(không có)")
+    log(f"  [A2 Critic] chọn: " + (", ".join(v["contract_id"] for v in viol) or "(không lỗi nào)")
         + (f" · loại {len(bo)} id bịa: {bo}" if bo else ""))
     return m2
 
@@ -336,7 +369,7 @@ REFINER_SYSTEM = (
     "- Describe ONLY the features named in the violations. Do not redescribe the whole scene.\n"
     "- Do not introduce any object, place, colour or person that is not already in the prompt or the\n"
     "  contract. Adding new nouns changes the picture instead of repairing it.\n"
-    "- The clause must be at most 25 words, one sentence.\n"
+    "- The clause must be at most 20 words, one sentence.\n"
     "- NEVER change how the picture is framed. Do not mention close-up, portrait, wide shot, full body,\n"
     "  top-down, flat lay, overhead, zoom, crop, angle, composition, lighting or background. Write only\n"
     "  about the object itself. Changing the framing is the most common way a repair makes things worse.\n"
@@ -765,77 +798,70 @@ def _m2_tu_check(ket: dict, contract: dict) -> dict:
                          for i in list(dat)[:5]],
             "repair_priority": [v["contract_id"] for v in ket["lan"] + ket["thieu"]]}
 
+# ==================================================================== pipeline đã chốt: MỘT LƯỢT
+def run_once(agent, sinh, i0: str, base_prompt: str, contract: dict, orig_en: str = "",
+             prompt_id: str = "", arm: str = "M", dung_ref: bool = True, log=print) -> dict:
+    """A1 Observer -> A2 Critic -> A3 Refiner -> sinh lại CÙNG SEED. Đúng một lần sửa.
 
+        P -> I0 -> [A1 tả pixel] -> M1 -> [A2 soi contract, chọn 1 lỗi] -> M2
+                -> [A3 viết mệnh đề + negative] -> M3 -> Generator cùng seed -> I1
 
-def run_loop(agent, sinh, i0: str, base_prompt: str, contract: dict, orig_en: str = "",
-             prompt_id: str = "", max_vong: int = 4, kien_nhan: int = 3, log=print) -> dict:
-    """Vòng lặp rà-sửa-sinh lại, dừng khi đủ required và hết lẫn confusable, hoặc khi chững.
+    `sinh(prompt_terms, negative, sub, dung_ref) -> đường dẫn ảnh | None`, do người gọi cung cấp và
+    PHẢI giữ nguyên seed của I0: chỉ câu prompt đổi. Cùng seed ở đây chỉ để giảm nhiễu thí nghiệm —
+    KHÔNG được gọi đó là sửa ảnh cục bộ, vì thực tế vẫn sinh lại toàn ảnh.
 
-    `sinh(prompt_terms, negative, sub, dung_ref) -> đường dẫn ảnh` do người gọi cung cấp và PHẢI giữ NGUYÊN SEED
-    qua mọi vòng: chỉ câu prompt được đổi. Đổi seed thì mỗi vòng là một lần bốc thăm mới, và "vòng lặp
-    hơn nhánh nền" sẽ chỉ là chuyện sinh nhiều rồi chọn — đã đo: best-of-4 bốc thăm thắng vòng lặp cũ ở
-    2/3 prompt khi cùng ngân sách.
+    `arm`: "M" đủ ba vai · "S" một VLM nhìn ảnh tự viết · "P" chỉ đọc contract, không nhìn ảnh.
 
-    Mệnh đề sửa mỗi vòng THAY THẾ mệnh đề vòng trước, không cộng dồn. Cộng dồn thì 3 vòng × 25 từ vượt
-    77 token CLIP, phần đuôi thành vô tác dụng, mà đó lại đúng là phần vừa viết.
-
-    Từ vòng 1 trở đi sinh KÈM ẢNH THẬT qua IP-Adapter (`dung_ref=True`), đúng như lô pilotC/loopC2 đã
-    làm. Lý do có số: ở lô đó iter0 chạy không ref cho ra áo hoa văn Trung Quốc, còn iter1-3 chạy
-    `sdxl_base_ref` với 3 ảnh `selected/S001/` cho ra áo dài trắng đúng chuẩn. Thứ sửa được ảnh là ẢNH
-    THẬT, không phải lời phê bình — nên bỏ nó đi là bỏ mất cần gạt mạnh nhất.
-
-    Vòng 0 KHÔNG ref, để nó trùng đúng nhánh nền B và hiệu số đo được. Và vì vòng lặp nay dùng ảnh thật,
-    nhánh R (ảnh thật, không agent) trở thành mốc BẮT BUỘC: thiếu R thì mọi cải thiện đều quy về ảnh
-    thật được, không nói được gì về agent.
-
-    Trả về ảnh có điểm cao nhất; hoà điểm thì lấy vòng SỚM NHẤT, vì càng sửa càng xa ảnh gốc.
+    Bất kỳ bước nào không cho ra mệnh đề hợp lệ -> **no-op**: trả đúng I0, `noop=True`, kèm lý do.
+    No-op không phải thất bại, nó là đường lùi khiến nhánh sửa không bao giờ tệ hơn nhánh nền — vòng
+    lặp cũ thiếu nó nên làm ảnh TỆ ĐI ở 2/3 prompt. Tỉ lệ no-op phải được báo cáo trong bài.
     """
-    lich_su, anh, clause, neg = [], i0, "", []
-    tot_nhat, chung = -99, 0
-    ly_do = "hết số vòng"
-    for vong in range(max_vong):
-        ket = kiem_tung_muc(agent, anh, contract, log)
-        lich_su.append({"vong": vong, "anh": anh, "clause": clause, "negative": neg,
-                        "diem": ket["diem"], "dat": ket["dat"], "so_phan_duoc": ket["so_phan_duoc"],
-                        "so_required": ket["so_required"], "ngoai_khung": ket["ngoai_khung"],
-                        "thieu": [t["contract_id"] for t in ket["thieu"]],
-                        "lan": [l["contract_id"] for l in ket["lan"]], "bang": ket["bang"]})
-        if ket["diem"] > tot_nhat:
-            tot_nhat, chung = ket["diem"], 0
-        else:
-            chung += 1
-        if ket["so_phan_duoc"] == 0 and not ket["lan"]:
-            ly_do = ("không mục required nào phán được trong khung này ("
-                     + ", ".join(ket["ngoai_khung"]) + ") -> contract lệch khung hình, không phải lỗi agent")
-            break
-        if ket["dat"]:
-            ly_do = f"điểm {ket['diem']:.1f} >= ngưỡng {NGUONG_DAT}, không lẫn confusable"
-            break
-        if chung >= kien_nhan:
-            ly_do = f"{kien_nhan} vòng liền không khá hơn"
-            break
-        if vong == max_vong - 1:
-            break
-        m3 = refine(agent, base_prompt, _m2_tu_check(ket, contract), contract, log)
-        if not m3.get("repair_clause"):
-            ly_do = "Refiner không viết được mệnh đề hợp lệ"
-            break
-        clause, neg = m3["repair_clause"], m3.get("negative_terms") or []
-        full, _ = append_repair(base_prompt, clause, orig_en)
-        moi = sinh([full], neg, f"vong{vong + 1}", True)
-        if not moi:
-            ly_do = "sinh ảnh hỏng"
-            break
-        anh = moi
+    t = Trace(prompt_id=prompt_id, arm=arm)
 
-    # T2I-Copilot hết vòng thì trả ảnh MỚI NHẤT. Ở đây trả ảnh TỐT NHẤT: đã đo được ảnh vòng cuối tệ
-    # hơn hẳn vòng 0 (S001, vòng lặp bỏ mất tà áo dài mà điểm nhị phân vẫn tăng).
-    best = min(lich_su, key=lambda h: (bool(h["lan"]), -h["diem"], h["vong"]))
-    log(f"  [vòng lặp] {len(lich_su)} vòng · dừng vì {ly_do} · "
-        f"chọn vòng {best['vong']} điểm {best['diem']:.1f}/10"
-        + (f" (còn lẫn {best['lan']})" if best["lan"] else ""))
-    return {"prompt_id": prompt_id, "anh": best["anh"], "vong_chon": best["vong"],
-            "diem": best["diem"], "dat": best["dat"], "lan": best["lan"],
-            "diem_dau": lich_su[0]["diem"], "so_required": best["so_required"],
-            "clause": best["clause"], "negative": best["negative"],
-            "so_vong": len(lich_su), "ly_do_dung": ly_do, "lich_su": lich_su}
+    if arm == "P":                                   # không bao giờ nhìn ảnh
+        m3 = text_only(agent, base_prompt, contract, log)
+    elif arm == "S":                                 # một VLM nhìn ảnh, không phân vai
+        m3 = single_agent(agent, i0, base_prompt, contract, log)
+    else:
+        t.m1 = observe(agent, i0, log, contract)
+        if not t.m1.get("visible_features"):
+            t.ly_do_noop = "Observer không mô tả được gì"
+            return _ket(t, i0)
+        t.m2 = critique(agent, t.m1, contract, base_prompt, log)
+        if not t.m2.get("violations"):
+            t.ly_do_noop = "Critic không tìm thấy lỗi nào viện dẫn được contract"
+            return _ket(t, i0)
+        m3 = refine(agent, base_prompt, t.m2, contract, log)
+        t.m3 = m3
+        if not m3.get("repair_clause"):
+            t.ly_do_noop = "Refiner không viết được mệnh đề hợp lệ"
+            return _ket(t, i0)
+        t.review = review(agent, m3, t.m2, contract, log)
+        if not t.review.get("approved"):
+            t.ly_do_noop = "Critic từ chối đề xuất: " + "; ".join(
+                t.review.get("contradictions") or ["không nêu lý do"])
+            return _ket(t, i0)
+
+    clause = str(m3.get("repair_clause") or "")
+    if not clause:
+        t.ly_do_noop = f"nhánh {arm} không cho ra mệnh đề"
+        return _ket(t, i0)
+
+    full, ghi_chu = append_repair(base_prompt, clause, orig_en)
+    anh = sinh([full], m3.get("negative_terms") or [], f"{arm}_repair", dung_ref)
+    if not anh:
+        t.ly_do_noop = "sinh lại hỏng"
+        return _ket(t, i0)
+
+    t.repair_clause, t.negative_terms, t.noop = clause, m3.get("negative_terms") or [], False
+    log(f"  [{arm}] '{clause[:66]}'" + (f"  ({ghi_chu})" if ghi_chu else ""))
+    return {"anh": anh, "clause": clause, "negative": t.negative_terms, "noop": False,
+            "ly_do_noop": "", "ghi_chu_ghep": ghi_chu, "trace": t.to_dict()}
+
+
+def _ket(t: Trace, i0: str) -> dict:
+    """No-op: trả đúng ảnh nháp, không sinh thêm lần nào -> nhánh sửa không tốn hơn nhánh nền."""
+    print(f"  [{t.arm}] no-op: {t.ly_do_noop}", flush=True)
+    return {"anh": i0, "clause": "", "negative": [], "noop": True,
+            "ly_do_noop": t.ly_do_noop, "ghi_chu_ghep": "", "trace": t.to_dict()}
+

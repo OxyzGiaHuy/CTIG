@@ -567,7 +567,7 @@ def main(argv=None):
     allp = {p.id: p for p in load_prompts(cfg.prompts_path)}
     ids = [i.strip() for i in a.ids.split(",") if i.strip() in allp]
     if a.regate:
-        return regate(a, cfg, log)
+        return regate(a, cfg, lambda *x: print(*x, flush=True))
     if a.append_run:
         run_dir = Path(a.append_run)
     else:

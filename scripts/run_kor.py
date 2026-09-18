@@ -123,13 +123,46 @@ K_SCHEMA = {"type": "object", "properties": {
     "required": ["prompt_preservation", "cultural_evidence"]}
 
 
-def agent_K(agent, so_tay, pid, prompt_vi, prompt_en, wiki_pages, log):
-    khoi = "\n\n".join(f"=== PASSAGE [{p['lang']}] {p['title']} — {p['url']} ===\n{p['text'][:12000]}"
+def cat_bai(text: str, tu_khoa: list[str], toi_da: int = 4000) -> str:
+    """Giữ những câu chứa danh từ thực thể, theo thứ tự, tới `toi_da` ký tự; không câu nào khớp thì lấy đầu bài.
+
+    Vì sao: bản đầu đưa nguyên bài 12k ký tự, K trả JSON dài quá `max_new_tokens` rồi CỤT ở giữa, parse
+    hỏng 3 lần liền ở S001 và S003 (170 s mỗi prompt) -> Cultural Evidence Card rỗng ở cả 3 prompt.
+    Bài 6k (S002) thì ra được. Cắt còn ~4k quanh danh từ thực thể là đủ chỗ cho quote nguyên văn.
+    """
+    cau = re.split(r"(?<=[.!?])\s+", text)
+    tk = [k.lower() for k in tu_khoa if k]
+    chon, n = [], 0
+    for c in cau:
+        if any(k in c.lower() for k in tk) and n + len(c) <= toi_da:
+            chon.append(c); n += len(c) + 1
+    if len(" ".join(chon)) < 800:
+        return text[:toi_da]
+    return " ".join(chon)
+
+
+K_SYSTEM_A = ("You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt "
+              "asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied "
+              "exactly. Needs no citation. JSON only.")
+K_SCHEMA_A = {"type": "object", "properties": {"prompt_preservation": K_SCHEMA["properties"]["prompt_preservation"]},
+              "required": ["prompt_preservation"]}
+K_SCHEMA_B = {"type": "object", "properties": {"cultural_evidence": K_SCHEMA["properties"]["cultural_evidence"]},
+              "required": ["cultural_evidence"]}
+
+
+def agent_K(agent, so_tay, pid, prompt_vi, prompt_en, wiki_pages, log, tu_khoa=None):
+    # Lời gọi 1: Preservation Card, chỉ từ prompt (ngắn, không thể cụt)
+    ua = f"PROMPT VI: {prompt_vi}\nPROMPT EN: {prompt_en}\n\nReturn prompt_preservation as JSON."
+    da = goi_text(agent, so_tay, pid, "K", "card_preservation", K_SYSTEM_A, ua, K_SCHEMA_A, max_new_tokens=700)
+    # Lời gọi 2: Cultural Evidence Card, từ bài Wikipedia đã CẮT quanh danh từ thực thể
+    khoi = "\n\n".join(f"=== PASSAGE [{p['lang']}] {p['title']} — {p['url']} ===\n{cat_bai(p['text'], tu_khoa or [])}"
                        for p in wiki_pages)
-    user = (f"PROMPT VI: {prompt_vi}\nPROMPT EN: {prompt_en}\n\nWIKIPEDIA PASSAGES (the only allowed source "
-            f"for cultural cues):\n{khoi}\n\nReturn the two cards as JSON.")
-    d = goi_text(agent, so_tay, pid, "K", "cards", K_SYSTEM, user, K_SCHEMA, max_new_tokens=1400)
-    ce = d.get("cultural_evidence") or {}
+    ub = (f"PROMPT VI: {prompt_vi}\nPROMPT EN: {prompt_en}\n\nWIKIPEDIA PASSAGES (the only allowed source "
+          f"for cultural cues):\n{khoi}\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.")
+    db = goi_text(agent, so_tay, pid, "K", "card_cultural", K_SYSTEM, ub, K_SCHEMA_B, max_new_tokens=1600)
+    d = {"prompt_preservation": da.get("prompt_preservation") or {}, "cultural_evidence": db.get("cultural_evidence") or {},
+         "_loi": [x.get("_loi") for x in (da, db) if x.get("_loi")]}
+    ce = d["cultural_evidence"]
     # ---- kiểm nguyên văn bằng máy
     vi_text = _norm(" ".join(p["text"] for p in wiki_pages if p["lang"] == "vi"))
     urls = {p["url"] for p in wiki_pages}
@@ -221,12 +254,15 @@ def agent_R(agent, so_tay, pid, prompt_en, cards, report, log):
 
 
 GATE_SYSTEM = (
-    "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the same two "
-    "cards and the list of repair actions that were attempted.\n"
-    "fixed: attempted repairs now evidenced in AFTER but not in BEFORE. regressions: things from the "
-    "Prompt Preservation Card or already-satisfied list that are present in BEFORE but missing or "
-    "contradicted in AFTER; mark each with severity 'severe' (main entity, counts, a required object lost) "
-    "or 'minor'. Be conservative: if unsure, it is not fixed. JSON only."
+    "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt "
+    "Preservation Card and the list of repair actions that were attempted.\n"
+    "fixed: attempted repairs now evidenced in AFTER but not in BEFORE.\n"
+    "regressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and "
+    "are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in "
+    "BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may "
+    "change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a "
+    "stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\n"
+    "Be conservative about fixed: if unsure, it is not fixed. JSON only."
 )
 GATE_SCHEMA = {"type": "object", "properties": {
     "fixed": _arr(), "regressions": {"type": "array", "items": {"type": "object", "properties": {
@@ -235,14 +271,24 @@ GATE_SCHEMA = {"type": "object", "properties": {
 
 
 def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C"):
-    user = (f"CARDS:\n{json.dumps({k: cards.get(k) for k in ('prompt_preservation', 'cultural_evidence')}, ensure_ascii=False)}\n\n"
+    # Chỉ đưa Preservation Card: bản đầu đưa cả report I0 làm chuẩn, cổng phạt việc BỎ ĐI chính vật sai
+    # ("The cart and its contents are missing — severe" ở S002) và từ chối đúng hai tấm sửa thành công.
+    user = (f"PROMPT PRESERVATION CARD (the only standard for regressions):\n"
+            f"{json.dumps(cards.get('prompt_preservation'), ensure_ascii=False)}\n\n"
             f"REPAIR ACTIONS ATTEMPTED: {json.dumps(actions, ensure_ascii=False)}\n\n"
             f"BEFORE (I0) REPORT:\n{json.dumps(rep0, ensure_ascii=False)}\n\nAFTER (I1) REPORT:\n"
             f"{json.dumps(rep1, ensure_ascii=False)}\n\nReturn JSON.")
     d = goi_text(agent, so_tay, pid, "R", f"gate_{nhan}", GATE_SYSTEM, user, GATE_SCHEMA, max_new_tokens=700)
     fixed = [str(x) for x in (d.get("fixed") or [])]
     regs = [r for r in (d.get("regressions") or []) if isinstance(r, dict)]
-    nang = [r for r in regs if _norm(r.get("severity")).startswith("sev")]
+    card_txt = _norm(json.dumps(cards.get("prompt_preservation"), ensure_ascii=False))
+    def _trong_card(r):          # ít nhất một từ nội dung của regression phải có trong card
+        tu = [w for w in _norm(r.get("what")).split() if len(w) > 3]
+        return any(w in card_txt for w in tu)
+    nang = [r for r in regs if _norm(r.get("severity")).startswith("sev") and _trong_card(r)]
+    for r in regs:
+        if _norm(r.get("severity")).startswith("sev") and not _trong_card(r):
+            r["severity"] = "minor(hạ: không có trong Preservation Card)"
     # LUẬT, không phải lời model: có regression nặng -> I0; không sửa được gì -> I0; còn lại -> I1
     if nang:
         chon, ly_do = "I0", f"{len(nang)} regression nghiêm trọng"
@@ -322,9 +368,9 @@ def main(argv=None):
     ap.add_argument("--config", required=True)
     ap.add_argument("--ids", default="S001,S002,S003")
     ap.add_argument("--model", default="sdxl_base")
-    ap.add_argument("--run-name", default="kor")
+    ap.add_argument("--run-name", default=None, help="mặc định kor_<YYYYmmdd_HHMM> để không ghi đè lô cũ")
     ap.add_argument("--seed", type=int, default=5000)
-    ap.add_argument("--strength", type=float, default=0.35)
+    ap.add_argument("--strength", type=float, default=0.60)   # 0.35 giữ bố cục tốt tới mức không đổi được vật thể
     ap.add_argument("--wiki", default=str(ROOT / "data" / "wiki_curated" / "S001_S003.json"))
     ap.add_argument("--no-cref", action="store_true", help="bỏ cột C+ref")
     ap.add_argument("--set", action="append", default=[])
@@ -340,7 +386,9 @@ def main(argv=None):
     wiki = json.loads(Path(a.wiki).read_text(encoding="utf-8"))
     allp = {p.id: p for p in load_prompts(cfg.prompts_path)}
     ids = [i.strip() for i in a.ids.split(",") if i.strip() in allp]
-    run_dir = Path(cfg.runs_dir) / a.run_name; run_dir.mkdir(parents=True, exist_ok=True)
+    ten = a.run_name or time.strftime("kor_%Y%m%d_%H%M")
+    run_dir = Path(cfg.runs_dir) / ten; run_dir.mkdir(parents=True, exist_ok=True)
+    print(f"run: {run_dir}", flush=True)
     log = lambda *x: print(*x, flush=True)  # noqa: E731
     so_tay = SoTay()
 
@@ -401,7 +449,8 @@ def main(argv=None):
             log("  không có I0 -> bỏ prompt"); continue
 
         # ---- K: hai card (text, không nhìn ảnh)
-        cards = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log)
+        tu_khoa = list(getattr(pr, "entities", None) or []) + [w for w in pr.text_vi.split() if len(w) > 3]
+        cards = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log, tu_khoa=tu_khoa)
         # ---- O: quan sát mù I0
         rep0 = agent_O(s.agent, so_tay, pid, i0, "I0", log)
         # ---- R: phân tích lỗ hổng -> action

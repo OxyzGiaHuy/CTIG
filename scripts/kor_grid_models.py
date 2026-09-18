@@ -49,7 +49,8 @@ def main(argv=None):
     for i, (nhan, _, _) in enumerate(runs):
         cot += [(nhan, i, "A"), (f"{nhan} + Culture-TRIP", i, "B (I0)"), (f"{nhan} + {a.method_name}", i, "C (I1)")]
 
-    cell, gut, head, pad, cap = a.cell, 60, 34, 6, 20
+    import textwrap
+    cell, gut, head, pad, cap = a.cell, 200, 34, 6, 20
     cw, ch = cell + pad, cell + cap + pad
     W, H = gut + len(cot) * cw + pad, head + len(pids) * ch + pad
     im = Image.new("RGB", (W, H), "white"); d = ImageDraw.Draw(im)
@@ -57,7 +58,9 @@ def main(argv=None):
         d.text((gut + k * cw + 3, 8), nh, font=_font(12, True), fill=(20, 20, 20))
     for r, pid in enumerate(pids):
         y = head + r * ch
-        d.text((4, y + 6), pid, font=_font(12), fill=(20, 20, 20))
+        pv = next((us[pid].get("prompt_vi", "") for _, _, us in runs if pid in us), "")
+        for j, dong in enumerate(textwrap.wrap(f"{pid}: {pv}", 28)[:9]):
+            d.text((4, y + 6 + j * 15), dong, font=_font(11, j == 0), fill=(20, 20, 20))
         for k, (_, ri, key) in enumerate(cot):
             _, rd, us = runs[ri]; u = us.get(pid); x = gut + k * cw
             p = _theo_run(u["images"].get(key, ""), rd) if u and u["images"].get(key) else None

@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from ctig.config import Config, set_dotted  # noqa: E402
-from ctig.evaluation import ref_split  # noqa: E402
+from ctig.evaluation import ref_similarity, ref_split  # noqa: E402
 from ctig.pipeline import load_prompts  # noqa: E402
 from ctig.session import Session  # noqa: E402
 from scripts.run_loop_v2 import external_prompt  # noqa: E402
@@ -237,11 +237,15 @@ R_SYSTEM = (
     "Each repair_action is ONE positive English instruction (max 18 words) describing exactly what should be "
     "visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole "
     "resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change "
-    "framing, camera angle, lighting or composition. Do not restate things already satisfied. JSON only."
+    "framing, camera angle, lighting or composition. Do not restate things already satisfied.\n"
+    "drop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that "
+    "contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment "
+    "term that belongs to another culture. Empty list if none. JSON only."
 )
 R_SCHEMA = {"type": "object", "properties": {
     "missing_prompt_explicit": _arr(), "missing_cultural_identity": _arr(), "contradictions": _arr(),
-    "already_satisfied": _arr(), "uncertain_no_repair": _arr(), "repair_actions": _arr()},
+    "already_satisfied": _arr(), "uncertain_no_repair": _arr(), "repair_actions": _arr(),
+    "drop_phrases": _arr()},
     "required": ["repair_actions"]}
 
 
@@ -252,8 +256,9 @@ def _sach(a: str) -> str | None:
     return " ".join(str(a).split())
 
 
-def agent_R(agent, so_tay, pid, prompt_en, cards, report, log):
-    user = (f"ORIGINAL PROMPT: {prompt_en}\n\nPROMPT PRESERVATION CARD:\n"
+def agent_R(agent, so_tay, pid, prompt_en, cards, report, log, mo_rong=""):
+    user = (f"ORIGINAL PROMPT: {prompt_en}\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\n{mo_rong}\n\n"
+            f"PROMPT PRESERVATION CARD:\n"
             f"{json.dumps(cards.get('prompt_preservation'), ensure_ascii=False)}\n\nCULTURAL EVIDENCE CARD:\n"
             f"{json.dumps(cards.get('cultural_evidence'), ensure_ascii=False)}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n"
             f"{json.dumps(report, ensure_ascii=False)}\n\nReturn the gap analysis as JSON.")
@@ -262,8 +267,17 @@ def agent_R(agent, so_tay, pid, prompt_en, cards, report, log):
     sach = [y for y in (_sach(x) for x in tho) if y][:3]
     bo = [x for x in tho if _sach(x) is None]
     d["repair_actions"] = sach
-    so_tay.ghi(pid, "R", "may_kiem", "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3)", "",
-               {"giu": sach, "bo": bo})
+    # Cụm bị cắt phải NẰM NGUYÊN VĂN trong phần mở rộng (không bao giờ là P0), và không quá 3 cụm.
+    # Vì sao: B (Culture-TRIP) ra qipao ở cả SDXL và FLUX trong khi A (prompt gốc) ra áo dài — phần mở rộng
+    # đang kéo về vật sai; trên FLUX nặng hơn vì T5 đọc hết prompt dài. Cắt nó là đánh vào nguyên nhân.
+    drop = []
+    for x in (d.get("drop_phrases") or []):
+        x = " ".join(str(x).split())
+        if len(x) >= 6 and x.lower() in mo_rong.lower() and x.lower() not in prompt_en.lower():
+            drop.append(x)
+    d["drop_phrases"] = drop[:3]
+    so_tay.ghi(pid, "R", "may_kiem", "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)", "",
+               {"giu": sach, "bo": bo, "drop_phrases": d["drop_phrases"]})
     log(f"  [R] thiếu-prompt {len(d.get('missing_prompt_explicit') or [])} · thiếu-văn-hoá "
         f"{len(d.get('missing_cultural_identity') or [])} · action giữ {len(sach)}" + (f" · bỏ {len(bo)}" if bo else ""))
     return d
@@ -286,7 +300,29 @@ GATE_SCHEMA = {"type": "object", "properties": {
     "unchanged_issues": _arr()}, "required": ["fixed", "regressions"]}
 
 
-def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C"):
+CHECK_SYSTEM = (
+    "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, "
+    "5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set "
+    "in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only."
+)
+CHECK_SCHEMA = {"type": "object", "properties": {"in_frame": {"type": "boolean"}, "score": {"type": "number"},
+                "evidence": {"type": "string"}}, "required": ["in_frame"]}
+
+
+def hoi_action(agent, so_tay, pid, image, action, buoc):
+    """Hỏi THẲNG từng action trên một ảnh, thang 0-10 — chế độ đã đo là tin được (một ảnh + câu hỏi có đích),
+    thay cho việc suy "fixed" từ bản tả mở. Ở FLUX S001 Observer tả mở khai "hai tà" cho một tấm qipao."""
+    d = goi_vlm(agent, so_tay, pid, "O", buoc, CHECK_SYSTEM,
+                f"Statement: \"{action}\"\nHow fully does this photograph match that statement?\n"
+                'Return JSON: {"in_frame": true|false, "score": 0-10, "evidence": ".."}', CHECK_SCHEMA, image, max_new_tokens=120)
+    try:
+        sc = float(d.get("score")) if d.get("in_frame", True) else None
+    except (TypeError, ValueError):
+        sc = None
+    return sc, str(d.get("evidence") or "")[:100]
+
+
+def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C", i0=None, i1=None, kiem=None):
     # Chỉ đưa Preservation Card: bản đầu đưa cả report I0 làm chuẩn, cổng phạt việc BỎ ĐI chính vật sai
     # ("The cart and its contents are missing — severe" ở S002) và từ chối đúng hai tấm sửa thành công.
     user = (f"PROMPT PRESERVATION CARD (the only standard for regressions):\n"
@@ -295,7 +331,19 @@ def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C"):
             f"BEFORE (I0) REPORT:\n{json.dumps(rep0, ensure_ascii=False)}\n\nAFTER (I1) REPORT:\n"
             f"{json.dumps(rep1, ensure_ascii=False)}\n\nReturn JSON.")
     d = goi_text(agent, so_tay, pid, "R", f"gate_{nhan}", GATE_SYSTEM, user, GATE_SCHEMA, max_new_tokens=700)
-    fixed = [str(x) for x in (d.get("fixed") or [])]
+    fixed_llm = [str(x) for x in (d.get("fixed") or [])]
+    # 2a. fixed tính bằng MÁY từ câu hỏi từng action trên I0 và I1: sửa được = I1 >= 7 và I0 <= 4 (hoặc I0 ngoài khung).
+    fixed, bang_action = [], []
+    if i0 and i1:
+        for act in actions:
+            s0, e0 = hoi_action(agent, so_tay, pid, i0, act, f"check_I0_{nhan}")
+            s1, e1 = hoi_action(agent, so_tay, pid, i1, act, f"check_I1_{nhan}")
+            ok = (s1 is not None and s1 >= 7) and (s0 is None or s0 <= 4)
+            bang_action.append({"action": act, "I0": s0, "I1": s1, "fixed": ok, "ev_I1": e1})
+            if ok:
+                fixed.append(act)
+    else:
+        fixed = fixed_llm
     regs = [r for r in (d.get("regressions") or []) if isinstance(r, dict) and str(r.get("what") or "").strip()]
 
     # Bốn luật máy, mỗi luật chặn một lỗi đã thấy ở lô kor_20260918_1322:
@@ -335,13 +383,23 @@ def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C"):
         chon, ly_do = "I0", "không sửa được lỗi nào"
     else:
         chon, ly_do = "I1", f"sửa được {len(fixed)}, không regression nghiêm trọng"
-    out = {"fixed": fixed, "regressions": regs, "selection": chon, "ly_do": ly_do}
+    # 2c. Phủ quyết ĐỘC LẬP với contract và với MLLM: I1 không được xa ảnh thật cất riêng hơn I0 quá một biên.
+    veto = None
+    if kiem and i0 and i1:
+        sim0, sim1 = kiem(i0), kiem(i1)
+        if sim0 is not None and sim1 is not None:
+            veto = {"sim_I0": round(sim0, 4), "sim_I1": round(sim1, 4)}
+            if sim1 < sim0 - 0.02 and chon == "I1":
+                chon, ly_do = "I0", f"phủ quyết: I1 xa ảnh thật cất riêng hơn I0 ({sim1:.3f} < {sim0:.3f} - 0,02)"
+    out = {"fixed": fixed, "fixed_llm": fixed_llm, "bang_action": bang_action, "regressions": regs,
+           "selection": chon, "ly_do": ly_do, "veto_anh_that": veto}
     so_tay.ghi(pid, "GATE", f"luat_{nhan}", "(luật cổng, tính bằng máy)", "", out)
-    log(f"  [cổng·{nhan}] fixed {len(fixed)} · regression {len(regs)} (nặng {len(nang)}) -> chọn {chon} ({ly_do})")
+    log(f"  [cổng·{nhan}] fixed {len(fixed)}/{len(actions)} (LLM khai {len(fixed_llm)}) · regression {len(regs)} (nặng {len(nang)})"
+        + (f" · sim thật I0 {veto['sim_I0']:.3f} → I1 {veto['sim_I1']:.3f}" if veto else "") + f" -> chọn {chon} ({ly_do})")
     return out
 
 
-def dung_P1(p_ct: str, actions: list[str], card: dict | None = None) -> str:
+def dung_P1(p_ct: str, actions: list[str], card: dict | None = None, p0: str = "", drop: list[str] | None = None) -> str:
     """P1 = P_ct nguyên văn (P_orig đã nằm ở đầu) + preserve clause + <=3 action dương tính. Không negative.
 
     Preserve clause nay LIỆT KÊ vật phụ và bối cảnh của Preservation Card. Đo ở kor_20260918_1349: IP-Adapter
@@ -350,6 +408,14 @@ def dung_P1(p_ct: str, actions: list[str], card: dict | None = None) -> str:
     """
     if not actions:
         return p_ct
+    # Phẫu thuật phần mở rộng: P0 giữ nguyên văn ở đầu, chỉ cắt cụm trong phần Culture-TRIP viết thêm.
+    if p0 and p_ct.startswith(p0) and drop:
+        mo_rong = p_ct[len(p0):]
+        for x in drop:
+            i = mo_rong.lower().find(x.lower())
+            if i >= 0:
+                mo_rong = mo_rong[:i] + mo_rong[i + len(x):]
+        p_ct = p0 + " " + " ".join(mo_rong.replace(" ,", ",").replace(" .", ".").split())
     ds = "\n".join(f"{i + 1}. {a.rstrip('.')}." for i, a in enumerate(actions))
     giu = []
     for k in ("supporting_objects", "background_and_scene"):
@@ -369,9 +435,10 @@ def _font(size, bold=False):
     return ImageFont.truetype(p, size) if Path(p).exists() else ImageFont.load_default()
 
 
-def ve_luoi(hang, cot, out_png, cell=300, nhan=None):
+def ve_luoi(hang, cot, out_png, cell=300, nhan=None, ten_hang=None):
     from PIL import Image, ImageDraw
-    gut, head, pad, cap = 70, 30, 6, 22
+    import textwrap
+    gut, head, pad, cap = 210, 30, 6, 22
     cw, ch = cell + pad, cell + cap + pad
     W, H = gut + len(cot) * cw + pad, head + len(hang) * ch + pad
     im = Image.new("RGB", (W, H), "white"); d = ImageDraw.Draw(im)
@@ -379,7 +446,9 @@ def ve_luoi(hang, cot, out_png, cell=300, nhan=None):
         d.text((gut + i * cw + 3, 8), (nhan or {}).get(c, c), font=_font(14, True), fill=(20, 20, 20))
     for r, (pid, o, ghi) in enumerate(hang):
         y = head + r * ch
-        d.text((4, y + 6), pid, font=_font(13), fill=(20, 20, 20))
+        nh = (ten_hang or {}).get(pid, pid)
+        for j, dong in enumerate(textwrap.wrap(nh, 30)[:9]):
+            d.text((4, y + 6 + j * 15), dong, font=_font(12, j == 0), fill=(20, 20, 20))
         for i, c in enumerate(cot):
             p = o.get(c); x = gut + i * cw
             if not p or not Path(p).exists():
@@ -425,6 +494,7 @@ def main(argv=None):
     ap.add_argument("--strength", type=float, default=0.60)   # 0.35 giữ bố cục tốt tới mức không đổi được vật thể
     ap.add_argument("--wiki", default=str(ROOT / "data" / "wiki_curated" / "S001_S003.json"))
     ap.add_argument("--i2i", action="store_true", help="thêm cột tham khảo C-i2i (img2img từ I0, không ref)")
+    ap.add_argument("--c-text", action="store_true", help="thêm cột C-text: cùng seed + P1, KHÔNG adapter (tách chữ khỏi ref)")
     ap.add_argument("--method-name", default="CG-MAPR", help="tên phương pháp in trên lưới (Contract-Guided Multi-Agent Prompt Repair)")
     ap.add_argument("--set", action="append", default=[])
     a = ap.parse_args(argv)
@@ -455,9 +525,10 @@ def main(argv=None):
 
     # C = cùng seed + IP-Adapter ảnh thật + P1. Đo hai lô: img2img 0.35 và 0.60 đều không đổi được vật thể
     # sai (xe đẩy vẫn xe đẩy, hoa vẫn hoa), còn IP-Adapter sửa đúng 2/2 (S001 áo dài, S002 gánh hàng rong).
-    cot = ["A", "B (I0)", "C (I1)"] + (["C-i2i"] if a.i2i else [])
+    cot = ["A", "B (I0)", "C (I1)"] + (["C-text"] if a.c_text else []) + (["C-i2i"] if a.i2i else [])
     M = {"sdxl_base": "SDXL", "realvis_xl": "RealVisXL", "flux_dev": "FLUX.1-dev"}.get(a.model.split("#")[0].split("+")[0], a.model)
-    NHAN = {"A": M, "B (I0)": f"{M} + Culture-TRIP", "C (I1)": f"{M} + {a.method_name}", "C-i2i": f"{M} + img2img (đối chứng)"}
+    NHAN = {"A": M, "B (I0)": f"{M} + Culture-TRIP", "C (I1)": f"{M} + {a.method_name}",
+            "C-text": f"{M} + {a.method_name} (text-only)", "C-i2i": f"{M} + img2img (đối chứng)"}
     hang, tong = [], []
     so_tay = so_tay
     cu_json = run_dir / "kor.json"
@@ -486,7 +557,7 @@ def main(argv=None):
             log(f"  [!] Culture-TRIP không bắt đầu bằng prompt gốc -> chèn P_orig lên đầu")
             p_ct = f"{p_orig} {p_ct}"
         gen0, _ = s.genspec()
-        dem = {"A": 0, "B": 0, "C": 0, "C-i2i": 0}
+        dem = {"A": 0, "B": 0, "C": 0, "C-text": 0, "C-i2i": 0}
 
         def sinh(prompt, sub, nhanh, refs=None, seed=None):
             dem[nhanh] += 1
@@ -531,14 +602,20 @@ def main(argv=None):
         # ---- O: quan sát mù I0
         rep0 = agent_O(s.agent, so_tay, pid, i0, "I0", log)
         # ---- R: phân tích lỗ hổng -> action
-        gap = agent_R(s.agent, so_tay, pid, p_orig, cards, rep0, log)
+        mo_rong = p_ct[len(p_orig):].strip() if p_ct.startswith(p_orig) else ""
+        gap = agent_R(s.agent, so_tay, pid, p_orig, cards, rep0, log, mo_rong=mo_rong)
         actions = gap.get("repair_actions") or []
-        p1 = dung_P1(p_ct, actions, cards.get("prompt_preservation"))
+        p1 = dung_P1(p_ct, actions, cards.get("prompt_preservation"), p0=p_orig, drop=gap.get("drop_phrases"))
+        if gap.get("drop_phrases"):
+            log(f"  [P1] cắt khỏi phần mở rộng: {gap['drop_phrases']}")
         so_tay.ghi(pid, "P1", "prompt", "(P1 = P_ct nguyên văn + preserve clause + action; không negative)", "", {"P1": p1})
 
+        _, eval_refs = ref_split(cfg.retrieval.ref_dir, pid, 5)      # candidates/: chỉ để chấm, IP-Adapter không nhìn
+        def kiem(img):
+            return ref_similarity(s.clip, img, eval_refs)
         anh = {"A": anh_A, "B (I0)": i0}
         ghi = {"B (I0)": "= I0", "A": "prompt gốc"}
-        gate_C = gate_i2i = None
+        gate_C = gate_i2i = gate_text = None
         if not actions:
             log("  [C] no-op: R không có action hợp lệ -> I1 = I0")
             anh["C (I1)"] = i0; ghi["C (I1)"] = "no-op (= I0)"
@@ -553,25 +630,36 @@ def main(argv=None):
             i1 = sinh(p1, "C_ref", "C", refs=refs) if refs else None
             log(f"  [C] cùng seed + IP-Adapter {len(refs)} ảnh thật + P1 -> {i1}")
             rep1 = agent_O(s.agent, so_tay, pid, i1, "I1", log) if i1 else {}
-            gate_C = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1, actions, log, "C") if i1 else None
+            gate_C = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1, actions, log, "C", i0=i0, i1=i1, kiem=kiem) if i1 else None
             anh["C (I1)"] = i1 or i0
             ghi["C (I1)"] = f"chọn {gate_C['selection']}" if gate_C else ("không có ảnh thật" if not refs else "sinh hỏng")
+            # ---- C-text (tuỳ chọn): cùng seed + P1, KHÔNG adapter — tách "chữ có đủ không" khỏi "adapter có phá không"
+            gate_text = None
+            if a.c_text:
+                i1t = sinh(p1, "C_text", "C-text")
+                log(f"  [C-text] cùng seed + P1, không adapter -> {i1t}")
+                rep1t = agent_O(s.agent, so_tay, pid, i1t, "I1text", log) if i1t else {}
+                gate_text = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1t, actions, log, "text",
+                                      i0=i0, i1=i1t, kiem=kiem) if i1t else None
+                anh["C-text"] = i1t or i0
+                ghi["C-text"] = f"chọn {gate_text['selection']}" if gate_text else "sinh hỏng"
             # ---- C-i2i (tuỳ chọn): img2img từ I0, để đối chứng
             if a.i2i:
                 i1b = sinh_i2i(p1, i0, "C_i2i")
                 log(f"  [C-i2i] img2img strength {a.strength} -> {i1b}")
                 rep1b = agent_O(s.agent, so_tay, pid, i1b, "I1i2i", log) if i1b else {}
-                gate_i2i = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1b, actions, log, "i2i") if i1b else None
+                gate_i2i = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1b, actions, log, "i2i", i0=i0, i1=i1b, kiem=kiem) if i1b else None
                 anh["C-i2i"] = i1b or i0
                 ghi["C-i2i"] = f"chọn {gate_i2i['selection']}" if gate_i2i else "sinh hỏng"
 
         rec = {"prompt_id": pid, "prompt_vi": pr.text_vi, "P_orig": p_orig, "P_ct": p_ct, "P1": p1, "seed": a.seed,
                "model": a.model, "strength_i2i": a.strength, "images": anh, "so_lan_sinh": dem,
                "cards": cards, "report_I0": rep0, "gap": gap, "actions": actions,
-               "gate_C": gate_C, "gate_i2i": gate_i2i, "refs": refs if actions else []}
+               "gate_C": gate_C, "gate_text": gate_text, "gate_i2i": gate_i2i, "refs": refs if actions else [],
+               "drop_phrases": gap.get("drop_phrases") or []}
         (out_dir / "kor.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
         tong.append(rec); hang.append((pid, anh, ghi))
-        ve_luoi(hang, cot, run_dir / "kor_grid.png", nhan=NHAN)
+        ve_luoi(hang, cot, run_dir / "kor_grid.png", nhan=NHAN, ten_hang={u["prompt_id"]: f"{u['prompt_id']}: {u['prompt_vi']}" for u in tong})
         (run_dir / "kor.json").write_text(json.dumps({"don_vi": tong, "giao_tiep": so_tay.dong},
                                                      ensure_ascii=False, indent=1), encoding="utf-8")
         transcript_md(so_tay, run_dir / "kor_transcript.md")

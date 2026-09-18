@@ -338,7 +338,7 @@ def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C", i0=
         for act in actions:
             s0, e0 = hoi_action(agent, so_tay, pid, i0, act, f"check_I0_{nhan}")
             s1, e1 = hoi_action(agent, so_tay, pid, i1, act, f"check_I1_{nhan}")
-            ok = (s1 is not None and s1 >= 7) and (s0 is None or s0 <= 4)
+            ok = (s1 is not None and s1 >= 8) and (s0 is None or s0 <= 4 or s1 - s0 >= 3)
             bang_action.append({"action": act, "I0": s0, "I1": s1, "fixed": ok, "ev_I1": e1})
             if ok:
                 fixed.append(act)
@@ -629,6 +629,13 @@ def main(argv=None):
                 refs = s.crop_refs(refs, s.spec()[0])
             i1 = sinh(p1, "C_ref", "C", refs=refs) if refs else None
             log(f"  [C] cùng seed + IP-Adapter {len(refs)} ảnh thật + P1 -> {i1}")
+            try:   # kiểm bằng máy: multigen.json của hàng C phải có ghi chú IP-Adapter, không thì ref đã bị bỏ im lặng
+                mj = json.loads((out_dir / "C_ref" / "multigen.json").read_text(encoding="utf-8"))
+                notes = " ".join(n for r in mj.get("runs", []) for n in (r.get("notes") or []))
+                if "IP-Adapter" not in notes:
+                    log("  [!] C: KHÔNG thấy IP-Adapter trong ghi chú multigen -> ảnh thật không được gắn (khoá '#bare' xoá cờ +ref?)")
+            except Exception:  # noqa: BLE001
+                pass
             rep1 = agent_O(s.agent, so_tay, pid, i1, "I1", log) if i1 else {}
             gate_C = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1, actions, log, "C", i0=i0, i1=i1, kiem=kiem) if i1 else None
             anh["C (I1)"] = i1 or i0

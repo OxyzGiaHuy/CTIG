@@ -57,14 +57,9 @@
     "source": "https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A0ng_rong"
    },
    {
-    "id": "round_woven_baskets",
-    "description": "shallow round woven baskets holding the goods",
-    "source": "CHƯA CÓ NGUỒN"
-   },
-   {
-    "id": "vendor_on_foot",
-    "description": "vendor walking on foot with no cart or wheels",
-    "source": "CHƯA CÓ NGUỒN"
+    "id": "containers_at_both_ends",
+    "description": "baskets, flat trays, wooden boxes or small glass cases",
+    "source": "người Việt xác nhận 2026-09-18"
    }
   ],
   "confusables": [
@@ -239,9 +234,9 @@
     "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
    },
    {
-    "id": "hung_in_rows_or_clusters",
-    "description": "many lanterns hung in rows or clusters overhead",
-    "source": "CHƯA CÓ NGUỒN — cần người Việt xác nhận"
+    "id": "lit_from_inside",
+    "description": "each lantern glowing with light from inside",
+    "source": "hiển nhiên trong cảnh đêm; prompt nói rõ 'at night'"
    }
   ],
   "confusables": [

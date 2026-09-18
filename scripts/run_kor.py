@@ -100,6 +100,9 @@ K_SYSTEM = (
     "- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. "
     "Never describe the look-alike itself.\n"
     "- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n"
+    "- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one "
+    "shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, "
+    "serving temperature and preparation steps are not cues.\n"
     "Answer in JSON only."
 )
 K_SCHEMA = {"type": "object", "properties": {
@@ -155,11 +158,16 @@ def agent_K(agent, so_tay, pid, prompt_vi, prompt_en, wiki_pages, log, tu_khoa=N
     ua = f"PROMPT VI: {prompt_vi}\nPROMPT EN: {prompt_en}\n\nReturn prompt_preservation as JSON."
     da = goi_text(agent, so_tay, pid, "K", "card_preservation", K_SYSTEM_A, ua, K_SCHEMA_A, max_new_tokens=700)
     # Lời gọi 2: Cultural Evidence Card, từ bài Wikipedia đã CẮT quanh danh từ thực thể
-    khoi = "\n\n".join(f"=== PASSAGE [{p['lang']}] {p['title']} — {p['url']} ===\n{cat_bai(p['text'], tu_khoa or [])}"
-                       for p in wiki_pages)
+    # Trần 4k cho TỔNG các bài (S005 có vi + en, mỗi bài 4k -> 8,4k vào, JSON ra lại cụt). Bài vi trước.
+    tran = 4000; phan = []
+    for pg in sorted(wiki_pages, key=lambda x: 0 if x["lang"] == "vi" else 1):
+        if tran <= 600: break
+        doan = cat_bai(pg["text"], tu_khoa or [], toi_da=tran)
+        phan.append(f"=== PASSAGE [{pg['lang']}] {pg['title']} — {pg['url']} ===\n{doan}"); tran -= len(doan)
+    khoi = "\n\n".join(phan)
     ub = (f"PROMPT VI: {prompt_vi}\nPROMPT EN: {prompt_en}\n\nWIKIPEDIA PASSAGES (the only allowed source "
           f"for cultural cues):\n{khoi}\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.")
-    db = goi_text(agent, so_tay, pid, "K", "card_cultural", K_SYSTEM, ub, K_SCHEMA_B, max_new_tokens=1600)
+    db = goi_text(agent, so_tay, pid, "K", "card_cultural", K_SYSTEM, ub, K_SCHEMA_B, max_new_tokens=2200)
     d = {"prompt_preservation": da.get("prompt_preservation") or {}, "cultural_evidence": db.get("cultural_evidence") or {},
          "_loi": [x.get("_loi") for x in (da, db) if x.get("_loi")]}
     ce = d["cultural_evidence"]
@@ -171,8 +179,15 @@ def agent_K(agent, so_tay, pid, prompt_vi, prompt_en, wiki_pages, log, tu_khoa=N
         giu = []
         for c in (ce.get(k) or []):
             q = _norm(c.get("quote_vi"))
-            if len(q) >= 12 and q in vi_text and (c.get("source_url") in urls):
+            # Quote nguyên văn CHƯA đủ: S003 K viết cue "stone bowl" kèm quote (nguyên văn) về nước dùng đun
+            # sôi — quote có thật nhưng KHÔNG nói gì về bát đá; R rồi đòi "Include a stone bowl". Nên đòi
+            # thêm: ít nhất một từ nội dung của cue_vi phải nằm trong quote_vi (kiểm suy diễn thô).
+            tu_cue = {w for w in _norm(c.get("cue_vi")).split() if len(w) > 2}
+            khop = bool(tu_cue & set(q.split()))
+            if len(q) >= 12 and q in vi_text and (c.get("source_url") in urls) and khop:
                 giu.append(c)
+            elif not khop and q:
+                loai.append(f"{k}: '{str(c.get('cue_vi'))[:50]}' — quote có thật nhưng không nói về cue")
             else:
                 loai.append(f"{k}: '{str(c.get('cue_vi'))[:50]}' — quote không nguyên văn trong bài / URL lạ")
         ce[k] = giu[:3 if k == "identity_cues" else 2]
@@ -220,7 +235,8 @@ R_SYSTEM = (
     "Priority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; "
     "3 identity cues; 4 conditional cues. At most 3 repair_actions.\n"
     "Each repair_action is ONE positive English instruction (max 18 words) describing exactly what should be "
-    "visibly present. Never use negation (no/not/without/avoid). Never name the wrong object. Never change "
+    "visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole "
+    "resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change "
     "framing, camera angle, lighting or composition. Do not restate things already satisfied. JSON only."
 )
 R_SCHEMA = {"type": "object", "properties": {
@@ -325,13 +341,25 @@ def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C"):
     return out
 
 
-def dung_P1(p_ct: str, actions: list[str]) -> str:
-    """P1 = P_ct nguyên văn (P_orig đã nằm ở đầu) + preserve clause + <=3 action dương tính. Không negative."""
+def dung_P1(p_ct: str, actions: list[str], card: dict | None = None) -> str:
+    """P1 = P_ct nguyên văn (P_orig đã nằm ở đầu) + preserve clause + <=3 action dương tính. Không negative.
+
+    Preserve clause nay LIỆT KÊ vật phụ và bối cảnh của Preservation Card. Đo ở kor_20260918_1349: IP-Adapter
+    sửa đúng định danh (áo dài, bánh chưng) nhưng kéo ảnh về bố cục ảnh thật, làm rơi "cổng trường" và
+    "mâm" mà prompt yêu cầu, rồi cổng từ chối đúng hai tấm đó. Nêu tên vật phải giữ là cách rẻ nhất.
+    """
     if not actions:
         return p_ct
     ds = "\n".join(f"{i + 1}. {a.rstrip('.')}." for i, a in enumerate(actions))
+    giu = []
+    for k in ("supporting_objects", "background_and_scene"):
+        for x in ((card or {}).get(k) or []):
+            x = str(x).strip()
+            if x and re.search(r"[A-Za-z]", x) and not re.search(r"[ăâđêôơưàáảãạ]", x.lower()):
+                giu.append(x)                      # chỉ lấy bản tiếng Anh; SDXL không đọc tiếng Việt
+    keep = f" Keep clearly visible: {'; '.join(dict.fromkeys(giu))}." if giu else ""
     return (f"{p_ct.strip()}\n\nPreserve the current subject, composition, setting, colors, and all correctly "
-            f"rendered details. Make these additions clearly visible:\n{ds}")
+            f"rendered details.{keep} Make these additions clearly visible:\n{ds}")
 
 # ------------------------------------------------------------------ lưới + transcript
 def _font(size, bold=False):
@@ -392,6 +420,7 @@ def main(argv=None):
     ap.add_argument("--ids", default="S001,S002,S003")
     ap.add_argument("--model", default="sdxl_base")
     ap.add_argument("--run-name", default=None, help="mặc định kor_<YYYYmmdd_HHMM> để không ghi đè lô cũ")
+    ap.add_argument("--append-run", default=None, help="nối prompt mới vào lô đã có (đường dẫn thư mục run); lưới vẽ lại gồm cả cũ")
     ap.add_argument("--seed", type=int, default=5000)
     ap.add_argument("--strength", type=float, default=0.60)   # 0.35 giữ bố cục tốt tới mức không đổi được vật thể
     ap.add_argument("--wiki", default=str(ROOT / "data" / "wiki_curated" / "S001_S003.json"))
@@ -400,17 +429,20 @@ def main(argv=None):
     a = ap.parse_args(argv)
 
     ov: dict = {}
-    for kv in a.set:
-        k, _, v = kv.partition("="); set_dotted(ov, k, v)
     set_dotted(ov, "t2i.render", "bare"); set_dotted(ov, "multigen.adaptive.enabled", "false")
     set_dotted(ov, "multigen.n_candidates", "1"); set_dotted(ov, "multigen.keep_loaded", "1")
+    for kv in a.set:                       # --set của người dùng ghi đè mặc định (FLUX cần cpu_offload, keep_loaded=0)
+        k, _, v = kv.partition("="); set_dotted(ov, k, v)
     cfg = Config.load(a.config, ov)
 
     wiki = json.loads(Path(a.wiki).read_text(encoding="utf-8"))
     allp = {p.id: p for p in load_prompts(cfg.prompts_path)}
     ids = [i.strip() for i in a.ids.split(",") if i.strip() in allp]
-    ten = a.run_name or time.strftime("kor_%Y%m%d_%H%M")
-    run_dir = Path(cfg.runs_dir) / ten; run_dir.mkdir(parents=True, exist_ok=True)
+    if a.append_run:
+        run_dir = Path(a.append_run)
+    else:
+        run_dir = Path(cfg.runs_dir) / (a.run_name or time.strftime("kor_%Y%m%d_%H%M"))
+    run_dir.mkdir(parents=True, exist_ok=True)
     print(f"run: {run_dir}", flush=True)
     log = lambda *x: print(*x, flush=True)  # noqa: E731
     so_tay = SoTay()
@@ -424,6 +456,17 @@ def main(argv=None):
     # sai (xe đẩy vẫn xe đẩy, hoa vẫn hoa), còn IP-Adapter sửa đúng 2/2 (S001 áo dài, S002 gánh hàng rong).
     cot = ["A", "B (I0)", "C (I1)"] + (["C-i2i"] if a.i2i else [])
     hang, tong = [], []
+    so_tay = so_tay
+    cu_json = run_dir / "kor.json"
+    if a.append_run and cu_json.exists():        # nạp lô cũ để lưới/transcript gồm cả cũ lẫn mới
+        cu = json.loads(cu_json.read_text(encoding="utf-8"))
+        tong = cu.get("don_vi", []); so_tay.dong = cu.get("giao_tiep", [])
+        for u in tong:
+            hang.append((u["prompt_id"], u["images"], {k: ("= I0" if k == "B (I0)" else "prompt gốc" if k == "A" else
+                        (f"chọn {(u.get('gate_C') or {}).get('selection')}" if k == "C (I1)" else "")) for k in u["images"]}))
+        da_co = {u["prompt_id"] for u in tong}
+        ids = [i for i in ids if i not in da_co]
+        print(f"nối vào lô cũ: đã có {sorted(da_co)} · chạy thêm {ids}", flush=True)
     shared = [None]
     for pid in ids:
         pr = allp[pid]
@@ -487,7 +530,7 @@ def main(argv=None):
         # ---- R: phân tích lỗ hổng -> action
         gap = agent_R(s.agent, so_tay, pid, p_orig, cards, rep0, log)
         actions = gap.get("repair_actions") or []
-        p1 = dung_P1(p_ct, actions)
+        p1 = dung_P1(p_ct, actions, cards.get("prompt_preservation"))
         so_tay.ghi(pid, "P1", "prompt", "(P1 = P_ct nguyên văn + preserve clause + action; không negative)", "", {"P1": p1})
 
         anh = {"A": anh_A, "B (I0)": i0}

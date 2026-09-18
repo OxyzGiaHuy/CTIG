@@ -34,7 +34,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", action="append", required=True, help="<nhãn model>=<thư mục lô>")
     ap.add_argument("-o", "--out", required=True)
-    ap.add_argument("--method-name", default="SAVIER")
+    ap.add_argument("--method-name", default="SAVIER (ours)")
     ap.add_argument("--cell", type=int, default=260)
     a = ap.parse_args(argv)
     from PIL import Image, ImageDraw
@@ -47,7 +47,7 @@ def main(argv=None):
     pids = sorted({p for _, _, u in runs for p in u})
     cot = []                                  # (nhãn cột, chỉ số run, khoá ảnh)
     for i, (nhan, _, _) in enumerate(runs):
-        cot += [(nhan, i, "A"), (f"{nhan} + Culture-TRIP", i, "I0"), (f"{nhan} + {a.method_name}", i, "I1")]
+        cot += [(nhan, i, "A"), (f"{nhan} + refined prompt", i, "I0"), (f"{nhan} + {a.method_name}", i, "I1")]
 
     import textwrap
     # Tỉ lệ chữ/lề theo cell để lưới độ phân giải gốc (cell 1024) vẫn đọc được. thumbnail() KHÔNG phóng to

@@ -88,7 +88,7 @@ def contact_sheet(units, out_png: Path, cell=300, model_label="model"):
     from PIL import Image, ImageDraw, ImageFont
     import textwrap
     cols = ["A", "I0", "I1"] + (["I1_text_only"] if any("I1_text_only" in u["images"] for u in units) else [])
-    labels = {"A": model_label, "I0": f"{model_label} + Culture-TRIP", "I1": f"{model_label} + SAVIER", "I1_text_only": f"{model_label} + SAVIER (text only)"}
+    labels = {"A": model_label, "I0": f"{model_label} + refined prompt", "I1": f"{model_label} + SAVIER (ours)", "I1_text_only": f"{model_label} + SAVIER (ours, text only)"}
     try: font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 12)
     except OSError: font = ImageFont.load_default()
     gut, head, pad = 210, 30, 6; cw, ch = cell + pad, cell + pad

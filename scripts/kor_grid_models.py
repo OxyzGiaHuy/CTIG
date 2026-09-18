@@ -64,7 +64,7 @@ def main(argv=None):
         y = head + r * ch
         pv = next((us[pid].get("prompt_vi", "") for _, _, us in runs if pid in us), "")
         for j, dong in enumerate(textwrap.wrap(f"{pid}: {pv}", WRAP)[:9]):
-            d.text((4, y + 6 + j * LH), dong, font=_font(FS, j == 0), fill=(20, 20, 20))
+            d.text((4, y + 6 + j * LH), dong, font=_font(FS), fill=(20, 20, 20))   # đồng bộ: không bold
         for ci, (_, ri, key) in enumerate(cot):
             _, rd, us = runs[ri]; u = us.get(pid); x = gut + ci * cw
             p = _theo_run(u["images"].get(key, ""), rd) if u and u["images"].get(key) else None

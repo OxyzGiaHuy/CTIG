@@ -464,7 +464,7 @@ def ve_luoi(hang, cot, out_png, cell=300, nhan=None, ten_hang=None):
         y = head + r * ch
         nh = (ten_hang or {}).get(pid, pid)
         for j, dong in enumerate(textwrap.wrap(nh, 30)[:9]):
-            d.text((4, y + 6 + j * 15), dong, font=_font(12, j == 0), fill=(20, 20, 20))
+            d.text((4, y + 6 + j * 15), dong, font=_font(12), fill=(20, 20, 20))   # đồng bộ: không bold
         for i, c in enumerate(cot):
             p = o.get(c); x = gut + i * cw
             if not p or not Path(p).exists():

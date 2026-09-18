@@ -142,6 +142,42 @@ def _bo_negative_pha_prompt(neg: list[str], base_prompt: str, contract: dict, lo
     return out
 
 
+
+#: Danh từ chỉ BỘ PHẬN nhìn thấy được. Dùng để rút ra "những chỗ cần mô tả" từ contract mà KHÔNG lộ đáp án:
+#: nói "hãy tả phần quần" là hướng sự chú ý, còn nói "quần phải rộng ống" mới là mớm đáp án.
+_BO_PHAN = {
+    "collar", "neckline", "sleeves", "sleeve", "trousers", "pants", "panels", "panel", "slits", "slit",
+    "hem", "bodice", "sash", "belt", "buttons", "fabric", "silk", "pattern", "patterns", "embroidery",
+    "hull", "sides", "rim", "bamboo", "weave", "bow", "stern", "paddle",
+    "pole", "baskets", "basket", "trays", "load", "shoulder",
+    "wheels", "seat", "pedals", "canopy", "noodles", "broth", "beef", "bowl", "herbs",
+    "leaves", "string", "ties", "corners", "roof", "pillar", "pond", "stairway",
+    "lanterns", "ribs", "walls", "hats", "hat", "brim", "headscarf", "scarf", "grid", "colours",
+    "gongs", "drum", "strings", "puppets", "water", "stage", "boats", "poles",
+}
+
+
+def _cho_can_ta(contract: dict, toi_da: int = 6) -> list[str]:
+    """Rút danh sách BỘ PHẬN cần mô tả từ contract, đã bóc hết đáp án.
+
+    Vì sao cần: ở S001, Observer trả về danh sách cụm rời rạc ('white pants', 'white top with red
+    patterns'). Contract hỏi "áo có mặc TRÊN quần riêng không" — một QUAN HỆ giữa hai vật, mà danh sách
+    rời rạc không nói được. Critic phải suy diễn và suy sai: nó báo thiếu quần trong khi Observer đã ghi
+    rõ có quần.
+
+    Chỉ nêu TÊN BỘ PHẬN, không nêu giá trị đúng. Observer vẫn không biết chuẩn văn hoá là gì, nên vẫn
+    giữ được tính khách quan; nó chỉ biết phải soi những chỗ nào.
+    """
+    seen, out = set(), []
+    for r in contract.get("required", []):
+        for w in str(r.get("description", "")).lower().replace(",", " ").split():
+            w = w.strip(".,;:()")
+            if w in _BO_PHAN and w not in seen:
+                seen.add(w)
+                out.append(w)
+    return out[:toi_da]
+
+
 # ------------------------------------------------------------------ A1 Visual Observer
 OBSERVER_SYSTEM = (
     "You describe what is visible in a photograph. Nothing else.\n"
@@ -161,14 +197,26 @@ OBSERVER_SCHEMA = {"type": "object", "properties": {
     "required": ["subject", "visible_features"]}
 
 
-def observe(agent, image: str, log=print) -> dict:
-    """A1: chỉ tả pixel. Cấm phán đúng sai — đó là việc của Critic, và tách ra mới giảm được bịa đặt."""
+def observe(agent, image: str, log=print, contract: dict | None = None) -> dict:
+    """A1: chỉ tả pixel. Cấm phán đúng sai — đó là việc của Critic, và tách ra mới giảm được bịa đặt.
+
+    `contract` chỉ dùng để rút ra DANH SÁCH BỘ PHẬN cần soi (xem `_cho_can_ta`), không bao giờ đưa nội
+    dung chuẩn vào đây. Quan trọng nhất là câu bắt nó nói RÕ khi một bộ phận không nhìn thấy: ở S001,
+    Critic báo thiếu quần chỉ vì mô tả không khẳng định dứt khoát là có.
+    """
+    parts = _cho_can_ta(contract) if contract else []
+    huong_dan = ("" if not parts else
+                 "\nMake sure your description says something about each of these parts: "
+                 + ", ".join(parts)
+                 + ". For each one, if it is present say what it looks like; if it is absent or hidden, "
+                   "say so explicitly, for example 'no trousers visible'. Do not say whether any of them "
+                   "is correct — that is not your job.")
     d = _json(agent, OBSERVER_SYSTEM,
-              "Describe this photograph.\nReturn JSON: "
-              '{"subject": "..", "visible_features": [".." up to 8], "uncertain_features": [".." up to 3]}',
+              "Describe this photograph." + huong_dan + "\nReturn JSON: "
+              '{"subject": "..", "visible_features": [".." up to 10], "uncertain_features": [".." up to 3]}',
               OBSERVER_SCHEMA, images=[image])
     m1 = {"subject": str(d.get("subject") or "").strip(),
-          "visible_features": [str(x).strip() for x in (d.get("visible_features") or []) if str(x).strip()][:8],
+          "visible_features": [str(x).strip() for x in (d.get("visible_features") or []) if str(x).strip()][:10],
           "uncertain_features": [str(x).strip() for x in (d.get("uncertain_features") or []) if str(x).strip()][:3]}
     log(f"  [A1 Observer] '{m1['subject'][:44]}' · {len(m1['visible_features'])} đặc điểm nhìn thấy, "
         f"{len(m1['uncertain_features'])} không chắc")
@@ -400,7 +448,7 @@ def run_multi(agent, image: str, base_prompt: str, contract: dict, prompt_id: st
     tệ hơn B. Vòng lặp cũ làm ảnh TỆ ĐI ở 2/3 prompt chính vì thiếu đường lùi này.
     """
     t = Trace(prompt_id=prompt_id, arm="M")
-    t.m1 = observe(agent, image, log)
+    t.m1 = observe(agent, image, log, contract)
     if not t.m1.get("visible_features"):
         t.ly_do_noop = "Observer không mô tả được gì"
         return t

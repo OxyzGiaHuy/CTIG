@@ -131,7 +131,7 @@ def main(argv=None):
                 anh, ghi_chu = {}, {}
                 for arm in ARMS:
                     clause, neg = de_xuat[arm]
-                    full, note = vr.append_repair(base_prompt, clause)
+                    full, note = vr.append_repair(base_prompt, clause, allp[pid].text_en)
                     ghi_chu[arm] = note
                     terms = [full] if clause else list(gen.prompt_terms)
                     anh[arm] = sinh(terms, base_neg + [x for x in neg if x not in base_neg], s1, arm)

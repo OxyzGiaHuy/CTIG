@@ -398,25 +398,30 @@ def review(agent, m3: dict, m2: dict, contract: dict, log=print) -> dict:
 
 
 # ------------------------------------------------------------------ ghép prompt
-def append_repair(base_prompt: str, clause: str, max_tokens: int = MAX_TOKENS) -> tuple[str, str]:
-    """Đặt mệnh đề sửa lên TRƯỚC prompt gốc. Trả (prompt đầy đủ, ghi chú).
+def append_repair(base_prompt: str, clause: str, orig: str | None = None,
+                  max_clause: int = MAX_TOKENS) -> tuple[str, str]:
+    """Chèn mệnh đề sửa NGAY SAU câu gốc, trước phần Culture-TRIP viết thêm.
 
-    Vì sao đặt trước chứ không nối sau, dù tên hàm là "append":
+    Thứ tự cuối cùng:  [câu gốc]  +  [mệnh đề sửa]  +  [phần Culture-TRIP viết thêm]
 
-    1. Nối sau thì KHÔNG CÒN CHỖ. Prompt Culture-TRIP dài 97-324 từ; với trần 100 token thì mọi mệnh đề
-       sửa đều bị từ chối và cả ba nhánh T/S/M rơi về prompt gốc — bốn ảnh giống hệt nhau, thí nghiệm ra
-       con số không. Đo thật ở lượt chạy thử S001: "prompt gốc đã 97 từ, không còn chỗ".
-    2. Nối sau thì BỊ LOÃNG. compel ghép prompt dài theo từng khối 77 token, nhưng embedding gộp vẫn cắt
-       ở 77. Phần đuôi gần như không tác dụng — đã thấy ở S002: câu tinh chỉnh tả rõ "a balanced pole
-       across her shoulders" mà ảnh vẫn ra xe đạp.
+    Ba ràng buộc phải thoả cùng lúc, và chỉ vị trí này thoả cả ba:
 
-    Prompt gốc vẫn BẤT BIẾN đúng nghĩa: không sửa, không cắt một chữ nào của nó. Chỉ có mệnh đề sửa bị
-    giới hạn độ dài, và nếu nó vượt `max_clause` thì cắt MỆNH ĐỀ.
+    1. **Câu gốc phải đứng đầu.** Đó là ý định của người dùng, và Culture-TRIP vốn đã ghép theo thứ tự
+       [gốc] + [viết thêm] ở 99/100 file (cờ `composed`). Bản trước của hàm này chèn mệnh đề sửa lên
+       TRƯỚC cả cụm đó, tức đẩy câu gốc xuống hàng hai — phá đúng luật ấy.
+    2. **Mệnh đề sửa phải nằm trong 77 token đầu.** compel ghép prompt dài theo từng khối 77 token nhưng
+       embedding gộp vẫn cắt ở 77, nên phần đuôi gần như không tác dụng. Nối vào cuối thì mệnh đề vô
+       hiệu — đã thấy ở S002: câu tả rõ "a balanced pole across her shoulders" mà vẫn ra xe đẩy.
+    3. **Prompt gốc không bị cắt một chữ nào.** Chỉ mệnh đề sửa bị giới hạn độ dài.
+
+    Cái bị đẩy lùi là phần Culture-TRIP viết thêm — và đó đúng là phần NÊN bị đẩy lùi, vì chính nó sinh
+    ra hoa văn Trung Quốc ở S001 ("intricate patterns embroidered on the front and back panels").
+
+    `orig` là câu gốc; không truyền hoặc không khớp đầu `base_prompt` thì lùi về chèn lên trước.
     """
     clause = " ".join((clause or "").split())
     if not clause:
         return base_prompt, "không có mệnh đề sửa"
-    max_clause = 25
     cw = clause.split()
     note = ""
     if len(cw) > max_clause:
@@ -424,7 +429,11 @@ def append_repair(base_prompt: str, clause: str, max_tokens: int = MAX_TOKENS) -
         note = f"cắt mệnh đề từ {len(cw)} còn {max_clause} từ"
     if not clause.endswith((".", ",")):
         clause += "."
-    return f"{clause} {base_prompt}", note
+    o = " ".join((orig or "").split())
+    if o and base_prompt.strip().startswith(o):
+        con_lai = base_prompt.strip()[len(o):].lstrip()
+        return f"{o} {clause} {con_lai}".strip(), note
+    return f"{clause} {base_prompt}", (note + "; câu gốc không khớp đầu prompt -> chèn lên trước").strip("; ")
 
 
 # ------------------------------------------------------------------ nhánh S: một VLM tự viết

@@ -488,6 +488,9 @@ def main(argv=None):
     ap.add_argument("--config", required=True)
     ap.add_argument("--ids", default="S001,S002,S003")
     ap.add_argument("--model", default="sdxl_base")
+    ap.add_argument("--backend", choices=["multigen", "flux"], default="multigen",
+                    help="flux = ctig.gen_flux.FluxGen, đường sinh tối giản tách khỏi multigen")
+    ap.add_argument("--flux-ip-scale", type=float, default=0.6)
     ap.add_argument("--run-name", default=None, help="mặc định kor_<YYYYmmdd_HHMM> để không ghi đè lô cũ")
     ap.add_argument("--append-run", default=None, help="nối prompt mới vào lô đã có (đường dẫn thư mục run); lưới vẽ lại gồm cả cũ")
     ap.add_argument("--seed", type=int, default=5000)
@@ -526,9 +529,16 @@ def main(argv=None):
     # C = cùng seed + IP-Adapter ảnh thật + P1. Đo hai lô: img2img 0.35 và 0.60 đều không đổi được vật thể
     # sai (xe đẩy vẫn xe đẩy, hoa vẫn hoa), còn IP-Adapter sửa đúng 2/2 (S001 áo dài, S002 gánh hàng rong).
     cot = ["A", "B (I0)", "C (I1)"] + (["C-text"] if a.c_text else []) + (["C-i2i"] if a.i2i else [])
+    if a.backend == "flux":
+        a.model = "flux_dev"
     M = {"sdxl_base": "SDXL", "realvis_xl": "RealVisXL", "flux_dev": "FLUX.1-dev"}.get(a.model.split("#")[0].split("+")[0], a.model)
     NHAN = {"A": M, "B (I0)": f"{M} + Culture-TRIP", "C (I1)": f"{M} + {a.method_name}",
             "C-text": f"{M} + {a.method_name} (text-only)", "C-i2i": f"{M} + img2img (đối chứng)"}
+    flux = None
+    if a.backend == "flux":
+        from ctig.gen_flux import FluxGen
+        flux = FluxGen(device=cfg.multigen.device, offload=True, ip_scale=a.flux_ip_scale, log=log)
+
     hang, tong = [], []
     so_tay = so_tay
     cu_json = run_dir / "kor.json"
@@ -562,6 +572,9 @@ def main(argv=None):
         def sinh(prompt, sub, nhanh, refs=None, seed=None):
             dem[nhanh] += 1
             rf = refs or []
+            if flux is not None:                       # đường FLUX tối giản: không multigen, không KB, không negative
+                return flux.sinh(prompt, a.seed if seed is None else seed,
+                                 out_dir / sub / f"{pid}_flux_{'ref' if rf else 'txt'}.png", refs=rf)
             g = replace(gen0, prompt_terms=[prompt], negative_terms=[], seed=a.seed if seed is None else seed,
                         iteration=0, ip_adapter_image=(rf or None), ip_adapter_scale=cfg.multigen.ref_scale)
             r = mg.run(g, s.spec()[0], s.kb, [a.model + "+ref" if rf else a.model], cfg.multigen, out_dir / sub,
@@ -629,7 +642,9 @@ def main(argv=None):
                 refs = s.crop_refs(refs, s.spec()[0])
             i1 = sinh(p1, "C_ref", "C", refs=refs) if refs else None
             log(f"  [C] cùng seed + IP-Adapter {len(refs)} ảnh thật + P1 -> {i1}")
-            try:   # kiểm bằng máy: multigen.json của hàng C phải có ghi chú IP-Adapter, không thì ref đã bị bỏ im lặng
+            try:   # kiểm bằng máy (đường multigen): multigen.json của hàng C phải có ghi chú IP-Adapter
+                if flux is not None:
+                    raise FileNotFoundError
                 mj = json.loads((out_dir / "C_ref" / "multigen.json").read_text(encoding="utf-8"))
                 notes = " ".join(n for r in mj.get("runs", []) for n in (r.get("notes") or []))
                 if "IP-Adapter" not in notes:

@@ -30,12 +30,19 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from ctig.agents import vietrepair as vr  # noqa: E402
+from ctig.evaluation import ref_split  # noqa: E402
 from ctig.config import Config, set_dotted  # noqa: E402
 from ctig.pipeline import load_prompts  # noqa: E402
 from ctig.session import Session  # noqa: E402
 from scripts.run_loop_v2 import external_prompt, grid  # noqa: E402
 
-ARMS = ("B", "T", "S", "M")
+#: R = prompt nhánh B + IP-Adapter trên ảnh thật, KHÔNG agent nào. Thêm sau khi soi lại lô vòng lặp cũ:
+#: ở đó vòng 0 chạy 'sdxl_base' (không ref) cho ra áo hoa văn Trung Quốc, còn vòng 1-3 chạy 'sdxl_base_ref'
+#: (IP-Adapter, 2 ảnh thật) cho ra áo dài trắng đúng kiểu. Tức thứ sửa được ảnh nhiều khả năng là ẢNH THẬT,
+#: không phải lời phê bình. Không có R thì mọi cải thiện của M đều có thể quy cho ảnh thật.
+#:   R so B  -> ảnh tham chiếu có ích không
+#:   M so R  -> agent có hơn được ảnh tham chiếu không
+ARMS = ("B", "T", "S", "M", "R")
 
 
 def main(argv=None):
@@ -94,11 +101,18 @@ def main(argv=None):
                 base_prompt = " ".join(gen.prompt_terms)
                 base_neg = list(gen.negative_terms)
 
-                def sinh(prompt_terms, neg, seed, sub):
-                    g = replace(gen, prompt_terms=prompt_terms, negative_terms=neg, seed=seed, iteration=0)
-                    r = mg.run(g, s.spec()[0], s.kb, [a.model], cfg.multigen, out_dir / sub, clip=s.clip,
+                # Ảnh cho IP-Adapter lấy từ selected/; tập candidates/ cất riêng để chấm, rời nhau theo
+                # băm nội dung. Không tách thì nhánh R được chấm bằng chính ảnh nó vừa chép.
+                loop_refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5)
+                loop_refs = loop_refs[:2]
+
+                def sinh(prompt_terms, neg, seed, sub, refs=None):
+                    g = replace(gen, prompt_terms=prompt_terms, negative_terms=neg, seed=seed, iteration=0,
+                                ip_adapter_image=(refs or None), ip_adapter_scale=cfg.multigen.ref_scale)
+                    key = a.model + "+ref" if refs else a.model
+                    r = mg.run(g, s.spec()[0], s.kb, [key], cfg.multigen, out_dir / sub, clip=s.clip,
                                itm=None, t2i_cfg=cfg.t2i, prompt_en=s.analysis()[0].prompt_en,
-                               log=lambda *x: None, ref_images=[], force_refs=False)
+                               log=lambda *x: None, ref_images=refs or [], force_refs=bool(refs))
                     for rr in r.runs:
                         if rr.output and rr.output.candidates:
                             return rr.output.candidates[0].path
@@ -122,7 +136,7 @@ def main(argv=None):
                 mt = vr.text_only(s.agent, base_prompt, contract, log)
                 traces["T"] = mt
 
-                de_xuat = {"B": ("", []),
+                de_xuat = {"B": ("", []), "R": ("", []),
                            "T": (mt.get("repair_clause", ""), mt.get("negative_terms") or []),
                            "S": (ms.get("repair_clause", ""), ms.get("negative_terms") or []),
                            "M": (tm.repair_clause, tm.negative_terms)}
@@ -130,18 +144,22 @@ def main(argv=None):
                 # --- bốn nhánh sinh ở CÙNG seed s1, chỉ khác câu prompt
                 anh, ghi_chu = {}, {}
                 for arm in ARMS:
+                    if arm == "R" and not loop_refs:
+                        log("  [R] không có ảnh thật cho prompt này -> bỏ nhánh R"); continue
                     clause, neg = de_xuat[arm]
                     full, note = vr.append_repair(base_prompt, clause, allp[pid].text_en)
                     ghi_chu[arm] = note
                     terms = [full] if clause else list(gen.prompt_terms)
-                    anh[arm] = sinh(terms, base_neg + [x for x in neg if x not in base_neg], s1, arm)
-                    log(f"  [{arm}] {'no-op, dùng prompt gốc' if not clause else clause[:64]}"
+                    anh[arm] = sinh(terms, base_neg + [x for x in neg if x not in base_neg], s1, arm,
+                                    refs=loop_refs if arm == "R" else None)
+                    log(f"  [{arm}] " + ("IP-Adapter, %d ảnh thật, không agent" % len(loop_refs) if arm == "R"
+                        else ('no-op, dùng prompt gốc' if not clause else clause[:64]))
                         + (f"  ({note})" if note else ""))
 
                 res = {"prompt_id": pid, "rep": rep, "seed_draft": s0, "seed_arms": s1,
                        "base_prompt": base_prompt, "draft": i0, "images": anh,
                        "proposals": {k: {"clause": v[0], "negative": v[1]} for k, v in de_xuat.items()},
-                       "notes": ghi_chu, "traces": traces,
+                       "notes": ghi_chu, "traces": traces, "loop_refs": loop_refs,
                        "noop_M": tm.noop, "ly_do_noop_M": tm.ly_do_noop}
                 (out_dir / "arms.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
                 grid([("nháp I0", i0)] + [(arm, anh[arm]) for arm in ARMS if anh.get(arm)],

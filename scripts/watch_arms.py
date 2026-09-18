@@ -17,9 +17,9 @@ import json
 import time
 from pathlib import Path
 
-COT = ("draft", "B", "T", "S", "M")
+COT = ("draft", "B", "R", "T", "S", "M")
 NHAN = {"draft": "nháp I0", "B": "B không agent", "T": "T không nhìn ảnh",
-        "S": "S một agent", "M": "M đủ ba agent"}
+        "S": "S một agent", "M": "M đủ ba agent", "R": "R ảnh thật, không agent"}
 
 
 def _font(size, bold=False):

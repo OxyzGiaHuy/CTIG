@@ -4,58 +4,62 @@
   "entity_vi": "áo dài",
   "required": [
    {
-    "id": "high_mandarin_collar",
-    "description": "a high stiff collar standing close round the neck",
-    "part": "collar",
+    "id": "side_slits_at_hips",
+    "description": "high side slits at about waist or hip level divide the tunic into a front panel and a back panel",
+    "part": "side slits",
     "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
-   },
-   {
-    "id": "side_opening_not_centre",
-    "description": "the fastening running from the neck along one side to the underarm",
-    "part": "front opening",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
-   },
-   {
-    "id": "side_slits_at_waist",
-    "description": "side slits from the waist making front and back panels",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i",
-    "part": "side slits"
    },
    {
     "id": "worn_over_trousers",
-    "description": "worn over separate long wide-legged trousers",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i",
-    "part": "trousers"
+    "description": "the tunic is worn over separate long, usually wide-legged trousers",
+    "part": "trousers",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
    },
    {
-    "id": "ankle_length_panels",
-    "description": "loose panels hanging down to near the ankles",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i",
-    "part": "panels"
+    "id": "long_front_back_panels",
+    "description": "the two loose panels extend below the knees, commonly toward the ankles",
+    "part": "panels",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
+    "id": "fitted_long_sleeved_bodice",
+    "description": "a fitted upper tunic with close-fitting long sleeves",
+    "part": "bodice",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
    }
   ],
   "confusables": [
    {
     "id": "qipao_cheongsam",
-    "description": "a one-piece fitted dress with one thigh slit, no trousers",
-    "culture": "Chinese"
+    "description": "a fitted one-piece dress ending at the knee or calf, worn without separate trousers",
+    "culture": "Chinese",
+    "source": "https://en.wikipedia.org/wiki/Cheongsam"
    },
    {
     "id": "kimono",
-    "description": "a wrapped robe with crossed collar and wide obi sash",
-    "culture": "Japanese"
+    "description": "a rectangular wrapped-front robe worn left over right and secured with a broad obi",
+    "culture": "Japanese",
+    "source": "https://en.wikipedia.org/wiki/Kimono"
    },
    {
     "id": "hanbok",
-    "description": "a short jacket over a wide high-waisted flared skirt",
-    "culture": "Korean"
+    "description": "a short jeogori jacket worn over a full gathered or pleated chima skirt",
+    "culture": "Korean",
+    "source": "https://en.wikipedia.org/wiki/Hanbok"
    },
    {
-    "id": "centre_front_frog_buttons",
-    "description": "a row of knotted cloth frog buttons down the middle of the chest",
-    "culture": "Chinese"
+    "id": "short_hip_length_tunic",
+    "description": "a short tunic or jacket ending at the hip, worn over trousers, with no long panels",
+    "culture": "generic/modern"
    }
-  ]
+  ],
+  "verification": {
+   "status": "corrected",
+   "changes_vi": [
+    "Bỏ cổ cao và đường cài lệch khỏi required vì không đúng với mọi áo dài hiện đại.",
+    "Không dùng 'một khe tà' để mô tả qipao vì qipao thường có hai khe."
+   ]
+  }
  },
  "S002": {
   "entity": "Vietnamese shoulder-pole street vendor",

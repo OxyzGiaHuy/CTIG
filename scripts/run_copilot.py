@@ -33,6 +33,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from ctig.agents import vietrepair as vr  # noqa: E402
 from ctig.config import Config, set_dotted  # noqa: E402
+from ctig.evaluation import ref_split  # noqa: E402
 from ctig.pipeline import load_prompts  # noqa: E402
 from ctig.session import Session  # noqa: E402
 from scripts.run_loop_v2 import external_prompt, grid  # noqa: E402
@@ -46,7 +47,7 @@ def main(argv=None):
     ap.add_argument("--prompt-source", default="culture_trip")
     ap.add_argument("--run-name", default="copilot")
     ap.add_argument("--seed", type=int, default=5000)
-    ap.add_argument("--max-vong", type=int, default=4)
+    ap.add_argument("--max-vong", type=int, default=3)   # MAX_regen_count của T2I-Copilot
     ap.add_argument("--kien-nhan", type=int, default=3)
     ap.add_argument("--contracts", default=None)
     ap.add_argument("--set", action="append", default=[])
@@ -93,13 +94,21 @@ def main(argv=None):
 
         dem = [0]
 
-        def sinh(prompt_terms, neg, sub, seed=None):
+        # selected/ để điều kiện IP-Adapter; candidates/ cất riêng để chấm. Rời nhau theo băm nội dung.
+        refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5)
+        refs = refs[:cfg.multigen.ref_images]
+        log(f"  [ref] {len(refs)} ảnh thật cho IP-Adapter")
+
+        def sinh(prompt_terms, neg, sub, dung_ref=False, seed=None):
             dem[0] += 1
+            rf = refs if (dung_ref and refs) else []
             g = replace(gen, prompt_terms=prompt_terms, negative_terms=neg,
-                        seed=a.seed if seed is None else seed, iteration=0)
-            r = mg.run(g, s.spec()[0], s.kb, [a.model], cfg.multigen, out_dir / sub, clip=s.clip,
+                        seed=a.seed if seed is None else seed, iteration=0,
+                        ip_adapter_image=(rf or None), ip_adapter_scale=cfg.multigen.ref_scale)
+            r = mg.run(g, s.spec()[0], s.kb, [a.model + "+ref" if rf else a.model], cfg.multigen,
+                       out_dir / sub, clip=s.clip,
                        itm=None, t2i_cfg=cfg.t2i, prompt_en=s.analysis()[0].prompt_en,
-                       log=lambda *x: None, ref_images=[], force_refs=False)
+                       log=lambda *x: None, ref_images=rf, force_refs=bool(rf))
             for rr in r.runs:
                 if rr.output and rr.output.candidates:
                     return rr.output.candidates[0].path
@@ -113,9 +122,18 @@ def main(argv=None):
         log(f"  [B] {anh_b}")
 
         # --- nhánh L: vòng lặp, giữ nguyên seed
-        L = vr.run_loop(s.agent, lambda p, n, sub: sinh(p, n, f"L_{sub}"), anh_b, base_prompt,
+        L = vr.run_loop(s.agent, lambda p, n, sub, rf=False: sinh(p, n, f"L_{sub}", rf), anh_b, base_prompt,
                         contract, allp[pid].text_en, pid, a.max_vong, a.kien_nhan, log)
         n_gen = sum(1 for h in L["lich_su"] if h["vong"] > 0) + 1
+
+        # --- nhánh R: ảnh thật qua IP-Adapter, prompt gốc, KHÔNG agent. Mốc bắt buộc kể từ khi vòng
+        #     lặp cũng dùng ảnh thật: thiếu R thì cải thiện nào cũng quy về ảnh thật được.
+        R = None
+        if refs:
+            pr = sinh(list(gen.prompt_terms), base_neg, "R", True)
+            if pr:
+                R = {"anh": pr, "diem": vr.kiem_tung_muc(s.agent, pr, contract, log)["diem"]}
+                log(f"  [R] ảnh thật không agent · điểm {R['diem']:.1f}")
 
         # --- nhánh K: bốc thăm n_gen seed, prompt gốc, chấm bằng chính bộ rà
         log(f"  --- K: bốc thăm {n_gen} seed, cùng ngân sách với L ---")
@@ -129,17 +147,20 @@ def main(argv=None):
 
         res = {"prompt_id": pid, "seed": a.seed, "base_prompt": base_prompt,
                "B": {"anh": anh_b, "diem": L["lich_su"][0]["diem"]},
-               "L": L, "K": {"ung_vien": K, "chon": bestK},
+               "L": L, "R": R, "K": {"ung_vien": K, "chon": bestK},
                "so_anh_sinh": dem[0], "so_required": L["so_required"]}
         (out_dir / "copilot.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
 
-        o = [("B nền", anh_b)] + [(f"L vòng{h['vong']} ({h['diem']}/{L['so_required']})", h["anh"])
-                                  for h in L["lich_su"] if h["vong"] > 0] \
-            + [(f"K seed{k['seed']} ({k['diem']})", k["anh"]) for k in K[1:]]
+        o = [(f"B nền ({L['lich_su'][0]['diem']:.1f})", anh_b)] \
+            + [(f"L vòng{h['vong']} ({h['diem']:.1f}{' LẪN' if h['lan'] else ''})", h["anh"])
+               for h in L["lich_su"] if h["vong"] > 0] \
+            + ([(f"R ảnh thật ({R['diem']:.1f})", R["anh"])] if R else []) \
+            + [(f"K seed{k['seed']} ({k['diem']:.1f})", k["anh"]) for k in K[1:]]
         grid(o, out_dir / "copilot.png", log=lambda *x: None)
-        log(f"\n  KẾT QUẢ {pid}:  B {L['lich_su'][0]['diem']}/{L['so_required']}"
-            f"  ·  L {L['diem']}/{L['so_required']} (vòng {L['vong_chon']}, {L['ly_do_dung']})"
-            f"  ·  K {bestK['diem']}/{L['so_required']} (seed {bestK['seed']})"
+        log(f"\n  KẾT QUẢ {pid} (thang 0-10):  B {L['lich_su'][0]['diem']:.1f}"
+            f"  ·  L {L['diem']:.1f} (vòng {L['vong_chon']}, {L['ly_do_dung']})"
+            + (f"  ·  R {R['diem']:.1f}" if R else "")
+            + f"  ·  K {bestK['diem']:.1f} (seed {bestK['seed']})"
             f"  ·  {dem[0]} ảnh sinh\n  -> {out_dir / 'copilot.json'}")
 
     print("\nCOPILOT_DONE", flush=True)

@@ -37,6 +37,11 @@ from pathlib import Path
 MAX_TOKENS = 25
 #: Critic chỉ được nêu tối đa chừng này lỗi. Nhiều hơn thì mệnh đề sửa dài và loãng.
 MAX_VIOLATIONS = 2
+#: Ngưỡng dừng, thang 0-10, lấy theo T2I-Copilot (ICCV'25): điểm > 8,0 là xong, không cần đủ điểm tối đa.
+#: Bắt phải đủ tối đa là lý do vòng lặp chạy hết số vòng rồi làm hỏng ảnh đã đúng.
+NGUONG_DAT = 8.0
+#: Mục dưới mức này coi như hỏng, đưa cho Refiner. 5/10 = "có nhưng sai nửa".
+NGUONG_HONG = 5.0
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 
@@ -575,69 +580,138 @@ def run_multi(agent, image: str, base_prompt: str, contract: dict, prompt_id: st
 # nhãn người, VQAScore theo prompt gốc, và tương đồng với ảnh thật cất riêng.
 
 CHECK_SYSTEM = (
-    "You answer one yes/no question about one photograph. Nothing else.\n"
+    "You rate how well ONE photograph matches ONE written statement. Nothing else.\n"
     "RULES, all mandatory:\n"
-    "- Judge ONLY the statement you are given, against what is visible in this photograph.\n"
+    "- Rate only the statement you are given, against what is visible in this photograph.\n"
+    "- score is 0 to 10.  10 = exactly as described.  8 = as described, minor deviation.\n"
+    "  5 = the thing is there but clearly differs from the description.\n"
+    "  2 = something else is in its place.  0 = nothing of the kind is there.\n"
+    "- Do not give a high score because the picture looks good, or because the object is\n"
+    "  roughly of the right family. Rate the specific thing the statement describes.\n"
+    "- If the part the statement is about lies OUTSIDE the picture — cut off by the frame,\n"
+    "  below or beyond the edge — set in_frame to false and do not guess a score.\n"
     "- Never name a country, culture or ethnicity in your answer.\n"
-    "- If the part the statement is about lies OUTSIDE the picture — cut off by the frame, below or\n"
-    "  beyond the edge — answer 'out_of_frame'. Do not guess what it would look like.\n"
-    "- If it is inside the picture but hidden, too small or too blurred to judge, answer 'unclear'.\n"
-    "- Answer 'no' only when the part IS visible and does not match. Answering 'no' because you\n"
-    "  cannot see it is a mistake, and so is answering 'yes' about something outside the frame.\n"
-    "- evidence: what you actually see at that place, at most 15 words. Never restate the statement."
+    "- evidence: what you actually see at that place, at most 15 words."
 )
 
 CHECK_SCHEMA = {"type": "object", "properties": {
-    "verdict": {"type": "string", "enum": ["yes", "no", "unclear", "out_of_frame"]},
-    "evidence": {"type": "string"}}, "required": ["verdict"]}
+    "in_frame": {"type": "boolean"}, "score": {"type": "number"},
+    "evidence": {"type": "string"}}, "required": ["in_frame"]}
 
 
-def _hoi_mot_muc(agent, image: str, cau: str, part: str, la_confusable: bool) -> dict:
+def _hoi_mot_muc(agent, image: str, cau: str, part: str) -> dict:
+    """Chấm MỘT mục contract trên thang 0-10.
+
+    Vì sao bỏ có/không: đo trên S001 ngày 2026-09-18, một tấm áo sơ mi trắng với quần ống rộng và một
+    tấm áo dài thật cùng được tính "có tà dài" nên hoà 3/4, tức thang nhị phân không phân biệt được hai
+    ảnh khác hẳn nhau. Thang 0-10 là luật của T2I-Copilot (ICCV'25) và cho vòng lặp một hướng dốc để đi.
+    """
     noi = f"Look closely at the {part} of the main subject.\n" if part else ""
-    hoi = ("Does the photograph show THAT OBJECT instead of the intended one?"
-           if la_confusable else "Is that statement true of this photograph?")
     d = _json(agent, CHECK_SYSTEM,
-              f"{noi}Statement: \"{cau}\"\n{hoi}\n"
-              'Return JSON: {"verdict": "yes" | "no" | "unclear", "evidence": ".."}',
+              f"{noi}Statement: \"{cau}\"\n"
+              "How fully does this photograph match that statement?\n"
+              'Return JSON: {"in_frame": true|false, "score": 0-10, "evidence": ".."}',
               CHECK_SCHEMA, images=[image], max_new_tokens=120)
-    v = str(d.get("verdict") or "").strip().lower()
-    return {"verdict": v if v in ("yes", "no", "unclear", "out_of_frame") else "unclear",
+    trong = bool(d.get("in_frame", True))
+    try:
+        sc = max(0.0, min(10.0, float(d.get("score"))))
+    except (TypeError, ValueError):
+        sc, trong = 0.0, False       # không đọc được điểm -> coi như không phán được, KHÔNG đoán bừa
+    return {"in_frame": trong, "score": sc if trong else None,
             "evidence": " ".join(str(d.get("evidence") or "").split())[:120]}
 
 
-def kiem_tung_muc(agent, image: str, contract: dict, log=print) -> dict:
-    """Rà TOÀN BỘ contract, mỗi mục một câu hỏi riêng. Trả bảng kết quả + điểm.
+CHON_SYSTEM = (
+    "You are shown one photograph and a numbered list of object descriptions.\n"
+    "Choose the ONE description that best matches the main subject as a WHOLE.\n"
+    "RULES, all mandatory:\n"
+    "- Judge the whole object, not single words. A description that matches only part of what you see\n"
+    "  is the WRONG answer.\n"
+    "- Never name a country, culture or ethnicity in your answer.\n"
+    "- If none of them matches the main subject, choose 0.\n"
+    "- evidence: the one detail that decided it, at most 15 words."
+)
 
-    `unclear` KHÔNG tính là thiếu. Lý do: ở S001 Critic từng báo thiếu quần chỉ vì mô tả không khẳng
-    định dứt khoát là có, rồi hệ thống đi sửa một thứ vốn không sai. Chỉ 'no' dứt khoát mới là thiếu.
+CHON_SCHEMA = {"type": "object", "properties": {
+    "choice": {"type": "integer"}, "evidence": {"type": "string"}}, "required": ["choice"]}
+
+
+def _chon_vat(agent, image: str, contract: dict, log=print) -> dict:
+    """Hỏi MỘT câu trắc nghiệm: vật trong ảnh giống thứ đúng hay giống một confusable?
+
+    Thay cho ba câu có/không riêng lẻ. Lý do đổi, đo trên S001 ngày 2026-09-18: hỏi riêng từng
+    confusable thì model khớp lẻ tẻ vài từ trong mô tả dài rồi gật, và bằng chứng nó tự viết lại nói
+    ngược với phán quyết của chính nó — 'hanbok: yes' kèm bằng chứng "no skirt visible", 'qipao: yes'
+    kèm bằng chứng "wide trousers visible" trong khi mô tả qipao ghi rõ là KHÔNG có quần rời. Vòng lặp
+    đuổi theo confusable ma suốt 4 vòng và điểm tụt từ 2/4 xuống 1/4.
+
+    Trắc nghiệm ép chọn MỘT, nên khớp lẻ tẻ không thể làm cháy hết mọi lựa chọn cùng lúc. Đây cũng
+    đúng dạng câu hỏi đã đo là bộ chấm làm được: một ảnh + lựa chọn bằng chữ.
+
+    Thứ tự lựa chọn xáo theo băm đường dẫn ảnh, để thiên lệch vị trí không dồn hết vào một phía.
     """
-    thieu, lan, bang = [], [], []
+    import hashlib
+
+    dung = "; ".join(r["description"] for r in contract.get("required", [])[:3])
+    ds = [("__dung__", f"{contract.get('entity', 'the intended object')}: {dung}")] + \
+         [(x["id"], x["description"]) for x in contract.get("confusables", [])]
+    k = int(hashlib.sha1(str(image).encode()).hexdigest(), 16)
+    ds = ds[k % len(ds):] + ds[:k % len(ds)]          # xoay vòng, lặp lại được
+    hoi = "\n".join(f"  {i + 1}. {t}" for i, (_, t) in enumerate(ds))
+    d = _json(agent, CHON_SYSTEM,
+              f"Which ONE of these best describes the main subject of this photograph?\n{hoi}\n"
+              f"  0. none of these\n"
+              'Return JSON: {"choice": <number>, "evidence": ".."}',
+              CHON_SCHEMA, images=[image], max_new_tokens=120)
+    try:
+        i = int(d.get("choice"))
+    except (TypeError, ValueError):
+        i = 0
+    cid = ds[i - 1][0] if 1 <= i <= len(ds) else "__khong__"
+    ev = " ".join(str(d.get("evidence") or "").split())[:120]
+    log(f"  [chọn vật] -> {cid} · {ev}")
+    return {"chon": cid, "evidence": ev, "thu_tu": [x for x, _ in ds]}
+
+
+def kiem_tung_muc(agent, image: str, contract: dict, log=print) -> dict:
+    """Rà toàn bộ contract: mỗi mục required một câu chấm 0-10, cộng MỘT câu trắc nghiệm confusable.
+
+    Điểm của ảnh = trung bình các mục PHÁN ĐƯỢC (mục ngoài khung bị loại khỏi mẫu số, không bị tính 0).
+    Lẫn confusable là CỬA CHẶN chứ không phải trừ điểm: còn lẫn thì không bao giờ được coi là đạt, dù
+    điểm trung bình có cao đến đâu — sinh ra nhầm hẳn vật khác không thể bù bằng chi tiết đúng.
+    """
+    bang, thieu = [], []
     for r in contract.get("required", []):
-        d = _hoi_mot_muc(agent, image, r["description"], str(r.get("part") or ""), False)
+        d = _hoi_mot_muc(agent, image, r["description"], str(r.get("part") or ""))
         bang.append({"contract_id": r["id"], "loai": "required", **d})
-        if d["verdict"] == "no":
-            thieu.append({"contract_id": r["id"], "evidence": d["evidence"], "severity": "major"})
+        if d["in_frame"] and d["score"] < NGUONG_HONG:
+            thieu.append({"contract_id": r["id"], "evidence": d["evidence"],
+                          "score": d["score"], "severity": "major"})
+
+    ch = _chon_vat(agent, image, contract, log)
+    lan = []
     for x in contract.get("confusables", []):
-        d = _hoi_mot_muc(agent, image, x["description"], "", True)
-        bang.append({"contract_id": x["id"], "loai": "confusable", **d})
-        if d["verdict"] == "yes":
-            lan.append({"contract_id": x["id"], "evidence": d["evidence"], "severity": "major"})
-    # Mẫu số chỉ đếm mục PHÁN ĐƯỢC. Đo trên S001: khung hình cắt ngang hông, 2/3 mục required nói về
-    # phần dưới nên nằm ngoài khung, còn mục thứ ba bị chấm 'yes' với bằng chứng bịa ('loose panels'
-    # trong khi cổ chân không có trong khung). Để mục ngoài khung trong mẫu số thì điểm không bao giờ
-    # đầy, vòng lặp chạy hết số vòng để đuổi theo thứ không nhìn thấy được, và bộ lọc khung hình lại
-    # cấm Refiner đụng vào bố cục — đúng một cái bẫy chết.
+        trung = ch["chon"] == x["id"]
+        bang.append({"contract_id": x["id"], "loai": "confusable",
+                     "verdict": "yes" if trung else "no", "evidence": ch["evidence"] if trung else ""})
+        if trung:
+            lan.append({"contract_id": x["id"], "evidence": ch["evidence"], "severity": "major"})
+    bang.append({"contract_id": "__chon__", "loai": "chon", "verdict": ch["chon"],
+                 "evidence": ch["evidence"], "thu_tu": ch["thu_tu"]})
+
     req = [b for b in bang if b["loai"] == "required"]
-    ngoai = [b["contract_id"] for b in req if b["verdict"] == "out_of_frame"]
-    phan_duoc = [b for b in req if b["verdict"] in ("yes", "no")]
-    dat = sum(1 for b in phan_duoc if b["verdict"] == "yes")
-    ket = {"bang": bang, "thieu": thieu, "lan": lan, "so_dat": dat,
-           "so_required": len(contract.get("required", [])), "ngoai_khung": ngoai,
-           "so_phan_duoc": len(phan_duoc), "diem": dat - len(lan), "diem_toi_da": len(phan_duoc)}
-    log(f"  [rà contract] đạt {dat}/{len(phan_duoc)} phán được"
+    ngoai = [b["contract_id"] for b in req if not b["in_frame"]]
+    phan_duoc = [b for b in req if b["in_frame"]]
+    diem = round(sum(b["score"] for b in phan_duoc) / len(phan_duoc), 2) if phan_duoc else 0.0
+    thieu.sort(key=lambda t: t["score"])          # hỏng nặng nhất lên trước
+    ket = {"bang": bang, "thieu": thieu, "lan": lan, "diem": diem,
+           "so_phan_duoc": len(phan_duoc), "so_required": len(contract.get("required", [])),
+           "ngoai_khung": ngoai, "dat": diem >= NGUONG_DAT and not lan}
+    log(f"  [rà contract] điểm {diem:.1f}/10 trên {len(phan_duoc)} mục"
         f"{' (ngoài khung: ' + ', '.join(ngoai) + ')' if ngoai else ''}"
-        f" · thiếu {[t['contract_id'] for t in thieu]} · lẫn {[l['contract_id'] for l in lan]}"
-        f" · điểm {ket['diem']}/{ket['diem_toi_da']}")
+        + "  " + " ".join(f"{b['contract_id']}={b['score']:.0f}" for b in phan_duoc)
+        + (f" · LẪN {[l['contract_id'] for l in lan]}" if lan else "")
+        + ("  -> ĐẠT" if ket["dat"] else ""))
     return ket
 
 
@@ -646,7 +720,8 @@ def _m2_tu_check(ket: dict, contract: dict) -> dict:
 
     Cái LẪN xếp trước cái THIẾU: sinh ra nhầm hẳn vật khác là hỏng nặng hơn là thiếu một chi tiết.
     """
-    dat = {b["contract_id"] for b in ket["bang"] if b["loai"] == "required" and b["verdict"] == "yes"}
+    dat = {b["contract_id"] for b in ket["bang"]
+           if b["loai"] == "required" and b.get("in_frame") and b["score"] >= NGUONG_DAT}
     return {"violations": (ket["lan"] + ket["thieu"])[:MAX_VIOLATIONS],
             "preserve": [next(r["description"] for r in contract["required"] if r["id"] == i)
                          for i in list(dat)[:5]],
@@ -658,13 +733,22 @@ def run_loop(agent, sinh, i0: str, base_prompt: str, contract: dict, orig_en: st
              prompt_id: str = "", max_vong: int = 4, kien_nhan: int = 3, log=print) -> dict:
     """Vòng lặp rà-sửa-sinh lại, dừng khi đủ required và hết lẫn confusable, hoặc khi chững.
 
-    `sinh(prompt_terms, negative, sub) -> đường dẫn ảnh` do người gọi cung cấp và PHẢI giữ NGUYÊN SEED
+    `sinh(prompt_terms, negative, sub, dung_ref) -> đường dẫn ảnh` do người gọi cung cấp và PHẢI giữ NGUYÊN SEED
     qua mọi vòng: chỉ câu prompt được đổi. Đổi seed thì mỗi vòng là một lần bốc thăm mới, và "vòng lặp
     hơn nhánh nền" sẽ chỉ là chuyện sinh nhiều rồi chọn — đã đo: best-of-4 bốc thăm thắng vòng lặp cũ ở
     2/3 prompt khi cùng ngân sách.
 
     Mệnh đề sửa mỗi vòng THAY THẾ mệnh đề vòng trước, không cộng dồn. Cộng dồn thì 3 vòng × 25 từ vượt
     77 token CLIP, phần đuôi thành vô tác dụng, mà đó lại đúng là phần vừa viết.
+
+    Từ vòng 1 trở đi sinh KÈM ẢNH THẬT qua IP-Adapter (`dung_ref=True`), đúng như lô pilotC/loopC2 đã
+    làm. Lý do có số: ở lô đó iter0 chạy không ref cho ra áo hoa văn Trung Quốc, còn iter1-3 chạy
+    `sdxl_base_ref` với 3 ảnh `selected/S001/` cho ra áo dài trắng đúng chuẩn. Thứ sửa được ảnh là ẢNH
+    THẬT, không phải lời phê bình — nên bỏ nó đi là bỏ mất cần gạt mạnh nhất.
+
+    Vòng 0 KHÔNG ref, để nó trùng đúng nhánh nền B và hiệu số đo được. Và vì vòng lặp nay dùng ảnh thật,
+    nhánh R (ảnh thật, không agent) trở thành mốc BẮT BUỘC: thiếu R thì mọi cải thiện đều quy về ảnh
+    thật được, không nói được gì về agent.
 
     Trả về ảnh có điểm cao nhất; hoà điểm thì lấy vòng SỚM NHẤT, vì càng sửa càng xa ảnh gốc.
     """
@@ -674,19 +758,20 @@ def run_loop(agent, sinh, i0: str, base_prompt: str, contract: dict, orig_en: st
     for vong in range(max_vong):
         ket = kiem_tung_muc(agent, anh, contract, log)
         lich_su.append({"vong": vong, "anh": anh, "clause": clause, "negative": neg,
-                        "diem": ket["diem"], "so_dat": ket["so_dat"], "so_required": ket["so_required"],
+                        "diem": ket["diem"], "dat": ket["dat"], "so_phan_duoc": ket["so_phan_duoc"],
+                        "so_required": ket["so_required"], "ngoai_khung": ket["ngoai_khung"],
                         "thieu": [t["contract_id"] for t in ket["thieu"]],
                         "lan": [l["contract_id"] for l in ket["lan"]], "bang": ket["bang"]})
         if ket["diem"] > tot_nhat:
             tot_nhat, chung = ket["diem"], 0
         else:
             chung += 1
-        if ket["diem_toi_da"] == 0 and not ket["lan"]:
+        if ket["so_phan_duoc"] == 0 and not ket["lan"]:
             ly_do = ("không mục required nào phán được trong khung này ("
                      + ", ".join(ket["ngoai_khung"]) + ") -> contract lệch khung hình, không phải lỗi agent")
             break
-        if ket["diem"] >= ket["diem_toi_da"]:
-            ly_do = "đủ required, không lẫn confusable"
+        if ket["dat"]:
+            ly_do = f"điểm {ket['diem']:.1f} >= ngưỡng {NGUONG_DAT}, không lẫn confusable"
             break
         if chung >= kien_nhan:
             ly_do = f"{kien_nhan} vòng liền không khá hơn"
@@ -699,16 +784,20 @@ def run_loop(agent, sinh, i0: str, base_prompt: str, contract: dict, orig_en: st
             break
         clause, neg = m3["repair_clause"], m3.get("negative_terms") or []
         full, _ = append_repair(base_prompt, clause, orig_en)
-        moi = sinh([full], neg, f"vong{vong + 1}")
+        moi = sinh([full], neg, f"vong{vong + 1}", True)
         if not moi:
             ly_do = "sinh ảnh hỏng"
             break
         anh = moi
 
-    best = min(lich_su, key=lambda h: (len(h["thieu"]) + len(h["lan"]), -h["diem"], h["vong"]))
+    # T2I-Copilot hết vòng thì trả ảnh MỚI NHẤT. Ở đây trả ảnh TỐT NHẤT: đã đo được ảnh vòng cuối tệ
+    # hơn hẳn vòng 0 (S001, vòng lặp bỏ mất tà áo dài mà điểm nhị phân vẫn tăng).
+    best = min(lich_su, key=lambda h: (bool(h["lan"]), -h["diem"], h["vong"]))
     log(f"  [vòng lặp] {len(lich_su)} vòng · dừng vì {ly_do} · "
-        f"chọn vòng {best['vong']} điểm {best['diem']}/{best['so_required']}")
+        f"chọn vòng {best['vong']} điểm {best['diem']:.1f}/10"
+        + (f" (còn lẫn {best['lan']})" if best["lan"] else ""))
     return {"prompt_id": prompt_id, "anh": best["anh"], "vong_chon": best["vong"],
-            "diem": best["diem"], "diem_dau": lich_su[0]["diem"], "so_required": best["so_required"],
+            "diem": best["diem"], "dat": best["dat"], "lan": best["lan"],
+            "diem_dau": lich_su[0]["diem"], "so_required": best["so_required"],
             "clause": best["clause"], "negative": best["negative"],
             "so_vong": len(lich_su), "ly_do_dung": ly_do, "lich_su": lich_su}

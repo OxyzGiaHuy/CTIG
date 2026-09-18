@@ -360,16 +360,34 @@ REFINER_SCHEMA = {"type": "object", "properties": {
     "required": ["repair_clause"]}
 
 
+def _muc_can_sua(v: dict, contract: dict) -> str:
+    """Một dòng cho Refiner. Mục REQUIRED và mục CONFUSABLE phải diễn đạt NGƯỢC NHAU.
+
+    Lỗi đã mắc và đã thấy tận mắt ở S001: bản đầu tra mô tả theo `contract_id` ở CẢ HAI danh sách rồi
+    ghép "should show <mô tả>". Với confusable thì mô tả là thứ KHÔNG ĐƯỢC CÓ, nên khi bộ rà bắt đúng
+    'centre_front_frog_buttons', Refiner viết ra "The áo dài has a row of knotted cloth frog buttons
+    down the middle of the chest" — tức bảo model vẽ thêm đúng cái sai vừa bắt được. Vòng sau lặp lại
+    với 'qipao_cheongsam'. Đây là kiểu lỗi im lặng: ảnh vẫn sinh ra, log vẫn đẹp, chỉ có kết quả là
+    ngược.
+    """
+    cid = v["contract_id"]
+    bc = f"   (evidence: {v['evidence'][:90]})"
+    r = next((x for x in contract.get("required", []) if x["id"] == cid), None)
+    if r:
+        return f"  - {cid}: should show {r['description']}{bc}"
+    c = next((x for x in contract.get("confusables", []) if x["id"] == cid), None)
+    if c:
+        muon = "; ".join(x["description"] for x in contract.get("required", [])[:3])
+        return (f"  - {cid}: the picture currently shows the WRONG OBJECT, namely {c['description']}. "
+                f"Do not describe that. Describe the intended object: {muon}{bc}")
+    return f"  - {cid}: unknown contract id{bc}"
+
+
 def refine(agent, base_prompt: str, m2: dict, contract: dict, log=print) -> dict:
     """A3: viết mệnh đề sửa. KHÔNG được viết lại cả cảnh — prompt gốc là bất biến."""
     if not m2.get("violations"):
         return {"repair_clause": "", "negative_terms": []}
-    want = "\n".join(
-        f"  - {v['contract_id']}: should show "
-        + next((r["description"] for r in contract.get("required", []) if r["id"] == v["contract_id"]),
-               next((c["description"] for c in contract.get("confusables", []) if c["id"] == v["contract_id"]), ""))
-        + f"   (evidence: {v['evidence'][:90]})"
-        for v in m2["violations"])
+    want = "\n".join(_muc_can_sua(v, contract) for v in m2["violations"])
     d = _json(agent, REFINER_SYSTEM,
               f"BASE PROMPT (immutable, do not rewrite):\n{base_prompt[:600]}\n\n"
               f"MUST BE REPAIRED:\n{want}\n\nMUST BE PRESERVED: {', '.join(m2.get('preserve') or []) or '(none)'}\n\n"
@@ -382,7 +400,13 @@ def refine(agent, base_prompt: str, m2: dict, contract: dict, log=print) -> dict
     if low & {"not", "no", "without", "instead", "never", "avoid"}:
         log(f"  [A3 Refiner] mệnh đề còn phủ định -> bỏ: {clause[:60]}")
         clause = ""
-    neg = _bo_negative_pha_prompt(neg, base_prompt, contract, log)
+    ten_conf = {x["id"] for x in contract.get("confusables", [])}
+    for v in m2["violations"]:
+        if v["contract_id"] in ten_conf:
+            t = v["contract_id"].replace("_", " ")
+            if t not in neg:
+                neg.append(t)          # tên, không phải mô tả: mô tả confusable hay chứa 'no/without'
+    neg = _bo_negative_pha_prompt(neg[:5], base_prompt, contract, log)
     clause, neg = _bo_khung_hinh(clause, neg, log)
     m3 = {"repair_clause": clause, "negative_terms": neg}
     log(f"  [A3 Refiner] '{clause[:70]}' · negative {neg}")
@@ -537,3 +561,154 @@ def run_multi(agent, image: str, base_prompt: str, contract: dict, prompt_id: st
     t.negative_terms = t.m3.get("negative_terms") or []
     t.noop = False
     return t
+
+# ==================================================================== bản rút gọn kiểu T2I-Copilot
+# Critic tự do viết `violations` có hai chỗ yếu đo được: nó chỉ nêu tối đa 2 lỗi nên phần lớn contract
+# không bao giờ được rà, và nó gần như không bao giờ tự nhắc tới `confusables` (nhánh M no-op 53%, lý do
+# áp đảo là Refiner không có gì hợp lệ để viết). Ở đây đổi sang HỎI TỪNG MỤC một câu có/không trên MỘT
+# ảnh với lựa chọn bằng chữ — đúng dạng câu hỏi mà Mistral làm được: đo ngày 2026-09-17, nó tin cậy ở
+# dạng một-ảnh-cộng-lựa-chọn nhưng thiên lệch vị trí 0,42 ở dạng so hai ảnh.
+#
+# CẢNH BÁO PHƯƠNG PHÁP, đừng quên khi viết bài: `diem()` tính TỪ contract, mà vòng lặp lại tối ưu thẳng
+# vào nó. Nên "điểm sau >= điểm trước" là ĐỒNG NHẤT THỨC, không phải kết quả — đúng cái lỗi đã giết vòng
+# lặp ba lượt cũ. Điểm này chỉ được dùng để LÁI vòng lặp và để dừng sớm; kết luận của bài phải đứng trên
+# nhãn người, VQAScore theo prompt gốc, và tương đồng với ảnh thật cất riêng.
+
+CHECK_SYSTEM = (
+    "You answer one yes/no question about one photograph. Nothing else.\n"
+    "RULES, all mandatory:\n"
+    "- Judge ONLY the statement you are given, against what is visible in this photograph.\n"
+    "- Never name a country, culture or ethnicity in your answer.\n"
+    "- If the part the statement is about lies OUTSIDE the picture — cut off by the frame, below or\n"
+    "  beyond the edge — answer 'out_of_frame'. Do not guess what it would look like.\n"
+    "- If it is inside the picture but hidden, too small or too blurred to judge, answer 'unclear'.\n"
+    "- Answer 'no' only when the part IS visible and does not match. Answering 'no' because you\n"
+    "  cannot see it is a mistake, and so is answering 'yes' about something outside the frame.\n"
+    "- evidence: what you actually see at that place, at most 15 words. Never restate the statement."
+)
+
+CHECK_SCHEMA = {"type": "object", "properties": {
+    "verdict": {"type": "string", "enum": ["yes", "no", "unclear", "out_of_frame"]},
+    "evidence": {"type": "string"}}, "required": ["verdict"]}
+
+
+def _hoi_mot_muc(agent, image: str, cau: str, part: str, la_confusable: bool) -> dict:
+    noi = f"Look closely at the {part} of the main subject.\n" if part else ""
+    hoi = ("Does the photograph show THAT OBJECT instead of the intended one?"
+           if la_confusable else "Is that statement true of this photograph?")
+    d = _json(agent, CHECK_SYSTEM,
+              f"{noi}Statement: \"{cau}\"\n{hoi}\n"
+              'Return JSON: {"verdict": "yes" | "no" | "unclear", "evidence": ".."}',
+              CHECK_SCHEMA, images=[image], max_new_tokens=120)
+    v = str(d.get("verdict") or "").strip().lower()
+    return {"verdict": v if v in ("yes", "no", "unclear", "out_of_frame") else "unclear",
+            "evidence": " ".join(str(d.get("evidence") or "").split())[:120]}
+
+
+def kiem_tung_muc(agent, image: str, contract: dict, log=print) -> dict:
+    """Rà TOÀN BỘ contract, mỗi mục một câu hỏi riêng. Trả bảng kết quả + điểm.
+
+    `unclear` KHÔNG tính là thiếu. Lý do: ở S001 Critic từng báo thiếu quần chỉ vì mô tả không khẳng
+    định dứt khoát là có, rồi hệ thống đi sửa một thứ vốn không sai. Chỉ 'no' dứt khoát mới là thiếu.
+    """
+    thieu, lan, bang = [], [], []
+    for r in contract.get("required", []):
+        d = _hoi_mot_muc(agent, image, r["description"], str(r.get("part") or ""), False)
+        bang.append({"contract_id": r["id"], "loai": "required", **d})
+        if d["verdict"] == "no":
+            thieu.append({"contract_id": r["id"], "evidence": d["evidence"], "severity": "major"})
+    for x in contract.get("confusables", []):
+        d = _hoi_mot_muc(agent, image, x["description"], "", True)
+        bang.append({"contract_id": x["id"], "loai": "confusable", **d})
+        if d["verdict"] == "yes":
+            lan.append({"contract_id": x["id"], "evidence": d["evidence"], "severity": "major"})
+    # Mẫu số chỉ đếm mục PHÁN ĐƯỢC. Đo trên S001: khung hình cắt ngang hông, 2/3 mục required nói về
+    # phần dưới nên nằm ngoài khung, còn mục thứ ba bị chấm 'yes' với bằng chứng bịa ('loose panels'
+    # trong khi cổ chân không có trong khung). Để mục ngoài khung trong mẫu số thì điểm không bao giờ
+    # đầy, vòng lặp chạy hết số vòng để đuổi theo thứ không nhìn thấy được, và bộ lọc khung hình lại
+    # cấm Refiner đụng vào bố cục — đúng một cái bẫy chết.
+    req = [b for b in bang if b["loai"] == "required"]
+    ngoai = [b["contract_id"] for b in req if b["verdict"] == "out_of_frame"]
+    phan_duoc = [b for b in req if b["verdict"] in ("yes", "no")]
+    dat = sum(1 for b in phan_duoc if b["verdict"] == "yes")
+    ket = {"bang": bang, "thieu": thieu, "lan": lan, "so_dat": dat,
+           "so_required": len(contract.get("required", [])), "ngoai_khung": ngoai,
+           "so_phan_duoc": len(phan_duoc), "diem": dat - len(lan), "diem_toi_da": len(phan_duoc)}
+    log(f"  [rà contract] đạt {dat}/{len(phan_duoc)} phán được"
+        f"{' (ngoài khung: ' + ', '.join(ngoai) + ')' if ngoai else ''}"
+        f" · thiếu {[t['contract_id'] for t in thieu]} · lẫn {[l['contract_id'] for l in lan]}"
+        f" · điểm {ket['diem']}/{ket['diem_toi_da']}")
+    return ket
+
+
+def _m2_tu_check(ket: dict, contract: dict) -> dict:
+    """Đổi bảng rà thành đúng dạng `m2` mà `refine()` đã nhận, để không phải viết lại Refiner.
+
+    Cái LẪN xếp trước cái THIẾU: sinh ra nhầm hẳn vật khác là hỏng nặng hơn là thiếu một chi tiết.
+    """
+    dat = {b["contract_id"] for b in ket["bang"] if b["loai"] == "required" and b["verdict"] == "yes"}
+    return {"violations": (ket["lan"] + ket["thieu"])[:MAX_VIOLATIONS],
+            "preserve": [next(r["description"] for r in contract["required"] if r["id"] == i)
+                         for i in list(dat)[:5]],
+            "repair_priority": [v["contract_id"] for v in ket["lan"] + ket["thieu"]]}
+
+
+
+def run_loop(agent, sinh, i0: str, base_prompt: str, contract: dict, orig_en: str = "",
+             prompt_id: str = "", max_vong: int = 4, kien_nhan: int = 3, log=print) -> dict:
+    """Vòng lặp rà-sửa-sinh lại, dừng khi đủ required và hết lẫn confusable, hoặc khi chững.
+
+    `sinh(prompt_terms, negative, sub) -> đường dẫn ảnh` do người gọi cung cấp và PHẢI giữ NGUYÊN SEED
+    qua mọi vòng: chỉ câu prompt được đổi. Đổi seed thì mỗi vòng là một lần bốc thăm mới, và "vòng lặp
+    hơn nhánh nền" sẽ chỉ là chuyện sinh nhiều rồi chọn — đã đo: best-of-4 bốc thăm thắng vòng lặp cũ ở
+    2/3 prompt khi cùng ngân sách.
+
+    Mệnh đề sửa mỗi vòng THAY THẾ mệnh đề vòng trước, không cộng dồn. Cộng dồn thì 3 vòng × 25 từ vượt
+    77 token CLIP, phần đuôi thành vô tác dụng, mà đó lại đúng là phần vừa viết.
+
+    Trả về ảnh có điểm cao nhất; hoà điểm thì lấy vòng SỚM NHẤT, vì càng sửa càng xa ảnh gốc.
+    """
+    lich_su, anh, clause, neg = [], i0, "", []
+    tot_nhat, chung = -99, 0
+    ly_do = "hết số vòng"
+    for vong in range(max_vong):
+        ket = kiem_tung_muc(agent, anh, contract, log)
+        lich_su.append({"vong": vong, "anh": anh, "clause": clause, "negative": neg,
+                        "diem": ket["diem"], "so_dat": ket["so_dat"], "so_required": ket["so_required"],
+                        "thieu": [t["contract_id"] for t in ket["thieu"]],
+                        "lan": [l["contract_id"] for l in ket["lan"]], "bang": ket["bang"]})
+        if ket["diem"] > tot_nhat:
+            tot_nhat, chung = ket["diem"], 0
+        else:
+            chung += 1
+        if ket["diem_toi_da"] == 0 and not ket["lan"]:
+            ly_do = ("không mục required nào phán được trong khung này ("
+                     + ", ".join(ket["ngoai_khung"]) + ") -> contract lệch khung hình, không phải lỗi agent")
+            break
+        if ket["diem"] >= ket["diem_toi_da"]:
+            ly_do = "đủ required, không lẫn confusable"
+            break
+        if chung >= kien_nhan:
+            ly_do = f"{kien_nhan} vòng liền không khá hơn"
+            break
+        if vong == max_vong - 1:
+            break
+        m3 = refine(agent, base_prompt, _m2_tu_check(ket, contract), contract, log)
+        if not m3.get("repair_clause"):
+            ly_do = "Refiner không viết được mệnh đề hợp lệ"
+            break
+        clause, neg = m3["repair_clause"], m3.get("negative_terms") or []
+        full, _ = append_repair(base_prompt, clause, orig_en)
+        moi = sinh([full], neg, f"vong{vong + 1}")
+        if not moi:
+            ly_do = "sinh ảnh hỏng"
+            break
+        anh = moi
+
+    best = min(lich_su, key=lambda h: (len(h["thieu"]) + len(h["lan"]), -h["diem"], h["vong"]))
+    log(f"  [vòng lặp] {len(lich_su)} vòng · dừng vì {ly_do} · "
+        f"chọn vòng {best['vong']} điểm {best['diem']}/{best['so_required']}")
+    return {"prompt_id": prompt_id, "anh": best["anh"], "vong_chon": best["vong"],
+            "diem": best["diem"], "diem_dau": lich_su[0]["diem"], "so_required": best["so_required"],
+            "clause": best["clause"], "negative": best["negative"],
+            "so_vong": len(lich_su), "ly_do_dung": ly_do, "lich_su": lich_su}

@@ -4,19 +4,34 @@
   "entity_vi": "áo dài",
   "required": [
    {
+    "id": "high_mandarin_collar",
+    "description": "a high stiff collar standing close round the neck",
+    "part": "collar",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
+    "id": "side_opening_not_centre",
+    "description": "the fastening running from the neck along one side to the underarm",
+    "part": "front opening",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
     "id": "side_slits_at_waist",
     "description": "side slits from the waist making front and back panels",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i",
+    "part": "side slits"
    },
    {
     "id": "worn_over_trousers",
     "description": "worn over separate long wide-legged trousers",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i",
+    "part": "trousers"
    },
    {
     "id": "ankle_length_panels",
     "description": "loose panels hanging down to near the ankles",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i",
+    "part": "panels"
    }
   ],
   "confusables": [
@@ -34,6 +49,11 @@
     "id": "hanbok",
     "description": "a short jacket over a wide high-waisted flared skirt",
     "culture": "Korean"
+   },
+   {
+    "id": "centre_front_frog_buttons",
+    "description": "a row of knotted cloth frog buttons down the middle of the chest",
+    "culture": "Chinese"
    }
   ]
  },
@@ -44,17 +64,20 @@
    {
     "id": "pole_on_one_shoulder",
     "description": "a long springy pole resting on one shoulder",
-    "source": "https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A0ng_rong"
+    "source": "https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A0ng_rong",
+    "part": "pole|shoulder"
    },
    {
     "id": "two_loads_at_pole_ends",
     "description": "two loads hanging one at each end of the pole",
-    "source": "https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A0ng_rong"
+    "source": "https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A0ng_rong",
+    "part": "pole"
    },
    {
     "id": "containers_at_both_ends",
     "description": "baskets, flat trays, wooden boxes or small glass cases",
-    "source": "người Việt xác nhận 2026-09-18"
+    "source": "người Việt xác nhận 2026-09-18",
+    "part": "baskets|trays"
    }
   ],
   "confusables": [
@@ -82,17 +105,20 @@
    {
     "id": "flat_rice_noodles",
     "description": "flat white rice noodles cut from thin sheets",
-    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F",
+    "part": "noodles"
    },
    {
     "id": "clear_broth",
     "description": "clear thin broth, not milky or thickened",
-    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F",
+    "part": "broth"
    },
    {
     "id": "thin_sliced_beef",
     "description": "thin slices of beef laid over the noodles",
-    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F",
+    "part": "beef|noodles"
    },
    {
     "id": "scallion_and_onion_on_top",
@@ -132,17 +158,20 @@
    {
     "id": "dong_leaf_wrapper",
     "description": "wrapped in broad dark green dong leaves",
-    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng",
+    "part": "leaves"
    },
    {
     "id": "bamboo_strip_ties",
     "description": "tied with flat bamboo strips crossing in a grid",
-    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng",
+    "part": "bamboo|grid"
    },
    {
     "id": "folded_leaf_corners",
     "description": "leaf folded into sharp flat corners on top",
-    "source": "CHƯA CÓ NGUỒN"
+    "source": "CHƯA CÓ NGUỒN",
+    "part": "corners"
    }
   ],
   "confusables": [
@@ -170,7 +199,8 @@
    {
     "id": "single_stone_pillar",
     "description": "the whole structure resting on one stone pillar",
-    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t",
+    "part": "pillar"
    },
    {
     "id": "small_square_pavilion",
@@ -181,17 +211,20 @@
    {
     "id": "upturned_tile_roof",
     "description": "a tiled roof with four upturned curved corners",
-    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t",
+    "part": "roof|corners"
    },
    {
     "id": "standing_in_pond",
     "description": "rising from the middle of a small pond",
-    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t",
+    "part": "pond"
    },
    {
     "id": "narrow_stone_stairway",
     "description": "a narrow stone stairway climbing to the pavilion door",
-    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t"
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_M%E1%BB%99t_C%E1%BB%99t",
+    "part": "stairway"
    }
   ],
   "confusables": [
@@ -214,12 +247,14 @@
    {
     "id": "silk_over_bamboo_ribs",
     "description": "silk stretched over slender curved bamboo ribs",
-    "source": "http://vanhoanghethuat.vn/nghe-thuat-trang-tri-long-den-hoi-an-gia-tri-can-bao-ton-va-phat-trien.htm"
+    "source": "http://vanhoanghethuat.vn/nghe-thuat-trang-tri-long-den-hoi-an-gia-tri-can-bao-ton-va-phat-trien.htm",
+    "part": "silk|bamboo|ribs"
    },
    {
     "id": "many_lantern_colours",
     "description": "lanterns glowing in many different colours, not only red",
-    "source": "http://vanhoanghethuat.vn/nghe-thuat-trang-tri-long-den-hoi-an-gia-tri-can-bao-ton-va-phat-trien.htm"
+    "source": "http://vanhoanghethuat.vn/nghe-thuat-trang-tri-long-den-hoi-an-gia-tri-can-bao-ton-va-phat-trien.htm",
+    "part": "lanterns|colours"
    },
    {
     "id": "lit_from_inside",
@@ -253,7 +288,8 @@
    {
     "id": "single_string",
     "description": "exactly one string running along the instrument",
-    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u",
+    "part": "string"
    },
    {
     "id": "flexible_rod_at_one_end",
@@ -305,12 +341,14 @@
    {
     "id": "puppets_on_water_surface",
     "description": "puppets standing half submerged on open water",
-    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc",
+    "part": "puppets|water"
    },
    {
     "id": "water_pavilion_behind",
     "description": "a tiled-roof pavilion rising out of the pond behind",
-    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc",
+    "part": "pond"
    },
    {
     "id": "curtain_hides_operators",
@@ -321,12 +359,14 @@
    {
     "id": "no_strings_above_puppets",
     "description": "no rods or strings visible above the puppets",
-    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc",
+    "part": "strings|puppets"
    },
    {
     "id": "lacquered_wooden_puppets",
     "description": "carved wooden puppets with glossy painted lacquer",
-    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc",
+    "part": "puppets"
    }
   ],
   "confusables": [
@@ -354,22 +394,26 @@
    {
     "id": "round_hull",
     "description": "a circular bowl-shaped hull",
-    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng",
+    "part": "hull"
    },
    {
     "id": "woven_bamboo",
     "description": "visible woven bamboo strips forming the body",
-    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng",
+    "part": "bamboo"
    },
    {
     "id": "no_bow_or_stern",
     "description": "low curved sides without a pointed bow or stern",
-    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng",
+    "part": "sides|bow|stern"
    },
    {
     "id": "thick_rim_ring",
     "description": "a thick bamboo or wooden ring around the top edge",
-    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng"
+    "source": "https://vi.wikipedia.org/wiki/Thuy%E1%BB%81n_th%C3%BAng",
+    "part": "bamboo"
    },
    {
     "id": "hand_paddled",
@@ -403,22 +447,26 @@
    {
     "id": "passenger_seat_in_front",
     "description": "the passenger seat sits ahead of the driver",
-    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4",
+    "part": "seat"
    },
    {
     "id": "driver_pedals_behind",
     "description": "the driver pedals on a raised saddle at the back",
-    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4",
+    "part": "pedals"
    },
    {
     "id": "three_wheels_two_in_front",
     "description": "three wheels, two of them under the front seat",
-    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4",
+    "part": "wheels|seat"
    },
    {
     "id": "pedal_powered_no_engine",
     "description": "bicycle pedals and chain, no engine",
-    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+    "source": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4",
+    "part": "pedals"
    }
   ],
   "confusables": [
@@ -446,17 +494,20 @@
    {
     "id": "bamboo_sample_pole",
     "description": "a tall bamboo pole on the bow hanging sample produce",
-    "source": "https://en.wikipedia.org/wiki/C%C3%A1i_R%C4%83ng_Floating_Market"
+    "source": "https://en.wikipedia.org/wiki/C%C3%A1i_R%C4%83ng_Floating_Market",
+    "part": "bamboo|pole|bow"
    },
    {
     "id": "produce_laden_wooden_boats",
     "description": "long wooden boats piled with fruit and vegetables",
-    "source": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1%BB%95i"
+    "source": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1%BB%95i",
+    "part": "boats"
    },
    {
     "id": "boats_clustered_on_open_river",
     "description": "boats crowded together on a wide open river",
-    "source": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1%BB%95i"
+    "source": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1%BB%95i",
+    "part": "boats"
    },
    {
     "id": "no_land_stalls",
@@ -485,17 +536,20 @@
    {
     "id": "women_wide_flat_hats",
     "description": "women wearing very wide flat-brimmed round hats",
-    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183"
+    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183",
+    "part": "hats"
    },
    {
     "id": "women_headscarf",
     "description": "women wearing a dark folded headscarf under the hat",
-    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183"
+    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183",
+    "part": "headscarf|hat"
    },
    {
     "id": "women_layered_tunics",
     "description": "women in several layered tunics of different colours",
-    "source": "https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D"
+    "source": "https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D",
+    "part": "colours"
    }
   ],
   "confusables": [
@@ -523,7 +577,8 @@
    {
     "id": "hand_carried_bronze_gongs",
     "description": "flat bronze gongs each carried in one hand",
-    "source": "https://ich.unesco.org/en/RL/space-of-gong-culture-00120"
+    "source": "https://ich.unesco.org/en/RL/space-of-gong-culture-00120",
+    "part": "gongs"
    },
    {
     "id": "one_gong_per_player",
@@ -534,7 +589,8 @@
    {
     "id": "gongs_not_on_stands",
     "description": "gongs held by the rim, not mounted on racks",
-    "source": "https://ich.unesco.org/en/RL/space-of-gong-culture-00120"
+    "source": "https://ich.unesco.org/en/RL/space-of-gong-culture-00120",
+    "part": "gongs|rim"
    },
    {
     "id": "struck_with_mallet_or_fist",
@@ -574,12 +630,14 @@
    {
     "id": "wide_flat_disc_brim",
     "description": "a very wide flat disc brim, no pointed top",
-    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao"
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao",
+    "part": "brim"
    },
    {
     "id": "shallow_downturned_rim",
     "description": "a shallow rim turned down around the outer edge",
-    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao"
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao",
+    "part": "rim"
    },
    {
     "id": "inner_head_ring",
@@ -590,7 +648,8 @@
    {
     "id": "silk_tassel_cords",
     "description": "thick coloured silk tassel cords hanging from the brim",
-    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao"
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_quai_thao",
+    "part": "silk|brim"
    }
   ],
   "confusables": [
@@ -618,12 +677,14 @@
    {
     "id": "small_checkered_grid",
     "description": "a grid of small squares from crossing stripes",
-    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n"
+    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n",
+    "part": "grid"
    },
    {
     "id": "only_two_colours",
     "description": "only two alternating colours, any pair",
-    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n"
+    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n",
+    "part": "colours"
    },
    {
     "id": "long_narrow_rectangle",
@@ -669,7 +730,8 @@
    {
     "id": "sash_tied_at_waist",
     "description": "a long cloth sash tied round the waist",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n",
+    "part": "sash"
    },
    {
     "id": "below_knee_length",
@@ -680,7 +742,8 @@
    {
     "id": "no_front_buttons",
     "description": "no buttons or fastening down the centre front",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n",
+    "part": "buttons"
    }
   ],
   "confusables": [
@@ -698,6 +761,1748 @@
     "id": "ao_dai",
     "description": "a fitted closed tunic over trousers, slit only at the hips",
     "culture": "Vietnamese (different garment, NOT ao tu than)"
+   }
+  ]
+ },
+ "S005": {
+  "entity": "Vietnamese banh mi sandwich",
+  "entity_vi": "bánh mì",
+  "required": [
+   {
+    "id": "short_single_baguette",
+    "description": "one short baguette roughly the length of a hand",
+    "part": "bread loaf",
+    "source": "https://en.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC"
+   },
+   {
+    "id": "thin_pale_crust",
+    "description": "a thin pale golden crust, no seeds and no thick dark rind",
+    "part": "crust",
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam"
+   },
+   {
+    "id": "slit_lengthwise_one_side",
+    "description": "the loaf slit lengthwise along one side, filling bulging out",
+    "part": "front opening",
+    "source": "https://en.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC"
+   },
+   {
+    "id": "shredded_orange_white_pickles",
+    "description": "thin orange carrot and white daikon shreds packed in the opening",
+    "part": "filling",
+    "source": "https://en.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC"
+   },
+   {
+    "id": "whole_cilantro_sprigs",
+    "description": "whole green coriander sprigs with leaves sticking out of the loaf",
+    "part": "herbs",
+    "source": "https://en.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "french_baguette_sandwich",
+    "description": "a very long thick baguette with a hard dark chewy crust holding ham and butter only",
+    "culture": "French"
+   },
+   {
+    "id": "us_submarine_sandwich",
+    "description": "a long soft seeded roll with lettuce leaves, tomato slices and melted cheese",
+    "culture": "generic/Western"
+   },
+   {
+    "id": "pulled_pork_bun",
+    "description": "a round soft burger bun holding shredded pork in brown sauce",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S024": {
+  "entity": "Vietnamese iced milk coffee with drip filter",
+  "entity_vi": "cà phê sữa đá",
+  "required": [
+   {
+    "id": "metal_phin_on_glass",
+    "description": "a small round all-metal cup-shaped filter resting on the glass rim",
+    "part": "filter",
+    "source": "https://en.wikipedia.org/wiki/Vietnamese_coffee"
+   },
+   {
+    "id": "coffee_dripping_down",
+    "description": "a thin dark stream dripping from the filter into the glass",
+    "part": "drip",
+    "source": "https://en.wikipedia.org/wiki/Vietnamese_coffee"
+   },
+   {
+    "id": "white_milk_layer_at_bottom",
+    "description": "an opaque white milk layer sitting at the bottom under dark coffee",
+    "part": "milk layer",
+    "source": "https://en.wikipedia.org/wiki/Vietnamese_iced_coffee"
+   },
+   {
+    "id": "plain_clear_glass",
+    "description": "a clear glass tumbler with no handle and no lid",
+    "part": "glass",
+    "source": "https://vi.wikipedia.org/wiki/C%C3%A0_ph%C3%AA_s%E1%BB%AFa_%C4%91%C3%A1"
+   },
+   {
+    "id": "solid_ice_cubes",
+    "description": "chunky clear ice cubes filling the drinking glass",
+    "part": "ice",
+    "source": "https://en.wikipedia.org/wiki/Vietnamese_iced_coffee"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "western_iced_latte",
+    "description": "a tall glass of uniform pale beige coffee with a straw and nothing on top",
+    "culture": "generic/Western"
+   },
+   {
+    "id": "pour_over_cone_dripper",
+    "description": "a cone-shaped dripper holding a white paper filter over a carafe",
+    "culture": "generic/Western"
+   },
+   {
+    "id": "takeaway_cup_coffee",
+    "description": "a lidded plastic or paper takeaway cup with a straw through the lid",
+    "culture": "generic/modern"
+   }
+  ]
+ },
+ "S025": {
+  "entity": "Vietnamese fresh summer rolls",
+  "entity_vi": "gỏi cuốn",
+  "required": [
+   {
+    "id": "translucent_unfried_wrapper",
+    "description": "a smooth wet translucent rice paper skin, not browned or fried",
+    "part": "wrapper",
+    "source": "https://en.wikipedia.org/wiki/G%E1%BB%8Fi_cu%E1%BB%91n"
+   },
+   {
+    "id": "pink_shrimp_through_skin",
+    "description": "pink shrimp halves lined up inside and showing through the skin",
+    "part": "shrimp",
+    "source": "https://vi.wikipedia.org/wiki/G%E1%BB%8Fi_cu%E1%BB%91n"
+   },
+   {
+    "id": "vermicelli_and_green_leaves",
+    "description": "white thread noodles and green leaves packed inside each roll",
+    "part": "filling",
+    "source": "https://vi.wikipedia.org/wiki/G%E1%BB%8Fi_cu%E1%BB%91n"
+   },
+   {
+    "id": "plump_cylinders_on_plate",
+    "description": "plump cylindrical rolls laid side by side on a flat plate",
+    "part": "overall shape",
+    "source": "https://en.wikipedia.org/wiki/G%E1%BB%8Fi_cu%E1%BB%91n"
+   },
+   {
+    "id": "brown_peanut_dip_bowl",
+    "description": "a small bowl of thick brown sauce strewn with crushed peanuts",
+    "part": "dipping sauce",
+    "source": "https://en.wikipedia.org/wiki/G%E1%BB%8Fi_cu%E1%BB%91n"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "fried_spring_roll",
+    "description": "golden brown deep fried rolls with an opaque hard blistered skin",
+    "culture": "Chinese/Thai"
+   },
+   {
+    "id": "sushi_maki_roll",
+    "description": "short rice cylinders cut into discs and wrapped in black seaweed",
+    "culture": "Japanese"
+   },
+   {
+    "id": "flour_tortilla_wrap",
+    "description": "an opaque white flour tortilla wrap cut on the diagonal",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S026": {
+  "entity": "Vietnamese fried spring rolls",
+  "entity_vi": "nem rán",
+  "required": [
+   {
+    "id": "rice_paper_wrapper_fried_golden",
+    "description": "a rice paper skin fried to an even golden brown",
+    "part": "wrapper",
+    "source": "https://en.wikipedia.org/wiki/Ch%E1%BA%A3_gi%C3%B2"
+   },
+   {
+    "id": "bubbled_uneven_surface",
+    "description": "a bubbled wrinkled uneven surface, not a flat smooth glossy skin",
+    "part": "wrapper",
+    "source": "CHƯA CÓ NGUỒN"
+   },
+   {
+    "id": "short_finger_length_rolls",
+    "description": "short rolls about three finger joints long, thumb thick",
+    "part": "overall shape",
+    "source": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+   },
+   {
+    "id": "loose_lettuce_and_herb_sprigs",
+    "description": "loose lettuce leaves and whole herb sprigs beside the rolls",
+    "part": "herbs",
+    "source": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+   },
+   {
+    "id": "thin_pale_dip_with_garlic_chilli",
+    "description": "a bowl of thin pale amber sauce with floating garlic and chilli",
+    "part": "dipping sauce",
+    "source": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_spring_roll",
+    "description": "smooth pale wheat wrapper rolls with a flat sealed seam beside thick red sauce",
+    "culture": "Chinese"
+   },
+   {
+    "id": "thai_roll_sweet_chilli",
+    "description": "long thin fried rolls with a dish of thick glossy translucent red sweet chilli sauce",
+    "culture": "Thai"
+   },
+   {
+    "id": "american_egg_roll",
+    "description": "thick stubby dark brown egg rolls with a knobbly bumpy doughy crust",
+    "culture": "Chinese-American"
+   }
+  ]
+ },
+ "S027": {
+  "entity": "Hue style beef noodle soup",
+  "entity_vi": "bún bò Huế",
+  "required": [
+   {
+    "id": "thick_round_rice_noodle",
+    "description": "thick round white rice noodles, not flat ribbons or wheat strands",
+    "part": "noodles",
+    "source": "https://en.wikipedia.org/wiki/B%C3%BAn_b%C3%B2_Hu%E1%BA%BF"
+   },
+   {
+    "id": "red_orange_broth",
+    "description": "a red orange broth, clear rather than creamy or dark brown",
+    "part": "broth",
+    "source": "https://vi.wikipedia.org/wiki/B%C3%BAn_b%C3%B2_Hu%E1%BA%BF"
+   },
+   {
+    "id": "chilli_oil_beads_on_surface",
+    "description": "orange oil beads and red chilli specks floating on the surface",
+    "part": "broth",
+    "source": "https://en.wikipedia.org/wiki/B%C3%BAn_b%C3%B2_Hu%E1%BA%BF"
+   },
+   {
+    "id": "round_pork_knuckle_piece",
+    "description": "a thick round cut of pork knuckle with skin and bone",
+    "part": "toppings",
+    "source": "https://en.wikipedia.org/wiki/B%C3%BAn_b%C3%B2_Hu%E1%BA%BF"
+   },
+   {
+    "id": "sliced_beef_shank",
+    "description": "thin slices of boiled beef shank showing rings of tendon",
+    "part": "toppings",
+    "source": "https://en.wikipedia.org/wiki/B%C3%BAn_b%C3%B2_Hu%E1%BA%BF"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "japanese_ramen_bowl",
+    "description": "wavy yellow wheat noodles with a halved soft boiled egg and a dark seaweed sheet",
+    "culture": "Japanese"
+   },
+   {
+    "id": "thai_tom_yum",
+    "description": "a red orange soup with whole prawns, mushrooms and lemongrass stalks and no noodles",
+    "culture": "Thai"
+   },
+   {
+    "id": "pho_flat_noodle_bowl",
+    "description": "flat wide white rice ribbons in a clear pale brown broth",
+    "culture": "Vietnamese/other dish"
+   }
+  ]
+ },
+ "S028": {
+  "entity": "Vietnamese cylindrical sticky rice cake",
+  "entity_vi": "bánh tét",
+  "required": [
+   {
+    "id": "round_disc_slices",
+    "description": "flat circular slices, each one a full round disc",
+    "part": "slice shape",
+    "source": "https://en.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+   },
+   {
+    "id": "concentric_rice_and_bean_rings",
+    "description": "an outer white sticky rice ring around an inner yellow bean ring",
+    "part": "cross-section",
+    "source": "https://en.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+   },
+   {
+    "id": "pork_strip_at_centre",
+    "description": "a strip of pale pork with white fat at the centre",
+    "part": "centre",
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+   },
+   {
+    "id": "green_banana_leaf_bed",
+    "description": "broad green banana leaves laid flat under the slices",
+    "part": "wrapping",
+    "source": "https://en.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+   },
+   {
+    "id": "slices_laid_flat_cut_face_up",
+    "description": "slices laid flat in a row with the cut faces turned upward",
+    "part": "arrangement",
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_zongzi_pyramid",
+    "description": "a closed green triangular pyramid bundle tied with string and never sliced",
+    "culture": "Chinese"
+   },
+   {
+    "id": "banh_chung_square",
+    "description": "a flat square leaf parcel with a lattice of strings across the top",
+    "culture": "Vietnamese/other dish"
+   },
+   {
+    "id": "japanese_mochi_discs",
+    "description": "plain smooth white round rice cakes with no filling rings inside",
+    "culture": "Japanese"
+   }
+  ]
+ },
+ "S029": {
+  "entity": "Vietnamese young green rice",
+  "entity_vi": "cốm",
+  "required": [
+   {
+    "id": "flattened_green_grains",
+    "description": "flat pale green rice grains, flattened rather than plump and round",
+    "part": "grains",
+    "source": "https://en.wikipedia.org/wiki/C%E1%BB%91m"
+   },
+   {
+    "id": "loose_unpressed_grains",
+    "description": "loose separate grains heaped together, not pressed into a ball or cake",
+    "part": "grains",
+    "source": "https://en.wikipedia.org/wiki/C%E1%BB%91m"
+   },
+   {
+    "id": "lotus_leaf_wrapper",
+    "description": "a broad dark green lotus leaf folded around the rice",
+    "part": "leaf",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BB%91m_l%C3%A0ng_V%C3%B2ng"
+   },
+   {
+    "id": "dry_straw_tie",
+    "description": "a dry yellow rice straw strand tied around the leaf bundle",
+    "part": "tie",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BB%91m_l%C3%A0ng_V%C3%B2ng"
+   },
+   {
+    "id": "small_hand_sized_parcel",
+    "description": "a small low hand sized bundle, not a tall cone",
+    "part": "overall shape",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_zongzi",
+    "description": "a tight green triangular leaf bundle of white rice bound with string",
+    "culture": "Chinese"
+   },
+   {
+    "id": "japanese_onigiri",
+    "description": "a pressed white rice triangle with a black seaweed strip across it",
+    "culture": "Japanese"
+   },
+   {
+    "id": "bowl_of_green_peas",
+    "description": "round bright green peas or matcha powder instead of flat rice grains",
+    "culture": "generic/modern"
+   }
+  ]
+ },
+ "S021": {
+  "entity": "Vietnamese Mid-Autumn star lantern parade",
+  "entity_vi": "Tết Trung Thu",
+  "required": [
+   {
+    "id": "five_pointed_star_lantern",
+    "description": "a flat rigid five-pointed star outline, not a round ball",
+    "part": "lantern shape",
+    "source": "https://www.vietnamplus.vn/den-ong-sao-tu-chiec-den-thu-cong-den-van-hoa-truyen-thong-viet-nam-post1063413.vnp"
+   },
+   {
+    "id": "cellophane_over_bamboo",
+    "description": "coloured translucent cellophane stretched flat over thin bamboo sticks",
+    "part": "lantern surface",
+    "source": "https://www.vietnamplus.vn/den-ong-sao-tu-chiec-den-thu-cong-den-van-hoa-truyen-thong-viet-nam-post1063413.vnp"
+   },
+   {
+    "id": "long_carrying_stick",
+    "description": "each lantern held up on a long thin stick by a child",
+    "part": "lantern handle",
+    "source": "https://www.vietnamplus.vn/den-ong-sao-tu-chiec-den-thu-cong-den-van-hoa-truyen-thong-viet-nam-post1063413.vnp"
+   },
+   {
+    "id": "lit_from_inside",
+    "description": "a small flame or light glowing inside the star",
+    "part": "light source",
+    "source": "https://www.vietnamplus.vn/den-ong-sao-tu-chiec-den-thu-cong-den-van-hoa-truyen-thong-viet-nam-post1063413.vnp"
+   },
+   {
+    "id": "children_walking_at_night",
+    "description": "children walking outdoors in a group after dark",
+    "part": "overall scene",
+    "source": "https://vi.wikipedia.org/wiki/T%E1%BA%BFt_Trung_thu"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "round_chinese_lantern",
+    "description": "a round red collapsible paper lantern hanging with gold tassels",
+    "culture": "Chinese"
+   },
+   {
+    "id": "japanese_chochin",
+    "description": "a tall ribbed cylindrical white paper lantern with black characters",
+    "culture": "Japanese"
+   },
+   {
+    "id": "floating_sky_lantern",
+    "description": "glowing paper sky lanterns rising into the air",
+    "culture": "Thai/generic"
+   }
+  ]
+ },
+ "S023": {
+  "entity": "Vietnamese Tet feast spread",
+  "entity_vi": "mâm cỗ Tết",
+  "required": [
+   {
+    "id": "leaf_wrapped_rice_cake",
+    "description": "a green leaf-wrapped sticky rice cake, square or cylindrical, tied with strips",
+    "part": "rice cake",
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+   },
+   {
+    "id": "many_small_dishes_at_once",
+    "description": "many small bowls and shallow plates of food all set out together",
+    "part": "table layout",
+    "source": "https://www.vietnamplus.vn/mam-co-tet-o-mien-bac-co-nhung-mon-gi-post1007918.vnp"
+   },
+   {
+    "id": "rice_bowl_and_chopsticks",
+    "description": "each person has a small rice bowl and a pair of chopsticks",
+    "part": "utensils",
+    "source": "https://vi.wikipedia.org/wiki/%E1%BA%A8m_th%E1%BB%B1c_Vi%E1%BB%87t_Nam"
+   },
+   {
+    "id": "no_single_roast_centrepiece",
+    "description": "no single large roast bird or joint as a centrepiece",
+    "part": "centre of table",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_banquet_table",
+    "description": "a large round table with a rotating glass turntable and tall gold-red decor",
+    "culture": "Chinese"
+   },
+   {
+    "id": "western_holiday_dinner",
+    "description": "a whole roast turkey on a long table with individual plates and cutlery",
+    "culture": "generic/Western"
+   },
+   {
+    "id": "japanese_osechi_boxes",
+    "description": "food packed into stacked black lacquer boxes with compartments",
+    "culture": "Japanese"
+   }
+  ]
+ },
+ "S036": {
+  "entity": "Vietnamese betrothal ceremony",
+  "entity_vi": "lễ ăn hỏi",
+  "required": [
+   {
+    "id": "red_draped_round_trays",
+    "description": "round trays covered or wrapped in red cloth",
+    "part": "tray covering",
+    "source": "https://vi.wikipedia.org/wiki/L%E1%BB%85_%C4%83n_h%E1%BB%8Fi"
+   },
+   {
+    "id": "several_trays_in_a_row",
+    "description": "several matching trays together, not a single one",
+    "part": "number of trays",
+    "source": "https://vi.wikipedia.org/wiki/L%E1%BB%85_%C4%83n_h%E1%BB%8Fi"
+   },
+   {
+    "id": "betel_and_areca_tray",
+    "description": "one tray heaped with whole green areca nuts and betel leaves",
+    "part": "tray contents",
+    "source": "https://vi.wikipedia.org/wiki/L%E1%BB%85_%C4%83n_h%E1%BB%8Fi"
+   },
+   {
+    "id": "bride_in_ao_dai",
+    "description": "bride in a long fitted tunic slit to the waist over trousers",
+    "part": "bride's clothing",
+    "source": "https://vi.wikipedia.org/wiki/L%E1%BB%85_%C4%83n_h%E1%BB%8Fi"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_qipao_wedding",
+    "description": "a red qipao or dragon-and-phoenix gown with a gold phoenix headdress",
+    "culture": "Chinese"
+   },
+   {
+    "id": "western_white_wedding",
+    "description": "a white bridal gown with a veil beside a black tuxedo",
+    "culture": "generic/Western"
+   },
+   {
+    "id": "ribboned_gift_boxes",
+    "description": "gifts as ribboned boxes or wicker hampers instead of red-draped trays",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S041": {
+  "entity": "Vietnamese Tet market",
+  "entity_vi": "chợ Tết",
+  "required": [
+   {
+    "id": "open_air_stalls",
+    "description": "open-air stalls in rows outdoors, no enclosed shop building",
+    "part": "market setting",
+    "source": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3"
+   },
+   {
+    "id": "peach_branches_for_sale",
+    "description": "bundles of bare branches with pink blossoms stood up for sale",
+    "part": "flowers for sale",
+    "source": "https://hanoimoi.vn/cho-hoa-lon-nhat-mien-bac-nhon-nhip-suot-dem-can-tet-733490.html"
+   },
+   {
+    "id": "dense_crowd_of_shoppers",
+    "description": "many shoppers packed close together between the stalls",
+    "part": "crowd",
+    "source": "https://hanoimoi.vn/cho-hoa-lon-nhat-mien-bac-nhon-nhip-suot-dem-can-tet-733490.html"
+   },
+   {
+    "id": "goods_at_ground_level",
+    "description": "goods piled on the ground or on low tables beside the sellers",
+    "part": "how goods are displayed",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_new_year_street",
+    "description": "a street hung with rows of round red lanterns and gold character banners",
+    "culture": "Chinese"
+   },
+   {
+    "id": "japanese_festival_stalls",
+    "description": "matching wooden stalls with red-and-white hanging curtains and paper signs",
+    "culture": "Japanese"
+   },
+   {
+    "id": "modern_supermarket",
+    "description": "an indoor aisle with shelving, price signs and shopping trolleys",
+    "culture": "generic/modern"
+   }
+  ]
+ },
+ "S044": {
+  "entity": "Vietnamese peach blossom branch",
+  "entity_vi": "cành đào",
+  "required": [
+   {
+    "id": "bare_woody_branch",
+    "description": "a leafless dark woody branch with rough bark",
+    "part": "branch",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0o_(th%E1%BB%B1c_v%E1%BA%ADt)"
+   },
+   {
+    "id": "blossoms_on_the_wood",
+    "description": "pink blossoms growing straight out of the bare wood, not green stems",
+    "part": "blossoms",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0o_(th%E1%BB%B1c_v%E1%BA%ADt)"
+   },
+   {
+    "id": "small_five_petal_pink_flowers",
+    "description": "single or paired pink flowers about 3 cm across with five petals",
+    "part": "flower petals",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0o_(th%E1%BB%B1c_v%E1%BA%ADt)"
+   },
+   {
+    "id": "cut_branch_in_a_vase",
+    "description": "one cut branch standing in a vase, not a whole potted tree",
+    "part": "where it is placed",
+    "source": "https://vi.wikipedia.org/wiki/T%E1%BA%BFt_Nguy%C3%AAn_%C4%90%C3%A1n"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "japanese_cherry_spray",
+    "description": "slender sprays of pale pink cherry blossom with green leaves",
+    "culture": "Japanese"
+   },
+   {
+    "id": "leafy_flower_bouquet",
+    "description": "a mixed bouquet of cut flowers on green leafy stems",
+    "culture": "generic/Western"
+   },
+   {
+    "id": "whole_potted_tree",
+    "description": "an entire small flowering tree with a trunk planted in a pot",
+    "culture": "generic/modern"
+   }
+  ]
+ },
+ "S045": {
+  "entity": "Vietnamese ancestral altar",
+  "entity_vi": "bàn thờ gia tiên",
+  "required": [
+   {
+    "id": "raised_altar_against_wall",
+    "description": "a raised horizontal altar top set high against the back wall",
+    "part": "overall shape",
+    "source": "https://en.wikipedia.org/wiki/Vietnamese_ancestral_house"
+   },
+   {
+    "id": "central_incense_burner",
+    "description": "a round bowl at the centre holding upright burning incense sticks",
+    "part": "incense burner",
+    "source": "https://vi.wikipedia.org/wiki/Th%E1%BB%9D_c%C3%BAng_t%E1%BB%95_ti%C3%AAn"
+   },
+   {
+    "id": "five_fruit_tray",
+    "description": "a tray heaped with five kinds of whole uncut fruit",
+    "part": "fruit tray",
+    "source": "https://vi.wikipedia.org/wiki/M%C3%A2m_ng%C5%A9_qu%E1%BA%A3"
+   },
+   {
+    "id": "no_deity_statue",
+    "description": "no large seated Buddha or god statue standing on the altar",
+    "part": "centre of altar",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_ancestral_shrine",
+    "description": "a red and gold shrine cabinet with gold Chinese character plaques",
+    "culture": "Chinese"
+   },
+   {
+    "id": "buddhist_shrine",
+    "description": "a golden seated Buddha statue as the centrepiece with lotus offerings",
+    "culture": "generic/Buddhist"
+   },
+   {
+    "id": "japanese_butsudan",
+    "description": "a lacquered wooden cabinet with hinged doors enclosing the altar",
+    "culture": "Japanese"
+   }
+  ]
+ },
+ "S050": {
+  "entity": "Vietnamese red lucky money envelope",
+  "entity_vi": "bao lì xì đỏ",
+  "required": [
+   {
+    "id": "small_red_paper_envelope",
+    "description": "a small red paper envelope about the size of a palm",
+    "part": "envelope",
+    "source": "https://vi.wikipedia.org/wiki/T%E1%BA%BFt_Nguy%C3%AAn_%C4%90%C3%A1n"
+   },
+   {
+    "id": "flat_closed_rectangle",
+    "description": "a flat closed paper rectangle, no ribbon and no window",
+    "part": "overall shape",
+    "source": "https://vi.wikipedia.org/wiki/L%C3%AC_x%C3%AC"
+   },
+   {
+    "id": "adult_hand_to_child_hand",
+    "description": "an adult's hand holding it out to a smaller child's hand",
+    "part": "where it is held",
+    "source": "https://vi.wikipedia.org/wiki/T%E1%BA%BFt_Nguy%C3%AAn_%C4%90%C3%A1n"
+   },
+   {
+    "id": "no_large_gold_characters",
+    "description": "no large gold Chinese character covering the front",
+    "part": "envelope front",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_hongbao",
+    "description": "a red envelope covered in large gold Chinese characters and dragon motifs",
+    "culture": "Chinese"
+   },
+   {
+    "id": "western_greeting_card",
+    "description": "a white envelope or greeting card tied with a ribbon",
+    "culture": "generic/Western"
+   },
+   {
+    "id": "loose_banknotes",
+    "description": "loose banknotes or gold coins handed over with no envelope",
+    "culture": "generic/modern"
+   }
+  ]
+ },
+ "S007": {
+  "entity": "Temple of Literature, Khue Van Cac pavilion and doctoral stelae",
+  "entity_vi": "Văn Miếu - Quốc Tử Giám (Khuê Văn Các và bia tiến sĩ)",
+  "required": [
+   {
+    "id": "four_brick_piers",
+    "description": "a small square pavilion raised on four square brick piers",
+    "part": "base",
+    "source": "https://vanmieu.gov.vn/vi/visit/architecture/khue-van-pavilion"
+   },
+   {
+    "id": "four_round_windows",
+    "description": "four round windows with wooden bars radiating like sun rays",
+    "part": "upper storey windows",
+    "source": "https://vanmieu.gov.vn/vi/visit/architecture/khue-van-pavilion"
+   },
+   {
+    "id": "two_tier_small_roof",
+    "description": "a small two-tier tiled roof over one wooden upper storey",
+    "part": "roof",
+    "source": "https://vanmieu.gov.vn/vi/visit/architecture/khue-van-pavilion"
+   },
+   {
+    "id": "stelae_on_stone_tortoises",
+    "description": "each upright stone slab standing on a carved stone tortoise",
+    "part": "stelae bases",
+    "source": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m"
+   },
+   {
+    "id": "stelae_in_two_long_rows",
+    "description": "dozens of slabs lined up in long straight facing rows",
+    "part": "stelae arrangement",
+    "source": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "multi_storey_pagoda",
+    "description": "a tall narrow pagoda of five or more storeys with stacked sweeping eaves",
+    "culture": "Chinese"
+   },
+   {
+    "id": "red_lacquer_dragon_gate",
+    "description": "red lacquered columns and gold dragons on strongly curled eave tips",
+    "culture": "Chinese"
+   },
+   {
+    "id": "plain_plinth_stelae",
+    "description": "stone slabs set on plain rectangular blocks with no animal underneath",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S014": {
+  "entity": "terraced rice fields in the water season",
+  "entity_vi": "ruộng bậc thang mùa nước đổ",
+  "required": [
+   {
+    "id": "steep_hillside_steps",
+    "description": "narrow flat steps cut into a hillside about forty degrees steep",
+    "part": "hillside",
+    "source": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+   },
+   {
+    "id": "curved_contour_edges",
+    "description": "terrace edges bending and spiralling around the slope, never straight parallel lines",
+    "part": "terrace edges",
+    "source": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+   },
+   {
+    "id": "flooded_mirror_surface",
+    "description": "every level filled with still standing water mirroring the sky",
+    "part": "water surface",
+    "source": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+   },
+   {
+    "id": "low_earth_bunds",
+    "description": "low bare earth ridges holding the water in on each level",
+    "part": "bunds",
+    "source": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+   },
+   {
+    "id": "many_stacked_levels",
+    "description": "many levels stacked one above another from valley floor up the slope",
+    "part": "levels",
+    "source": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "banaue_stone_walled_terraces",
+    "description": "terraces held up by stacked dry stone retaining walls instead of bare earth banks",
+    "culture": "Filipino"
+   },
+   {
+    "id": "yuanyang_terraces",
+    "description": "extremely fine dense terraces below round mushroom-shaped thatched houses",
+    "culture": "Chinese"
+   },
+   {
+    "id": "bali_palm_terraces",
+    "description": "wide gentle green terraces with coconut palms and a thatched shrine",
+    "culture": "Indonesian/Balinese"
+   }
+  ]
+ },
+ "S016": {
+  "entity": "Central Highlands rong communal house",
+  "entity_vi": "nhà rông Tây Nguyên",
+  "required": [
+   {
+    "id": "axe_blade_roof",
+    "description": "an extremely tall steep narrow roof peaked like an axe blade",
+    "part": "roof",
+    "source": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+   },
+   {
+    "id": "roof_dominates_height",
+    "description": "the roof taller than the stilts and walls put together",
+    "part": "roof|walls",
+    "source": "https://danviet.vn/bi-an-kien-truc-nha-rong-tay-nguyen-777762191.htm"
+   },
+   {
+    "id": "dry_grass_thatch",
+    "description": "the whole roof covered in dry yellow-brown grass thatch, no tiles",
+    "part": "roof covering",
+    "source": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+   },
+   {
+    "id": "thick_wooden_stilts",
+    "description": "the floor lifted clear of the ground on thick round wooden posts",
+    "part": "stilts",
+    "source": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+   },
+   {
+    "id": "open_village_clearing",
+    "description": "standing alone on bare open ground among much lower houses",
+    "part": "surroundings",
+    "source": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "generic_thatched_hut",
+    "description": "a low wide thatched hut with a broad shallow roof near the ground",
+    "culture": "generic/tropical"
+   },
+   {
+    "id": "toraja_tongkonan",
+    "description": "a boat-shaped roof curving up sharply at both ends over a carved painted body",
+    "culture": "Indonesian"
+   },
+   {
+    "id": "tiered_tile_pavilion",
+    "description": "a tiered tiled roof with gilded pointed finials at the ridge ends",
+    "culture": "Thai"
+   }
+  ]
+ },
+ "S034": {
+  "entity": "northern Vietnamese village communal house",
+  "entity_vi": "đình làng Bắc Bộ",
+  "required": [
+   {
+    "id": "roof_two_thirds_of_height",
+    "description": "one huge tiled roof filling two thirds of the building height",
+    "part": "roof",
+    "source": "https://vi.wikipedia.org/wiki/Quy_th%E1%BB%A9c_ki%E1%BA%BFn_tr%C3%BAc_c%E1%BB%95_Vi%E1%BB%87t_Nam"
+   },
+   {
+    "id": "straight_slopes_upturned_corners",
+    "description": "straight flat roof slopes lifting up only at four corner tips",
+    "part": "roof corners",
+    "source": "https://vi.wikipedia.org/wiki/Quy_th%E1%BB%A9c_ki%E1%BA%BFn_tr%C3%BAc_c%E1%BB%95_Vi%E1%BB%87t_Nam"
+   },
+   {
+    "id": "small_curved_clay_tiles",
+    "description": "roof covered in small overlapping curved clay tiles, dark grey brown",
+    "part": "roof tiles",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%ACnh_l%C3%A0ng"
+   },
+   {
+    "id": "round_columns_on_stone_bases",
+    "description": "thick round wooden columns standing on large round stone blocks",
+    "part": "columns",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%ACnh_l%C3%A0ng"
+   },
+   {
+    "id": "brick_paved_yard",
+    "description": "a wide flat brick-paved yard directly in front of the building",
+    "part": "yard",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%ACnh_l%C3%A0ng"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_sagging_dragon_eaves",
+    "description": "eaves sagging in a deep concave curve with dragon heads on the tips",
+    "culture": "Chinese"
+   },
+   {
+    "id": "red_gold_lacquer_frame",
+    "description": "bright red lacquered columns with gold painted beams and brackets",
+    "culture": "Chinese"
+   },
+   {
+    "id": "tiered_pagoda_tower",
+    "description": "a multi-storey tower with several stacked roofs instead of one low hall",
+    "culture": "generic/East Asian"
+   }
+  ]
+ },
+ "S038": {
+  "entity": "coastal salt evaporation field",
+  "entity_vi": "ruộng muối",
+  "required": [
+   {
+    "id": "conical_salt_mounds",
+    "description": "small white conical heaps of raked salt sitting on the ground",
+    "part": "salt heaps",
+    "source": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+   },
+   {
+    "id": "rectangular_pans_low_bunds",
+    "description": "the ground split into flat rectangular pans by low straight earth bunds",
+    "part": "field layout",
+    "source": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+   },
+   {
+    "id": "dead_flat_coastal_ground",
+    "description": "dead flat bare ground at sea level with no hills or rocks",
+    "part": "terrain",
+    "source": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+   },
+   {
+    "id": "wet_earth_pan_floor",
+    "description": "a levelled wet grey earth floor under shallow standing water",
+    "part": "pan surface",
+    "source": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "salar_cracked_crust",
+    "description": "an endless cracked white crust in hexagon plates with no bunds or heaps",
+    "culture": "generic/Bolivian"
+   },
+   {
+    "id": "pink_industrial_brine_ponds",
+    "description": "large geometric ponds of pink and turquoise brine seen from far above",
+    "culture": "generic/modern"
+   },
+   {
+    "id": "snow_field",
+    "description": "soft drifted snow or ice rather than granular salt crystals",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S039": {
+  "entity": "Cham brick tower",
+  "entity_vi": "tháp Chăm",
+  "required": [
+   {
+    "id": "bare_red_brick_no_mortar",
+    "description": "bare red-brown fired brick walls with no visible mortar lines",
+    "part": "wall surface",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+   },
+   {
+    "id": "square_plan_tapering_tiers",
+    "description": "a square solid tower stepping inward into progressively smaller tiers",
+    "part": "overall shape",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+   },
+   {
+    "id": "one_door_three_false_doors",
+    "description": "one open doorway, blind brick false doors on three sides",
+    "part": "doorways",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+   },
+   {
+    "id": "paired_flat_pilasters",
+    "description": "flat brick pilasters standing in pairs on each wall face",
+    "part": "wall pilasters",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+   },
+   {
+    "id": "bare_hilltop_siting",
+    "description": "standing alone on an open bare hilltop with no other building attached",
+    "part": "setting",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_temple_upturned_eaves",
+    "description": "a tiled temple roof with upturned dragon-tipped eaves over red columns",
+    "culture": "Chinese"
+   },
+   {
+    "id": "khmer_sandstone_tower",
+    "description": "a grey sandstone tower with a lotus-bud outline and carved giant faces",
+    "culture": "Khmer"
+   },
+   {
+    "id": "indian_gopuram",
+    "description": "a tall gateway tower crowded with brightly painted figure sculpture",
+    "culture": "Indian"
+   }
+  ]
+ },
+ "S042": {
+  "entity": "Ha Long Bay limestone karst islands",
+  "entity_vi": "vịnh Hạ Long",
+  "required": [
+   {
+    "id": "near_vertical_cliffs",
+    "description": "grey limestone cliffs rising almost vertically straight out of the sea",
+    "part": "cliff faces",
+    "source": "https://halongbay.com.vn/en/p/358-gia-tri-dia-chat-dia-mao-cua-vinh-ha-long"
+   },
+   {
+    "id": "green_tops_on_bare_rock",
+    "description": "dense green vegetation clinging to tops of otherwise bare rock",
+    "part": "island tops",
+    "source": "https://en.wikipedia.org/wiki/H%E1%BA%A1_Long_Bay"
+   },
+   {
+    "id": "many_separate_towers",
+    "description": "many separate rock towers scattered across open water, not one connected ridge",
+    "part": "island group",
+    "source": "https://en.wikipedia.org/wiki/H%E1%BA%A1_Long_Bay"
+   },
+   {
+    "id": "undercut_waterline_notch",
+    "description": "a cut-in notch undercutting the rock right at the waterline",
+    "part": "waterline",
+    "source": "https://halongbay.com.vn/en/p/358-gia-tri-dia-chat-dia-mao-cua-vinh-ha-long"
+   },
+   {
+    "id": "calm_flat_sheltered_water",
+    "description": "flat calm sheltered water with no surf or breaking waves",
+    "part": "water surface",
+    "source": "https://halongbay.com.vn/en/p/358-gia-tri-dia-chat-dia-mao-cua-vinh-ha-long"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "guilin_river_karst",
+    "description": "karst peaks standing on dry land beside a narrow river with flat fields between them",
+    "culture": "Chinese"
+   },
+   {
+    "id": "phang_nga_beach_stacks",
+    "description": "karst stacks over pale turquoise shallows with sandy beaches and longtail boats",
+    "culture": "Thai"
+   },
+   {
+    "id": "tropical_palm_islet",
+    "description": "low rounded green islands with palm trees and white sand beaches",
+    "culture": "generic/tropical"
+   }
+  ]
+ },
+ "S046": {
+  "entity": "Vietnamese monkey bridge",
+  "entity_vi": "cầu khỉ",
+  "required": [
+   {
+    "id": "single_pole_walkway",
+    "description": "one bare round bamboo trunk as the only walking surface",
+    "part": "deck",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BA%A7u_kh%E1%BB%89"
+   },
+   {
+    "id": "thin_driven_posts",
+    "description": "thin poles driven into the water below as the only legs",
+    "part": "supports",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BA%A7u_kh%E1%BB%89"
+   },
+   {
+    "id": "lashed_bamboo_joints",
+    "description": "joints tied with cord or bamboo pegs, no metal bolts",
+    "part": "joints",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BA%A7u_kh%E1%BB%89"
+   },
+   {
+    "id": "narrow_shallow_canal",
+    "description": "spanning a narrow shallow canal with low muddy banks and still water",
+    "part": "waterway",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BA%A7u_kh%E1%BB%89"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "plank_footbridge_with_rails",
+    "description": "a wide flat plank deck with a sturdy rail on both sides",
+    "culture": "generic/Western"
+   },
+   {
+    "id": "rope_suspension_bridge",
+    "description": "a hanging rope bridge with net sides slung between two tall anchors",
+    "culture": "generic/tropical"
+   },
+   {
+    "id": "red_arched_garden_bridge",
+    "description": "a steeply humped red-painted bridge with carved balustrades",
+    "culture": "Japanese"
+   }
+  ]
+ },
+ "S011": {
+  "entity": "cai luong reformed opera performer",
+  "entity_vi": "cải lương",
+  "required": [
+   {
+    "id": "full_length_gown",
+    "description": "an ankle-length gown worn over loose trousers",
+    "part": "costume",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
+    "id": "high_stand_collar",
+    "description": "a high closed stand-up collar at the throat",
+    "part": "collar",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
+    "id": "side_split_panels",
+    "description": "the gown split into long front and back panels from the waist",
+    "part": "skirt panels",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
+    "id": "unpainted_face",
+    "description": "a bare human face with ordinary makeup, no painted mask design",
+    "part": "face",
+    "source": "http://khoavanhoc-ngonngu.edu.vn/nghien-cuu/nghe-thu%E1%BA%ADt-h%E1%BB%8Dc/6268-m%E1%BB%99t-c%C3%A1ch-nh%C3%ACn-nghi%C3%AAng-v%E1%BB%81-%E2%80%9Ck%C3%BD-hi%E1%BB%87u-quy%E1%BB%83n%E2%80%9D-trong-ng%C3%B4n-ng%E1%BB%AF-h%C3%B3a-trang-s%C3%A2n-kh%E1%BA%A5u-h%C3%A1t-b%E1%BB%99i-v%C3%A0-c%E1%BA%A3i-l%C6%B0%C6%A1ng-tu%E1%BB%93ng-c%E1%BB%95.html"
+   },
+   {
+    "id": "painted_scenery_backdrop",
+    "description": "a painted flat scenery backdrop behind the performer",
+    "part": "backdrop",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BA%A3i_l%C6%B0%C6%A1ng"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "peking_opera_robe",
+    "description": "a wide crossed-over collar robe with long white water sleeves",
+    "culture": "Chinese"
+   },
+   {
+    "id": "painted_opera_mask",
+    "description": "a face painted solid red, white or black in bold symmetrical patterns",
+    "culture": "Chinese / Vietnamese hat boi"
+   },
+   {
+    "id": "kabuki_kimono",
+    "description": "a wide-sleeved wrapped kimono with a broad sash and white-painted face",
+    "culture": "Japanese"
+   }
+  ]
+ },
+ "S022": {
+  "entity": "Vietnamese lion dance",
+  "entity_vi": "múa lân",
+  "required": [
+   {
+    "id": "one_rounded_lion_head",
+    "description": "a single large rounded lion head with big bulging eyes",
+    "part": "lion head",
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_l%C3%A2n_-_s%C6%B0_-_r%E1%BB%93ng"
+   },
+   {
+    "id": "single_horn_on_top",
+    "description": "one horn standing on top of the lion head",
+    "part": "horn",
+    "source": "https://vi.wikipedia.org/wiki/M%C3%BAa_l%C3%A2n_-_s%C6%B0_-_r%E1%BB%93ng"
+   },
+   {
+    "id": "mirror_on_forehead",
+    "description": "a small round mirror set in the middle of the forehead",
+    "part": "forehead",
+    "source": "CHƯA CÓ NGUỒN"
+   },
+   {
+    "id": "two_person_short_body",
+    "description": "one short trailing cloth body worn by exactly two people",
+    "part": "cloth body|number of performers",
+    "source": "https://baogialai.com.vn/giai-ma-dau-lan-lan-thoi-hien-dai-post297221.html"
+   },
+   {
+    "id": "ong_dia_mask_and_fan",
+    "description": "a separate man in a round grinning fat-face mask holding a fan",
+    "part": "Ong Dia mask|fan",
+    "source": "https://vinwonders.com/vi/wonderpedia/news/mua-lan-trung-thu/"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_dragon_on_poles",
+    "description": "a long serpentine dragon body held up on poles by many people",
+    "culture": "Chinese"
+   },
+   {
+    "id": "northern_shaggy_lion_pair",
+    "description": "a shaggy gold-furred lion with no horn and a red ribbon bow",
+    "culture": "Chinese"
+   },
+   {
+    "id": "realistic_lion_suit",
+    "description": "a realistic furry lion animal costume with a hairy mane",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S032": {
+  "entity": "Vietnamese dan tranh zither",
+  "entity_vi": "đàn tranh",
+  "required": [
+   {
+    "id": "sixteen_or_seventeen_strings",
+    "description": "about sixteen to seventeen strings, clearly fewer than twenty-one",
+    "part": "strings",
+    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_tranh"
+   },
+   {
+    "id": "individual_movable_bridges",
+    "description": "each string raised on its own small inverted-V bridge",
+    "part": "bridges",
+    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_tranh"
+   },
+   {
+    "id": "long_narrow_trapezoid_box",
+    "description": "a long narrow trapezoid wooden box with a slightly arched top",
+    "part": "body shape",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_tranh"
+   },
+   {
+    "id": "laid_flat_played_from_above",
+    "description": "lying flat and horizontal, the hands reaching down onto it",
+    "part": "playing position",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_tranh"
+   },
+   {
+    "id": "picks_on_right_fingers",
+    "description": "picks worn on two or three fingers of the right hand",
+    "part": "finger picks",
+    "source": "https://en.wikipedia.org/wiki/%C4%90%C3%A0n_tranh"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "guzheng",
+    "description": "a longer wider zither with twenty-one strings and ornate inlaid side panels",
+    "culture": "Chinese"
+   },
+   {
+    "id": "koto",
+    "description": "a very long thick zither with thirteen strings, played kneeling on the floor",
+    "culture": "Japanese"
+   },
+   {
+    "id": "western_harp",
+    "description": "an upright triangular frame harp with vertical strings and no bridges",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S033": {
+  "entity": "Hue royal court music ensemble",
+  "entity_vi": "nhã nhạc cung đình Huế",
+  "required": [
+   {
+    "id": "long_gowns_and_turbans",
+    "description": "players in long silk gowns with flat wrapped cloth turbans",
+    "part": "costume|headwear",
+    "source": "https://songnhac.com.vn/blogs/news/nha-nhac-cung-dinh-hue-tinh-hoa-am-nhac-hoang-gia-viet"
+   },
+   {
+    "id": "round_bodied_moon_lute",
+    "description": "a lute with a flat round body and a long thin neck",
+    "part": "moon lute",
+    "source": "https://www.vietnamplus.vn/nha-nhac-hue-dinh-cao-cua-am-nhac-cung-dinh-viet-nam-post617847.vnp"
+   },
+   {
+    "id": "upright_two_string_fiddle",
+    "description": "a small upright fiddle with two strings held vertically on the knee",
+    "part": "fiddle",
+    "source": "https://www.vietnamplus.vn/nha-nhac-hue-dinh-cao-cua-am-nhac-cung-dinh-viet-nam-post617847.vnp"
+   },
+   {
+    "id": "barrel_drum_on_stand",
+    "description": "a barrel drum on a wooden stand struck with two sticks",
+    "part": "drum",
+    "source": "https://ich.unesco.org/en/RL/nha-nhac-vietnamese-court-music-00074"
+   },
+   {
+    "id": "several_different_instruments",
+    "description": "several players side by side, each holding a different instrument",
+    "part": "number of players",
+    "source": "https://www.vietnamplus.vn/nha-nhac-hue-dinh-cao-cua-am-nhac-cung-dinh-viet-nam-post617847.vnp"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_court_ensemble",
+    "description": "players in wide crossed-collar robes with a guzheng and a pipa",
+    "culture": "Chinese"
+   },
+   {
+    "id": "japanese_gagaku",
+    "description": "players in orange robes and black lacquered caps with mouth organs",
+    "culture": "Japanese"
+   },
+   {
+    "id": "western_chamber_orchestra",
+    "description": "players in black suits with violins, cellos and metal music stands",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S035": {
+  "entity": "reading a Vietnamese ritual eulogy before an altar",
+  "entity_vi": "đọc văn tế",
+  "required": [
+   {
+    "id": "wide_sleeved_long_gown",
+    "description": "an ankle-length wide-sleeved ceremonial gown over trousers",
+    "part": "gown",
+    "source": "https://vi.wikipedia.org/wiki/L%E1%BB%85_K%E1%BB%B3_y%C3%AAn"
+   },
+   {
+    "id": "wrapped_cloth_turban",
+    "description": "a flat ring-shaped cloth turban wrapped around the head",
+    "part": "headwear",
+    "source": "https://vi.wikipedia.org/wiki/L%E1%BB%85_K%E1%BB%B3_y%C3%AAn"
+   },
+   {
+    "id": "high_stand_collar",
+    "description": "a high closed stand-up collar, not a crossed overlapping front",
+    "part": "collar",
+    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+   },
+   {
+    "id": "loose_paper_text_in_hands",
+    "description": "a loose sheet or folded paper of text held in both hands",
+    "part": "text in hands",
+    "source": "https://vi.wikipedia.org/wiki/L%E1%BB%85_K%E1%BB%B3_y%C3%AAn"
+   },
+   {
+    "id": "altar_with_incense_burner",
+    "description": "an altar table in front bearing an incense burner and candlesticks",
+    "part": "altar",
+    "source": "https://www.baotangbrvt.org.vn/tap-tuc-te-le-trong-tin-nguong-tho-than-cua-nguoi-viet-o-br-vt/"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "buddhist_monk_chanting",
+    "description": "a shaven-headed monk in a brown or saffron wrapped robe",
+    "culture": "generic/Buddhist"
+   },
+   {
+    "id": "chinese_taoist_priest",
+    "description": "a priest in a crossed-collar robe with a black square cap",
+    "culture": "Chinese"
+   },
+   {
+    "id": "western_lectern_reading",
+    "description": "a man in a white surplice reading a book on a lectern",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S043": {
+  "entity": "Dong Ho folk woodblock printing",
+  "entity_vi": "tranh Đông Hồ",
+  "required": [
+   {
+    "id": "carved_wooden_block",
+    "description": "a flat wooden block with a raised carved relief design",
+    "part": "printing block",
+    "source": "https://dsvh.gov.vn/tranh-dan-gian-dong-ho-3151"
+   },
+   {
+    "id": "one_block_per_colour",
+    "description": "several separate blocks, one black outline block plus one per colour",
+    "part": "printing block",
+    "source": "https://dsvh.gov.vn/tranh-dan-gian-dong-ho-3151"
+   },
+   {
+    "id": "hand_rubbed_no_press",
+    "description": "the sheet rubbed by hand from behind, no machine press",
+    "part": "printing action",
+    "source": "https://dsvh.gov.vn/tranh-dan-gian-dong-ho-3151"
+   },
+   {
+    "id": "shimmering_shell_paper",
+    "description": "off-white paper with a pearly shimmering coated surface",
+    "part": "paper",
+    "source": "https://vi.wikipedia.org/wiki/Tranh_%C4%90%C3%B4ng_H%E1%BB%93"
+   },
+   {
+    "id": "flat_colours_black_outline",
+    "description": "finished prints with flat solid colours and thick black outlines",
+    "part": "finished print",
+    "source": "https://dsvh.gov.vn/tranh-dan-gian-dong-ho-3151"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "chinese_nianhua",
+    "description": "dense red and gold door-god prints covered in Chinese characters",
+    "culture": "Chinese"
+   },
+   {
+    "id": "japanese_ukiyoe",
+    "description": "tall thin prints with fine gradient shading and outlined landscapes",
+    "culture": "Japanese"
+   },
+   {
+    "id": "screen_printing",
+    "description": "a rubber squeegee pulled across a stretched mesh screen frame",
+    "culture": "generic/modern"
+   }
+  ]
+ },
+ "S048": {
+  "entity": "throwing pottery on a wheel",
+  "entity_vi": "làm gốm",
+  "required": [
+   {
+    "id": "spinning_horizontal_disc",
+    "description": "a flat horizontal disc spinning under the clay",
+    "part": "wheel",
+    "source": "https://en.wikipedia.org/wiki/Potter%27s_wheel"
+   },
+   {
+    "id": "wet_clay_both_hands",
+    "description": "wet grey-brown clay shaped between both hands",
+    "part": "hands",
+    "source": "https://vi.wikipedia.org/wiki/L%C3%A0ng_g%E1%BB%91m_B%C3%A1t_Tr%C3%A0ng"
+   },
+   {
+    "id": "unfired_earth_coloured_vessel",
+    "description": "an unglazed earth-coloured vessel wall rising from the lump",
+    "part": "vessel",
+    "source": "https://en.wikipedia.org/wiki/Potter%27s_wheel"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "already_finished_glazed_pot",
+    "description": "a glossy glazed painted pot, already fired and dry",
+    "culture": "generic/modern"
+   },
+   {
+    "id": "hand_built_coil_pot",
+    "description": "a pot built up from clay coils with no wheel under it",
+    "culture": "generic"
+   },
+   {
+    "id": "painting_decoration_only",
+    "description": "a brush painting decoration onto a dry finished pot",
+    "culture": "generic"
+   }
+  ]
+ },
+ "S019": {
+  "entity": "Red Dao (Dao Do) woman's dress",
+  "entity_vi": "trang phục người Dao Đỏ",
+  "required": [
+   {
+    "id": "large_red_head_cloth",
+    "description": "a large bright red cloth wound high over the head, hair hidden",
+    "part": "headdress",
+    "source": "https://baolaocai.vn/anh-doc-dao-trang-phuc-dan-toc-dao-do-lao-cai-post386553.html"
+   },
+   {
+    "id": "red_wool_pompoms_on_chest",
+    "description": "round red wool pom-poms and red tassels hanging on the chest",
+    "part": "chest trim",
+    "source": "https://dsvh.gov.vn/nghe-thuat-trang-tri-tren-trang-phuc-truyen-thong-cua-nguoi-dao-do-3124"
+   },
+   {
+    "id": "dark_indigo_long_tunic",
+    "description": "a plain black or indigo long tunic open down the front",
+    "part": "tunic",
+    "source": "https://special.nhandan.vn/trang-phuc-truyen-thong-cua-nguoi-Dao-Do/index.html"
+   },
+   {
+    "id": "red_embroidered_edges",
+    "description": "dense red thread embroidery along the front edges and cuffs",
+    "part": "front opening|cuffs",
+    "source": "https://dsvh.gov.vn/nghe-thuat-trang-tri-tren-trang-phuc-truyen-thong-cua-nguoi-dao-do-3124"
+   },
+   {
+    "id": "silver_pieces_on_chest_bib",
+    "description": "small silver flowers and silver buttons on the chest bib",
+    "part": "chest bib",
+    "source": "http://www.cema.gov.vn/gioi-thieu/cong-dong-54-dan-toc/nguoi-dao.htm"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "miao_silver_horn_crown",
+    "description": "a tall horned silver crown and a wide stacked silver plate collar",
+    "culture": "Chinese/Miao"
+   },
+   {
+    "id": "hmong_pleated_skirt_look",
+    "description": "a wide pleated flared skirt with white batik patterns and cloth leg wraps",
+    "culture": "Vietnamese/H'Mông"
+   },
+   {
+    "id": "plain_red_silk_robe",
+    "description": "a plain red silk robe wrapped across the front with no embroidered bands",
+    "culture": "generic/Chinese"
+   }
+  ]
+ },
+ "S037": {
+  "entity": "Vietnamese sidewalk coffee shop",
+  "entity_vi": "quán cà phê vỉa hè",
+  "required": [
+   {
+    "id": "very_low_plastic_stools",
+    "description": "small plastic stools about knee high used instead of chairs",
+    "part": "seating",
+    "source": "https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8"
+   },
+   {
+    "id": "low_small_table",
+    "description": "a small low table barely higher than the stools",
+    "part": "table",
+    "source": "https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8"
+   },
+   {
+    "id": "seats_on_bare_pavement",
+    "description": "stools standing directly on the open pavement, no raised deck",
+    "part": "ground surface",
+    "source": "https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8"
+   },
+   {
+    "id": "seats_face_the_street",
+    "description": "people sitting in a row facing out toward the passing street",
+    "part": "seating direction",
+    "source": "https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8"
+   },
+   {
+    "id": "glasses_at_ground_level",
+    "description": "glasses standing on stools or on the pavement beside the people",
+    "part": "glasses",
+    "source": "CHƯA CÓ NGUỒN"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "bistro_terrace",
+    "description": "round metal tables with tall wicker chairs under a fabric awning",
+    "culture": "generic/Western"
+   },
+   {
+    "id": "raised_deck_cafe_patio",
+    "description": "normal-height wooden chairs and tables on a raised wooden deck",
+    "culture": "generic/modern"
+   },
+   {
+    "id": "counter_with_bar_stools",
+    "description": "tall bar stools at a high counter inside a glass shopfront",
+    "culture": "generic/modern"
+   }
+  ]
+ },
+ "S040": {
+  "entity": "Vietnamese conical leaf hat",
+  "entity_vi": "nón lá",
+  "required": [
+   {
+    "id": "pointed_leaf_cone",
+    "description": "an even cone of pale leaf rising to one sharp point",
+    "part": "overall shape",
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+   },
+   {
+    "id": "smooth_flat_leaf_surface",
+    "description": "smooth flat overlapping leaf strips, no coarse basket weave",
+    "part": "surface",
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+   },
+   {
+    "id": "stitch_rings_tip_to_rim",
+    "description": "evenly spaced rings of small thread stitches from tip to rim",
+    "part": "stitching",
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+   },
+   {
+    "id": "soft_cloth_chin_strap",
+    "description": "a wide soft cloth band tied under the chin",
+    "part": "chin strap",
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+   },
+   {
+    "id": "no_separate_crown",
+    "description": "one unbroken surface from tip to rim, no separate crown and brim",
+    "part": "brim",
+    "source": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "woven_straw_rice_hat",
+    "description": "a wide low hat of coarse plaited straw with visible weave and no cloth strap",
+    "culture": "Chinese/Japanese"
+   },
+   {
+    "id": "sombrero",
+    "description": "a very wide stiff brim with an upturned edge and a tall crown",
+    "culture": "Mexican"
+   },
+   {
+    "id": "straw_sun_hat",
+    "description": "a rounded crown with a separate flat brim sewn around it",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S047": {
+  "entity": "H'Mong woman's traditional dress",
+  "entity_vi": "trang phục truyền thống H'Mông",
+  "required": [
+   {
+    "id": "pleated_flared_skirt",
+    "description": "a knee-length skirt tight at the waist flaring into many stiff pleats",
+    "part": "skirt",
+    "source": "https://dsvh.gov.vn/nghe-thuat-tao-hoa-van-tren-trang-phuc-truyen-thong-cua-nguoi-mong-hoa-tinh-dien-bien-3144"
+   },
+   {
+    "id": "white_batik_on_indigo",
+    "description": "fine white geometric wax-resist lines on dark indigo cloth",
+    "part": "cloth pattern",
+    "source": "http://www.cema.gov.vn/gioi-thieu/cong-dong-54-dan-toc/nguoi-mong.htm"
+   },
+   {
+    "id": "bright_stitched_bands",
+    "description": "horizontal bands of red, pink and orange stitched geometric motifs",
+    "part": "skirt hem",
+    "source": "https://dsvh.gov.vn/nghe-thuat-tao-hoa-van-tren-trang-phuc-truyen-thong-cua-nguoi-mong-hoa-tinh-dien-bien-3144"
+   },
+   {
+    "id": "cloth_leg_wraps",
+    "description": "cloth strips wound around both lower legs below the knee",
+    "part": "lower legs",
+    "source": "https://dsvh.gov.vn/nghe-thuat-tao-hoa-van-tren-trang-phuc-truyen-thong-cua-nguoi-mong-hoa-tinh-dien-bien-3144"
+   },
+   {
+    "id": "silver_neck_ring",
+    "description": "a smooth rigid silver ring worn around the neck",
+    "part": "neck",
+    "source": "https://dsvh.gov.vn/nghe-cham-khac-bac-cua-nguoi-mong-o-sapa,-lao-cai-1104"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "red_dao_red_headdress_look",
+    "description": "a large plain red cloth headdress with red wool pom-poms on the chest",
+    "culture": "Vietnamese/Dao Đỏ"
+   },
+   {
+    "id": "miao_stage_silver_headdress",
+    "description": "a tall horned silver headdress and layered silver plate collars",
+    "culture": "Chinese/Miao"
+   },
+   {
+    "id": "floral_festival_dress",
+    "description": "a loose floral-printed dress with a flower crown and bare legs",
+    "culture": "generic/Western"
+   }
+  ]
+ },
+ "S049": {
+  "entity": "Vietnamese man's long tunic and folded turban",
+  "entity_vi": "áo the khăn xếp",
+  "required": [
+   {
+    "id": "dark_knee_length_robe",
+    "description": "a loose dark robe with narrow sleeves falling past the knee",
+    "part": "robe",
+    "source": "https://vi.wikipedia.org/wiki/Trang_ph%E1%BB%A5c_Vi%E1%BB%87t_Nam"
+   },
+   {
+    "id": "standing_collar_right_closure",
+    "description": "a narrow standing collar buttoned shut, closing down the right side",
+    "part": "collar|front opening",
+    "source": "https://nhandan.vn/ao-dai-nam-trong-dong-chay-van-hoa-viet-post640003.html"
+   },
+   {
+    "id": "stacked_fold_turban",
+    "description": "a low cloth ring of stacked horizontal folds on the head",
+    "part": "headwear",
+    "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_v%E1%BA%A5n"
+   },
+   {
+    "id": "forehead_fold_mark",
+    "description": "the front folds form one bar or a crossed V",
+    "part": "forehead",
+    "source": "https://vi.wikipedia.org/wiki/Trang_ph%E1%BB%A5c_Vi%E1%BB%87t_Nam"
+   },
+   {
+    "id": "plain_light_trousers",
+    "description": "plain loose light trousers showing below the robe hem",
+    "part": "trousers",
+    "source": "https://vi.wikipedia.org/wiki/Trang_ph%E1%BB%A5c_Vi%E1%BB%87t_Nam"
+   }
+  ],
+  "confusables": [
+   {
+    "id": "changshan_with_skullcap",
+    "description": "a robe with a round mandarin collar and a round black skullcap",
+    "culture": "Chinese"
+   },
+   {
+    "id": "kimono_with_wide_sash",
+    "description": "a robe crossed over the chest held by a wide wrapped waist sash",
+    "culture": "Japanese"
+   },
+   {
+    "id": "hanbok_with_wide_brim_hat",
+    "description": "a short jacket over baggy trousers with a tall wide-brimmed black hat",
+    "culture": "Korean"
    }
   ]
  }

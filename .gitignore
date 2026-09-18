@@ -9,4 +9,3 @@ runs/
 # ảnh tham chiếu của nhóm: ảnh web bên thứ ba, giấy phép không rõ -> chỉ dùng nội bộ, không đẩy lên repo công khai
 docs/report_assets/
 runs_backup/   # ảnh sinh kéo từ máy thuê về, giữ khỏi mất khi huỷ instance
-docs/contract_work/anh/

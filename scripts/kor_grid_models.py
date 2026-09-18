@@ -50,29 +50,33 @@ def main(argv=None):
         cot += [(nhan, i, "A"), (f"{nhan} + Culture-TRIP", i, "B (I0)"), (f"{nhan} + {a.method_name}", i, "C (I1)")]
 
     import textwrap
-    cell, gut, head, pad, cap = a.cell, 200, 34, 6, 20
+    # Tỉ lệ chữ/lề theo cell để lưới độ phân giải gốc (cell 1024) vẫn đọc được. thumbnail() KHÔNG phóng to
+    # và không thu nhỏ khi ảnh <= cell, nên cell 1024 = ảnh nguyên bản; PNG là nén không mất dữ liệu.
+    k = max(1.0, a.cell / 220)
+    cell, gut, head, pad, cap = a.cell, int(200 * k), int(34 * k), int(6 * k), int(20 * k)
+    F, FB, FS, LH, WRAP = int(12 * k), int(12 * k), int(11 * k), int(15 * k), 28
     cw, ch = cell + pad, cell + cap + pad
     W, H = gut + len(cot) * cw + pad, head + len(pids) * ch + pad
     im = Image.new("RGB", (W, H), "white"); d = ImageDraw.Draw(im)
-    for k, (nh, _, _) in enumerate(cot):
-        d.text((gut + k * cw + 3, 8), nh, font=_font(12, True), fill=(20, 20, 20))
+    for ci, (nh, _, _) in enumerate(cot):
+        d.text((gut + ci * cw + 3, int(8 * (head / 34))), nh, font=_font(FB, True), fill=(20, 20, 20))
     for r, pid in enumerate(pids):
         y = head + r * ch
         pv = next((us[pid].get("prompt_vi", "") for _, _, us in runs if pid in us), "")
-        for j, dong in enumerate(textwrap.wrap(f"{pid}: {pv}", 28)[:9]):
-            d.text((4, y + 6 + j * 15), dong, font=_font(11, j == 0), fill=(20, 20, 20))
-        for k, (_, ri, key) in enumerate(cot):
-            _, rd, us = runs[ri]; u = us.get(pid); x = gut + k * cw
+        for j, dong in enumerate(textwrap.wrap(f"{pid}: {pv}", WRAP)[:9]):
+            d.text((4, y + 6 + j * LH), dong, font=_font(FS, j == 0), fill=(20, 20, 20))
+        for ci, (_, ri, key) in enumerate(cot):
+            _, rd, us = runs[ri]; u = us.get(pid); x = gut + ci * cw
             p = _theo_run(u["images"].get(key, ""), rd) if u and u["images"].get(key) else None
             if not p or not p.exists():
-                d.text((x + 6, y + 6), "—", font=_font(12), fill=(150, 150, 150)); continue
+                d.text((x + 6, y + 6), "—", font=_font(F), fill=(150, 150, 150)); continue
             t = Image.open(p).convert("RGB"); t.thumbnail((cell, cell))
             im.paste(t, (x + (cell - t.width) // 2, y))
             if key == "C (I1)":
                 g = (u.get("gate_C") or {}); txt = f"cổng: {g.get('selection', '?')}" if g else ("no-op" if not u.get("actions") else "")
-                d.text((x + 3, y + cell + 3), txt, font=_font(11), fill=(110, 110, 110))
+                d.text((x + 3, y + cell + 3), txt, font=_font(FS), fill=(110, 110, 110))
         d.line([(0, y - 2), (W, y - 2)], fill=(225, 225, 225))
-    out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True); im.save(out)
+    out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True); im.save(out, compress_level=1)   # PNG lossless
     print(f"-> {out} · {len(pids)} hàng × {len(cot)} cột · {out.stat().st_size // 1024} KB")
 
 

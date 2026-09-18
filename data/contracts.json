@@ -17,11 +17,6 @@
     "id": "ankle_length_panels",
     "description": "loose panels hanging down to near the ankles",
     "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
-   },
-   {
-    "id": "high_stand_collar",
-    "description": "a high stand-up collar closed around the neck",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
    }
   ],
   "confusables": [
@@ -222,16 +217,6 @@
     "id": "many_lantern_colours",
     "description": "lanterns glowing in many different colours, not only red",
     "source": "http://vanhoanghethuat.vn/nghe-thuat-trang-tri-long-den-hoi-an-gia-tri-can-bao-ton-va-phat-trien.htm"
-   },
-   {
-    "id": "ochre_yellow_walls",
-    "description": "ochre-yellow plastered walls along the street",
-    "source": "https://whc.unesco.org/en/list/948/"
-   },
-   {
-    "id": "low_tiled_shophouses",
-    "description": "low one or two storey shophouses with curved tile roofs",
-    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
    },
    {
     "id": "lit_from_inside",
@@ -497,16 +482,6 @@
     "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183"
    },
    {
-    "id": "men_black_tunic_and_turban",
-    "description": "men in long dark tunics with wrapped cloth turbans",
-    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183"
-   },
-   {
-    "id": "men_hold_umbrella",
-    "description": "men holding a round long-handled umbrella",
-    "source": "https://ich.unesco.org/en/RL/quan-ho-bac-ninh-folk-songs-00183"
-   },
-   {
     "id": "women_layered_tunics",
     "description": "women in several layered tunics of different colours",
     "source": "https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D"
@@ -632,7 +607,7 @@
    },
    {
     "id": "only_two_colours",
-    "description": "only two colours, usually black and white",
+    "description": "only two alternating colours, any pair",
     "source": "https://vi.wikipedia.org/wiki/Kh%C4%83n_r%E1%BA%B1n"
    },
    {
@@ -671,11 +646,6 @@
    {
     "id": "open_front_two_flaps",
     "description": "an open front with two separate hanging flaps",
-    "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
-   },
-   {
-    "id": "yem_bodice_visible",
-    "description": "a coloured square-cut bodice showing at the chest",
     "source": "https://vi.wikipedia.org/wiki/%C3%81o_t%E1%BB%A9_th%C3%A2n"
    },
    {

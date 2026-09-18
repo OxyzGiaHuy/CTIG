@@ -34,7 +34,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", action="append", required=True, help="<nhãn model>=<thư mục lô>")
     ap.add_argument("-o", "--out", required=True)
-    ap.add_argument("--method-name", default="CG-MAPR")
+    ap.add_argument("--method-name", default="SAVIER (ours)")
     ap.add_argument("--cell", type=int, default=260)
     a = ap.parse_args(argv)
     from PIL import Image, ImageDraw
@@ -47,7 +47,7 @@ def main(argv=None):
     pids = sorted({p for _, _, u in runs for p in u})
     cot = []                                  # (nhãn cột, chỉ số run, khoá ảnh)
     for i, (nhan, _, _) in enumerate(runs):
-        cot += [(nhan, i, "A"), (f"{nhan} + Culture-TRIP", i, "B (I0)"), (f"{nhan} + {a.method_name}", i, "C (I1)")]
+        cot += [(nhan, i, "A"), (f"{nhan} + refined prompt", i, "B (I0)"), (f"{nhan} + {a.method_name}", i, "C (I1)")]
 
     import textwrap
     # Tỉ lệ chữ/lề theo cell để lưới độ phân giải gốc (cell 1024) vẫn đọc được. thumbnail() KHÔNG phóng to
@@ -72,9 +72,9 @@ def main(argv=None):
                 d.text((x + 6, y + 6), "—", font=_font(F), fill=(150, 150, 150)); continue
             t = Image.open(p).convert("RGB"); t.thumbnail((cell, cell))
             im.paste(t, (x + (cell - t.width) // 2, y))
-            if key == "C (I1)":
-                g = (u.get("gate_C") or {}); txt = f"cổng: {g.get('selection', '?')}" if g else ("no-op" if not u.get("actions") else "")
-                d.text((x + 3, y + cell + 3), txt, font=_font(FS), fill=(110, 110, 110))
+            # không in nhãn cổng dưới ô (cổng đã bỏ khỏi phương pháp); chỉ đánh dấu no-op
+            if key == "C (I1)" and not u.get("actions"):
+                d.text((x + 3, y + cell + 3), "no-op (= I0)", font=_font(FS), fill=(110, 110, 110))
         d.line([(0, y - 2), (W, y - 2)], fill=(225, 225, 225))
     out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True); im.save(out, compress_level=1)   # PNG lossless
     print(f"-> {out} · {len(pids)} hàng × {len(cot)} cột · {out.stat().st_size // 1024} KB")

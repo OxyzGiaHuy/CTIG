@@ -112,8 +112,12 @@ def main(argv=None):
             s.set_prompt_en(refined)
         gen, _ = s.genspec()
 
+        # ref_crop chỉ chạy trong Session.crop_refs, KHÔNG trong multigen.run -> phải gọi tay,
+        # nếu không IP-Adapter nhận nguyên tấm ảnh chụp xa (đo ở S012, xem run trước).
         refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5)
         refs = refs[:cfg.multigen.ref_images]
+        if refs and cfg.multigen.ref_crop:
+            refs = s.crop_refs(refs, s.spec()[0])
 
         o = {}
         for c in cot:

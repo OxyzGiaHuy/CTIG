@@ -105,9 +105,16 @@ def main(argv=None):
                 base_prompt = " ".join(gen.prompt_terms)
                 base_neg = list(gen.negative_terms)
 
-                # selected/ để điều kiện IP-Adapter; candidates/ cất riêng để chấm, rời nhau theo băm
+                # selected/ để điều kiện IP-Adapter; candidates/ cất riêng để chấm, rời nhau theo băm.
+                # PHẢI cắt về vùng chủ thể: `ref_crop` chỉ chạy trong Session.crop_refs chứ KHÔNG chạy
+                # trong multigen.run, nên đưa đường dẫn thô vào là IP-Adapter nhận nguyên tấm ảnh. Đã đo
+                # ở S012: ảnh thật đúng (hai cái thúng tròn) nhưng chụp xa, chủ thể chiếm vài phần trăm
+                # khung, nên IP-Adapter chuyển màu nước xanh và dáng thuôn dài thay vì chuyển hình TRÒN,
+                # và cả bốn cột đều ra thuyền dài.
                 refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5)
                 refs = refs[:cfg.multigen.ref_images]
+                if refs and cfg.multigen.ref_crop:
+                    refs = s.crop_refs(refs, s.spec()[0])
 
                 dem = {k: 0 for k in ARMS}
                 nhanh_dang_chay = ["B"]

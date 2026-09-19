@@ -1033,3 +1033,19 @@ Refs-only thật chạy ở chuỗi v3 (`v3_*_refsonly`, S001–S010). Bài họ
 (`v2flux_*`). Quyết định chọn bản nào lên bài: chưa.
 
 Đĩa: đã xoá venv_t2v, clip-flant5-xl ×2, clip-vit-L-336, Qwen3-8B, RealVisXL, cache pip, các lô cũ → còn ~38 GB.
+
+**Ablation v3 THẬT (S001–S010, cùng I0 chép từ lô gốc, `chain_v3.sh`, 06:28 19/9):**
+
+| S001–S010 | SDXL VCFS / VQA / CCR | FLUX VCFS / VQA / CCR |
+|---|---|---|
+| I0 | 46,9 / 0,665 / 18,3 | 53,8 / 0,715 / 21,7 |
+| **SAVIER hiện tại** | 66,4 / **0,822** / 21,7 | **71,7 / 0,907 / 15,0** |
+| refs-only (không agent) | 66,0 / 0,731 / 21,7 | 59,5 / 0,809 / 23,3 |
+| keep-only (refs + Keep clause) | 62,7 / 0,774 / 25,0 | 64,5 / 0,742 / 20,0 |
+| safe (scale theo chẩn đoán + no-op + disambig) | 56,4 / 0,766 / 21,7 | 60,5 / 0,789 / 35,0 |
+| evidence (safe + chọn ref + action từ hiệu ref/I0) | 65,4 / **0,877** / 25,0 | 53,6 / 0,779 / 15,0 |
+
+Đọc: trên FLUX agent thêm **+12 VCFS và +0,10 VQA** so với refs-only; trên SDXL VCFS ngang refs-only nhưng
+**+0,09 VQA**, 0 thoái lui. Keep clause một mình không đủ (keep-only < SAVIER cả hai model) → R có đóng góp.
+Scale thích nghi (0,35 khi không mâu thuẫn) **làm hại** cả hai model; chọn ref + diff-actions tốt VQA trên
+SDXL nhưng sập trên FLUX. **Giữ bản hiện tại làm bản chính.** n = 10, chỉ để định hướng.

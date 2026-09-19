@@ -232,8 +232,7 @@ R_SYSTEM = (
     "Classify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity "
     "(identity cue not evidenced in the report); contradictions (report shows something incompatible); "
     "already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\n"
-    "Priority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; "
-    "3 identity cues; 4 conditional cues. At most 3 repair_actions.\n"
+    "{PRIORITY} At most 3 repair_actions.\n"
     "Each repair_action is ONE positive English instruction (max 18 words) describing exactly what should be "
     "visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole "
     "resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change "
@@ -256,13 +255,20 @@ def _sach(a: str) -> str | None:
     return " ".join(str(a).split())
 
 
-def agent_R(agent, so_tay, pid, prompt_en, cards, report, log, mo_rong=""):
+PRIORITY_PROMPT = ("Priority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; "
+                   "3 identity cues; 4 conditional cues.")
+PRIORITY_IDENTITY = ("Priority for repair: 1 identity cues of the cultural object (its shape, how it is worn or carried); "
+                     "2 conditional cues; 3 details stated in the prompt; 4 supporting objects and background.")
+
+
+def agent_R(agent, so_tay, pid, prompt_en, cards, report, log, mo_rong="", priority="prompt"):
     user = (f"ORIGINAL PROMPT: {prompt_en}\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\n{mo_rong}\n\n"
             f"PROMPT PRESERVATION CARD:\n"
             f"{json.dumps(cards.get('prompt_preservation'), ensure_ascii=False)}\n\nCULTURAL EVIDENCE CARD:\n"
             f"{json.dumps(cards.get('cultural_evidence'), ensure_ascii=False)}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n"
             f"{json.dumps(report, ensure_ascii=False)}\n\nReturn the gap analysis as JSON.")
-    d = goi_text(agent, so_tay, pid, "R", "gap", R_SYSTEM, user, R_SCHEMA, max_new_tokens=900)
+    sys_r = R_SYSTEM.replace("{PRIORITY}", PRIORITY_IDENTITY if priority == "identity" else PRIORITY_PROMPT)
+    d = goi_text(agent, so_tay, pid, "R", "gap", sys_r, user, R_SCHEMA, max_new_tokens=900)
     tho = [str(x) for x in (d.get("repair_actions") or [])]
     sach = [y for y in (_sach(x) for x in tho) if y][:3]
     bo = [x for x in tho if _sach(x) is None]
@@ -544,6 +550,15 @@ def main(argv=None):
     ap.add_argument("--backend", choices=["multigen", "flux"], default="multigen",
                     help="flux = ctig.gen_flux.FluxGen, đường sinh tối giản tách khỏi multigen")
     ap.add_argument("--flux-ip-scale", type=float, default=0.6)
+    # --- bản thử nghiệm v2 (CTIG), mặc định tắt hết để lô cũ tái lập được ---
+    ap.add_argument("--r-priority", choices=["prompt", "identity"], default="prompt",
+                    help="identity: R ưu tiên cue định danh trước chi tiết prompt (39/109 action từng nhắm vào thứ I0 đã có)")
+    ap.add_argument("--precheck-keep-max", type=float, default=7.9,
+                    help="giữ action khi điểm I0 <= ngưỡng này; 3 = chỉ giữ khi I0 rõ ràng KHÔNG có (nghiêm)")
+    ap.add_argument("--no-expansion", action="store_true",
+                    help="R không đọc phần mở rộng Culture-TRIP; P1 dựng từ P0 (không mang phần mở rộng)")
+    ap.add_argument("--refs-only", action="store_true", help="ablation: I1 = P_ct + IP-Adapter, KHÔNG agent")
+    ap.add_argument("--reuse-from", default=None, help="chép A và I0 từ lô cũ cùng seed thay vì sinh lại (so sánh chính xác, nhanh hơn)")
     ap.add_argument("--run-name", default=None, help="mặc định kor_<YYYYmmdd_HHMM> để không ghi đè lô cũ")
     ap.add_argument("--append-run", default=None, help="nối prompt mới vào lô đã có (đường dẫn thư mục run); lưới vẽ lại gồm cả cũ")
     ap.add_argument("--regate", default=None, help="chạy lại CHỈ bước cổng cho lô đã có (không sinh ảnh): đường dẫn thư mục run")
@@ -653,8 +668,25 @@ def main(argv=None):
             return out.candidates[0].path if out and out.candidates else None
 
         # ---- A và B (= I0)
-        anh_A = sinh(p_orig, "A", "A"); log(f"  [A] {anh_A}")
-        i0 = sinh(p_ct, "B", "B"); log(f"  [B=I0] {i0}")
+        anh_A = i0 = None
+        if a.reuse_from:
+            import shutil
+            cu = Path(a.reuse_from) / pid / "kor.json"
+            if cu.exists():
+                uu = json.loads(cu.read_text(encoding="utf-8"))
+                def _loc(pth):
+                    parts = Path(pth).parts; nm = Path(a.reuse_from).name
+                    i = len(parts) - 1 - parts[::-1].index(nm) if nm in parts else None
+                    return Path(a.reuse_from).joinpath(*parts[i + 1:]) if i is not None else Path(pth)
+                sa, sb = _loc(uu["images"]["A"]), _loc(uu["images"]["B (I0)"])
+                if sa.exists() and sb.exists() and uu.get("seed") == a.seed:
+                    (out_dir / "A").mkdir(exist_ok=True); (out_dir / "B").mkdir(exist_ok=True)
+                    anh_A = str(out_dir / "A" / sa.name); i0 = str(out_dir / "B" / sb.name)
+                    shutil.copy(sa, anh_A); shutil.copy(sb, i0); log(f"  [A,B=I0] chép từ {a.reuse_from}")
+        if not anh_A:
+            anh_A = sinh(p_orig, "A", "A"); log(f"  [A] {anh_A}")
+        if not i0:
+            i0 = sinh(p_ct, "B", "B"); log(f"  [B=I0] {i0}")
         shared[0] = s.agent
         if not i0:
             log("  không có I0 -> bỏ prompt"); continue
@@ -671,21 +703,21 @@ def main(argv=None):
         # ---- O: quan sát mù I0
         rep0 = agent_O(s.agent, so_tay, pid, i0, "I0", log)
         # ---- R: phân tích lỗ hổng -> action
-        mo_rong = p_ct[len(p_orig):].strip() if p_ct.startswith(p_orig) else ""
-        gap = agent_R(s.agent, so_tay, pid, p_orig, cards, rep0, log, mo_rong=mo_rong)
+        mo_rong = "" if a.no_expansion else (p_ct[len(p_orig):].strip() if p_ct.startswith(p_orig) else "")
+        gap = agent_R(s.agent, so_tay, pid, p_orig, cards, rep0, log, mo_rong=mo_rong, priority=a.r_priority)
         actions = gap.get("repair_actions") or []
         # Chấm từng action trên I0 TRƯỚC khi dùng: mục I0 đã >= 8 là thứ không hỏng -> bỏ (S001 FLUX: "high
         # collar" 10 -> 10 chiếm một trong ba suất). Thiếu suất thì bù bằng identity cue của K.
         giu_act, bo_act = [], []
         for act in actions:
             sc, _ = hoi_action(s.agent, so_tay, pid, i0, act, "pre_I0")
-            (bo_act if (sc is not None and sc >= 8) else giu_act).append((act, sc))
+            (bo_act if (sc is not None and sc > a.precheck_keep_max) else giu_act).append((act, sc))
         if len(giu_act) < 3:
             for c in (cards.get("cultural_evidence") or {}).get("identity_cues") or []:
                 cue = str(c.get("cue_en") or "").strip()
                 if cue and all(cue.lower() not in a_.lower() for a_, _ in giu_act):
                     sc, _ = hoi_action(s.agent, so_tay, pid, i0, cue, "pre_I0")
-                    if sc is None or sc < 8:
+                    if sc is None or sc <= a.precheck_keep_max:
                         giu_act.append((f"clearly visible: {cue}", sc))
                 if len(giu_act) >= 3: break
         actions = [a_ for a_, _ in giu_act][:3]
@@ -693,7 +725,8 @@ def main(argv=None):
                    {"giu": giu_act, "bo_da_dat": bo_act})
         if bo_act:
             log(f"  [R] bỏ {len(bo_act)} action I0 đã đạt: {[a_[:40] for a_, _ in bo_act]}")
-        p1 = dung_P1(p_ct, actions, cards.get("prompt_preservation"), p0=p_orig, drop=gap.get("drop_phrases"))
+        # --no-expansion: P1 dựng từ P0, bỏ hẳn phần Culture-TRIP (A > B về VQAScore ở SDXL: phần mở rộng làm lệch prompt gốc)
+        p1 = dung_P1(p_orig if a.no_expansion else p_ct, actions, cards.get("prompt_preservation"), p0=p_orig, drop=gap.get("drop_phrases"))
         if gap.get("drop_phrases"):
             log(f"  [P1] cắt khỏi phần mở rộng: {gap['drop_phrases']}")
         so_tay.ghi(pid, "P1", "prompt", "(P1 = P_ct nguyên văn + preserve clause + action; không negative)", "", {"P1": p1})

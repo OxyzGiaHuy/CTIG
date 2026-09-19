@@ -1049,3 +1049,9 @@ Refs-only thật chạy ở chuỗi v3 (`v3_*_refsonly`, S001–S010). Bài họ
 **+0,09 VQA**, 0 thoái lui. Keep clause một mình không đủ (keep-only < SAVIER cả hai model) → R có đóng góp.
 Scale thích nghi (0,35 khi không mâu thuẫn) **làm hại** cả hai model; chọn ref + diff-actions tốt VQA trên
 SDXL nhưng sập trên FLUX. **Giữ bản hiện tại làm bản chính.** n = 10, chỉ để định hướng.
+
+## 2026-09-19 06:49 — chuỗi cuối `chain_final.sh` (server) đang chạy
+- keep-only = refs-only + câu Keep từ Preservation Card (CÓ 2 ảnh ref qua IP-Adapter, không O/R). Đã giải thích cho user; user duyệt kế hoạch.
+- `/workspace/chain_final.sh` → log `/workspace/chain_final.log`: (1) chạy lại S001–S010 SDXL và S001–S005 FLUX bằng code hiện tại (`--reuse-from`, giữ A/I0) rồi `scripts/merge_units.py` ghép I1 vào lô chính (`kor_20260918_1349`, `kor_flux_20260918_1530`; sao lưu `*_bak_HHMM`); (2) `abl_{sdxl,flux}_{refsonly,keeponly}` đủ 50 prompt; (3) `eval_metrics.py` → `metrics_final_main`, `metrics_abl_*`; (4) `scripts/grid_8col.py` → `/workspace/runs/grids_final/grid_S0aa-S0bb_{768,1024}.png` (8 cột: `<model>`, `+ refined prompt`, `+ refined prompt + reference`, `+ SAVIER (ours)`).
+- Đo thực tế: SDXL agent run ≈ 18 s/prompt khi Mistral đã nạp (10 prompt: 06:49→06:52). Ghép SDXL xong 06:52, md5 I1 mới đã vào lô chính.
+- Còn làm sau khi chuỗi xong: kéo ảnh về `docs/report_assets/` (CTIG) và `results/` (SAVIER, copy không gen lại), lưu metric hai repo, báo số trung bình, push CTIG; SAVIER commit local, hỏi trước khi push.

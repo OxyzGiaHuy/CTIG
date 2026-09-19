@@ -990,3 +990,44 @@ không đổi được vật thể → C đi đường ref, img2img còn là đ�
 Vận hành: `pgrep -f "[r]un_kor"` KHÔNG match chính pgrep nhưng match câu relaunch nằm cùng dòng ssh → tự giết
 phiên. Tách kill và relaunch thành hai phiên ssh. Lưới gộp nhiều model: `scripts/kor_grid_models.py`.
 FLUX là gated: token chỉ qua `export HF_TOKEN` trong phiên của người dùng rồi chạy `/workspace/dl_flux.sh`.
+
+---
+
+## 2026-09-19 · SAVIER — 50 prompt × {SDXL, FLUX} xong, đủ 5 metric, ablation v2
+
+**Tên & repo.** Phương pháp đổi tên **SAVIER** (Source-Anchored Visual Inspection and Evidence-Guided Repair);
+ba agent: Source-Aware Prompt Curator (C) · Prompt-Blind Image Observer (O) · Discrepancy-Guided Prompt
+Refiner (R). Repo sạch `github.com/OxyzGiaHuy/SAVIER` (private): `savier/` (llm, wiki, agents, generators,
+pipeline), `scripts/`, `data/`, `results/` (310 ảnh gốc + metric). **Chỉ push SAVIER khi người dùng bảo**;
+CTIG push tự do. Bản chiếu của SAVIER nằm ở nhánh `CTIG/savier`. Cổng không-thoái-lui đã **bỏ** khỏi
+phương pháp: I1 luôn là đầu ra.
+
+**Lô chính.** SDXL `runs/kor_20260918_1349` (S001–S050), FLUX `runs/kor_flux_20260918_1530` (S001–S050;
+FLUX qua `ctig/gen_flux.py` — đường tối giản tách khỏi multigen sau ba lần cột ref hỏng im lặng: `#bare` xoá
+cờ `+ref`, thiếu encoder ViT-L/14 khi offline, encoder lệch device). Cùng seed 5000, không negative prompt,
+IP-Adapter 2 ảnh `selected/` đã cắt (SDXL) / 1 ảnh (FLUX XLabs). Lưới 50×6 (`grid_50x6_*.png`, cột
+`<model> · + refined prompt · + SAVIER (ours)`). Không xếp CAIRE chung GPU với sinh ảnh (đã OOM một lần).
+
+**Metric độc lập** (`scripts/eval_metrics.py`, `runs/metrics_50`): evaluator Qwen2.5-VL-7B mù nhánh, contract
+`contracts_v2.json` đóng băng, CI bootstrap theo prompt. VQAScore = P(Yes) theo P0 bằng Qwen (t2v_metrics
+clip-flant5 không dựng được: ghim torch 2.5.1/transformers 4.49, import cứng LLaVA-OV; đã bỏ venv). CAIRE
+chạy code/KB gốc trong `/workspace/CAIRE` (37 GB, venv riêng; cần bỏ dòng bắt buộc HF_TOKEN; tải asset qua
+HTTPS thay gsutil).
+
+| 50 prompt | ΔVCFS | ΔCCR | ΔVQA | NRG >0/=0/<0/N/A | ΔCAIRE-VN |
+|---|---:|---:|---:|---|---:|
+| SDXL | **+13,3** [5,4; 21,4] | +0,8 | **+0,12** | 24/13/1/12 | +0,44 [−0,02; 0,90] |
+| FLUX | **+7,3** [0,4; 13,7] | −2,0 | +0,07 | 19/16/5/10 | **+0,42** [0,06; 0,78] |
+
+Metric bổ sung (`eval_extra_metrics.py`, khảo sát sau, không trong bộ chốt trước): CALR SDXL 7% / FLUX 17%;
+RRR chỉ **12–16%** (generator hiện thực ít chỉ dẫn của R; 35% action nhắm vào thứ I0 đã có theo Qwen);
+GDF1-proxy ~55 (P ~50, R ~35). Tên sáu metric này chưa ai dùng, nhưng ý tách sửa/giữ là của GIE-Bench,
+AugCLIP, EditVal — viện dẫn, không claim.
+
+**Ablation v2 (S001–S020 SDXL, cùng I0, `--reuse-from`)**: refs-only (không agent) VCFS **62,0 ≈ SAVIER 62,2**
+→ điểm văn hoá đến từ ảnh tham chiếu; agent thêm ở **VQA 0,745 vs 0,670** và **0 vs 2 thoái lui**. Biến thể
+(a) R ưu tiên cue định danh: VCFS 65,3 (+3,1) nhưng VQA −0,05, 2 thoái lui. (b) chấm-trước nghiêm: tệ hơn.
+(d) R không đọc Culture-TRIP + P1 từ P0: 8/20 no-op, không lên. Đang chạy (a) + refs-only trên FLUX
+(`v2flux_*`). Quyết định chọn bản nào lên bài: chưa.
+
+Đĩa: đã xoá venv_t2v, clip-flant5-xl ×2, clip-vit-L-336, Qwen3-8B, RealVisXL, cache pip, các lô cũ → còn ~38 GB.

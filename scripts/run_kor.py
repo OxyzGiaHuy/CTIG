@@ -570,6 +570,7 @@ def main(argv=None):
                     help="giữ action khi điểm I0 <= ngưỡng này; 3 = chỉ giữ khi I0 rõ ràng KHÔNG có (nghiêm)")
     ap.add_argument("--no-expansion", action="store_true",
                     help="R không đọc phần mở rộng Culture-TRIP; P1 dựng từ P0 (không mang phần mở rộng)")
+    ap.add_argument("--p1-from", default="", help="JSON kế hoạch {pid: {P1_new}}: sinh I1 bằng P1_new + IP-Adapter, không gọi agent")
     ap.add_argument("--refs-only", action="store_true", help="ablation: I1 = P_ct + IP-Adapter, KHÔNG agent")
     ap.add_argument("--reuse-from", default=None, help="chép A và I0 từ lô cũ cùng seed thay vì sinh lại (so sánh chính xác, nhanh hơn)")
     ap.add_argument("--ref-select", action="store_true", help="O tả mù từng ảnh selected/, R chọn 2 ảnh khớp card + prompt")
@@ -718,10 +719,12 @@ def main(argv=None):
             tu_khoa += [w for r in cv.get("required", []) for w in str(r.get("description", "")).split() if len(w) > 5]
         except Exception:  # noqa: BLE001
             pass
-        if a.refs_only or a.keep_only:      # ablation: cùng prompt B + IP-Adapter ảnh thật, KHÔNG sửa; keep-only thêm Keep clause
+        if a.refs_only or a.keep_only or a.p1_from:      # ablation: cùng prompt B + IP-Adapter ảnh thật, KHÔNG sửa; keep-only thêm Keep clause
             refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5); refs = refs[:cfg.multigen.ref_images]
             if refs and cfg.multigen.ref_crop: refs = s.crop_refs(refs, s.spec()[0])
             p_dung = p_ct
+            if a.p1_from:
+                p_dung = json.loads(Path(a.p1_from).read_text(encoding="utf-8"))[pid]["P1_new"]
             if a.keep_only:
                 cards_k = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log, tu_khoa=tu_khoa)
                 pp = cards_k.get("prompt_preservation") or {}
@@ -731,7 +734,7 @@ def main(argv=None):
             i1 = sinh(p_dung, "C_ref", "C", refs=refs) if refs else i0
             rec = {"prompt_id": pid, "prompt_vi": pr.text_vi, "P_orig": p_orig, "P_ct": p_ct, "P1": p_dung, "seed": a.seed, "model": a.model,
                    "images": {"A": anh_A, "B (I0)": i0, "C (I1)": i1}, "so_lan_sinh": dem, "cards": {}, "report_I0": {}, "gap": {},
-                   "actions": ["(keep-only)" if a.keep_only else "(refs-only)"], "refs": refs, "ablation": "keep_only" if a.keep_only else "refs_only"}
+                   "actions": ["(keep-only)" if a.keep_only else ("(p1-from)" if a.p1_from else "(refs-only)")], "refs": refs, "ablation": "keep_only" if a.keep_only else ("savier_v2" if a.p1_from else "refs_only")}
             (out_dir / "kor.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
             tong.append(rec); hang.append((pid, rec["images"], {"A": "prompt gốc", "B (I0)": "= I0", "C (I1)": rec["ablation"]}))
             ve_luoi(hang, cot, run_dir / "kor_grid.png", nhan=NHAN, ten_hang={u["prompt_id"]: f"{u['prompt_id']}: {u['prompt_vi']}" for u in tong})

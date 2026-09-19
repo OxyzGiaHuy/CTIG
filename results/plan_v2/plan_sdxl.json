@@ -1,0 +1,1032 @@
+{
+ "S001": {
+  "changed": true,
+  "actions_old": [
+   "two flaps on the ao dai: front flap and back flap",
+   "wide-legged trousers that reach the ankles"
+  ],
+  "actions_new": [
+   "two flaps on the ao dai: front flap and back flap",
+   "wide-legged trousers that reach the ankles"
+  ],
+  "drop_old": [
+   "delicate button detailing"
+  ],
+  "drop_new": [],
+  "P1_old": "A young woman in a white ao dai standing at a school gate. A young woman in a white áo dài, a modern design called \"áo dài Le Mur,\" is standing at the entrance of a school on a sunny morning, preparing to attend a formal event. The áo dài is crafted from smooth, glossy silk with intricate patterns embroidered on the front and back panels. The close-fitting top features, while the trousers are sleek and form-fitting, complementing the wearer’s silhouette. The school is adorned with Vietnamese flags and banners, creating a festive atmosphere.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: school gate; at a school gate. Make these additions clearly visible:\n1. two flaps on the ao dai: front flap and back flap.\n2. wide-legged trousers that reach the ankles.",
+  "P1_new": "A young woman in a white ao dai standing at a school gate. A young woman in a white áo dài, a modern design called \"áo dài Le Mur,\" is standing at the entrance of a school on a sunny morning, preparing to attend a formal event. The áo dài is crafted from smooth, glossy silk with intricate patterns embroidered on the front and back panels. The close-fitting top features delicate button detailing, while the trousers are sleek and form-fitting, complementing the wearer’s silhouette. The school is adorned with Vietnamese flags and banners, creating a festive atmosphere.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: school gate; at a school gate. Make these additions clearly visible:\n1. two flaps on the ao dai: front flap and back flap.\n2. wide-legged trousers that reach the ankles.",
+  "ly_do": [
+   "R4 không drop (không ngoại lai): delicate button detailing"
+  ],
+  "seed": 5000
+ },
+ "S002": {
+  "changed": true,
+  "actions_old": [
+   "a bamboo pole resting across one shoulder with a basket hanging from each end",
+   "a narrow pathway in front of her"
+  ],
+  "actions_new": [
+   "a bamboo pole resting across one shoulder with a basket hanging from each end"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A woman carrying a shoulder pole of street goods along a street in the morning. In the early morning of a bustling Vietnamese market street, a woman carries a traditional Vietnamese street vending cart known as a \"gánh hàng rong\" (a balanced pole across her shoulders with robust, intricately woven bamboo baskets on either end) — a practice that has been a cornerstone of Vietnamese markets for centuries, reflecting the country’s cultural resilience and entrepreneurial spirit. The pole and baskets are made of lightweight and durable bamboo, a traditional material in Vietnam that ensures the cart is both strong and easy to handle. The baskets, resembling large woven shopping bags but more robust and intricately designed, are filled with fresh fruits and vegetables in vibrant colors and textures, such as ripe oranges, crisp lettuce, and fresh tomatoes. The woman carefully navigates the narrow pathway, maintaining her balance as she sets off to sell her wares for the day. The market is already alive with activity, vendors shouting prices and the clinking of metal containers, customers bargaining over the day’s fresh catch, creating a vibrant tapestry of sights, sounds, and scents like the aroma of freshly brewed coffee and the sight of colorful flowers. The \"gánh hàng rong\" not only serves as a means of livelihood for many Vietnamese but also preserves a rich cultural tradition that dates back generations, embodying the spirit of ingenuity and resilience that defines Vietnamese culture.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: street goods; along a street. Make these additions clearly visible:\n1. a bamboo pole resting across one shoulder with a basket hanging from each end.\n2. a narrow pathway in front of her.",
+  "P1_new": "A woman carrying a shoulder pole of street goods along a street in the morning. In the early morning of a bustling Vietnamese market street, a woman carries a traditional Vietnamese street vending cart known as a \"gánh hàng rong\" (a balanced pole across her shoulders with robust, intricately woven bamboo baskets on either end) — a practice that has been a cornerstone of Vietnamese markets for centuries, reflecting the country’s cultural resilience and entrepreneurial spirit. The pole and baskets are made of lightweight and durable bamboo, a traditional material in Vietnam that ensures the cart is both strong and easy to handle. The baskets, resembling large woven shopping bags but more robust and intricately designed, are filled with fresh fruits and vegetables in vibrant colors and textures, such as ripe oranges, crisp lettuce, and fresh tomatoes. The woman carefully navigates the narrow pathway, maintaining her balance as she sets off to sell her wares for the day. The market is already alive with activity, vendors shouting prices and the clinking of metal containers, customers bargaining over the day’s fresh catch, creating a vibrant tapestry of sights, sounds, and scents like the aroma of freshly brewed coffee and the sight of colorful flowers. The \"gánh hàng rong\" not only serves as a means of livelihood for many Vietnamese but also preserves a rich cultural tradition that dates back generations, embodying the spirit of ingenuity and resilience that defines Vietnamese culture.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: street goods; along a street. Make these additions clearly visible:\n1. a bamboo pole resting across one shoulder with a basket hanging from each end.",
+  "ly_do": [
+   "R1 bỏ (không neo 'a narrow pathway'): a narrow pathway in front of her"
+  ],
+  "seed": 5000
+ },
+ "S003": {
+  "changed": true,
+  "actions_old": [
+   "steam rising from the bowl of beef pho",
+   "a spoon next to the chopsticks on the wooden table",
+   "a small bowl of condiments on the wooden table"
+  ],
+  "actions_new": [
+   "steam rising from the bowl of beef pho",
+   "a small bowl of condiments on the wooden table"
+  ],
+  "drop_old": [
+   "wide rice noodles",
+   "fresh basil",
+   "bean sprouts"
+  ],
+  "drop_new": [],
+  "P1_old": "A steaming bowl of beef pho on a wooden table. A steaming bowl of beef pho is set on a rustic wooden table, inviting diners with its clear, flavorful broth enriched with star anise, cinnamon, and cloves, along with, tender slices of beef, and garnished with,, and cilantro. The soft, chewy texture of the wide rice noodles contrasts beautifully with the tender beef, and the gentle sound of the broth bubbling adds to the sensory experience. Originating in the early 20th century as a street food in Nam Định, Vietnam, phở bò has become a beloved culinary tradition, cherished for its rich cultural heritage and the emotional connections it fosters among Vietnamese people. Unlike other noodle soups, phở bò's unique blend of flavors, herbs, and cultural significance sets it apart as a singular culinary experience, inviting patrons to savor both its taste and the stories it carries. Revised Total\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: wooden table. Make these additions clearly visible:\n1. steam rising from the bowl of beef pho.\n2. a spoon next to the chopsticks on the wooden table.\n3. a small bowl of condiments on the wooden table.",
+  "P1_new": "A steaming bowl of beef pho on a wooden table. A steaming bowl of beef pho is set on a rustic wooden table, inviting diners with its clear, flavorful broth enriched with star anise, cinnamon, and cloves, along with wide rice noodles, tender slices of beef, and garnished with fresh basil, bean sprouts, and cilantro. The soft, chewy texture of the wide rice noodles contrasts beautifully with the tender beef, and the gentle sound of the broth bubbling adds to the sensory experience. Originating in the early 20th century as a street food in Nam Định, Vietnam, phở bò has become a beloved culinary tradition, cherished for its rich cultural heritage and the emotional connections it fosters among Vietnamese people. Unlike other noodle soups, phở bò's unique blend of flavors, herbs, and cultural significance sets it apart as a singular culinary experience, inviting patrons to savor both its taste and the stories it carries. Revised Total\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: wooden table. Make these additions clearly visible:\n1. steam rising from the bowl of beef pho.\n2. a small bowl of condiments on the wooden table.",
+  "ly_do": [
+   "R1 bỏ (không neo 'a spoon'): a spoon next to the chopsticks on the wooden table",
+   "R4 không drop (không ngoại lai): wide rice noodles",
+   "R4 không drop (không ngoại lai): fresh basil",
+   "R4 không drop (không ngoại lai): bean sprouts"
+  ],
+  "seed": 5000
+ },
+ "S004": {
+  "changed": false,
+  "actions_old": [
+   "large dong leaves wrapping the parcels"
+  ],
+  "actions_new": [
+   "large dong leaves wrapping the parcels"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "Square banh chung wrapped in dong leaves tied with bamboo strips on a tray. A traditional Vietnamese dish called bánh chưng is square-shaped, wrapped in green, fragrant dong leaves, and tied with thin bamboo strips. It is made from glutinous rice, mung beans, and pork, carefully layered inside the leaves to create a compact, uniform package. Bánh ch Chung is an essential part of the Tết holiday, typically displayed on the family altar, symbolizing the earth. After being steamed for hours, the bánh ch Chung is unwrapped, revealing its rich, golden color and inviting aroma, ready to be enjoyed.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: bamboo strips; on a tray. Make these additions clearly visible:\n1. large dong leaves wrapping the parcels.",
+  "P1_new": "Square banh chung wrapped in dong leaves tied with bamboo strips on a tray. A traditional Vietnamese dish called bánh chưng is square-shaped, wrapped in green, fragrant dong leaves, and tied with thin bamboo strips. It is made from glutinous rice, mung beans, and pork, carefully layered inside the leaves to create a compact, uniform package. Bánh ch Chung is an essential part of the Tết holiday, typically displayed on the family altar, symbolizing the earth. After being steamed for hours, the bánh ch Chung is unwrapped, revealing its rich, golden color and inviting aroma, ready to be enjoyed.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: bamboo strips; on a tray. Make these additions clearly visible:\n1. large dong leaves wrapping the parcels.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S005": {
+  "changed": true,
+  "actions_old": [
+   "a banh mi sandwich with a hollower interior to hold more fillings"
+  ],
+  "actions_new": [
+   "a banh mi sandwich with a hollower interior to hold more fillings"
+  ],
+  "drop_old": [
+   "golden-brown baguette",
+   "bright red pickled carrots",
+   "white daikon"
+  ],
+  "drop_new": [],
+  "P1_old": "A banh mi stuffed with pork, pickles and cilantro. A bánh mì sandwich is a visually appealing and culturally significant Vietnamese dish, featuring a with vibrant green cilantro,, and, creating a striking contrast that tempts the eye. The sandwich offers a symphony of textures and flavors: the crunchiness of the baguette, the softness of chả lụa (Vietnamese sausage), the tanginess of the pickled vegetables, and the freshness of the herbs, reflecting the cultural fusion between French and Vietnamese culinary traditions.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rau mùi; pork; pickles; cilantro. Make these additions clearly visible:\n1. a banh mi sandwich with a hollower interior to hold more fillings.",
+  "P1_new": "A banh mi stuffed with pork, pickles and cilantro. A bánh mì sandwich is a visually appealing and culturally significant Vietnamese dish, featuring a golden-brown baguette with vibrant green cilantro, bright red pickled carrots, and white daikon, creating a striking contrast that tempts the eye. The sandwich offers a symphony of textures and flavors: the crunchiness of the baguette, the softness of chả lụa (Vietnamese sausage), the tanginess of the pickled vegetables, and the freshness of the herbs, reflecting the cultural fusion between French and Vietnamese culinary traditions.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: pork; pickles; cilantro. Make these additions clearly visible:\n1. a banh mi sandwich with a hollower interior to hold more fillings.",
+  "ly_do": [
+   "R4 không drop (không ngoại lai): golden-brown baguette",
+   "R4 không drop (không ngoại lai): bright red pickled carrots",
+   "R4 không drop (không ngoại lai): white daikon"
+  ],
+  "seed": 5000
+ },
+ "S006": {
+  "changed": false,
+  "actions_old": [
+   "a single pillar supporting the structure",
+   "a shrine on top of the pillar"
+  ],
+  "actions_new": [
+   "a single pillar supporting the structure",
+   "a shrine on top of the pillar"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "The One Pillar Pagoda over its pond in early morning mist. The One Pillar Pagoda, known as Chùa Một Cột in Vietnamese, is a historic Buddhist temple located in the central Ba Đình district of Hanoi, the capital of Vietnam. Built by Emperor Lý Thái Tông in 1049 as a symbol of his relationship with the Buddhist deity Manjushri, the pagoda is part of an architecture complex called Diên Hựu tự, which means \"pagoda of extended blessings.\" Its unique structure, a building perched on a single pillar, resembles a lotus flower emerging from a pond, making it a distinctive landmark in Vietnamese culture. The temple, which is adorned with intricate carvings and vibrant colors, is surrounded by a serene pond filled with lotus flowers. In the early morning mist, the pagoda stands over its pond, creating a serene and spiritual atmosphere. It serves as an important site for religious ceremonies and pilgrimages, reflecting its significance in Vietnamese Buddhism and its status as a national heritage site.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: pond; early morning. Make these additions clearly visible:\n1. a single pillar supporting the structure.\n2. a shrine on top of the pillar.",
+  "P1_new": "The One Pillar Pagoda over its pond in early morning mist. The One Pillar Pagoda, known as Chùa Một Cột in Vietnamese, is a historic Buddhist temple located in the central Ba Đình district of Hanoi, the capital of Vietnam. Built by Emperor Lý Thái Tông in 1049 as a symbol of his relationship with the Buddhist deity Manjushri, the pagoda is part of an architecture complex called Diên Hựu tự, which means \"pagoda of extended blessings.\" Its unique structure, a building perched on a single pillar, resembles a lotus flower emerging from a pond, making it a distinctive landmark in Vietnamese culture. The temple, which is adorned with intricate carvings and vibrant colors, is surrounded by a serene pond filled with lotus flowers. In the early morning mist, the pagoda stands over its pond, creating a serene and spiritual atmosphere. It serves as an important site for religious ceremonies and pilgrimages, reflecting its significance in Vietnamese Buddhism and its status as a national heritage site.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: pond; early morning. Make these additions clearly visible:\n1. a single pillar supporting the structure.\n2. a shrine on top of the pillar.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S007": {
+  "changed": true,
+  "actions_old": [
+   "rows of doctoral stelae on stone turtles in front of the pavilion",
+   "stone turtles supporting the doctoral stelae",
+   "dragons and phoenixes on the pavilion"
+  ],
+  "actions_new": [
+   "rows of doctoral stelae on stone turtles in front of the pavilion",
+   "stone turtles supporting the doctoral stelae"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles. The Văn Miếu - Quốc Tử Giám is Vietnam’s most important educational and cultural site, showcasing the nation's Confucian heritage and scholarly traditions. Founded in 1070, it served as the Imperial Academy until 1779, nurturing scholars and promoting intellectual and cultural growth. At its heart is the Khue Van Cac pavilion, known for its detailed carvings and vibrant colors, featuring dragons and phoenixes, symbols of power, longevity, and good fortune. Rows of doctoral stelae mounted on stone turtles surround the pavilion, commemorating the academic achievements of scholars who passed the imperial exams. The temple complex includes several pavilions, halls, and statues, each intricately designed to honor the value of learning and culture. Today, the temple remains a vital center for cultural and educational activities, hosting workshops, exhibitions, and educational seminars, playing a crucial role in preserving and promoting Vietnamese culture and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rows of doctoral stelae on stone turtles; the Temple of Literature. Make these additions clearly visible:\n1. rows of doctoral stelae on stone turtles in front of the pavilion.\n2. stone turtles supporting the doctoral stelae.\n3. dragons and phoenixes on the pavilion.",
+  "P1_new": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles. The Văn Miếu - Quốc Tử Giám is Vietnam’s most important educational and cultural site, showcasing the nation's Confucian heritage and scholarly traditions. Founded in 1070, it served as the Imperial Academy until 1779, nurturing scholars and promoting intellectual and cultural growth. At its heart is the Khue Van Cac pavilion, known for its detailed carvings and vibrant colors, featuring dragons and phoenixes, symbols of power, longevity, and good fortune. Rows of doctoral stelae mounted on stone turtles surround the pavilion, commemorating the academic achievements of scholars who passed the imperial exams. The temple complex includes several pavilions, halls, and statues, each intricately designed to honor the value of learning and culture. Today, the temple remains a vital center for cultural and educational activities, hosting workshops, exhibitions, and educational seminars, playing a crucial role in preserving and promoting Vietnamese culture and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rows of doctoral stelae on stone turtles; the Temple of Literature. Make these additions clearly visible:\n1. rows of doctoral stelae on stone turtles in front of the pavilion.\n2. stone turtles supporting the doctoral stelae.",
+  "ly_do": [
+   "R1 bỏ (không neo 'dragons and phoenixes'): dragons and phoenixes on the pavilion"
+  ],
+  "seed": 5000
+ },
+ "S008": {
+  "changed": true,
+  "actions_old": [
+   "brick walls on the buildings",
+   "curved tiled roofs on the buildings"
+  ],
+  "actions_new": [
+   "brick walls on the buildings",
+   "curved tiled roofs on the buildings"
+  ],
+  "drop_old": [
+   "ochre-colored walls"
+  ],
+  "drop_new": [],
+  "P1_old": "Hoi An ancient town at night, silk lanterns along ochre walls. A serene and enchanting scene of Hoi An at night, showcasing its historical and cultural significance. The narrow, winding streets are lined with and historic houses adorned with intricate wooden carvings. Silk lanterns in vibrant hues of red, yellow, and orange hang from rooftops, casting a warm, flickering glow on the cobblestone pathways. The Japanese Bridge stands prominently, symbolizing cultural and historical exchanges. During the Lantern Festival, lanterns are released into the river, symbolizing the town's enduring cultural heritage and welcoming spirit. The sounds of the river and the scent of incense and fresh food create an immersive, tranquil atmosphere.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: silk lanterns; at night. Make these additions clearly visible:\n1. brick walls on the buildings.\n2. curved tiled roofs on the buildings.",
+  "P1_new": "Hoi An ancient town at night, silk lanterns along ochre walls. A serene and enchanting scene of Hoi An at night, showcasing its historical and cultural significance. The narrow, winding streets are lined with ochre-colored walls and historic houses adorned with intricate wooden carvings. Silk lanterns in vibrant hues of red, yellow, and orange hang from rooftops, casting a warm, flickering glow on the cobblestone pathways. The Japanese Bridge stands prominently, symbolizing cultural and historical exchanges. During the Lantern Festival, lanterns are released into the river, symbolizing the town's enduring cultural heritage and welcoming spirit. The sounds of the river and the scent of incense and fresh food create an immersive, tranquil atmosphere.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: silk lanterns; at night. Make these additions clearly visible:\n1. brick walls on the buildings.\n2. curved tiled roofs on the buildings.",
+  "ly_do": [
+   "R4 không drop (không ngoại lai): ochre-colored walls"
+  ],
+  "seed": 5000
+ },
+ "S009": {
+  "changed": true,
+  "actions_old": [
+   "a small wooden stage under the musician",
+   "a long bamboo neck on the dan bau",
+   "a large, intricately carved gourd resonator on the dan bau"
+  ],
+  "actions_new": [
+   "a small wooden stage under the musician",
+   "a long bamboo neck on the dan bau"
+  ],
+  "drop_old": [
+   "gourd zither"
+  ],
+  "drop_new": [],
+  "P1_old": "A musician playing the dan bau monochord on a small stage. A musician is performing on the đàn bầu, a unique Vietnamese monochord instrument, on a small, traditional stage adorned with intricate wooden carvings and colorful lanterns. The đàn bầu, also known as the \",\" features a long bamboo neck with a single string stretched over it and a large, intricately carved gourd resonator. As the musician’s fingers pluck the string, a distinctive and ethereal sound fills the air, captivating the audience and evoking a sense of cultural pride and nostalgia. This performance is part of a vibrant cultural festival celebrating the rich heritage and artistic expression of Vietnamese culture, emphasizing the đàn bầu's role as a symbol of traditional artistry and craftsmanship. Revised\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: dan bau monochord; small stage. Make these additions clearly visible:\n1. a small wooden stage under the musician.\n2. a long bamboo neck on the dan bau.\n3. a large, intricately carved gourd resonator on the dan bau.",
+  "P1_new": "A musician playing the dan bau monochord on a small stage. A musician is performing on the đàn bầu, a unique Vietnamese monochord instrument, on a small, traditional stage adorned with intricate wooden carvings and colorful lanterns. The đàn bầu, also known as the \"gourd zither,\" features a long bamboo neck with a single string stretched over it and a large, intricately carved gourd resonator. As the musician’s fingers pluck the string, a distinctive and ethereal sound fills the air, captivating the audience and evoking a sense of cultural pride and nostalgia. This performance is part of a vibrant cultural festival celebrating the rich heritage and artistic expression of Vietnamese culture, emphasizing the đàn bầu's role as a symbol of traditional artistry and craftsmanship. Revised\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: dan bau monochord; small stage. Make these additions clearly visible:\n1. a small wooden stage under the musician.\n2. a long bamboo neck on the dan bau.",
+  "ly_do": [
+   "R1 bỏ (không neo 'a large, intricately carved gourd resonator'): a large, intricately carved gourd resonator on the dan bau",
+   "R4 không drop (không ngoại lai): gourd zither"
+  ],
+  "seed": 5000
+ },
+ "S010": {
+  "changed": false,
+  "actions_old": [
+   "A water puppet booth in the middle of a pond"
+  ],
+  "actions_new": [
+   "A water puppet booth in the middle of a pond"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A water puppetry performance at a water pavilion, puppets on the water surface. A traditional water puppetry performance takes place in a small village in Vietnam, where puppeteers stand behind a waist-deep pool. The puppets, made of wood and lacquered to a glossy finish, move gracefully over the water's surface, performing ancient tales such as the Legend of the Golden Turtle and the Story of King Le Loi. The show is a vibrant spectacle that has been part of the local culture since the 11th century, originating in the Red River Delta region. Over the centuries, the tradition has evolved to include more intricate movements and storytelling techniques, reflecting the changing cultural and societal landscape of Vietnam. Unlike marionettes, the water puppets create a dynamic interplay between the performers and the water, making each performance a unique and immersive experience that celebrates the rich cultural heritage of the Vietnamese people.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: on the water surface. Make these additions clearly visible:\n1. A water puppet booth in the middle of a pond.",
+  "P1_new": "A water puppetry performance at a water pavilion, puppets on the water surface. A traditional water puppetry performance takes place in a small village in Vietnam, where puppeteers stand behind a waist-deep pool. The puppets, made of wood and lacquered to a glossy finish, move gracefully over the water's surface, performing ancient tales such as the Legend of the Golden Turtle and the Story of King Le Loi. The show is a vibrant spectacle that has been part of the local culture since the 11th century, originating in the Red River Delta region. Over the centuries, the tradition has evolved to include more intricate movements and storytelling techniques, reflecting the changing cultural and societal landscape of Vietnam. Unlike marionettes, the water puppets create a dynamic interplay between the performers and the water, making each performance a unique and immersive experience that celebrates the rich cultural heritage of the Vietnamese people.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: on the water surface. Make these additions clearly visible:\n1. A water puppet booth in the middle of a pond.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S011": {
+  "changed": true,
+  "actions_old": [
+   "a dragon motif embroidered on the back of the robe",
+   "a stage with a backdrop of a traditional Vietnamese village"
+  ],
+  "actions_new": [
+   "a stage with a backdrop of a traditional Vietnamese village"
+  ],
+  "drop_old": [
+   "elaborate costumes and masks",
+   "Chinese opera"
+  ],
+  "drop_new": [
+   "Chinese opera"
+  ],
+  "P1_old": "A cai luong performer in costume on stage. A cai luong performer, dressed in a vibrant, intricately patterned traditional Vietnamese costume featuring bright red and gold hues with intricate phoenix and dragon motifs, stands center stage. The performer’s costume includes flowing fabric and detailed embroidery, reflecting the rich cultural heritage of Vietnam. The performance blends elements of southern Vietnamese folk songs, classical music, and hát tuồng, a classical theatre form based on, to create a unique and dynamic style. The performer’s expressive gestures and melodic voice bring the story to life, engaging the audience with a mix of music, drama, and narrative. Originating in the late 19th century, cai luong reflects the socio-cultural changes of Vietnamese society, serving as a bridge between traditional and modern forms of entertainment. Unlike Chinese opera, which relies heavily on, cai luong emphasizes spoken dialogue and a narrative-driven performance style. This blend of tradition and innovation in cai luong not only entertains but also educates the audience about Vietnamese history and cultural values, such as loyalty and filial piety.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a dragon motif embroidered on the back of the robe.\n2. a stage with a backdrop of a traditional Vietnamese village.",
+  "P1_new": "A cai luong performer in costume on stage. A cai luong performer, dressed in a vibrant, intricately patterned traditional Vietnamese costume featuring bright red and gold hues with intricate phoenix and dragon motifs, stands center stage. The performer’s costume includes flowing fabric and detailed embroidery, reflecting the rich cultural heritage of Vietnam. The performance blends elements of southern Vietnamese folk songs, classical music, and hát tuồng, a classical theatre form based on, to create a unique and dynamic style. The performer’s expressive gestures and melodic voice bring the story to life, engaging the audience with a mix of music, drama, and narrative. Originating in the late 19th century, cai luong reflects the socio-cultural changes of Vietnamese society, serving as a bridge between traditional and modern forms of entertainment. Unlike Chinese opera, which relies heavily on elaborate costumes and masks, cai luong emphasizes spoken dialogue and a narrative-driven performance style. This blend of tradition and innovation in cai luong not only entertains but also educates the audience about Vietnamese history and cultural values, such as loyalty and filial piety.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a stage with a backdrop of a traditional Vietnamese village.",
+  "ly_do": [
+   "R1 bỏ (không neo 'a dragon motif embroidered'): a dragon motif embroidered on the back of the robe",
+   "no-op cũ rơi về I0 (không ref) -> nay sinh với ref",
+   "R4 không drop (không ngoại lai): elaborate costumes and masks"
+  ],
+  "seed": 5000
+ },
+ "S012": {
+  "changed": true,
+  "actions_old": [
+   "a round rim on the boat",
+   "a paddle in the fisherman's hands",
+   "clearly visible: round boat rim"
+  ],
+  "actions_new": [
+   "a round rim on the boat",
+   "a paddle in the fisherman's hands",
+   "clearly visible: round boat rim"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise. In central Vietnam, as the sun rises over a picturesque beach, a fisherman paddles a traditional round basket boat made of woven bamboo, known locally as a \"thúng\". This boat is essential for fishing in shallow coastal waters. The morning air is filled with the scent of salt and fresh bamboo, as the fisherman’s paddle cuts through the calm water, creating ripples that disturb the morning mist. The thúng has been a staple in local festivals and daily life, symbolizing the resilience and ingenuity of the fishing community. Its light and maneuverable design allows fishermen to navigate the shallow coastal areas with ease, making it ideal for catching small fish and shrimp. Its compact size and agility also enable it to reach areas that larger boats cannot, maximizing the fisherman's catch and ensuring a sustainable livelihood for the community.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: thuyền thúng tròn; round basket boat; a central Vietnam beach. Make these additions clearly visible:\n1. a round rim on the boat.\n2. a paddle in the fisherman's hands.\n3. clearly visible: round boat rim.",
+  "P1_new": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise. In central Vietnam, as the sun rises over a picturesque beach, a fisherman paddles a traditional round basket boat made of woven bamboo, known locally as a \"thúng\". This boat is essential for fishing in shallow coastal waters. The morning air is filled with the scent of salt and fresh bamboo, as the fisherman’s paddle cuts through the calm water, creating ripples that disturb the morning mist. The thúng has been a staple in local festivals and daily life, symbolizing the resilience and ingenuity of the fishing community. Its light and maneuverable design allows fishermen to navigate the shallow coastal areas with ease, making it ideal for catching small fish and shrimp. Its compact size and agility also enable it to reach areas that larger boats cannot, maximizing the fisherman's catch and ensuring a sustainable livelihood for the community.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: round basket boat; a central Vietnam beach. Make these additions clearly visible:\n1. a round rim on the boat.\n2. a paddle in the fisherman's hands.\n3. clearly visible: round boat rim.",
+  "ly_do": [
+   "no-op cũ rơi về I0 (không ref) -> nay sinh với ref"
+  ],
+  "seed": 5000
+ },
+ "S013": {
+  "changed": true,
+  "actions_old": [
+   "a seat for the passenger in front of the driver"
+  ],
+  "actions_new": [],
+  "drop_old": [
+   "a cycle rickshaw",
+   "the passenger sits comfortably behind the driver",
+   "the driver skillfully navigates through narrow lanes and past vibrant colonial architecture"
+  ],
+  "drop_new": [],
+  "P1_old": "A cyclo carrying a passenger along a street. , also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street,, feeling the gentle breeze and the rhythmic clicking of the pedals., offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a seat for the passenger in front of the driver.",
+  "P1_new": "A cyclo carrying a passenger along a street. A cycle rickshaw, also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street, the passenger sits comfortably behind the driver, feeling the gentle breeze and the rhythmic clicking of the pedals. The driver skillfully navigates through narrow lanes and past vibrant colonial architecture, offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.",
+  "ly_do": [
+   "R1 bỏ (không neo 'a seat'): a seat for the passenger in front of the driver",
+   "no-op cũ rơi về I0 (không ref) -> nay sinh với ref",
+   "R4 không drop (không ngoại lai): a cycle rickshaw",
+   "R4 không drop (không ngoại lai): the passenger sits comfortably behind the driver",
+   "R4 không drop (không ngoại lai): the driver skillfully navigates through narrow lanes and past vibrant colonial architecture"
+  ],
+  "seed": 5000
+ },
+ "S014": {
+  "changed": true,
+  "actions_old": [
+   "a dirt path winding between the terraces"
+  ],
+  "actions_new": [
+   "a dirt path winding between the terraces"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "Terraced fields in the water season reflecting the evening sky. Terraced fields, known as \"ruộng bậc thang,\" are a traditional Vietnamese agricultural practice where cascading rice paddies wind down the hillsides. These fields are a prominent feature in many provinces of Vietnam, especially in Phu Tho, where the terraced fields are celebrated as a testament to the region's rich agricultural heritage and stunning natural beauty. During the water season, the terraced fields, resembling a giant green staircase, are filled with water, creating a mirror-like surface that beautifully captures the colors of the sunset. This unique landscape not only supports the livelihood of local communities but also preserves the cultural heritage and biodiversity of the region. During this season, the terraced fields come alive with the sound of flowing water and the scent of fresh rice paddies, making it a breathtaking sight that is both culturally significant and visually stunning. --- Revised\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: trời chiều. Make these additions clearly visible:\n1. a dirt path winding between the terraces.",
+  "P1_new": "Terraced fields in the water season reflecting the evening sky. Terraced fields, known as \"ruộng bậc thang,\" are a traditional Vietnamese agricultural practice where cascading rice paddies wind down the hillsides. These fields are a prominent feature in many provinces of Vietnam, especially in Phu Tho, where the terraced fields are celebrated as a testament to the region's rich agricultural heritage and stunning natural beauty. During the water season, the terraced fields, resembling a giant green staircase, are filled with water, creating a mirror-like surface that beautifully captures the colors of the sunset. This unique landscape not only supports the livelihood of local communities but also preserves the cultural heritage and biodiversity of the region. During this season, the terraced fields come alive with the sound of flowing water and the scent of fresh rice paddies, making it a breathtaking sight that is both culturally significant and visually stunning. --- Revised\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a dirt path winding between the terraces.",
+  "ly_do": [
+   "no-op cũ rơi về I0 (không ref) -> nay sinh với ref"
+  ],
+  "seed": 5000
+ },
+ "S015": {
+  "changed": true,
+  "actions_old": [
+   "sample poles with hanging goods on the fruit boats",
+   "a basket of produce hanging from each sample pole"
+  ],
+  "actions_new": [
+   "sample poles with hanging goods on the fruit boats"
+  ],
+  "drop_old": [
+   "sample poles displaying a rainbow of fruits and vegetables"
+  ],
+  "drop_new": [],
+  "P1_old": "A floating market at dawn, fruit boats with sample poles. At dawn, the Cái Răng Floating Market on the Cần Thơ River in Vietnam is bustling with activity. Fruit boats, each adorned with, weave through the waterways like a vibrant bazaar on the river. The market, where vendors call out the freshness and variety of their goods, is not just a place of commerce but a lively social space where the community gathers to exchange goods, share stories, and maintain cultural traditions. The aroma of fresh produce, the vibrant colors of the fruits, and the sounds of cheerful chatter and business transactions create a lively atmosphere, reflecting the rich tapestry of Vietnamese life and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: fruit boats; A floating market at dawn. Make these additions clearly visible:\n1. sample poles with hanging goods on the fruit boats.\n2. a basket of produce hanging from each sample pole.",
+  "P1_new": "A floating market at dawn, fruit boats with sample poles. At dawn, the Cái Răng Floating Market on the Cần Thơ River in Vietnam is bustling with activity. Fruit boats, each adorned with sample poles displaying a rainbow of fruits and vegetables, weave through the waterways like a vibrant bazaar on the river. The market, where vendors call out the freshness and variety of their goods, is not just a place of commerce but a lively social space where the community gathers to exchange goods, share stories, and maintain cultural traditions. The aroma of fresh produce, the vibrant colors of the fruits, and the sounds of cheerful chatter and business transactions create a lively atmosphere, reflecting the rich tapestry of Vietnamese life and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: fruit boats; A floating market at dawn. Make these additions clearly visible:\n1. sample poles with hanging goods on the fruit boats.",
+  "ly_do": [
+   "R1 bỏ (không neo 'a basket of produce hanging'): a basket of produce hanging from each sample pole",
+   "no-op cũ rơi về I0 (không ref) -> nay sinh với ref",
+   "R4 không drop (không ngoại lai): sample poles displaying a rainbow of fruits and vegetables"
+  ],
+  "seed": 5000
+ },
+ "S016": {
+  "changed": true,
+  "actions_old": [
+   "clearly visible: A rong house is a distinctive stilt house",
+   "clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests"
+  ],
+  "actions_new": [],
+  "drop_old": [
+   "comparable to the longhouses of Borneo"
+  ],
+  "drop_new": [
+   "comparable to the longhouses of Borneo"
+  ],
+  "P1_old": "A Central Highlands rong house in a village. A communal longhouse, known as a \"nhà rông,\" stands prominently in a village in Vietnam's Central Highlands. Constructed with sturdy wooden columns and a steep, thatched roof designed to withstand heavy rainfall, the nhà rông features intricate carvings on its wooden beams that depict stories and symbols important to the community. The interior is large and open, with woven mats covering the floor and colorful fabrics hanging on the walls, creating a vibrant space for gatherings and social activities. Villagers meet in the nhà rông to discuss important matters, celebrate festivals, and engage in social activities such as religious ceremonies and traditional storytelling. This longhouse has been an integral part of the community for generations, serving as a symbol of cultural identity and heritage for the Ê-Đê, Gia Rai, and Xê-Đăng ethnic groups., with their intricate wood carvings and communal living spaces, the nhà rông stands out for its unique architectural features and cultural significance in the Central Highlands. It embodies the rich cultural heritage and traditions of the local ethnic minority groups, reflecting their deep connection to the land and community.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. clearly visible: A rong house is a distinctive stilt house.\n2. clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests.",
+  "P1_new": "A Central Highlands rong house in a village. A communal longhouse, known as a \"nhà rông,\" stands prominently in a village in Vietnam's Central Highlands. Constructed with sturdy wooden columns and a steep, thatched roof designed to withstand heavy rainfall, the nhà rông features intricate carvings on its wooden beams that depict stories and symbols important to the community. The interior is large and open, with woven mats covering the floor and colorful fabrics hanging on the walls, creating a vibrant space for gatherings and social activities. Villagers meet in the nhà rông to discuss important matters, celebrate festivals, and engage in social activities such as religious ceremonies and traditional storytelling. This longhouse has been an integral part of the community for generations, serving as a symbol of cultural identity and heritage for the Ê-Đê, Gia Rai, and Xê-Đăng ethnic groups., with their intricate wood carvings and communal living spaces, the nhà rông stands out for its unique architectural features and cultural significance in the Central Highlands. It embodies the rich cultural heritage and traditions of the local ethnic minority groups, reflecting their deep connection to the land and community.",
+  "ly_do": [
+   "R2 bỏ: clearly visible: A rong house is a distinctive stilt house",
+   "R2 bỏ: clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests",
+   "no-op cũ rơi về I0 (không ref) -> nay sinh với ref"
+  ],
+  "seed": 5000
+ },
+ "S017": {
+  "changed": true,
+  "actions_old": [
+   "two people standing and singing on the boat",
+   "a man and a woman facing each other",
+   "clearly visible: liền anh liền chị"
+  ],
+  "actions_new": [
+   "two people standing and singing on the boat",
+   "a man and a woman facing each other"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "Quan ho singers standing and singing on a boat. Quan Ho singers perform traditional duet-style singing, a UNESCO Intangible Cultural Heritage, on a boat during the Mid-Autumn Festival and the Boat Festival in northern Vietnam. The singers, usually young men and women, wear ao dai, a traditional Vietnamese dress. They perform without musical instruments, emphasizing their vocal talents and the poetic interplay that is a hallmark of Quan Ho. The boat is set on a tranquil river or lake, surrounded by lush greenery and rice paddies, creating a serene and picturesque backdrop. The scent of blooming jasmine flowers and the sound of water contribute to the immersive atmosphere, reflecting the deep cultural importance of this art form.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: thuyền; boat; on a boat. Make these additions clearly visible:\n1. two people standing and singing on the boat.\n2. a man and a woman facing each other.\n3. clearly visible: liền anh liền chị.",
+  "P1_new": "Quan ho singers standing and singing on a boat. Quan Ho singers perform traditional duet-style singing, a UNESCO Intangible Cultural Heritage, on a boat during the Mid-Autumn Festival and the Boat Festival in northern Vietnam. The singers, usually young men and women, wear ao dai, a traditional Vietnamese dress. They perform without musical instruments, emphasizing their vocal talents and the poetic interplay that is a hallmark of Quan Ho. The boat is set on a tranquil river or lake, surrounded by lush greenery and rice paddies, creating a serene and picturesque backdrop. The scent of blooming jasmine flowers and the sound of water contribute to the immersive atmosphere, reflecting the deep cultural importance of this art form.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: boat; on a boat. Make these additions clearly visible:\n1. two people standing and singing on the boat.\n2. a man and a woman facing each other.",
+  "ly_do": [
+   "R1 bỏ (không neo 'liền anh liền chị'): clearly visible: liền anh liền chị"
+  ],
+  "seed": 5000
+ },
+ "S018": {
+  "changed": true,
+  "actions_old": [
+   "a Central Highlands gong ensemble in the hands of the people",
+   "gongs with diameter from 20 cm to 120 cm in the hands of the people",
+   "gongs round and made of bronze alloy in the hands of the people"
+  ],
+  "actions_new": [
+   "a Central Highlands gong ensemble",
+   "gongs round and made of bronze alloy"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A Central Highlands gong ensemble performing around a fire. A Central Highlands gong ensemble performs around a crackling fire during the annual Gong Culture Festival, celebrating the rich spiritual and cultural heritage of the region. The gongs, each representing a sacred deity, emit a resonant melody that echoes through the mountainous landscape, symbolizing unity and community. The musicians, dressed in vibrant traditional attire, gather in a longhouse or stilt house, playing their gongs in a circular formation. The scene is a testament to an ancient tradition that dates back centuries, emphasizing the enduring importance of gong culture for the communities in the Central Highlands. The gong ensemble serves multiple purposes, including rites of passage, ancestral worship, and community bonding, reflecting the deep spiritual and cultural significance of gongs in the region. Just as the fire serves as the focal point for the community, the gong ensemble acts as the heart of the Central Highlands, uniting people from various ethnic groups such as the Rade, Jarai, Bahnar, Mạ, and Lạch in a shared cultural experience.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: a fire. Make these additions clearly visible:\n1. a Central Highlands gong ensemble in the hands of the people.\n2. gongs with diameter from 20 cm to 120 cm in the hands of the people.\n3. gongs round and made of bronze alloy in the hands of the people.",
+  "P1_new": "A Central Highlands gong ensemble performing around a fire. A Central Highlands gong ensemble performs around a crackling fire during the annual Gong Culture Festival, celebrating the rich spiritual and cultural heritage of the region. The gongs, each representing a sacred deity, emit a resonant melody that echoes through the mountainous landscape, symbolizing unity and community. The musicians, dressed in vibrant traditional attire, gather in a longhouse or stilt house, playing their gongs in a circular formation. The scene is a testament to an ancient tradition that dates back centuries, emphasizing the enduring importance of gong culture for the communities in the Central Highlands. The gong ensemble serves multiple purposes, including rites of passage, ancestral worship, and community bonding, reflecting the deep spiritual and cultural significance of gongs in the region. Just as the fire serves as the focal point for the community, the gong ensemble acts as the heart of the Central Highlands, uniting people from various ethnic groups such as the Rade, Jarai, Bahnar, Mạ, and Lạch in a shared cultural experience.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: a fire. Make these additions clearly visible:\n1. a Central Highlands gong ensemble.\n2. gongs round and made of bronze alloy.",
+  "ly_do": [
+   "R2 bỏ: gongs with diameter from 20 cm to 120 cm in the hands of the people",
+   "R3 cắt đuôi lặp 'in the hands of the people'"
+  ],
+  "seed": 5000
+ },
+ "S019": {
+  "changed": false,
+  "actions_old": [
+   "a long, pleated skirt with intricate floral embroidery covering the legs",
+   "gold thread and red beads on the headdress"
+  ],
+  "actions_new": [
+   "a long, pleated skirt with intricate floral embroidery covering the legs",
+   "gold thread and red beads on the headdress"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A Red Dao woman in her red headdress. A Red Dao woman wears a traditional red headdress, a symbol of her high social status and cultural heritage. The headdress is crafted from intricately woven silk with vibrant red and gold patterns, adorned with gold thread and red beads. She is dressed in a full traditional costume featuring a long, pleated skirt with intricate floral embroidery and a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns. Silk threads of varying textures and colors are used to create the vibrant and intricate designs that represent the wearer's marital status and social standing. This attire is typically worn during significant social and cultural events, where it signifies the wearer's marital status and social standing. Each color and pattern in the Red Dao's traditional clothing has specific meanings tied to their history and social norms, such as red signifying bravery and gold representing wealth and prosperity.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a long, pleated skirt with intricate floral embroidery covering the legs.\n2. gold thread and red beads on the headdress.",
+  "P1_new": "A Red Dao woman in her red headdress. A Red Dao woman wears a traditional red headdress, a symbol of her high social status and cultural heritage. The headdress is crafted from intricately woven silk with vibrant red and gold patterns, adorned with gold thread and red beads. She is dressed in a full traditional costume featuring a long, pleated skirt with intricate floral embroidery and a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns. Silk threads of varying textures and colors are used to create the vibrant and intricate designs that represent the wearer's marital status and social standing. This attire is typically worn during significant social and cultural events, where it signifies the wearer's marital status and social standing. Each color and pattern in the Red Dao's traditional clothing has specific meanings tied to their history and social norms, such as red signifying bravery and gold representing wealth and prosperity.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a long, pleated skirt with intricate floral embroidery covering the legs.\n2. gold thread and red beads on the headdress.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S020": {
+  "changed": true,
+  "actions_old": [
+   "a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim",
+   "clearly visible: quai thao hat",
+   "clearly visible: ba tam hat"
+  ],
+  "actions_new": [
+   "a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim",
+   "clearly visible: quai thao hat"
+  ],
+  "drop_old": [
+   "conical nón lá",
+   "used for farm work"
+  ],
+  "drop_new": [],
+  "P1_old": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat. A northern Vietnamese young woman is wearing a flat-brimmed quai thao hat, a traditional Vietnamese accessory often seen with elegant garments. This hat, distinguished by its intricate silver ornaments hanging from delicate silk strings around the brim, is originally worn by shamans and royal court ladies in the early 20th century. Today, the quai thao hat serves as a symbol of elegance and cultural heritage in modern Vietnamese society, with the silver ornaments symbolizing wealth and cultural identity. Unlike other traditional Vietnamese hats such as the , the quai thao hat is prominently worn in specific cultural and religious ceremonies.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim.\n2. clearly visible: quai thao hat.\n3. clearly visible: ba tam hat.",
+  "P1_new": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat. A northern Vietnamese young woman is wearing a flat-brimmed quai thao hat, a traditional Vietnamese accessory often seen with elegant garments. This hat, distinguished by its intricate silver ornaments hanging from delicate silk strings around the brim, is originally worn by shamans and royal court ladies in the early 20th century. Today, the quai thao hat serves as a symbol of elegance and cultural heritage in modern Vietnamese society, with the silver ornaments symbolizing wealth and cultural identity. Unlike other traditional Vietnamese hats such as the conical nón lá used for farm work, the quai thao hat is prominently worn in specific cultural and religious ceremonies.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim.\n2. clearly visible: quai thao hat.",
+  "ly_do": [
+   "R1 bỏ (không neo 'ba tam hat'): clearly visible: ba tam hat",
+   "R4 giữ lại cụm tiếng Việt: conical nón lá",
+   "R4 không drop (không ngoại lai): used for farm work"
+  ],
+  "seed": 5000
+ },
+ "S021": {
+  "changed": true,
+  "actions_old": [
+   "five-pointed star lanterns held by the children",
+   "lanterns hung inside the windows of the buildings",
+   "pink flowers on the ground"
+  ],
+  "actions_new": [
+   "five-pointed star lanterns held by the children",
+   "lanterns hung inside the windows of the buildings"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night. On the night of Tết Trung Thu, also known as the Moon-Viewing Festival, which falls on the 15th day of the 8th lunar month, children parade through a neighborhood courtyard carrying vibrant five-pointed star lanterns, each decorated with intricate patterns and colorful designs. This traditional Vietnamese festival, with origins dating back centuries, celebrates the full moon, symbolizing unity, joy, and the importance of family and community. It is a time when children eagerly await receiving toys and mooncakes from adults. In addition to the star lanterns, children often receive other toys like masks, kéo quân lamps, which are small carriages with miniature figurines, and tò he figurines, which are sweet rice treats shaped into various animals and characters. These gifts are not just toys but symbols of nurturing and guidance for the next generation. As the full moon rises high in the sky, families gather to watch it, its silvery light reflecting off the lanterns and toys, singing and dancing together, enjoying the festive atmosphere and celebrating the unity and joy of the holiday. In a way, Tết Trung Thu can be compared to Thanksgiving or Halloween in Western cultures, where family gatherings, the sharing of food, and the celebration of cultural traditions play a central role.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. five-pointed star lanterns held by the children.\n2. lanterns hung inside the windows of the buildings.\n3. pink flowers on the ground.",
+  "P1_new": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night. On the night of Tết Trung Thu, also known as the Moon-Viewing Festival, which falls on the 15th day of the 8th lunar month, children parade through a neighborhood courtyard carrying vibrant five-pointed star lanterns, each decorated with intricate patterns and colorful designs. This traditional Vietnamese festival, with origins dating back centuries, celebrates the full moon, symbolizing unity, joy, and the importance of family and community. It is a time when children eagerly await receiving toys and mooncakes from adults. In addition to the star lanterns, children often receive other toys like masks, kéo quân lamps, which are small carriages with miniature figurines, and tò he figurines, which are sweet rice treats shaped into various animals and characters. These gifts are not just toys but symbols of nurturing and guidance for the next generation. As the full moon rises high in the sky, families gather to watch it, its silvery light reflecting off the lanterns and toys, singing and dancing together, enjoying the festive atmosphere and celebrating the unity and joy of the holiday. In a way, Tết Trung Thu can be compared to Thanksgiving or Halloween in Western cultures, where family gatherings, the sharing of food, and the celebration of cultural traditions play a central role.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. five-pointed star lanterns held by the children.\n2. lanterns hung inside the windows of the buildings.",
+  "ly_do": [
+   "R1 bỏ (không neo 'pink flowers'): pink flowers on the ground"
+  ],
+  "seed": 5000
+ },
+ "S022": {
+  "changed": true,
+  "actions_old": [
+   "a person with a round bald head mask of Ong Dia",
+   "a large paper fan held by Ong Dia",
+   "a large belly on Ong Dia"
+  ],
+  "actions_new": [
+   "a large paper fan held by Ong Dia"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A lion dance troupe with the Ong Dia character at a house front. A lion dance troupe is performing in front of a house during Chinese New Year. The performers, dressed in elaborate and vibrant lion costumes with intricate patterns and colors, mimic the movements of a lion to bring good luck and fortune to the household. Ong Dia, a character known for his humorous and clownish behavior, interacts with the audience and the performers, adding to the festive atmosphere. The performance is accompanied by the rhythmic beats of drums, the sounds of gongs and cymbals, and the excited cheers of the onlookers. The performers engage in specific rituals, such as touching the ground with the lion's head to bless the area and performing acrobatic stunts to demonstrate skill and bravery.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: house front. Make these additions clearly visible:\n1. a person with a round bald head mask of Ong Dia.\n2. a large paper fan held by Ong Dia.\n3. a large belly on Ong Dia.",
+  "P1_new": "A lion dance troupe with the Ong Dia character at a house front. A lion dance troupe is performing in front of a house during Chinese New Year. The performers, dressed in elaborate and vibrant lion costumes with intricate patterns and colors, mimic the movements of a lion to bring good luck and fortune to the household. Ong Dia, a character known for his humorous and clownish behavior, interacts with the audience and the performers, adding to the festive atmosphere. The performance is accompanied by the rhythmic beats of drums, the sounds of gongs and cymbals, and the excited cheers of the onlookers. The performers engage in specific rituals, such as touching the ground with the lion's head to bless the area and performing acrobatic stunts to demonstrate skill and bravery.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: house front. Make these additions clearly visible:\n1. a large paper fan held by Ong Dia.",
+  "ly_do": [
+   "R1 bỏ (không neo 'a person'): a person with a round bald head mask of Ong Dia",
+   "R1 bỏ (không neo 'a large belly'): a large belly on Ong Dia"
+  ],
+  "seed": 5000
+ },
+ "S023": {
+  "changed": false,
+  "actions_old": [
+   "a family gathered around the table",
+   "a kumquat tree in the center of the table",
+   "red envelopes on the table"
+  ],
+  "actions_new": [
+   "a family gathered around the table",
+   "a kumquat tree in the center of the table",
+   "red envelopes on the table"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A family around a Tet feast with a kumquat tree and red envelopes. During the Vietnamese Lunar New Year celebration, known as Tết, a family gathers around a mâm cỗ Tết, a traditional feast that is the centerpiece of the Tết celebration. The mâm cỗ Tết is an elaborate spread featuring dishes such as bánh chưng (sticky rice cake), giò lụa (pork roll), and other festive foods, arranged beautifully on traditional serving platters adorned with vibrant red and gold decorations. These platters often showcase intricate patterns and designs that reflect the beauty and importance of the occasion. The feast is not only a communal dining experience but also a gathering place for family and friends to express gratitude, share wishes for the future, and honor ancestors. In the center of the feast is a small kumquat tree, symbolizing good fortune and prosperity for the coming year, and red envelopes, known as lì xì, are also present, representing wishes for good luck and wealth. The origins of the mâm cỗ Tết can be traced back to ancient times when it served as a means to honor ancestors and welcome the new year. Similar to Western holiday feasts such as Thanksgiving or Christmas dinner, the feast plays a crucial role in strengthening family bonds, preserving cultural heritage and traditions, and fostering a sense of continuity and community among family members. The preparation of the mâm cỗ Tết involves specific rituals and practices that are passed down through generations, ensuring that the cultural significance of the feast is maintained and celebrated year after year.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: Tet feast; kumquat tree; red envelopes. Make these additions clearly visible:\n1. a family gathered around the table.\n2. a kumquat tree in the center of the table.\n3. red envelopes on the table.",
+  "P1_new": "A family around a Tet feast with a kumquat tree and red envelopes. During the Vietnamese Lunar New Year celebration, known as Tết, a family gathers around a mâm cỗ Tết, a traditional feast that is the centerpiece of the Tết celebration. The mâm cỗ Tết is an elaborate spread featuring dishes such as bánh chưng (sticky rice cake), giò lụa (pork roll), and other festive foods, arranged beautifully on traditional serving platters adorned with vibrant red and gold decorations. These platters often showcase intricate patterns and designs that reflect the beauty and importance of the occasion. The feast is not only a communal dining experience but also a gathering place for family and friends to express gratitude, share wishes for the future, and honor ancestors. In the center of the feast is a small kumquat tree, symbolizing good fortune and prosperity for the coming year, and red envelopes, known as lì xì, are also present, representing wishes for good luck and wealth. The origins of the mâm cỗ Tết can be traced back to ancient times when it served as a means to honor ancestors and welcome the new year. Similar to Western holiday feasts such as Thanksgiving or Christmas dinner, the feast plays a crucial role in strengthening family bonds, preserving cultural heritage and traditions, and fostering a sense of continuity and community among family members. The preparation of the mâm cỗ Tết involves specific rituals and practices that are passed down through generations, ensuring that the cultural significance of the feast is maintained and celebrated year after year.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: Tet feast; kumquat tree; red envelopes. Make these additions clearly visible:\n1. a family gathered around the table.\n2. a kumquat tree in the center of the table.\n3. red envelopes on the table.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S024": {
+  "changed": false,
+  "actions_old": [
+   "a phin filter on the table with coffee dripping through it into a cup",
+   "sweetened condensed milk in the cup"
+  ],
+  "actions_new": [
+   "a phin filter on the table with coffee dripping through it into a cup",
+   "sweetened condensed milk in the cup"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "Iced milk coffee dripping through an aluminium phin filter on a table. Cà phê sữa đá, a traditional Vietnamese iced coffee, is being prepared on a table. Hot water drips slowly through a unique metal filter called a phin, a traditional Vietnamese brewing tool with a distinctive shape, often making a soft, rhythmic sound as it drips. The phin contains dark-roast robusta coffee grounds, which release a strong, bold aroma as the hot water passes through. Once brewed, the rich, dark coffee falls into a small cup that already contains sweetened condensed milk, creating a rich, creamy mixture with a striking contrast in color. The mixture is then stirred and poured over a tall glass filled with ice, turning into a refreshing and smooth iced coffee. Cà phê sữa đá is widely enjoyed throughout Vietnam, often in cafes or at home, serving as a comforting afternoon break or a morning ritual. Its preparation method and rich, creamy texture distinguish it from other iced coffee drinks, and its origins trace back to the French colonial era, making it a symbol of Vietnamese culinary adaptation and cultural pride. Cà phê sữa đá is more than just a drink; it’s an integral part of Vietnamese social life, often shared among friends and family, providing a moment of respite and connection.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: aluminium phin filter; table; on a table. Make these additions clearly visible:\n1. a phin filter on the table with coffee dripping through it into a cup.\n2. sweetened condensed milk in the cup.",
+  "P1_new": "Iced milk coffee dripping through an aluminium phin filter on a table. Cà phê sữa đá, a traditional Vietnamese iced coffee, is being prepared on a table. Hot water drips slowly through a unique metal filter called a phin, a traditional Vietnamese brewing tool with a distinctive shape, often making a soft, rhythmic sound as it drips. The phin contains dark-roast robusta coffee grounds, which release a strong, bold aroma as the hot water passes through. Once brewed, the rich, dark coffee falls into a small cup that already contains sweetened condensed milk, creating a rich, creamy mixture with a striking contrast in color. The mixture is then stirred and poured over a tall glass filled with ice, turning into a refreshing and smooth iced coffee. Cà phê sữa đá is widely enjoyed throughout Vietnam, often in cafes or at home, serving as a comforting afternoon break or a morning ritual. Its preparation method and rich, creamy texture distinguish it from other iced coffee drinks, and its origins trace back to the French colonial era, making it a symbol of Vietnamese culinary adaptation and cultural pride. Cà phê sữa đá is more than just a drink; it’s an integral part of Vietnamese social life, often shared among friends and family, providing a moment of respite and connection.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: aluminium phin filter; table; on a table. Make these additions clearly visible:\n1. a phin filter on the table with coffee dripping through it into a cup.\n2. sweetened condensed milk in the cup.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S025": {
+  "changed": true,
+  "actions_old": [
+   "three summer rolls with shrimp and pork on the plate",
+   "bún rice vermicelli inside the summer rolls"
+  ],
+  "actions_new": [
+   "three summer rolls with shrimp and pork on the plate",
+   "bún rice vermicelli inside the summer rolls"
+  ],
+  "drop_old": [
+   "crispy, fried spring rolls",
+   "nem rán"
+  ],
+  "drop_new": [],
+  "P1_old": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip. A plate holds several fresh gỏi cuốn, a traditional Vietnamese dish often served at special occasions and family gatherings. Gỏi cuốn, which translates to \"salad rolls,\" is made by carefully wrapping a thin rice paper around a mix of shrimp, pork, bún (rice vermicelli), and fresh vegetables. Each roll is meticulously filled with crisp, green lettuce, bright, orange shredded carrots, and fragrant mint leaves, creating a delightful array of flavors and textures. A small bowl of peanut hoisin dip is placed beside the plate, offering a perfect accompaniment to the fresh, crunchy rolls. Gỏi cuốn symbolizes the Vietnamese appreciation for fresh, healthy ingredients and communal dining experiences, making it a cherished dish for its cultural significance. Unlike the (), which are cooked and have a different taste profile, gỏi cuốn showcases the beauty of fresh, delicate flavors and textures. During Tết (Vietnamese New Year) and other family gatherings, gỏi cuốn is served to bring people together, reflecting the cultural importance of sharing food and celebrating life's special moments.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: bowl of peanut hoisin dip. Make these additions clearly visible:\n1. three summer rolls with shrimp and pork on the plate.\n2. bún rice vermicelli inside the summer rolls.",
+  "P1_new": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip. A plate holds several fresh gỏi cuốn, a traditional Vietnamese dish often served at special occasions and family gatherings. Gỏi cuốn, which translates to \"salad rolls,\" is made by carefully wrapping a thin rice paper around a mix of shrimp, pork, bún (rice vermicelli), and fresh vegetables. Each roll is meticulously filled with crisp, green lettuce, bright, orange shredded carrots, and fragrant mint leaves, creating a delightful array of flavors and textures. A small bowl of peanut hoisin dip is placed beside the plate, offering a perfect accompaniment to the fresh, crunchy rolls. Gỏi cuốn symbolizes the Vietnamese appreciation for fresh, healthy ingredients and communal dining experiences, making it a cherished dish for its cultural significance. Unlike the crispy, fried spring rolls (nem rán), which are cooked and have a different taste profile, gỏi cuốn showcases the beauty of fresh, delicate flavors and textures. During Tết (Vietnamese New Year) and other family gatherings, gỏi cuốn is served to bring people together, reflecting the cultural importance of sharing food and celebrating life's special moments.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: bowl of peanut hoisin dip. Make these additions clearly visible:\n1. three summer rolls with shrimp and pork on the plate.\n2. bún rice vermicelli inside the summer rolls.",
+  "ly_do": [
+   "R4 không drop (không ngoại lai): crispy, fried spring rolls",
+   "R4 giữ lại cụm tiếng Việt: nem rán"
+  ],
+  "seed": 5000
+ },
+ "S026": {
+  "changed": true,
+  "actions_old": [
+   "Make the rice paper wraps golden fried and crispy",
+   "Add ground pork inside the rice paper wraps",
+   "Add mung bean sprouts inside the rice paper wraps"
+  ],
+  "actions_new": [
+   "Make the rice paper wraps golden fried and crispy"
+  ],
+  "drop_old": [
+   "translucent"
+  ],
+  "drop_new": [],
+  "P1_old": "A tray of golden fried spring rolls with fresh herbs and dipping sauce. A tray filled with crispy and golden fried spring rolls, known as \"nem rán\" in Vietnamese cuisine. Each roll is delicately wrapped in rice paper, filled with ground pork and a mix of fresh vegetables like carrots and mung bean sprouts. These rolls are typically served alongside a variety of fresh herbs such as Thai basil and mint, as well as a savory dipping sauce made from fish sauce, sugar, and lime juice.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rau sống; fresh herbs; dipping sauce. Make these additions clearly visible:\n1. Make the rice paper wraps golden fried and crispy.\n2. Add ground pork inside the rice paper wraps.\n3. Add mung bean sprouts inside the rice paper wraps.",
+  "P1_new": "A tray of golden fried spring rolls with fresh herbs and dipping sauce. A tray filled with crispy and golden fried spring rolls, known as \"nem rán\" in Vietnamese cuisine. Each roll is delicately wrapped in translucent rice paper, filled with ground pork and a mix of fresh vegetables like carrots and mung bean sprouts. These rolls are typically served alongside a variety of fresh herbs such as Thai basil and mint, as well as a savory dipping sauce made from fish sauce, sugar, and lime juice.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: fresh herbs; dipping sauce. Make these additions clearly visible:\n1. Make the rice paper wraps golden fried and crispy.",
+  "ly_do": [
+   "R1 bỏ (không neo 'Add ground pork'): Add ground pork inside the rice paper wraps",
+   "R1 bỏ (không neo 'Add mung bean sprouts'): Add mung bean sprouts inside the rice paper wraps",
+   "R4 không drop (không ngoại lai): translucent"
+  ],
+  "seed": 5000
+ },
+ "S027": {
+  "changed": true,
+  "actions_old": [
+   "thick, cylindrical rice noodles in the bowl",
+   "slices of tender raw beef in the bowl",
+   "chả lụa in the bowl"
+  ],
+  "actions_new": [
+   "thick, cylindrical rice noodles in the bowl",
+   "slices of tender raw beef in the bowl"
+  ],
+  "drop_old": [
+   "a type of pork sausage",
+   "thinly sliced pork",
+   "bún riêu"
+  ],
+  "drop_new": [],
+  "P1_old": "A steaming bowl of bun bo Hue on a table in the morning. A steaming bowl of bún bò Huế sits invitingly on a table in the morning, its rich flavors and unique combination of ingredients making it a standout among Vietnamese noodle soups. Chả lụa,, and, are key ingredients in this dish. Visual Description: The bowl is filled with thick, cylindrical rice noodles, perfectly complemented by slices of tender raw beef and chả lụa. Garnished with fresh herbs like cilantro and basil, and lime slices, the dish is a feast for the eyes, with vibrant green herbs and red slices of raw beef contrasting against the deep reddish-brown broth infused with lemongrass and shrimp paste. Key Ingredients and Flavors: The dish features a unique mix of textures and flavors, with the noodles being thicker and more robust compared to other Vietnamese noodle soups like phở or. The broth, a deep reddish-brown color, is rich and flavorful, offering a unique combination of spices and ingredients that create a memorable culinary experience. Cultural Significance: Unlike other noodle soups, bún bò Huế is deeply rooted in the cultural and historical significance of Huế, a city known for its royal culinary traditions and former status as the imperial capital of Vietnam. The dish reflects the careful preparation methods and intricate flavor profiles that are characteristic of Huế’s royal cuisine. This makes bún bò Huế not just a meal but a symbol of Huế’s rich culinary heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: in the morning. Make these additions clearly visible:\n1. thick, cylindrical rice noodles in the bowl.\n2. slices of tender raw beef in the bowl.\n3. chả lụa in the bowl.",
+  "P1_new": "A steaming bowl of bun bo Hue on a table in the morning. A steaming bowl of bún bò Huế sits invitingly on a table in the morning, its rich flavors and unique combination of ingredients making it a standout among Vietnamese noodle soups. Chả lụa, a type of pork sausage, and thinly sliced pork, are key ingredients in this dish. Visual Description: The bowl is filled with thick, cylindrical rice noodles, perfectly complemented by slices of tender raw beef and chả lụa. Garnished with fresh herbs like cilantro and basil, and lime slices, the dish is a feast for the eyes, with vibrant green herbs and red slices of raw beef contrasting against the deep reddish-brown broth infused with lemongrass and shrimp paste. Key Ingredients and Flavors: The dish features a unique mix of textures and flavors, with the noodles being thicker and more robust compared to other Vietnamese noodle soups like phở or bún riêu. The broth, a deep reddish-brown color, is rich and flavorful, offering a unique combination of spices and ingredients that create a memorable culinary experience. Cultural Significance: Unlike other noodle soups, bún bò Huế is deeply rooted in the cultural and historical significance of Huế, a city known for its royal culinary traditions and former status as the imperial capital of Vietnam. The dish reflects the careful preparation methods and intricate flavor profiles that are characteristic of Huế’s royal cuisine. This makes bún bò Huế not just a meal but a symbol of Huế’s rich culinary heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: in the morning. Make these additions clearly visible:\n1. thick, cylindrical rice noodles in the bowl.\n2. slices of tender raw beef in the bowl.",
+  "ly_do": [
+   "R1 bỏ (không neo 'chả lụa'): chả lụa in the bowl",
+   "R4 không drop (không ngoại lai): a type of pork sausage",
+   "R4 không drop (không ngoại lai): thinly sliced pork",
+   "R4 giữ lại cụm tiếng Việt: bún riêu"
+  ],
+  "seed": 5000
+ },
+ "S028": {
+  "changed": true,
+  "actions_old": [
+   "sliced rounds of banh tet arranged on banana leaves",
+   "banh tet with a cylindrical shape"
+  ],
+  "actions_new": [
+   "sliced rounds of banh tet arranged on banana leaves",
+   "banh tet with a cylindrical shape"
+  ],
+  "drop_old": [
+   "vibrant green exterior",
+   "creamy mung beans",
+   "tender pork"
+  ],
+  "drop_new": [],
+  "P1_old": "Sliced rounds of banh tet arranged on banana leaves. A traditional Vietnamese rice cake, bánh tét, wrapped in banana leaves, is shown with a and a soft, slightly sticky interior. The cake is made with glutinous rice, mung beans, and pork, and is intricately prepared by soaking the rice and wrapping it in banana leaves. Once cooked, the leaves are peeled back to reveal layers of and, creating a visually appealing and appetizing presentation. Slices of the cake are arranged on banana leaves for serving, capturing the essence of Vietnamese culinary traditions and cultural heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: banana leaves. Make these additions clearly visible:\n1. sliced rounds of banh tet arranged on banana leaves.\n2. banh tet with a cylindrical shape.",
+  "P1_new": "Sliced rounds of banh tet arranged on banana leaves. A traditional Vietnamese rice cake, bánh tét, wrapped in banana leaves, is shown with a vibrant green exterior and a soft, slightly sticky interior. The cake is made with glutinous rice, mung beans, and pork, and is intricately prepared by soaking the rice and wrapping it in banana leaves. Once cooked, the leaves are peeled back to reveal layers of creamy mung beans and tender pork, creating a visually appealing and appetizing presentation. Slices of the cake are arranged on banana leaves for serving, capturing the essence of Vietnamese culinary traditions and cultural heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: banana leaves. Make these additions clearly visible:\n1. sliced rounds of banh tet arranged on banana leaves.\n2. banh tet with a cylindrical shape.",
+  "ly_do": [
+   "R4 không drop (không ngoại lai): vibrant green exterior",
+   "R4 không drop (không ngoại lai): creamy mung beans",
+   "R4 không drop (không ngoại lai): tender pork"
+  ],
+  "seed": 5000
+ },
+ "S029": {
+  "changed": false,
+  "actions_old": [
+   "A parcel of young green rice wrapped in lotus leaf tied with rice straw",
+   "lotus leaf wrapping the parcels",
+   "rice straw tied around the parcels"
+  ],
+  "actions_new": [
+   "A parcel of young green rice wrapped in lotus leaf tied with rice straw",
+   "lotus leaf wrapping the parcels",
+   "rice straw tied around the parcels"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A parcel of young green rice wrapped in lotus leaf tied with rice straw. A traditional Vietnamese autumn delicacy, cốm, is shown in a light green color, crafted from young green rice kernels. The rice has been slowly roasted and gently pounded into thin, chewy sheets. It is often wrapped in a lotus leaf, which imparts a subtle floral aroma, and tied with rice straw. When unwrapped, cốm reveals its stunning light green color and delicate texture, ready to be enjoyed as a seasonal treat during the Mid-Autumn Festival and other cultural events.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. A parcel of young green rice wrapped in lotus leaf tied with rice straw.\n2. lotus leaf wrapping the parcels.\n3. rice straw tied around the parcels.",
+  "P1_new": "A parcel of young green rice wrapped in lotus leaf tied with rice straw. A traditional Vietnamese autumn delicacy, cốm, is shown in a light green color, crafted from young green rice kernels. The rice has been slowly roasted and gently pounded into thin, chewy sheets. It is often wrapped in a lotus leaf, which imparts a subtle floral aroma, and tied with rice straw. When unwrapped, cốm reveals its stunning light green color and delicate texture, ready to be enjoyed as a seasonal treat during the Mid-Autumn Festival and other cultural events.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. A parcel of young green rice wrapped in lotus leaf tied with rice straw.\n2. lotus leaf wrapping the parcels.\n3. rice straw tied around the parcels.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S030": {
+  "changed": true,
+  "actions_old": [],
+  "actions_new": [],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A woman in a checkered scarf sitting in a small sampan. A woman in a khăn rằn, a traditional Vietnamese checkered black-and-white scarf, is sitting in a small sampan. The khăn rằn, known for its intricate black and white patterns, is typically worn around the neck or draped over the shoulders. Originating in the Mekong Delta region, it has a rich history dating back to the 19th century, becoming a symbol of resistance during the Vietnam War and continuing to be an important cultural symbol today.",
+  "P1_new": "A woman in a checkered scarf sitting in a small sampan. A woman in a khăn rằn, a traditional Vietnamese checkered black-and-white scarf, is sitting in a small sampan. The khăn rằn, known for its intricate black and white patterns, is typically worn around the neck or draped over the shoulders. Originating in the Mekong Delta region, it has a rich history dating back to the 19th century, becoming a symbol of resistance during the Vietnam War and continuing to be an important cultural symbol today.",
+  "ly_do": [
+   "no-op cũ rơi về I0 (không ref) -> nay sinh với ref"
+  ],
+  "seed": 5000
+ },
+ "S031": {
+  "changed": true,
+  "actions_old": [
+   "a four-panel dress with a high collar",
+   "a sash tied at the back",
+   "floral patterns along the hem"
+  ],
+  "actions_new": [
+   "a four-panel dress with a high collar",
+   "a sash tied at the back"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A northern Vietnamese young woman in a four-panel dress with a sash. A young woman in northern Vietnam is wearing an áo tứ thân, a traditional four-panel dress often worn during cultural events and ceremonies. Crafted from soft silk, the áo tứ thân features intricate embroidery with vibrant floral patterns along the cuffs and hem, creating a flowing silhouette when the panels are sewn together. This dress is an essential part of Vietnamese culture, symbolizing grace and elegance, and it is frequently seen at traditional celebrations such as weddings and Tet (Lunar New Year). The áo tứ thân is distinct from other traditional Vietnamese dresses due to its unique four-panel design. It is often paired with traditional búp bê shoes, small embroidered slippers that complement the dress perfectly.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a four-panel dress with a high collar.\n2. a sash tied at the back.\n3. floral patterns along the hem.",
+  "P1_new": "A northern Vietnamese young woman in a four-panel dress with a sash. A young woman in northern Vietnam is wearing an áo tứ thân, a traditional four-panel dress often worn during cultural events and ceremonies. Crafted from soft silk, the áo tứ thân features intricate embroidery with vibrant floral patterns along the cuffs and hem, creating a flowing silhouette when the panels are sewn together. This dress is an essential part of Vietnamese culture, symbolizing grace and elegance, and it is frequently seen at traditional celebrations such as weddings and Tet (Lunar New Year). The áo tứ thân is distinct from other traditional Vietnamese dresses due to its unique four-panel design. It is often paired with traditional búp bê shoes, small embroidered slippers that complement the dress perfectly.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a four-panel dress with a high collar.\n2. a sash tied at the back.",
+  "ly_do": [
+   "R1 bỏ (không neo 'floral patterns'): floral patterns along the hem"
+  ],
+  "seed": 5000
+ },
+ "S032": {
+  "changed": false,
+  "actions_old": [
+   "a dan tranh zither with a long neck and a slender soundbox",
+   "a traditional Vietnamese áo dài with long sleeves and floral embroidery on the chest",
+   "finger picks on the woman's fingers"
+  ],
+  "actions_new": [
+   "a dan tranh zither with a long neck and a slender soundbox",
+   "a traditional Vietnamese áo dài with long sleeves and floral embroidery on the chest",
+   "finger picks on the woman's fingers"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A woman playing a dan tranh zither with finger picks. A woman is playing a đàn tranh, a traditional Vietnamese zither with a long neck and a slender soundbox, featuring numerous steel strings strung over movable bridges. She is wearing a traditional Vietnamese áo dài. Her fingers are gracefully moving over the strings, either for a solo performance or to accompany a vocalist. The đàn tranh holds significant cultural importance in Vietnamese weddings, festivals, and religious ceremonies.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: dan tranh zither; finger picks. Make these additions clearly visible:\n1. a dan tranh zither with a long neck and a slender soundbox.\n2. a traditional Vietnamese áo dài with long sleeves and floral embroidery on the chest.\n3. finger picks on the woman's fingers.",
+  "P1_new": "A woman playing a dan tranh zither with finger picks. A woman is playing a đàn tranh, a traditional Vietnamese zither with a long neck and a slender soundbox, featuring numerous steel strings strung over movable bridges. She is wearing a traditional Vietnamese áo dài. Her fingers are gracefully moving over the strings, either for a solo performance or to accompany a vocalist. The đàn tranh holds significant cultural importance in Vietnamese weddings, festivals, and religious ceremonies.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: dan tranh zither; finger picks. Make these additions clearly visible:\n1. a dan tranh zither with a long neck and a slender soundbox.\n2. a traditional Vietnamese áo dài with long sleeves and floral embroidery on the chest.\n3. finger picks on the woman's fingers.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S033": {
+  "changed": true,
+  "actions_old": [
+   "a dan ty ba (three-stringed zither) held by one musician",
+   "a tranh (16-stringed zither) held by one musician",
+   "musicians dressed in elaborate court attire with intricate embroidery and flowing fabrics"
+  ],
+  "actions_new": [
+   "a dan ty ba (three-stringed",
+   "a tranh (16-stringed",
+   "musicians dressed in elaborate court attire with intricate embroidery and flowing fabrics"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A Hue royal court music ensemble performing in a gilded palace hall. A Hue royal court music ensemble, known as Nhã Nhạc—a UNESCO World Heritage site—performs in a gilded palace hall. The ensemble includes traditional Vietnamese instruments like the dan ty ba (three-stringed zither) and tranh (16-stringed zither). Musicians and dancers, dressed in elaborate court attire with intricate embroidery and flowing fabrics, gracefully move to the rhythm of elegant music that has been a part of Vietnamese court life since the 13th century. Nhã Nhạc not only serves as a performance art but also as a cultural ambassador, embodying the rich history and heritage of Vietnam in both traditional and contemporary settings. Verification and Explanation: - Scene Retention: The prompt maintains the original scene of a Hue royal court music ensemble performing in a gilded palace hall. - Cultural Significance: The term \"Nhã Nhạc\" is explicitly mentioned, and its status as a UNESCO World Heritage site highlights its cultural importance. - Instruments and Attire: Detailed descriptions of traditional Vietnamese instruments and the elaborate attire of the performers are included to provide a vivid image for someone unfamiliar with Nhã Nhạc. - Historical Context: The prompt emphasizes the long history of Nhã Nhạc, dating back to the 13th century.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: gilded palace hall. Make these additions clearly visible:\n1. a dan ty ba (three-stringed zither) held by one musician.\n2. a tranh (16-stringed zither) held by one musician.\n3. musicians dressed in elaborate court attire with intricate embroidery and flowing fabrics.",
+  "P1_new": "A Hue royal court music ensemble performing in a gilded palace hall. A Hue royal court music ensemble, known as Nhã Nhạc—a UNESCO World Heritage site—performs in a gilded palace hall. The ensemble includes traditional Vietnamese instruments like the dan ty ba (three-stringed zither) and tranh (16-stringed zither). Musicians and dancers, dressed in elaborate court attire with intricate embroidery and flowing fabrics, gracefully move to the rhythm of elegant music that has been a part of Vietnamese court life since the 13th century. Nhã Nhạc not only serves as a performance art but also as a cultural ambassador, embodying the rich history and heritage of Vietnam in both traditional and contemporary settings. Verification and Explanation: - Scene Retention: The prompt maintains the original scene of a Hue royal court music ensemble performing in a gilded palace hall. - Cultural Significance: The term \"Nhã Nhạc\" is explicitly mentioned, and its status as a UNESCO World Heritage site highlights its cultural importance. - Instruments and Attire: Detailed descriptions of traditional Vietnamese instruments and the elaborate attire of the performers are included to provide a vivid image for someone unfamiliar with Nhã Nhạc. - Historical Context: The prompt emphasizes the long history of Nhã Nhạc, dating back to the 13th century.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: gilded palace hall. Make these additions clearly visible:\n1. a dan ty ba (three-stringed.\n2. a tranh (16-stringed.\n3. musicians dressed in elaborate court attire with intricate embroidery and flowing fabrics.",
+  "ly_do": [
+   "R3 cắt đuôi lặp 'zither) held by one musician'"
+  ],
+  "seed": 5000
+ },
+ "S034": {
+  "changed": true,
+  "actions_old": [
+   "a sagging tiled roof on the communal house",
+   "large, round, straight wooden pillars placed on large stone slabs supporting the communal house",
+   "curved tiles on the roof of the communal house"
+  ],
+  "actions_new": [
+   "a sagging tiled roof on the communal house",
+   "large, round, straight wooden pillars placed on large stone slabs supporting the communal house",
+   "curved tiles on the roof of the communal house"
+  ],
+  "drop_old": [
+   "intricate carvings",
+   "depicting local deities and ancestral figures",
+   "ancient banyan tree"
+  ],
+  "drop_new": [],
+  "P1_old": "A northern village communal house with a sagging tiled roof and an old banyan in the yard. In a northern Vietnamese village, there stands a traditional communal house known as a đình làng, a structure rich in cultural and historical significance. Its sagging tiled roof, adorned with that tell stories of village history and mythology, often, reflects the age and storied past of the structure. Each tile bears a unique green patina, a testament to the passage of time. Inside, the đình is filled with statues of village guardians and ancestral altars, symbolizing its role as a center for religious and social activities. The walls are lined with finely carved wooden panels, their texture inviting to the touch, while the polished wood floors creak softly with each step, echoing the footsteps of generations past. Surrounding the communal house is a large yard, where an provides shade and a sense of history, its sprawling branches reaching out like the arms of a wise elder. The đình serves as a gathering place for community meetings, religious ceremonies, and cultural festivals, embodying the heart and soul of the village. Ancestral worship is a central activity, with families regularly visiting to honor their ancestors and seek guidance. The đình also plays a key role in village governance, where elders and community leaders meet to discuss and resolve issues affecting the village, ensuring harmony and stability. Additionally, it hosts workshops and cultural events that ensure the continuity of traditional practices. The scent of incense during ceremonies and the sound of wind chimes hanging around the ancient banyan tree add to the rich sensory experience, making the đình a revered and cherished part of Vietnamese heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: an old banyan. Make these additions clearly visible:\n1. a sagging tiled roof on the communal house.\n2. large, round, straight wooden pillars placed on large stone slabs supporting the communal house.\n3. curved tiles on the roof of the communal house.",
+  "P1_new": "A northern village communal house with a sagging tiled roof and an old banyan in the yard. In a northern Vietnamese village, there stands a traditional communal house known as a đình làng, a structure rich in cultural and historical significance. Its sagging tiled roof, adorned with intricate carvings that tell stories of village history and mythology, often depicting local deities and ancestral figures, reflects the age and storied past of the structure. Each tile bears a unique green patina, a testament to the passage of time. Inside, the đình is filled with statues of village guardians and ancestral altars, symbolizing its role as a center for religious and social activities. The walls are lined with finely carved wooden panels, their texture inviting to the touch, while the polished wood floors creak softly with each step, echoing the footsteps of generations past. Surrounding the communal house is a large yard, where an ancient banyan tree provides shade and a sense of history, its sprawling branches reaching out like the arms of a wise elder. The đình serves as a gathering place for community meetings, religious ceremonies, and cultural festivals, embodying the heart and soul of the village. Ancestral worship is a central activity, with families regularly visiting to honor their ancestors and seek guidance. The đình also plays a key role in village governance, where elders and community leaders meet to discuss and resolve issues affecting the village, ensuring harmony and stability. Additionally, it hosts workshops and cultural events that ensure the continuity of traditional practices. The scent of incense during ceremonies and the sound of wind chimes hanging around the ancient banyan tree add to the rich sensory experience, making the đình a revered and cherished part of Vietnamese heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: an old banyan. Make these additions clearly visible:\n1. a sagging tiled roof on the communal house.\n2. large, round, straight wooden pillars placed on large stone slabs supporting the communal house.\n3. curved tiles on the roof of the communal house.",
+  "ly_do": [
+   "R4 không drop (không ngoại lai): intricate carvings",
+   "R4 không drop (không ngoại lai): depicting local deities and ancestral figures",
+   "R4 không drop (không ngoại lai): ancient banyan tree"
+  ],
+  "seed": 5000
+ },
+ "S035": {
+  "changed": false,
+  "actions_old": [
+   "a ritual text in the person's hands",
+   "an ancestral tablet made of porcelain on the altar",
+   "a five-fruit tray on the altar"
+  ],
+  "actions_new": [
+   "a ritual text in the person's hands",
+   "an ancestral tablet made of porcelain on the altar",
+   "a five-fruit tray on the altar"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "An elderly man in a traditional gown and turban reading a ritual text before an altar. An elderly man in a traditional Vietnamese gown and turban is reading a ritual text, known as \"đọc văn tế,\" before an altar adorned with offerings and incense. The text is a prayer to ancestors and deities for protection and prosperity. The scene takes place in a quiet, traditional Vietnamese home, where specific offerings such as fruits, tea, and rice are displayed, illustrating the cultural and historical significance of the ritual. The man's careful and respectful demeanor reflects the cultural importance of this ceremony.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: a ritual text; before an altar. Make these additions clearly visible:\n1. a ritual text in the person's hands.\n2. an ancestral tablet made of porcelain on the altar.\n3. a five-fruit tray on the altar.",
+  "P1_new": "An elderly man in a traditional gown and turban reading a ritual text before an altar. An elderly man in a traditional Vietnamese gown and turban is reading a ritual text, known as \"đọc văn tế,\" before an altar adorned with offerings and incense. The text is a prayer to ancestors and deities for protection and prosperity. The scene takes place in a quiet, traditional Vietnamese home, where specific offerings such as fruits, tea, and rice are displayed, illustrating the cultural and historical significance of the ritual. The man's careful and respectful demeanor reflects the cultural importance of this ceremony.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: a ritual text; before an altar. Make these additions clearly visible:\n1. a ritual text in the person's hands.\n2. an ancestral tablet made of porcelain on the altar.\n3. a five-fruit tray on the altar.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S036": {
+  "changed": true,
+  "actions_old": [
+   "a groom standing beside the bride",
+   "the bride wearing an áo dài with intricate embroidery",
+   "betel nuts in the red-draped gift trays"
+  ],
+  "actions_new": [
+   "a groom standing beside the bride",
+   "the bride wearing an áo dài with intricate embroidery"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays. A traditional betrothal ceremony, known as \"lễ ăn hỏi\" in Vietnamese culture, is taking place. The room is adorned with vibrant red and gold decorations, and family members wear traditional áo dài, typically in bright colors with intricate embroidery. Red-draped gift trays filled with betel nuts, seasonal fruits, and traditional sweets are exchanged as a sign of respect and goodwill.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: red-draped gift trays; a traditional betrothal ceremony. Make these additions clearly visible:\n1. a groom standing beside the bride.\n2. the bride wearing an áo dài with intricate embroidery.\n3. betel nuts in the red-draped gift trays.",
+  "P1_new": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays. A traditional betrothal ceremony, known as \"lễ ăn hỏi\" in Vietnamese culture, is taking place. The room is adorned with vibrant red and gold decorations, and family members wear traditional áo dài, typically in bright colors with intricate embroidery. Red-draped gift trays filled with betel nuts, seasonal fruits, and traditional sweets are exchanged as a sign of respect and goodwill.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: red-draped gift trays; a traditional betrothal ceremony. Make these additions clearly visible:\n1. a groom standing beside the bride.\n2. the bride wearing an áo dài with intricate embroidery.",
+  "ly_do": [
+   "R1 bỏ (không neo 'betel nuts'): betel nuts in the red-draped gift trays"
+  ],
+  "seed": 5000
+ },
+ "S037": {
+  "changed": true,
+  "actions_old": [
+   "low plastic stools where customers sit",
+   "simple yet cheerful decorations on the tables"
+  ],
+  "actions_new": [
+   "low plastic stools where customers sit"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "Morning at a sidewalk coffee shop with customers on low plastic stools. In the bustling streets of Vietnam, a typical morning finds a sidewalk coffee shop alive with activity. Customers perch on vivid blue plastic stools under vibrant red umbrellas, sipping steaming cups of aromatic coffee from delicate ceramic mugs. Simple yet cheerful decorations, such as colorful lanterns and lush green plants, adorn the makeshift tables, creating a lively and inviting atmosphere. The elderly find refuge and companionship here, while students gather to study and chat. These sidewalk cafes are integral to Vietnamese daily life, offering a space for people to socialize, work, and conduct business, uniquely embodying the essence of the city's vibrant culture and daily life.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: customers; ghế nhựa thấp; low plastic stools; vỉa hè; sidewalk. Make these additions clearly visible:\n1. low plastic stools where customers sit.\n2. simple yet cheerful decorations on the tables.",
+  "P1_new": "Morning at a sidewalk coffee shop with customers on low plastic stools. In the bustling streets of Vietnam, a typical morning finds a sidewalk coffee shop alive with activity. Customers perch on vivid blue plastic stools under vibrant red umbrellas, sipping steaming cups of aromatic coffee from delicate ceramic mugs. Simple yet cheerful decorations, such as colorful lanterns and lush green plants, adorn the makeshift tables, creating a lively and inviting atmosphere. The elderly find refuge and companionship here, while students gather to study and chat. These sidewalk cafes are integral to Vietnamese daily life, offering a space for people to socialize, work, and conduct business, uniquely embodying the essence of the city's vibrant culture and daily life.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: customers; low plastic stools; sidewalk. Make these additions clearly visible:\n1. low plastic stools where customers sit.",
+  "ly_do": [
+   "R1 bỏ (không neo 'simple yet cheerful decorations'): simple yet cheerful decorations on the tables"
+  ],
+  "seed": 5000
+ },
+ "S038": {
+  "changed": true,
+  "actions_old": [
+   "A salt field with flat ground surface",
+   "Salt mounds with flat tops"
+  ],
+  "actions_new": [
+   "A salt field with flat ground surface",
+   "Salt mounds with flat tops"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "White mounds of salt lined up in rows on a salt field under the midday sun. In coastal Vietnam, salt fields known as \"ruộng muối\" are vast expanses where salt is traditionally harvested under the scorching midday sun. White mounds of salt are neatly lined up in rows, reflecting the sun’s light in dazzling brilliance. The tradition of salt production, dating back to early dynastic periods, is integral to Vietnamese coastal communities, reflecting the country’s deep agricultural heritage and the importance of salt to its economy and cuisine. Salt workers meticulously harvest the precious crystals that flavor traditional dishes and support local communities.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: ruộng muối; salt field; midday sun. Make these additions clearly visible:\n1. A salt field with flat ground surface.\n2. Salt mounds with flat tops.",
+  "P1_new": "White mounds of salt lined up in rows on a salt field under the midday sun. In coastal Vietnam, salt fields known as \"ruộng muối\" are vast expanses where salt is traditionally harvested under the scorching midday sun. White mounds of salt are neatly lined up in rows, reflecting the sun’s light in dazzling brilliance. The tradition of salt production, dating back to early dynastic periods, is integral to Vietnamese coastal communities, reflecting the country’s deep agricultural heritage and the importance of salt to its economy and cuisine. Salt workers meticulously harvest the precious crystals that flavor traditional dishes and support local communities.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: salt field; midday sun. Make these additions clearly visible:\n1. A salt field with flat ground surface.\n2. Salt mounds with flat tops.",
+  "ly_do": [
+   "R5 Keep clause: bỏ mục tiếng Việt lọt qua (SDXL/FLUX không đọc)"
+  ],
+  "seed": 5000
+ },
+ "S039": {
+  "changed": true,
+  "actions_old": [
+   "a dark red brick color for the tower",
+   "a flower-shaped top for the tower",
+   "a stone wall surrounding the tower base"
+  ],
+  "actions_new": [
+   "a dark red brick color for the tower",
+   "a flower-shaped top for the tower",
+   "a stone wall surrounding the tower base"
+  ],
+  "drop_old": [
+   "similar to the Taj Mahal in India"
+  ],
+  "drop_new": [
+   "similar to the Taj Mahal in India"
+  ],
+  "P1_old": "An ancient Cham tower standing on a hill in the afternoon sun. An ancient Cham tower rises majestically on a hill, its intricate stone carvings catching the golden afternoon sun. The texture of the weathered stone feels rough under the touch of the wind, while the scent of the fresh rice paddies fills the air. Lush greenery and rolling rice fields surround the tower, creating a serene and picturesque setting. This tower, a symbol of the rich Cham heritage, stands tall in Phan Rang–Tháp Chàm, a city in Vietnam known for its historical significance and cultural importance., the Cham tower holds a revered place in the community, reflecting the deep spiritual and historical roots of the region.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: nắng chiều. Make these additions clearly visible:\n1. a dark red brick color for the tower.\n2. a flower-shaped top for the tower.\n3. a stone wall surrounding the tower base.",
+  "P1_new": "An ancient Cham tower standing on a hill in the afternoon sun. An ancient Cham tower rises majestically on a hill, its intricate stone carvings catching the golden afternoon sun. The texture of the weathered stone feels rough under the touch of the wind, while the scent of the fresh rice paddies fills the air. Lush greenery and rolling rice fields surround the tower, creating a serene and picturesque setting. This tower, a symbol of the rich Cham heritage, stands tall in Phan Rang–Tháp Chàm, a city in Vietnam known for its historical significance and cultural importance., the Cham tower holds a revered place in the community, reflecting the deep spiritual and historical roots of the region.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a dark red brick color for the tower.\n2. a flower-shaped top for the tower.\n3. a stone wall surrounding the tower base.",
+  "ly_do": [
+   "R5 Keep clause: bỏ mục tiếng Việt lọt qua (SDXL/FLUX không đọc)"
+  ],
+  "seed": 5000
+ },
+ "S040": {
+  "changed": true,
+  "actions_old": [
+   "a long dress with long sleeves"
+  ],
+  "actions_new": [
+   "a long dress with long sleeves"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon. In the heart of rural Vietnam, a woman stands at the edge of a lush green rice field, wearing a traditional conical leaf hat known as a \"nón lá.\" This hat, crafted from intricately woven palm leaves, has been a symbol of resilience and hard work in Vietnamese agricultural life for centuries. As the sun begins to dip below the horizon, casting a warm golden light over the ripening rice stalks, the \"nón lá\" becomes a striking silhouette against the vibrant green backdrop. The hat’s textured weave and earthy tones blend seamlessly with the rustic charm of the scene, making it a quintessential image of rural Vietnamese life.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: bờ ruộng; edge of a rice field; lúc chiều muộn; in late afternoon. Make these additions clearly visible:\n1. a long dress with long sleeves.",
+  "P1_new": "A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon. In the heart of rural Vietnam, a woman stands at the edge of a lush green rice field, wearing a traditional conical leaf hat known as a \"nón lá.\" This hat, crafted from intricately woven palm leaves, has been a symbol of resilience and hard work in Vietnamese agricultural life for centuries. As the sun begins to dip below the horizon, casting a warm golden light over the ripening rice stalks, the \"nón lá\" becomes a striking silhouette against the vibrant green backdrop. The hat’s textured weave and earthy tones blend seamlessly with the rustic charm of the scene, making it a quintessential image of rural Vietnamese life.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: edge of a rice field; in late afternoon. Make these additions clearly visible:\n1. a long dress with long sleeves.",
+  "ly_do": [
+   "R5 Keep clause: bỏ mục tiếng Việt lọt qua (SDXL/FLUX không đọc)"
+  ],
+  "seed": 5000
+ },
+ "S041": {
+  "changed": true,
+  "actions_old": [
+   "peach branches in baskets",
+   "bright red banners hanging from the stalls",
+   "incense smoke rising from the stalls"
+  ],
+  "actions_new": [
+   "peach branches in baskets",
+   "bright red banners hanging from the stalls"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A Tet market in a northern village with peach branches. A Tết market in a northern Vietnamese village is bustling with activity, adorned with bright red banners and lanterns hanging from the stalls. The air is filled with the scent of incense and fresh flowers, particularly peach branches, which are traditional symbols of good fortune and happiness. Vendors offer a variety of goods, from traditional food items like bánh chưng to ornate decorations and clothing. The lively chatter and laughter of visitors, the sound of vendors calling out their wares, and the vibrant colors of the market create a unique and unforgettable experience that captures the spirit of Tết.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: peach branches; A Tet market in a northern village. Make these additions clearly visible:\n1. peach branches in baskets.\n2. bright red banners hanging from the stalls.\n3. incense smoke rising from the stalls.",
+  "P1_new": "A Tet market in a northern village with peach branches. A Tết market in a northern Vietnamese village is bustling with activity, adorned with bright red banners and lanterns hanging from the stalls. The air is filled with the scent of incense and fresh flowers, particularly peach branches, which are traditional symbols of good fortune and happiness. Vendors offer a variety of goods, from traditional food items like bánh chưng to ornate decorations and clothing. The lively chatter and laughter of visitors, the sound of vendors calling out their wares, and the vibrant colors of the market create a unique and unforgettable experience that captures the spirit of Tết.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: peach branches; A Tet market in a northern village. Make these additions clearly visible:\n1. peach branches in baskets.\n2. bright red banners hanging from the stalls.",
+  "ly_do": [
+   "R1 bỏ (không neo 'incense smoke rising'): incense smoke rising from the stalls"
+  ],
+  "seed": 5000
+ },
+ "S042": {
+  "changed": true,
+  "actions_old": [
+   "green shrubs on the rock formations"
+  ],
+  "actions_new": [],
+  "drop_old": [
+   "towering peaks",
+   "hidden coves",
+   "ancient fishing villages"
+  ],
+  "drop_new": [],
+  "P1_old": "Limestone karst islands rising from the emerald waters of Ha Long Bay. Ha Long Bay, a natural wonder in northeastern Vietnam, is celebrated for its thousands of limestone karst islands and islets rising majestically from the emerald waters. These geological formations range in size from small rocks to, creating a mesmerizing landscape. The bay, located in the Gulf of Tonkin, is renowned for its crystal-clear waters, lush greenery, and vibrant marine ecosystems teeming with colorful fish, coral reefs, and dolphins. Visitors can kayak between the islands, explore, and discover the myriad of marine life that calls this stunning bay home. Ha Long Bay is also a cultural treasure, with, traditional boat tours, and preserved indigenous traditions offering a unique glimpse into the area’s rich history and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: Ha Long Bay; the emerald waters. Make these additions clearly visible:\n1. green shrubs on the rock formations.",
+  "P1_new": "Limestone karst islands rising from the emerald waters of Ha Long Bay. Ha Long Bay, a natural wonder in northeastern Vietnam, is celebrated for its thousands of limestone karst islands and islets rising majestically from the emerald waters. These geological formations range in size from small rocks to towering peaks, creating a mesmerizing landscape. The bay, located in the Gulf of Tonkin, is renowned for its crystal-clear waters, lush greenery, and vibrant marine ecosystems teeming with colorful fish, coral reefs, and dolphins. Visitors can kayak between the islands, explore hidden coves, and discover the myriad of marine life that calls this stunning bay home. Ha Long Bay is also a cultural treasure, with ancient fishing villages, traditional boat tours, and preserved indigenous traditions offering a unique glimpse into the area’s rich history and heritage.",
+  "ly_do": [
+   "R1 bỏ (không neo 'green shrubs'): green shrubs on the rock formations",
+   "R4 không drop (không ngoại lai): towering peaks",
+   "R4 không drop (không ngoại lai): hidden coves",
+   "R4 không drop (không ngoại lai): ancient fishing villages"
+  ],
+  "seed": 5000
+ },
+ "S043": {
+  "changed": true,
+  "actions_old": [
+   "a color printing block on the flat surface",
+   "a broom made of pine needles on the table",
+   "điệp paper on the flat surface"
+  ],
+  "actions_new": [
+   "a color printing block",
+   "a broom made of pine needles on the table",
+   "điệp paper"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "An artisan printing Dong Ho folk prints in a small workshop. In a small traditional Vietnamese workshop, an artisan carefully prints Dong Ho folk prints using age-old techniques. Dong Ho paintings, also known as Tranh Đông Hồ, are a type of Vietnamese folk woodcut painting originating from Đông Hồ village in the province of Bắc Ninh. These vibrant and colorful prints often depict scenes from daily life, traditional festivals, and popular folk tales, and are an important part of Vietnamese cultural heritage. The artisan uses bamboo sticks to spread natural dyes over intricately carved woodblocks to create these culturally significant works of art. Dong Ho paintings feature a variety of vibrant colors and intricate designs, including common motifs such as the sun, moon, and various animals. They are an essential part of Vietnamese cultural identity, used in various traditional contexts such as Lunar New Year decorations and as gifts, reflecting the rich history and heritage of Vietnam. Unlike European woodcuts or Japanese ukiyo-e, Dong Ho paintings stand out for their use of natural pigments and their unique, handcrafted quality, making them a distinctive form of traditional Vietnamese art.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a color printing block on the flat surface.\n2. a broom made of pine needles on the table.\n3. điệp paper on the flat surface.",
+  "P1_new": "An artisan printing Dong Ho folk prints in a small workshop. In a small traditional Vietnamese workshop, an artisan carefully prints Dong Ho folk prints using age-old techniques. Dong Ho paintings, also known as Tranh Đông Hồ, are a type of Vietnamese folk woodcut painting originating from Đông Hồ village in the province of Bắc Ninh. These vibrant and colorful prints often depict scenes from daily life, traditional festivals, and popular folk tales, and are an important part of Vietnamese cultural heritage. The artisan uses bamboo sticks to spread natural dyes over intricately carved woodblocks to create these culturally significant works of art. Dong Ho paintings feature a variety of vibrant colors and intricate designs, including common motifs such as the sun, moon, and various animals. They are an essential part of Vietnamese cultural identity, used in various traditional contexts such as Lunar New Year decorations and as gifts, reflecting the rich history and heritage of Vietnam. Unlike European woodcuts or Japanese ukiyo-e, Dong Ho paintings stand out for their use of natural pigments and their unique, handcrafted quality, making them a distinctive form of traditional Vietnamese art.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a color printing block.\n2. a broom made of pine needles on the table.\n3. điệp paper.",
+  "ly_do": [
+   "R3 cắt đuôi lặp 'on the flat surface'"
+  ],
+  "seed": 5000
+ },
+ "S044": {
+  "changed": true,
+  "actions_old": [
+   "A blossoming peach branch in the vase",
+   "A green or red vase",
+   "A wooden table surface in the main living room"
+  ],
+  "actions_new": [
+   "A blossoming peach branch in the vase",
+   "A green or red vase"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A blossoming peach branch in a ceramic vase at Tet. A blossoming peach branch, known as \"cành đào,\" is placed in a traditional ceramic vase in the main living room during Tet, the Vietnamese Lunar New Year. The delicate pink blossoms and fresh green leaves of the peach branch enhance the festive atmosphere, symbolizing new beginnings and good fortune for the coming year. The scent of the blossoms fills the air, adding to the sensory experience, while the vase, often intricately designed and colored in green or red, complements the branch's hues. This custom, believed to have originated during the Lê dynasty, is an integral part of Tet celebrations across Vietnam, symbolizing peace and prosperity.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: bình gốm. Make these additions clearly visible:\n1. A blossoming peach branch in the vase.\n2. A green or red vase.\n3. A wooden table surface in the main living room.",
+  "P1_new": "A blossoming peach branch in a ceramic vase at Tet. A blossoming peach branch, known as \"cành đào,\" is placed in a traditional ceramic vase in the main living room during Tet, the Vietnamese Lunar New Year. The delicate pink blossoms and fresh green leaves of the peach branch enhance the festive atmosphere, symbolizing new beginnings and good fortune for the coming year. The scent of the blossoms fills the air, adding to the sensory experience, while the vase, often intricately designed and colored in green or red, complements the branch's hues. This custom, believed to have originated during the Lê dynasty, is an integral part of Tet celebrations across Vietnam, symbolizing peace and prosperity.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. A blossoming peach branch in the vase.\n2. A green or red vase.",
+  "ly_do": [
+   "R1 bỏ (không neo 'A wooden table surface'): A wooden table surface in the main living room"
+  ],
+  "seed": 5000
+ },
+ "S045": {
+  "changed": false,
+  "actions_old": [
+   "a five-fruit tray on the table",
+   "a wooden ancestral tablet on the altar"
+  ],
+  "actions_new": [
+   "a five-fruit tray on the table",
+   "a wooden ancestral tablet on the altar"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "An ancestral altar at Tet with a five-fruit tray and burning incense. An ancestral altar during the Tet holiday features a five-fruit tray and burning incense. The altar, known as \"bàn thờ gia tiên,\" is typically found in the living room or a dedicated space within a Vietnamese home, symbolizing respect and remembrance for family ancestors. This altar is a central focal point during Tet, where family members gather to honor their ancestors by offering prayers, fruits, incense, and other offerings. The altar itself may include items such as candles, photos of the deceased relatives, and flowers, and the surrounding space is often decorated with traditional red and gold paper decorations to celebrate the festive occasion.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a five-fruit tray on the table.\n2. a wooden ancestral tablet on the altar.",
+  "P1_new": "An ancestral altar at Tet with a five-fruit tray and burning incense. An ancestral altar during the Tet holiday features a five-fruit tray and burning incense. The altar, known as \"bàn thờ gia tiên,\" is typically found in the living room or a dedicated space within a Vietnamese home, symbolizing respect and remembrance for family ancestors. This altar is a central focal point during Tet, where family members gather to honor their ancestors by offering prayers, fruits, incense, and other offerings. The altar itself may include items such as candles, photos of the deceased relatives, and flowers, and the surrounding space is often decorated with traditional red and gold paper decorations to celebrate the festive occasion.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a five-fruit tray on the table.\n2. a wooden ancestral tablet on the altar.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S046": {
+  "changed": true,
+  "actions_old": [],
+  "actions_new": [],
+  "drop_old": [
+   "handmade",
+   "small streams or gullies",
+   "lush, rural landscapes"
+  ],
+  "drop_new": [],
+  "P1_old": "A monkey bridge made of a bamboo trunk spanning a small canal. A monkey bridge, also known as a cầu khỉ in Vietnam, is a handmade structure typically made from bamboo or wood that spans small streams or gullies. Commonly found in the lush, rural landscapes of central and southern Vietnam, these bridges serve as vital links between remote communities and are integral to daily life. The cầu khỉ is designed to connect two points across water, providing a simple yet crucial means of passage for local communities. Constructed without handrails and close to the water, these bridges can be quite challenging and dangerous for those who are not accustomed to them. However, for those familiar with them, carrying heavy loads of 20–50 kg while crossing the bridge is a common practice. Historically, the cầu khỉ has played a significant role in Vietnamese culture, symbolizing the resilience and resourcefulness of the local people. While the bridge may appear primitive compared to modern suspension bridges, it reflects the ingenuity and adaptability of rural communities in the face of challenging terrain. The materials used in the construction of a cầu khỉ, such as bamboo or wood, create a rustic and natural appearance that blends seamlessly with the surrounding environment.",
+  "P1_new": "A monkey bridge made of a bamboo trunk spanning a small canal. A monkey bridge, also known as a cầu khỉ in Vietnam, is a handmade structure typically made from bamboo or wood that spans small streams or gullies. Commonly found in the lush, rural landscapes of central and southern Vietnam, these bridges serve as vital links between remote communities and are integral to daily life. The cầu khỉ is designed to connect two points across water, providing a simple yet crucial means of passage for local communities. Constructed without handrails and close to the water, these bridges can be quite challenging and dangerous for those who are not accustomed to them. However, for those familiar with them, carrying heavy loads of 20–50 kg while crossing the bridge is a common practice. Historically, the cầu khỉ has played a significant role in Vietnamese culture, symbolizing the resilience and resourcefulness of the local people. While the bridge may appear primitive compared to modern suspension bridges, it reflects the ingenuity and adaptability of rural communities in the face of challenging terrain. The materials used in the construction of a cầu khỉ, such as bamboo or wood, create a rustic and natural appearance that blends seamlessly with the surrounding environment.",
+  "ly_do": [
+   "no-op cũ rơi về I0 (không ref) -> nay sinh với ref",
+   "R4 không drop (không ngoại lai): handmade",
+   "R4 không drop (không ngoại lai): small streams or gullies",
+   "R4 không drop (không ngoại lai): lush, rural landscapes"
+  ],
+  "seed": 5000
+ },
+ "S047": {
+  "changed": true,
+  "actions_old": [
+   "a lush green valley surrounding the woman",
+   "peony flowers in the field",
+   "clearly visible: traditional Hmong clothing"
+  ],
+  "actions_new": [
+   "a lush green valley surrounding the woman",
+   "peony flowers in the field",
+   "clearly visible: traditional Hmong clothing"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "A Hmong woman in traditional dress standing amid a field of flowers. A H'Mông woman from the northern regions of Vietnam, dressed in her traditional attire for the H'Mông New Year festival, stands in a lush green valley surrounded by towering mountains. Her outfit features intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script, along with silver coins and decorative brooches. The field around her is filled with native flowers, including tulips and peonies, adding to the festive atmosphere. Her hair is styled intricately, held in place with a beautifully crafted silver headpiece adorned with colorful beads.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rừng hoa; field of flowers; trong rừng hoa; amid a field of flowers. Make these additions clearly visible:\n1. a lush green valley surrounding the woman.\n2. peony flowers in the field.\n3. clearly visible: traditional Hmong clothing.",
+  "P1_new": "A Hmong woman in traditional dress standing amid a field of flowers. A H'Mông woman from the northern regions of Vietnam, dressed in her traditional attire for the H'Mông New Year festival, stands in a lush green valley surrounded by towering mountains. Her outfit features intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script, along with silver coins and decorative brooches. The field around her is filled with native flowers, including tulips and peonies, adding to the festive atmosphere. Her hair is styled intricately, held in place with a beautifully crafted silver headpiece adorned with colorful beads.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: field of flowers; amid a field of flowers. Make these additions clearly visible:\n1. a lush green valley surrounding the woman.\n2. peony flowers in the field.\n3. clearly visible: traditional Hmong clothing.",
+  "ly_do": [
+   "R5 Keep clause: bỏ mục tiếng Việt lọt qua (SDXL/FLUX không đọc)"
+  ],
+  "seed": 5000
+ },
+ "S048": {
+  "changed": true,
+  "actions_old": [
+   "the artisan sitting on a chair higher than the table"
+  ],
+  "actions_new": [
+   "the artisan sitting on a chair higher than the table"
+  ],
+  "drop_old": [
+   "traditional wooden wheel",
+   "pale blue to deep green",
+   "Japanese pottery traditions"
+  ],
+  "drop_new": [
+   "Japanese pottery traditions"
+  ],
+  "P1_old": "An artisan throwing pottery on a wheel. An artisan is skillfully shaping pottery on a in the village of Bát Tràng, near Hanoi. The artisan's hands move deftly, molding and forming the clay into a delicate vessel. The village of Bát Tràng has a history dating back over 500 years, known for its contributions to the royal court and the flourishing ceramic trade. The workshop is filled with the earthy scent of clay, and the colors range from, contrasting beautifully with the rustic wooden wheels. The ceramic pieces are not only works of art but are also used in everyday life, symbolizing the deep connection between art and daily living in Vietnamese culture. While the ceramic techniques in Bát Tràng are unique, they share similarities with, highlighting a global exchange of ceramic arts.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: gốm; a wheel. Make these additions clearly visible:\n1. the artisan sitting on a chair higher than the table.",
+  "P1_new": "An artisan throwing pottery on a wheel. An artisan is skillfully shaping pottery on a traditional wooden wheel in the village of Bát Tràng, near Hanoi. The artisan's hands move deftly, molding and forming the clay into a delicate vessel. The village of Bát Tràng has a history dating back over 500 years, known for its contributions to the royal court and the flourishing ceramic trade. The workshop is filled with the earthy scent of clay, and the colors range from pale blue to deep green, contrasting beautifully with the rustic wooden wheels. The ceramic pieces are not only works of art but are also used in everyday life, symbolizing the deep connection between art and daily living in Vietnamese culture. While the ceramic techniques in Bát Tràng are unique, they share similarities with, highlighting a global exchange of ceramic arts.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: a wheel. Make these additions clearly visible:\n1. the artisan sitting on a chair higher than the table.",
+  "ly_do": [
+   "R4 không drop (không ngoại lai): traditional wooden wheel",
+   "R4 không drop (không ngoại lai): pale blue to deep green"
+  ],
+  "seed": 5000
+ },
+ "S049": {
+  "changed": false,
+  "actions_old": [
+   "a wrapped turban around the man's head",
+   "a house yard with dirt ground"
+  ],
+  "actions_new": [
+   "a wrapped turban around the man's head",
+   "a house yard with dirt ground"
+  ],
+  "drop_old": [],
+  "drop_new": [],
+  "P1_old": "An elderly man in a traditional silk tunic and wrapped turban stands in a house yard. An elderly man in a traditional silk tunic stands in a house yard. He is wearing a wrapped turban, known as an \"áo the khăn xếp,\" symbolizing high social status and respect. The khăn xếp, made from silk or cotton with intricate patterns and vibrant colors, reflects his social standing and cultural heritage. This wrapped turban is an essential part of Vietnamese cultural heritage, distinct from other headwear in Southeast Asia, and holds a special place signifying tradition, honor, and respect for one's heritage during solemn and joyous occasions.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: house yard. Make these additions clearly visible:\n1. a wrapped turban around the man's head.\n2. a house yard with dirt ground.",
+  "P1_new": "An elderly man in a traditional silk tunic and wrapped turban stands in a house yard. An elderly man in a traditional silk tunic stands in a house yard. He is wearing a wrapped turban, known as an \"áo the khăn xếp,\" symbolizing high social status and respect. The khăn xếp, made from silk or cotton with intricate patterns and vibrant colors, reflects his social standing and cultural heritage. This wrapped turban is an essential part of Vietnamese cultural heritage, distinct from other headwear in Southeast Asia, and holds a special place signifying tradition, honor, and respect for one's heritage during solemn and joyous occasions.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: house yard. Make these additions clearly visible:\n1. a wrapped turban around the man's head.\n2. a house yard with dirt ground.",
+  "ly_do": [],
+  "seed": 5000
+ },
+ "S050": {
+  "changed": true,
+  "actions_old": [
+   "a child's hand receiving the red envelope"
+  ],
+  "actions_new": [
+   "a child's hand receiving the red envelope"
+  ],
+  "drop_old": [
+   "hóngbāo",
+   "decorative patterns such as dragons or flowers",
+   "traditional Chinese characters and decorative patterns"
+  ],
+  "drop_new": [
+   "traditional Chinese characters and decorative patterns"
+  ],
+  "P1_old": "An adult's hand giving a red lucky money envelope to a child. An adult's hand is giving a red lucky money envelope, known as a \"bao lì xì đỏ\" or \",\" to a child. The red envelope is often adorned with traditional Chinese characters and, symbolizing good fortune and blessings. This traditional practice is widely observed in China and other East Asian cultures during holidays, weddings, and other special occasions.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a child's hand receiving the red envelope.",
+  "P1_new": "An adult's hand giving a red lucky money envelope to a child. An adult's hand is giving a red lucky money envelope, known as a \"bao lì xì đỏ\" or \"hóngbāo,\" to a child. The red envelope is often adorned with such as dragons or flowers, symbolizing good fortune and blessings. This traditional practice is widely observed in China and other East Asian cultures during holidays, weddings, and other special occasions.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a child's hand receiving the red envelope.",
+  "ly_do": [
+   "R4 giữ lại cụm tiếng Việt: hóngbāo",
+   "R4 không drop (không ngoại lai): decorative patterns such as dragons or flowers"
+  ],
+  "seed": 5000
+ }
+}

@@ -261,17 +261,30 @@ PRIORITY_IDENTITY = ("Priority for repair: 1 identity cues of the cultural objec
                      "2 conditional cues; 3 details stated in the prompt; 4 supporting objects and background.")
 
 
-def agent_R(agent, so_tay, pid, prompt_en, cards, report, log, mo_rong="", priority="prompt"):
+def agent_R(agent, so_tay, pid, prompt_en, cards, report, log, mo_rong="", priority="prompt", ref_report=None):
+    khoi_ref = ""
+    if ref_report:
+        khoi_ref = (f"\n\nBLIND REPORT OF A REAL REFERENCE PHOTOGRAPH OF THE CORRECT OBJECT (the generator will also see this photo):\n"
+                    f"{json.dumps(ref_report, ensure_ascii=False)}\n"
+                    "Write repair_actions ONLY for features present in the reference report and missing or contradicted in the image "
+                    "report. Describe them the way the reference report does (concrete shapes, positions on the body, materials).")
     user = (f"ORIGINAL PROMPT: {prompt_en}\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\n{mo_rong}\n\n"
             f"PROMPT PRESERVATION CARD:\n"
             f"{json.dumps(cards.get('prompt_preservation'), ensure_ascii=False)}\n\nCULTURAL EVIDENCE CARD:\n"
             f"{json.dumps(cards.get('cultural_evidence'), ensure_ascii=False)}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n"
-            f"{json.dumps(report, ensure_ascii=False)}\n\nReturn the gap analysis as JSON.")
+            f"{json.dumps(report, ensure_ascii=False)}{khoi_ref}\n\nReturn the gap analysis as JSON.")
     sys_r = R_SYSTEM.replace("{PRIORITY}", PRIORITY_IDENTITY if priority == "identity" else PRIORITY_PROMPT)
     d = goi_text(agent, so_tay, pid, "R", "gap", sys_r, user, R_SCHEMA, max_new_tokens=900)
     tho = [str(x) for x in (d.get("repair_actions") or [])]
-    sach = [y for y in (_sach(x) for x in tho) if y][:3]
+    sach = [y for y in (_sach(x) for x in tho) if y]
     bo = [x for x in tho if _sach(x) is None]
+    if ref_report:   # action phải có căn cứ trong bản tả ref (>= 2 từ nội dung): chữ và ảnh ref kéo cùng một hướng
+        tu_ref = {w for w in _norm(json.dumps(ref_report, ensure_ascii=False)).replace('"', ' ').split() if len(w) > 3}
+        co, khong = [], []
+        for a_ in sach:
+            (co if len({w for w in _norm(a_).split() if len(w) > 3} & tu_ref) >= 2 else khong).append(a_)
+        bo += [f"{x} (không có trong bản tả ref)" for x in khong]; sach = co
+    sach = sach[:3]
     d["repair_actions"] = sach
     # Cụm bị cắt phải NẰM NGUYÊN VĂN trong phần mở rộng (không bao giờ là P0), và không quá 3 cụm.
     # Vì sao: B (Culture-TRIP) ra qipao ở cả SDXL và FLUX trong khi A (prompt gốc) ra áo dài — phần mở rộng
@@ -559,6 +572,12 @@ def main(argv=None):
                     help="R không đọc phần mở rộng Culture-TRIP; P1 dựng từ P0 (không mang phần mở rộng)")
     ap.add_argument("--refs-only", action="store_true", help="ablation: I1 = P_ct + IP-Adapter, KHÔNG agent")
     ap.add_argument("--reuse-from", default=None, help="chép A và I0 từ lô cũ cùng seed thay vì sinh lại (so sánh chính xác, nhanh hơn)")
+    ap.add_argument("--ref-select", action="store_true", help="O tả mù từng ảnh selected/, R chọn 2 ảnh khớp card + prompt")
+    ap.add_argument("--diff-actions", action="store_true", help="R viết action từ HIỆU bản tả ref và bản tả I0; action phải có căn cứ trong bản tả ref")
+    ap.add_argument("--adaptive-scale", action="store_true", help="IP-Adapter scale theo chẩn đoán: mâu thuẫn định danh -> cao, chỉ thiếu chi tiết -> thấp")
+    ap.add_argument("--noop-when-complete", action="store_true", help="không mâu thuẫn và mọi action I0 đã đạt -> no-op thật")
+    ap.add_argument("--add-disambig", action="store_true", help="có mâu thuẫn -> chèn positive disambiguator của C nếu còn suất")
+    ap.add_argument("--keep-only", action="store_true", help="control: refs-only + Keep clause từ Preservation Card")
     ap.add_argument("--run-name", default=None, help="mặc định kor_<YYYYmmdd_HHMM> để không ghi đè lô cũ")
     ap.add_argument("--append-run", default=None, help="nối prompt mới vào lô đã có (đường dẫn thư mục run); lưới vẽ lại gồm cả cũ")
     ap.add_argument("--regate", default=None, help="chạy lại CHỈ bước cổng cho lô đã có (không sinh ảnh): đường dẫn thư mục run")
@@ -699,12 +718,52 @@ def main(argv=None):
             tu_khoa += [w for r in cv.get("required", []) for w in str(r.get("description", "")).split() if len(w) > 5]
         except Exception:  # noqa: BLE001
             pass
+        if a.refs_only or a.keep_only:      # ablation: cùng prompt B + IP-Adapter ảnh thật, KHÔNG sửa; keep-only thêm Keep clause
+            refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5); refs = refs[:cfg.multigen.ref_images]
+            if refs and cfg.multigen.ref_crop: refs = s.crop_refs(refs, s.spec()[0])
+            p_dung = p_ct
+            if a.keep_only:
+                cards_k = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log, tu_khoa=tu_khoa)
+                pp = cards_k.get("prompt_preservation") or {}
+                giu = [str(x).strip() for k in ("supporting_objects", "background_and_scene") for x in (pp.get(k) or [])
+                       if re.search(r"[A-Za-z]", str(x)) and not re.search(r"[ăâđêôơưàáảãạ]", str(x).lower())]
+                if giu: p_dung = p_ct + f"\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: {'; '.join(dict.fromkeys(giu))}."
+            i1 = sinh(p_dung, "C_ref", "C", refs=refs) if refs else i0
+            rec = {"prompt_id": pid, "prompt_vi": pr.text_vi, "P_orig": p_orig, "P_ct": p_ct, "P1": p_dung, "seed": a.seed, "model": a.model,
+                   "images": {"A": anh_A, "B (I0)": i0, "C (I1)": i1}, "so_lan_sinh": dem, "cards": {}, "report_I0": {}, "gap": {},
+                   "actions": ["(keep-only)" if a.keep_only else "(refs-only)"], "refs": refs, "ablation": "keep_only" if a.keep_only else "refs_only"}
+            (out_dir / "kor.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
+            tong.append(rec); hang.append((pid, rec["images"], {"A": "prompt gốc", "B (I0)": "= I0", "C (I1)": rec["ablation"]}))
+            ve_luoi(hang, cot, run_dir / "kor_grid.png", nhan=NHAN, ten_hang={u["prompt_id"]: f"{u['prompt_id']}: {u['prompt_vi']}" for u in tong})
+            (run_dir / "kor.json").write_text(json.dumps({"don_vi": tong, "giao_tiep": so_tay.dong}, ensure_ascii=False, indent=1), encoding="utf-8")
+            log(f"  [{rec['ablation']}] -> {i1}"); continue
         cards = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log, tu_khoa=tu_khoa)
         # ---- O: quan sát mù I0
         rep0 = agent_O(s.agent, so_tay, pid, i0, "I0", log)
         # ---- R: phân tích lỗ hổng -> action
+        refs_chon, rep_ref = None, None
+        if a.ref_select or a.diff_actions:
+            ung_vien, _ = ref_split(cfg.retrieval.ref_dir, pid, 5); ung_vien = ung_vien[:3]
+            bao_cao = [agent_O(s.agent, so_tay, pid, r_, f"ref{k}", log) for k, r_ in enumerate(ung_vien)]
+            thu = list(range(len(ung_vien)))
+            if a.ref_select and len(ung_vien) > 1:
+                dsel = goi_text(s.agent, so_tay, pid, "R", "ref_select",
+                    "You rank candidate reference photographs for conditioning an image generator. Choose the photos whose blind "
+                    "description best matches BOTH the prompt's scene/action and the Cultural Evidence Card. Prefer photos where the "
+                    "object is large, fully visible and worn/used the way the card describes. JSON only.",
+                    f"PROMPT: {p_orig}\n\nCULTURAL EVIDENCE CARD:\n{json.dumps(cards.get('cultural_evidence'), ensure_ascii=False)}\n\n"
+                    + "\n\n".join(f"CANDIDATE {k}:\n{json.dumps(b, ensure_ascii=False)}" for k, b in enumerate(bao_cao))
+                    + '\n\nReturn JSON: {"ranking": [best_index, second_index, ...], "reason": ".."}',
+                    {"type": "object", "properties": {"ranking": {"type": "array", "items": {"type": "integer"}}, "reason": {"type": "string"}}, "required": ["ranking"]},
+                    max_new_tokens=200)
+                t_ = [int(x) for x in (dsel.get("ranking") or []) if isinstance(x, (int, float)) and 0 <= int(x) < len(ung_vien)]
+                thu = list(dict.fromkeys(t_)) or thu
+                log(f"  [ref-select] chọn {[Path(ung_vien[k]).name for k in thu[:cfg.multigen.ref_images]]} · {str(dsel.get('reason', ''))[:70]}")
+            refs_chon = [ung_vien[k] for k in thu[:cfg.multigen.ref_images]]
+            rep_ref = bao_cao[thu[0]] if bao_cao else None
         mo_rong = "" if a.no_expansion else (p_ct[len(p_orig):].strip() if p_ct.startswith(p_orig) else "")
-        gap = agent_R(s.agent, so_tay, pid, p_orig, cards, rep0, log, mo_rong=mo_rong, priority=a.r_priority)
+        gap = agent_R(s.agent, so_tay, pid, p_orig, cards, rep0, log, mo_rong=mo_rong, priority=a.r_priority,
+                      ref_report=rep_ref if a.diff_actions else None)
         actions = gap.get("repair_actions") or []
         # Chấm từng action trên I0 TRƯỚC khi dùng: mục I0 đã >= 8 là thứ không hỏng -> bỏ (S001 FLUX: "high
         # collar" 10 -> 10 chiếm một trong ba suất). Thiếu suất thì bù bằng identity cue của K.
@@ -720,6 +779,15 @@ def main(argv=None):
                     if sc is None or sc <= a.precheck_keep_max:
                         giu_act.append((f"clearly visible: {cue}", sc))
                 if len(giu_act) >= 3: break
+        con_that = [x for x in giu_act if not str(x[0]).startswith("clearly visible:")]
+        if a.noop_when_complete and not (gap.get("contradictions") or []) and bo_act and not con_that:
+            giu_act = []          # I0 đã đủ theo chính chẩn đoán -> no-op thật (S005 SDXL: 100 -> 67 vì bịa thêm)
+            log("  [R] I0 đã đủ, không mâu thuẫn -> no-op")
+        if a.add_disambig and (gap.get("contradictions") or []) and len(giu_act) < 3:
+            for c in (cards.get("cultural_evidence") or {}).get("positive_disambiguators") or []:
+                t_ = str(c.get("target_appearance_en") or "").strip()
+                if t_ and all(t_.lower() not in a_.lower() for a_, _ in giu_act):
+                    giu_act.append((t_, None)); break
         actions = [a_ for a_, _ in giu_act][:3]
         so_tay.ghi(pid, "R", "may_kiem_I0", "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)", "",
                    {"giu": giu_act, "bo_da_dat": bo_act})
@@ -744,8 +812,16 @@ def main(argv=None):
                 anh["C-i2i"] = i0; ghi["C-i2i"] = "no-op (= I0)"
         else:
             # ---- C: cùng seed, text2img, IP-Adapter trên ảnh thật đã cắt về chủ thể, prompt P1
-            refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5)
-            refs = refs[:cfg.multigen.ref_images]
+            if refs_chon:
+                refs = list(refs_chon)
+            else:
+                refs, _ = ref_split(cfg.retrieval.ref_dir, pid, 5); refs = refs[:cfg.multigen.ref_images]
+            if a.adaptive_scale:   # sai vật -> kéo mạnh; chỉ thiếu chi tiết -> kéo nhẹ (CALR FLUX 17%)
+                manh = bool(gap.get("contradictions"))
+                sc_ = (0.7 if flux is not None else 0.65) if manh else 0.35
+                cfg.multigen.ref_scale = sc_
+                if flux is not None: flux.ip_scale = sc_
+                log(f"  [scale] {'mâu thuẫn định danh' if manh else 'chỉ thiếu chi tiết'} -> IP-Adapter scale {sc_}")
             if refs and cfg.multigen.ref_crop:
                 refs = s.crop_refs(refs, s.spec()[0])
             i1 = sinh(p1, "C_ref", "C", refs=refs) if refs else None

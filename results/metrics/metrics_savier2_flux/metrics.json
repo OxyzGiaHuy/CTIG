@@ -1,0 +1,2087 @@
+{
+ "cau_hinh": {
+  "contracts": "data/contracts_v2.json",
+  "evaluator": "Qwen/Qwen2.5-VL-7B-Instruct",
+  "vqa_model": "Qwen2.5-VL-7B P(Yes) (không phải clip-flant5)",
+  "seed": 7,
+  "so_loi_goi_evaluator": 813
+ },
+ "don_vi": [
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S001",
+   "P0": "A young woman in a white ao dai standing at a school gate.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 25.0,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.5931870884200399,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.9914323801718271,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 25.0,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.9978201436450823,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "fitted_long_sleeved_bodice",
+    "long_front_back_panels",
+    "side_slits_at_hips",
+    "worn_over_trousers"
+   ],
+   "S0": [],
+   "FR": 0.25,
+   "RR": 0.0,
+   "NRG": 25.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S002",
+   "P0": "A woman carrying a shoulder pole of street goods along a street in the morning.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.9933136490421444,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9989687964178117,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9890269502357948,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "pole_on_one_shoulder"
+   ],
+   "S0": [
+    "mobile_vendor_with_goods",
+    "two_suspended_loads"
+   ],
+   "FR": 1.0,
+   "RR": 0.0,
+   "NRG": 100.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S003",
+   "P0": "A steaming bowl of beef pho on a wooden table.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 45.45454545454545,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.9959375799057499,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.5624997372274892,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 45.45454545454545,
+     "VCFS_cond": null,
+     "CCR": 16.666666666666668,
+     "VQA": 0.9903054579990644,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "clear_broth",
+    "flat_rice_noodles",
+    "onion_garnish",
+    "thin_sliced_beef"
+   ],
+   "S0": [],
+   "FR": 0.45454545454545453,
+   "RR": 0.0,
+   "NRG": 45.45454545454545,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S004",
+   "P0": "Square banh chung wrapped in dong leaves tied with bamboo strips on a tray.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 62.5,
+     "VCFS_cond": null,
+     "CCR": 66.66666666666667,
+     "VQA": 0.9150006848103404,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 62.5,
+     "VCFS_cond": null,
+     "CCR": 100.0,
+     "VQA": 0.9400042936963088,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 66.66666666666667,
+     "VQA": 0.9890224520264638,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "square_parcel"
+   ],
+   "S0": [
+    "bamboo_strip_ties",
+    "green_leaf_wrapper"
+   ],
+   "FR": 1.0,
+   "RR": 0.4,
+   "NRG": 60.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S005",
+   "P0": "A banh mi stuffed with pork, pickles and cilantro.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9914293379079023,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9466472205521658,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8808536814166014,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "meat_filling",
+    "pickled_carrot_daikon_and_coriander",
+    "short_crisp_baguette"
+   ],
+   "FR": null,
+   "RR": 0.0,
+   "NRG": null,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S006",
+   "P0": "The One Pillar Pagoda over its pond in early morning mist.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 50.0,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.5318196790187854,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 50.0,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.3213553153952881,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.2454844453545244,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "single_central_stone_pillar",
+    "small_square_pavilion"
+   ],
+   "S0": [
+    "curved_roof",
+    "rises_from_pond"
+   ],
+   "FR": 0.5,
+   "RR": 0.0,
+   "NRG": 50.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S007",
+   "P0": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.29432908399536606,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.06759583661652743,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9526014968481721,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "doctoral_stelae",
+    "khue_van_cac_pavilion"
+   ],
+   "S0": [
+    "stelae_on_tortoises"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S008",
+   "P0": "Hoi An ancient town at night, silk lanterns along ochre walls.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9968330667716728,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9980767607568184,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9994484067738617,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "lantern_lit_night_street",
+    "narrow_old_streets",
+    "one_or_two_storey_shophouses"
+   ],
+   "FR": null,
+   "RR": 0.0,
+   "NRG": null,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S009",
+   "P0": "A musician playing the dan bau monochord on a small stage.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.3781643681710507,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 25.0,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.321238132757502,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 66.66666666666667,
+     "VQA": 0.2947660673861658,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "flexible_pitch_rod",
+    "plucked_with_plectrum",
+    "single_string"
+   ],
+   "S0": [
+    "long_narrow_resonator"
+   ],
+   "FR": 0.0,
+   "RR": 1.0,
+   "NRG": -100.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S010",
+   "P0": "A water puppetry performance at a water pavilion, puppets on the water surface.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 50.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.7774566182793112,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9990895729789954,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.998830976110108,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "puppets_on_water_surface",
+    "water_pavilion"
+   ],
+   "FR": null,
+   "RR": 0.0,
+   "NRG": null,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S011",
+   "P0": "A cai luong performer in costume on stage.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 16.666666666666668,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9242339594046151,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.6227335093027908,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 83.33333333333333,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8809186859653636,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "spoken_sung_drama",
+    "stage_scenery"
+   ],
+   "S0": [
+    "live_stage_performer"
+   ],
+   "FR": 0.75,
+   "RR": 0.0,
+   "NRG": 75.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S012",
+   "P0": "A fisherman paddling a round basket boat off a central Vietnam beach at sunrise.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 87.5,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.1646020307412052,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 87.5,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.5622703303594163,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.8670895836692795,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "woven_bamboo_body"
+   ],
+   "S0": [
+    "person_paddling",
+    "reinforced_round_rim",
+    "round_bowl_hull"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S013",
+   "P0": "A cyclo carrying a passenger along a street.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.0004892017881644564,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.9933180637616941,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.9708929205937535,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "driver_pedals_behind",
+    "passenger_seat_in_front"
+   ],
+   "S0": [
+    "human_powered_three_wheeler"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S014",
+   "P0": "Terraced fields in the water season reflecting the evening sky.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9466550183644582,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8809346378296592,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8672074083921478,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "flooded_reflective_paddies",
+    "retaining_bunds",
+    "terraced_hillside"
+   ],
+   "FR": null,
+   "RR": 0.0,
+   "NRG": null,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S015",
+   "P0": "A floating market at dawn, fruit boats with sample poles.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.4076152359331118,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 16.666666666666668,
+     "VQA": 0.9875756519332034,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.8671808258155165,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "sample_goods_on_poles"
+   ],
+   "S0": [
+    "many_trading_boats",
+    "produce_laden_boats"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S016",
+   "P0": "A Central Highlands rong house in a village.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.37819318576149363,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 83.33333333333333,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8673808912298997,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.7315379897074332,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "village_central_location"
+   ],
+   "S0": [
+    "communal_stilt_house",
+    "very_tall_steep_roof"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S017",
+   "P0": "Quan ho singers standing and singing on a boat.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.5929837906815245,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.990301108345941,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 22.22222222222222,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.592947053337203,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "female_hat_and_headscarf",
+    "female_layered_attire",
+    "male_traditional_attire"
+   ],
+   "S0": [
+    "male_female_responsive_singing"
+   ],
+   "FR": 0.3333333333333333,
+   "RR": 1.0,
+   "NRG": -66.66666666666667,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S018",
+   "P0": "A Central Highlands gong ensemble performing around a fire.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8809964985085506,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 33.333333333333336,
+     "VQA": 0.29442798644097545,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.43818924183487606,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "bronze_circular_gongs",
+    "ensemble_performance",
+    "struck_with_mallet_or_fist"
+   ],
+   "S0": [],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S019",
+   "P0": "A Red Dao woman in her red headdress.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9325101821228238,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9399529976288085,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9149525841329001,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "dark_long_tunic",
+    "red_textile_decoration"
+   ],
+   "S0": [
+    "red_head_covering"
+   ],
+   "FR": 0.5,
+   "RR": 0.0,
+   "NRG": 50.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S020",
+   "P0": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": 0.0,
+     "CCR": 66.66666666666667,
+     "VQA": 0.003173733316383864,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": 0.0,
+     "CCR": 33.333333333333336,
+     "VQA": 0.007579448493743553,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 0.0,
+     "VCFS_cond": 0.0,
+     "CCR": 33.333333333333336,
+     "VQA": 0.003594792214778417,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "very_wide_flat_crown"
+   ],
+   "S0": [
+    "decorative_silk_cords",
+    "raised_outer_rim"
+   ],
+   "FR": 0.0,
+   "RR": 1.0,
+   "NRG": -100.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S021",
+   "P0": "Children parading five-pointed star lanterns through a neighborhood courtyard on Mid-Autumn night.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9466306999662161,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9940924902943525,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.992435356620408,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "children_lantern_procession",
+    "five_pointed_star_lanterns",
+    "lanterns_carried_on_sticks"
+   ],
+   "FR": null,
+   "RR": 0.0,
+   "NRG": null,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S022",
+   "P0": "A lion dance troupe with the Ong Dia character at a house front.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.32104493544866214,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.3488509233718283,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.7314166504958409,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "ong_dia_with_fan"
+   ],
+   "S0": [
+    "lion_costume",
+    "multiple_people_per_lion"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S023",
+   "P0": "A family around a Tet feast with a kumquat tree and red envelopes.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.22276612853234443,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 28.571428571428573,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.7058454872861045,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 57.142857142857146,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.5622635646399093,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "shared_vietnamese_feast",
+    "tet_food_marker"
+   ],
+   "S0": [
+    "kumquat_and_red_envelopes"
+   ],
+   "FR": 0.4,
+   "RR": 0.0,
+   "NRG": 40.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S024",
+   "P0": "Iced milk coffee dripping through an aluminium phin filter on a table.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 37.5,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.5626876257558768,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.6228398716602539,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 62.5,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.5317473169182133,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "condensed_milk_and_ice"
+   ],
+   "S0": [
+    "coffee_dripping",
+    "metal_phin_on_glass"
+   ],
+   "FR": 1.0,
+   "RR": 0.5,
+   "NRG": 50.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S025",
+   "P0": "A plate of fresh summer rolls with shrimp and pork, with a bowl of peanut hoisin dip.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9988324031163869,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.32094068358945327,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.5623728621046009,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "peanut_hoisin_dip"
+   ],
+   "S0": [
+    "shrimp_vermicelli_herbs",
+    "unfried_translucent_rice_paper"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S026",
+   "P0": "A tray of golden fried spring rolls with fresh herbs and dipping sauce.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 100.0,
+     "VCFS_cond": 0.0,
+     "CCR": 50.0,
+     "VQA": 0.9978256245110111,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": 100.0,
+     "CCR": 50.0,
+     "VQA": 0.9995708982070839,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 60.0,
+     "VCFS_cond": 100.0,
+     "CCR": 100.0,
+     "VQA": 0.9242418756566742,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "fried_golden_rolls",
+    "herbs_and_fish_sauce_dip"
+   ],
+   "FR": null,
+   "RR": 0.4,
+   "NRG": null,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S027",
+   "P0": "A steaming bowl of bun bo Hue on a table in the morning.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.4693273794275645,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 50.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.5627072891018194,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 50.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.562707013570883,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "beef_and_spicy_broth"
+   ],
+   "S0": [
+    "thick_cylindrical_rice_noodles"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S028",
+   "P0": "Sliced rounds of banh tet arranged on banana leaves.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 25.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8357154060696756,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 62.5,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8180806530541969,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 62.5,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9841308363629752,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "sticky_rice_with_mung_bean_filling"
+   ],
+   "S0": [
+    "cylindrical_log",
+    "wheel_shaped_slices"
+   ],
+   "FR": 1.0,
+   "RR": 0.6,
+   "NRG": 40.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S029",
+   "P0": "A parcel of young green rice wrapped in lotus leaf tied with rice straw.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 100.0,
+     "VCFS_cond": 0.0,
+     "CCR": 0.0,
+     "VQA": 0.9740948326215214,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 50.0,
+     "VCFS_cond": 0.0,
+     "CCR": 50.0,
+     "VQA": 0.852140284386409,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": 0.0,
+     "CCR": 0.0,
+     "VQA": 0.08526724335604377,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "lotus_leaf_wrapper"
+   ],
+   "S0": [
+    "straw_tie"
+   ],
+   "FR": 1.0,
+   "RR": 0.0,
+   "NRG": 100.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S030",
+   "P0": "A woman in a checkered scarf sitting in a small sampan.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 25.0,
+     "VCFS_cond": 0.0,
+     "CCR": 66.66666666666667,
+     "VQA": 0.14816199688216686,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 75.0,
+     "VCFS_cond": 0.0,
+     "CCR": 33.333333333333336,
+     "VQA": 0.5623911515325686,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 75.0,
+     "VCFS_cond": 0.0,
+     "CCR": 33.333333333333336,
+     "VQA": 0.9989705408967336,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "worn_on_head_or_neck"
+   ],
+   "S0": [
+    "small_two_colour_checks"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S031",
+   "P0": "A northern Vietnamese young woman in a four-panel dress with a sash.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 25.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.0004306317027726866,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 25.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.11930397201082756,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.2019565340617299,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "four_long_panels",
+    "open_unbuttoned_front",
+    "visible_yem_and_inner_blouse"
+   ],
+   "S0": [
+    "waist_sash_over_skirt"
+   ],
+   "FR": 0.0,
+   "RR": 1.0,
+   "NRG": -100.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S032",
+   "P0": "A woman playing a dan tranh zither with finger picks.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.0004881907836639875,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.00407336426826089,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 25.0,
+     "VQA": 0.09547778209783724,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "finger_picks",
+    "long_horizontal_zither"
+   ],
+   "S0": [
+    "multiple_strings_and_bridges"
+   ],
+   "FR": 0.5,
+   "RR": 0.0,
+   "NRG": 50.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S033",
+   "P0": "A Hue royal court music ensemble performing in a gilded palace hall.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 62.5,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9924304170211068,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 25.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.755030210738504,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 81.25,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9526021503857249,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "court_music_ensemble",
+    "mixed_traditional_instruments"
+   ],
+   "S0": [
+    "formal_court_setting"
+   ],
+   "FR": 0.75,
+   "RR": 0.0,
+   "NRG": 75.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S034",
+   "P0": "A northern village communal house with a sagging tiled roof and an old banyan in the yard.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 25.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.2021626918308137,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.06022177429871199,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.5627076877947218,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "courtyard_and_banyan"
+   ],
+   "S0": [
+    "large_low_communal_hall",
+    "timber_columns_and_tiled_roof"
+   ],
+   "FR": 1.0,
+   "RR": 0.0,
+   "NRG": 100.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S035",
+   "P0": "An elderly man in a traditional gown and turban reading a ritual text before an altar.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.997528285827346,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 57.142857142857146,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8933539487536197,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 14.285714285714286,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9466153792722399,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "altar_context",
+    "ao_the_khan_xep_prompt_attire"
+   ],
+   "S0": [
+    "ritual_text_reading"
+   ],
+   "FR": 0.0,
+   "RR": 1.0,
+   "NRG": -100.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S036",
+   "P0": "A bride and groom at a traditional betrothal ceremony with red-draped gift trays.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": 0.0,
+     "CCR": 0.0,
+     "VQA": 0.9324953180521219,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 50.0,
+     "VCFS_cond": 0.0,
+     "CCR": 0.0,
+     "VQA": 0.1824798626383626,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 50.0,
+     "VCFS_cond": 0.0,
+     "CCR": 0.0,
+     "VQA": 0.9988307442165192,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "multiple_red_gift_trays"
+   ],
+   "S0": [
+    "bride_and_groom"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S037",
+   "P0": "Morning at a sidewalk coffee shop with customers on low plastic stools.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.16464113154703486,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9968304021531059,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9820557388089134,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "coffee_service",
+    "low_plastic_stools",
+    "pavement_seating"
+   ],
+   "FR": null,
+   "RR": 0.0,
+   "NRG": null,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S038",
+   "P0": "White mounds of salt lined up in rows on a salt field under the midday sun.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9996205793279532,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9996210176495597,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9997044309746455,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "low_straight_bunds",
+    "shallow_evaporation_pans"
+   ],
+   "S0": [
+    "white_salt_mounds"
+   ],
+   "FR": 0.5,
+   "RR": 0.0,
+   "NRG": 50.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S039",
+   "P0": "An ancient Cham tower standing on a hill in the afternoon sun.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9527270927797022,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9400206214394342,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.8359129166807578,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "red_brick_tower"
+   ],
+   "S0": [
+    "main_and_false_doors",
+    "square_tapering_body"
+   ],
+   "FR": 1.0,
+   "RR": 0.5,
+   "NRG": 50.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S040",
+   "P0": "A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.9986768901791916,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.9983009694709041,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 75.0,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.9978200658817977,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "chin_strap"
+   ],
+   "S0": [
+    "leaf_covering_on_bamboo_frame",
+    "pointed_conical_form"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S041",
+   "P0": "A Tet market in a northern village with peach branches.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 21.428571428571427,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9626978461829722,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 71.42857142857143,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.26914409006334333,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 85.71428571428571,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.3777814546338075,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "peach_blossoms_for_sale"
+   ],
+   "S0": [
+    "pre_tet_market",
+    "tet_goods_and_shoppers"
+   ],
+   "FR": 1.0,
+   "RR": 0.2,
+   "NRG": 80.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S042",
+   "P0": "Limestone karst islands rising from the emerald waters of Ha Long Bay.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.99883195179874,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 100.0,
+     "VQA": 0.9526183735171694,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.9988316528611754,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "many_limestone_islets",
+    "steep_rock_sides",
+    "vegetated_tops_and_seawater"
+   ],
+   "FR": null,
+   "RR": 0.0,
+   "NRG": null,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S043",
+   "P0": "An artisan printing Dong Ho folk prints in a small workshop.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": 0.0,
+     "CCR": 0.0,
+     "VQA": 0.6226288460258776,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 50.0,
+     "VCFS_cond": 50.0,
+     "CCR": 0.0,
+     "VQA": 0.6793715995225769,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 75.0,
+     "VCFS_cond": 100.0,
+     "CCR": 50.0,
+     "VQA": 0.9947866561752159,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "woodblock_printing_action"
+   ],
+   "S0": [
+    "diep_paper_and_flat_colours"
+   ],
+   "FR": 1.0,
+   "RR": 0.5,
+   "NRG": 50.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S044",
+   "P0": "A blossoming peach branch in a ceramic vase at Tet.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 71.42857142857143,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.7552123928982901,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 85.71428571428571,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.7983442351239306,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 85.71428571428571,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.8521109655596248,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "tet_context"
+   ],
+   "S0": [
+    "cut_woody_branch_in_vase",
+    "pink_peach_blossoms"
+   ],
+   "FR": 0.0,
+   "RR": 0.0,
+   "NRG": 0.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S045",
+   "P0": "An ancestral altar at Tet with a five-fruit tray and burning incense.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 62.5,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.7773398761329852,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 81.25,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9149130436072025,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.8519724517767565,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "raised_ancestral_altar"
+   ],
+   "S0": [
+    "five_fruit_tray",
+    "incense_and_offerings"
+   ],
+   "FR": 0.5,
+   "RR": 0.0,
+   "NRG": 50.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S046",
+   "P0": "A monkey bridge made of a bamboo trunk spanning a small canal.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.7983297161576269,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 50.0,
+     "VQA": 0.24535997879542412,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.002185947387229217,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "minimal_or_single_handrail",
+    "very_narrow_bamboo_crossing"
+   ],
+   "S0": [
+    "simple_pole_supports"
+   ],
+   "FR": 1.0,
+   "RR": 0.0,
+   "NRG": 100.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S047",
+   "P0": "A Hmong woman in traditional dress standing amid a field of flowers.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9996203493508724,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9989687405480593,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 66.66666666666667,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9959345336411973,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "dense_textile_decoration",
+    "pleated_skirt_or_group_specific_lower_garment"
+   ],
+   "S0": [
+    "bright_contrasting_bands"
+   ],
+   "FR": 0.5,
+   "RR": 0.0,
+   "NRG": 50.0,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S048",
+   "P0": "An artisan throwing pottery on a wheel.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9924293988274286,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9978192087318805,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9995131911463735,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "hands_shape_wet_clay",
+    "rotating_horizontal_wheel",
+    "unfired_vessel_form"
+   ],
+   "FR": null,
+   "RR": 0.0,
+   "NRG": null,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S049",
+   "P0": "An elderly man in a traditional silk tunic and wrapped turban stands in a house yard.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.3777815034693996,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 0.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9325324994267573,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 33.333333333333336,
+     "VCFS_cond": null,
+     "CCR": 25.0,
+     "VQA": 0.8934046239067147,
+     "CAIRE": null
+    }
+   },
+   "D0": [
+    "dark_long_male_tunic",
+    "folded_wrapped_headcloth",
+    "standing_collar_and_side_fastening"
+   ],
+   "S0": [],
+   "FR": 0.3333333333333333,
+   "RR": 0.0,
+   "NRG": 33.33333333333333,
+   "correct_noop": false
+  },
+  {
+   "run": "FLUX.1-dev",
+   "pid": "S050",
+   "P0": "An adult's hand giving a red lucky money envelope to a child.",
+   "noop": false,
+   "diem": {
+    "A": {
+     "VCFS": 62.5,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.7552529895534568,
+     "CAIRE": null
+    },
+    "I0": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9797142204343315,
+     "CAIRE": null
+    },
+    "I1": {
+     "VCFS": 100.0,
+     "VCFS_cond": null,
+     "CCR": 0.0,
+     "VQA": 0.9526253865928223,
+     "CAIRE": null
+    }
+   },
+   "D0": [],
+   "S0": [
+    "adult_gives_child",
+    "new_year_gift_context",
+    "red_paper_envelope"
+   ],
+   "FR": null,
+   "RR": 0.0,
+   "NRG": null,
+   "correct_noop": false
+  }
+ ],
+ "tong_hop": {
+  "FLUX.1-dev": {
+   "theo_nhanh": {
+    "A": {
+     "CAIRE": null,
+     "VQA": {
+      "mean": 0.67,
+      "lo": 0.57,
+      "hi": 0.76,
+      "n": 50
+     },
+     "VCFS": {
+      "mean": 44.77,
+      "lo": 35.02,
+      "hi": 54.35,
+      "n": 50
+     },
+     "CCR": {
+      "mean": 13.33,
+      "lo": 7.33,
+      "hi": 19.67,
+      "n": 50
+     }
+    },
+    "I0": {
+     "CAIRE": null,
+     "VQA": {
+      "mean": 0.7,
+      "lo": 0.6,
+      "hi": 0.78,
+      "n": 50
+     },
+     "VCFS": {
+      "mean": 59.07,
+      "lo": 50.37,
+      "hi": 67.11,
+      "n": 50
+     },
+     "CCR": {
+      "mean": 15.0,
+      "lo": 8.33,
+      "hi": 22.33,
+      "n": 50
+     }
+    },
+    "I1": {
+     "CAIRE": null,
+     "VQA": {
+      "mean": 0.76,
+      "lo": 0.67,
+      "hi": 0.84,
+      "n": 50
+     },
+     "VCFS": {
+      "mean": 66.87,
+      "lo": 58.17,
+      "hi": 74.74,
+      "n": 50
+     },
+     "CCR": {
+      "mean": 16.0,
+      "lo": 9.5,
+      "hi": 23.17,
+      "n": 50
+     }
+    }
+   },
+   "delta": {
+    "CAIRE": null,
+    "VQA": {
+     "mean": 0.06,
+     "lo": -0.01,
+     "hi": 0.13,
+     "n": 50
+    },
+    "VCFS": {
+     "mean": 7.8,
+     "lo": 0.67,
+     "hi": 14.49,
+     "n": 50
+    },
+    "CCR": {
+     "mean": 1.0,
+     "lo": -5.33,
+     "hi": 7.34,
+     "n": 50
+    }
+   }
+  }
+ }
+}

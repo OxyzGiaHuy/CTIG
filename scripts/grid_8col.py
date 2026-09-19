@@ -22,8 +22,10 @@ for m, ((rm, um), (rr, ur)) in runs.items():
     cols += [(m, rm, um, "A"), (f"{m} + refined prompt", rm, um, "B (I0)"), (f"{m} + refined prompt + reference", rr, ur, "C (I1)"), (f"{m} + SAVIER (ours)", rm, um, "C (I1)")]
 k = max(1.0, a.cell / 220); cell, gut, head, pad = a.cell, int(200 * k), int(34 * k), int(6 * k); FS, LH = int(11 * k), int(15 * k)
 cw, ch = cell + pad, cell + pad
+hf = _font(int(12 * k)); head = int(36 * k)
 im = Image.new("RGB", (gut + len(cols) * cw + pad, head + len(ids) * ch + pad), "white"); d = ImageDraw.Draw(im)
-for ci, (lab, _, _, _) in enumerate(cols): d.text((gut + ci * cw + 3, int(8 * head / 34)), lab, font=_font(int(12 * k)), fill=(20, 20, 20))
+for ci, (lab, _, _, _) in enumerate(cols):
+    for j, line in enumerate(textwrap.wrap(lab, max(16, int(cell / (7.4 * k))))[:2]): d.text((gut + ci * cw + 3, int(3 * k) + j * int(15 * k)), line, font=hf, fill=(20, 20, 20))
 for r, pid in enumerate(ids):
     y = head + r * ch; pv = next((u[pid].get("prompt_vi", "") for _, (_, u) in [(0, runs["SDXL"][0])] if pid in u), "")
     for j, line in enumerate(textwrap.wrap(f"{pid}: {pv}", 28)[:9]): d.text((4, y + 6 + j * LH), line, font=_font(FS), fill=(20, 20, 20))

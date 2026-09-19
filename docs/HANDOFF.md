@@ -1024,8 +1024,10 @@ RRR chỉ **12–16%** (generator hiện thực ít chỉ dẫn của R; 35% act
 GDF1-proxy ~55 (P ~50, R ~35). Tên sáu metric này chưa ai dùng, nhưng ý tách sửa/giữ là của GIE-Bench,
 AugCLIP, EditVal — viện dẫn, không claim.
 
-**Ablation v2 (S001–S020 SDXL, cùng I0, `--reuse-from`)**: refs-only (không agent) VCFS **62,0 ≈ SAVIER 62,2**
-→ điểm văn hoá đến từ ảnh tham chiếu; agent thêm ở **VQA 0,745 vs 0,670** và **0 vs 2 thoái lui**. Biến thể
+**Ablation v2 (S001–S020 SDXL, cùng I0, `--reuse-from`)**: ⚠️ lô `v2_refsonly`/`v2flux_refsonly` **KHÔNG phải refs-only** —
+cờ `--refs-only` có khai báo nhưng nhánh code chưa được chèn (bản vá thay chuỗi không khớp mốc, không báo lỗi), nên hai lô đó
+là SAVIER chạy lại bằng code mới hơn. Kết luận "điểm văn hoá đến từ ảnh tham chiếu" rút từ đó là **sai, đã rút lại**.
+Refs-only thật chạy ở chuỗi v3 (`v3_*_refsonly`, S001–S010). Bài học: mọi bản vá thay chuỗi phải assert mốc khớp. Biến thể
 (a) R ưu tiên cue định danh: VCFS 65,3 (+3,1) nhưng VQA −0,05, 2 thoái lui. (b) chấm-trước nghiêm: tệ hơn.
 (d) R không đọc Culture-TRIP + P1 từ P0: 8/20 no-op, không lên. Đang chạy (a) + refs-only trên FLUX
 (`v2flux_*`). Quyết định chọn bản nào lên bài: chưa.

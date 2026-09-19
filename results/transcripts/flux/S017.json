@@ -1,0 +1,902 @@
+{
+ "unit": {
+  "prompt_id": "S017",
+  "prompt_vi": "Liền anh liền chị đứng hát quan họ trên thuyền.",
+  "P_orig": "Quan ho singers standing and singing on a boat.",
+  "P_ct": "Quan ho singers standing and singing on a boat. Quan Ho singers perform traditional duet-style singing, a UNESCO Intangible Cultural Heritage, on a boat during the Mid-Autumn Festival and the Boat Festival in northern Vietnam. The singers, usually young men and women, wear ao dai, a traditional Vietnamese dress. They perform without musical instruments, emphasizing their vocal talents and the poetic interplay that is a hallmark of Quan Ho. The boat is set on a tranquil river or lake, surrounded by lush greenery and rice paddies, creating a serene and picturesque backdrop. The scent of blooming jasmine flowers and the sound of water contribute to the immersive atmosphere, reflecting the deep cultural importance of this art form.",
+  "P1": "Quan ho singers standing and singing on a boat. Quan Ho singers perform traditional duet-style singing, a UNESCO Intangible Cultural Heritage, on a boat during the Mid-Autumn Festival and the Boat Festival in northern Vietnam. The singers, usually young men and women, wear ao dai, a traditional Vietnamese dress. They perform without musical instruments, emphasizing their vocal talents and the poetic interplay that is a hallmark of Quan Ho. The boat is set on a tranquil river or lake, surrounded by lush greenery and rice paddies, creating a serene and picturesque backdrop. The scent of blooming jasmine flowers and the sound of water contribute to the immersive atmosphere, reflecting the deep cultural importance of this art form.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: thuyền; boat; on a boat. Make these additions clearly visible:\n1. one person with long black hair singing.\n2. one person with short black hair singing.\n3. clearly visible: liền anh liền chị.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "liền anh liền chị",
+     "en": "Quan ho singers"
+    },
+    "subject_attributes": [
+     "standing",
+     "singing"
+    ],
+    "supporting_objects": [
+     "thuyền",
+     "boat"
+    ],
+    "background_and_scene": [
+     "on a boat"
+    ],
+    "actions_and_relations": [
+     "standing and singing"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "liền anh liền chị",
+     "Quan ho singers",
+     "standing and singing",
+     "on a boat"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "liền anh liền chị",
+      "cue_en": "liền anh liền chị",
+      "visual_check_vi": "Kiểm tra xem có hai người hát, một nam và một nữ, đứng đối diện nhau.",
+      "quote_vi": "liền anh liền chị",
+      "source_url": "https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D"
+     }
+    ],
+    "conditional_cues": [],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "liền anh và liền chị thường đứng đối diện nhau khi hát quan họ.",
+      "target_appearance_en": "liền anh and liền chị usually stand facing each other when singing quan họ.",
+      "source_url": "https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Nguồn gốc và ý nghĩa của từ 'Quan họ', các nghi lễ tôn giáo dân gian, cách diễn tiến của hình thức sinh hoạt văn hóa 'chơi Quan họ', phân tích ngữ nghĩa từ ngữ trong các làn điệu và không gian diễn xướng, quan điểm của các học giả về nguồn gốc của Quan họ, hình thức biểu diễn hát quan họ mới, quan họ cổ không có nhạc đệm và chủ yếu hát đôi giữa liền anh và liền chị vào dịp lễ hội xuân thu nhị kỳ ở các làng quê, quan họ mới được trình diễn vào bất kỳ ngày nào trong năm, quan họ mới không còn nằm ở không gian làng xã mà đã vươn ra ở nhiều nơi, đến với nhiều thính giả ở các quốc gia trên thế giới."
+    ],
+    "insufficient_evidence": [
+     "Thời trang của liền anh và liền chị, kiểu dáng thuyền, vị trí của thuyền trên sông, cách thức tổ chức và giao lưu, lối sử dụng từ ngữ đối nhau về nghĩa và thanh điệu trong sinh hoạt văn hóa đối đáp dân gian, cách thức tổ chức sinh hoạt văn hóa dân gian của người dân Kinh Bắc, quy định nghiêm ngặt, khắt khe đòi hỏi liền anh, liền chị phải am tường tiêu chuẩn, tuân theo luật lệ, cách hát quan họ cổ, cách hát quan họ mới, cách hát quan họ trên thuyền",
+     "conditional_cues: 'hát quan họ' — quote không nguyên văn trong bài / URL lạ"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "two people standing in boat",
+    "one wooden boat"
+   ],
+   "clothing_and_appearance": [
+    "two people wearing long red garments",
+    "one person with long black hair",
+    "one person with short black hair"
+   ],
+   "foreground_objects": [
+    "one wooden boat",
+    "two people standing in boat"
+   ],
+   "supporting_objects": [
+    "water surface with ripples",
+    "reflection of boat and people"
+   ],
+   "background": [
+    "green trees and vegetation",
+    "mountains in distance",
+    "clear sky",
+    "white flowers on tree branch"
+   ],
+   "actions": [
+    "two people facing each other",
+    "hands raised in front of bodies"
+   ],
+   "spatial_relations": [
+    "two people inside boat",
+    "boat on water surface",
+    "tree branch with flowers above people",
+    "mountains behind trees"
+   ],
+   "colors": [
+    "red garments",
+    "green trees and vegetation",
+    "blue-green water",
+    "white flowers",
+    "gray mountains"
+   ],
+   "counts": {
+    "people": 2,
+    "boats": 1,
+    "flowers": 10
+   },
+   "visible_effects": [
+    "reflection of boat and people in water",
+    "ripples on water surface"
+   ],
+   "uncertain": [
+    "top of tree branch",
+    "bottom of boat",
+    "far right side of image",
+    "far left side of image"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "singing"
+   ],
+   "missing_cultural_identity": [
+    "liền anh liền chị"
+   ],
+   "contradictions": [
+    "long red garments"
+   ],
+   "already_satisfied": [
+    "two people standing in boat",
+    "one wooden boat",
+    "water surface with ripples",
+    "reflection of boat and people",
+    "green trees and vegetation",
+    "two people facing each other",
+    "boat on water surface"
+   ],
+   "uncertain_no_repair": [
+    "top of tree branch",
+    "bottom of boat",
+    "far right side of image",
+    "far left side of image"
+   ],
+   "repair_actions": [
+    "two people wearing ao dai",
+    "one person with long black hair singing",
+    "one person with short black hair singing"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "one person with long black hair singing",
+   "one person with short black hair singing",
+   "clearly visible: liền anh liền chị"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S017/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S017/02.jpg"
+  ],
+  "images": {
+   "A": "S017_flux_txt.png",
+   "B (I0)": "S017_flux_txt.png",
+   "C (I1)": "S017_flux_ref.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "20:01:48",
+   "prompt_id": "S017",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Liền anh liền chị đứng hát quan họ trên thuyền.\nPROMPT EN: Quan ho singers standing and singing on a boat.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "liền anh liền chị",
+      "en": "Quan ho singers"
+     },
+     "subject_attributes": [
+      "standing",
+      "singing"
+     ],
+     "supporting_objects": [
+      "thuyền",
+      "boat"
+     ],
+     "background_and_scene": [
+      "on a boat"
+     ],
+     "actions_and_relations": [
+      "standing and singing"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "liền anh liền chị",
+      "Quan ho singers",
+      "standing and singing",
+      "on a boat"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:01:48",
+   "prompt_id": "S017",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Liền anh liền chị đứng hát quan họ trên thuyền.\nPROMPT EN: Quan ho singers standing and singing on a boat.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Quan họ — https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D ===\nDân ca Quan họ là một trong những làn điệu dân ca tiêu biểu của vùng châu thổ sông Hồng ở miền Bắc Việt Nam. Nó được hình thành và phát triển ở vùng văn hóa Kinh Bắc xưa, nay phần lớn là tỉnh Bắc Ninh với trọng tâm là các làng cổ bên dòng sông Cầu chảy qua, vì thế mà sông Cầu còn được gọi là \"dòng sông quan họ\". Ngày 30 tháng 9 năm 2009, tại kỳ họp lần thứ tư của Ủy ban liên chính phủ Công ước UNESCO Bảo vệ di sản văn hóa phi vật thể, Dân ca quan họ ở Bắc Ninh và Bắc Giang đã được ghi danh là di sản văn hóa phi vật thể đại diện của nhân loại sau nhã nhạc cung đình Huế, không gian văn hóa Cồng Chiêng Tây Nguyên và cùng đợt với ca trù. Nguồn gốc Ý nghĩa của từ \"Quan họ\" thường được tách thành hai từ rồi lý giải nghĩa đen về mặt từ nguyên của \"quan\" và của \"họ\". Điều này dẫn đến những kiến giải về \"Quan họ\" xuất phát từ \"âm nhạc cung đình\", hay gắn với sự tích một ông quan khi đi qua vùng Kinh Bắc đã ngây ngất bởi tiếng hát của liền anh liền chị ở đó và đã dừng bước để thưởng thức (\"họ\"). Tuy nhiên cách lý giải này đã bỏ qua những thành tố của không gian sinh hoạt văn hóa quan họ như hình thức sinh hoạt (nghi thức các phường kết họ khiến anh hai, chị hai suốt đời chỉ là bạn, không thể kết thành duyên vợ chồng), diễn xướng, cách thức tổ chức và giao lưu, lối sử dụng từ ngữ đối nhau về nghĩa và thanh điệu trong sinh hoạt văn hóa đối đáp dân gian. Một số quan điểm lại cho rằng Quan họ bắt nguồn từ những nghi lễ tôn giáo dân mang yếu tố phồn thực chứ không phải Quan họ có nguồn gốc từ âm nhạc cung đình, hoặc có quan điểm nhận định diễn tiến của hình thức sinh hoạt văn hóa \"chơi Quan họ\" bắt nguồn từ nghi lễ tôn giáo dân gian qua cung đình rồi trở lại với dân gian. Nhận định khác dựa trên phân tích ngữ nghĩa từ ngữ trong các làn điệu và không gian diễn xướng lại cho rằng Quan họ là \"quan hệ\" của một nhóm những người yêu quan họ ở vùng Kinh Bắc. Tuy vậy đa số các học giả chưa chấp nhận quan điểm nào. Quan họ ngày nay không chỉ là lối hát giao duyên (hát đối) giữa \"liền anh\" (bên nam, người nam giới hát quan họ) và \"liền chị\" (bên nữ, người phụ nữ hát quan họ) mà còn là hình thức trao đổi tình cảm giữa liền anh, liền chị với khán giả. Một trong những hình thức biểu diễn hát quan họ mới là kiểu hát đối đáp giữa liền anh và liền chị. Quan họ cổ Quan họ cổ không chỉ tồn tại ở 49 làng Quan họ gốc ở xứ Kinh Bắc Quan họ truyền thống là hình thức tổ chức sinh hoạt văn hóa dân gian của người dân Kinh Bắc, với những quy định nghiêm ngặt, khắt khe đòi hỏi liền anh, liền chị phải am tường tiêu chuẩn, tuân theo luật lệ. Điều này giải thích lý do người dân Kinh Bắc thích thú \"chơi Quan họ\", không phải là \"hát Quan họ\" Quan họ cổ không có nhạc đệm và chủ yếu hát đôi giữa liền anh và liền chị vào dịp lễ hội xuân thu nhị kỳ ở các làng quê. Trong quan họ cổ, đôi liền anh đối đáp với đôi liền chị được gọi là hát hội, hát canh; hát cả bọn, cả nhóm liền anh đối đáp cùng cả nhóm liền chị được gọi là hát chúc, mừng, hát thờ. \"Chơi quan họ\" cổ không có khán giả, người trình diễn đồng thời là người thưởng thức (thưởng thức \"cái tình\" của bạn hát). Nhiều bài quan họ cổ vẫn được các liền anh, liền chị \"chơi quan họ\" ưa thích đến tận ngày nay như: Vốn liếng em có 30 đồng, Mời nước mời trầu, Ngồi tựa song đào, Cây trúc xinh, Người ở đừng về, Xe chỉ luồn kim,... Quan họ mới Quan họ mới còn được gọi là \"hát Quan họ lời mới\", là hình thức biểu diễn (hát) quan họ chủ yếu trên sân khấu hoặc trong các sinh hoạt cộng đồng Tết đầu xuân, lễ hội, hoạt động du lịch, nhà hàng,... Thực tế, quan họ mới được trình diễn vào bất kỳ ngày nào trong năm. Các băng đĩa VCD, DVD về quan họ ngày nay đều là hình thức quan họ biểu diễn trên sân khấu, tức những bài quan họ lời cổ được cải biên lời. Quan họ mới luôn có khán thính giả, người hát trao đổi tình cảm với khán thính giả không còn là tình cảm giữa bạn hát với nhau. Quan họ mới không còn nằm ở không gian làng xã mà đã vươn ra ở nhiều nơi, đến với nhiều thính giả ở các quốc gia trên thế giới.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "liền anh liền chị",
+       "cue_en": "liền anh liền chị",
+       "visual_check_vi": "Kiểm tra xem có hai người hát, một nam và một nữ, đứng đối diện nhau.",
+       "quote_vi": "liền anh liền chị",
+       "source_url": "https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D"
+      }
+     ],
+     "conditional_cues": [],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "liền anh và liền chị thường đứng đối diện nhau khi hát quan họ.",
+       "target_appearance_en": "liền anh and liền chị usually stand facing each other when singing quan họ.",
+       "source_url": "https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Nguồn gốc và ý nghĩa của từ 'Quan họ', các nghi lễ tôn giáo dân gian, cách diễn tiến của hình thức sinh hoạt văn hóa 'chơi Quan họ', phân tích ngữ nghĩa từ ngữ trong các làn điệu và không gian diễn xướng, quan điểm của các học giả về nguồn gốc của Quan họ, hình thức biểu diễn hát quan họ mới, quan họ cổ không có nhạc đệm và chủ yếu hát đôi giữa liền anh và liền chị vào dịp lễ hội xuân thu nhị kỳ ở các làng quê, quan họ mới được trình diễn vào bất kỳ ngày nào trong năm, quan họ mới không còn nằm ở không gian làng xã mà đã vươn ra ở nhiều nơi, đến với nhiều thính giả ở các quốc gia trên thế giới."
+     ],
+     "insufficient_evidence": [
+      "Thời trang của liền anh và liền chị, kiểu dáng thuyền, vị trí của thuyền trên sông, cách thức tổ chức và giao lưu, lối sử dụng từ ngữ đối nhau về nghĩa và thanh điệu trong sinh hoạt văn hóa đối đáp dân gian, cách thức tổ chức sinh hoạt văn hóa dân gian của người dân Kinh Bắc, quy định nghiêm ngặt, khắt khe đòi hỏi liền anh, liền chị phải am tường tiêu chuẩn, tuân theo luật lệ, cách hát quan họ cổ, cách hát quan họ mới, cách hát quan họ trên thuyền",
+      "conditional_cues: 'hát quan họ' — quote không nguyên văn trong bài / URL lạ"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:01:48",
+   "prompt_id": "S017",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 1,
+    "giu_conditional": 0,
+    "loai": [
+     "conditional_cues: 'hát quan họ' — quote không nguyên văn trong bài / URL lạ"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:02:01",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "two people standing in boat",
+     "one wooden boat"
+    ],
+    "clothing_and_appearance": [
+     "two people wearing long red garments",
+     "one person with long black hair",
+     "one person with short black hair"
+    ],
+    "foreground_objects": [
+     "one wooden boat",
+     "two people standing in boat"
+    ],
+    "supporting_objects": [
+     "water surface with ripples",
+     "reflection of boat and people"
+    ],
+    "background": [
+     "green trees and vegetation",
+     "mountains in distance",
+     "clear sky",
+     "white flowers on tree branch"
+    ],
+    "actions": [
+     "two people facing each other",
+     "hands raised in front of bodies"
+    ],
+    "spatial_relations": [
+     "two people inside boat",
+     "boat on water surface",
+     "tree branch with flowers above people",
+     "mountains behind trees"
+    ],
+    "colors": [
+     "red garments",
+     "green trees and vegetation",
+     "blue-green water",
+     "white flowers",
+     "gray mountains"
+    ],
+    "counts": {
+     "people": 2,
+     "boats": 1,
+     "flowers": 10
+    },
+    "visible_effects": [
+     "reflection of boat and people in water",
+     "ripples on water surface"
+    ],
+    "uncertain": [
+     "top of tree branch",
+     "bottom of boat",
+     "far right side of image",
+     "far left side of image"
+    ]
+   },
+   "giay": 12.4
+  },
+  {
+   "t": "20:02:08",
+   "prompt_id": "S017",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: Quan ho singers standing and singing on a boat.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nQuan Ho singers perform traditional duet-style singing, a UNESCO Intangible Cultural Heritage, on a boat during the Mid-Autumn Festival and the Boat Festival in northern Vietnam. The singers, usually young men and women, wear ao dai, a traditional Vietnamese dress. They perform without musical instruments, emphasizing their vocal talents and the poetic interplay that is a hallmark of Quan Ho. The boat is set on a tranquil river or lake, surrounded by lush greenery and rice paddies, creating a serene and picturesque backdrop. The scent of blooming jasmine flowers and the sound of water contribute to the immersive atmosphere, reflecting the deep cultural importance of this art form.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"liền anh liền chị\", \"en\": \"Quan ho singers\"}, \"subject_attributes\": [\"standing\", \"singing\"], \"supporting_objects\": [\"thuyền\", \"boat\"], \"background_and_scene\": [\"on a boat\"], \"actions_and_relations\": [\"standing and singing\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"liền anh liền chị\", \"Quan ho singers\", \"standing and singing\", \"on a boat\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"liền anh liền chị\", \"cue_en\": \"liền anh liền chị\", \"visual_check_vi\": \"Kiểm tra xem có hai người hát, một nam và một nữ, đứng đối diện nhau.\", \"quote_vi\": \"liền anh liền chị\", \"source_url\": \"https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D\"}], \"conditional_cues\": [], \"positive_disambiguators\": [{\"target_appearance_vi\": \"liền anh và liền chị thường đứng đối diện nhau khi hát quan họ.\", \"target_appearance_en\": \"liền anh and liền chị usually stand facing each other when singing quan họ.\", \"source_url\": \"https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D\"}], \"discarded_nonvisual_facts\": [\"Nguồn gốc và ý nghĩa của từ 'Quan họ', các nghi lễ tôn giáo dân gian, cách diễn tiến của hình thức sinh hoạt văn hóa 'chơi Quan họ', phân tích ngữ nghĩa từ ngữ trong các làn điệu và không gian diễn xướng, quan điểm của các học giả về nguồn gốc của Quan họ, hình thức biểu diễn hát quan họ mới, quan họ cổ không có nhạc đệm và chủ yếu hát đôi giữa liền anh và liền chị vào dịp lễ hội xuân thu nhị kỳ ở các làng quê, quan họ mới được trình diễn vào bất kỳ ngày nào trong năm, quan họ mới không còn nằm ở không gian làng xã mà đã vươn ra ở nhiều nơi, đến với nhiều thính giả ở các quốc gia trên thế giới.\"], \"insufficient_evidence\": [\"Thời trang của liền anh và liền chị, kiểu dáng thuyền, vị trí của thuyền trên sông, cách thức tổ chức và giao lưu, lối sử dụng từ ngữ đối nhau về nghĩa và thanh điệu trong sinh hoạt văn hóa đối đáp dân gian, cách thức tổ chức sinh hoạt văn hóa dân gian của người dân Kinh Bắc, quy định nghiêm ngặt, khắt khe đòi hỏi liền anh, liền chị phải am tường tiêu chuẩn, tuân theo luật lệ, cách hát quan họ cổ, cách hát quan họ mới, cách hát quan họ trên thuyền\", \"conditional_cues: 'hát quan họ' — quote không nguyên văn trong bài / URL lạ\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"two people standing in boat\", \"one wooden boat\"], \"clothing_and_appearance\": [\"two people wearing long red garments\", \"one person with long black hair\", \"one person with short black hair\"], \"foreground_objects\": [\"one wooden boat\", \"two people standing in boat\"], \"supporting_objects\": [\"water surface with ripples\", \"reflection of boat and people\"], \"background\": [\"green trees and vegetation\", \"mountains in distance\", \"clear sky\", \"white flowers on tree branch\"], \"actions\": [\"two people facing each other\", \"hands raised in front of bodies\"], \"spatial_relations\": [\"two people inside boat\", \"boat on water surface\", \"tree branch with flowers above people\", \"mountains behind trees\"], \"colors\": [\"red garments\", \"green trees and vegetation\", \"blue-green water\", \"white flowers\", \"gray mountains\"], \"counts\": {\"people\": 2, \"boats\": 1, \"flowers\": 10}, \"visible_effects\": [\"reflection of boat and people in water\", \"ripples on water surface\"], \"uncertain\": [\"top of tree branch\", \"bottom of boat\", \"far right side of image\", \"far left side of image\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "singing"
+    ],
+    "missing_cultural_identity": [
+     "liền anh liền chị"
+    ],
+    "contradictions": [
+     "long red garments"
+    ],
+    "already_satisfied": [
+     "two people standing in boat",
+     "one wooden boat",
+     "water surface with ripples",
+     "reflection of boat and people",
+     "green trees and vegetation",
+     "two people facing each other",
+     "boat on water surface"
+    ],
+    "uncertain_no_repair": [
+     "top of tree branch",
+     "bottom of boat",
+     "far right side of image",
+     "far left side of image"
+    ],
+    "repair_actions": [
+     "two people wearing ao dai",
+     "one person with long black hair singing",
+     "one person with short black hair singing"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 7.8
+  },
+  {
+   "t": "20:02:08",
+   "prompt_id": "S017",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "two people wearing ao dai",
+     "one person with long black hair singing",
+     "one person with short black hair singing"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:02:10",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"two people wearing ao dai\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "two people in red ao dai"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:02:11",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"one person with long black hair singing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Two people, one with long black hair, no singing."
+   },
+   "giay": 1.6
+  },
+  {
+   "t": "20:02:13",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"one person with short black hair singing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "two people, no singing."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:02:14",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"liền anh liền chị\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "two people in red"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:02:14",
+   "prompt_id": "S017",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "one person with long black hair singing",
+      5.0
+     ],
+     [
+      "one person with short black hair singing",
+      0.0
+     ],
+     [
+      "clearly visible: liền anh liền chị",
+      5.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "two people wearing ao dai",
+      10.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:02:14",
+   "prompt_id": "S017",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "Quan ho singers standing and singing on a boat. Quan Ho singers perform traditional duet-style singing, a UNESCO Intangible Cultural Heritage, on a boat during the Mid-Autumn Festival and the Boat Festival in northern Vietnam. The singers, usually young men and women, wear ao dai, a traditional Vietnamese dress. They perform without musical instruments, emphasizing their vocal talents and the poetic interplay that is a hallmark of Quan Ho. The boat is set on a tranquil river or lake, surrounded by lush greenery and rice paddies, creating a serene and picturesque backdrop. The scent of blooming jasmine flowers and the sound of water contribute to the immersive atmosphere, reflecting the deep cultural importance of this art form.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: thuyền; boat; on a boat. Make these additions clearly visible:\n1. one person with long black hair singing.\n2. one person with short black hair singing.\n3. clearly visible: liền anh liền chị."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:02:59",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/C_ref/S017_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "three people in boat",
+     "wooden boat on water",
+     "mountains in background"
+    ],
+    "clothing_and_appearance": [
+     "person in white dress",
+     "person in red dress",
+     "person in blue patterned robe",
+     "long dark hair on all",
+     "red sash around waist"
+    ],
+    "foreground_objects": [
+     "flowers in boat",
+     "green plants in boat",
+     "wooden oar in hand"
+    ],
+    "supporting_objects": [
+     "small wooden boat",
+     "water surface",
+     "reflection of boat in water"
+    ],
+    "background": [
+     "green forested mountains",
+     "clear sky",
+     "trees along shoreline"
+    ],
+    "actions": [
+     "person holding microphone",
+     "person holding oar",
+     "person holding flowers"
+    ],
+    "spatial_relations": [
+     "people standing in boat",
+     "flowers in front of people",
+     "mountains behind people",
+     "boat in center of image"
+    ],
+    "colors": [
+     "white dress",
+     "red dress",
+     "blue patterned robe",
+     "green plants",
+     "multicolored flowers",
+     "blue water",
+     "green mountains"
+    ],
+    "counts": {
+     "people": 3,
+     "boats": 1,
+     "flowers": 20,
+     "oars": 1
+    },
+    "visible_effects": [
+     "reflection of boat in water",
+     "shadows on water",
+     "light on water surface"
+    ],
+    "uncertain": [
+     "top of mountains",
+     "far shoreline",
+     "person's lower legs"
+    ]
+   },
+   "giay": 13.9
+  },
+  {
+   "t": "20:03:04",
+   "prompt_id": "S017",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"liền anh liền chị\", \"en\": \"Quan ho singers\"}, \"subject_attributes\": [\"standing\", \"singing\"], \"supporting_objects\": [\"thuyền\", \"boat\"], \"background_and_scene\": [\"on a boat\"], \"actions_and_relations\": [\"standing and singing\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"liền anh liền chị\", \"Quan ho singers\", \"standing and singing\", \"on a boat\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"one person with long black hair singing\", \"one person with short black hair singing\", \"clearly visible: liền anh liền chị\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"two people standing in boat\", \"one wooden boat\"], \"clothing_and_appearance\": [\"two people wearing long red garments\", \"one person with long black hair\", \"one person with short black hair\"], \"foreground_objects\": [\"one wooden boat\", \"two people standing in boat\"], \"supporting_objects\": [\"water surface with ripples\", \"reflection of boat and people\"], \"background\": [\"green trees and vegetation\", \"mountains in distance\", \"clear sky\", \"white flowers on tree branch\"], \"actions\": [\"two people facing each other\", \"hands raised in front of bodies\"], \"spatial_relations\": [\"two people inside boat\", \"boat on water surface\", \"tree branch with flowers above people\", \"mountains behind trees\"], \"colors\": [\"red garments\", \"green trees and vegetation\", \"blue-green water\", \"white flowers\", \"gray mountains\"], \"counts\": {\"people\": 2, \"boats\": 1, \"flowers\": 10}, \"visible_effects\": [\"reflection of boat and people in water\", \"ripples on water surface\"], \"uncertain\": [\"top of tree branch\", \"bottom of boat\", \"far right side of image\", \"far left side of image\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"three people in boat\", \"wooden boat on water\", \"mountains in background\"], \"clothing_and_appearance\": [\"person in white dress\", \"person in red dress\", \"person in blue patterned robe\", \"long dark hair on all\", \"red sash around waist\"], \"foreground_objects\": [\"flowers in boat\", \"green plants in boat\", \"wooden oar in hand\"], \"supporting_objects\": [\"small wooden boat\", \"water surface\", \"reflection of boat in water\"], \"background\": [\"green forested mountains\", \"clear sky\", \"trees along shoreline\"], \"actions\": [\"person holding microphone\", \"person holding oar\", \"person holding flowers\"], \"spatial_relations\": [\"people standing in boat\", \"flowers in front of people\", \"mountains behind people\", \"boat in center of image\"], \"colors\": [\"white dress\", \"red dress\", \"blue patterned robe\", \"green plants\", \"multicolored flowers\", \"blue water\", \"green mountains\"], \"counts\": {\"people\": 3, \"boats\": 1, \"flowers\": 20, \"oars\": 1}, \"visible_effects\": [\"reflection of boat in water\", \"shadows on water\", \"light on water surface\"], \"uncertain\": [\"top of mountains\", \"far shoreline\", \"person's lower legs\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "clearly visible: liền anh liền chị"
+    ],
+    "regressions": [
+     {
+      "what": "standing and singing",
+      "severity": "severe"
+     },
+     {
+      "what": "on a boat",
+      "severity": "severe"
+     },
+     {
+      "what": "Quan ho singers",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "one person with long black hair singing",
+     "one person with short black hair singing"
+    ]
+   },
+   "giay": 4.8
+  },
+  {
+   "t": "20:03:04",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"one person with long black hair singing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Two people, one with long black hair, no singing."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:03:05",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"one person with long black hair singing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/C_ref/S017_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "one person singing, long black hair"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:03:05",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"one person with short black hair singing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "two people, no singing."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:03:06",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"one person with short black hair singing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/C_ref/S017_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "one person singing, black hair"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:03:08",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: liền anh liền chị\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "two people in red"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:03:09",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: liền anh liền chị\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/C_ref/S017_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "no text in image"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:03:09",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"liền anh liền chị\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "two people in red"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:03:11",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"liền anh liền chị\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/C_ref/S017_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "three people, two women, one man"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "20:03:12",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"liền anh and liền chị usually stand facing each other when singing quan họ.\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/B/S017_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Two people in red facing each other."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:03:13",
+   "prompt_id": "S017",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"liền anh and liền chị usually stand facing each other when singing quan họ.\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S017/C_ref/S017_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "people not facing each other"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:03:13",
+   "prompt_id": "S017",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "standing and singing",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "on a boat",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "Quan ho singers",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:03:15",
+   "prompt_id": "S017",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [
+     "one person with long black hair singing"
+    ],
+    "fixed_llm": [
+     "clearly visible: liền anh liền chị"
+    ],
+    "bang_action": [
+     {
+      "action": "one person with long black hair singing",
+      "I0": 5.0,
+      "I1": 8.0,
+      "fixed": true,
+      "ev_I1": "one person singing, long black hair"
+     },
+     {
+      "action": "one person with short black hair singing",
+      "I0": 0.0,
+      "I1": 7.0,
+      "fixed": false,
+      "ev_I1": "one person singing, black hair"
+     },
+     {
+      "action": "clearly visible: liền anh liền chị",
+      "I0": 5.0,
+      "I1": null,
+      "fixed": false,
+      "ev_I1": "no text in image"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "liền anh liền chị",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "three people, two women, one man"
+     },
+     {
+      "cue": "liền anh and liền chị usually stand facing each other when singing quan họ.",
+      "I0": 5.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "people not facing each other"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "standing and singing",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "on a boat",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "Quan ho singers",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I1",
+    "ly_do": "sửa được 1, không regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.6891,
+     "sim_I1": 0.6893
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

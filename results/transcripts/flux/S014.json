@@ -1,0 +1,560 @@
+{
+ "unit": {
+  "prompt_id": "S014",
+  "prompt_vi": "Ruộng bậc thang mùa nước đổ, mặt ruộng phản chiếu trời chiều.",
+  "P_orig": "Terraced fields in the water season reflecting the evening sky.",
+  "P_ct": "Terraced fields in the water season reflecting the evening sky. Terraced fields, known as \"ruộng bậc thang,\" are a traditional Vietnamese agricultural practice where cascading rice paddies wind down the hillsides. These fields are a prominent feature in many provinces of Vietnam, especially in Phu Tho, where the terraced fields are celebrated as a testament to the region's rich agricultural heritage and stunning natural beauty. During the water season, the terraced fields, resembling a giant green staircase, are filled with water, creating a mirror-like surface that beautifully captures the colors of the sunset. This unique landscape not only supports the livelihood of local communities but also preserves the cultural heritage and biodiversity of the region. During this season, the terraced fields come alive with the sound of flowing water and the scent of fresh rice paddies, making it a breathtaking sight that is both culturally significant and visually stunning. --- Revised",
+  "P1": "Terraced fields in the water season reflecting the evening sky. Terraced fields, known as \"ruộng bậc thang,\" are a traditional Vietnamese agricultural practice where cascading rice paddies wind down the hillsides. These fields are a prominent feature in many provinces of Vietnam, especially in Phu Tho, where the terraced fields are celebrated as a testament to the region's rich agricultural heritage and stunning natural beauty. During the water season, the terraced fields, resembling a giant green staircase, are filled with water, creating a mirror-like surface that beautifully captures the colors of the sunset. This unique landscape not only supports the livelihood of local communities but also preserves the cultural heritage and biodiversity of the region. During this season, the terraced fields come alive with the sound of flowing water and the scent of fresh rice paddies, making it a breathtaking sight that is both culturally significant and visually stunning. --- Revised",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Ruộng bậc thang",
+     "en": "Terraced fields"
+    },
+    "subject_attributes": [
+     "mùa nước đổ"
+    ],
+    "supporting_objects": [
+     "trời chiều"
+    ],
+    "background_and_scene": [
+     "mặt ruộng phản chiếu trời chiều"
+    ],
+    "actions_and_relations": [
+     "phản chiếu"
+    ],
+    "colors": [],
+    "visual_effects": [
+     "phản chiếu"
+    ],
+    "time_weather_lighting": [
+     "chiều"
+    ],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Ruộng bậc thang mùa nước đổ, mặt ruộng phản chiếu trời chiều.",
+     "Terraced fields in the water season reflecting the evening sky."
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "Ruộng bậc thang",
+      "cue_en": "Terraced fields",
+      "visual_check_vi": "Những thửa ruộng xếp tầng, xếp lớp trải rộng khắp các quả đồi",
+      "quote_vi": "Đến Mù Cang Chải, đâu đâu cũng thấy những thửa ruộng bậc thang xếp tầng, xếp lớp trải rộng khắp các quả đồi.",
+      "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "Ruộng bậc thang mùa nước đổ",
+      "cue_en": "Terraced fields in the water season",
+      "visual_check_vi": "Ruộng bậc thang vào mùa đổ nước",
+      "quote_vi": "Mù Cang Chải đẹp nhất trong năm vào hai dịp, khi những thửa ruộng vào mùa đổ nước",
+      "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "Ruộng bậc thang ở Mù Cang Chải có hình dáng tổng thể như mâm xôi",
+      "target_appearance_en": "Terraced fields in Mù Cang Chải have the overall shape of a tray of sticky rice",
+      "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Ruộng bậc thang Mù Cang Chải là những ruộng bậc thang nằm trên các sườn núi, lớp nọ gối tiếp lớp kia với diện tích khoảng 2.200 ha ở tỉnh Lào Cai.",
+     "Năm 2007, 330 ha diện tích ruộng bậc thang thuộc 2 xã Púng Luông và Mù Cang Chải được xếp hạng là di tích quốc gia như là một trong những danh thắng độc đáo bậc nhất tại Việt Nam.",
+     "Và đến năm 2019, danh thắng ruộng bậc thang Mù Cang Chải đã Thủ tướng Chính phủ xếp hạng là Di tích quốc gia đặc biệt.",
+     "Mù Cang Chải đẹp nhất trong năm vào hai dịp, khi những thửa ruộng vào mùa đổ nước (khoảng tháng 5 tháng 6, là thời điểm người dân đắp đập, ke bờ, dẫn nước vào ruộng để chuẩn bị cày ải, gieo mạ và cấy lúa) và vào mùa lúa chín (khoảng tháng 9 tháng 10).",
+     "Năm 2018, Tuần Văn hóa - Du lịch Mường Lò và Lễ hội khám phá Danh thắng Quốc gia ruộng bậc thang Mù Cang Chải sẽ diễn ra từ ngày 21 đến ngày 25/9.",
+     "Huyện nằm dưới chân của dãy núi Hoàng Liên Sơn ở độ cao trên 1.000 mét so với mực nước biển.",
+     "Đồng bào Mông thường cư trú ở những sườn núi cao từ 800 đến 1.700 mét, với kinh nghiệm làm ruộng bậc thang và một số nghề thủ công truyền thống như: rèn đúc, dệt vải bằng sợi lanh, làm đồ trang sức...",
+     "Văn hoá canh tác ruộng bậc thang của đồng bào dân tộc Mông ở La Pán Tẩn, Chế Cu Nha, Dế Su Phình đã biến tên Mù Cang Chải (nghĩa là làng cây khô) thành đồi ruộng tươi xanh đầy sức sống.",
+     "Những thửa ruộng bậc thang lớp nọ gối lớp kia vươn cao lên trời.",
+     "Mô tả Những thửa ruộng bậc thang có ở nhiều nơi tại núi rừng Tây Bắc và cả ở Đông Bắc.",
+     "Chúng được sử dụng để canh tác trên khu vực đồi núi, và cũng là biện pháp để giữ được nước cung cấp cho đồng ruộng một cách hiệu quả.",
+     "Ruộng bậc thang ở Mù Cang Chải thu hút đông khách du lịch cũng như các nhiếp ảnh gia bởi vẻ đẹp không lẫn vào đâu được.",
+     "Cảnh quan những ruộng bậc thang hình mâm xôi, rừng, khe suối...",
+     "Chẳng những thế mà trang web When On Earth đã thốt lên rằng, 'đây quả là vẻ đẹp tinh tế và hút hồn nhất, và có lẽ độc đáo hơn bất cứ nơi nào trên thế giới'.",
+     "Vào năm 2015, bảo tàng Yên Bái đã tổ chức thám sát khu vực bãi đá cổ ở Mù Cang Chải, nằm trong danh thắng ruộng bậc thang Mù Cang Chải.",
+     "Điều thú vị là ngoài những hình ruộng bậc thang thì trên các phiến đá còn có rất nhiều hình thù khác nhau thể hiện khát vọng của người xưa về vùng đất khắc nghiệt Tây Bắc.",
+     "Có ai ngờ rằng những thửa ruộng bậc thang kỳ vĩ này đã được hình thành từ bản thiết kế do người xưa cách đây vài thế kỷ tạo nên (300-400 năm tuổi).",
+     "Các phiến đá nằm xen lẫn giữa ruộng bậc thang, bên đường và quanh các thôn bản tại các xã Chế Cu Nha, La Pán Tẩn, Lao Chải, Dế Xu Phình nhưng tập trung nhiều nhất ở Tàng Ghênh thuộc xã Lao Chải.",
+     "Thống kê sơ bộ có khoảng 20 tảng đá đơn lẻ có khối lượng từ 2–50 m³ đều nằm ở những vị trí thoáng, có thể hướng ra khắp bốn phương trời.",
+     "Các hình dạng của đá bao gồm hình tháp, hình núi, rùa và cả hình trang giấy mở ra, trong khi hình khắc trên phiến đá chủ yếu là ruộng bậc thang, chim hạc, ngựa trời, bản đồ thiên văn, âm dương ngũ hành cùng nhiều ký tự có thể là chữ viết cổ xưa.",
+     "Hiện nay, nhằm tôn vinh di tích danh thắng này và phát huy các giá trị văn hóa dân tộc Mông, nâng cao ý thức bảo tồn di sản, tuần lễ văn hóa, du lịch Danh thắng quốc gia Ruộng bậc thang huyện Mù Cang Chải đã được tổ chức từ năm 2015 với nhiều hoạt động gồm chọi dê, hội giã cốm, hội chợ ẩm thực cùng nhiều hoạt động văn hóa khác."
+    ],
+    "insufficient_evidence": [
+     "Màu sắc của ruộng bậc thang",
+     "Kích thước của ruộng bậc thang",
+     "Vị trí chính xác của ruộng bậc thang",
+     "identity_cues: 'Ruộng bậc thang hình mâm xôi' — quote không nguyên văn trong bài / URL lạ"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "terraced fields",
+    "mountains",
+    "river"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "green terraced fields",
+    "small trees",
+    "river"
+   ],
+   "supporting_objects": [
+    "mountains",
+    "trees",
+    "water"
+   ],
+   "background": [
+    "mountains",
+    "sky",
+    "sun"
+   ],
+   "actions": [
+    "sun rising",
+    "water flowing"
+   ],
+   "spatial_relations": [
+    "terraces in front of mountains",
+    "river winding through terraces",
+    "sun above mountains"
+   ],
+   "colors": [
+    "green terraces",
+    "blue sky",
+    "orange sun",
+    "brown mountains"
+   ],
+   "counts": {
+    "terraces": "many",
+    "mountains": "many",
+    "trees": "many"
+   },
+   "visible_effects": [
+    "sunlight reflecting off water",
+    "shadows on terraces",
+    "haze in distance"
+   ],
+   "uncertain": [
+    "top of mountains",
+    "far end of river"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "trời chiều"
+   ],
+   "missing_cultural_identity": [
+    "Ruộng bậc thang ở Mù Cang Chải có hình dáng tổng thể như mâm xôi"
+   ],
+   "contradictions": [
+    "sun rising"
+   ],
+   "already_satisfied": [
+    "terraced fields",
+    "water season",
+    "reflecting the evening sky",
+    "terraces in front of mountains",
+    "water flowing",
+    "sun above mountains",
+    "sunlight reflecting off water"
+   ],
+   "uncertain_no_repair": [
+    "top of mountains",
+    "far end of river"
+   ],
+   "repair_actions": [
+    "a sunset in the sky",
+    "terraced fields shaped like a tray of sticky rice",
+    "a river winding through the terraced fields"
+   ],
+   "drop_phrases": [
+    "a giant green staircase"
+   ]
+  },
+  "actions": [],
+  "drop_phrases": [
+   "a giant green staircase"
+  ],
+  "refs": [],
+  "images": {
+   "A": "S014_flux_txt.png",
+   "B (I0)": "S014_flux_txt.png",
+   "C (I1)": "S014_flux_txt.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "19:55:37",
+   "prompt_id": "S014",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Ruộng bậc thang mùa nước đổ, mặt ruộng phản chiếu trời chiều.\nPROMPT EN: Terraced fields in the water season reflecting the evening sky.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Ruộng bậc thang",
+      "en": "Terraced fields"
+     },
+     "subject_attributes": [
+      "mùa nước đổ"
+     ],
+     "supporting_objects": [
+      "trời chiều"
+     ],
+     "background_and_scene": [
+      "mặt ruộng phản chiếu trời chiều"
+     ],
+     "actions_and_relations": [
+      "phản chiếu"
+     ],
+     "colors": [],
+     "visual_effects": [
+      "phản chiếu"
+     ],
+     "time_weather_lighting": [
+      "chiều"
+     ],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Ruộng bậc thang mùa nước đổ, mặt ruộng phản chiếu trời chiều.",
+      "Terraced fields in the water season reflecting the evening sky."
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:55:37",
+   "prompt_id": "S014",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Ruộng bậc thang mùa nước đổ, mặt ruộng phản chiếu trời chiều.\nPROMPT EN: Terraced fields in the water season reflecting the evening sky.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Ruộng bậc thang Mù Cang Chải — https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i ===\nRuộng bậc thang Mù Cang Chải là những ruộng bậc thang nằm trên các sườn núi, lớp nọ gối tiếp lớp kia với diện tích khoảng 2.200 ha ở tỉnh Lào Cai. Năm 2007, 330 ha diện tích ruộng bậc thang thuộc 2 xã Púng Luông và Mù Cang Chải được xếp hạng là di tích quốc gia như là một trong những danh thắng độc đáo bậc nhất tại Việt Nam. Và đến năm 2019, danh thắng ruộng bậc thang Mù Cang Chải đã Thủ tướng Chính phủ xếp hạng là Di tích quốc gia đặc biệt.Mù Cang Chải đẹp nhất trong năm vào hai dịp, khi những thửa ruộng vào mùa đổ nước (khoảng tháng 5 tháng 6, là thời điểm người dân đắp đập, ke bờ, dẫn nước vào ruộng để chuẩn bị cày ải, gieo mạ và cấy lúa) và vào mùa lúa chín (khoảng tháng 9 tháng 10). Năm 2018, Tuần Văn hóa - Du lịch Mường Lò và Lễ hội khám phá Danh thắng Quốc gia ruộng bậc thang Mù Cang Chải sẽ diễn ra từ ngày 21 đến ngày 25/9. Huyện nằm dưới chân của dãy núi Hoàng Liên Sơn ở độ cao trên 1.000 mét so với mực nước biển. Đồng bào Mông thường cư trú ở những sườn núi cao từ 800 đến 1.700 mét, với kinh nghiệm làm ruộng bậc thang và một số nghề thủ công truyền thống như: rèn đúc, dệt vải bằng sợi lanh, làm đồ trang sức...Văn hoá canh tác ruộng bậc thang của đồng bào dân tộc Mông ở La Pán Tẩn, Chế Cu Nha, Dế Su Phình đã biến tên Mù Cang Chải (nghĩa là làng cây khô) thành đồi ruộng tươi xanh đầy sức sống. Những thửa ruộng bậc thang lớp nọ gối lớp kia vươn cao lên trời. Mô tả Những thửa ruộng bậc thang có ở nhiều nơi tại núi rừng Tây Bắc và cả ở Đông Bắc. Chúng được sử dụng để canh tác trên khu vực đồi núi, và cũng là biện pháp để giữ được nước cung cấp cho đồng ruộng một cách hiệu quả. Ruộng bậc thang ở Mù Cang Chải thu hút đông khách du lịch cũng như các nhiếp ảnh gia bởi vẻ đẹp không lẫn vào đâu được. Đến Mù Cang Chải, đâu đâu cũng thấy những thửa ruộng bậc thang xếp tầng, xếp lớp trải rộng khắp các quả đồi. Cảnh quan những ruộng bậc thang hình mâm xôi, rừng, khe suối... Chẳng những thế mà trang web When On Earth đã thốt lên rằng, \"đây quả là vẻ đẹp tinh tế và hút hồn nhất, và có lẽ độc đáo hơn bất cứ nơi nào trên thế giới\".Vào năm 2015, bảo tàng Yên Bái đã tổ chức thám sát khu vực bãi đá cổ ở Mù Cang Chải, nằm trong danh thắng ruộng bậc thang Mù Cang Chải. Điều thú vị là ngoài những hình ruộng bậc thang thì trên các phiến đá còn có rất nhiều hình thù khác nhau thể hiện khát vọng của người xưa về vùng đất khắc nghiệt Tây Bắc. Có ai ngờ rằng những thửa ruộng bậc thang kỳ vĩ này đã được hình thành từ bản thiết kế do người xưa cách đây vài thế kỷ tạo nên (300-400 năm tuổi). Các phiến đá nằm xen lẫn giữa ruộng bậc thang, bên đường và quanh các thôn bản tại các xã Chế Cu Nha, La Pán Tẩn, Lao Chải, Dế Xu Phình nhưng tập trung nhiều nhất ở Tàng Ghênh thuộc xã Lao Chải. Thống kê sơ bộ có khoảng 20 tảng đá đơn lẻ có khối lượng từ 2–50 m³ đều nằm ở những vị trí thoáng, có thể hướng ra khắp bốn phương trời. Các hình dạng của đá bao gồm hình tháp, hình núi, rùa và cả hình trang giấy mở ra, trong khi hình khắc trên phiến đá chủ yếu là ruộng bậc thang, chim hạc, ngựa trời, bản đồ thiên văn, âm dương ngũ hành cùng nhiều ký tự có thể là chữ viết cổ xưa. Hiện nay, nhằm tôn vinh di tích danh thắng này và phát huy các giá trị văn hóa dân tộc Mông, nâng cao ý thức bảo tồn di sản, tuần lễ văn hóa, du lịch Danh thắng quốc gia Ruộng bậc thang huyện Mù Cang Chải đã được tổ chức từ năm 2015 với nhiều hoạt động gồm chọi dê, hội giã cốm, hội chợ ẩm thực cùng nhiều hoạt động văn hóa khác. La Pán Tẩn Những \"dấu vân tay của trời\" là tên gọi đầy yêu kiều mà du khách nhớ đến khi nói về ruộng lúa La Pán Tẩn. Ruộng lúa hình xoáy ốc mỗi độ thu sang tựa như \"mâm xôi vàng\" – món quà dâng trời đất được tạo nên bởi chính bàn tay đồng bào dân tộc Mông nơi đây. Công trình ruộng bậc thang tuyệt vời này đã được công nhận là Di tích danh thắng cấp Quốc gia từ cuối năm 2007. Tại Chế Cu Nha, ruộng bậc thang có hình dáng tổng thể như mâm xôi, là một đặc sản thắng cảnh mà chỉ vùng cao nơi đây mới có.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "Ruộng bậc thang",
+       "cue_en": "Terraced fields",
+       "visual_check_vi": "Những thửa ruộng xếp tầng, xếp lớp trải rộng khắp các quả đồi",
+       "quote_vi": "Đến Mù Cang Chải, đâu đâu cũng thấy những thửa ruộng bậc thang xếp tầng, xếp lớp trải rộng khắp các quả đồi.",
+       "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "Ruộng bậc thang mùa nước đổ",
+       "cue_en": "Terraced fields in the water season",
+       "visual_check_vi": "Ruộng bậc thang vào mùa đổ nước",
+       "quote_vi": "Mù Cang Chải đẹp nhất trong năm vào hai dịp, khi những thửa ruộng vào mùa đổ nước",
+       "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "Ruộng bậc thang ở Mù Cang Chải có hình dáng tổng thể như mâm xôi",
+       "target_appearance_en": "Terraced fields in Mù Cang Chải have the overall shape of a tray of sticky rice",
+       "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Ruộng bậc thang Mù Cang Chải là những ruộng bậc thang nằm trên các sườn núi, lớp nọ gối tiếp lớp kia với diện tích khoảng 2.200 ha ở tỉnh Lào Cai.",
+      "Năm 2007, 330 ha diện tích ruộng bậc thang thuộc 2 xã Púng Luông và Mù Cang Chải được xếp hạng là di tích quốc gia như là một trong những danh thắng độc đáo bậc nhất tại Việt Nam.",
+      "Và đến năm 2019, danh thắng ruộng bậc thang Mù Cang Chải đã Thủ tướng Chính phủ xếp hạng là Di tích quốc gia đặc biệt.",
+      "Mù Cang Chải đẹp nhất trong năm vào hai dịp, khi những thửa ruộng vào mùa đổ nước (khoảng tháng 5 tháng 6, là thời điểm người dân đắp đập, ke bờ, dẫn nước vào ruộng để chuẩn bị cày ải, gieo mạ và cấy lúa) và vào mùa lúa chín (khoảng tháng 9 tháng 10).",
+      "Năm 2018, Tuần Văn hóa - Du lịch Mường Lò và Lễ hội khám phá Danh thắng Quốc gia ruộng bậc thang Mù Cang Chải sẽ diễn ra từ ngày 21 đến ngày 25/9.",
+      "Huyện nằm dưới chân của dãy núi Hoàng Liên Sơn ở độ cao trên 1.000 mét so với mực nước biển.",
+      "Đồng bào Mông thường cư trú ở những sườn núi cao từ 800 đến 1.700 mét, với kinh nghiệm làm ruộng bậc thang và một số nghề thủ công truyền thống như: rèn đúc, dệt vải bằng sợi lanh, làm đồ trang sức...",
+      "Văn hoá canh tác ruộng bậc thang của đồng bào dân tộc Mông ở La Pán Tẩn, Chế Cu Nha, Dế Su Phình đã biến tên Mù Cang Chải (nghĩa là làng cây khô) thành đồi ruộng tươi xanh đầy sức sống.",
+      "Những thửa ruộng bậc thang lớp nọ gối lớp kia vươn cao lên trời.",
+      "Mô tả Những thửa ruộng bậc thang có ở nhiều nơi tại núi rừng Tây Bắc và cả ở Đông Bắc.",
+      "Chúng được sử dụng để canh tác trên khu vực đồi núi, và cũng là biện pháp để giữ được nước cung cấp cho đồng ruộng một cách hiệu quả.",
+      "Ruộng bậc thang ở Mù Cang Chải thu hút đông khách du lịch cũng như các nhiếp ảnh gia bởi vẻ đẹp không lẫn vào đâu được.",
+      "Cảnh quan những ruộng bậc thang hình mâm xôi, rừng, khe suối...",
+      "Chẳng những thế mà trang web When On Earth đã thốt lên rằng, 'đây quả là vẻ đẹp tinh tế và hút hồn nhất, và có lẽ độc đáo hơn bất cứ nơi nào trên thế giới'.",
+      "Vào năm 2015, bảo tàng Yên Bái đã tổ chức thám sát khu vực bãi đá cổ ở Mù Cang Chải, nằm trong danh thắng ruộng bậc thang Mù Cang Chải.",
+      "Điều thú vị là ngoài những hình ruộng bậc thang thì trên các phiến đá còn có rất nhiều hình thù khác nhau thể hiện khát vọng của người xưa về vùng đất khắc nghiệt Tây Bắc.",
+      "Có ai ngờ rằng những thửa ruộng bậc thang kỳ vĩ này đã được hình thành từ bản thiết kế do người xưa cách đây vài thế kỷ tạo nên (300-400 năm tuổi).",
+      "Các phiến đá nằm xen lẫn giữa ruộng bậc thang, bên đường và quanh các thôn bản tại các xã Chế Cu Nha, La Pán Tẩn, Lao Chải, Dế Xu Phình nhưng tập trung nhiều nhất ở Tàng Ghênh thuộc xã Lao Chải.",
+      "Thống kê sơ bộ có khoảng 20 tảng đá đơn lẻ có khối lượng từ 2–50 m³ đều nằm ở những vị trí thoáng, có thể hướng ra khắp bốn phương trời.",
+      "Các hình dạng của đá bao gồm hình tháp, hình núi, rùa và cả hình trang giấy mở ra, trong khi hình khắc trên phiến đá chủ yếu là ruộng bậc thang, chim hạc, ngựa trời, bản đồ thiên văn, âm dương ngũ hành cùng nhiều ký tự có thể là chữ viết cổ xưa.",
+      "Hiện nay, nhằm tôn vinh di tích danh thắng này và phát huy các giá trị văn hóa dân tộc Mông, nâng cao ý thức bảo tồn di sản, tuần lễ văn hóa, du lịch Danh thắng quốc gia Ruộng bậc thang huyện Mù Cang Chải đã được tổ chức từ năm 2015 với nhiều hoạt động gồm chọi dê, hội giã cốm, hội chợ ẩm thực cùng nhiều hoạt động văn hóa khác."
+     ],
+     "insufficient_evidence": [
+      "Màu sắc của ruộng bậc thang",
+      "Kích thước của ruộng bậc thang",
+      "Vị trí chính xác của ruộng bậc thang",
+      "identity_cues: 'Ruộng bậc thang hình mâm xôi' — quote không nguyên văn trong bài / URL lạ"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:55:37",
+   "prompt_id": "S014",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 1,
+    "giu_conditional": 1,
+    "loai": [
+     "identity_cues: 'Ruộng bậc thang hình mâm xôi' — quote không nguyên văn trong bài / URL lạ"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:55:47",
+   "prompt_id": "S014",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S014/B/S014_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "terraced fields",
+     "mountains",
+     "river"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "green terraced fields",
+     "small trees",
+     "river"
+    ],
+    "supporting_objects": [
+     "mountains",
+     "trees",
+     "water"
+    ],
+    "background": [
+     "mountains",
+     "sky",
+     "sun"
+    ],
+    "actions": [
+     "sun rising",
+     "water flowing"
+    ],
+    "spatial_relations": [
+     "terraces in front of mountains",
+     "river winding through terraces",
+     "sun above mountains"
+    ],
+    "colors": [
+     "green terraces",
+     "blue sky",
+     "orange sun",
+     "brown mountains"
+    ],
+    "counts": {
+     "terraces": "many",
+     "mountains": "many",
+     "trees": "many"
+    },
+    "visible_effects": [
+     "sunlight reflecting off water",
+     "shadows on terraces",
+     "haze in distance"
+    ],
+    "uncertain": [
+     "top of mountains",
+     "far end of river"
+    ]
+   },
+   "giay": 9.6
+  },
+  {
+   "t": "19:55:55",
+   "prompt_id": "S014",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: Terraced fields in the water season reflecting the evening sky.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nTerraced fields, known as \"ruộng bậc thang,\" are a traditional Vietnamese agricultural practice where cascading rice paddies wind down the hillsides. These fields are a prominent feature in many provinces of Vietnam, especially in Phu Tho, where the terraced fields are celebrated as a testament to the region's rich agricultural heritage and stunning natural beauty. During the water season, the terraced fields, resembling a giant green staircase, are filled with water, creating a mirror-like surface that beautifully captures the colors of the sunset. This unique landscape not only supports the livelihood of local communities but also preserves the cultural heritage and biodiversity of the region. During this season, the terraced fields come alive with the sound of flowing water and the scent of fresh rice paddies, making it a breathtaking sight that is both culturally significant and visually stunning. --- Revised\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Ruộng bậc thang\", \"en\": \"Terraced fields\"}, \"subject_attributes\": [\"mùa nước đổ\"], \"supporting_objects\": [\"trời chiều\"], \"background_and_scene\": [\"mặt ruộng phản chiếu trời chiều\"], \"actions_and_relations\": [\"phản chiếu\"], \"colors\": [], \"visual_effects\": [\"phản chiếu\"], \"time_weather_lighting\": [\"chiều\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Ruộng bậc thang mùa nước đổ, mặt ruộng phản chiếu trời chiều.\", \"Terraced fields in the water season reflecting the evening sky.\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"Ruộng bậc thang\", \"cue_en\": \"Terraced fields\", \"visual_check_vi\": \"Những thửa ruộng xếp tầng, xếp lớp trải rộng khắp các quả đồi\", \"quote_vi\": \"Đến Mù Cang Chải, đâu đâu cũng thấy những thửa ruộng bậc thang xếp tầng, xếp lớp trải rộng khắp các quả đồi.\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i\"}], \"conditional_cues\": [{\"cue_vi\": \"Ruộng bậc thang mùa nước đổ\", \"cue_en\": \"Terraced fields in the water season\", \"visual_check_vi\": \"Ruộng bậc thang vào mùa đổ nước\", \"quote_vi\": \"Mù Cang Chải đẹp nhất trong năm vào hai dịp, khi những thửa ruộng vào mùa đổ nước\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"Ruộng bậc thang ở Mù Cang Chải có hình dáng tổng thể như mâm xôi\", \"target_appearance_en\": \"Terraced fields in Mù Cang Chải have the overall shape of a tray of sticky rice\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_b%E1%BA%ADc_thang_M%C3%B9_Cang_Ch%E1%BA%A3i\"}], \"discarded_nonvisual_facts\": [\"Ruộng bậc thang Mù Cang Chải là những ruộng bậc thang nằm trên các sườn núi, lớp nọ gối tiếp lớp kia với diện tích khoảng 2.200 ha ở tỉnh Lào Cai.\", \"Năm 2007, 330 ha diện tích ruộng bậc thang thuộc 2 xã Púng Luông và Mù Cang Chải được xếp hạng là di tích quốc gia như là một trong những danh thắng độc đáo bậc nhất tại Việt Nam.\", \"Và đến năm 2019, danh thắng ruộng bậc thang Mù Cang Chải đã Thủ tướng Chính phủ xếp hạng là Di tích quốc gia đặc biệt.\", \"Mù Cang Chải đẹp nhất trong năm vào hai dịp, khi những thửa ruộng vào mùa đổ nước (khoảng tháng 5 tháng 6, là thời điểm người dân đắp đập, ke bờ, dẫn nước vào ruộng để chuẩn bị cày ải, gieo mạ và cấy lúa) và vào mùa lúa chín (khoảng tháng 9 tháng 10).\", \"Năm 2018, Tuần Văn hóa - Du lịch Mường Lò và Lễ hội khám phá Danh thắng Quốc gia ruộng bậc thang Mù Cang Chải sẽ diễn ra từ ngày 21 đến ngày 25/9.\", \"Huyện nằm dưới chân của dãy núi Hoàng Liên Sơn ở độ cao trên 1.000 mét so với mực nước biển.\", \"Đồng bào Mông thường cư trú ở những sườn núi cao từ 800 đến 1.700 mét, với kinh nghiệm làm ruộng bậc thang và một số nghề thủ công truyền thống như: rèn đúc, dệt vải bằng sợi lanh, làm đồ trang sức...\", \"Văn hoá canh tác ruộng bậc thang của đồng bào dân tộc Mông ở La Pán Tẩn, Chế Cu Nha, Dế Su Phình đã biến tên Mù Cang Chải (nghĩa là làng cây khô) thành đồi ruộng tươi xanh đầy sức sống.\", \"Những thửa ruộng bậc thang lớp nọ gối lớp kia vươn cao lên trời.\", \"Mô tả Những thửa ruộng bậc thang có ở nhiều nơi tại núi rừng Tây Bắc và cả ở Đông Bắc.\", \"Chúng được sử dụng để canh tác trên khu vực đồi núi, và cũng là biện pháp để giữ được nước cung cấp cho đồng ruộng một cách hiệu quả.\", \"Ruộng bậc thang ở Mù Cang Chải thu hút đông khách du lịch cũng như các nhiếp ảnh gia bởi vẻ đẹp không lẫn vào đâu được.\", \"Cảnh quan những ruộng bậc thang hình mâm xôi, rừng, khe suối...\", \"Chẳng những thế mà trang web When On Earth đã thốt lên rằng, 'đây quả là vẻ đẹp tinh tế và hút hồn nhất, và có lẽ độc đáo hơn bất cứ nơi nào trên thế giới'.\", \"Vào năm 2015, bảo tàng Yên Bái đã tổ chức thám sát khu vực bãi đá cổ ở Mù Cang Chải, nằm trong danh thắng ruộng bậc thang Mù Cang Chải.\", \"Điều thú vị là ngoài những hình ruộng bậc thang thì trên các phiến đá còn có rất nhiều hình thù khác nhau thể hiện khát vọng của người xưa về vùng đất khắc nghiệt Tây Bắc.\", \"Có ai ngờ rằng những thửa ruộng bậc thang kỳ vĩ này đã được hình thành từ bản thiết kế do người xưa cách đây vài thế kỷ tạo nên (300-400 năm tuổi).\", \"Các phiến đá nằm xen lẫn giữa ruộng bậc thang, bên đường và quanh các thôn bản tại các xã Chế Cu Nha, La Pán Tẩn, Lao Chải, Dế Xu Phình nhưng tập trung nhiều nhất ở Tàng Ghênh thuộc xã Lao Chải.\", \"Thống kê sơ bộ có khoảng 20 tảng đá đơn lẻ có khối lượng từ 2–50 m³ đều nằm ở những vị trí thoáng, có thể hướng ra khắp bốn phương trời.\", \"Các hình dạng của đá bao gồm hình tháp, hình núi, rùa và cả hình trang giấy mở ra, trong khi hình khắc trên phiến đá chủ yếu là ruộng bậc thang, chim hạc, ngựa trời, bản đồ thiên văn, âm dương ngũ hành cùng nhiều ký tự có thể là chữ viết cổ xưa.\", \"Hiện nay, nhằm tôn vinh di tích danh thắng này và phát huy các giá trị văn hóa dân tộc Mông, nâng cao ý thức bảo tồn di sản, tuần lễ văn hóa, du lịch Danh thắng quốc gia Ruộng bậc thang huyện Mù Cang Chải đã được tổ chức từ năm 2015 với nhiều hoạt động gồm chọi dê, hội giã cốm, hội chợ ẩm thực cùng nhiều hoạt động văn hóa khác.\"], \"insufficient_evidence\": [\"Màu sắc của ruộng bậc thang\", \"Kích thước của ruộng bậc thang\", \"Vị trí chính xác của ruộng bậc thang\", \"identity_cues: 'Ruộng bậc thang hình mâm xôi' — quote không nguyên văn trong bài / URL lạ\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"terraced fields\", \"mountains\", \"river\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"green terraced fields\", \"small trees\", \"river\"], \"supporting_objects\": [\"mountains\", \"trees\", \"water\"], \"background\": [\"mountains\", \"sky\", \"sun\"], \"actions\": [\"sun rising\", \"water flowing\"], \"spatial_relations\": [\"terraces in front of mountains\", \"river winding through terraces\", \"sun above mountains\"], \"colors\": [\"green terraces\", \"blue sky\", \"orange sun\", \"brown mountains\"], \"counts\": {\"terraces\": \"many\", \"mountains\": \"many\", \"trees\": \"many\"}, \"visible_effects\": [\"sunlight reflecting off water\", \"shadows on terraces\", \"haze in distance\"], \"uncertain\": [\"top of mountains\", \"far end of river\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "trời chiều"
+    ],
+    "missing_cultural_identity": [
+     "Ruộng bậc thang ở Mù Cang Chải có hình dáng tổng thể như mâm xôi"
+    ],
+    "contradictions": [
+     "sun rising"
+    ],
+    "already_satisfied": [
+     "terraced fields",
+     "water season",
+     "reflecting the evening sky",
+     "terraces in front of mountains",
+     "water flowing",
+     "sun above mountains",
+     "sunlight reflecting off water"
+    ],
+    "uncertain_no_repair": [
+     "top of mountains",
+     "far end of river"
+    ],
+    "repair_actions": [
+     "a sunset in the sky",
+     "terraced fields shaped like a tray of sticky rice",
+     "a river winding through the terraced fields"
+    ],
+    "drop_phrases": [
+     "a giant green staircase"
+    ]
+   },
+   "giay": 8.3
+  },
+  {
+   "t": "19:55:55",
+   "prompt_id": "S014",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a sunset in the sky",
+     "terraced fields shaped like a tray of sticky rice",
+     "a river winding through the terraced fields"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "a giant green staircase"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:55:56",
+   "prompt_id": "S014",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a sunset in the sky\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S014/B/S014_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Sunset in the sky, mountains."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:55:58",
+   "prompt_id": "S014",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"terraced fields shaped like a tray of sticky rice\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S014/B/S014_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "terraced fields, sunrise, mountains"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:55:59",
+   "prompt_id": "S014",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a river winding through the terraced fields\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S014/B/S014_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "River winds through terraced fields"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:56:00",
+   "prompt_id": "S014",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Terraced fields\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S014/B/S014_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Visible terraced fields in green"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:56:00",
+   "prompt_id": "S014",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [],
+    "bo_da_dat": [
+     [
+      "a sunset in the sky",
+      8.0
+     ],
+     [
+      "terraced fields shaped like a tray of sticky rice",
+      8.0
+     ],
+     [
+      "a river winding through the terraced fields",
+      8.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:56:00",
+   "prompt_id": "S014",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "Terraced fields in the water season reflecting the evening sky. Terraced fields, known as \"ruộng bậc thang,\" are a traditional Vietnamese agricultural practice where cascading rice paddies wind down the hillsides. These fields are a prominent feature in many provinces of Vietnam, especially in Phu Tho, where the terraced fields are celebrated as a testament to the region's rich agricultural heritage and stunning natural beauty. During the water season, the terraced fields, resembling a giant green staircase, are filled with water, creating a mirror-like surface that beautifully captures the colors of the sunset. This unique landscape not only supports the livelihood of local communities but also preserves the cultural heritage and biodiversity of the region. During this season, the terraced fields come alive with the sound of flowing water and the scent of fresh rice paddies, making it a breathtaking sight that is both culturally significant and visually stunning. --- Revised"
+   },
+   "giay": 0.0
+  }
+ ]
+}

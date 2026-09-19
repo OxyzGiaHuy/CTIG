@@ -1,0 +1,1060 @@
+{
+ "unit": {
+  "prompt_id": "S039",
+  "prompt_vi": "Ngọn tháp Chăm cổ đứng trên đồi dưới nắng chiều.",
+  "P_orig": "An ancient Cham tower standing on a hill in the afternoon sun.",
+  "P_ct": "An ancient Cham tower standing on a hill in the afternoon sun. An ancient Cham tower rises majestically on a hill, its intricate stone carvings catching the golden afternoon sun. The texture of the weathered stone feels rough under the touch of the wind, while the scent of the fresh rice paddies fills the air. Lush greenery and rolling rice fields surround the tower, creating a serene and picturesque setting. This tower, a symbol of the rich Cham heritage, stands tall in Phan Rang–Tháp Chàm, a city in Vietnam known for its historical significance and cultural importance. Similar to the Taj Mahal in India, the Cham tower holds a revered place in the community, reflecting the deep spiritual and historical roots of the region.",
+  "P1": "An ancient Cham tower standing on a hill in the afternoon sun. An ancient Cham tower rises majestically on a hill, its catching the golden afternoon sun. The texture of the weathered stone feels rough under the touch of the wind, while the scent of the fresh rice paddies fills the air. Lush greenery and rolling rice fields surround the tower, creating a serene and picturesque setting. This tower, a symbol of the rich Cham heritage, stands tall in Phan Rang–Tháp Chàm, a city in Vietnam known for its historical significance and cultural importance. in India, the Cham tower holds a revered place in the community, reflecting the deep spiritual and historical roots of the region.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: nắng chiều. Make these additions clearly visible:\n1. a dark red brick color for the tower.\n2. a flower-shaped top for the tower.\n3. clearly visible: Cham tower.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Ngọn tháp Chăm cổ",
+     "en": "An ancient Cham tower"
+    },
+    "subject_attributes": [
+     "cổ"
+    ],
+    "supporting_objects": [
+     "đồi"
+    ],
+    "background_and_scene": [
+     "nắng chiều"
+    ],
+    "actions_and_relations": [
+     "đứng trên"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [
+     "chiều"
+    ],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Ngọn tháp Chăm cổ",
+     "An ancient Cham tower",
+     "standing on a hill",
+     "in the afternoon sun"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "tháp Chăm",
+      "cue_en": "Cham tower",
+      "visual_check_vi": "kiến trúc đền tháp Chăm Pa",
+      "quote_vi": "Tháp Chăm, hay còn gọi là Tháp Chăm Pa hay Tháp Chàm, là tên gọi thông dụng trong tiếng Việt để chỉ kiến trúc đền tháp Chăm Pa",
+      "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+     },
+     {
+      "cue_vi": "màu gạch đỏ sẫm",
+      "cue_en": "dark red brick color",
+      "visual_check_vi": "màu gạch đỏ sẫm",
+      "quote_vi": "Các tháp Chăm là một khối kiến trúc xây dựng bằng gạch nung màu đỏ sẫm lấy từ đất địa phương",
+      "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+     },
+     {
+      "cue_vi": "hình bông hoa",
+      "cue_en": "flower shape",
+      "visual_check_vi": "thon vút hình bông hoa",
+      "quote_vi": "phía trên mở rộng và thon vút hình bông hoa",
+      "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "cửa tháp mở về hướng Đông",
+      "cue_en": "tower entrance faces East",
+      "visual_check_vi": "cửa duy nhất mở về hướng Đông",
+      "quote_vi": "Tháp thường có cửa duy nhất mở về hướng Đông",
+      "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+     },
+     {
+      "cue_vi": "trần vòm cuốn",
+      "cue_en": "barrel-vaulted ceiling",
+      "visual_check_vi": "trần được cấu tạo vòm cuốn",
+      "quote_vi": "Trần được cấu tạo vòm cuốn",
+      "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "tháp Chăm có mặt bằng hình vuông",
+      "target_appearance_en": "Cham tower has a square base",
+      "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+     },
+     {
+      "target_appearance_vi": "tháp Chăm có không gian bên trong chật hẹp",
+      "target_appearance_en": "Cham tower has a narrow interior space",
+      "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Tháp Chăm thuộc kiến trúc tôn giáo tín ngưỡng Hindu, Phật giáo của dân tộc Chăm",
+     "Tháp Chăm được xây dựng từ cuối thế kỷ thứ 7 đến đầu thế kỷ 17",
+     "Tháp Chăm được gọi là kalan, nghĩa là 'lăng'",
+     "Tháp Chăm được xây dựng để thờ cúng các vị thần",
+     "Tháp Chăm được xây dựng trên đồi cao hoặc núi thấp",
+     "Tháp Chăm được xây dựng thành từng cụm, hướng Đông nhìn ra biển đón dương khí",
+     "Tháp Chăm được xây bằng gạch hoặc phụ thêm một số thành phần bằng đá",
+     "Tháp Chăm được đục trực tiếp trên gạch sau khi xây",
+     "Tháp Chăm có những phong cách kiến trúc khác nhau như phong cách Hoà Lai, phong cách Đồng Dương, phong cách Mỹ Sơn A1"
+    ],
+    "insufficient_evidence": [
+     "Tháp Chăm có những hình chạm khắc, đẽo gọt công phu hình hoa lá, chim muông, vũ nữ, thần thánh được thể hiện trên mặt tường ngoài của tháp",
+     "Tháp Chăm được xây dựng bằng loại keo được tinh chế từ cây dầu rái",
+     "Tháp Chăm có một loại hợp chất có nguồn gốc từ thực vật bản địa trong các gạch sử dụng để xây tháp"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "tall stone structure with intricate carvings",
+    "multi-tiered stone platform with stairs"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "green grassy hill with winding path",
+    "stone steps leading to structure"
+   ],
+   "supporting_objects": [
+    "small trees and shrubs around base",
+    "stone railings along stairs"
+   ],
+   "background": [
+    "rolling green hills and valleys",
+    "distant mountains with haze",
+    "clear blue sky with faint sun"
+   ],
+   "actions": [],
+   "spatial_relations": [
+    "structure atop grassy hill",
+    "stairs leading up to structure",
+    "hills and valleys surround structure",
+    "mountains in far background"
+   ],
+   "colors": [
+    "green grass and hills",
+    "gray stone structure",
+    "blue sky",
+    "brown stone steps and railings"
+   ],
+   "counts": {
+    "stone platforms": 3,
+    "main staircases": 2,
+    "visible trees": 5
+   },
+   "visible_effects": [
+    "soft sunlight illuminating structure",
+    "shadows cast by structure and hills"
+   ],
+   "uncertain": [
+    "top portion of structure",
+    "far right and left edges of hills"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "in the afternoon sun"
+   ],
+   "missing_cultural_identity": [
+    "dark red brick color",
+    "flower shape"
+   ],
+   "contradictions": [
+    "tall stone structure with intricate carvings",
+    "gray stone structure"
+   ],
+   "already_satisfied": [
+    "An ancient Cham tower",
+    "standing on a hill"
+   ],
+   "uncertain_no_repair": [
+    "top portion of structure",
+    "far right and left edges of hills"
+   ],
+   "repair_actions": [
+    "a dark red brick color for the tower",
+    "a flower-shaped top for the tower",
+    "a multi-tiered stone platform with stairs"
+   ],
+   "drop_phrases": [
+    "intricate stone carvings",
+    "similar to the Taj Mahal"
+   ]
+  },
+  "actions": [
+   "a dark red brick color for the tower",
+   "a flower-shaped top for the tower",
+   "clearly visible: Cham tower"
+  ],
+  "drop_phrases": [
+   "intricate stone carvings",
+   "similar to the Taj Mahal"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S039/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S039/02.jpg"
+  ],
+  "images": {
+   "A": "S039_flux_txt.png",
+   "B (I0)": "S039_flux_txt.png",
+   "C (I1)": "S039_flux_ref.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "21:03:16",
+   "prompt_id": "S039",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Ngọn tháp Chăm cổ đứng trên đồi dưới nắng chiều.\nPROMPT EN: An ancient Cham tower standing on a hill in the afternoon sun.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Ngọn tháp Chăm cổ",
+      "en": "An ancient Cham tower"
+     },
+     "subject_attributes": [
+      "cổ"
+     ],
+     "supporting_objects": [
+      "đồi"
+     ],
+     "background_and_scene": [
+      "nắng chiều"
+     ],
+     "actions_and_relations": [
+      "đứng trên"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [
+      "chiều"
+     ],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Ngọn tháp Chăm cổ",
+      "An ancient Cham tower",
+      "standing on a hill",
+      "in the afternoon sun"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:03:16",
+   "prompt_id": "S039",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Ngọn tháp Chăm cổ đứng trên đồi dưới nắng chiều.\nPROMPT EN: An ancient Cham tower standing on a hill in the afternoon sun.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Tháp Chăm — https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m ===\nTháp Chăm, hay còn gọi là Tháp Chăm Pa hay Tháp Chàm, là tên gọi thông dụng trong tiếng Việt để chỉ kiến trúc đền tháp Chăm Pa, thuộc kiến trúc tôn giáo tín ngưỡng Hindu, Phật giáo của dân tộc Chăm, sinh sống ở miền Nam Trung Bộ Việt Nam ngày nay. Có thể thấy vị trí phân bố các đền tháp là những nơi từng là nơi ở của người Chăm, xa hơn về phía Tây Nam, ta còn có bắt gặp những ngôi tháp có thể coi là tháp Chăm trên đất nước Campuchia như tháp Damray Krap. Ngược lại, những yếu tố Java hay Khmer cũng được thấy trên các tháp Chăm như ở Khương Mỹ, Hưng Thanh, Dương Long, hay có cả những ngôi tháp còn được người Chăm gọi là \"Tháp Khmer\" như tháp Chăm Hoà Lai. Các tháp Chăm là một khối kiến trúc xây dựng bằng gạch nung màu đỏ sẫm lấy từ đất địa phương, phía trên mở rộng và thon vút hình bông hoa. Mặt bằng tháp đa số là hình vuông, có không gian bên trong chật hẹp. Tháp thường có cửa duy nhất mở về hướng Đông (hướng Mặt Trời mọc). Trần được cấu tạo vòm cuốn, trong lòng tháp đặt một bệ thờ thần bằng đá. Nghệ thuật chạm khắc, đẽo gọt công phu hình hoa lá, chim muông, vũ nữ, thần thánh được thể hiện trên mặt tường ngoài của tháp. Ngày 1 tháng 10 năm 2006, Trung tâm Quản lý di tích-di sản tỉnh Quảng Nam chính thức công bố thông tin rằng sau nhiều năm nghiên cứu, các nhà khoa học tại Đại học Milan, Ý khi đang thực hiện trùng tu nhóm tháp G, thuộc Thánh địa Mỹ Sơn đã nhận biết được loại vật liệu kết dính để xây dựng các tháp Chăm cách đây vài triệu năm. \"Đó là loại keo được tinh chế từ một loài thực vật vốn có rất nhiều trong khu vực quanh di sản Mỹ Sơn, mà người dân địa phương thường gọi là cây dầu rái.\" Ngoài ra, họ cũng đã phát hiện ra một loại hợp chất có nguồn gốc từ thực vật bản địa nói trên có trong các gạch sử dụng để xây tháp. Như vậy, những điều bí ẩn xung quanh vật liệu được người Chăm sử dụng để xây dựng các công trình tôn giáo ở Việt Nam sau hơn 100 năm đã được giải mã. Trước đó, một người thợ thủ công tên là Lê Văn Chỉnh (ngụ tỉnh Quảng Nam) cũng đã bỏ nhiều thời gian để nghiên cứu phương pháp xây dựng tháp Chăm đã phát hiện được hợp chất dầu rái trong gạch để xây tháp và chất dính. Lịch sử Lịch sử xây dựng các đền tháp Champa kéo dài từ cuối thế kỷ thứ 7 đến đầu thế kỷ 17. Trong khoảng thời gian này, những người Champa xưa đã để lại một số lượng lớn các công trình kiến trúc đền tháp, thành luỹ, các tác phẩm điêu khắc. Hiện tại có trên hai mươi cụm di tích kiến trúc đền tháp và rất nhiều phế tích kiến trúc. Theo tiếng Chăm, các đến tháp Champa này được gọi là kalan, nghĩa là \"lăng\". Các lăng này được các đời vua Chăm xây dựng để thờ cúng các vị thần. Xét về mặt kiến trúc: các tháp Champa hầu hết ở trên những đồi cao hoặc núi thấp, được xây dựng thành từng cụm, hướng Đông nhìn ra biển đón dương khí thì chùa, tháp Việt Nam thời Lý, thời Trần cũng thường xây dựng trên gò, đồi và sườn núi, tạo nên cả một quần thể, hướng Nam hoặc Nam chếch Đông, đón dương khí. Tháp Việt Nam cũng vươn cao với nhiều tầng như tháp Champa và có bình diện vuông gần với các phương Đông, Tây, Nam, Bắc. Tháp Champa cũng như tháp Lý - Trần về cơ bản cũng xây bằng gạch hoặc phụ thêm một số thành phần bằng đá. Có điều, tháp Champa được đục trực tiếp trên gạch sau khi xây, còn ở tháp Lý - Trần thì hình trang trí được in, khắc trực tiếp trên gạch, rồi sau đó mới mang nung, xây đến đâu là có hình trang trí cho chỗ đó rồi. Các phong cách kiến trúc Champa Phong cách Hoà Lai và phong cách Đồng Dương (thế kỷ thứ 9) Những ngôi đền tháp theo hai phong cách này có những hàng cột ốp và những cửa vòm khoẻ khoắn. Ở bên dưới các cột trụ ốp là các hình kiến trúc thu nhỏ trong đó có hình người đắp nổi. Tất cả tạo cho các tháp Hoà Lai một vẻ đẹp trang trọng và tươi mát. Cái nhận thức cổ điển của nét lượn và tỷ lệ ở phong cách Hoà Lai đã bị biến mất và các tháp Đồng Dương trở nên mạnh mẽ hơn. Phong cách Mỹ Sơn A1 (thế kỷ thứ 10) Phong cách này thể hiện đầy đủ nhất, trọn vẹn nhất là ở ngôi tháp Mỹ Sơn A1. Những cột ốp trên mặt tường đứng thành đôi một. Nung tháp.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "tháp Chăm",
+       "cue_en": "Cham tower",
+       "visual_check_vi": "kiến trúc đền tháp Chăm Pa",
+       "quote_vi": "Tháp Chăm, hay còn gọi là Tháp Chăm Pa hay Tháp Chàm, là tên gọi thông dụng trong tiếng Việt để chỉ kiến trúc đền tháp Chăm Pa",
+       "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+      },
+      {
+       "cue_vi": "màu gạch đỏ sẫm",
+       "cue_en": "dark red brick color",
+       "visual_check_vi": "màu gạch đỏ sẫm",
+       "quote_vi": "Các tháp Chăm là một khối kiến trúc xây dựng bằng gạch nung màu đỏ sẫm lấy từ đất địa phương",
+       "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+      },
+      {
+       "cue_vi": "hình bông hoa",
+       "cue_en": "flower shape",
+       "visual_check_vi": "thon vút hình bông hoa",
+       "quote_vi": "phía trên mở rộng và thon vút hình bông hoa",
+       "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "cửa tháp mở về hướng Đông",
+       "cue_en": "tower entrance faces East",
+       "visual_check_vi": "cửa duy nhất mở về hướng Đông",
+       "quote_vi": "Tháp thường có cửa duy nhất mở về hướng Đông",
+       "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+      },
+      {
+       "cue_vi": "trần vòm cuốn",
+       "cue_en": "barrel-vaulted ceiling",
+       "visual_check_vi": "trần được cấu tạo vòm cuốn",
+       "quote_vi": "Trần được cấu tạo vòm cuốn",
+       "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "tháp Chăm có mặt bằng hình vuông",
+       "target_appearance_en": "Cham tower has a square base",
+       "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+      },
+      {
+       "target_appearance_vi": "tháp Chăm có không gian bên trong chật hẹp",
+       "target_appearance_en": "Cham tower has a narrow interior space",
+       "source_url": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Tháp Chăm thuộc kiến trúc tôn giáo tín ngưỡng Hindu, Phật giáo của dân tộc Chăm",
+      "Tháp Chăm được xây dựng từ cuối thế kỷ thứ 7 đến đầu thế kỷ 17",
+      "Tháp Chăm được gọi là kalan, nghĩa là 'lăng'",
+      "Tháp Chăm được xây dựng để thờ cúng các vị thần",
+      "Tháp Chăm được xây dựng trên đồi cao hoặc núi thấp",
+      "Tháp Chăm được xây dựng thành từng cụm, hướng Đông nhìn ra biển đón dương khí",
+      "Tháp Chăm được xây bằng gạch hoặc phụ thêm một số thành phần bằng đá",
+      "Tháp Chăm được đục trực tiếp trên gạch sau khi xây",
+      "Tháp Chăm có những phong cách kiến trúc khác nhau như phong cách Hoà Lai, phong cách Đồng Dương, phong cách Mỹ Sơn A1"
+     ],
+     "insufficient_evidence": [
+      "Tháp Chăm có những hình chạm khắc, đẽo gọt công phu hình hoa lá, chim muông, vũ nữ, thần thánh được thể hiện trên mặt tường ngoài của tháp",
+      "Tháp Chăm được xây dựng bằng loại keo được tinh chế từ cây dầu rái",
+      "Tháp Chăm có một loại hợp chất có nguồn gốc từ thực vật bản địa trong các gạch sử dụng để xây tháp"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:03:16",
+   "prompt_id": "S039",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 3,
+    "giu_conditional": 2,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:03:26",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "tall stone structure with intricate carvings",
+     "multi-tiered stone platform with stairs"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "green grassy hill with winding path",
+     "stone steps leading to structure"
+    ],
+    "supporting_objects": [
+     "small trees and shrubs around base",
+     "stone railings along stairs"
+    ],
+    "background": [
+     "rolling green hills and valleys",
+     "distant mountains with haze",
+     "clear blue sky with faint sun"
+    ],
+    "actions": [],
+    "spatial_relations": [
+     "structure atop grassy hill",
+     "stairs leading up to structure",
+     "hills and valleys surround structure",
+     "mountains in far background"
+    ],
+    "colors": [
+     "green grass and hills",
+     "gray stone structure",
+     "blue sky",
+     "brown stone steps and railings"
+    ],
+    "counts": {
+     "stone platforms": 3,
+     "main staircases": 2,
+     "visible trees": 5
+    },
+    "visible_effects": [
+     "soft sunlight illuminating structure",
+     "shadows cast by structure and hills"
+    ],
+    "uncertain": [
+     "top portion of structure",
+     "far right and left edges of hills"
+    ]
+   },
+   "giay": 10.7
+  },
+  {
+   "t": "21:03:34",
+   "prompt_id": "S039",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: An ancient Cham tower standing on a hill in the afternoon sun.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nAn ancient Cham tower rises majestically on a hill, its intricate stone carvings catching the golden afternoon sun. The texture of the weathered stone feels rough under the touch of the wind, while the scent of the fresh rice paddies fills the air. Lush greenery and rolling rice fields surround the tower, creating a serene and picturesque setting. This tower, a symbol of the rich Cham heritage, stands tall in Phan Rang–Tháp Chàm, a city in Vietnam known for its historical significance and cultural importance. Similar to the Taj Mahal in India, the Cham tower holds a revered place in the community, reflecting the deep spiritual and historical roots of the region.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Ngọn tháp Chăm cổ\", \"en\": \"An ancient Cham tower\"}, \"subject_attributes\": [\"cổ\"], \"supporting_objects\": [\"đồi\"], \"background_and_scene\": [\"nắng chiều\"], \"actions_and_relations\": [\"đứng trên\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [\"chiều\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Ngọn tháp Chăm cổ\", \"An ancient Cham tower\", \"standing on a hill\", \"in the afternoon sun\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"tháp Chăm\", \"cue_en\": \"Cham tower\", \"visual_check_vi\": \"kiến trúc đền tháp Chăm Pa\", \"quote_vi\": \"Tháp Chăm, hay còn gọi là Tháp Chăm Pa hay Tháp Chàm, là tên gọi thông dụng trong tiếng Việt để chỉ kiến trúc đền tháp Chăm Pa\", \"source_url\": \"https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m\"}, {\"cue_vi\": \"màu gạch đỏ sẫm\", \"cue_en\": \"dark red brick color\", \"visual_check_vi\": \"màu gạch đỏ sẫm\", \"quote_vi\": \"Các tháp Chăm là một khối kiến trúc xây dựng bằng gạch nung màu đỏ sẫm lấy từ đất địa phương\", \"source_url\": \"https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m\"}, {\"cue_vi\": \"hình bông hoa\", \"cue_en\": \"flower shape\", \"visual_check_vi\": \"thon vút hình bông hoa\", \"quote_vi\": \"phía trên mở rộng và thon vút hình bông hoa\", \"source_url\": \"https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m\"}], \"conditional_cues\": [{\"cue_vi\": \"cửa tháp mở về hướng Đông\", \"cue_en\": \"tower entrance faces East\", \"visual_check_vi\": \"cửa duy nhất mở về hướng Đông\", \"quote_vi\": \"Tháp thường có cửa duy nhất mở về hướng Đông\", \"source_url\": \"https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m\"}, {\"cue_vi\": \"trần vòm cuốn\", \"cue_en\": \"barrel-vaulted ceiling\", \"visual_check_vi\": \"trần được cấu tạo vòm cuốn\", \"quote_vi\": \"Trần được cấu tạo vòm cuốn\", \"source_url\": \"https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"tháp Chăm có mặt bằng hình vuông\", \"target_appearance_en\": \"Cham tower has a square base\", \"source_url\": \"https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m\"}, {\"target_appearance_vi\": \"tháp Chăm có không gian bên trong chật hẹp\", \"target_appearance_en\": \"Cham tower has a narrow interior space\", \"source_url\": \"https://vi.wikipedia.org/wiki/Th%C3%A1p_Ch%C4%83m\"}], \"discarded_nonvisual_facts\": [\"Tháp Chăm thuộc kiến trúc tôn giáo tín ngưỡng Hindu, Phật giáo của dân tộc Chăm\", \"Tháp Chăm được xây dựng từ cuối thế kỷ thứ 7 đến đầu thế kỷ 17\", \"Tháp Chăm được gọi là kalan, nghĩa là 'lăng'\", \"Tháp Chăm được xây dựng để thờ cúng các vị thần\", \"Tháp Chăm được xây dựng trên đồi cao hoặc núi thấp\", \"Tháp Chăm được xây dựng thành từng cụm, hướng Đông nhìn ra biển đón dương khí\", \"Tháp Chăm được xây bằng gạch hoặc phụ thêm một số thành phần bằng đá\", \"Tháp Chăm được đục trực tiếp trên gạch sau khi xây\", \"Tháp Chăm có những phong cách kiến trúc khác nhau như phong cách Hoà Lai, phong cách Đồng Dương, phong cách Mỹ Sơn A1\"], \"insufficient_evidence\": [\"Tháp Chăm có những hình chạm khắc, đẽo gọt công phu hình hoa lá, chim muông, vũ nữ, thần thánh được thể hiện trên mặt tường ngoài của tháp\", \"Tháp Chăm được xây dựng bằng loại keo được tinh chế từ cây dầu rái\", \"Tháp Chăm có một loại hợp chất có nguồn gốc từ thực vật bản địa trong các gạch sử dụng để xây tháp\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"tall stone structure with intricate carvings\", \"multi-tiered stone platform with stairs\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"green grassy hill with winding path\", \"stone steps leading to structure\"], \"supporting_objects\": [\"small trees and shrubs around base\", \"stone railings along stairs\"], \"background\": [\"rolling green hills and valleys\", \"distant mountains with haze\", \"clear blue sky with faint sun\"], \"actions\": [], \"spatial_relations\": [\"structure atop grassy hill\", \"stairs leading up to structure\", \"hills and valleys surround structure\", \"mountains in far background\"], \"colors\": [\"green grass and hills\", \"gray stone structure\", \"blue sky\", \"brown stone steps and railings\"], \"counts\": {\"stone platforms\": 3, \"main staircases\": 2, \"visible trees\": 5}, \"visible_effects\": [\"soft sunlight illuminating structure\", \"shadows cast by structure and hills\"], \"uncertain\": [\"top portion of structure\", \"far right and left edges of hills\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "in the afternoon sun"
+    ],
+    "missing_cultural_identity": [
+     "dark red brick color",
+     "flower shape"
+    ],
+    "contradictions": [
+     "tall stone structure with intricate carvings",
+     "gray stone structure"
+    ],
+    "already_satisfied": [
+     "An ancient Cham tower",
+     "standing on a hill"
+    ],
+    "uncertain_no_repair": [
+     "top portion of structure",
+     "far right and left edges of hills"
+    ],
+    "repair_actions": [
+     "a dark red brick color for the tower",
+     "a flower-shaped top for the tower",
+     "a multi-tiered stone platform with stairs"
+    ],
+    "drop_phrases": [
+     "intricate stone carvings",
+     "similar to the Taj Mahal"
+    ]
+   },
+   "giay": 7.3
+  },
+  {
+   "t": "21:03:34",
+   "prompt_id": "S039",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a dark red brick color for the tower",
+     "a flower-shaped top for the tower",
+     "a multi-tiered stone platform with stairs"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "intricate stone carvings",
+     "similar to the Taj Mahal"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:03:35",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a dark red brick color for the tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "tower is grey stone"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:03:36",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a flower-shaped top for the tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "tower top is pointed"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:03:38",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a multi-tiered stone platform with stairs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.5,
+    "evidence": "multi-tiered stone platform with stairs"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:03:39",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Cham tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Tower, but not Cham style."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:03:39",
+   "prompt_id": "S039",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a dark red brick color for the tower",
+      0.0
+     ],
+     [
+      "a flower-shaped top for the tower",
+      0.0
+     ],
+     [
+      "clearly visible: Cham tower",
+      5.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "a multi-tiered stone platform with stairs",
+      8.5
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:03:39",
+   "prompt_id": "S039",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "An ancient Cham tower standing on a hill in the afternoon sun. An ancient Cham tower rises majestically on a hill, its catching the golden afternoon sun. The texture of the weathered stone feels rough under the touch of the wind, while the scent of the fresh rice paddies fills the air. Lush greenery and rolling rice fields surround the tower, creating a serene and picturesque setting. This tower, a symbol of the rich Cham heritage, stands tall in Phan Rang–Tháp Chàm, a city in Vietnam known for its historical significance and cultural importance. in India, the Cham tower holds a revered place in the community, reflecting the deep spiritual and historical roots of the region.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: nắng chiều. Make these additions clearly visible:\n1. a dark red brick color for the tower.\n2. a flower-shaped top for the tower.\n3. clearly visible: Cham tower."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:04:17",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/C_ref/S039_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "tall stone tower",
+     "surrounding forest",
+     "distant mountains"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "dense green trees",
+     "rocky hillside",
+     "stone pathway"
+    ],
+    "supporting_objects": [
+     "stone tower with arched openings",
+     "small stone structures near tower"
+    ],
+    "background": [
+     "rolling green hills",
+     "mountain ranges",
+     "clear sky"
+    ],
+    "actions": [
+     "sunlight illuminating landscape",
+     "shadows cast by tower"
+    ],
+    "spatial_relations": [
+     "tower centrally located on hill",
+     "forest surrounding base of tower",
+     "mountains in far background",
+     "pathway leading to tower"
+    ],
+    "colors": [
+     "green foliage",
+     "gray stone tower",
+     "blue sky",
+     "golden sunlight"
+    ],
+    "counts": {
+     "towers": 1,
+     "large mountains": 6,
+     "small stone structures": 2
+    },
+    "visible_effects": [
+     "soft light from setting sun",
+     "hazy distant mountains",
+     "sharp shadows on landscape"
+    ],
+    "uncertain": [
+     "top of tower partially obscured",
+     "details of distant landscape"
+    ]
+   },
+   "giay": 10.8
+  },
+  {
+   "t": "21:04:21",
+   "prompt_id": "S039",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Ngọn tháp Chăm cổ\", \"en\": \"An ancient Cham tower\"}, \"subject_attributes\": [\"cổ\"], \"supporting_objects\": [\"đồi\"], \"background_and_scene\": [\"nắng chiều\"], \"actions_and_relations\": [\"đứng trên\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [\"chiều\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Ngọn tháp Chăm cổ\", \"An ancient Cham tower\", \"standing on a hill\", \"in the afternoon sun\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a dark red brick color for the tower\", \"a flower-shaped top for the tower\", \"clearly visible: Cham tower\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"tall stone structure with intricate carvings\", \"multi-tiered stone platform with stairs\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"green grassy hill with winding path\", \"stone steps leading to structure\"], \"supporting_objects\": [\"small trees and shrubs around base\", \"stone railings along stairs\"], \"background\": [\"rolling green hills and valleys\", \"distant mountains with haze\", \"clear blue sky with faint sun\"], \"actions\": [], \"spatial_relations\": [\"structure atop grassy hill\", \"stairs leading up to structure\", \"hills and valleys surround structure\", \"mountains in far background\"], \"colors\": [\"green grass and hills\", \"gray stone structure\", \"blue sky\", \"brown stone steps and railings\"], \"counts\": {\"stone platforms\": 3, \"main staircases\": 2, \"visible trees\": 5}, \"visible_effects\": [\"soft sunlight illuminating structure\", \"shadows cast by structure and hills\"], \"uncertain\": [\"top portion of structure\", \"far right and left edges of hills\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"tall stone tower\", \"surrounding forest\", \"distant mountains\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"dense green trees\", \"rocky hillside\", \"stone pathway\"], \"supporting_objects\": [\"stone tower with arched openings\", \"small stone structures near tower\"], \"background\": [\"rolling green hills\", \"mountain ranges\", \"clear sky\"], \"actions\": [\"sunlight illuminating landscape\", \"shadows cast by tower\"], \"spatial_relations\": [\"tower centrally located on hill\", \"forest surrounding base of tower\", \"mountains in far background\", \"pathway leading to tower\"], \"colors\": [\"green foliage\", \"gray stone tower\", \"blue sky\", \"golden sunlight\"], \"counts\": {\"towers\": 1, \"large mountains\": 6, \"small stone structures\": 2}, \"visible_effects\": [\"soft light from setting sun\", \"hazy distant mountains\", \"sharp shadows on landscape\"], \"uncertain\": [\"top of tower partially obscured\", \"details of distant landscape\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "a flower-shaped top for the tower",
+     "clearly visible: Cham tower"
+    ],
+    "regressions": [
+     {
+      "what": "standing on a hill",
+      "severity": "severe"
+     },
+     {
+      "what": "in the afternoon sun",
+      "severity": "minor"
+     }
+    ],
+    "unchanged_issues": [
+     "a dark red brick color for the tower"
+    ]
+   },
+   "giay": 3.9
+  },
+  {
+   "t": "21:04:21",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a dark red brick color for the tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "tower is grey stone"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:04:22",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a dark red brick color for the tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/C_ref/S039_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "tower is grey and white"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:04:22",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a flower-shaped top for the tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "tower top is pointed"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:04:24",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a flower-shaped top for the tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/C_ref/S039_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "tower top is not flower-shaped"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:04:25",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: Cham tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5,
+    "evidence": "tower, but not Cham style"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "21:04:27",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: Cham tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/C_ref/S039_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "tower, but not Cham style"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:04:27",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Cham tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Tower, but not Cham style."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:04:28",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Cham tower\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/C_ref/S039_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Tower, but not Cham style."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:04:29",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"dark red brick color\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "structure is grey stone"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "21:04:31",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"dark red brick color\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/C_ref/S039_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "tower is grey stone"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:04:32",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"flower shape\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No flower shape visible."
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "21:04:33",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"flower shape\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/C_ref/S039_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No flowers visible."
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "21:04:35",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Cham tower has a square base\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Tower has a square base."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:04:36",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Cham tower has a square base\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/C_ref/S039_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "tower has a round base"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:04:37",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Cham tower has a narrow interior space\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/B/S039_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "Interior not visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "21:04:39",
+   "prompt_id": "S039",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Cham tower has a narrow interior space\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S039/C_ref/S039_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Tower visible, interior not."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:04:39",
+   "prompt_id": "S039",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [
+     [
+      "in the afternoon sun",
+      "không nhìn được"
+     ]
+    ],
+    "giu": [
+     [
+      "standing on a hill",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:04:40",
+   "prompt_id": "S039",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "a flower-shaped top for the tower",
+     "clearly visible: Cham tower"
+    ],
+    "bang_action": [
+     {
+      "action": "a dark red brick color for the tower",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "tower is grey and white"
+     },
+     {
+      "action": "a flower-shaped top for the tower",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "tower top is not flower-shaped"
+     },
+     {
+      "action": "clearly visible: Cham tower",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "tower, but not Cham style"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "Cham tower",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Tower, but not Cham style."
+     },
+     {
+      "cue": "dark red brick color",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "tower is grey stone"
+     },
+     {
+      "cue": "flower shape",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "No flowers visible."
+     },
+     {
+      "cue": "Cham tower has a square base",
+      "I0": 10.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "tower has a round base"
+     },
+     {
+      "cue": "Cham tower has a narrow interior space",
+      "I0": null,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Tower visible, interior not."
+     }
+    ],
+    "regressions": [
+     {
+      "what": "standing on a hill",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.7446,
+     "sim_I1": 0.7496
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

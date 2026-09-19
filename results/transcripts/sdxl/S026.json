@@ -1,0 +1,893 @@
+{
+ "unit": {
+  "prompt_id": "S026",
+  "prompt_vi": "Mâm nem rán vàng giòn với rau sống và bát nước chấm.",
+  "P_orig": "A tray of golden fried spring rolls with fresh herbs and dipping sauce.",
+  "P_ct": "A tray of golden fried spring rolls with fresh herbs and dipping sauce. A tray filled with crispy and golden fried spring rolls, known as \"nem rán\" in Vietnamese cuisine. Each roll is delicately wrapped in translucent rice paper, filled with ground pork and a mix of fresh vegetables like carrots and mung bean sprouts. These rolls are typically served alongside a variety of fresh herbs such as Thai basil and mint, as well as a savory dipping sauce made from fish sauce, sugar, and lime juice.",
+  "P1": "A tray of golden fried spring rolls with fresh herbs and dipping sauce. A tray filled with crispy and golden fried spring rolls, known as \"nem rán\" in Vietnamese cuisine. Each roll is delicately wrapped in rice paper, filled with ground pork and a mix of fresh vegetables like carrots and mung bean sprouts. These rolls are typically served alongside a variety of fresh herbs such as Thai basil and mint, as well as a savory dipping sauce made from fish sauce, sugar, and lime juice.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rau sống; fresh herbs; dipping sauce. Make these additions clearly visible:\n1. Make the rice paper wraps golden fried and crispy.\n2. Add ground pork inside the rice paper wraps.\n3. Add mung bean sprouts inside the rice paper wraps.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "mâm nem rán vàng giòn",
+     "en": "A tray of golden fried spring rolls"
+    },
+    "subject_attributes": [
+     "giòn",
+     "golden fried"
+    ],
+    "supporting_objects": [
+     "rau sống",
+     "fresh herbs",
+     "bát nước chấm",
+     "dipping sauce"
+    ],
+    "background_and_scene": [],
+    "actions_and_relations": [],
+    "colors": [
+     "vàng"
+    ],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "mâm nem rán vàng giòn",
+     "A tray of golden fried spring rolls",
+     "rau sống",
+     "fresh herbs",
+     "bát nước chấm",
+     "dipping sauce"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "bánh tráng",
+      "cue_en": "rice paper",
+      "visual_check_vi": "bánh tráng",
+      "quote_vi": "cuốn bằng bánh tráng",
+      "source_url": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+     },
+     {
+      "cue_vi": "rau thơm",
+      "cue_en": "fresh herbs",
+      "visual_check_vi": "rau thơm",
+      "quote_vi": "các loại rau thơm như húng quế, húng cây, diếp cá,...",
+      "source_url": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "nem vuông",
+      "cue_en": "square spring rolls",
+      "visual_check_vi": "nem vuông",
+      "quote_vi": "loại nem rán được gói thành hình vuông",
+      "source_url": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "nem rán chín vàng đều",
+      "target_appearance_en": "spring rolls fried to a golden yellow color",
+      "source_url": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "history, etymology, symbolism, taste, smell, sound"
+    ],
+    "insufficient_evidence": [
+     "appearance of the dipping sauce",
+     "appearance of the tray"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "rolled rice paper wraps",
+    "dipping sauce in bowl"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "rolled rice paper wraps",
+    "dipping sauce in bowl"
+   ],
+   "supporting_objects": [
+    "white rectangular plate",
+    "green leafy herbs",
+    "lime wedges",
+    "carrot sticks"
+   ],
+   "background": [
+    "wooden table surface"
+   ],
+   "actions": [
+    "no visible actions"
+   ],
+   "spatial_relations": [
+    "rice paper wraps on plate",
+    "dipping sauce next to wraps",
+    "herbs and lime wedges around plate"
+   ],
+   "colors": [
+    "white rice paper wraps",
+    "green herbs and lime wedges",
+    "orange carrot sticks",
+    "brown wooden table",
+    "green dipping sauce"
+   ],
+   "counts": {
+    "rice paper wraps": 10,
+    "lime wedges": 3
+   },
+   "visible_effects": [
+    "reflections on plate surface"
+   ],
+   "uncertain": [
+    "top of lime wedges",
+    "contents inside wraps"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "crispy"
+   ],
+   "missing_cultural_identity": [
+    "bánh tráng"
+   ],
+   "contradictions": [
+    "white rice paper wraps"
+   ],
+   "already_satisfied": [
+    "A tray of golden fried spring rolls",
+    "fresh herbs",
+    "dipping sauce"
+   ],
+   "uncertain_no_repair": [
+    "top of lime wedges",
+    "contents inside wraps"
+   ],
+   "repair_actions": [
+    "Make the rice paper wraps golden fried and crispy",
+    "Add ground pork inside the rice paper wraps",
+    "Add mung bean sprouts inside the rice paper wraps"
+   ],
+   "drop_phrases": [
+    "translucent"
+   ]
+  },
+  "actions": [
+   "Make the rice paper wraps golden fried and crispy",
+   "Add ground pork inside the rice paper wraps",
+   "Add mung bean sprouts inside the rice paper wraps"
+  ],
+  "drop_phrases": [
+   "translucent"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S026/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S026/02.jpg"
+  ],
+  "images": {
+   "A": "S026_sdxl_base_c0.png",
+   "B (I0)": "S026_sdxl_base_c0.png",
+   "C (I1)": "S026_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "18:42:38",
+   "prompt_id": "S026",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Mâm nem rán vàng giòn với rau sống và bát nước chấm.\nPROMPT EN: A tray of golden fried spring rolls with fresh herbs and dipping sauce.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "mâm nem rán vàng giòn",
+      "en": "A tray of golden fried spring rolls"
+     },
+     "subject_attributes": [
+      "giòn",
+      "golden fried"
+     ],
+     "supporting_objects": [
+      "rau sống",
+      "fresh herbs",
+      "bát nước chấm",
+      "dipping sauce"
+     ],
+     "background_and_scene": [],
+     "actions_and_relations": [],
+     "colors": [
+      "vàng"
+     ],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "mâm nem rán vàng giòn",
+      "A tray of golden fried spring rolls",
+      "rau sống",
+      "fresh herbs",
+      "bát nước chấm",
+      "dipping sauce"
+     ]
+    }
+   },
+   "giay": 8.0
+  },
+  {
+   "t": "18:42:54",
+   "prompt_id": "S026",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Mâm nem rán vàng giòn với rau sống và bát nước chấm.\nPROMPT EN: A tray of golden fried spring rolls with fresh herbs and dipping sauce.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Nem rán — https://vi.wikipedia.org/wiki/Nem_r%C3%A1n ===\nNem rán (hay chả giò, chả ram hay chả đa nem) là tên một món ăn nổi tiếng của người Việt, chúng cũng được gọi tắt là nem theo cách gọi phổ biến ở miền Bắc. và một số gia vị thông dụng của ẩm thực Việt như hành lá, tiêu, nước mắm, được cuốn bằng bánh tráng và chiên ngập dầu. Nem thường được ăn kèm với nước mắm pha, đồ chua và rau xà lách, các loại rau thơm như húng quế, húng cây, diếp cá,... Ở miền Bắc cũng có loại nem rán được gói thành hình vuông thay vì hình trụ (như món nem vuông - nem cua bể Hải Phòng). Nem rán cũng thường được dọn kèm bún chả Hà Nội. Ngoài món nem rán truyền thống còn có một số loại nem rán khác như món nem rán hải sản, nem rán chay,... Thế mà, ngoài Bắc gọi là nem Sài Gòn, là nem rán, không hiểu nguyên do thế nào mà chả lại là nem\". Cuốn \"Lịch sử tự nhiên, dân số và chính trị xứ Đàng Ngoài\" (\"Histoire naturelle.civile et politique du Tonkin\", xuất bản ở Paris 1778) của giáo sĩ Richard, người đã sống 18 năm tại Thăng Long không có một dòng về món nem rán dù ông đã \"lục tung\" các món ăn ở kinh đô. Trong \"Chuyện kể bên dòng sông Tô\", tác giả Nguyễn Công Chí nói đến món chả cá nhưng không nhắc gì đến nem rán. Nhà tư sản dân tộc Dương Văn Dư ở phố Hàng Lược, Trưởng ban Kinh tài Quốc hội khóa I từng kể lại với nhà nghiên cứu Hà Nội Nguyễn Văn Uẩn, rằng nem rán xuất xứ ở Sài Gòn với cái tên \"chả giò\". Thời gian sống ở Sài Gòn, bà Tân có điều kiện nếm đủ các món ăn ở vùng đất phương Nam. Miến, bánh đa nem (bánh tráng) hoặc vỏ hoành thánh, váng đậu nếu muốn ăn giòn xốp. Miến (đã được ngâm qua nước), mộc nhĩ, nấm hương ngâm nước (nếu nấm tươi không cần ngâm), rửa sạch rồi thái nhỏ. Rán nem: Bỏ vào chảo dầu nóng (dầu vừa mặt nem, không nên cho quá nhiều, nem sẽ bị nổ mặt và bung mép), để nhỏ lửa, trở đều tay cho đến khi nem chín vàng đều, vớt ra ăn nóng cùng với nước mắm pha chế gồm chanh (vớt bỏ hột để nước chấm không bị đắng, tỏi, ớt (bỏ hột, bằm nhuyễn), lượng đường cho vào hòa tan trong nước và nước mắm cho tới khi ớt và tỏi nổi hết lên trên bề mặt) và các loại rau thơm: ngò, tía tô, quế, rau răm, diếp cá, húng, đặc biệt là rau kinh giới và húng lủi (húng chó), xà lách. Riêng với nem hải sản thì các nguyên liệu tôm cá với rau củ đều được thái hạt lựu, xào sơ rồi trộn sốt mayonnaise, sau khi cuốn gói nem phải nhúng nem với hỗn hợp bột mỳ pha với nước và áo qua bột chiên xù, sau đó đem chiên chín vàng. Chả giò vẫn thơm giòn như chiên ngập dầu, rất có lợi cho sức khoẻ. Đối với người Hà Nội còn có phở cuốn tôm chiên - một biến thể của nem rán truyền thống sử dụng lá bánh phở mềm cuộn cùng rau, tôm và nấm đem nhúng bột chiên giòn. Tôm bột không cần loại to, phải thật tươi, rửa sạch đem hấp hoặc luộc qua để dễ bóc vỏ, bỏ đầu đuôi, chỉ đen ở sống lưng, giã nhỏ. Cần thêm thịt ba chỉ rán vàng rồi băm lẫn với hành khô và bánh phở cắt nhỏ để tạo thành hỗn hợp nhân, nêm gia vị vừa ăn, cho vào chút hạt tiêu tạo vị cay thơm. Để nhân chả có màu vàng đỏ đẹp mắt, khi giã nhân thì cho thêm chút thịt gấc vào, trộn đều. Khi có khách gọi món thì người bán hàng mới bắt đầu nướng, khách ngồi đợi sẽ thấy cô bán hàng tay quạt bếp tay lật vỉ thoăn thoắt để chả chín đều cả trong lẫn ngoài, và khi bỏ ra đĩa là những miếng chả tôm nóng hổi, lớp vỏ bánh hơi cháy, lấp ló nhân bánh vàng đỏ hấp dẫn, mùi thơm ngào ngạt. Nước chấm ăn kèm chả tôm cũng phải đủ vị, đu đủ xanh thái mỏng, quả sung thái lát, ớt tươi, tỏi, dấm, đường... làm dưa góp và nước mắm cốt pha loãng. Không thể thiếu rổ rau sống tươi ngon gồm rau diếp, mùi, húng... Miếng chả rán giòn tan của lớp bánh tráng chiên ở ngoài, bên trong có thịt tôm đất vàng ruộm, ngầy ngậy của thịt mỡ, hương vị hấp dẩn rất đặc biệt, là món ăn dễ gây nghiện cho nhiều thực khách. Ngày Tết, khi hầu hết các món ăn đã trở nên dễ ngán thì cuốn chả ram nhỏ xinh bằng ngón tay, giòn rụm, thơm thơm lại khiến nhiều người thích thú. Công đoạn chiên chả cũng có chút công phu và bí quyết để chả luôn giòn rụm dù để tới 6 tiếng sau. Còn riêng với Huế, nem rán gọi là ram.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "bánh tráng",
+       "cue_en": "rice paper",
+       "visual_check_vi": "bánh tráng",
+       "quote_vi": "cuốn bằng bánh tráng",
+       "source_url": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+      },
+      {
+       "cue_vi": "rau thơm",
+       "cue_en": "fresh herbs",
+       "visual_check_vi": "rau thơm",
+       "quote_vi": "các loại rau thơm như húng quế, húng cây, diếp cá,...",
+       "source_url": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "nem vuông",
+       "cue_en": "square spring rolls",
+       "visual_check_vi": "nem vuông",
+       "quote_vi": "loại nem rán được gói thành hình vuông",
+       "source_url": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "nem rán chín vàng đều",
+       "target_appearance_en": "spring rolls fried to a golden yellow color",
+       "source_url": "https://vi.wikipedia.org/wiki/Nem_r%C3%A1n"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "history, etymology, symbolism, taste, smell, sound"
+     ],
+     "insufficient_evidence": [
+      "appearance of the dipping sauce",
+      "appearance of the tray"
+     ]
+    }
+   },
+   "giay": 15.8
+  },
+  {
+   "t": "18:42:54",
+   "prompt_id": "S026",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:43:03",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "rolled rice paper wraps",
+     "dipping sauce in bowl"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "rolled rice paper wraps",
+     "dipping sauce in bowl"
+    ],
+    "supporting_objects": [
+     "white rectangular plate",
+     "green leafy herbs",
+     "lime wedges",
+     "carrot sticks"
+    ],
+    "background": [
+     "wooden table surface"
+    ],
+    "actions": [
+     "no visible actions"
+    ],
+    "spatial_relations": [
+     "rice paper wraps on plate",
+     "dipping sauce next to wraps",
+     "herbs and lime wedges around plate"
+    ],
+    "colors": [
+     "white rice paper wraps",
+     "green herbs and lime wedges",
+     "orange carrot sticks",
+     "brown wooden table",
+     "green dipping sauce"
+    ],
+    "counts": {
+     "rice paper wraps": 10,
+     "lime wedges": 3
+    },
+    "visible_effects": [
+     "reflections on plate surface"
+    ],
+    "uncertain": [
+     "top of lime wedges",
+     "contents inside wraps"
+    ]
+   },
+   "giay": 9.7
+  },
+  {
+   "t": "18:43:10",
+   "prompt_id": "S026",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A tray of golden fried spring rolls with fresh herbs and dipping sauce.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA tray filled with crispy and golden fried spring rolls, known as \"nem rán\" in Vietnamese cuisine. Each roll is delicately wrapped in translucent rice paper, filled with ground pork and a mix of fresh vegetables like carrots and mung bean sprouts. These rolls are typically served alongside a variety of fresh herbs such as Thai basil and mint, as well as a savory dipping sauce made from fish sauce, sugar, and lime juice.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"mâm nem rán vàng giòn\", \"en\": \"A tray of golden fried spring rolls\"}, \"subject_attributes\": [\"giòn\", \"golden fried\"], \"supporting_objects\": [\"rau sống\", \"fresh herbs\", \"bát nước chấm\", \"dipping sauce\"], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [\"vàng\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"mâm nem rán vàng giòn\", \"A tray of golden fried spring rolls\", \"rau sống\", \"fresh herbs\", \"bát nước chấm\", \"dipping sauce\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"bánh tráng\", \"cue_en\": \"rice paper\", \"visual_check_vi\": \"bánh tráng\", \"quote_vi\": \"cuốn bằng bánh tráng\", \"source_url\": \"https://vi.wikipedia.org/wiki/Nem_r%C3%A1n\"}, {\"cue_vi\": \"rau thơm\", \"cue_en\": \"fresh herbs\", \"visual_check_vi\": \"rau thơm\", \"quote_vi\": \"các loại rau thơm như húng quế, húng cây, diếp cá,...\", \"source_url\": \"https://vi.wikipedia.org/wiki/Nem_r%C3%A1n\"}], \"conditional_cues\": [{\"cue_vi\": \"nem vuông\", \"cue_en\": \"square spring rolls\", \"visual_check_vi\": \"nem vuông\", \"quote_vi\": \"loại nem rán được gói thành hình vuông\", \"source_url\": \"https://vi.wikipedia.org/wiki/Nem_r%C3%A1n\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"nem rán chín vàng đều\", \"target_appearance_en\": \"spring rolls fried to a golden yellow color\", \"source_url\": \"https://vi.wikipedia.org/wiki/Nem_r%C3%A1n\"}], \"discarded_nonvisual_facts\": [\"history, etymology, symbolism, taste, smell, sound\"], \"insufficient_evidence\": [\"appearance of the dipping sauce\", \"appearance of the tray\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"rolled rice paper wraps\", \"dipping sauce in bowl\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"rolled rice paper wraps\", \"dipping sauce in bowl\"], \"supporting_objects\": [\"white rectangular plate\", \"green leafy herbs\", \"lime wedges\", \"carrot sticks\"], \"background\": [\"wooden table surface\"], \"actions\": [\"no visible actions\"], \"spatial_relations\": [\"rice paper wraps on plate\", \"dipping sauce next to wraps\", \"herbs and lime wedges around plate\"], \"colors\": [\"white rice paper wraps\", \"green herbs and lime wedges\", \"orange carrot sticks\", \"brown wooden table\", \"green dipping sauce\"], \"counts\": {\"rice paper wraps\": 10, \"lime wedges\": 3}, \"visible_effects\": [\"reflections on plate surface\"], \"uncertain\": [\"top of lime wedges\", \"contents inside wraps\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "crispy"
+    ],
+    "missing_cultural_identity": [
+     "bánh tráng"
+    ],
+    "contradictions": [
+     "white rice paper wraps"
+    ],
+    "already_satisfied": [
+     "A tray of golden fried spring rolls",
+     "fresh herbs",
+     "dipping sauce"
+    ],
+    "uncertain_no_repair": [
+     "top of lime wedges",
+     "contents inside wraps"
+    ],
+    "repair_actions": [
+     "Make the rice paper wraps golden fried and crispy",
+     "Add ground pork inside the rice paper wraps",
+     "Add mung bean sprouts inside the rice paper wraps"
+    ],
+    "drop_phrases": [
+     "translucent"
+    ]
+   },
+   "giay": 6.4
+  },
+  {
+   "t": "18:43:10",
+   "prompt_id": "S026",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "Make the rice paper wraps golden fried and crispy",
+     "Add ground pork inside the rice paper wraps",
+     "Add mung bean sprouts inside the rice paper wraps"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "translucent"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:43:11",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Make the rice paper wraps golden fried and crispy\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Some wraps are fried, others are fresh."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "18:43:13",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Add ground pork inside the rice paper wraps\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "No visible ground pork inside."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:43:14",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Add mung bean sprouts inside the rice paper wraps\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No visible mung bean sprouts."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:43:14",
+   "prompt_id": "S026",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "Make the rice paper wraps golden fried and crispy",
+      5.0
+     ],
+     [
+      "Add ground pork inside the rice paper wraps",
+      5.0
+     ],
+     [
+      "Add mung bean sprouts inside the rice paper wraps",
+      0.0
+     ]
+    ],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:43:14",
+   "prompt_id": "S026",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A tray of golden fried spring rolls with fresh herbs and dipping sauce. A tray filled with crispy and golden fried spring rolls, known as \"nem rán\" in Vietnamese cuisine. Each roll is delicately wrapped in rice paper, filled with ground pork and a mix of fresh vegetables like carrots and mung bean sprouts. These rolls are typically served alongside a variety of fresh herbs such as Thai basil and mint, as well as a savory dipping sauce made from fish sauce, sugar, and lime juice.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rau sống; fresh herbs; dipping sauce. Make these additions clearly visible:\n1. Make the rice paper wraps golden fried and crispy.\n2. Add ground pork inside the rice paper wraps.\n3. Add mung bean sprouts inside the rice paper wraps."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:43:37",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/C_ref/sdxl_base_ref/S026_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "fried rolls with filling",
+     "dipping sauce in bowl"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "bamboo tray with handles",
+     "fried rolls with filling",
+     "dipping sauce in bowl"
+    ],
+    "supporting_objects": [
+     "small white bowl with shredded vegetables",
+     "small white bowl with white noodles"
+    ],
+    "background": [
+     "woven mat surface"
+    ],
+    "actions": [
+     "none visible"
+    ],
+    "spatial_relations": [
+     "dipping sauce in center",
+     "fried rolls surrounding sauce",
+     "small bowls in top left corner"
+    ],
+    "colors": [
+     "golden-brown fried rolls",
+     "yellow-orange dipping sauce",
+     "green herbs",
+     "white bowl and noodles",
+     "light blue plate",
+     "brown woven mat"
+    ],
+    "counts": {
+     "fried rolls": 12,
+     "small bowls": 2
+    },
+    "visible_effects": [
+     "glossy sheen on fried rolls",
+     "reflection in dipping sauce"
+    ],
+    "uncertain": [
+     "top of small bowls",
+     "left side of woven mat"
+    ]
+   },
+   "giay": 10.2
+  },
+  {
+   "t": "18:43:41",
+   "prompt_id": "S026",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"mâm nem rán vàng giòn\", \"en\": \"A tray of golden fried spring rolls\"}, \"subject_attributes\": [\"giòn\", \"golden fried\"], \"supporting_objects\": [\"rau sống\", \"fresh herbs\", \"bát nước chấm\", \"dipping sauce\"], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [\"vàng\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"mâm nem rán vàng giòn\", \"A tray of golden fried spring rolls\", \"rau sống\", \"fresh herbs\", \"bát nước chấm\", \"dipping sauce\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"Make the rice paper wraps golden fried and crispy\", \"Add ground pork inside the rice paper wraps\", \"Add mung bean sprouts inside the rice paper wraps\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"rolled rice paper wraps\", \"dipping sauce in bowl\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"rolled rice paper wraps\", \"dipping sauce in bowl\"], \"supporting_objects\": [\"white rectangular plate\", \"green leafy herbs\", \"lime wedges\", \"carrot sticks\"], \"background\": [\"wooden table surface\"], \"actions\": [\"no visible actions\"], \"spatial_relations\": [\"rice paper wraps on plate\", \"dipping sauce next to wraps\", \"herbs and lime wedges around plate\"], \"colors\": [\"white rice paper wraps\", \"green herbs and lime wedges\", \"orange carrot sticks\", \"brown wooden table\", \"green dipping sauce\"], \"counts\": {\"rice paper wraps\": 10, \"lime wedges\": 3}, \"visible_effects\": [\"reflections on plate surface\"], \"uncertain\": [\"top of lime wedges\", \"contents inside wraps\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"fried rolls with filling\", \"dipping sauce in bowl\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"bamboo tray with handles\", \"fried rolls with filling\", \"dipping sauce in bowl\"], \"supporting_objects\": [\"small white bowl with shredded vegetables\", \"small white bowl with white noodles\"], \"background\": [\"woven mat surface\"], \"actions\": [\"none visible\"], \"spatial_relations\": [\"dipping sauce in center\", \"fried rolls surrounding sauce\", \"small bowls in top left corner\"], \"colors\": [\"golden-brown fried rolls\", \"yellow-orange dipping sauce\", \"green herbs\", \"white bowl and noodles\", \"light blue plate\", \"brown woven mat\"], \"counts\": {\"fried rolls\": 12, \"small bowls\": 2}, \"visible_effects\": [\"glossy sheen on fried rolls\", \"reflection in dipping sauce\"], \"uncertain\": [\"top of small bowls\", \"left side of woven mat\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "The rice paper wraps are now golden fried and crispy"
+    ],
+    "regressions": [
+     {
+      "what": "The fresh herbs are missing",
+      "severity": "minor"
+     },
+     {
+      "what": "The main entity is now 'fried rolls with filling' instead of 'A tray of golden fried spring rolls'",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "The dipping sauce is still present"
+    ]
+   },
+   "giay": 4.3
+  },
+  {
+   "t": "18:43:41",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Make the rice paper wraps golden fried and crispy\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Some wraps are fried, others are fresh."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:43:43",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Make the rice paper wraps golden fried and crispy\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/C_ref/sdxl_base_ref/S026_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Rice paper wraps are golden and crispy"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "18:43:43",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Add ground pork inside the rice paper wraps\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "No visible ground pork inside."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:43:44",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Add ground pork inside the rice paper wraps\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/C_ref/sdxl_base_ref/S026_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Wraps visible, no pork seen."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "18:43:44",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Add mung bean sprouts inside the rice paper wraps\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No visible mung bean sprouts."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:43:46",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Add mung bean sprouts inside the rice paper wraps\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/C_ref/sdxl_base_ref/S026_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No mung bean sprouts visible."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:43:47",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"rice paper\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Rice paper rolls visible."
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "18:43:48",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"rice paper\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/C_ref/sdxl_base_ref/S026_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "food wrapped in rice paper"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:43:50",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"fresh herbs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 9.0,
+    "evidence": "plenty of fresh herbs visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:43:51",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"fresh herbs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/C_ref/sdxl_base_ref/S026_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "fresh herbs visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "18:43:52",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"spring rolls fried to a golden yellow color\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/B/sdxl_base/S026_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Some are fried, some are not."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:43:54",
+   "prompt_id": "S026",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"spring rolls fried to a golden yellow color\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S026/C_ref/sdxl_base_ref/S026_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "spring rolls are golden but not yellow"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:43:54",
+   "prompt_id": "S026",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [
+     [
+      "The main entity is now 'fried rolls with filling' instead of 'A tray of golden fried spring rolls'",
+      "mâu thuẫn với fixed"
+     ]
+    ],
+    "giu": [
+     [
+      "The fresh herbs are missing",
+      "minor"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:43:54",
+   "prompt_id": "S026",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [
+     "Make the rice paper wraps golden fried and crispy"
+    ],
+    "fixed_llm": [
+     "The rice paper wraps are now golden fried and crispy"
+    ],
+    "bang_action": [
+     {
+      "action": "Make the rice paper wraps golden fried and crispy",
+      "I0": 5.0,
+      "I1": 8.0,
+      "fixed": true,
+      "ev_I1": "Rice paper wraps are golden and crispy"
+     },
+     {
+      "action": "Add ground pork inside the rice paper wraps",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Wraps visible, no pork seen."
+     },
+     {
+      "action": "Add mung bean sprouts inside the rice paper wraps",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "No mung bean sprouts visible."
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "rice paper",
+      "I0": 10.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "food wrapped in rice paper"
+     },
+     {
+      "cue": "fresh herbs",
+      "I0": 9.0,
+      "I1": 7.0,
+      "fixed": false,
+      "ev_I1": "fresh herbs visible"
+     },
+     {
+      "cue": "spring rolls fried to a golden yellow color",
+      "I0": 5.0,
+      "I1": 7.0,
+      "fixed": false,
+      "ev_I1": "spring rolls are golden but not yellow"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "The fresh herbs are missing",
+      "severity": "minor"
+     }
+    ],
+    "selection": "I1",
+    "ly_do": "sửa được 1, không regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.8136,
+     "sim_I1": 0.8418
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

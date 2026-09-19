@@ -1,0 +1,887 @@
+{
+ "unit": {
+  "prompt_id": "S016",
+  "prompt_vi": "Nhà rông Tây Nguyên giữa buôn làng.",
+  "P_orig": "A Central Highlands rong house in a village.",
+  "P_ct": "A Central Highlands rong house in a village. A communal longhouse, known as a \"nhà rông,\" stands prominently in a village in Vietnam's Central Highlands. Constructed with sturdy wooden columns and a steep, thatched roof designed to withstand heavy rainfall, the nhà rông features intricate carvings on its wooden beams that depict stories and symbols important to the community. The interior is large and open, with woven mats covering the floor and colorful fabrics hanging on the walls, creating a vibrant space for gatherings and social activities. Villagers meet in the nhà rông to discuss important matters, celebrate festivals, and engage in social activities such as religious ceremonies and traditional storytelling. This longhouse has been an integral part of the community for generations, serving as a symbol of cultural identity and heritage for the Ê-Đê, Gia Rai, and Xê-Đăng ethnic groups. Comparable to the longhouses of Borneo, with their intricate wood carvings and communal living spaces, the nhà rông stands out for its unique architectural features and cultural significance in the Central Highlands. It embodies the rich cultural heritage and traditions of the local ethnic minority groups, reflecting their deep connection to the land and community.",
+  "P1": "A Central Highlands rong house in a village. A communal longhouse, known as a \"nhà rông,\" stands prominently in a village in Vietnam's Central Highlands. Constructed with sturdy wooden columns and a steep, thatched roof designed to withstand heavy rainfall, the nhà rông features intricate carvings on its wooden beams that depict stories and symbols important to the community. The interior is large and open, with woven mats covering the floor and colorful fabrics hanging on the walls, creating a vibrant space for gatherings and social activities. Villagers meet in the nhà rông to discuss important matters, celebrate festivals, and engage in social activities such as religious ceremonies and traditional storytelling. This longhouse has been an integral part of the community for generations, serving as a symbol of cultural identity and heritage for the Ê-Đê, Gia Rai, and Xê-Đăng ethnic groups., with their intricate wood carvings and communal living spaces, the nhà rông stands out for its unique architectural features and cultural significance in the Central Highlands. It embodies the rich cultural heritage and traditions of the local ethnic minority groups, reflecting their deep connection to the land and community.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. clearly visible: A rong house is a distinctive stilt house.\n2. clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Nhà rông Tây Nguyên",
+     "en": "A Central Highlands rong house"
+    },
+    "subject_attributes": [
+     "buôn làng"
+    ],
+    "supporting_objects": [],
+    "background_and_scene": [
+     "buôn làng"
+    ],
+    "actions_and_relations": [],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Nhà rông Tây Nguyên",
+     "A Central Highlands rong house",
+     "buôn làng"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "Nhà rông là một kiểu nhà sàn đặc trưng",
+      "cue_en": "A rong house is a distinctive stilt house",
+      "visual_check_vi": "Nhà sàn",
+      "quote_vi": "Nhà Rông là một kiểu nhà sàn đặc trưng",
+      "source_url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+     },
+     {
+      "cue_vi": "Nhà rông được xây dựng chủ yếu bằng các vật liệu của chính núi rừng Tây Nguyên",
+      "cue_en": "A rong house is mainly constructed from materials from the Central Highlands mountains and forests",
+      "visual_check_vi": "Nhà rông bằng cỏ tranh, tre, gỗ, lồ ô",
+      "quote_vi": "Nhà Rông được xây dựng chủ yếu bằng các vật liệu của chính núi rừng Tây Nguyên như cỏ tranh, tre, gỗ, lồ ô",
+      "source_url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "Nhà rông chỉ có ở những buôn làng người dân tộc như Gia Rai, Ba Na",
+      "cue_en": "A rong house is only found in villages of ethnic groups such as Gia Rai, Ba Na",
+      "visual_check_vi": "Nhà rông ở buôn làng Gia Rai, Ba Na",
+      "quote_vi": "Nhà Rông chỉ có ở những buôn làng người dân tộc như Gia Rai, Ba Na",
+      "source_url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "Nhà rông là ngôi nhà to hơn nhiều so với nhà bình thường",
+      "target_appearance_en": "A rong house is much larger than a normal house",
+      "source_url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Nhà Rông là nơi tụ họp, trao đổi, thảo luận của dân làng trong các buôn làng trên Tây Nguyên",
+     "Nhà Rông là nơi đón khách (theo phong tục người Ba Na)",
+     "Nhà Rông là nơi thực thi các luật tục, nơi tiếp khách, nơi diễn ra các sự kiện trọng đại của buôn làng",
+     "Nhà Rông là nơi lưu giữ các hiện vật truyền thống: cồng, chiêng, trống, vũ khí, đầu các con vật hiến sinh trong các ngày lễ"
+    ],
+    "insufficient_evidence": [
+     "Nhìn chung nhà Rông có kiến trúc cao",
+     "Nhà Rông được xây cất trên một khoảng đất rộng, nằm ngay tại khu vực trung tâm của buôn",
+     "Nhà Rông của mỗi dân tộc đều có những nét riêng trong kiến trúc, tạo dáng, trang trí hoa văn"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "long wooden building with thatched roof",
+    "carved wooden panels on building"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "stone pathway with circular patterns",
+    "stone foundation under building",
+    "small pile of fabric on ground"
+   ],
+   "supporting_objects": [
+    "wooden pillars supporting building",
+    "carved wooden railings along balcony"
+   ],
+   "background": [
+    "mountains in distance",
+    "clear blue sky",
+    "palm trees on left side"
+   ],
+   "actions": [],
+   "spatial_relations": [
+    "pathway runs parallel to building",
+    "pillars evenly spaced along building",
+    "mountains behind building",
+    "palm trees to left of building"
+   ],
+   "colors": [
+    "brown wooden building",
+    "green palm trees",
+    "blue sky",
+    "red and white fabric hanging",
+    "multicolored fabric on ground"
+   ],
+   "counts": {
+    "wooden pillars": 16,
+    "carved wooden panels": 16,
+    "circular patterns on pathway": 12
+   },
+   "visible_effects": [
+    "shadows cast by building and pillars",
+    "light reflecting off pathway"
+   ],
+   "uncertain": [
+    "top of thatched roof",
+    "interior of building",
+    "right side of building",
+    "far right of pathway"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "village"
+   ],
+   "missing_cultural_identity": [
+    "A rong house is a distinctive stilt house",
+    "A rong house is mainly constructed from materials from the Central Highlands mountains and forests"
+   ],
+   "contradictions": [],
+   "already_satisfied": [
+    "A Central Highlands rong house",
+    "buôn làng"
+   ],
+   "uncertain_no_repair": [
+    "top of thatched roof",
+    "interior of building",
+    "right side of building",
+    "far right of pathway"
+   ],
+   "repair_actions": [
+    "a stone pathway leading to the entrance of the rong house",
+    "the rong house elevated on stilts",
+    "a thatched roof made of local materials"
+   ],
+   "drop_phrases": [
+    "comparable to the longhouses of Borneo"
+   ]
+  },
+  "actions": [
+   "clearly visible: A rong house is a distinctive stilt house",
+   "clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests"
+  ],
+  "drop_phrases": [
+   "comparable to the longhouses of Borneo"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S016/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S016/02.jpg"
+  ],
+  "images": {
+   "A": "S016_flux_txt.png",
+   "B (I0)": "S016_flux_txt.png",
+   "C (I1)": "S016_flux_ref.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "19:59:26",
+   "prompt_id": "S016",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Nhà rông Tây Nguyên giữa buôn làng.\nPROMPT EN: A Central Highlands rong house in a village.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Nhà rông Tây Nguyên",
+      "en": "A Central Highlands rong house"
+     },
+     "subject_attributes": [
+      "buôn làng"
+     ],
+     "supporting_objects": [],
+     "background_and_scene": [
+      "buôn làng"
+     ],
+     "actions_and_relations": [],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Nhà rông Tây Nguyên",
+      "A Central Highlands rong house",
+      "buôn làng"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:59:26",
+   "prompt_id": "S016",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Nhà rông Tây Nguyên giữa buôn làng.\nPROMPT EN: A Central Highlands rong house in a village.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Nhà rông — https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng ===\nNhà Rông là một kiểu nhà sàn đặc trưng, đây là ngôi nhà cộng đồng, như đình làng của người Kinh, dùng làm nơi tụ họp, trao đổi, thảo luận của dân làng trong các buôn làng trên Tây Nguyên, hoặc còn là nơi đón khách (theo phong tục người Ba Na), dù khách riêng của gia đình hay chung của làng. Nhà Rông chỉ có ở những buôn làng người dân tộc như Gia Rai, Ba Na... ở phía Bắc Tây Nguyên, đặc biệt ở hai tỉnh Gia Lai và Quảng Ngãi. Đặc điểm Nhà Rông được xây dựng chủ yếu bằng các vật liệu của chính núi rừng Tây Nguyên như cỏ tranh, tre, gỗ, lồ ô... và được xây cất trên một khoảng đất rộng, nằm ngay tại khu vực trung tâm của buôn. Nhà Rông của mỗi dân tộc đều có những nét riêng trong kiến trúc, tạo dáng, trang trí hoa văn. Nhìn chung nhà Rông là ngôi nhà to hơn nhiều so với nhà bình thường, có kiến trúc cao. Chức năng Nhà Rông là nơi thực thi các luật tục, nơi tiếp khách, nơi diễn ra các sự kiện trọng đại của buôn làng, nơi già làng tập hợp dân làng để bàn luận những việc quan trọng của buôn làng, của đất nước. Ngoài ra nhà Rông còn là nơi lưu giữ các hiện vật truyền thống: cồng, chiêng, trống, vũ khí, đầu các con vật hiến sinh trong các ngày lễ. Xem thêm Nhà gươl Nhà sàn Nhà dài Ê Đê Nhà dài M'Nông Liên kết ngoài Nhà rông tại Từ điển bách khoa Việt Nam Nhà rông văn hóa xuống cấp (Báo Tuổi trẻ online) Sách ảnh về nhà rông - linh hồn làng Tây Nguyên Chú thích\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "Nhà rông là một kiểu nhà sàn đặc trưng",
+       "cue_en": "A rong house is a distinctive stilt house",
+       "visual_check_vi": "Nhà sàn",
+       "quote_vi": "Nhà Rông là một kiểu nhà sàn đặc trưng",
+       "source_url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+      },
+      {
+       "cue_vi": "Nhà rông được xây dựng chủ yếu bằng các vật liệu của chính núi rừng Tây Nguyên",
+       "cue_en": "A rong house is mainly constructed from materials from the Central Highlands mountains and forests",
+       "visual_check_vi": "Nhà rông bằng cỏ tranh, tre, gỗ, lồ ô",
+       "quote_vi": "Nhà Rông được xây dựng chủ yếu bằng các vật liệu của chính núi rừng Tây Nguyên như cỏ tranh, tre, gỗ, lồ ô",
+       "source_url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "Nhà rông chỉ có ở những buôn làng người dân tộc như Gia Rai, Ba Na",
+       "cue_en": "A rong house is only found in villages of ethnic groups such as Gia Rai, Ba Na",
+       "visual_check_vi": "Nhà rông ở buôn làng Gia Rai, Ba Na",
+       "quote_vi": "Nhà Rông chỉ có ở những buôn làng người dân tộc như Gia Rai, Ba Na",
+       "source_url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "Nhà rông là ngôi nhà to hơn nhiều so với nhà bình thường",
+       "target_appearance_en": "A rong house is much larger than a normal house",
+       "source_url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Nhà Rông là nơi tụ họp, trao đổi, thảo luận của dân làng trong các buôn làng trên Tây Nguyên",
+      "Nhà Rông là nơi đón khách (theo phong tục người Ba Na)",
+      "Nhà Rông là nơi thực thi các luật tục, nơi tiếp khách, nơi diễn ra các sự kiện trọng đại của buôn làng",
+      "Nhà Rông là nơi lưu giữ các hiện vật truyền thống: cồng, chiêng, trống, vũ khí, đầu các con vật hiến sinh trong các ngày lễ"
+     ],
+     "insufficient_evidence": [
+      "Nhìn chung nhà Rông có kiến trúc cao",
+      "Nhà Rông được xây cất trên một khoảng đất rộng, nằm ngay tại khu vực trung tâm của buôn",
+      "Nhà Rông của mỗi dân tộc đều có những nét riêng trong kiến trúc, tạo dáng, trang trí hoa văn"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:59:26",
+   "prompt_id": "S016",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:59:37",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "long wooden building with thatched roof",
+     "carved wooden panels on building"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "stone pathway with circular patterns",
+     "stone foundation under building",
+     "small pile of fabric on ground"
+    ],
+    "supporting_objects": [
+     "wooden pillars supporting building",
+     "carved wooden railings along balcony"
+    ],
+    "background": [
+     "mountains in distance",
+     "clear blue sky",
+     "palm trees on left side"
+    ],
+    "actions": [],
+    "spatial_relations": [
+     "pathway runs parallel to building",
+     "pillars evenly spaced along building",
+     "mountains behind building",
+     "palm trees to left of building"
+    ],
+    "colors": [
+     "brown wooden building",
+     "green palm trees",
+     "blue sky",
+     "red and white fabric hanging",
+     "multicolored fabric on ground"
+    ],
+    "counts": {
+     "wooden pillars": 16,
+     "carved wooden panels": 16,
+     "circular patterns on pathway": 12
+    },
+    "visible_effects": [
+     "shadows cast by building and pillars",
+     "light reflecting off pathway"
+    ],
+    "uncertain": [
+     "top of thatched roof",
+     "interior of building",
+     "right side of building",
+     "far right of pathway"
+    ]
+   },
+   "giay": 11.8
+  },
+  {
+   "t": "19:59:45",
+   "prompt_id": "S016",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A Central Highlands rong house in a village.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA communal longhouse, known as a \"nhà rông,\" stands prominently in a village in Vietnam's Central Highlands. Constructed with sturdy wooden columns and a steep, thatched roof designed to withstand heavy rainfall, the nhà rông features intricate carvings on its wooden beams that depict stories and symbols important to the community. The interior is large and open, with woven mats covering the floor and colorful fabrics hanging on the walls, creating a vibrant space for gatherings and social activities. Villagers meet in the nhà rông to discuss important matters, celebrate festivals, and engage in social activities such as religious ceremonies and traditional storytelling. This longhouse has been an integral part of the community for generations, serving as a symbol of cultural identity and heritage for the Ê-Đê, Gia Rai, and Xê-Đăng ethnic groups. Comparable to the longhouses of Borneo, with their intricate wood carvings and communal living spaces, the nhà rông stands out for its unique architectural features and cultural significance in the Central Highlands. It embodies the rich cultural heritage and traditions of the local ethnic minority groups, reflecting their deep connection to the land and community.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Nhà rông Tây Nguyên\", \"en\": \"A Central Highlands rong house\"}, \"subject_attributes\": [\"buôn làng\"], \"supporting_objects\": [], \"background_and_scene\": [\"buôn làng\"], \"actions_and_relations\": [], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Nhà rông Tây Nguyên\", \"A Central Highlands rong house\", \"buôn làng\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"Nhà rông là một kiểu nhà sàn đặc trưng\", \"cue_en\": \"A rong house is a distinctive stilt house\", \"visual_check_vi\": \"Nhà sàn\", \"quote_vi\": \"Nhà Rông là một kiểu nhà sàn đặc trưng\", \"source_url\": \"https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng\"}, {\"cue_vi\": \"Nhà rông được xây dựng chủ yếu bằng các vật liệu của chính núi rừng Tây Nguyên\", \"cue_en\": \"A rong house is mainly constructed from materials from the Central Highlands mountains and forests\", \"visual_check_vi\": \"Nhà rông bằng cỏ tranh, tre, gỗ, lồ ô\", \"quote_vi\": \"Nhà Rông được xây dựng chủ yếu bằng các vật liệu của chính núi rừng Tây Nguyên như cỏ tranh, tre, gỗ, lồ ô\", \"source_url\": \"https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng\"}], \"conditional_cues\": [{\"cue_vi\": \"Nhà rông chỉ có ở những buôn làng người dân tộc như Gia Rai, Ba Na\", \"cue_en\": \"A rong house is only found in villages of ethnic groups such as Gia Rai, Ba Na\", \"visual_check_vi\": \"Nhà rông ở buôn làng Gia Rai, Ba Na\", \"quote_vi\": \"Nhà Rông chỉ có ở những buôn làng người dân tộc như Gia Rai, Ba Na\", \"source_url\": \"https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"Nhà rông là ngôi nhà to hơn nhiều so với nhà bình thường\", \"target_appearance_en\": \"A rong house is much larger than a normal house\", \"source_url\": \"https://vi.wikipedia.org/wiki/Nh%C3%A0_r%C3%B4ng\"}], \"discarded_nonvisual_facts\": [\"Nhà Rông là nơi tụ họp, trao đổi, thảo luận của dân làng trong các buôn làng trên Tây Nguyên\", \"Nhà Rông là nơi đón khách (theo phong tục người Ba Na)\", \"Nhà Rông là nơi thực thi các luật tục, nơi tiếp khách, nơi diễn ra các sự kiện trọng đại của buôn làng\", \"Nhà Rông là nơi lưu giữ các hiện vật truyền thống: cồng, chiêng, trống, vũ khí, đầu các con vật hiến sinh trong các ngày lễ\"], \"insufficient_evidence\": [\"Nhìn chung nhà Rông có kiến trúc cao\", \"Nhà Rông được xây cất trên một khoảng đất rộng, nằm ngay tại khu vực trung tâm của buôn\", \"Nhà Rông của mỗi dân tộc đều có những nét riêng trong kiến trúc, tạo dáng, trang trí hoa văn\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"long wooden building with thatched roof\", \"carved wooden panels on building\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"stone pathway with circular patterns\", \"stone foundation under building\", \"small pile of fabric on ground\"], \"supporting_objects\": [\"wooden pillars supporting building\", \"carved wooden railings along balcony\"], \"background\": [\"mountains in distance\", \"clear blue sky\", \"palm trees on left side\"], \"actions\": [], \"spatial_relations\": [\"pathway runs parallel to building\", \"pillars evenly spaced along building\", \"mountains behind building\", \"palm trees to left of building\"], \"colors\": [\"brown wooden building\", \"green palm trees\", \"blue sky\", \"red and white fabric hanging\", \"multicolored fabric on ground\"], \"counts\": {\"wooden pillars\": 16, \"carved wooden panels\": 16, \"circular patterns on pathway\": 12}, \"visible_effects\": [\"shadows cast by building and pillars\", \"light reflecting off pathway\"], \"uncertain\": [\"top of thatched roof\", \"interior of building\", \"right side of building\", \"far right of pathway\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "village"
+    ],
+    "missing_cultural_identity": [
+     "A rong house is a distinctive stilt house",
+     "A rong house is mainly constructed from materials from the Central Highlands mountains and forests"
+    ],
+    "contradictions": [],
+    "already_satisfied": [
+     "A Central Highlands rong house",
+     "buôn làng"
+    ],
+    "uncertain_no_repair": [
+     "top of thatched roof",
+     "interior of building",
+     "right side of building",
+     "far right of pathway"
+    ],
+    "repair_actions": [
+     "a stone pathway leading to the entrance of the rong house",
+     "the rong house elevated on stilts",
+     "a thatched roof made of local materials"
+    ],
+    "drop_phrases": [
+     "comparable to the longhouses of Borneo"
+    ]
+   },
+   "giay": 7.6
+  },
+  {
+   "t": "19:59:45",
+   "prompt_id": "S016",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a stone pathway leading to the entrance of the rong house",
+     "the rong house elevated on stilts",
+     "a thatched roof made of local materials"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "comparable to the longhouses of Borneo"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:59:46",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a stone pathway leading to the entrance of the rong house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Stone pathway, wooden house"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:59:48",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"the rong house elevated on stilts\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "building elevated on stilts"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:59:49",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a thatched roof made of local materials\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Thatch roof, wooden beams, stone base"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:59:51",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A rong house is a distinctive stilt house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Building is on stilts, but not a rong house."
+   },
+   "giay": 1.6
+  },
+  {
+   "t": "19:59:52",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A rong house is mainly constructed from materials from the Central Highlands mountains and forests\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Wooden structure, thatched roof."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:59:52",
+   "prompt_id": "S016",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "clearly visible: A rong house is a distinctive stilt house",
+      5.0
+     ],
+     [
+      "clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests",
+      5.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "a stone pathway leading to the entrance of the rong house",
+      8.0
+     ],
+     [
+      "the rong house elevated on stilts",
+      10.0
+     ],
+     [
+      "a thatched roof made of local materials",
+      10.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:59:52",
+   "prompt_id": "S016",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A Central Highlands rong house in a village. A communal longhouse, known as a \"nhà rông,\" stands prominently in a village in Vietnam's Central Highlands. Constructed with sturdy wooden columns and a steep, thatched roof designed to withstand heavy rainfall, the nhà rông features intricate carvings on its wooden beams that depict stories and symbols important to the community. The interior is large and open, with woven mats covering the floor and colorful fabrics hanging on the walls, creating a vibrant space for gatherings and social activities. Villagers meet in the nhà rông to discuss important matters, celebrate festivals, and engage in social activities such as religious ceremonies and traditional storytelling. This longhouse has been an integral part of the community for generations, serving as a symbol of cultural identity and heritage for the Ê-Đê, Gia Rai, and Xê-Đăng ethnic groups., with their intricate wood carvings and communal living spaces, the nhà rông stands out for its unique architectural features and cultural significance in the Central Highlands. It embodies the rich cultural heritage and traditions of the local ethnic minority groups, reflecting their deep connection to the land and community.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. clearly visible: A rong house is a distinctive stilt house.\n2. clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:00:31",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/C_ref/S016_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "multi-story wooden building",
+     "carved wooden panels",
+     "wooden staircase"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "wooden staircase",
+     "ground surface",
+     "small rocks"
+    ],
+    "supporting_objects": [
+     "wooden pillars",
+     "carved wooden railings",
+     "wooden beams"
+    ],
+    "background": [
+     "clear sky",
+     "trees",
+     "other wooden structures"
+    ],
+    "actions": [
+     "person ascending staircase"
+    ],
+    "spatial_relations": [
+     "staircase leads to building entrance",
+     "carved panels cover building walls",
+     "person on staircase near top"
+    ],
+    "colors": [
+     "brown wooden tones",
+     "blue sky",
+     "green foliage",
+     "white cloth hanging"
+    ],
+    "counts": {
+     "staircases": 1,
+     "buildings": 1,
+     "people": 1,
+     "pillars": 12,
+     "windows": 6
+    },
+    "visible_effects": [
+     "shadows on building",
+     "reflections on wooden surfaces"
+    ],
+    "uncertain": [
+     "top of staircase",
+     "partial tree branches",
+     "partial adjacent structures"
+    ]
+   },
+   "giay": 10.7
+  },
+  {
+   "t": "20:00:34",
+   "prompt_id": "S016",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Nhà rông Tây Nguyên\", \"en\": \"A Central Highlands rong house\"}, \"subject_attributes\": [\"buôn làng\"], \"supporting_objects\": [], \"background_and_scene\": [\"buôn làng\"], \"actions_and_relations\": [], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Nhà rông Tây Nguyên\", \"A Central Highlands rong house\", \"buôn làng\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"clearly visible: A rong house is a distinctive stilt house\", \"clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"long wooden building with thatched roof\", \"carved wooden panels on building\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"stone pathway with circular patterns\", \"stone foundation under building\", \"small pile of fabric on ground\"], \"supporting_objects\": [\"wooden pillars supporting building\", \"carved wooden railings along balcony\"], \"background\": [\"mountains in distance\", \"clear blue sky\", \"palm trees on left side\"], \"actions\": [], \"spatial_relations\": [\"pathway runs parallel to building\", \"pillars evenly spaced along building\", \"mountains behind building\", \"palm trees to left of building\"], \"colors\": [\"brown wooden building\", \"green palm trees\", \"blue sky\", \"red and white fabric hanging\", \"multicolored fabric on ground\"], \"counts\": {\"wooden pillars\": 16, \"carved wooden panels\": 16, \"circular patterns on pathway\": 12}, \"visible_effects\": [\"shadows cast by building and pillars\", \"light reflecting off pathway\"], \"uncertain\": [\"top of thatched roof\", \"interior of building\", \"right side of building\", \"far right of pathway\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"multi-story wooden building\", \"carved wooden panels\", \"wooden staircase\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"wooden staircase\", \"ground surface\", \"small rocks\"], \"supporting_objects\": [\"wooden pillars\", \"carved wooden railings\", \"wooden beams\"], \"background\": [\"clear sky\", \"trees\", \"other wooden structures\"], \"actions\": [\"person ascending staircase\"], \"spatial_relations\": [\"staircase leads to building entrance\", \"carved panels cover building walls\", \"person on staircase near top\"], \"colors\": [\"brown wooden tones\", \"blue sky\", \"green foliage\", \"white cloth hanging\"], \"counts\": {\"staircases\": 1, \"buildings\": 1, \"people\": 1, \"pillars\": 12, \"windows\": 6}, \"visible_effects\": [\"shadows on building\", \"reflections on wooden surfaces\"], \"uncertain\": [\"top of staircase\", \"partial tree branches\", \"partial adjacent structures\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "A rong house is a distinctive stilt house"
+    ],
+    "regressions": [
+     {
+      "what": "buôn làng",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "A rong house is mainly constructed from materials from the Central Highlands mountains and forests"
+    ]
+   },
+   "giay": 3.1
+  },
+  {
+   "t": "20:00:35",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: A rong house is a distinctive stilt house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Building is on stilts, but not a rong house."
+   },
+   "giay": 1.6
+  },
+  {
+   "t": "20:00:37",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: A rong house is a distinctive stilt house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/C_ref/S016_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Stilt house, but not clearly rong"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "20:00:38",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Wooden structure, thatched roof."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:00:40",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/C_ref/S016_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Wooden house with intricate carvings"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "20:00:40",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A rong house is a distinctive stilt house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Building is on stilts, but not a rong house."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:00:41",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A rong house is a distinctive stilt house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/C_ref/S016_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "House is on stilts, but not distinctive"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "20:00:41",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A rong house is mainly constructed from materials from the Central Highlands mountains and forests\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Wooden structure, thatched roof."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:00:43",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A rong house is mainly constructed from materials from the Central Highlands mountains and forests\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/C_ref/S016_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Wooden house with intricate carvings"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "20:00:44",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A rong house is much larger than a normal house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/B/S016_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Large wooden house with many rooms"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:00:45",
+   "prompt_id": "S016",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A rong house is much larger than a normal house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S016/C_ref/S016_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Large wooden house with stairs"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:00:45",
+   "prompt_id": "S016",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "buôn làng",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:00:47",
+   "prompt_id": "S016",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "A rong house is a distinctive stilt house"
+    ],
+    "bang_action": [
+     {
+      "action": "clearly visible: A rong house is a distinctive stilt house",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Stilt house, but not clearly rong"
+     },
+     {
+      "action": "clearly visible: A rong house is mainly constructed from materials from the Central Highlands mountains and forests",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Wooden house with intricate carvings"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "A rong house is a distinctive stilt house",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "House is on stilts, but not distinctive"
+     },
+     {
+      "cue": "A rong house is mainly constructed from materials from the Central Highlands mountains and forests",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Wooden house with intricate carvings"
+     },
+     {
+      "cue": "A rong house is much larger than a normal house",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Large wooden house with stairs"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "buôn làng",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.6654,
+     "sim_I1": 0.6804
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

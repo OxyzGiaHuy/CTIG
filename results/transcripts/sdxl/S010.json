@@ -1,0 +1,1071 @@
+{
+ "unit": {
+  "prompt_id": "S010",
+  "prompt_vi": "Buổi diễn múa rối nước trong thủy đình, con rối nổi trên mặt nước.",
+  "P_orig": "A water puppetry performance at a water pavilion, puppets on the water surface.",
+  "P_ct": "A water puppetry performance at a water pavilion, puppets on the water surface. A traditional water puppetry performance takes place in a small village in Vietnam, where puppeteers stand behind a waist-deep pool. The puppets, made of wood and lacquered to a glossy finish, move gracefully over the water's surface, performing ancient tales such as the Legend of the Golden Turtle and the Story of King Le Loi. The show is a vibrant spectacle that has been part of the local culture since the 11th century, originating in the Red River Delta region. Over the centuries, the tradition has evolved to include more intricate movements and storytelling techniques, reflecting the changing cultural and societal landscape of Vietnam. Unlike marionettes, the water puppets create a dynamic interplay between the performers and the water, making each performance a unique and immersive experience that celebrates the rich cultural heritage of the Vietnamese people.",
+  "P1": "A water puppetry performance at a water pavilion, puppets on the water surface. A traditional water puppetry performance takes place in a small village in Vietnam, where puppeteers stand behind a waist-deep pool. The puppets, made of wood and lacquered to a glossy finish, move gracefully over the water's surface, performing ancient tales such as the Legend of the Golden Turtle and the Story of King Le Loi. The show is a vibrant spectacle that has been part of the local culture since the 11th century, originating in the Red River Delta region. Over the centuries, the tradition has evolved to include more intricate movements and storytelling techniques, reflecting the changing cultural and societal landscape of Vietnam. Unlike marionettes, the water puppets create a dynamic interplay between the performers and the water, making each performance a unique and immersive experience that celebrates the rich cultural heritage of the Vietnamese people.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: on the water surface. Make these additions clearly visible:\n1. A water puppet booth in the middle of a pond.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Buổi diễn múa rối nước",
+     "en": "A water puppetry performance"
+    },
+    "subject_attributes": [
+     "con rối nổi"
+    ],
+    "supporting_objects": [
+     "thủy đình"
+    ],
+    "background_and_scene": [
+     "trong thủy đình",
+     "on the water surface"
+    ],
+    "actions_and_relations": [
+     "nổi trên mặt nước"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Buổi diễn múa rối nước",
+     "thủy đình",
+     "con rối nổi trên mặt nước",
+     "A water puppetry performance",
+     "at a water pavilion",
+     "puppets on the water surface"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "sân khấu nước",
+      "cue_en": "water stage",
+      "visual_check_vi": "một mặt nước được sử dụng làm sân khấu",
+      "quote_vi": "dùng mặt nước làm sân khấu",
+      "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+     },
+     {
+      "cue_vi": "buồng trò rối nước",
+      "cue_en": "water puppet booth",
+      "visual_check_vi": "một buồng được dựng lên giữa ao, hồ",
+      "quote_vi": "buồng trò rối nước là nhà rối hay thủy đình thường được dựng lên giữa ao, hồ",
+      "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+     },
+     {
+      "cue_vi": "con rối bằng gỗ",
+      "cue_en": "wooden puppets",
+      "visual_check_vi": "con rối được làm bằng gỗ",
+      "quote_vi": "con rối (được làm bằng gỗ)",
+      "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "phông che",
+      "cue_en": "backdrop",
+      "visual_check_vi": "phông che phía sau sân khấu",
+      "quote_vi": "phía sau có phông che",
+      "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+     },
+     {
+      "cue_vi": "trang trí xung quanh sân khấu",
+      "cue_en": "stage decorations",
+      "visual_check_vi": "cờ, quạt, voi, lọng, cổng hàng mã xung quanh sân khấu",
+      "quote_vi": "xung quanh trang trí cờ, quạt, voi, lọng, cổng hàng mã",
+      "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "mái đình của vùng nông thôn Việt Nam",
+      "target_appearance_en": "roof of a Vietnamese rural communal house",
+      "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+     },
+     {
+      "target_appearance_vi": "được gọt giũa, đánh bóng và trang trí với nhiều màu sơn khác nhau",
+      "target_appearance_en": "carved, polished, and painted with various colors",
+      "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "lịch sử, nguồn gốc, ý nghĩa văn hóa, âm thanh, âm nhạc, truyền thuyết, huyền thoại"
+    ],
+    "insufficient_evidence": [
+     "màu sắc của con rối, kiểu dáng của buồng trò rối nước, chi tiết trang trí xung quanh sân khấu"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "Three puppets on boat",
+    "Puppet in red robe",
+    "Two puppets in yellow robes"
+   ],
+   "clothing_and_appearance": [
+    "Red puppet long red robe",
+    "Red puppet tall red hat",
+    "Red puppet long white beard",
+    "Yellow puppets long yellow robes",
+    "Yellow puppets tall red hats"
+   ],
+   "foreground_objects": [
+    "Decorated boat on water",
+    "Water surface with reflections"
+   ],
+   "supporting_objects": [
+    "Two wooden oars",
+    "Two wooden containers",
+    "Two wooden structures on boat"
+   ],
+   "background": [
+    "Crowd of people",
+    "Trees with green leaves",
+    "Building with dark roof"
+   ],
+   "actions": [
+    "Puppets appear to be rowing",
+    "Water disturbed by boat"
+   ],
+   "spatial_relations": [
+    "Red puppet in center of boat",
+    "Yellow puppets on sides of boat",
+    "Crowd behind boat",
+    "Trees surrounding area"
+   ],
+   "colors": [
+    "Red puppet red and gold",
+    "Yellow puppets yellow and gold",
+    "Boat brown with gold designs",
+    "Water green with reflections"
+   ],
+   "counts": {
+    "puppets": 3,
+    "oars": 2,
+    "containers": 2,
+    "people": "many"
+   },
+   "visible_effects": [
+    "Reflections in water",
+    "Light illuminating scene",
+    "Shadows under objects"
+   ],
+   "uncertain": [
+    "Top of trees",
+    "Edges of crowd",
+    "Bottom of boat",
+    "Far sides of boat"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "puppets on the water surface"
+   ],
+   "missing_cultural_identity": [
+    "water stage",
+    "water puppet booth",
+    "wooden puppets"
+   ],
+   "contradictions": [
+    "Three puppets on boat",
+    "Puppet in red robe",
+    "Two puppets in yellow robes",
+    "Red puppet long red robe",
+    "Red puppet tall red hat",
+    "Red puppet long white beard",
+    "Yellow puppets long yellow robes",
+    "Yellow puppets tall red hats",
+    "Decorated boat on water",
+    "Two wooden oars",
+    "Two wooden containers",
+    "Two wooden structures on boat",
+    "Puppets appear to be rowing",
+    "Red puppet in center of boat",
+    "Yellow puppets on sides of boat"
+   ],
+   "already_satisfied": [
+    "water pavilion",
+    "puppets",
+    "water surface"
+   ],
+   "uncertain_no_repair": [
+    "Top of trees",
+    "Edges of crowd",
+    "Bottom of boat",
+    "Far sides of boat"
+   ],
+   "repair_actions": [
+    "A water stage with puppets floating on the water surface",
+    "A water puppet booth in the middle of a pond",
+    "Wooden puppets on the water surface"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "A water puppet booth in the middle of a pond"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S010/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S010/02.jpg"
+  ],
+  "images": {
+   "A": "S010_sdxl_base_c0.png",
+   "B (I0)": "S010_sdxl_base_c0.png",
+   "C (I1)": "S010_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "15:48:29",
+   "prompt_id": "S010",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Buổi diễn múa rối nước trong thủy đình, con rối nổi trên mặt nước.\nPROMPT EN: A water puppetry performance at a water pavilion, puppets on the water surface.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Buổi diễn múa rối nước",
+      "en": "A water puppetry performance"
+     },
+     "subject_attributes": [
+      "con rối nổi"
+     ],
+     "supporting_objects": [
+      "thủy đình"
+     ],
+     "background_and_scene": [
+      "trong thủy đình",
+      "on the water surface"
+     ],
+     "actions_and_relations": [
+      "nổi trên mặt nước"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Buổi diễn múa rối nước",
+      "thủy đình",
+      "con rối nổi trên mặt nước",
+      "A water puppetry performance",
+      "at a water pavilion",
+      "puppets on the water surface"
+     ]
+    }
+   },
+   "giay": 7.8
+  },
+  {
+   "t": "15:49:00",
+   "prompt_id": "S010",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Buổi diễn múa rối nước trong thủy đình, con rối nổi trên mặt nước.\nPROMPT EN: A water puppetry performance at a water pavilion, puppets on the water surface.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Múa rối nước — https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc ===\nMúa rối nước là một loại hình nghệ thuật sân khấu dân gian truyền thống ra đời từ nền văn minh lúa nước. Từ một nghệ thuật mang yếu tố dân gian, múa rối nước đã trở thành một nghệ thuật truyền thống, và là một sáng tạo đặc trưng của người Việt Nam. Lịch sử Múa rối nước đã ra đời chừng hơn 10 thế kỷ trước ở vùng châu thổ sông Hồng. Loại hình này thường diễn vào dịp lễ, hội làng, ngày vui, ngày Tết, dùng con rối diễn trò, diễn kịch trên mặt nước. Trò rối nước cũng được coi là nét văn hóa phi vật thể đặc sắc của dân tộc Việt Nam. Do tính đặc sắc, nên từ nghệ thuật mang yếu tố dân gian, múa rối nước đã nhanh chóng trở thành nghệ thuật truyền thống, có thể sánh ngang với tuồng, chèo là những bộ môn nghệ thuật có vị trí cao trong nền sân khấu dân tộc. Múa rối có ở nhiều quốc gia trên thế giới, nhưng múa rối nước thì chỉ duy nhất có ở Việt Nam, và chỉ có ở duy nhất vùng đồng bằng Bắc Bộ, không có ở bất kỳ vùng miền nào khác. Hình thành Múa rối nước ra đời cùng nền văn minh lúa nước nhưng được hình thành và phát triển vào triều đại nhà Lý (1010 - 1225). Theo thời gian, nghệ thuật múa rối nước được truyền từ đời này sang đời khác, dần dần trở thành một thú chơi tao nhã của người dân Việt Nam trong các dịp lễ hội. Chứng cứ bằng văn tự đầu tiên ghi chép về múa rối nước Việt Nam là bia tháp Sùng Thiện Diên Linh, dựng năm 1121, trong đó có đoạn viết: \"Thả rùa vàng đội ba ngọn núi, trên mặt sóng dập dờn. Đặc điểm Nghệ thuật trò rối nước có những đặc điểm khác với múa rối thông thường: dùng mặt nước làm sân khấu (gọi là nhà rối hay thủy đình), phía sau có phông che (được gọi là tấm y môn) tạo sân khấu biểu diễn múa rối nước y như ban thờ lớn ở Đình, chùa của người Việt, xung quanh trang trí cờ, quạt, voi, lọng, cổng hàng mã... trên \"sân khấu\" là những con rối (được làm bằng gỗ) biểu diễn nhờ sự điều khiển của những người phía sau phông thông qua hệ thống sào, dây... Biểu diễn rối nước không thể thiếu những tiếng trống, tiếng pháo phụ trợ. Cách thức hoạt động Con rối làm bằng gỗ sung, loại gỗ nhẹ nổi trên mặt nước, được đục cốt, đẽo với những đường nét cách điệu riêng sau đó gọt giũa, đánh bóng và trang trí với nhiều màu sơn khác nhau để làm tôn thêm đường nét tính cách cho từng nhân vật. Phần thân rối là phần nổi lên mặt nước thể hiện nhân vật, còn phần đế là phần chìm dưới mặt nước giữ cho rối nổi bên trên và là nơi lắp máy điều khiển cho quân rối cử động. Máy điều khiển và kỹ xảo điều khiển trong múa rối nước tạo nên hành động của quân rối nước trên sân khấu, đó chính là mấu chốt của nghệ thuật trò rối nước. Máy điều khiển rối nước có thể được chia làm hai loại cơ bản: máy sào và máy dây đều có nhiệm vụ làm di chuyển quân rối và tạo hành động cho nhân vật. Máy điều khiển được giấu trong lòng nước, lợi dụng sức nước, tạo sự điều khiển từ xa, cống hiến cho người xem nhiều điều kỳ lạ, bất ngờ. Buồng trò rối nước là nhà rối hay thủy đình thường được dựng lên giữa ao, hồ với kiến trúc cân đối tượng trưng cho mái đình của vùng nông thôn Việt Nam. Người nghệ nhân rối nước đứng trong buồng trò để điều khiển con rối. hoặc giật con rối bằng hệ thống dây bố trí ở bên ngoài hoặc dưới nước. Sự thành công của quân rối nước chủ yếu trông vào sự cử động của thân hình, hành động làm trò đóng kịch của nó. Sân khấu rối nước là khoảng trống trước mặt buồng trò. Buồng trò, sân khấu được trang bị cờ, quạt, voi, lọng, cổng hàng mã...Buổi diễn rất nhộn nhịp với lời ca, tiếng trống, mõ, tù và, chen tiếng pháo chuột, pháo thăng thiên, pháo mở cờ từ dưới nước lên, trong ánh sáng lung linh và màn khói huyền ảo. Trò rối nước là trò khéo lấy động tác làm ngôn ngữ diễn đạt, rối nước gắn bó với âm nhạc như nghệ thuật múa. Âm nhạc điều khiển tốc độ, giữ nhịp, dẫn dắt động tác, gây không khí với tiết tấu truyền thống giữ vai trò chủ đạo của trò rối nước, nhạc rối nước thường sử dụng các làn điệu chèo hoặc dân ca đồng bằng Bắc Bộ. Theo các truyền thuyết, huyền thoại lịch sử, trò rối nước ra đời từ thời xây thành Cổ Loa, Kinh An Dương Vương, năm 255 trước công nguyên.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "sân khấu nước",
+       "cue_en": "water stage",
+       "visual_check_vi": "một mặt nước được sử dụng làm sân khấu",
+       "quote_vi": "dùng mặt nước làm sân khấu",
+       "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+      },
+      {
+       "cue_vi": "buồng trò rối nước",
+       "cue_en": "water puppet booth",
+       "visual_check_vi": "một buồng được dựng lên giữa ao, hồ",
+       "quote_vi": "buồng trò rối nước là nhà rối hay thủy đình thường được dựng lên giữa ao, hồ",
+       "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+      },
+      {
+       "cue_vi": "con rối bằng gỗ",
+       "cue_en": "wooden puppets",
+       "visual_check_vi": "con rối được làm bằng gỗ",
+       "quote_vi": "con rối (được làm bằng gỗ)",
+       "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "phông che",
+       "cue_en": "backdrop",
+       "visual_check_vi": "phông che phía sau sân khấu",
+       "quote_vi": "phía sau có phông che",
+       "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+      },
+      {
+       "cue_vi": "trang trí xung quanh sân khấu",
+       "cue_en": "stage decorations",
+       "visual_check_vi": "cờ, quạt, voi, lọng, cổng hàng mã xung quanh sân khấu",
+       "quote_vi": "xung quanh trang trí cờ, quạt, voi, lọng, cổng hàng mã",
+       "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "mái đình của vùng nông thôn Việt Nam",
+       "target_appearance_en": "roof of a Vietnamese rural communal house",
+       "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+      },
+      {
+       "target_appearance_vi": "được gọt giũa, đánh bóng và trang trí với nhiều màu sơn khác nhau",
+       "target_appearance_en": "carved, polished, and painted with various colors",
+       "source_url": "https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "lịch sử, nguồn gốc, ý nghĩa văn hóa, âm thanh, âm nhạc, truyền thuyết, huyền thoại"
+     ],
+     "insufficient_evidence": [
+      "màu sắc của con rối, kiểu dáng của buồng trò rối nước, chi tiết trang trí xung quanh sân khấu"
+     ]
+    }
+   },
+   "giay": 31.2
+  },
+  {
+   "t": "15:49:00",
+   "prompt_id": "S010",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 3,
+    "giu_conditional": 2,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:49:14",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "Three puppets on boat",
+     "Puppet in red robe",
+     "Two puppets in yellow robes"
+    ],
+    "clothing_and_appearance": [
+     "Red puppet long red robe",
+     "Red puppet tall red hat",
+     "Red puppet long white beard",
+     "Yellow puppets long yellow robes",
+     "Yellow puppets tall red hats"
+    ],
+    "foreground_objects": [
+     "Decorated boat on water",
+     "Water surface with reflections"
+    ],
+    "supporting_objects": [
+     "Two wooden oars",
+     "Two wooden containers",
+     "Two wooden structures on boat"
+    ],
+    "background": [
+     "Crowd of people",
+     "Trees with green leaves",
+     "Building with dark roof"
+    ],
+    "actions": [
+     "Puppets appear to be rowing",
+     "Water disturbed by boat"
+    ],
+    "spatial_relations": [
+     "Red puppet in center of boat",
+     "Yellow puppets on sides of boat",
+     "Crowd behind boat",
+     "Trees surrounding area"
+    ],
+    "colors": [
+     "Red puppet red and gold",
+     "Yellow puppets yellow and gold",
+     "Boat brown with gold designs",
+     "Water green with reflections"
+    ],
+    "counts": {
+     "puppets": 3,
+     "oars": 2,
+     "containers": 2,
+     "people": "many"
+    },
+    "visible_effects": [
+     "Reflections in water",
+     "Light illuminating scene",
+     "Shadows under objects"
+    ],
+    "uncertain": [
+     "Top of trees",
+     "Edges of crowd",
+     "Bottom of boat",
+     "Far sides of boat"
+    ]
+   },
+   "giay": 13.5
+  },
+  {
+   "t": "15:49:27",
+   "prompt_id": "S010",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A water puppetry performance at a water pavilion, puppets on the water surface.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA traditional water puppetry performance takes place in a small village in Vietnam, where puppeteers stand behind a waist-deep pool. The puppets, made of wood and lacquered to a glossy finish, move gracefully over the water's surface, performing ancient tales such as the Legend of the Golden Turtle and the Story of King Le Loi. The show is a vibrant spectacle that has been part of the local culture since the 11th century, originating in the Red River Delta region. Over the centuries, the tradition has evolved to include more intricate movements and storytelling techniques, reflecting the changing cultural and societal landscape of Vietnam. Unlike marionettes, the water puppets create a dynamic interplay between the performers and the water, making each performance a unique and immersive experience that celebrates the rich cultural heritage of the Vietnamese people.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Buổi diễn múa rối nước\", \"en\": \"A water puppetry performance\"}, \"subject_attributes\": [\"con rối nổi\"], \"supporting_objects\": [\"thủy đình\"], \"background_and_scene\": [\"trong thủy đình\", \"on the water surface\"], \"actions_and_relations\": [\"nổi trên mặt nước\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Buổi diễn múa rối nước\", \"thủy đình\", \"con rối nổi trên mặt nước\", \"A water puppetry performance\", \"at a water pavilion\", \"puppets on the water surface\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"sân khấu nước\", \"cue_en\": \"water stage\", \"visual_check_vi\": \"một mặt nước được sử dụng làm sân khấu\", \"quote_vi\": \"dùng mặt nước làm sân khấu\", \"source_url\": \"https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc\"}, {\"cue_vi\": \"buồng trò rối nước\", \"cue_en\": \"water puppet booth\", \"visual_check_vi\": \"một buồng được dựng lên giữa ao, hồ\", \"quote_vi\": \"buồng trò rối nước là nhà rối hay thủy đình thường được dựng lên giữa ao, hồ\", \"source_url\": \"https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc\"}, {\"cue_vi\": \"con rối bằng gỗ\", \"cue_en\": \"wooden puppets\", \"visual_check_vi\": \"con rối được làm bằng gỗ\", \"quote_vi\": \"con rối (được làm bằng gỗ)\", \"source_url\": \"https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc\"}], \"conditional_cues\": [{\"cue_vi\": \"phông che\", \"cue_en\": \"backdrop\", \"visual_check_vi\": \"phông che phía sau sân khấu\", \"quote_vi\": \"phía sau có phông che\", \"source_url\": \"https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc\"}, {\"cue_vi\": \"trang trí xung quanh sân khấu\", \"cue_en\": \"stage decorations\", \"visual_check_vi\": \"cờ, quạt, voi, lọng, cổng hàng mã xung quanh sân khấu\", \"quote_vi\": \"xung quanh trang trí cờ, quạt, voi, lọng, cổng hàng mã\", \"source_url\": \"https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"mái đình của vùng nông thôn Việt Nam\", \"target_appearance_en\": \"roof of a Vietnamese rural communal house\", \"source_url\": \"https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc\"}, {\"target_appearance_vi\": \"được gọt giũa, đánh bóng và trang trí với nhiều màu sơn khác nhau\", \"target_appearance_en\": \"carved, polished, and painted with various colors\", \"source_url\": \"https://vi.wikipedia.org/wiki/M%C3%BAa_r%E1%BB%91i_n%C6%B0%E1%BB%9Bc\"}], \"discarded_nonvisual_facts\": [\"lịch sử, nguồn gốc, ý nghĩa văn hóa, âm thanh, âm nhạc, truyền thuyết, huyền thoại\"], \"insufficient_evidence\": [\"màu sắc của con rối, kiểu dáng của buồng trò rối nước, chi tiết trang trí xung quanh sân khấu\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"Three puppets on boat\", \"Puppet in red robe\", \"Two puppets in yellow robes\"], \"clothing_and_appearance\": [\"Red puppet long red robe\", \"Red puppet tall red hat\", \"Red puppet long white beard\", \"Yellow puppets long yellow robes\", \"Yellow puppets tall red hats\"], \"foreground_objects\": [\"Decorated boat on water\", \"Water surface with reflections\"], \"supporting_objects\": [\"Two wooden oars\", \"Two wooden containers\", \"Two wooden structures on boat\"], \"background\": [\"Crowd of people\", \"Trees with green leaves\", \"Building with dark roof\"], \"actions\": [\"Puppets appear to be rowing\", \"Water disturbed by boat\"], \"spatial_relations\": [\"Red puppet in center of boat\", \"Yellow puppets on sides of boat\", \"Crowd behind boat\", \"Trees surrounding area\"], \"colors\": [\"Red puppet red and gold\", \"Yellow puppets yellow and gold\", \"Boat brown with gold designs\", \"Water green with reflections\"], \"counts\": {\"puppets\": 3, \"oars\": 2, \"containers\": 2, \"people\": \"many\"}, \"visible_effects\": [\"Reflections in water\", \"Light illuminating scene\", \"Shadows under objects\"], \"uncertain\": [\"Top of trees\", \"Edges of crowd\", \"Bottom of boat\", \"Far sides of boat\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "puppets on the water surface"
+    ],
+    "missing_cultural_identity": [
+     "water stage",
+     "water puppet booth",
+     "wooden puppets"
+    ],
+    "contradictions": [
+     "Three puppets on boat",
+     "Puppet in red robe",
+     "Two puppets in yellow robes",
+     "Red puppet long red robe",
+     "Red puppet tall red hat",
+     "Red puppet long white beard",
+     "Yellow puppets long yellow robes",
+     "Yellow puppets tall red hats",
+     "Decorated boat on water",
+     "Two wooden oars",
+     "Two wooden containers",
+     "Two wooden structures on boat",
+     "Puppets appear to be rowing",
+     "Red puppet in center of boat",
+     "Yellow puppets on sides of boat"
+    ],
+    "already_satisfied": [
+     "water pavilion",
+     "puppets",
+     "water surface"
+    ],
+    "uncertain_no_repair": [
+     "Top of trees",
+     "Edges of crowd",
+     "Bottom of boat",
+     "Far sides of boat"
+    ],
+    "repair_actions": [
+     "A water stage with puppets floating on the water surface",
+     "A water puppet booth in the middle of a pond",
+     "Wooden puppets on the water surface"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 13.2
+  },
+  {
+   "t": "15:49:27",
+   "prompt_id": "S010",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "A water stage with puppets floating on the water surface",
+     "A water puppet booth in the middle of a pond",
+     "Wooden puppets on the water surface"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:49:28",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A water stage with puppets floating on the water surface\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Puppets on a boat in water"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:49:30",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A water puppet booth in the middle of a pond\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "puppets on a boat"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:49:31",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Wooden puppets on the water surface\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Puppets on water in boat"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:49:32",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"water stage\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "puppets on water boat"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:49:34",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"wooden puppets\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "three wooden puppets on boat"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:49:34",
+   "prompt_id": "S010",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "A water puppet booth in the middle of a pond",
+      5.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "A water stage with puppets floating on the water surface",
+      8.0
+     ],
+     [
+      "Wooden puppets on the water surface",
+      10.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:49:34",
+   "prompt_id": "S010",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A water puppetry performance at a water pavilion, puppets on the water surface. A traditional water puppetry performance takes place in a small village in Vietnam, where puppeteers stand behind a waist-deep pool. The puppets, made of wood and lacquered to a glossy finish, move gracefully over the water's surface, performing ancient tales such as the Legend of the Golden Turtle and the Story of King Le Loi. The show is a vibrant spectacle that has been part of the local culture since the 11th century, originating in the Red River Delta region. Over the centuries, the tradition has evolved to include more intricate movements and storytelling techniques, reflecting the changing cultural and societal landscape of Vietnam. Unlike marionettes, the water puppets create a dynamic interplay between the performers and the water, making each performance a unique and immersive experience that celebrates the rich cultural heritage of the Vietnamese people.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: on the water surface. Make these additions clearly visible:\n1. A water puppet booth in the middle of a pond."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:50:04",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/C_ref/sdxl_base_ref/S010_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "Human-like figures in water",
+     "Wooden structure with red roof",
+     "Red curtains hanging from structure"
+    ],
+    "clothing_and_appearance": [
+     "Figures wearing colorful robes",
+     "Figures have painted faces",
+     "Figures have elaborate headdresses"
+    ],
+    "foreground_objects": [
+     "Water surface with ripples",
+     "Reflections of figures in water"
+    ],
+    "supporting_objects": [
+     "Wooden poles in water",
+     "Small boats or platforms in water"
+    ],
+    "background": [
+     "Wooden structure with red roof",
+     "Green foliage and trees",
+     "Dark interior of structure"
+    ],
+    "actions": [
+     "Figures appear to be moving",
+     "Water splashing around figures"
+    ],
+    "spatial_relations": [
+     "Figures in front of wooden structure",
+     "Curtains hanging above figures",
+     "Figures spaced apart in water"
+    ],
+    "colors": [
+     "Bright colors on figures' robes",
+     "Red curtains and roof",
+     "Green water and foliage",
+     "Dark interior of structure"
+    ],
+    "counts": {
+     "figures": 5,
+     "curtains": 2,
+     "wooden poles": 5
+    },
+    "visible_effects": [
+     "Water splashes around figures",
+     "Reflections in water",
+     "Light illuminating figures and structure"
+    ],
+    "uncertain": [
+     "Top of structure and trees",
+     "Details of figures' faces and robes",
+     "Interior of structure behind curtains"
+    ]
+   },
+   "giay": 12.2
+  },
+  {
+   "t": "15:50:10",
+   "prompt_id": "S010",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Buổi diễn múa rối nước\", \"en\": \"A water puppetry performance\"}, \"subject_attributes\": [\"con rối nổi\"], \"supporting_objects\": [\"thủy đình\"], \"background_and_scene\": [\"trong thủy đình\", \"on the water surface\"], \"actions_and_relations\": [\"nổi trên mặt nước\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Buổi diễn múa rối nước\", \"thủy đình\", \"con rối nổi trên mặt nước\", \"A water puppetry performance\", \"at a water pavilion\", \"puppets on the water surface\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"A water puppet booth in the middle of a pond\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"Three puppets on boat\", \"Puppet in red robe\", \"Two puppets in yellow robes\"], \"clothing_and_appearance\": [\"Red puppet long red robe\", \"Red puppet tall red hat\", \"Red puppet long white beard\", \"Yellow puppets long yellow robes\", \"Yellow puppets tall red hats\"], \"foreground_objects\": [\"Decorated boat on water\", \"Water surface with reflections\"], \"supporting_objects\": [\"Two wooden oars\", \"Two wooden containers\", \"Two wooden structures on boat\"], \"background\": [\"Crowd of people\", \"Trees with green leaves\", \"Building with dark roof\"], \"actions\": [\"Puppets appear to be rowing\", \"Water disturbed by boat\"], \"spatial_relations\": [\"Red puppet in center of boat\", \"Yellow puppets on sides of boat\", \"Crowd behind boat\", \"Trees surrounding area\"], \"colors\": [\"Red puppet red and gold\", \"Yellow puppets yellow and gold\", \"Boat brown with gold designs\", \"Water green with reflections\"], \"counts\": {\"puppets\": 3, \"oars\": 2, \"containers\": 2, \"people\": \"many\"}, \"visible_effects\": [\"Reflections in water\", \"Light illuminating scene\", \"Shadows under objects\"], \"uncertain\": [\"Top of trees\", \"Edges of crowd\", \"Bottom of boat\", \"Far sides of boat\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"Human-like figures in water\", \"Wooden structure with red roof\", \"Red curtains hanging from structure\"], \"clothing_and_appearance\": [\"Figures wearing colorful robes\", \"Figures have painted faces\", \"Figures have elaborate headdresses\"], \"foreground_objects\": [\"Water surface with ripples\", \"Reflections of figures in water\"], \"supporting_objects\": [\"Wooden poles in water\", \"Small boats or platforms in water\"], \"background\": [\"Wooden structure with red roof\", \"Green foliage and trees\", \"Dark interior of structure\"], \"actions\": [\"Figures appear to be moving\", \"Water splashing around figures\"], \"spatial_relations\": [\"Figures in front of wooden structure\", \"Curtains hanging above figures\", \"Figures spaced apart in water\"], \"colors\": [\"Bright colors on figures' robes\", \"Red curtains and roof\", \"Green water and foliage\", \"Dark interior of structure\"], \"counts\": {\"figures\": 5, \"curtains\": 2, \"wooden poles\": 5}, \"visible_effects\": [\"Water splashes around figures\", \"Reflections in water\", \"Light illuminating figures and structure\"], \"uncertain\": [\"Top of structure and trees\", \"Details of figures' faces and robes\", \"Interior of structure behind curtains\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "regressions": [
+     {
+      "what": "con rối nổi trên mặt nước",
+      "severity": "severe"
+     },
+     {
+      "what": "thủy đình",
+      "severity": "severe"
+     },
+     {
+      "what": "Buổi diễn múa rối nước",
+      "severity": "severe"
+     },
+     {
+      "what": "A water puppetry performance",
+      "severity": "severe"
+     },
+     {
+      "what": "at a water pavilion",
+      "severity": "severe"
+     },
+     {
+      "what": "puppets on the water surface",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": []
+   },
+   "giay": 6.4
+  },
+  {
+   "t": "15:50:10",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A water puppet booth in the middle of a pond\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "puppets on a boat"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:50:12",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A water puppet booth in the middle of a pond\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/C_ref/sdxl_base_ref/S010_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Puppets in water, no booth"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:50:12",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"water stage\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "puppets on water boat"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:50:13",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"water stage\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/C_ref/sdxl_base_ref/S010_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "puppets on water, stage visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:50:14",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"water puppet booth\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "puppets on water, no booth"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:50:16",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"water puppet booth\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/C_ref/sdxl_base_ref/S010_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "puppets in water, red curtain"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:50:16",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"wooden puppets\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "three wooden puppets on boat"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:50:17",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"wooden puppets\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/C_ref/sdxl_base_ref/S010_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Puppets on sticks in water"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:50:18",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"roof of a Vietnamese rural communal house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No roof of a rural house"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:50:20",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"roof of a Vietnamese rural communal house\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/C_ref/sdxl_base_ref/S010_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "roof visible, but not rural"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:50:21",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"carved, polished, and painted with various colors\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/B/S010_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "boat is carved, polished, and painted"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:50:23",
+   "prompt_id": "S010",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"carved, polished, and painted with various colors\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S010/C_ref/sdxl_base_ref/S010_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Figures are carved, polished, and colorful"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:50:23",
+   "prompt_id": "S010",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "con rối nổi trên mặt nước",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "thủy đình",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "Buổi diễn múa rối nước",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "A water puppetry performance",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "at a water pavilion",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "puppets on the water surface",
+      "severe"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:50:23",
+   "prompt_id": "S010",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [
+     "[định danh] water puppet booth"
+    ],
+    "fixed_llm": [],
+    "bang_action": [
+     {
+      "action": "A water puppet booth in the middle of a pond",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Puppets in water, no booth"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "water stage",
+      "I0": 8.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "puppets on water, stage visible"
+     },
+     {
+      "cue": "water puppet booth",
+      "I0": 5.0,
+      "I1": 8.0,
+      "fixed": true,
+      "ev_I1": "puppets in water, red curtain"
+     },
+     {
+      "cue": "wooden puppets",
+      "I0": 10.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "Puppets on sticks in water"
+     },
+     {
+      "cue": "roof of a Vietnamese rural communal house",
+      "I0": 0.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "roof visible, but not rural"
+     },
+     {
+      "cue": "carved, polished, and painted with various colors",
+      "I0": 8.0,
+      "I1": 8.0,
+      "fixed": false,
+      "ev_I1": "Figures are carved, polished, and colorful"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "con rối nổi trên mặt nước",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "thủy đình",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "Buổi diễn múa rối nước",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "A water puppetry performance",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "at a water pavilion",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "puppets on the water surface",
+      "severity": "severe"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "1 regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.736,
+     "sim_I1": 0.7709
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

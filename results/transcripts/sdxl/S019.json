@@ -1,0 +1,792 @@
+{
+ "unit": {
+  "prompt_id": "S019",
+  "prompt_vi": "Cô gái người Dao Đỏ đội khăn đỏ.",
+  "P_orig": "A Red Dao woman in her red headdress.",
+  "P_ct": "A Red Dao woman in her red headdress. A Red Dao woman wears a traditional red headdress, a symbol of her high social status and cultural heritage. The headdress is crafted from intricately woven silk with vibrant red and gold patterns, adorned with gold thread and red beads. She is dressed in a full traditional costume featuring a long, pleated skirt with intricate floral embroidery and a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns. Silk threads of varying textures and colors are used to create the vibrant and intricate designs that represent the wearer's marital status and social standing. This attire is typically worn during significant social and cultural events, where it signifies the wearer's marital status and social standing. Each color and pattern in the Red Dao's traditional clothing has specific meanings tied to their history and social norms, such as red signifying bravery and gold representing wealth and prosperity.",
+  "P1": "A Red Dao woman in her red headdress. A Red Dao woman wears a traditional red headdress, a symbol of her high social status and cultural heritage. The headdress is crafted from intricately woven silk with vibrant red and gold patterns, adorned with gold thread and red beads. She is dressed in a full traditional costume featuring a long, pleated skirt with intricate floral embroidery and a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns. Silk threads of varying textures and colors are used to create the vibrant and intricate designs that represent the wearer's marital status and social standing. This attire is typically worn during significant social and cultural events, where it signifies the wearer's marital status and social standing. Each color and pattern in the Red Dao's traditional clothing has specific meanings tied to their history and social norms, such as red signifying bravery and gold representing wealth and prosperity.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a long, pleated skirt with intricate floral embroidery covering the legs.\n2. gold thread and red beads on the headdress.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Cô gái người Dao Đỏ",
+     "en": "A Red Dao woman"
+    },
+    "subject_attributes": [
+     "đội khăn đỏ",
+     "in her red headdress"
+    ],
+    "supporting_objects": [],
+    "background_and_scene": [],
+    "actions_and_relations": [],
+    "colors": [
+     "đỏ",
+     "red"
+    ],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Cô gái người Dao Đỏ",
+     "A Red Dao woman",
+     "đội khăn đỏ",
+     "in her red headdress"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [],
+    "conditional_cues": [],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "trang phục truyền thống của người Dao Đỏ",
+      "target_appearance_en": "traditional clothing of the Red Dao",
+      "source_url": "https://vi.wikipedia.org/wiki/Ng%C6%B0%E1%BB%9Di_Dao"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "người Dao có nguồn gốc xa xưa ở đảo Hải Nam (Trung Quốc)",
+     "người Dao đã phải trải qua cuộc hành trình muôn phần gian khổ vượt biển, vượt núi, vượt sông",
+     "người Dao có chữ viết gốc Hán được Dao hóa (chữ Nôm Dao)"
+    ],
+    "insufficient_evidence": [
+     "màu sắc của trang phục",
+     "cách đeo khăn đỏ",
+     "identity_cues: 'khăn đỏ' — quote có thật nhưng không nói về cue",
+     "conditional_cues: 'trang phục' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "person wearing traditional attire",
+    "person with elaborate headgear"
+   ],
+   "clothing_and_appearance": [
+    "red patterned jacket with long sleeves",
+    "red pants",
+    "multiple layered necklaces",
+    "red headgear with tassels",
+    "earrings with green and red beads"
+   ],
+   "foreground_objects": [
+    "person's hands resting on knees"
+   ],
+   "supporting_objects": [
+    "necklaces with various beads and pendants"
+   ],
+   "background": [
+    "blurred stone structure",
+    "reddish wall"
+   ],
+   "actions": [
+    "person sitting upright",
+    "person looking directly ahead"
+   ],
+   "spatial_relations": [
+    "person centrally positioned",
+    "headgear atop person's head",
+    "necklaces hanging on chest"
+   ],
+   "colors": [
+    "predominantly red attire",
+    "gold and brown patterns on jacket",
+    "green and red earrings",
+    "silver and colorful beads on necklaces"
+   ],
+   "counts": {
+    "tassels on headgear": 2,
+    "visible earrings": 2,
+    "layers of necklaces": 3
+   },
+   "visible_effects": [
+    "soft lighting on face",
+    "shadows under headgear",
+    "blurred background"
+   ],
+   "uncertain": [
+    "top of headgear partially cut off",
+    "lower part of pants cut off",
+    "left side of person's body partially cut off"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "a long, pleated skirt with intricate floral embroidery"
+   ],
+   "missing_cultural_identity": [
+    "intricate woven silk with vibrant red and gold patterns",
+    "gold thread",
+    "red beads",
+    "long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns",
+    "silk threads of varying textures and colors"
+   ],
+   "contradictions": [
+    "red pants"
+   ],
+   "already_satisfied": [
+    "a Red Dao woman",
+    "in her red headdress",
+    "red patterned jacket with long sleeves",
+    "red headgear with tassels",
+    "earrings with green and red beads",
+    "person wearing traditional attire",
+    "person with elaborate headgear",
+    "predominantly red attire",
+    "person sitting upright",
+    "person looking directly ahead",
+    "person centrally positioned",
+    "headgear atop person's head",
+    "necklaces hanging on chest"
+   ],
+   "uncertain_no_repair": [
+    "top of headgear partially cut off",
+    "lower part of pants cut off",
+    "left side of person's body partially cut off"
+   ],
+   "repair_actions": [
+    "a long, pleated skirt with intricate floral embroidery covering the legs",
+    "gold thread and red beads on the headdress",
+    "a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "a long, pleated skirt with intricate floral embroidery covering the legs",
+   "gold thread and red beads on the headdress"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S019/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S019/02.jpg"
+  ],
+  "images": {
+   "A": "S019_sdxl_base_c0.png",
+   "B (I0)": "S019_sdxl_base_c0.png",
+   "C (I1)": "S019_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "18:27:39",
+   "prompt_id": "S019",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Cô gái người Dao Đỏ đội khăn đỏ.\nPROMPT EN: A Red Dao woman in her red headdress.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Cô gái người Dao Đỏ",
+      "en": "A Red Dao woman"
+     },
+     "subject_attributes": [
+      "đội khăn đỏ",
+      "in her red headdress"
+     ],
+     "supporting_objects": [],
+     "background_and_scene": [],
+     "actions_and_relations": [],
+     "colors": [
+      "đỏ",
+      "red"
+     ],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Cô gái người Dao Đỏ",
+      "A Red Dao woman",
+      "đội khăn đỏ",
+      "in her red headdress"
+     ]
+    }
+   },
+   "giay": 6.8
+  },
+  {
+   "t": "18:27:54",
+   "prompt_id": "S019",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Cô gái người Dao Đỏ đội khăn đỏ.\nPROMPT EN: A Red Dao woman in her red headdress.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Người Dao — https://vi.wikipedia.org/wiki/Ng%C6%B0%E1%BB%9Di_Dao ===\nNgười Dao (ngoài ra còn có các tên gọi khác: Dìu Miền, Miền, các phân hệ như: Lù Gang, Làn Tẻn, Đại Bản, Tiểu Bản, Cốc Ngáng, Cốc Mùn, Sơn Đầu v.v) là một dân tộc có địa bàn cư trú truyền thống là phía nam Trung Quốc và lân cận ở bắc phần tiểu vùng Đông Nam Á. Tại Trung Quốc người Dao là một trong số 56 dân tộc thiểu số ở được công nhận, (tiếng Hán: 瑶族, Pinyin: Yáo zú, nghĩa là Dao tộc) với dân số là 2.796.003 người. Người Dao cũng là một dân tộc thiểu số ở Lào, Myanmar, Thái Lan. Người Dao là một trong số 54 dân tộc tại Việt Nam, với số dân là 891.151 người năm 2019. Ở Việt Nam, người Dao tuy có dân số không đông nhưng các bản làng của họ trải rộng tại các miền rừng núi phía Bắc (Cao Bằng, Tuyên Quang, Lào Cai, Lai Châu,...) đến một số tỉnh trung du như: Phú Thọ, Hà Nội và miền biển Quảng Ninh (người Dao Thanh Y). Ngoài ra, người Dao còn chia ra thành nhiều nhóm khác nhau, với những nét riêng về phong tục tập quán mà biểu hiện rõ rệt nhất là trên trang phục của họ như: Dao Đỏ, Dao Quần Chẹt, Dao Thanh Y, Dao Áo dài, Dao Quần Trắng,... Mặc dù, họ có nhiều nhóm người khác nhau. Phân bố Tại Trung Quốc Người Dao tại Trung Quốc có hàng trăm nhóm, tiêu biểu như: Lam Điện Dao (Dao Làn Tẻn, Dao Chàm): Phân bố tại Vân Nam, Quảng Tây. Bát Bài Dao: Chủ yếu cư trú tại huyện tự trị người Dao Liên Nam (Thanh Viễn, Quảng Đông). Tại Việt Nam Nguồn gốc Theo kết quả nghiên cứu của Đề án \"Sưu tầm kiểm kê kho sách cổ người Dao\" do Tiến sĩ Trần Hữu Sơn (Giám đốc Sở Văn hóa - Thông tin - Thể thao Lào Cai) chủ trì có đăng tại thì: Người Dao có nguồn gốc xa xưa ở đảo Hải Nam (Trung Quốc) gồm 7 nhóm. Người Dao ở Việt Nam và ở Lào Cai có 3 nhóm: Dao Tuyển, Dao Nga Hoàng và Dao Làn Tẻn (còn gọi là Dao Chàm) họ bắt đầu di cư sang Việt Nam vào thời Lê (vào khoảng cuối thế kỷ 17). Để đến được đất Việt, sống ở vùng núi như ngày nay, người Dao đã phải trải qua cuộc hành trình muôn phần gian khổ vượt biển, vượt núi, vượt sông. Điều này phản ánh rõ trong nhiều phong tục, nghi lễ của người Dao và được ghi lại rất tỉ mỉ trong sách cổ. Người Dao di cư sang Việt Nam theo nhiều đợt từ đảo Hải Nam, qua Phòng Thành, tới Bắc Giang. Tới đây, họ di chuyển theo các hướng khác nhau là: Theo sông Lô tới Hà Giang hình thành nên người Dao Áo dài. Nhóm ở lại vùng Nga Hoàng thuộc Yên Lập, Yên Phúc một thời gian, sau đó di chuyển tới Văn Chấn (Yên Bái), rồi Văn Bàn (Lào Cai) là tổ tiên người Dao quần chẹt ngày nay. Ngôn ngữ Xếp theo ngôn ngữ thì người Dao có hai nhóm chính là Kìm Miền và Kìm Mùn. Nhóm Kìm Mùn Người Dao Khâu hay còn gọi là Kìm Miền, là một trong những nhánh Dao di cư sang Việt Nam sớm nhất nên họ được xem như thuộc nhóm Dao đại bản, tức người đến trước trong cộng đồng dân tộc Dao. Cũng được biết với tên người Dao Đỏ ở Lào Cai và Lai Châu. Nguyễn Khắc Tụng xếp người Dao tại Việt Nam thành bốn nhóm chính: Đại Bản (Tả Pán) Dao Đỏ (Hùng Thầu Dào, Dao Coóc Ngáng, Dao Quý Lâm) tại Yên Bái, Lào Cai, Lai Châu, Tuyên Quang , Hà GIang, Cao Bằng, Bắc Kạn, Thái Nguyên. Tại Việt Nam, dân số người Dao theo điều tra dân số năm 1999 là 620.538 người. Theo Tổng điều tra dân số và nhà ở năm 2019, người Dao ở Việt Nam có dân số 891.151 người, cư trú tại 61 trên tổng số 63 tỉnh, thành phố. Hệ ngôn ngữ Tai-Kadai: Tiếng Lạp Già (拉珈語/拉珈语), 12.000 người Tiếng Trung: Khoảng 500.000 người Dao nói các phương ngữ của tiếng Trung Chữ viết Người Dao có chữ viết gốc Hán được Dao hóa (chữ Nôm Dao). Bên cạnh một số dân ca (nhất là dân ca giao duyên) được những người biết chữ cổ chép lại còn khá nhiều tập truyện văn học, bao gồm một số bộ tiểu thuyết cổ của Trung Quốc. Các nhà nghiên cứu lúc đầu chỉ sưu tầm được 2 truyện thơ, trong một dự án đã tìm thấy 23 truyện thơ lần đầu tiên được phát hiện ở vùng người Dao như: \"Hàn Bằng\", \"Đàm Thanh\", \"Bát Nương\", \"Lâu Cảnh\", \"Trạng Nghèo\", \"Đô Nương truyện\", \"Đặng Nguyên Huyện truyện\", \"Bá Giai truyện\", \"Thần sắt ca\"... Trong số đó, truyện thơ kể về hành trình tìm đất vất vả của người Dao chiếm số lượng nhiều hơn cả (40%).\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [],
+     "conditional_cues": [],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "trang phục truyền thống của người Dao Đỏ",
+       "target_appearance_en": "traditional clothing of the Red Dao",
+       "source_url": "https://vi.wikipedia.org/wiki/Ng%C6%B0%E1%BB%9Di_Dao"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "người Dao có nguồn gốc xa xưa ở đảo Hải Nam (Trung Quốc)",
+      "người Dao đã phải trải qua cuộc hành trình muôn phần gian khổ vượt biển, vượt núi, vượt sông",
+      "người Dao có chữ viết gốc Hán được Dao hóa (chữ Nôm Dao)"
+     ],
+     "insufficient_evidence": [
+      "màu sắc của trang phục",
+      "cách đeo khăn đỏ",
+      "identity_cues: 'khăn đỏ' — quote có thật nhưng không nói về cue",
+      "conditional_cues: 'trang phục' — quote có thật nhưng không nói về cue"
+     ]
+    }
+   },
+   "giay": 15.2
+  },
+  {
+   "t": "18:27:54",
+   "prompt_id": "S019",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 0,
+    "giu_conditional": 0,
+    "loai": [
+     "identity_cues: 'khăn đỏ' — quote có thật nhưng không nói về cue",
+     "conditional_cues: 'trang phục' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:28:07",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/B/sdxl_base/S019_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "person wearing traditional attire",
+     "person with elaborate headgear"
+    ],
+    "clothing_and_appearance": [
+     "red patterned jacket with long sleeves",
+     "red pants",
+     "multiple layered necklaces",
+     "red headgear with tassels",
+     "earrings with green and red beads"
+    ],
+    "foreground_objects": [
+     "person's hands resting on knees"
+    ],
+    "supporting_objects": [
+     "necklaces with various beads and pendants"
+    ],
+    "background": [
+     "blurred stone structure",
+     "reddish wall"
+    ],
+    "actions": [
+     "person sitting upright",
+     "person looking directly ahead"
+    ],
+    "spatial_relations": [
+     "person centrally positioned",
+     "headgear atop person's head",
+     "necklaces hanging on chest"
+    ],
+    "colors": [
+     "predominantly red attire",
+     "gold and brown patterns on jacket",
+     "green and red earrings",
+     "silver and colorful beads on necklaces"
+    ],
+    "counts": {
+     "tassels on headgear": 2,
+     "visible earrings": 2,
+     "layers of necklaces": 3
+    },
+    "visible_effects": [
+     "soft lighting on face",
+     "shadows under headgear",
+     "blurred background"
+    ],
+    "uncertain": [
+     "top of headgear partially cut off",
+     "lower part of pants cut off",
+     "left side of person's body partially cut off"
+    ]
+   },
+   "giay": 12.9
+  },
+  {
+   "t": "18:28:20",
+   "prompt_id": "S019",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A Red Dao woman in her red headdress.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA Red Dao woman wears a traditional red headdress, a symbol of her high social status and cultural heritage. The headdress is crafted from intricately woven silk with vibrant red and gold patterns, adorned with gold thread and red beads. She is dressed in a full traditional costume featuring a long, pleated skirt with intricate floral embroidery and a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns. Silk threads of varying textures and colors are used to create the vibrant and intricate designs that represent the wearer's marital status and social standing. This attire is typically worn during significant social and cultural events, where it signifies the wearer's marital status and social standing. Each color and pattern in the Red Dao's traditional clothing has specific meanings tied to their history and social norms, such as red signifying bravery and gold representing wealth and prosperity.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Cô gái người Dao Đỏ\", \"en\": \"A Red Dao woman\"}, \"subject_attributes\": [\"đội khăn đỏ\", \"in her red headdress\"], \"supporting_objects\": [], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [\"đỏ\", \"red\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Cô gái người Dao Đỏ\", \"A Red Dao woman\", \"đội khăn đỏ\", \"in her red headdress\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [], \"conditional_cues\": [], \"positive_disambiguators\": [{\"target_appearance_vi\": \"trang phục truyền thống của người Dao Đỏ\", \"target_appearance_en\": \"traditional clothing of the Red Dao\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ng%C6%B0%E1%BB%9Di_Dao\"}], \"discarded_nonvisual_facts\": [\"người Dao có nguồn gốc xa xưa ở đảo Hải Nam (Trung Quốc)\", \"người Dao đã phải trải qua cuộc hành trình muôn phần gian khổ vượt biển, vượt núi, vượt sông\", \"người Dao có chữ viết gốc Hán được Dao hóa (chữ Nôm Dao)\"], \"insufficient_evidence\": [\"màu sắc của trang phục\", \"cách đeo khăn đỏ\", \"identity_cues: 'khăn đỏ' — quote có thật nhưng không nói về cue\", \"conditional_cues: 'trang phục' — quote có thật nhưng không nói về cue\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"person wearing traditional attire\", \"person with elaborate headgear\"], \"clothing_and_appearance\": [\"red patterned jacket with long sleeves\", \"red pants\", \"multiple layered necklaces\", \"red headgear with tassels\", \"earrings with green and red beads\"], \"foreground_objects\": [\"person's hands resting on knees\"], \"supporting_objects\": [\"necklaces with various beads and pendants\"], \"background\": [\"blurred stone structure\", \"reddish wall\"], \"actions\": [\"person sitting upright\", \"person looking directly ahead\"], \"spatial_relations\": [\"person centrally positioned\", \"headgear atop person's head\", \"necklaces hanging on chest\"], \"colors\": [\"predominantly red attire\", \"gold and brown patterns on jacket\", \"green and red earrings\", \"silver and colorful beads on necklaces\"], \"counts\": {\"tassels on headgear\": 2, \"visible earrings\": 2, \"layers of necklaces\": 3}, \"visible_effects\": [\"soft lighting on face\", \"shadows under headgear\", \"blurred background\"], \"uncertain\": [\"top of headgear partially cut off\", \"lower part of pants cut off\", \"left side of person's body partially cut off\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "a long, pleated skirt with intricate floral embroidery"
+    ],
+    "missing_cultural_identity": [
+     "intricate woven silk with vibrant red and gold patterns",
+     "gold thread",
+     "red beads",
+     "long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns",
+     "silk threads of varying textures and colors"
+    ],
+    "contradictions": [
+     "red pants"
+    ],
+    "already_satisfied": [
+     "a Red Dao woman",
+     "in her red headdress",
+     "red patterned jacket with long sleeves",
+     "red headgear with tassels",
+     "earrings with green and red beads",
+     "person wearing traditional attire",
+     "person with elaborate headgear",
+     "predominantly red attire",
+     "person sitting upright",
+     "person looking directly ahead",
+     "person centrally positioned",
+     "headgear atop person's head",
+     "necklaces hanging on chest"
+    ],
+    "uncertain_no_repair": [
+     "top of headgear partially cut off",
+     "lower part of pants cut off",
+     "left side of person's body partially cut off"
+    ],
+    "repair_actions": [
+     "a long, pleated skirt with intricate floral embroidery covering the legs",
+     "gold thread and red beads on the headdress",
+     "a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 13.1
+  },
+  {
+   "t": "18:28:20",
+   "prompt_id": "S019",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a long, pleated skirt with intricate floral embroidery covering the legs",
+     "gold thread and red beads on the headdress",
+     "a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:28:21",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long, pleated skirt with intricate floral embroidery covering the legs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/B/sdxl_base/S019_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "skirt not visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "18:28:22",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"gold thread and red beads on the headdress\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/B/sdxl_base/S019_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "gold thread present, no red beads"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:28:24",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/B/sdxl_base/S019_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "blouse has detailed embroidery"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:28:24",
+   "prompt_id": "S019",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a long, pleated skirt with intricate floral embroidery covering the legs",
+      null
+     ],
+     [
+      "gold thread and red beads on the headdress",
+      7.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns",
+      8.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:28:24",
+   "prompt_id": "S019",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A Red Dao woman in her red headdress. A Red Dao woman wears a traditional red headdress, a symbol of her high social status and cultural heritage. The headdress is crafted from intricately woven silk with vibrant red and gold patterns, adorned with gold thread and red beads. She is dressed in a full traditional costume featuring a long, pleated skirt with intricate floral embroidery and a long-sleeved blouse adorned with detailed embroidery in a variety of colors and patterns. Silk threads of varying textures and colors are used to create the vibrant and intricate designs that represent the wearer's marital status and social standing. This attire is typically worn during significant social and cultural events, where it signifies the wearer's marital status and social standing. Each color and pattern in the Red Dao's traditional clothing has specific meanings tied to their history and social norms, such as red signifying bravery and gold representing wealth and prosperity.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a long, pleated skirt with intricate floral embroidery covering the legs.\n2. gold thread and red beads on the headdress."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:28:50",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/C_ref/sdxl_base_ref/S019_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "woman smiling",
+     "traditional headpiece",
+     "intricate clothing"
+    ],
+    "clothing_and_appearance": [
+     "red lipstick",
+     "black hair",
+     "white shirt",
+     "red and black jacket",
+     "red and black skirt",
+     "red and black headpiece",
+     "red and black tassels",
+     "red and black embroidery"
+    ],
+    "foreground_objects": [
+     "woman's face",
+     "woman's clothing"
+    ],
+    "supporting_objects": [
+     "headpiece with tassels",
+     "embroidered jacket",
+     "embroidered skirt"
+    ],
+    "background": [
+     "blurred outdoor scene",
+     "light source above",
+     "structure with roof",
+     "indistinct objects"
+    ],
+    "actions": [
+     "woman smiling",
+     "head slightly tilted"
+    ],
+    "spatial_relations": [
+     "headpiece on woman's head",
+     "jacket over shirt",
+     "skirt below jacket",
+     "woman in front of background"
+    ],
+    "colors": [
+     "red lipstick",
+     "black hair",
+     "white shirt",
+     "red and black clothing",
+     "multicolored embroidery"
+    ],
+    "counts": {
+     "heads": 1,
+     "headpieces": 1,
+     "jackets": 1,
+     "skirts": 1
+    },
+    "visible_effects": [
+     "soft lighting",
+     "blurred background",
+     "sharp focus on woman"
+    ],
+    "uncertain": [
+     "top of headpiece",
+     "lower part of skirt",
+     "details in background"
+    ]
+   },
+   "giay": 13.5
+  },
+  {
+   "t": "18:28:56",
+   "prompt_id": "S019",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Cô gái người Dao Đỏ\", \"en\": \"A Red Dao woman\"}, \"subject_attributes\": [\"đội khăn đỏ\", \"in her red headdress\"], \"supporting_objects\": [], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [\"đỏ\", \"red\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Cô gái người Dao Đỏ\", \"A Red Dao woman\", \"đội khăn đỏ\", \"in her red headdress\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a long, pleated skirt with intricate floral embroidery covering the legs\", \"gold thread and red beads on the headdress\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"person wearing traditional attire\", \"person with elaborate headgear\"], \"clothing_and_appearance\": [\"red patterned jacket with long sleeves\", \"red pants\", \"multiple layered necklaces\", \"red headgear with tassels\", \"earrings with green and red beads\"], \"foreground_objects\": [\"person's hands resting on knees\"], \"supporting_objects\": [\"necklaces with various beads and pendants\"], \"background\": [\"blurred stone structure\", \"reddish wall\"], \"actions\": [\"person sitting upright\", \"person looking directly ahead\"], \"spatial_relations\": [\"person centrally positioned\", \"headgear atop person's head\", \"necklaces hanging on chest\"], \"colors\": [\"predominantly red attire\", \"gold and brown patterns on jacket\", \"green and red earrings\", \"silver and colorful beads on necklaces\"], \"counts\": {\"tassels on headgear\": 2, \"visible earrings\": 2, \"layers of necklaces\": 3}, \"visible_effects\": [\"soft lighting on face\", \"shadows under headgear\", \"blurred background\"], \"uncertain\": [\"top of headgear partially cut off\", \"lower part of pants cut off\", \"left side of person's body partially cut off\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"woman smiling\", \"traditional headpiece\", \"intricate clothing\"], \"clothing_and_appearance\": [\"red lipstick\", \"black hair\", \"white shirt\", \"red and black jacket\", \"red and black skirt\", \"red and black headpiece\", \"red and black tassels\", \"red and black embroidery\"], \"foreground_objects\": [\"woman's face\", \"woman's clothing\"], \"supporting_objects\": [\"headpiece with tassels\", \"embroidered jacket\", \"embroidered skirt\"], \"background\": [\"blurred outdoor scene\", \"light source above\", \"structure with roof\", \"indistinct objects\"], \"actions\": [\"woman smiling\", \"head slightly tilted\"], \"spatial_relations\": [\"headpiece on woman's head\", \"jacket over shirt\", \"skirt below jacket\", \"woman in front of background\"], \"colors\": [\"red lipstick\", \"black hair\", \"white shirt\", \"red and black clothing\", \"multicolored embroidery\"], \"counts\": {\"heads\": 1, \"headpieces\": 1, \"jackets\": 1, \"skirts\": 1}, \"visible_effects\": [\"soft lighting\", \"blurred background\", \"sharp focus on woman\"], \"uncertain\": [\"top of headpiece\", \"lower part of skirt\", \"details in background\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "embroidery on the skirt",
+     "red beads on the headdress"
+    ],
+    "regressions": [
+     {
+      "what": "The woman's headdress is no longer red.",
+      "severity": "severe"
+     },
+     {
+      "what": "The woman is no longer described as a 'Red Dao woman'.",
+      "severity": "severe"
+     },
+     {
+      "what": "The woman is no longer described as 'in her red headdress'.",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "The woman's headdress still has tassels."
+    ]
+   },
+   "giay": 5.9
+  },
+  {
+   "t": "18:28:56",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long, pleated skirt with intricate floral embroidery covering the legs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/B/sdxl_base/S019_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "skirt not visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:28:57",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long, pleated skirt with intricate floral embroidery covering the legs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/C_ref/sdxl_base_ref/S019_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "no skirt visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "18:28:57",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"gold thread and red beads on the headdress\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/B/sdxl_base/S019_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "gold thread present, no red beads"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:28:59",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"gold thread and red beads on the headdress\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/C_ref/sdxl_base_ref/S019_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "red beads on headdress, no gold thread"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "18:29:00",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"traditional clothing of the Red Dao\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/B/sdxl_base/S019_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "red clothing, headgear, jewelry"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "18:29:02",
+   "prompt_id": "S019",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"traditional clothing of the Red Dao\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S019/C_ref/sdxl_base_ref/S019_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "red and black clothing"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "18:29:02",
+   "prompt_id": "S019",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "The woman's headdress is no longer red.",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "The woman is no longer described as a 'Red Dao woman'.",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "The woman is no longer described as 'in her red headdress'.",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:29:03",
+   "prompt_id": "S019",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "embroidery on the skirt",
+     "red beads on the headdress"
+    ],
+    "bang_action": [
+     {
+      "action": "a long, pleated skirt with intricate floral embroidery covering the legs",
+      "I0": null,
+      "I1": null,
+      "fixed": false,
+      "ev_I1": "no skirt visible"
+     },
+     {
+      "action": "gold thread and red beads on the headdress",
+      "I0": 7.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "red beads on headdress, no gold thread"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "traditional clothing of the Red Dao",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "red and black clothing"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "The woman's headdress is no longer red.",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "The woman is no longer described as a 'Red Dao woman'.",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "The woman is no longer described as 'in her red headdress'.",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.7244,
+     "sim_I1": 0.7902
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

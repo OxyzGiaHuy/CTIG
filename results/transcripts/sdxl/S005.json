@@ -1,0 +1,861 @@
+{
+ "unit": {
+  "prompt_id": "S005",
+  "prompt_vi": "Ổ bánh mì thịt kẹp đầy đồ chua và rau mùi.",
+  "P_orig": "A banh mi stuffed with pork, pickles and cilantro.",
+  "P_ct": "A banh mi stuffed with pork, pickles and cilantro. A bánh mì sandwich is a visually appealing and culturally significant Vietnamese dish, featuring a golden-brown baguette with vibrant green cilantro, bright red pickled carrots, and white daikon, creating a striking contrast that tempts the eye. The sandwich offers a symphony of textures and flavors: the crunchiness of the baguette, the softness of chả lụa (Vietnamese sausage), the tanginess of the pickled vegetables, and the freshness of the herbs, reflecting the cultural fusion between French and Vietnamese culinary traditions.",
+  "P1": "A banh mi stuffed with pork, pickles and cilantro. A bánh mì sandwich is a visually appealing and culturally significant Vietnamese dish, featuring a with vibrant green cilantro,, and, creating a striking contrast that tempts the eye. The sandwich offers a symphony of textures and flavors: the crunchiness of the baguette, the softness of chả lụa (Vietnamese sausage), the tanginess of the pickled vegetables, and the freshness of the herbs, reflecting the cultural fusion between French and Vietnamese culinary traditions.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rau mùi; pork; pickles; cilantro. Make these additions clearly visible:\n1. a banh mi sandwich with a hollower interior to hold more fillings.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Ổ bánh mì thịt kẹp",
+     "en": "A banh mi"
+    },
+    "subject_attributes": [
+     "đầy đồ chua và rau mùi",
+     "stuffed with pork, pickles and cilantro"
+    ],
+    "supporting_objects": [
+     "đồ chua",
+     "rau mùi",
+     "pork",
+     "pickles",
+     "cilantro"
+    ],
+    "background_and_scene": [],
+    "actions_and_relations": [],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "stuffed with pork, pickles and cilantro"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "bánh mì",
+      "cue_en": "banh mi",
+      "visual_check_vi": "bánh mì có lớp vỏ ngoài giòn, ruột mềm",
+      "quote_vi": "Bánh mì là một loại baguette của Việt Nam với lớp vỏ ngoài giòn, ruột mềm",
+      "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam"
+     },
+     {
+      "cue_vi": "ổ bánh mì",
+      "cue_en": "banh mi sandwich",
+      "visual_check_vi": "ổ bánh mì nhỏ và ngắn hơn, chỉ còn khoảng 20–40 cm",
+      "quote_vi": "Người Sài Gòn sau đó đã cải biên chiếc bánh baguette thành ổ bánh mì nhỏ và ngắn hơn, chỉ còn khoảng 20–40 cm",
+      "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "bánh mì chay",
+      "cue_en": "vegetarian banh mi",
+      "visual_check_vi": "bánh mì có thể chứa thực phẩm chay",
+      "quote_vi": "những phiên bản phổ biến nhất vẫn thường chứa chả lụa, thịt, hoặc thực phẩm chay",
+      "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "bánh mì có ruột rỗng hơn để chứa nhiều nhân",
+      "target_appearance_en": "banh mi has a hollower interior to hold more fillings",
+      "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Bánh mì được xem như một loại thức ăn nhanh bình dân phổ biến và thường được tiêu thụ vào bữa sáng hoặc bất kỳ bữa phụ nào trong ngày.",
+     "Bánh mì Việt Nam đã trở thành một biểu tượng ẩm thực đường phố nổi tiếng thế giới, được nhiều du khách quốc tế yêu thích.",
+     "Bánh mì có nguồn gốc từ bánh baguette do người Pháp đưa vào miền Nam Việt Nam từ thế kỷ 19.",
+     "Bánh mì Việt Nam đã trở nên phổ biến ở nhiều quốc gia trên thế giới.",
+     "Bánh mì Việt Nam còn là chủ đề chính của một số lễ hội, hội thảo cũng như trong các tác phẩm nghệ thuật."
+    ],
+    "insufficient_evidence": [
+     "the exact appearance of chả lụa, pa tê, bơ, rau, ớt, trứng và đồ chua",
+     "the exact appearance of cá mòi, xíu mại hoặc thịt bò kho",
+     "the exact appearance of bánh tây"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "two sandwiches on long rolls",
+    "sandwich fillings include sliced meat",
+    "sandwich fillings include leafy greens",
+    "sandwich fillings include pickled vegetables"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "wooden cutting board",
+    "white paper under sandwiches"
+   ],
+   "supporting_objects": [
+    "small white bowl with dipping sauce",
+    "small white bowl with chopped herbs",
+    "small white bowl with shredded vegetables",
+    "small blue bowl with dipping sauce",
+    "half lime fruit",
+    "fresh cilantro leaves"
+   ],
+   "background": [
+    "dark wooden table surface"
+   ],
+   "actions": [
+    "sandwiches cut in half diagonally"
+   ],
+   "spatial_relations": [
+    "sandwiches on cutting board",
+    "bowls arranged around sandwiches",
+    "lime and cilantro in front of board"
+   ],
+   "colors": [
+    "light brown sandwich rolls",
+    "green leafy greens",
+    "orange pickled vegetables",
+    "white dipping sauces",
+    "blue small bowl",
+    "green lime fruit",
+    "green cilantro leaves"
+   ],
+   "counts": {
+    "sandwiches": 2,
+    "small bowls": 4,
+    "lime fruit halves": 1
+   },
+   "visible_effects": [
+    "reflections on table surface",
+    "lighting highlights sandwiches and bowls"
+   ],
+   "uncertain": [
+    "top of blue bowl",
+    "contents of bowls behind sandwiches",
+    "area behind sandwiches and bowls"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "pork"
+   ],
+   "missing_cultural_identity": [
+    "banh mi sandwich",
+    "banh mi has a hollower interior to hold more fillings"
+   ],
+   "contradictions": [
+    "two sandwiches on long rolls"
+   ],
+   "already_satisfied": [
+    "stuffed with pickles and cilantro",
+    "pickles",
+    "cilantro",
+    "pickled vegetables",
+    "leafy greens"
+   ],
+   "uncertain_no_repair": [
+    "top of blue bowl",
+    "contents of bowls behind sandwiches",
+    "area behind sandwiches and bowls"
+   ],
+   "repair_actions": [
+    "a banh mi sandwich with a hollower interior to hold more fillings",
+    "pork inside the sandwich",
+    "a small white bowl with pickled carrots and daikon in front of the sandwiches"
+   ],
+   "drop_phrases": [
+    "golden-brown baguette",
+    "bright red pickled carrots",
+    "white daikon"
+   ]
+  },
+  "actions": [
+   "a banh mi sandwich with a hollower interior to hold more fillings"
+  ],
+  "drop_phrases": [
+   "golden-brown baguette",
+   "bright red pickled carrots",
+   "white daikon"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S005/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S005/02.jpg"
+  ],
+  "images": {
+   "A": "S005_sdxl_base_c0.png",
+   "B (I0)": "S005_sdxl_base_c0.png",
+   "C (I1)": "S005_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "15:38:30",
+   "prompt_id": "S005",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Ổ bánh mì thịt kẹp đầy đồ chua và rau mùi.\nPROMPT EN: A banh mi stuffed with pork, pickles and cilantro.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Ổ bánh mì thịt kẹp",
+      "en": "A banh mi"
+     },
+     "subject_attributes": [
+      "đầy đồ chua và rau mùi",
+      "stuffed with pork, pickles and cilantro"
+     ],
+     "supporting_objects": [
+      "đồ chua",
+      "rau mùi",
+      "pork",
+      "pickles",
+      "cilantro"
+     ],
+     "background_and_scene": [],
+     "actions_and_relations": [],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "stuffed with pork, pickles and cilantro"
+     ]
+    }
+   },
+   "giay": 7.0
+  },
+  {
+   "t": "15:38:58",
+   "prompt_id": "S005",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Ổ bánh mì thịt kẹp đầy đồ chua và rau mùi.\nPROMPT EN: A banh mi stuffed with pork, pickles and cilantro.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Bánh mì Việt Nam — https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam ===\nBánh mì là một loại baguette của Việt Nam với lớp vỏ ngoài giòn, ruột mềm, còn bên trong là phần nhân. Tùy theo văn hóa vùng miền hoặc sở thích cá nhân mà người ta có thể lựa chọn nhiều loại nhân khác nhau, ngoài ra tên gọi của bánh cũng phụ thuộc phần lớn vào những biến tấu ấy. Song những phiên bản phổ biến nhất vẫn thường chứa chả lụa, thịt, hoặc thực phẩm chay, kèm theo một số nguyên liệu phụ khác như pa tê, bơ, rau, ớt, trứng và đồ chua. Bên cạnh đó, bánh còn có thể dùng chung với nhiều món ăn đa dạng, chẳng hạn như cá mòi, xíu mại hoặc thịt bò kho. Bánh mì được xem như một loại thức ăn nhanh bình dân phổ biến và thường được tiêu thụ vào bữa sáng hoặc bất kỳ bữa phụ nào trong ngày. Do có giá thành phù hợp nên bánh đã trở thành món ăn rất được nhiều người ưa chuộng. Bánh mì Việt Nam đã trở thành một biểu tượng ẩm thực đường phố nổi tiếng thế giới, được nhiều du khách quốc tế yêu thích. Về lịch sử, bánh mì có nguồn gốc từ bánh baguette do người Pháp đưa vào miền Nam Việt Nam từ thế kỷ 19. Trong những thập kỷ tiếp theo, bánh mì dần lan rộng ra khắp Việt Nam, tuy nhiên phổ biến nhất vẫn là ở Sài Gòn. Người Sài Gòn sau đó đã cải biên chiếc bánh baguette thành ổ bánh mì nhỏ và ngắn hơn, chỉ còn khoảng 20–40 cm, còn ruột bánh thì rỗng hơn để chứa được nhiều nhân, tương tự như món bánh mì kẹp ở phương Tây. Sau năm 1975, theo chân những cuộc di cư vượt biển của người Việt, bánh mì Việt Nam đã trở nên phổ biến ở nhiều quốc gia trên thế giới. Trong cách gọi thông thường, người Mỹ Anh hóa từ \"bánh mì\" thành banh mi thay vì gọi là Vietnamese sandwich như những món ăn tương tự. Nhiều nhà phê bình lẫn giới mộ điệu, chẳng hạn như tờ The Guardian, đã đưa món bánh vào danh sách những loại bánh mì kẹp xuất sắc nhất toàn cầu. Bên cạnh đó, bánh mì Việt Nam còn là chủ đề chính của một số lễ hội, hội thảo cũng như trong các tác phẩm nghệ thuật. Lịch sử Nguồn gốc Thời điểm mà món bánh mì xuất hiện ở Việt Nam vẫn còn là một dấu hỏi lớn. Vào thế kỷ 17, các nhà truyền giáo và thám hiểm châu Âu đã nhận thấy rằng đất nước này tuy có nhiều sản vật quý nhưng lại không tồn tại thứ gọi là bánh mì và rượu nho. Ngoài ra, từ điển Nam Việt–Dương Hiệp Tự vị do giám mục Jean-Louis Taberd biên soạn cũng có đề cập đến thứ bánh này. Tuy nhiên, hầu hết các nhà sử học đều đồng ý rằng khởi thủy của bánh mì Sài Gòn cũng như tất cả bánh mì ổ ở Việt Nam chính là từ món baguette trứ danh do người Pháp mang đến trong những năm giữa thế kỷ 19, theo chân cuộc xâm lược của Pháp vào Đông Dương. Khi ấy, họ đã cho xây dựng những lò bánh mì gạch đầu tiên tại Việt Nam nhằm phục vụ nhu cầu của tầng lớp thượng lưu. Hầu hết những người Pháp đến đây đều không muốn làm công việc vất vả nhưng lại ít tiền như làm bánh mì. Do đó, các lò bánh ở quốc gia này phần lớn thuê thợ người bản địa hoặc người Trung Quốc, tuy nhiên họ thường làm việc ở phía sau để khách hàng không biết ai là người làm. Đặc biệt, trong dây chuyền sản xuất bánh mì tại lò gạch, thợ được chia ra thành ba loại: thợ chính, chuyên điều khiển quy trình sản xuất, chịu trách nhiệm cao nhất về kỹ thuật và cũng là người lãnh thù lao nhiều nhất; thợ cân, đảm nhận công việc chia và se bột; thợ trộn bột, là nhóm có tiền thù lao thấp nhất. Nguyên liệu làm bánh tại giai đoạn này chủ yếu gồm bột, muối, men và nước, với hương vị truyền thống và không bị tác động bởi quá nhiều thành phần khác trong bánh. Theo một số ý kiến, bánh baguette chính thức có mặt ở Nam Kỳ vào khoảng cuối thập niên 1850, kế đến xuất hiện ở Bắc Kỳ vào khoảng nửa đầu thập niên 1870, rồi sau cùng là Trung Kỳ khi kinh đô Huế thất thủ. Một khu phố Tây do người Pháp xây dựng phía bờ nam sông Hương đã ra đời và đông đúc dần lên, đồng thời nhà nghiên cứu Nguyễn Xuân Hoa cho rằng có thể các lò bánh mì chính thức mở ra ở kinh đô Huế vào thời điểm này. Ban đầu, miền Bắc gọi baguette là bánh tây, còn miền Nam và miền Trung thì gọi là bánh mì. Do giá cả lúa mì nhập khẩu vào thời điểm đó quá cao nên bánh mì baguette của Pháp là một mặt hàng xa xỉ đối với người bản xứ.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "bánh mì",
+       "cue_en": "banh mi",
+       "visual_check_vi": "bánh mì có lớp vỏ ngoài giòn, ruột mềm",
+       "quote_vi": "Bánh mì là một loại baguette của Việt Nam với lớp vỏ ngoài giòn, ruột mềm",
+       "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam"
+      },
+      {
+       "cue_vi": "ổ bánh mì",
+       "cue_en": "banh mi sandwich",
+       "visual_check_vi": "ổ bánh mì nhỏ và ngắn hơn, chỉ còn khoảng 20–40 cm",
+       "quote_vi": "Người Sài Gòn sau đó đã cải biên chiếc bánh baguette thành ổ bánh mì nhỏ và ngắn hơn, chỉ còn khoảng 20–40 cm",
+       "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "bánh mì chay",
+       "cue_en": "vegetarian banh mi",
+       "visual_check_vi": "bánh mì có thể chứa thực phẩm chay",
+       "quote_vi": "những phiên bản phổ biến nhất vẫn thường chứa chả lụa, thịt, hoặc thực phẩm chay",
+       "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "bánh mì có ruột rỗng hơn để chứa nhiều nhân",
+       "target_appearance_en": "banh mi has a hollower interior to hold more fillings",
+       "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Bánh mì được xem như một loại thức ăn nhanh bình dân phổ biến và thường được tiêu thụ vào bữa sáng hoặc bất kỳ bữa phụ nào trong ngày.",
+      "Bánh mì Việt Nam đã trở thành một biểu tượng ẩm thực đường phố nổi tiếng thế giới, được nhiều du khách quốc tế yêu thích.",
+      "Bánh mì có nguồn gốc từ bánh baguette do người Pháp đưa vào miền Nam Việt Nam từ thế kỷ 19.",
+      "Bánh mì Việt Nam đã trở nên phổ biến ở nhiều quốc gia trên thế giới.",
+      "Bánh mì Việt Nam còn là chủ đề chính của một số lễ hội, hội thảo cũng như trong các tác phẩm nghệ thuật."
+     ],
+     "insufficient_evidence": [
+      "the exact appearance of chả lụa, pa tê, bơ, rau, ớt, trứng và đồ chua",
+      "the exact appearance of cá mòi, xíu mại hoặc thịt bò kho",
+      "the exact appearance of bánh tây"
+     ]
+    }
+   },
+   "giay": 27.6
+  },
+  {
+   "t": "15:38:58",
+   "prompt_id": "S005",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:39:11",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/B/S005_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "two sandwiches on long rolls",
+     "sandwich fillings include sliced meat",
+     "sandwich fillings include leafy greens",
+     "sandwich fillings include pickled vegetables"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "wooden cutting board",
+     "white paper under sandwiches"
+    ],
+    "supporting_objects": [
+     "small white bowl with dipping sauce",
+     "small white bowl with chopped herbs",
+     "small white bowl with shredded vegetables",
+     "small blue bowl with dipping sauce",
+     "half lime fruit",
+     "fresh cilantro leaves"
+    ],
+    "background": [
+     "dark wooden table surface"
+    ],
+    "actions": [
+     "sandwiches cut in half diagonally"
+    ],
+    "spatial_relations": [
+     "sandwiches on cutting board",
+     "bowls arranged around sandwiches",
+     "lime and cilantro in front of board"
+    ],
+    "colors": [
+     "light brown sandwich rolls",
+     "green leafy greens",
+     "orange pickled vegetables",
+     "white dipping sauces",
+     "blue small bowl",
+     "green lime fruit",
+     "green cilantro leaves"
+    ],
+    "counts": {
+     "sandwiches": 2,
+     "small bowls": 4,
+     "lime fruit halves": 1
+    },
+    "visible_effects": [
+     "reflections on table surface",
+     "lighting highlights sandwiches and bowls"
+    ],
+    "uncertain": [
+     "top of blue bowl",
+     "contents of bowls behind sandwiches",
+     "area behind sandwiches and bowls"
+    ]
+   },
+   "giay": 13.2
+  },
+  {
+   "t": "15:39:20",
+   "prompt_id": "S005",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A banh mi stuffed with pork, pickles and cilantro.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA bánh mì sandwich is a visually appealing and culturally significant Vietnamese dish, featuring a golden-brown baguette with vibrant green cilantro, bright red pickled carrots, and white daikon, creating a striking contrast that tempts the eye. The sandwich offers a symphony of textures and flavors: the crunchiness of the baguette, the softness of chả lụa (Vietnamese sausage), the tanginess of the pickled vegetables, and the freshness of the herbs, reflecting the cultural fusion between French and Vietnamese culinary traditions.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Ổ bánh mì thịt kẹp\", \"en\": \"A banh mi\"}, \"subject_attributes\": [\"đầy đồ chua và rau mùi\", \"stuffed with pork, pickles and cilantro\"], \"supporting_objects\": [\"đồ chua\", \"rau mùi\", \"pork\", \"pickles\", \"cilantro\"], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"stuffed with pork, pickles and cilantro\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"bánh mì\", \"cue_en\": \"banh mi\", \"visual_check_vi\": \"bánh mì có lớp vỏ ngoài giòn, ruột mềm\", \"quote_vi\": \"Bánh mì là một loại baguette của Việt Nam với lớp vỏ ngoài giòn, ruột mềm\", \"source_url\": \"https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam\"}, {\"cue_vi\": \"ổ bánh mì\", \"cue_en\": \"banh mi sandwich\", \"visual_check_vi\": \"ổ bánh mì nhỏ và ngắn hơn, chỉ còn khoảng 20–40 cm\", \"quote_vi\": \"Người Sài Gòn sau đó đã cải biên chiếc bánh baguette thành ổ bánh mì nhỏ và ngắn hơn, chỉ còn khoảng 20–40 cm\", \"source_url\": \"https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam\"}], \"conditional_cues\": [{\"cue_vi\": \"bánh mì chay\", \"cue_en\": \"vegetarian banh mi\", \"visual_check_vi\": \"bánh mì có thể chứa thực phẩm chay\", \"quote_vi\": \"những phiên bản phổ biến nhất vẫn thường chứa chả lụa, thịt, hoặc thực phẩm chay\", \"source_url\": \"https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"bánh mì có ruột rỗng hơn để chứa nhiều nhân\", \"target_appearance_en\": \"banh mi has a hollower interior to hold more fillings\", \"source_url\": \"https://vi.wikipedia.org/wiki/B%C3%A1nh_m%C3%AC_Vi%E1%BB%87t_Nam\"}], \"discarded_nonvisual_facts\": [\"Bánh mì được xem như một loại thức ăn nhanh bình dân phổ biến và thường được tiêu thụ vào bữa sáng hoặc bất kỳ bữa phụ nào trong ngày.\", \"Bánh mì Việt Nam đã trở thành một biểu tượng ẩm thực đường phố nổi tiếng thế giới, được nhiều du khách quốc tế yêu thích.\", \"Bánh mì có nguồn gốc từ bánh baguette do người Pháp đưa vào miền Nam Việt Nam từ thế kỷ 19.\", \"Bánh mì Việt Nam đã trở nên phổ biến ở nhiều quốc gia trên thế giới.\", \"Bánh mì Việt Nam còn là chủ đề chính của một số lễ hội, hội thảo cũng như trong các tác phẩm nghệ thuật.\"], \"insufficient_evidence\": [\"the exact appearance of chả lụa, pa tê, bơ, rau, ớt, trứng và đồ chua\", \"the exact appearance of cá mòi, xíu mại hoặc thịt bò kho\", \"the exact appearance of bánh tây\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"two sandwiches on long rolls\", \"sandwich fillings include sliced meat\", \"sandwich fillings include leafy greens\", \"sandwich fillings include pickled vegetables\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"wooden cutting board\", \"white paper under sandwiches\"], \"supporting_objects\": [\"small white bowl with dipping sauce\", \"small white bowl with chopped herbs\", \"small white bowl with shredded vegetables\", \"small blue bowl with dipping sauce\", \"half lime fruit\", \"fresh cilantro leaves\"], \"background\": [\"dark wooden table surface\"], \"actions\": [\"sandwiches cut in half diagonally\"], \"spatial_relations\": [\"sandwiches on cutting board\", \"bowls arranged around sandwiches\", \"lime and cilantro in front of board\"], \"colors\": [\"light brown sandwich rolls\", \"green leafy greens\", \"orange pickled vegetables\", \"white dipping sauces\", \"blue small bowl\", \"green lime fruit\", \"green cilantro leaves\"], \"counts\": {\"sandwiches\": 2, \"small bowls\": 4, \"lime fruit halves\": 1}, \"visible_effects\": [\"reflections on table surface\", \"lighting highlights sandwiches and bowls\"], \"uncertain\": [\"top of blue bowl\", \"contents of bowls behind sandwiches\", \"area behind sandwiches and bowls\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "pork"
+    ],
+    "missing_cultural_identity": [
+     "banh mi sandwich",
+     "banh mi has a hollower interior to hold more fillings"
+    ],
+    "contradictions": [
+     "two sandwiches on long rolls"
+    ],
+    "already_satisfied": [
+     "stuffed with pickles and cilantro",
+     "pickles",
+     "cilantro",
+     "pickled vegetables",
+     "leafy greens"
+    ],
+    "uncertain_no_repair": [
+     "top of blue bowl",
+     "contents of bowls behind sandwiches",
+     "area behind sandwiches and bowls"
+    ],
+    "repair_actions": [
+     "a banh mi sandwich with a hollower interior to hold more fillings",
+     "pork inside the sandwich",
+     "a small white bowl with pickled carrots and daikon in front of the sandwiches"
+    ],
+    "drop_phrases": [
+     "golden-brown baguette",
+     "bright red pickled carrots",
+     "white daikon"
+    ]
+   },
+   "giay": 8.7
+  },
+  {
+   "t": "15:39:20",
+   "prompt_id": "S005",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a banh mi sandwich with a hollower interior to hold more fillings",
+     "pork inside the sandwich",
+     "a small white bowl with pickled carrots and daikon in front of the sandwiches"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "golden-brown baguette",
+     "bright red pickled carrots",
+     "white daikon"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:39:21",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a banh mi sandwich with a hollower interior to hold more fillings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/B/S005_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "sandwich with fillings, bread not hollow"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "15:39:22",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"pork inside the sandwich\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/B/S005_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "pork visible inside sandwich"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:39:24",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a small white bowl with pickled carrots and daikon in front of the sandwiches\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/B/S005_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "white bowl with carrots in front"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:39:24",
+   "prompt_id": "S005",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a banh mi sandwich with a hollower interior to hold more fillings",
+      5.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "pork inside the sandwich",
+      10.0
+     ],
+     [
+      "a small white bowl with pickled carrots and daikon in front of the sandwiches",
+      8.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:39:24",
+   "prompt_id": "S005",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A banh mi stuffed with pork, pickles and cilantro. A bánh mì sandwich is a visually appealing and culturally significant Vietnamese dish, featuring a with vibrant green cilantro,, and, creating a striking contrast that tempts the eye. The sandwich offers a symphony of textures and flavors: the crunchiness of the baguette, the softness of chả lụa (Vietnamese sausage), the tanginess of the pickled vegetables, and the freshness of the herbs, reflecting the cultural fusion between French and Vietnamese culinary traditions.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rau mùi; pork; pickles; cilantro. Make these additions clearly visible:\n1. a banh mi sandwich with a hollower interior to hold more fillings."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:39:47",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/C_ref/sdxl_base_ref/S005_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "long sandwich with fillings"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "sandwich on parchment paper"
+    ],
+    "supporting_objects": [
+     "small bowl with green sauce",
+     "small bowl with white sauce",
+     "small bowl with sliced vegetables",
+     "small bowl with green chili"
+    ],
+    "background": [
+     "wooden table surface"
+    ],
+    "actions": [
+     "sandwich cut in half"
+    ],
+    "spatial_relations": [
+     "sandwich in center",
+     "bowls around sandwich"
+    ],
+    "colors": [
+     "brown bread",
+     "green herbs",
+     "white sauce",
+     "orange carrot",
+     "red tomato",
+     "green chili"
+    ],
+    "counts": {
+     "sandwich halves": 2,
+     "bowls": 4
+    },
+    "visible_effects": [
+     "reflection on bread surface",
+     "light on sandwich"
+    ],
+    "uncertain": [
+     "top of sandwich",
+     "bottom of bowls"
+    ]
+   },
+   "giay": 8.8
+  },
+  {
+   "t": "15:39:55",
+   "prompt_id": "S005",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Ổ bánh mì thịt kẹp\", \"en\": \"A banh mi\"}, \"subject_attributes\": [\"đầy đồ chua và rau mùi\", \"stuffed with pork, pickles and cilantro\"], \"supporting_objects\": [\"đồ chua\", \"rau mùi\", \"pork\", \"pickles\", \"cilantro\"], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"stuffed with pork, pickles and cilantro\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a banh mi sandwich with a hollower interior to hold more fillings\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"two sandwiches on long rolls\", \"sandwich fillings include sliced meat\", \"sandwich fillings include leafy greens\", \"sandwich fillings include pickled vegetables\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"wooden cutting board\", \"white paper under sandwiches\"], \"supporting_objects\": [\"small white bowl with dipping sauce\", \"small white bowl with chopped herbs\", \"small white bowl with shredded vegetables\", \"small blue bowl with dipping sauce\", \"half lime fruit\", \"fresh cilantro leaves\"], \"background\": [\"dark wooden table surface\"], \"actions\": [\"sandwiches cut in half diagonally\"], \"spatial_relations\": [\"sandwiches on cutting board\", \"bowls arranged around sandwiches\", \"lime and cilantro in front of board\"], \"colors\": [\"light brown sandwich rolls\", \"green leafy greens\", \"orange pickled vegetables\", \"white dipping sauces\", \"blue small bowl\", \"green lime fruit\", \"green cilantro leaves\"], \"counts\": {\"sandwiches\": 2, \"small bowls\": 4, \"lime fruit halves\": 1}, \"visible_effects\": [\"reflections on table surface\", \"lighting highlights sandwiches and bowls\"], \"uncertain\": [\"top of blue bowl\", \"contents of bowls behind sandwiches\", \"area behind sandwiches and bowls\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"long sandwich with fillings\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"sandwich on parchment paper\"], \"supporting_objects\": [\"small bowl with green sauce\", \"small bowl with white sauce\", \"small bowl with sliced vegetables\", \"small bowl with green chili\"], \"background\": [\"wooden table surface\"], \"actions\": [\"sandwich cut in half\"], \"spatial_relations\": [\"sandwich in center\", \"bowls around sandwich\"], \"colors\": [\"brown bread\", \"green herbs\", \"white sauce\", \"orange carrot\", \"red tomato\", \"green chili\"], \"counts\": {\"sandwich halves\": 2, \"bowls\": 4}, \"visible_effects\": [\"reflection on bread surface\", \"light on sandwich\"], \"uncertain\": [\"top of sandwich\", \"bottom of bowls\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "sandwich cut in half"
+    ],
+    "regressions": [
+     {
+      "what": "two sandwiches",
+      "severity": "severe"
+     },
+     {
+      "what": "sandwich fillings include sliced meat",
+      "severity": "severe"
+     },
+     {
+      "what": "stuffed with pork, pickles and cilantro",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "sandwich fillings include leafy greens",
+     "sandwich fillings include pickled vegetables",
+     "small bowl with chopped herbs",
+     "small bowl with shredded vegetables",
+     "dark wooden table surface",
+     "sandwiches on cutting board",
+     "bowls arranged around sandwiches",
+     "lighting highlights sandwiches and bowls",
+     "counts: bowls"
+    ]
+   },
+   "giay": 7.2
+  },
+  {
+   "t": "15:39:55",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a banh mi sandwich with a hollower interior to hold more fillings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/B/S005_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "sandwich with fillings, bread not hollow"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:39:56",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a banh mi sandwich with a hollower interior to hold more fillings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/C_ref/sdxl_base_ref/S005_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "sandwich with fillings, not hollow"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:39:58",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banh mi\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/B/S005_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "sandwiches with meat, greens, carrots"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "15:39:59",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banh mi\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/C_ref/sdxl_base_ref/S005_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "Sandwich with herbs, meat, and vegetables."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:40:01",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banh mi sandwich\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/B/S005_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "sandwiches with meat, greens, carrots"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "15:40:02",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banh mi sandwich\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/C_ref/sdxl_base_ref/S005_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Sandwich with baguette, herbs, meat."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "15:40:03",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banh mi has a hollower interior to hold more fillings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/B/S005_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Bread is not hollow, has fillings."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:40:05",
+   "prompt_id": "S005",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banh mi has a hollower interior to hold more fillings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S005/C_ref/sdxl_base_ref/S005_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Bread is not hollow inside."
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:40:05",
+   "prompt_id": "S005",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "two sandwiches",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "sandwich fillings include sliced meat",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "stuffed with pork, pickles and cilantro",
+      "severe"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:40:06",
+   "prompt_id": "S005",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "sandwich cut in half"
+    ],
+    "bang_action": [
+     {
+      "action": "a banh mi sandwich with a hollower interior to hold more fillings",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "sandwich with fillings, not hollow"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "banh mi",
+      "I0": 7.0,
+      "I1": 7.0,
+      "fixed": false,
+      "ev_I1": "Sandwich with herbs, meat, and vegetables."
+     },
+     {
+      "cue": "banh mi sandwich",
+      "I0": 8.0,
+      "I1": 8.0,
+      "fixed": false,
+      "ev_I1": "Sandwich with baguette, herbs, meat."
+     },
+     {
+      "cue": "banh mi has a hollower interior to hold more fillings",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Bread is not hollow inside."
+     }
+    ],
+    "regressions": [
+     {
+      "what": "two sandwiches",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "sandwich fillings include sliced meat",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "stuffed with pork, pickles and cilantro",
+      "severity": "severe"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "1 regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.8018,
+     "sim_I1": 0.8316
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

@@ -1,0 +1,921 @@
+{
+ "unit": {
+  "prompt_id": "S047",
+  "prompt_vi": "Một người phụ nữ H'Mông mặc trang phục truyền thống đứng giữa rừng hoa.",
+  "P_orig": "A Hmong woman in traditional dress standing amid a field of flowers.",
+  "P_ct": "A Hmong woman in traditional dress standing amid a field of flowers. A H'Mông woman from the northern regions of Vietnam, dressed in her traditional attire for the H'Mông New Year festival, stands in a lush green valley surrounded by towering mountains. Her outfit features intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script, along with silver coins and decorative brooches. The field around her is filled with native flowers, including tulips and peonies, adding to the festive atmosphere. Her hair is styled intricately, held in place with a beautifully crafted silver headpiece adorned with colorful beads.",
+  "P1": "A Hmong woman in traditional dress standing amid a field of flowers. A H'Mông woman from the northern regions of Vietnam, dressed in her traditional attire for the H'Mông New Year festival, stands in a lush green valley surrounded by towering mountains. Her outfit features intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script, along with silver coins and decorative brooches. The field around her is filled with native flowers, including tulips and peonies, adding to the festive atmosphere. Her hair is styled intricately, held in place with a beautifully crafted silver headpiece adorned with colorful beads.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rừng hoa; field of flowers; trong rừng hoa; amid a field of flowers. Make these additions clearly visible:\n1. a lush green valley surrounding the woman.\n2. peony flowers in the field.\n3. clearly visible: traditional Hmong clothing.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "người phụ nữ H'Mông",
+     "en": "A Hmong woman"
+    },
+    "subject_attributes": [
+     "mặc trang phục truyền thống"
+    ],
+    "supporting_objects": [
+     "rừng hoa",
+     "field of flowers"
+    ],
+    "background_and_scene": [
+     "trong rừng hoa",
+     "amid a field of flowers"
+    ],
+    "actions_and_relations": [
+     "đứng"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "H'Mông",
+     "Hmong",
+     "trang phục truyền thống",
+     "traditional dress",
+     "rừng hoa",
+     "field of flowers",
+     "đứng",
+     "standing"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "trang phục truyền thống người Hmông",
+      "cue_en": "traditional Hmong clothing",
+      "visual_check_vi": "kiểm tra xem trang phục có đặc điểm truyền thống của người Hmông hay không",
+      "quote_vi": "Người Hmông hay Mông",
+      "source_url": "https://vi.wikipedia.org/wiki/H%27M%C3%B4ng"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "trang phục truyền thống người Hmông ở Việt Nam",
+      "cue_en": "traditional Hmong clothing in Vietnam",
+      "visual_check_vi": "kiểm tra xem trang phục có đặc điểm truyền thống của người Hmông ở Việt Nam hay không",
+      "quote_vi": "Tại Việt Nam người Hmông là một trong các dân tộc thiểu số có dân số đáng kể trong số 54 dân tộc tại Việt Nam.",
+      "source_url": "https://vi.wikipedia.org/wiki/H%27M%C3%B4ng"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "trang phục truyền thống người Hmông có màu sắc và kiểu dáng đặc trưng",
+      "target_appearance_en": "traditional Hmong clothing has distinctive colors and styles",
+      "source_url": "https://vi.wikipedia.org/wiki/H%27M%C3%B4ng"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "ngôn ngữ, lịch sử, etymology, symbolism, taste, smell, sound"
+    ],
+    "insufficient_evidence": [
+     "mô tả chi tiết về trang phục truyền thống người Hmông"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "person standing in field",
+    "elaborate headpiece on person",
+    "long dress with floral patterns"
+   ],
+   "clothing_and_appearance": [
+    "long dark hair",
+    "red and blue dress",
+    "intricate embroidery on dress",
+    "long sleeves with cuffs",
+    "high collar with decorative elements",
+    "earrings visible",
+    "person facing forward"
+   ],
+   "foreground_objects": [
+    "field of tulips",
+    "various colors of tulips",
+    "green stems and leaves"
+   ],
+   "supporting_objects": [
+    "rock under person's feet"
+   ],
+   "background": [
+    "mountain range",
+    "cloudy sky",
+    "green hills",
+    "tulip field extending into distance"
+   ],
+   "actions": [
+    "person standing still",
+    "no visible movement"
+   ],
+   "spatial_relations": [
+    "person in center of image",
+    "tulips surrounding person",
+    "mountains behind person",
+    "rock beneath person's feet"
+   ],
+   "colors": [
+    "red and blue dress",
+    "pink, red, orange tulips",
+    "green leaves and stems",
+    "green mountains",
+    "cloudy sky"
+   ],
+   "counts": {
+    "tulips": "many",
+    "mountains": "multiple",
+    "earrings": "two"
+   },
+   "visible_effects": [
+    "soft lighting",
+    "shadows under person and tulips",
+    "clear sky with clouds"
+   ],
+   "uncertain": [
+    "top of headpiece",
+    "bottom of dress",
+    "far mountains",
+    "edges of tulip field"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "a lush green valley",
+    "towering mountains",
+    "native flowers, including peonies"
+   ],
+   "missing_cultural_identity": [
+    "intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script",
+    "silver coins",
+    "decorative brooches",
+    "silver headpiece adorned with colorful beads"
+   ],
+   "contradictions": [
+    "red and blue dress"
+   ],
+   "already_satisfied": [
+    "A Hmong woman",
+    "traditional dress",
+    "standing",
+    "field of flowers",
+    "amid a field of flowers",
+    "long dress with floral patterns",
+    "person standing in field",
+    "elaborate headpiece on person",
+    "long sleeves with cuffs",
+    "high collar with decorative elements",
+    "earrings visible",
+    "person facing forward",
+    "person standing still",
+    "person in center of image",
+    "tulips surrounding person",
+    "mountains behind person",
+    "rock beneath person's feet"
+   ],
+   "uncertain_no_repair": [
+    "top of headpiece",
+    "bottom of dress",
+    "far mountains",
+    "edges of tulip field"
+   ],
+   "repair_actions": [
+    "a lush green valley surrounding the woman",
+    "peony flowers in the field"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "a lush green valley surrounding the woman",
+   "peony flowers in the field",
+   "clearly visible: traditional Hmong clothing"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S047/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S047/02.jpg"
+  ],
+  "images": {
+   "A": "S047_sdxl_base_c0.png",
+   "B (I0)": "S047_sdxl_base_c0.png",
+   "C (I1)": "S047_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "19:33:46",
+   "prompt_id": "S047",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Một người phụ nữ H'Mông mặc trang phục truyền thống đứng giữa rừng hoa.\nPROMPT EN: A Hmong woman in traditional dress standing amid a field of flowers.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "người phụ nữ H'Mông",
+      "en": "A Hmong woman"
+     },
+     "subject_attributes": [
+      "mặc trang phục truyền thống"
+     ],
+     "supporting_objects": [
+      "rừng hoa",
+      "field of flowers"
+     ],
+     "background_and_scene": [
+      "trong rừng hoa",
+      "amid a field of flowers"
+     ],
+     "actions_and_relations": [
+      "đứng"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "H'Mông",
+      "Hmong",
+      "trang phục truyền thống",
+      "traditional dress",
+      "rừng hoa",
+      "field of flowers",
+      "đứng",
+      "standing"
+     ]
+    }
+   },
+   "giay": 8.2
+  },
+  {
+   "t": "19:34:02",
+   "prompt_id": "S047",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Một người phụ nữ H'Mông mặc trang phục truyền thống đứng giữa rừng hoa.\nPROMPT EN: A Hmong woman in traditional dress standing amid a field of flowers.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] H'Mông — https://vi.wikipedia.org/wiki/H%27M%C3%B4ng ===\nNgười Hmông hay Mông (RPA: Hmoob/Moob, Chữ Hmông Việt: Hmôngz/Môngz); phát âm tiếng H'Mông: [m̥ɔ̃ŋ]), là một nhóm dân tộc có địa bàn cư trú truyền thống là Trung Quốc và các nước lân cận thuộc tiểu vùng Đông Nam Á, gồm Lào, Việt Nam, Thái Lan và Myanmar. Người Hmông nói tiếng Hmông, một ngôn ngữ chính trong ngữ hệ Hmông-Miền. Tại Việt Nam người Hmông là một trong các dân tộc thiểu số có dân số đáng kể trong số 54 dân tộc tại Việt Nam. Tại Thái Lan và Lào họ được gọi là người Mèo (trong nhóm Lào Sủng). Người Miêu được chính phủ Trung Quốc công nhận là một trong 55 dân tộc thiểu số tại Trung Quốc. Người Miêu tạo thành nhóm dân tộc lớn thứ 5 tại Trung Quốc. Người Miêu Trung Quốc bao gồm các phân nhóm: Hmông, H'mu, H'mao và Ghao Xong. Theo điều tra dân số năm 2000, số lượng người Miêu ở Trung Quốc khoảng 9,6 triệu. Tất cả các nhóm này cộng lại xấp xỉ 8 triệu người nói tiếng Hmông. Tại Việt Nam, có khoảng trên 1 triệu người Hmông. Các nhà nghiên cứu phương Tây xử lý vấn đề thuật ngữ này không thống nhất. Những người đầu tiên sử dụng tên gọi theo kiểu Trung Hoa trong một loạt các phiên âm: Miao, Meau, Meo, Mo, Miao-tse, Miao-tsze, Miao-tseu (Miêu tộc). Tuy nhiên, do ảnh hưởng của người Hmông ở Lào, các nhà nghiên cứu đương đại chấp nhận thuật ngữ khác là \"Hmông\". Bản thân người Hmông thì sử dụng hàng loạt các tên tự gọi khác nhau. Danh sách dưới đây liệt kê các tên tự gọi, tên gọi màu sắc và khu vực chính mà 4 nhóm chính của người Miêu sinh sống tại Trung Quốc: Ghao Xong; Miêu đỏ; tây Hồ Nam. Ngoài ra, chỉ có người Hmông (và một số Hmu) có người sinh sống ngoài phạm vi Trung Quốc. Những người Hmông phi Trung Quốc này cho rằng thuật ngữ \"Hmông\" không chỉ để nói tới nhóm thổ ngữ của họ, mà còn là để chỉ các nhóm khác sống tại Trung Quốc. Thay vì điều này thuật ngữ \"Hmông\" được sử dụng để chỉ mọi nhóm người thuộc dân tộc này. Các nhà thám hiểm và xâm lược Trung Hoa đặt cho người Hmông tên gọi \"Miao\" (hay \"Miêu\"), sau đó trở thành \"Meo\" (Mèo) và \"Man\" (Mán). Có thể những người nói tiếng Việt, Lào, Thái đã lấy từ \"miao\" (miêu) từ tiếng Trung Hoa. Trong cách dịch của người Việt các từ Hán-Việt thì \"miêu\" cũng là \"mèo\". Điều này giải thích tại sao lại có sự phản đối quyết liệt như vậy chống lại thuật ngữ \"Miêu\" trong các nhóm người Hmông tại khu vực Đông Nam Á. Các nhóm người Miêu có các tên tự gọi khác hẳn và chỉ một số rất ít sử dụng từ \"Hmông\". Những người còn lại thì không có ý kiến gì khi cho rằng \"Hmông\" là thích hợp hơn so với \"Miêu\" trong vai trò của tên gọi chung. Nhóm người Miêu ở Trung Quốc, theo bài báo năm 1992 trong Dự án bản tin Thái-Vân Nam [TYPN 1992], đã không có khiếu nại gì. (Cũng giống như trong tiếng Anh là có rất ít người có khả năng phát âm các âm điếc giọng mũi). Tuy nhiên, trong tiếng Anh, không giống như tiếng Trung, người ta có khả năng viết được từ \"Hmong\". Người Hmông viết tên gọi của dân tộc mình theo chữ Hmông Latin hóa (RPA) là \"Hmoob\". Thuật ngữ \"Hmông\" được đề nghị như là tên gọi của các nhóm người Miêu nói thổ ngữ Hmông ở Trung Quốc và người Hmông ngoài Trung Quốc. Nó dẫn đến nhiều người đã nhầm lẫn với tình trạng của các thuật ngữ hiện tại và không nhìn thấy mối liên quan giữa người Miêu và Hmông. Haudricourt từng bước đem so sánh cả hệ thống thanh điệu và cả lớp từ vựng cơ bản giữa các ngôn ngữ Hmông-Miền với các ngôn ngữ của ngữ hệ Hán-Tạng và hệ Nam Á. Ông đã cho rằng \"các ngôn ngữ Miao-Yao hình như tạo nên mối liên hệ giữa các ngôn ngữ Nam Á và các ngôn ngữ Tạng-Miến\". Đây cũng chính là cơ sở để một hướng các nhà ngôn ngữ sau này không xếp các ngôn ngữ Hmông-Miền vào Nam Á hay Hán-Tạng mà là một họ ngôn ngữ độc lập vì những kiến giải của Haudricourt \"không thuần tuý là sự so sánh từ vựng mà là sự phục nguyên, một thao tác thể hiện tính quy luật của những chuyển đổi âm thanh\". Chữ viết Hiện chưa xác định rõ liệu một hệ thống chữ viết Hmông trong lịch sử hay không. Theo truyền thuyết thì người Hmông từng có chữ gọi là \"chữ Nam Man\", do người Hán gọi người Hmông là người Nam Man.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "trang phục truyền thống người Hmông",
+       "cue_en": "traditional Hmong clothing",
+       "visual_check_vi": "kiểm tra xem trang phục có đặc điểm truyền thống của người Hmông hay không",
+       "quote_vi": "Người Hmông hay Mông",
+       "source_url": "https://vi.wikipedia.org/wiki/H%27M%C3%B4ng"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "trang phục truyền thống người Hmông ở Việt Nam",
+       "cue_en": "traditional Hmong clothing in Vietnam",
+       "visual_check_vi": "kiểm tra xem trang phục có đặc điểm truyền thống của người Hmông ở Việt Nam hay không",
+       "quote_vi": "Tại Việt Nam người Hmông là một trong các dân tộc thiểu số có dân số đáng kể trong số 54 dân tộc tại Việt Nam.",
+       "source_url": "https://vi.wikipedia.org/wiki/H%27M%C3%B4ng"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "trang phục truyền thống người Hmông có màu sắc và kiểu dáng đặc trưng",
+       "target_appearance_en": "traditional Hmong clothing has distinctive colors and styles",
+       "source_url": "https://vi.wikipedia.org/wiki/H%27M%C3%B4ng"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "ngôn ngữ, lịch sử, etymology, symbolism, taste, smell, sound"
+     ],
+     "insufficient_evidence": [
+      "mô tả chi tiết về trang phục truyền thống người Hmông"
+     ]
+    }
+   },
+   "giay": 16.4
+  },
+  {
+   "t": "19:34:02",
+   "prompt_id": "S047",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 1,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:34:17",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/B/sdxl_base/S047_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "person standing in field",
+     "elaborate headpiece on person",
+     "long dress with floral patterns"
+    ],
+    "clothing_and_appearance": [
+     "long dark hair",
+     "red and blue dress",
+     "intricate embroidery on dress",
+     "long sleeves with cuffs",
+     "high collar with decorative elements",
+     "earrings visible",
+     "person facing forward"
+    ],
+    "foreground_objects": [
+     "field of tulips",
+     "various colors of tulips",
+     "green stems and leaves"
+    ],
+    "supporting_objects": [
+     "rock under person's feet"
+    ],
+    "background": [
+     "mountain range",
+     "cloudy sky",
+     "green hills",
+     "tulip field extending into distance"
+    ],
+    "actions": [
+     "person standing still",
+     "no visible movement"
+    ],
+    "spatial_relations": [
+     "person in center of image",
+     "tulips surrounding person",
+     "mountains behind person",
+     "rock beneath person's feet"
+    ],
+    "colors": [
+     "red and blue dress",
+     "pink, red, orange tulips",
+     "green leaves and stems",
+     "green mountains",
+     "cloudy sky"
+    ],
+    "counts": {
+     "tulips": "many",
+     "mountains": "multiple",
+     "earrings": "two"
+    },
+    "visible_effects": [
+     "soft lighting",
+     "shadows under person and tulips",
+     "clear sky with clouds"
+    ],
+    "uncertain": [
+     "top of headpiece",
+     "bottom of dress",
+     "far mountains",
+     "edges of tulip field"
+    ]
+   },
+   "giay": 14.0
+  },
+  {
+   "t": "19:34:29",
+   "prompt_id": "S047",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A Hmong woman in traditional dress standing amid a field of flowers.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA H'Mông woman from the northern regions of Vietnam, dressed in her traditional attire for the H'Mông New Year festival, stands in a lush green valley surrounded by towering mountains. Her outfit features intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script, along with silver coins and decorative brooches. The field around her is filled with native flowers, including tulips and peonies, adding to the festive atmosphere. Her hair is styled intricately, held in place with a beautifully crafted silver headpiece adorned with colorful beads.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"người phụ nữ H'Mông\", \"en\": \"A Hmong woman\"}, \"subject_attributes\": [\"mặc trang phục truyền thống\"], \"supporting_objects\": [\"rừng hoa\", \"field of flowers\"], \"background_and_scene\": [\"trong rừng hoa\", \"amid a field of flowers\"], \"actions_and_relations\": [\"đứng\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"H'Mông\", \"Hmong\", \"trang phục truyền thống\", \"traditional dress\", \"rừng hoa\", \"field of flowers\", \"đứng\", \"standing\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"trang phục truyền thống người Hmông\", \"cue_en\": \"traditional Hmong clothing\", \"visual_check_vi\": \"kiểm tra xem trang phục có đặc điểm truyền thống của người Hmông hay không\", \"quote_vi\": \"Người Hmông hay Mông\", \"source_url\": \"https://vi.wikipedia.org/wiki/H%27M%C3%B4ng\"}], \"conditional_cues\": [{\"cue_vi\": \"trang phục truyền thống người Hmông ở Việt Nam\", \"cue_en\": \"traditional Hmong clothing in Vietnam\", \"visual_check_vi\": \"kiểm tra xem trang phục có đặc điểm truyền thống của người Hmông ở Việt Nam hay không\", \"quote_vi\": \"Tại Việt Nam người Hmông là một trong các dân tộc thiểu số có dân số đáng kể trong số 54 dân tộc tại Việt Nam.\", \"source_url\": \"https://vi.wikipedia.org/wiki/H%27M%C3%B4ng\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"trang phục truyền thống người Hmông có màu sắc và kiểu dáng đặc trưng\", \"target_appearance_en\": \"traditional Hmong clothing has distinctive colors and styles\", \"source_url\": \"https://vi.wikipedia.org/wiki/H%27M%C3%B4ng\"}], \"discarded_nonvisual_facts\": [\"ngôn ngữ, lịch sử, etymology, symbolism, taste, smell, sound\"], \"insufficient_evidence\": [\"mô tả chi tiết về trang phục truyền thống người Hmông\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"person standing in field\", \"elaborate headpiece on person\", \"long dress with floral patterns\"], \"clothing_and_appearance\": [\"long dark hair\", \"red and blue dress\", \"intricate embroidery on dress\", \"long sleeves with cuffs\", \"high collar with decorative elements\", \"earrings visible\", \"person facing forward\"], \"foreground_objects\": [\"field of tulips\", \"various colors of tulips\", \"green stems and leaves\"], \"supporting_objects\": [\"rock under person's feet\"], \"background\": [\"mountain range\", \"cloudy sky\", \"green hills\", \"tulip field extending into distance\"], \"actions\": [\"person standing still\", \"no visible movement\"], \"spatial_relations\": [\"person in center of image\", \"tulips surrounding person\", \"mountains behind person\", \"rock beneath person's feet\"], \"colors\": [\"red and blue dress\", \"pink, red, orange tulips\", \"green leaves and stems\", \"green mountains\", \"cloudy sky\"], \"counts\": {\"tulips\": \"many\", \"mountains\": \"multiple\", \"earrings\": \"two\"}, \"visible_effects\": [\"soft lighting\", \"shadows under person and tulips\", \"clear sky with clouds\"], \"uncertain\": [\"top of headpiece\", \"bottom of dress\", \"far mountains\", \"edges of tulip field\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "a lush green valley",
+     "towering mountains",
+     "native flowers, including peonies"
+    ],
+    "missing_cultural_identity": [
+     "intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script",
+     "silver coins",
+     "decorative brooches",
+     "silver headpiece adorned with colorful beads"
+    ],
+    "contradictions": [
+     "red and blue dress"
+    ],
+    "already_satisfied": [
+     "A Hmong woman",
+     "traditional dress",
+     "standing",
+     "field of flowers",
+     "amid a field of flowers",
+     "long dress with floral patterns",
+     "person standing in field",
+     "elaborate headpiece on person",
+     "long sleeves with cuffs",
+     "high collar with decorative elements",
+     "earrings visible",
+     "person facing forward",
+     "person standing still",
+     "person in center of image",
+     "tulips surrounding person",
+     "mountains behind person",
+     "rock beneath person's feet"
+    ],
+    "uncertain_no_repair": [
+     "top of headpiece",
+     "bottom of dress",
+     "far mountains",
+     "edges of tulip field"
+    ],
+    "repair_actions": [
+     "a lush green valley surrounding the woman",
+     "peony flowers in the field"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 12.9
+  },
+  {
+   "t": "19:34:29",
+   "prompt_id": "S047",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a lush green valley surrounding the woman",
+     "peony flowers in the field"
+    ],
+    "bo": [
+     "towering mountains in the background"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:34:31",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a lush green valley surrounding the woman\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/B/sdxl_base/S047_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "green hills, but not a valley"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:34:32",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"peony flowers in the field\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/B/sdxl_base/S047_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "flowers are tulips, not peonies"
+   },
+   "giay": 1.6
+  },
+  {
+   "t": "19:34:34",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"traditional Hmong clothing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/B/sdxl_base/S047_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "no traditional Hmong clothing"
+   },
+   "giay": 1.2
+  },
+  {
+   "t": "19:34:34",
+   "prompt_id": "S047",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a lush green valley surrounding the woman",
+      5.0
+     ],
+     [
+      "peony flowers in the field",
+      5.0
+     ],
+     [
+      "clearly visible: traditional Hmong clothing",
+      null
+     ]
+    ],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:34:34",
+   "prompt_id": "S047",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A Hmong woman in traditional dress standing amid a field of flowers. A H'Mông woman from the northern regions of Vietnam, dressed in her traditional attire for the H'Mông New Year festival, stands in a lush green valley surrounded by towering mountains. Her outfit features intricate embroidery with motifs like dragons, phoenixes, and traditional H'Mông script, along with silver coins and decorative brooches. The field around her is filled with native flowers, including tulips and peonies, adding to the festive atmosphere. Her hair is styled intricately, held in place with a beautifully crafted silver headpiece adorned with colorful beads.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rừng hoa; field of flowers; trong rừng hoa; amid a field of flowers. Make these additions clearly visible:\n1. a lush green valley surrounding the woman.\n2. peony flowers in the field.\n3. clearly visible: traditional Hmong clothing."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:35:00",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/C_ref/sdxl_base_ref/S047_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "person standing outdoors",
+     "flowering tree branches"
+    ],
+    "clothing_and_appearance": [
+     "long dress with intricate patterns",
+     "dark blue top with red sleeves",
+     "multicolored headpiece with flowers",
+     "long dark hair",
+     "beaded necklace"
+    ],
+    "foreground_objects": [
+     "white flowers on tree branches",
+     "green grass",
+     "small white flowers on ground"
+    ],
+    "supporting_objects": [
+     "tree trunk",
+     "person's hands visible"
+    ],
+    "background": [
+     "mountainous landscape",
+     "blurred greenery",
+     "distant structures"
+    ],
+    "actions": [
+     "person standing still",
+     "person looking to the side"
+    ],
+    "spatial_relations": [
+     "person in front of tree",
+     "tree branches surrounding person",
+     "mountains in the far background"
+    ],
+    "colors": [
+     "red dress",
+     "dark blue top",
+     "multicolored headpiece",
+     "white flowers",
+     "green grass and trees",
+     "various patterns on clothing"
+    ],
+    "counts": {
+     "people": 1,
+     "main trees": 1,
+     "visible hands": 2
+    },
+    "visible_effects": [
+     "soft lighting",
+     "blurred background",
+     "sharp focus on person"
+    ],
+    "uncertain": [
+     "top of person's head",
+     "details of distant structures",
+     "lower part of dress",
+     "far right side of image"
+    ]
+   },
+   "giay": 12.6
+  },
+  {
+   "t": "19:35:04",
+   "prompt_id": "S047",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"người phụ nữ H'Mông\", \"en\": \"A Hmong woman\"}, \"subject_attributes\": [\"mặc trang phục truyền thống\"], \"supporting_objects\": [\"rừng hoa\", \"field of flowers\"], \"background_and_scene\": [\"trong rừng hoa\", \"amid a field of flowers\"], \"actions_and_relations\": [\"đứng\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"H'Mông\", \"Hmong\", \"trang phục truyền thống\", \"traditional dress\", \"rừng hoa\", \"field of flowers\", \"đứng\", \"standing\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a lush green valley surrounding the woman\", \"peony flowers in the field\", \"clearly visible: traditional Hmong clothing\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"person standing in field\", \"elaborate headpiece on person\", \"long dress with floral patterns\"], \"clothing_and_appearance\": [\"long dark hair\", \"red and blue dress\", \"intricate embroidery on dress\", \"long sleeves with cuffs\", \"high collar with decorative elements\", \"earrings visible\", \"person facing forward\"], \"foreground_objects\": [\"field of tulips\", \"various colors of tulips\", \"green stems and leaves\"], \"supporting_objects\": [\"rock under person's feet\"], \"background\": [\"mountain range\", \"cloudy sky\", \"green hills\", \"tulip field extending into distance\"], \"actions\": [\"person standing still\", \"no visible movement\"], \"spatial_relations\": [\"person in center of image\", \"tulips surrounding person\", \"mountains behind person\", \"rock beneath person's feet\"], \"colors\": [\"red and blue dress\", \"pink, red, orange tulips\", \"green leaves and stems\", \"green mountains\", \"cloudy sky\"], \"counts\": {\"tulips\": \"many\", \"mountains\": \"multiple\", \"earrings\": \"two\"}, \"visible_effects\": [\"soft lighting\", \"shadows under person and tulips\", \"clear sky with clouds\"], \"uncertain\": [\"top of headpiece\", \"bottom of dress\", \"far mountains\", \"edges of tulip field\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"person standing outdoors\", \"flowering tree branches\"], \"clothing_and_appearance\": [\"long dress with intricate patterns\", \"dark blue top with red sleeves\", \"multicolored headpiece with flowers\", \"long dark hair\", \"beaded necklace\"], \"foreground_objects\": [\"white flowers on tree branches\", \"green grass\", \"small white flowers on ground\"], \"supporting_objects\": [\"tree trunk\", \"person's hands visible\"], \"background\": [\"mountainous landscape\", \"blurred greenery\", \"distant structures\"], \"actions\": [\"person standing still\", \"person looking to the side\"], \"spatial_relations\": [\"person in front of tree\", \"tree branches surrounding person\", \"mountains in the far background\"], \"colors\": [\"red dress\", \"dark blue top\", \"multicolored headpiece\", \"white flowers\", \"green grass and trees\", \"various patterns on clothing\"], \"counts\": {\"people\": 1, \"main trees\": 1, \"visible hands\": 2}, \"visible_effects\": [\"soft lighting\", \"blurred background\", \"sharp focus on person\"], \"uncertain\": [\"top of person's head\", \"details of distant structures\", \"lower part of dress\", \"far right side of image\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "traditional Hmong clothing is now clearly visible"
+    ],
+    "regressions": [
+     {
+      "what": "field of flowers",
+      "severity": "severe"
+     },
+     {
+      "what": "standing",
+      "severity": "minor"
+     }
+    ],
+    "unchanged_issues": [
+     "main entity: a woman"
+    ]
+   },
+   "giay": 3.4
+  },
+  {
+   "t": "19:35:04",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a lush green valley surrounding the woman\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/B/sdxl_base/S047_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "green hills, but not a valley"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:35:05",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a lush green valley surrounding the woman\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/C_ref/sdxl_base_ref/S047_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "green valley, but not lush"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:35:05",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"peony flowers in the field\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/B/sdxl_base/S047_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "flowers are tulips, not peonies"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:35:06",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"peony flowers in the field\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/C_ref/sdxl_base_ref/S047_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no peony flowers visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:35:08",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: traditional Hmong clothing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/B/sdxl_base/S047_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0,
+    "evidence": "no traditional Hmong clothing"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:35:09",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: traditional Hmong clothing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/C_ref/sdxl_base_ref/S047_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Traditional clothing, but not Hmong."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:35:09",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"traditional Hmong clothing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/B/sdxl_base/S047_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "no traditional Hmong clothing"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:35:11",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"traditional Hmong clothing\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/C_ref/sdxl_base_ref/S047_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Colorful clothing, floral headpiece."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:35:12",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"traditional Hmong clothing has distinctive colors and styles\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/B/sdxl_base/S047_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0,
+    "evidence": "..."
+   },
+   "giay": 1.1
+  },
+  {
+   "t": "19:35:13",
+   "prompt_id": "S047",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"traditional Hmong clothing has distinctive colors and styles\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S047/C_ref/sdxl_base_ref/S047_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Distinctive colors and styles seen."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:35:13",
+   "prompt_id": "S047",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "field of flowers",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "standing",
+      "minor"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:35:14",
+   "prompt_id": "S047",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "traditional Hmong clothing is now clearly visible"
+    ],
+    "bang_action": [
+     {
+      "action": "a lush green valley surrounding the woman",
+      "I0": 5.0,
+      "I1": 7.0,
+      "fixed": false,
+      "ev_I1": "green valley, but not lush"
+     },
+     {
+      "action": "peony flowers in the field",
+      "I0": 5.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no peony flowers visible"
+     },
+     {
+      "action": "clearly visible: traditional Hmong clothing",
+      "I0": null,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Traditional clothing, but not Hmong."
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "traditional Hmong clothing",
+      "I0": null,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Colorful clothing, floral headpiece."
+     },
+     {
+      "cue": "traditional Hmong clothing has distinctive colors and styles",
+      "I0": null,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Distinctive colors and styles seen."
+     }
+    ],
+    "regressions": [
+     {
+      "what": "field of flowers",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "standing",
+      "severity": "minor"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.6803,
+     "sim_I1": 0.7437
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

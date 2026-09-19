@@ -1,0 +1,801 @@
+{
+ "unit": {
+  "prompt_id": "S042",
+  "prompt_vi": "Những hòn đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long.",
+  "P_orig": "Limestone karst islands rising from the emerald waters of Ha Long Bay.",
+  "P_ct": "Limestone karst islands rising from the emerald waters of Ha Long Bay. Ha Long Bay, a natural wonder in northeastern Vietnam, is celebrated for its thousands of limestone karst islands and islets rising majestically from the emerald waters. These geological formations range in size from small rocks to towering peaks, creating a mesmerizing landscape. The bay, located in the Gulf of Tonkin, is renowned for its crystal-clear waters, lush greenery, and vibrant marine ecosystems teeming with colorful fish, coral reefs, and dolphins. Visitors can kayak between the islands, explore hidden coves, and discover the myriad of marine life that calls this stunning bay home. Ha Long Bay is also a cultural treasure, with ancient fishing villages, traditional boat tours, and preserved indigenous traditions offering a unique glimpse into the area’s rich history and heritage.",
+  "P1": "Limestone karst islands rising from the emerald waters of Ha Long Bay. Ha Long Bay, a natural wonder in northeastern Vietnam, is celebrated for its thousands of limestone karst islands and islets rising majestically from the emerald waters. These geological formations range in size from small rocks to, creating a mesmerizing landscape. The bay, located in the Gulf of Tonkin, is renowned for its crystal-clear waters, lush greenery, and vibrant marine ecosystems teeming with colorful fish, coral reefs, and dolphins. Visitors can kayak between the islands, explore, and discover the myriad of marine life that calls this stunning bay home. Ha Long Bay is also a cultural treasure, with, traditional boat tours, and preserved indigenous traditions offering a unique glimpse into the area’s rich history and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: Ha Long Bay; the emerald waters. Make these additions clearly visible:\n1. green shrubs on the rock formations.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Những hòn đảo đá vôi",
+     "en": "Limestone karst islands"
+    },
+    "subject_attributes": [
+     "nhấp nhô"
+    ],
+    "supporting_objects": [
+     "làn nước",
+     "vịnh Hạ Long",
+     "Ha Long Bay"
+    ],
+    "background_and_scene": [
+     "giua làn nước xanh ngọc",
+     "the emerald waters"
+    ],
+    "actions_and_relations": [
+     "rising from"
+    ],
+    "colors": [
+     "xanh ngọc",
+     "emerald"
+    ],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Những hòn đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long.",
+     "Limestone karst islands rising from the emerald waters of Ha Long Bay."
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "đá vôi",
+      "cue_en": "limestone",
+      "visual_check_vi": "hòn đảo đá vôi",
+      "quote_vi": "phần lớn là đảo đá vôi",
+      "source_url": "https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "đá dựng",
+      "cue_en": "standing rocks",
+      "visual_check_vi": "đá dựng giữa trời cao",
+      "quote_vi": "kỳ quan đá dựng giữa trời cao",
+      "source_url": "https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "đá dựng",
+      "target_appearance_en": "standing rocks",
+      "source_url": "https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "lịch sử kiến tạo địa chất đá vôi của vịnh đã trải qua khoảng 500 triệu năm",
+     "sự hiện diện của những cư dân tiền sử trên vùng vịnh Hạ Long từ khá sớm",
+     "truyền thuyết Vịnh Hạ Long có từ xa xưa do những kiến tạo địa chất"
+    ],
+    "insufficient_evidence": [
+     "màu sắc của đá vôi",
+     "cấu trúc của đá vôi"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "large rock formations in water",
+    "small wooden boat in water"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "green leafy tree branches",
+    "green shrubs"
+   ],
+   "supporting_objects": [
+    "wooden boat with canopy"
+   ],
+   "background": [
+    "clear blue sky",
+    "large rock formations covered in greenery",
+    "calm water reflecting rock formations"
+   ],
+   "actions": [
+    "boat floating on water"
+   ],
+   "spatial_relations": [
+    "boat in front of rock formations",
+    "tree branches above water and boat",
+    "rock formations surrounded by water"
+   ],
+   "colors": [
+    "green of tree leaves and shrubs",
+    "blue of sky and water",
+    "brown of rock formations and boat"
+   ],
+   "counts": {
+    "rock formations": 8,
+    "boats": 1
+   },
+   "visible_effects": [
+    "reflection of rock formations in water",
+    "clear sky with no visible clouds"
+   ],
+   "uncertain": [
+    "top of tree branches",
+    "bottom of rock formations in water",
+    "far right and left edges of image"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "Limestone karst islands"
+   ],
+   "missing_cultural_identity": [
+    "standing rocks"
+   ],
+   "contradictions": [],
+   "already_satisfied": [
+    "emerald waters",
+    "rising from the emerald waters",
+    "rock formations in water",
+    "rock formations surrounded by water",
+    "rock formations covered in greenery",
+    "calm water reflecting rock formations"
+   ],
+   "uncertain_no_repair": [
+    "top of tree branches",
+    "bottom of rock formations in water",
+    "far right and left edges of image"
+   ],
+   "repair_actions": [
+    "limestone karst islands rising from the emerald waters",
+    "standing rocks in the water",
+    "green shrubs on the rock formations"
+   ],
+   "drop_phrases": [
+    "towering peaks",
+    "hidden coves",
+    "ancient fishing villages"
+   ]
+  },
+  "actions": [
+   "green shrubs on the rock formations"
+  ],
+  "drop_phrases": [
+   "towering peaks",
+   "hidden coves",
+   "ancient fishing villages"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S042/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S042/02.jpg"
+  ],
+  "images": {
+   "A": "S042_sdxl_base_c0.png",
+   "B (I0)": "S042_sdxl_base_c0.png",
+   "C (I1)": "S042_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "19:20:50",
+   "prompt_id": "S042",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Những hòn đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long.\nPROMPT EN: Limestone karst islands rising from the emerald waters of Ha Long Bay.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Những hòn đảo đá vôi",
+      "en": "Limestone karst islands"
+     },
+     "subject_attributes": [
+      "nhấp nhô"
+     ],
+     "supporting_objects": [
+      "làn nước",
+      "vịnh Hạ Long",
+      "Ha Long Bay"
+     ],
+     "background_and_scene": [
+      "giua làn nước xanh ngọc",
+      "the emerald waters"
+     ],
+     "actions_and_relations": [
+      "rising from"
+     ],
+     "colors": [
+      "xanh ngọc",
+      "emerald"
+     ],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Những hòn đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long.",
+      "Limestone karst islands rising from the emerald waters of Ha Long Bay."
+     ]
+    }
+   },
+   "giay": 9.2
+  },
+  {
+   "t": "19:21:05",
+   "prompt_id": "S042",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Những hòn đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long.\nPROMPT EN: Limestone karst islands rising from the emerald waters of Ha Long Bay.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Vịnh Hạ Long — https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long ===\nVịnh Hạ Long là một vịnh nhỏ thuộc phần bờ tây vịnh Bắc Bộ tại khu vực biển Đông Bắc Việt Nam, bao gồm vùng biển đảo của khu vực đô thị Hạ Long thuộc thành phố Quảng Ninh. Là trung tâm của một khu vực rộng lớn có những yếu tố ít nhiều tương đồng về địa chất, địa mạo, cảnh quan, khí hậu và văn hóa, với vịnh Bái Tử Long phía Đông Bắc và quần đảo Cát Bà phía Tây Nam, vịnh Hạ Long giới hạn trong diện tích khoảng 1.553 km² bao gồm 1.969 hòn đảo lớn nhỏ, phần lớn là đảo đá vôi, trong đó vùng lõi của vịnh có diện tích 335 km² quần tụ dày đặc 775 hòn đảo. Lịch sử kiến tạo địa chất đá vôi của vịnh đã trải qua khoảng 500 triệu năm với những hoàn cảnh cổ địa lý rất khác nhau; và quá trình tiến hóa karst đầy đủ trải qua trên 20 triệu năm với sự kết hợp các yếu tố như tầng đá vôi dày, khí hậu nóng ẩm và tiến trình nâng kiến tạo chậm chạp trên tổng thể. Sự kết hợp của môi trường, khí hậu, địa chất, địa mạo, đã khiến vịnh Hạ Long trở thành quần tụ của đa dạng sinh học bao gồm hệ sinh thái rừng kín thường xanh mưa ẩm nhiệt đới và hệ sinh thái biển và ven bờ với nhiều tiểu hệ sinh thái. 17 loài thực vật đặc hữu và khoảng 60 loài động vật đặc hữu đã được phát hiện trong số hàng ngàn động, thực vật quần cư tại vịnh. Những kết quả nghiên cứu, thám sát khảo cổ học và văn hóa học cho thấy sự hiện diện của những cư dân tiền sử trên vùng vịnh Hạ Long từ khá sớm, đã tạo lập những hình thái văn hóa cổ đại tiếp nối nhau bao gồm văn hóa Soi Nhụ trong khoảng 18.000–7.000 năm trước Công Nguyên, văn hóa Cái Bèo trong 7.000–5.000 năm trước Công Nguyên và văn hóa Hạ Long cách ngày nay khoảng từ 3.500–5.000 năm. Tiến trình dựng nước và truyền thống giữ nước của dân tộc Việt Nam, trong suốt hành trình lịch sử, cũng khẳng định vị trí tiền tiêu và vị thế văn hóa của vịnh Hạ Long qua những địa danh mà tên gọi gắn với điển tích còn lưu truyền đến nay, như núi Bài Thơ, hang Đầu Gỗ, Bãi Cháy v.v. Hiện nay, vịnh Hạ Long là một khu vực phát triển năng động nhờ những điều kiện và lợi thế sẵn có như có một tiềm năng lớn về du lịch, nghiên cứu khoa học, nuôi trồng, đánh bắt thủy sản, giao thông thủy đối với khu vực vùng biển Đông Bắc Việt Nam nói riêng và miền Bắc Việt Nam nói chung. Từ hơn 500 năm về trước trong bài thơ Lộ nhập Vân Đồn, Nguyễn Trãi đã lần đầu tiên ca ngợi vịnh Hạ Long là \"kỳ quan đá dựng giữa trời cao\". Năm 1962, Bộ Văn hóa – Thông tin (nay là Bộ Văn hóa, Thể thao và Du lịch) đã xếp hạng vịnh Hạ Long là di tích danh thắng cấp quốc gia đồng thời quy hoạch vùng bảo vệ. Năm 1994, vùng lõi của vịnh Hạ Long được UNESCO công nhận là Di sản Thiên nhiên Thế giới với giá trị thẩm mỹ (tiêu chuẩn vii), và được tái công nhận lần thứ 2 với giá trị ngoại hạng toàn cầu về địa chất – địa mạo (tiêu chuẩn viii) vào năm 2000. Cùng với vịnh Nha Trang và vịnh Lăng Cô của Việt Nam, vịnh Hạ Long là một trong số 29 vịnh được Câu lạc bộ những vịnh đẹp nhất thế giới xếp hạng và chính thức công nhận vào tháng 7 năm 2003. Vịnh Hạ Long cùng với đảo Cát Bà tạo thành một trong 21 khu du lịch quốc gia đầu tiên ở Việt Nam. Năm 2015, Cục Di sản văn hóa đã công bố về số lượng khách tham quan vịnh Hạ Long là trên 2,5 triệu lượt khách. Truyền thuyết Vịnh Hạ Long có từ xa xưa do những kiến tạo địa chất. Tuy nhiên, trong tâm thức của người Việt từ thời tiền sử với trí tưởng tượng dân gian và ý niệm về cội nguồn con Rồng cháu Tiên, một số truyền thuyết cho rằng khi người Việt mới lập nước đã bị giặc ngoại xâm, Ngọc Hoàng sai Rồng Mẹ mang theo một đàn Rồng Con xuống hạ giới giúp người Việt đánh giặc. Đàn Rồng lập tức phun ra lửa thiêu cháy thuyền giặc, một phần nhả Châu Ngọc dựng thành bức tường đá sừng sững làm cho thuyền giặc đâm phải mà vỡ tan, chặn đứng bước tiến của ngoại bang. Vị trí Rồng Mẹ đáp xuống là Hạ Long; nơi Rồng Con đáp xuống là Bái Tử Long và nơi đuôi đàn rồng quẫy nước trắng xoá là Bạch Long Vĩ. Chỗ rồng đáp xuống che chở cho đất nước được gọi là Hạ Long. Hệ thủy triều tại vịnh Hạ Long rất đặc trưng với mức triều cường vào khoảng 3,5–4m/ngày. Kỳ quan địa chất Vịnh Hạ Long.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "đá vôi",
+       "cue_en": "limestone",
+       "visual_check_vi": "hòn đảo đá vôi",
+       "quote_vi": "phần lớn là đảo đá vôi",
+       "source_url": "https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "đá dựng",
+       "cue_en": "standing rocks",
+       "visual_check_vi": "đá dựng giữa trời cao",
+       "quote_vi": "kỳ quan đá dựng giữa trời cao",
+       "source_url": "https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "đá dựng",
+       "target_appearance_en": "standing rocks",
+       "source_url": "https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "lịch sử kiến tạo địa chất đá vôi của vịnh đã trải qua khoảng 500 triệu năm",
+      "sự hiện diện của những cư dân tiền sử trên vùng vịnh Hạ Long từ khá sớm",
+      "truyền thuyết Vịnh Hạ Long có từ xa xưa do những kiến tạo địa chất"
+     ],
+     "insufficient_evidence": [
+      "màu sắc của đá vôi",
+      "cấu trúc của đá vôi"
+     ]
+    }
+   },
+   "giay": 15.2
+  },
+  {
+   "t": "19:21:05",
+   "prompt_id": "S042",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 1,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:21:15",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/B/sdxl_base/S042_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "large rock formations in water",
+     "small wooden boat in water"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "green leafy tree branches",
+     "green shrubs"
+    ],
+    "supporting_objects": [
+     "wooden boat with canopy"
+    ],
+    "background": [
+     "clear blue sky",
+     "large rock formations covered in greenery",
+     "calm water reflecting rock formations"
+    ],
+    "actions": [
+     "boat floating on water"
+    ],
+    "spatial_relations": [
+     "boat in front of rock formations",
+     "tree branches above water and boat",
+     "rock formations surrounded by water"
+    ],
+    "colors": [
+     "green of tree leaves and shrubs",
+     "blue of sky and water",
+     "brown of rock formations and boat"
+    ],
+    "counts": {
+     "rock formations": 8,
+     "boats": 1
+    },
+    "visible_effects": [
+     "reflection of rock formations in water",
+     "clear sky with no visible clouds"
+    ],
+    "uncertain": [
+     "top of tree branches",
+     "bottom of rock formations in water",
+     "far right and left edges of image"
+    ]
+   },
+   "giay": 10.1
+  },
+  {
+   "t": "19:21:25",
+   "prompt_id": "S042",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: Limestone karst islands rising from the emerald waters of Ha Long Bay.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nHa Long Bay, a natural wonder in northeastern Vietnam, is celebrated for its thousands of limestone karst islands and islets rising majestically from the emerald waters. These geological formations range in size from small rocks to towering peaks, creating a mesmerizing landscape. The bay, located in the Gulf of Tonkin, is renowned for its crystal-clear waters, lush greenery, and vibrant marine ecosystems teeming with colorful fish, coral reefs, and dolphins. Visitors can kayak between the islands, explore hidden coves, and discover the myriad of marine life that calls this stunning bay home. Ha Long Bay is also a cultural treasure, with ancient fishing villages, traditional boat tours, and preserved indigenous traditions offering a unique glimpse into the area’s rich history and heritage.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Những hòn đảo đá vôi\", \"en\": \"Limestone karst islands\"}, \"subject_attributes\": [\"nhấp nhô\"], \"supporting_objects\": [\"làn nước\", \"vịnh Hạ Long\", \"Ha Long Bay\"], \"background_and_scene\": [\"giua làn nước xanh ngọc\", \"the emerald waters\"], \"actions_and_relations\": [\"rising from\"], \"colors\": [\"xanh ngọc\", \"emerald\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Những hòn đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long.\", \"Limestone karst islands rising from the emerald waters of Ha Long Bay.\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"đá vôi\", \"cue_en\": \"limestone\", \"visual_check_vi\": \"hòn đảo đá vôi\", \"quote_vi\": \"phần lớn là đảo đá vôi\", \"source_url\": \"https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long\"}], \"conditional_cues\": [{\"cue_vi\": \"đá dựng\", \"cue_en\": \"standing rocks\", \"visual_check_vi\": \"đá dựng giữa trời cao\", \"quote_vi\": \"kỳ quan đá dựng giữa trời cao\", \"source_url\": \"https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"đá dựng\", \"target_appearance_en\": \"standing rocks\", \"source_url\": \"https://vi.wikipedia.org/wiki/V%E1%BB%8Bnh_H%E1%BA%A1_Long\"}], \"discarded_nonvisual_facts\": [\"lịch sử kiến tạo địa chất đá vôi của vịnh đã trải qua khoảng 500 triệu năm\", \"sự hiện diện của những cư dân tiền sử trên vùng vịnh Hạ Long từ khá sớm\", \"truyền thuyết Vịnh Hạ Long có từ xa xưa do những kiến tạo địa chất\"], \"insufficient_evidence\": [\"màu sắc của đá vôi\", \"cấu trúc của đá vôi\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"large rock formations in water\", \"small wooden boat in water\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"green leafy tree branches\", \"green shrubs\"], \"supporting_objects\": [\"wooden boat with canopy\"], \"background\": [\"clear blue sky\", \"large rock formations covered in greenery\", \"calm water reflecting rock formations\"], \"actions\": [\"boat floating on water\"], \"spatial_relations\": [\"boat in front of rock formations\", \"tree branches above water and boat\", \"rock formations surrounded by water\"], \"colors\": [\"green of tree leaves and shrubs\", \"blue of sky and water\", \"brown of rock formations and boat\"], \"counts\": {\"rock formations\": 8, \"boats\": 1}, \"visible_effects\": [\"reflection of rock formations in water\", \"clear sky with no visible clouds\"], \"uncertain\": [\"top of tree branches\", \"bottom of rock formations in water\", \"far right and left edges of image\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "Limestone karst islands"
+    ],
+    "missing_cultural_identity": [
+     "standing rocks"
+    ],
+    "contradictions": [],
+    "already_satisfied": [
+     "emerald waters",
+     "rising from the emerald waters",
+     "rock formations in water",
+     "rock formations surrounded by water",
+     "rock formations covered in greenery",
+     "calm water reflecting rock formations"
+    ],
+    "uncertain_no_repair": [
+     "top of tree branches",
+     "bottom of rock formations in water",
+     "far right and left edges of image"
+    ],
+    "repair_actions": [
+     "limestone karst islands rising from the emerald waters",
+     "standing rocks in the water",
+     "green shrubs on the rock formations"
+    ],
+    "drop_phrases": [
+     "towering peaks",
+     "hidden coves",
+     "ancient fishing villages"
+    ]
+   },
+   "giay": 10.2
+  },
+  {
+   "t": "19:21:25",
+   "prompt_id": "S042",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "limestone karst islands rising from the emerald waters",
+     "standing rocks in the water",
+     "green shrubs on the rock formations"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "towering peaks",
+     "hidden coves",
+     "ancient fishing villages"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:21:27",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"limestone karst islands rising from the emerald waters\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/B/sdxl_base/S042_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 9.5,
+    "evidence": "limestone karst islands, emerald waters"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:21:28",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"standing rocks in the water\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/B/sdxl_base/S042_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "large rocks standing in water"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:21:30",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"green shrubs on the rock formations\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/B/sdxl_base/S042_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "green shrubs on some rocks"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:21:31",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"limestone\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/B/sdxl_base/S042_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "large limestone formations"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:21:31",
+   "prompt_id": "S042",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "green shrubs on the rock formations",
+      7.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "limestone karst islands rising from the emerald waters",
+      9.5
+     ],
+     [
+      "standing rocks in the water",
+      8.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:21:31",
+   "prompt_id": "S042",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "Limestone karst islands rising from the emerald waters of Ha Long Bay. Ha Long Bay, a natural wonder in northeastern Vietnam, is celebrated for its thousands of limestone karst islands and islets rising majestically from the emerald waters. These geological formations range in size from small rocks to, creating a mesmerizing landscape. The bay, located in the Gulf of Tonkin, is renowned for its crystal-clear waters, lush greenery, and vibrant marine ecosystems teeming with colorful fish, coral reefs, and dolphins. Visitors can kayak between the islands, explore, and discover the myriad of marine life that calls this stunning bay home. Ha Long Bay is also a cultural treasure, with, traditional boat tours, and preserved indigenous traditions offering a unique glimpse into the area’s rich history and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: Ha Long Bay; the emerald waters. Make these additions clearly visible:\n1. green shrubs on the rock formations."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:21:54",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/C_ref/sdxl_base_ref/S042_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "large rock formations rising from water",
+     "small boats on water"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "dense green foliage",
+     "rock formation with green vegetation"
+    ],
+    "supporting_objects": [
+     "small boat with people",
+     "multiple boats on water"
+    ],
+    "background": [
+     "many rock formations in water",
+     "sky with scattered clouds"
+    ],
+    "actions": [
+     "boats moving on water"
+    ],
+    "spatial_relations": [
+     "rock formations scattered across water",
+     "boats between rock formations",
+     "dense foliage in front of water"
+    ],
+    "colors": [
+     "green vegetation on rock formations",
+     "blue-green water",
+     "light blue sky",
+     "white clouds"
+    ],
+    "counts": {
+     "rock formations": "many",
+     "boats": "many"
+    },
+    "visible_effects": [
+     "reflections of rock formations in water",
+     "ripples on water surface"
+    ],
+    "uncertain": [
+     "top of some rock formations",
+     "details of distant boats"
+    ]
+   },
+   "giay": 9.7
+  },
+  {
+   "t": "19:22:01",
+   "prompt_id": "S042",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Những hòn đảo đá vôi\", \"en\": \"Limestone karst islands\"}, \"subject_attributes\": [\"nhấp nhô\"], \"supporting_objects\": [\"làn nước\", \"vịnh Hạ Long\", \"Ha Long Bay\"], \"background_and_scene\": [\"giua làn nước xanh ngọc\", \"the emerald waters\"], \"actions_and_relations\": [\"rising from\"], \"colors\": [\"xanh ngọc\", \"emerald\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Những hòn đảo đá vôi nhấp nhô giữa làn nước xanh ngọc của vịnh Hạ Long.\", \"Limestone karst islands rising from the emerald waters of Ha Long Bay.\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"green shrubs on the rock formations\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"large rock formations in water\", \"small wooden boat in water\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"green leafy tree branches\", \"green shrubs\"], \"supporting_objects\": [\"wooden boat with canopy\"], \"background\": [\"clear blue sky\", \"large rock formations covered in greenery\", \"calm water reflecting rock formations\"], \"actions\": [\"boat floating on water\"], \"spatial_relations\": [\"boat in front of rock formations\", \"tree branches above water and boat\", \"rock formations surrounded by water\"], \"colors\": [\"green of tree leaves and shrubs\", \"blue of sky and water\", \"brown of rock formations and boat\"], \"counts\": {\"rock formations\": 8, \"boats\": 1}, \"visible_effects\": [\"reflection of rock formations in water\", \"clear sky with no visible clouds\"], \"uncertain\": [\"top of tree branches\", \"bottom of rock formations in water\", \"far right and left edges of image\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"large rock formations rising from water\", \"small boats on water\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"dense green foliage\", \"rock formation with green vegetation\"], \"supporting_objects\": [\"small boat with people\", \"multiple boats on water\"], \"background\": [\"many rock formations in water\", \"sky with scattered clouds\"], \"actions\": [\"boats moving on water\"], \"spatial_relations\": [\"rock formations scattered across water\", \"boats between rock formations\", \"dense foliage in front of water\"], \"colors\": [\"green vegetation on rock formations\", \"blue-green water\", \"light blue sky\", \"white clouds\"], \"counts\": {\"rock formations\": \"many\", \"boats\": \"many\"}, \"visible_effects\": [\"reflections of rock formations in water\", \"ripples on water surface\"], \"uncertain\": [\"top of some rock formations\", \"details of distant boats\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "green shrubs on the rock formations"
+    ],
+    "regressions": [
+     {
+      "what": "The exact count of rock formations and boats",
+      "severity": "severe"
+     },
+     {
+      "what": "The calmness of the water",
+      "severity": "minor"
+     },
+     {
+      "what": "The clear blue sky",
+      "severity": "minor"
+     }
+    ],
+    "unchanged_issues": [
+     "The main entity (rock formations) is still present",
+     "The supporting objects (water, Ha Long Bay) are still present",
+     "The background and scene (water, sky) are still present",
+     "The actions and relations (rising from, boats moving on water) are still present",
+     "The colors (green, blue) are still present"
+    ]
+   },
+   "giay": 7.0
+  },
+  {
+   "t": "19:22:01",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"green shrubs on the rock formations\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/B/sdxl_base/S042_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "green shrubs on some rocks"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:22:02",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"green shrubs on the rock formations\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/C_ref/sdxl_base_ref/S042_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 9.0,
+    "evidence": "green shrubs on many rock formations"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:22:02",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"limestone\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/B/sdxl_base/S042_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "large limestone formations"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:22:03",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"limestone\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/C_ref/sdxl_base_ref/S042_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "many limestone islands visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:22:05",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"standing rocks\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/B/sdxl_base/S042_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "many large rocks standing"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:22:06",
+   "prompt_id": "S042",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"standing rocks\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S042/C_ref/sdxl_base_ref/S042_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "many tall green rocks"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:22:06",
+   "prompt_id": "S042",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "The exact count of rock formations and boats",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "The calmness of the water",
+      "minor"
+     ],
+     [
+      "The clear blue sky",
+      "minor"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:22:07",
+   "prompt_id": "S042",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "green shrubs on the rock formations"
+    ],
+    "bang_action": [
+     {
+      "action": "green shrubs on the rock formations",
+      "I0": 7.0,
+      "I1": 9.0,
+      "fixed": false,
+      "ev_I1": "green shrubs on many rock formations"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "limestone",
+      "I0": 8.0,
+      "I1": 8.0,
+      "fixed": false,
+      "ev_I1": "many limestone islands visible"
+     },
+     {
+      "cue": "standing rocks",
+      "I0": 8.0,
+      "I1": 8.0,
+      "fixed": false,
+      "ev_I1": "many tall green rocks"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "The exact count of rock formations and boats",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "The calmness of the water",
+      "severity": "minor"
+     },
+     {
+      "what": "The clear blue sky",
+      "severity": "minor"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.8888,
+     "sim_I1": 0.9083
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

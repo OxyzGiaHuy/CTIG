@@ -1,0 +1,1793 @@
+{
+ "unit": {
+  "prompt_id": "S008",
+  "prompt_vi": "Phố cổ Hội An về đêm, đèn lồng lụa treo dọc tường vàng.",
+  "P_orig": "Hoi An ancient town at night, silk lanterns along ochre walls.",
+  "P_ct": "Hoi An ancient town at night, silk lanterns along ochre walls. A serene and enchanting scene of Hoi An at night, showcasing its historical and cultural significance. The narrow, winding streets are lined with ochre-colored walls and historic houses adorned with intricate wooden carvings. Silk lanterns in vibrant hues of red, yellow, and orange hang from rooftops, casting a warm, flickering glow on the cobblestone pathways. The Japanese Bridge stands prominently, symbolizing cultural and historical exchanges. During the Lantern Festival, lanterns are released into the river, symbolizing the town's enduring cultural heritage and welcoming spirit. The sounds of the river and the scent of incense and fresh food create an immersive, tranquil atmosphere.",
+  "P1": "Hoi An ancient town at night, silk lanterns along ochre walls. A serene and enchanting scene of Hoi An at night, showcasing its historical and cultural significance. The narrow, winding streets are lined with and historic houses adorned with intricate wooden carvings. Silk lanterns in vibrant hues of red, yellow, and orange hang from rooftops, casting a warm, flickering glow on the cobblestone pathways. The Japanese Bridge stands prominently, symbolizing cultural and historical exchanges. During the Lantern Festival, lanterns are released into the river, symbolizing the town's enduring cultural heritage and welcoming spirit. The sounds of the river and the scent of incense and fresh food create an immersive, tranquil atmosphere.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: silk lanterns; at night. Make these additions clearly visible:\n1. ochre walls on the buildings.\n2. brick walls on the buildings.\n3. curved tiled roofs on the buildings.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Phố cổ Hội An",
+     "en": "Hoi An ancient town"
+    },
+    "subject_attributes": [
+     "cổ",
+     "ancient"
+    ],
+    "supporting_objects": [
+     "đèn lồng lụa",
+     "silk lanterns"
+    ],
+    "background_and_scene": [
+     "về đêm",
+     "at night"
+    ],
+    "actions_and_relations": [
+     "treo dọc tường",
+     "along walls"
+    ],
+    "colors": [
+     "vàng",
+     "ochre"
+    ],
+    "visual_effects": [
+     "lụa"
+    ],
+    "time_weather_lighting": [
+     "về đêm",
+     "at night"
+    ],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Phố cổ Hội An",
+     "Hoi An ancient town",
+     "đèn lồng lụa",
+     "silk lanterns",
+     "treo dọc tường vàng",
+     "along ochre walls"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "tường gạch",
+      "cue_en": "brick walls",
+      "visual_check_vi": "tường gạch",
+      "quote_vi": "các ngôi nhà có kết cấu kiểu nhà khung gỗ, hai bên có tường gạch ngăn cách",
+      "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
+     },
+     {
+      "cue_vi": "mái ngói âm dương",
+      "cue_en": "curved tiled roofs",
+      "visual_check_vi": "mái ngói âm dương",
+      "quote_vi": "mái ngói âm dương",
+      "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "đèn lồng",
+      "cue_en": "lanterns",
+      "visual_check_vi": "đèn lồng",
+      "quote_vi": "tất cả các ngôi nhà, hàng quán, tiệm ăn đều tắt điện, toàn bộ khu phố chìm trong ánh sáng của trăng rằm và những ngọn đèn lồng",
+      "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "tường gạch chịu lửa",
+      "target_appearance_en": "fire-resistant brick walls",
+      "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "history of Hội An",
+     "etymology of Hội An",
+     "symbolism of Hội An",
+     "taste of bánh bao, bánh vạc",
+     "sound of chuông đồng, trống lớn"
+    ],
+    "insufficient_evidence": [
+     "color of brick walls",
+     "color of tiled roofs",
+     "color of lanterns",
+     "material of lanterns"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "narrow alleyway between buildings",
+    "string of hanging lanterns"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "paved walkway",
+    "potted plants",
+    "small shrubs"
+   ],
+   "supporting_objects": [
+    "wooden doors",
+    "windows with shutters",
+    "wall-mounted lanterns"
+   ],
+   "background": [
+    "darkening sky",
+    "roofs of buildings",
+    "distant lanterns"
+   ],
+   "actions": [
+    "lanterns emitting warm light"
+   ],
+   "spatial_relations": [
+    "lanterns hanging above walkway",
+    "potted plants lining both sides",
+    "buildings on either side of alleyway"
+   ],
+   "colors": [
+    "warm yellow from lanterns",
+    "orange-brown walls",
+    "dark blue sky",
+    "green plants"
+   ],
+   "counts": {
+    "lanterns": "many",
+    "potted plants": "many",
+    "buildings": "two"
+   },
+   "visible_effects": [
+    "soft glow from lanterns",
+    "shadows on walls",
+    "moon visible in sky"
+   ],
+   "uncertain": [
+    "top of buildings",
+    "end of alleyway",
+    "details of distant lanterns"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "ochre walls"
+   ],
+   "missing_cultural_identity": [
+    "brick walls",
+    "curved tiled roofs"
+   ],
+   "contradictions": [],
+   "already_satisfied": [
+    "Hoi An ancient town",
+    "silk lanterns",
+    "at night",
+    "along walls",
+    "lanterns emitting warm light"
+   ],
+   "uncertain_no_repair": [
+    "top of buildings",
+    "end of alleyway",
+    "details of distant lanterns"
+   ],
+   "repair_actions": [
+    "ochre walls on the buildings",
+    "brick walls on the buildings",
+    "curved tiled roofs on the buildings"
+   ],
+   "drop_phrases": [
+    "ochre-colored walls"
+   ]
+  },
+  "actions": [
+   "ochre walls on the buildings",
+   "brick walls on the buildings",
+   "curved tiled roofs on the buildings"
+  ],
+  "drop_phrases": [
+   "ochre-colored walls"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S008/01.png",
+   "/workspace/refs_new/reference_images_simple/selected/S008/02.jpg"
+  ],
+  "images": {
+   "A": "S008_flux_txt.png",
+   "B (I0)": "S008_flux_txt.png",
+   "C (I1)": "S008_flux_ref.png",
+   "C-text": "S008_flux_txt.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "16:07:50",
+   "prompt_id": "S008",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Phố cổ Hội An về đêm, đèn lồng lụa treo dọc tường vàng.\nPROMPT EN: Hoi An ancient town at night, silk lanterns along ochre walls.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Phố cổ Hội An",
+      "en": "Hoi An ancient town"
+     },
+     "subject_attributes": [
+      "cổ",
+      "ancient"
+     ],
+     "supporting_objects": [
+      "đèn lồng lụa",
+      "silk lanterns"
+     ],
+     "background_and_scene": [
+      "về đêm",
+      "at night"
+     ],
+     "actions_and_relations": [
+      "treo dọc tường",
+      "along walls"
+     ],
+     "colors": [
+      "vàng",
+      "ochre"
+     ],
+     "visual_effects": [
+      "lụa"
+     ],
+     "time_weather_lighting": [
+      "về đêm",
+      "at night"
+     ],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Phố cổ Hội An",
+      "Hoi An ancient town",
+      "đèn lồng lụa",
+      "silk lanterns",
+      "treo dọc tường vàng",
+      "along ochre walls"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:07:50",
+   "prompt_id": "S008",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Phố cổ Hội An về đêm, đèn lồng lụa treo dọc tường vàng.\nPROMPT EN: Hoi An ancient town at night, silk lanterns along ochre walls.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Phố cổ Hội An — https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An ===\nPhố cổ Hội An là một đô thị cổ nằm ở hạ lưu sông Thu Bồn, thuộc vùng đồng bằng ven biển thành phố Đà Nẵng, Việt Nam, cách trung tâm thành phố khoảng 30 km về phía Nam. Bắt đầu từ thập niên 1980, những giá trị kiến trúc và văn hóa của phố cổ Hội An dần được giới học giả và cả du khách chú ý, khiến nơi đây trở thành một trong những điểm du lịch hấp dẫn của Việt Nam. Theo một thuyết khác, nhánh sông Thu Bồn chảy qua phố cổ Hội An hiện nay có tên là sông Hoài, nên Hội An còn được gọi là Hoài Phố, sau Hoài Phố biến thành Phai Phố [Faifo]. Kiến trúc Khu phố cổ Phố cổ Hội An lưu giữ gần như nguyên vẹn hơn một nghìn di tích kiến trúc cổ từ phố xá, nhà cửa đến đình, chùa, miếu. Thông thường, các ngôi nhà có kết cấu kiểu nhà khung gỗ, hai bên có tường gạch ngăn cách. Ở trên đỉnh mái, phần nóc mái được xây cao lên hình chữ nhật như một cái hộp, cũng có một số trường hợp hai bên tường hồi cũng được xây cao hẳn làm cho toàn bộ tổng thể dường như bị mất cân đối. Hình thức và cách trang trí của tường hồi luôn gây một ấn tượng mạnh và là yếu tố tạo ra giá trị rất riêng của phố cổ Hội An. Loại hình kiến trúc này thường có hình thức đơn giản, nằm ngay trong làng xóm, bố cục mặt bằng 1 x 3 gian tường gạch chịu lửa, mái ngói âm dương với ban thờ được đặt ở gian chính giữa. Hai bên, sát với tường là chiếc chuông đồng nặng trên nửa tấn và chiếc trống lớn đặt trên giá gỗ do vua Bảo Đại ban tặng. Một bia gắn vào tường nhà Đông ghi lại lần trùng tu miếu đầu tiên vào năm 1753. Vì là nơi thờ tự nên nhà thờ tộc được xây dựng theo dạng khuôn viên, có bố cục và kết cấu chặt chẽ, bao gồm cả sân vườn, cổng, tường rào, nhà phụ... Cũng giống như các nhà tộc khác ở Hội An, nhà thờ tọa sâu trong một khuôn viên rộng khoảng 1500 m², tường cao bao quanh, sân trước trồng cây cảnh, hoa, cây ăn quả. Hai bức tường hai bên cổng tam quan ngăn cách sân trong của hội quán với một sân bên ngoài. Phần chính điện của hội quán được trang trí những cây cột màu đỏ son, treo những đôi liễn gỗ ca tụng Thiên Hậu Thánh Mẫu. Trên cửa chùa treo bức hoành màu đỏ với ba chữ \"Lai Viễn Kiều\" do chúa Nguyễn Phúc Chu ban tặng vào năm 1719 với ý nghĩa cây cầu của những người bạn từ phương xa đến. Trong dịp lễ hội, thời gian từ 17 đến 22 giờ, tất cả các ngôi nhà, hàng quán, tiệm ăn đều tắt điện, toàn bộ khu phố chìm trong ánh sáng của trăng rằm và những ngọn đèn lồng. Bánh bao, bánh vạc là một trong những món ăn sang trọng, ngon và lạ của phố cổ Hội An. Những nhà hàng trong khu phố cổ thường treo một vài bức tranh xưa, xung quanh trang trí chậu hoa, cây cảnh hoặc đồ mỹ nghệ.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "tường gạch",
+       "cue_en": "brick walls",
+       "visual_check_vi": "tường gạch",
+       "quote_vi": "các ngôi nhà có kết cấu kiểu nhà khung gỗ, hai bên có tường gạch ngăn cách",
+       "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
+      },
+      {
+       "cue_vi": "mái ngói âm dương",
+       "cue_en": "curved tiled roofs",
+       "visual_check_vi": "mái ngói âm dương",
+       "quote_vi": "mái ngói âm dương",
+       "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "đèn lồng",
+       "cue_en": "lanterns",
+       "visual_check_vi": "đèn lồng",
+       "quote_vi": "tất cả các ngôi nhà, hàng quán, tiệm ăn đều tắt điện, toàn bộ khu phố chìm trong ánh sáng của trăng rằm và những ngọn đèn lồng",
+       "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "tường gạch chịu lửa",
+       "target_appearance_en": "fire-resistant brick walls",
+       "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "history of Hội An",
+      "etymology of Hội An",
+      "symbolism of Hội An",
+      "taste of bánh bao, bánh vạc",
+      "sound of chuông đồng, trống lớn"
+     ],
+     "insufficient_evidence": [
+      "color of brick walls",
+      "color of tiled roofs",
+      "color of lanterns",
+      "material of lanterns"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:07:50",
+   "prompt_id": "S008",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:08:02",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "narrow alleyway between buildings",
+     "string of hanging lanterns"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "paved walkway",
+     "potted plants",
+     "small shrubs"
+    ],
+    "supporting_objects": [
+     "wooden doors",
+     "windows with shutters",
+     "wall-mounted lanterns"
+    ],
+    "background": [
+     "darkening sky",
+     "roofs of buildings",
+     "distant lanterns"
+    ],
+    "actions": [
+     "lanterns emitting warm light"
+    ],
+    "spatial_relations": [
+     "lanterns hanging above walkway",
+     "potted plants lining both sides",
+     "buildings on either side of alleyway"
+    ],
+    "colors": [
+     "warm yellow from lanterns",
+     "orange-brown walls",
+     "dark blue sky",
+     "green plants"
+    ],
+    "counts": {
+     "lanterns": "many",
+     "potted plants": "many",
+     "buildings": "two"
+    },
+    "visible_effects": [
+     "soft glow from lanterns",
+     "shadows on walls",
+     "moon visible in sky"
+    ],
+    "uncertain": [
+     "top of buildings",
+     "end of alleyway",
+     "details of distant lanterns"
+    ]
+   },
+   "giay": 11.1
+  },
+  {
+   "t": "16:08:08",
+   "prompt_id": "S008",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: Hoi An ancient town at night, silk lanterns along ochre walls.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA serene and enchanting scene of Hoi An at night, showcasing its historical and cultural significance. The narrow, winding streets are lined with ochre-colored walls and historic houses adorned with intricate wooden carvings. Silk lanterns in vibrant hues of red, yellow, and orange hang from rooftops, casting a warm, flickering glow on the cobblestone pathways. The Japanese Bridge stands prominently, symbolizing cultural and historical exchanges. During the Lantern Festival, lanterns are released into the river, symbolizing the town's enduring cultural heritage and welcoming spirit. The sounds of the river and the scent of incense and fresh food create an immersive, tranquil atmosphere.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Phố cổ Hội An\", \"en\": \"Hoi An ancient town\"}, \"subject_attributes\": [\"cổ\", \"ancient\"], \"supporting_objects\": [\"đèn lồng lụa\", \"silk lanterns\"], \"background_and_scene\": [\"về đêm\", \"at night\"], \"actions_and_relations\": [\"treo dọc tường\", \"along walls\"], \"colors\": [\"vàng\", \"ochre\"], \"visual_effects\": [\"lụa\"], \"time_weather_lighting\": [\"về đêm\", \"at night\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Phố cổ Hội An\", \"Hoi An ancient town\", \"đèn lồng lụa\", \"silk lanterns\", \"treo dọc tường vàng\", \"along ochre walls\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"tường gạch\", \"cue_en\": \"brick walls\", \"visual_check_vi\": \"tường gạch\", \"quote_vi\": \"các ngôi nhà có kết cấu kiểu nhà khung gỗ, hai bên có tường gạch ngăn cách\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An\"}, {\"cue_vi\": \"mái ngói âm dương\", \"cue_en\": \"curved tiled roofs\", \"visual_check_vi\": \"mái ngói âm dương\", \"quote_vi\": \"mái ngói âm dương\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An\"}], \"conditional_cues\": [{\"cue_vi\": \"đèn lồng\", \"cue_en\": \"lanterns\", \"visual_check_vi\": \"đèn lồng\", \"quote_vi\": \"tất cả các ngôi nhà, hàng quán, tiệm ăn đều tắt điện, toàn bộ khu phố chìm trong ánh sáng của trăng rằm và những ngọn đèn lồng\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"tường gạch chịu lửa\", \"target_appearance_en\": \"fire-resistant brick walls\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_H%E1%BB%99i_An\"}], \"discarded_nonvisual_facts\": [\"history of Hội An\", \"etymology of Hội An\", \"symbolism of Hội An\", \"taste of bánh bao, bánh vạc\", \"sound of chuông đồng, trống lớn\"], \"insufficient_evidence\": [\"color of brick walls\", \"color of tiled roofs\", \"color of lanterns\", \"material of lanterns\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"narrow alleyway between buildings\", \"string of hanging lanterns\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"paved walkway\", \"potted plants\", \"small shrubs\"], \"supporting_objects\": [\"wooden doors\", \"windows with shutters\", \"wall-mounted lanterns\"], \"background\": [\"darkening sky\", \"roofs of buildings\", \"distant lanterns\"], \"actions\": [\"lanterns emitting warm light\"], \"spatial_relations\": [\"lanterns hanging above walkway\", \"potted plants lining both sides\", \"buildings on either side of alleyway\"], \"colors\": [\"warm yellow from lanterns\", \"orange-brown walls\", \"dark blue sky\", \"green plants\"], \"counts\": {\"lanterns\": \"many\", \"potted plants\": \"many\", \"buildings\": \"two\"}, \"visible_effects\": [\"soft glow from lanterns\", \"shadows on walls\", \"moon visible in sky\"], \"uncertain\": [\"top of buildings\", \"end of alleyway\", \"details of distant lanterns\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "ochre walls"
+    ],
+    "missing_cultural_identity": [
+     "brick walls",
+     "curved tiled roofs"
+    ],
+    "contradictions": [],
+    "already_satisfied": [
+     "Hoi An ancient town",
+     "silk lanterns",
+     "at night",
+     "along walls",
+     "lanterns emitting warm light"
+    ],
+    "uncertain_no_repair": [
+     "top of buildings",
+     "end of alleyway",
+     "details of distant lanterns"
+    ],
+    "repair_actions": [
+     "ochre walls on the buildings",
+     "brick walls on the buildings",
+     "curved tiled roofs on the buildings"
+    ],
+    "drop_phrases": [
+     "ochre-colored walls"
+    ]
+   },
+   "giay": 6.9
+  },
+  {
+   "t": "16:08:08",
+   "prompt_id": "S008",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "ochre walls on the buildings",
+     "brick walls on the buildings",
+     "curved tiled roofs on the buildings"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "ochre-colored walls"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:08:08",
+   "prompt_id": "S008",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "Hoi An ancient town at night, silk lanterns along ochre walls. A serene and enchanting scene of Hoi An at night, showcasing its historical and cultural significance. The narrow, winding streets are lined with and historic houses adorned with intricate wooden carvings. Silk lanterns in vibrant hues of red, yellow, and orange hang from rooftops, casting a warm, flickering glow on the cobblestone pathways. The Japanese Bridge stands prominently, symbolizing cultural and historical exchanges. During the Lantern Festival, lanterns are released into the river, symbolizing the town's enduring cultural heritage and welcoming spirit. The sounds of the river and the scent of incense and fresh food create an immersive, tranquil atmosphere.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: silk lanterns; at night. Make these additions clearly visible:\n1. ochre walls on the buildings.\n2. brick walls on the buildings.\n3. curved tiled roofs on the buildings."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:08:53",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "narrow street between buildings",
+     "illuminated lanterns on both sides"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "potted plants along street edges",
+     "stone pathway with rectangular tiles"
+    ],
+    "supporting_objects": [
+     "wooden doors with glass panels",
+     "signboards attached to building walls"
+    ],
+    "background": [
+     "dark sky with distant lights",
+     "buildings with tiled roofs on both sides"
+    ],
+    "actions": [
+     "lanterns emitting warm light"
+    ],
+    "spatial_relations": [
+     "lanterns hanging from eaves of buildings",
+     "potted plants placed along street edges",
+     "buildings closely aligned on both sides"
+    ],
+    "colors": [
+     "warm yellow light from lanterns",
+     "yellowish-brown building walls",
+     "dark blue night sky",
+     "green plants in pots"
+    ],
+    "counts": {
+     "lanterns": "many",
+     "potted plants": "many",
+     "buildings": "many"
+    },
+    "visible_effects": [
+     "warm glow from lanterns illuminating street",
+     "dark sky with distant lights",
+     "shadows cast by lanterns on buildings"
+    ],
+    "uncertain": [
+     "top of distant buildings",
+     "details of distant lights in sky"
+    ]
+   },
+   "giay": 11.3
+  },
+  {
+   "t": "16:08:57",
+   "prompt_id": "S008",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Phố cổ Hội An\", \"en\": \"Hoi An ancient town\"}, \"subject_attributes\": [\"cổ\", \"ancient\"], \"supporting_objects\": [\"đèn lồng lụa\", \"silk lanterns\"], \"background_and_scene\": [\"về đêm\", \"at night\"], \"actions_and_relations\": [\"treo dọc tường\", \"along walls\"], \"colors\": [\"vàng\", \"ochre\"], \"visual_effects\": [\"lụa\"], \"time_weather_lighting\": [\"về đêm\", \"at night\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Phố cổ Hội An\", \"Hoi An ancient town\", \"đèn lồng lụa\", \"silk lanterns\", \"treo dọc tường vàng\", \"along ochre walls\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"ochre walls on the buildings\", \"brick walls on the buildings\", \"curved tiled roofs on the buildings\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"narrow alleyway between buildings\", \"string of hanging lanterns\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"paved walkway\", \"potted plants\", \"small shrubs\"], \"supporting_objects\": [\"wooden doors\", \"windows with shutters\", \"wall-mounted lanterns\"], \"background\": [\"darkening sky\", \"roofs of buildings\", \"distant lanterns\"], \"actions\": [\"lanterns emitting warm light\"], \"spatial_relations\": [\"lanterns hanging above walkway\", \"potted plants lining both sides\", \"buildings on either side of alleyway\"], \"colors\": [\"warm yellow from lanterns\", \"orange-brown walls\", \"dark blue sky\", \"green plants\"], \"counts\": {\"lanterns\": \"many\", \"potted plants\": \"many\", \"buildings\": \"two\"}, \"visible_effects\": [\"soft glow from lanterns\", \"shadows on walls\", \"moon visible in sky\"], \"uncertain\": [\"top of buildings\", \"end of alleyway\", \"details of distant lanterns\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"narrow street between buildings\", \"illuminated lanterns on both sides\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"potted plants along street edges\", \"stone pathway with rectangular tiles\"], \"supporting_objects\": [\"wooden doors with glass panels\", \"signboards attached to building walls\"], \"background\": [\"dark sky with distant lights\", \"buildings with tiled roofs on both sides\"], \"actions\": [\"lanterns emitting warm light\"], \"spatial_relations\": [\"lanterns hanging from eaves of buildings\", \"potted plants placed along street edges\", \"buildings closely aligned on both sides\"], \"colors\": [\"warm yellow light from lanterns\", \"yellowish-brown building walls\", \"dark blue night sky\", \"green plants in pots\"], \"counts\": {\"lanterns\": \"many\", \"potted plants\": \"many\", \"buildings\": \"many\"}, \"visible_effects\": [\"warm glow from lanterns illuminating street\", \"dark sky with distant lights\", \"shadows cast by lanterns on buildings\"], \"uncertain\": [\"top of distant buildings\", \"details of distant lights in sky\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "ochre walls on the buildings"
+    ],
+    "regressions": [
+     {
+      "what": "silk lanterns",
+      "severity": "severe"
+     },
+     {
+      "what": "lanterns along ochre walls",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "brick walls on the buildings",
+     "curved tiled roofs on the buildings"
+    ]
+   },
+   "giay": 4.0
+  },
+  {
+   "t": "16:08:59",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ochre walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Walls are orange, not ochre."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "16:09:00",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ochre walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 9.0,
+    "evidence": "Buildings have ochre walls."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "16:09:02",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "16:09:03",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "16:09:04",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "buildings have curved tiled roofs"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "16:09:06",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Roofs are tiled but not curved."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "16:09:06",
+   "prompt_id": "S008",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "silk lanterns",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "lanterns along ochre walls",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:09:07",
+   "prompt_id": "S008",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "ochre walls on the buildings"
+    ],
+    "bang_action": [
+     {
+      "action": "ochre walls on the buildings",
+      "I0": 8.0,
+      "I1": 9.0,
+      "fixed": false,
+      "ev_I1": "Buildings have ochre walls."
+     },
+     {
+      "action": "brick walls on the buildings",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no brick walls visible"
+     },
+     {
+      "action": "curved tiled roofs on the buildings",
+      "I0": 10.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Roofs are tiled but not curved."
+     }
+    ],
+    "regressions": [
+     {
+      "what": "silk lanterns",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "lanterns along ochre walls",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.7624,
+     "sim_I1": 0.7592
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:09:50",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "I1text",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "narrow alleyway between buildings",
+     "string of hanging lanterns"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "paved walkway",
+     "potted plants"
+    ],
+    "supporting_objects": [
+     "wooden doors",
+     "windows with shutters",
+     "roofs with eaves"
+    ],
+    "background": [
+     "dark sky with moon",
+     "distant trees"
+    ],
+    "actions": [
+     "lanterns emitting warm light"
+    ],
+    "spatial_relations": [
+     "lanterns hanging above walkway",
+     "potted plants lining both sides",
+     "buildings on either side of alleyway"
+    ],
+    "colors": [
+     "warm orange and yellow lights",
+     "yellow and orange building walls",
+     "dark blue sky"
+    ],
+    "counts": {
+     "lanterns": "many",
+     "potted plants": "many",
+     "buildings": "two"
+    },
+    "visible_effects": [
+     "soft glow from lanterns",
+     "reflections on paved walkway"
+    ],
+    "uncertain": [
+     "top of buildings",
+     "ends of alleyway",
+     "details of distant trees"
+    ]
+   },
+   "giay": 10.2
+  },
+  {
+   "t": "16:09:54",
+   "prompt_id": "S008",
+   "agent": "R",
+   "buoc": "gate_text",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Phố cổ Hội An\", \"en\": \"Hoi An ancient town\"}, \"subject_attributes\": [\"cổ\", \"ancient\"], \"supporting_objects\": [\"đèn lồng lụa\", \"silk lanterns\"], \"background_and_scene\": [\"về đêm\", \"at night\"], \"actions_and_relations\": [\"treo dọc tường\", \"along walls\"], \"colors\": [\"vàng\", \"ochre\"], \"visual_effects\": [\"lụa\"], \"time_weather_lighting\": [\"về đêm\", \"at night\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Phố cổ Hội An\", \"Hoi An ancient town\", \"đèn lồng lụa\", \"silk lanterns\", \"treo dọc tường vàng\", \"along ochre walls\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"ochre walls on the buildings\", \"brick walls on the buildings\", \"curved tiled roofs on the buildings\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"narrow alleyway between buildings\", \"string of hanging lanterns\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"paved walkway\", \"potted plants\", \"small shrubs\"], \"supporting_objects\": [\"wooden doors\", \"windows with shutters\", \"wall-mounted lanterns\"], \"background\": [\"darkening sky\", \"roofs of buildings\", \"distant lanterns\"], \"actions\": [\"lanterns emitting warm light\"], \"spatial_relations\": [\"lanterns hanging above walkway\", \"potted plants lining both sides\", \"buildings on either side of alleyway\"], \"colors\": [\"warm yellow from lanterns\", \"orange-brown walls\", \"dark blue sky\", \"green plants\"], \"counts\": {\"lanterns\": \"many\", \"potted plants\": \"many\", \"buildings\": \"two\"}, \"visible_effects\": [\"soft glow from lanterns\", \"shadows on walls\", \"moon visible in sky\"], \"uncertain\": [\"top of buildings\", \"end of alleyway\", \"details of distant lanterns\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"narrow alleyway between buildings\", \"string of hanging lanterns\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"paved walkway\", \"potted plants\"], \"supporting_objects\": [\"wooden doors\", \"windows with shutters\", \"roofs with eaves\"], \"background\": [\"dark sky with moon\", \"distant trees\"], \"actions\": [\"lanterns emitting warm light\"], \"spatial_relations\": [\"lanterns hanging above walkway\", \"potted plants lining both sides\", \"buildings on either side of alleyway\"], \"colors\": [\"warm orange and yellow lights\", \"yellow and orange building walls\", \"dark blue sky\"], \"counts\": {\"lanterns\": \"many\", \"potted plants\": \"many\", \"buildings\": \"two\"}, \"visible_effects\": [\"soft glow from lanterns\", \"reflections on paved walkway\"], \"uncertain\": [\"top of buildings\", \"ends of alleyway\", \"details of distant trees\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "ochre walls on the buildings"
+    ],
+    "regressions": [
+     {
+      "what": "silk lanterns",
+      "severity": "severe"
+     },
+     {
+      "what": "lanterns along ochre walls",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "brick walls on the buildings",
+     "curved tiled roofs on the buildings"
+    ]
+   },
+   "giay": 4.0
+  },
+  {
+   "t": "16:09:54",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ochre walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Walls are orange, not ochre."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:09:55",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ochre walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Walls are clearly ochre."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "16:09:55",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:09:56",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "16:09:56",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "buildings have curved tiled roofs"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:09:58",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "buildings have curved tiled roofs"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "16:09:58",
+   "prompt_id": "S008",
+   "agent": "GATE",
+   "buoc": "may_kiem_text",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "silk lanterns",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "lanterns along ochre walls",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:09:58",
+   "prompt_id": "S008",
+   "agent": "GATE",
+   "buoc": "luat_text",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "ochre walls on the buildings"
+    ],
+    "bang_action": [
+     {
+      "action": "ochre walls on the buildings",
+      "I0": 8.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "Walls are clearly ochre."
+     },
+     {
+      "action": "brick walls on the buildings",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no brick walls visible"
+     },
+     {
+      "action": "curved tiled roofs on the buildings",
+      "I0": 10.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "buildings have curved tiled roofs"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "silk lanterns",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "lanterns along ochre walls",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.7624,
+     "sim_I1": 0.762
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:00",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "I1_regate_C",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "narrow street between buildings",
+     "illuminated lanterns on both sides"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "potted plants along street edges",
+     "stone pathway with rectangular tiles"
+    ],
+    "supporting_objects": [
+     "wooden doors with glass panels",
+     "signboards attached to building walls"
+    ],
+    "background": [
+     "dark sky with distant lights",
+     "buildings with tiled roofs on both sides"
+    ],
+    "actions": [
+     "lanterns emitting warm light"
+    ],
+    "spatial_relations": [
+     "lanterns hanging from eaves of buildings",
+     "potted plants placed along street edges",
+     "buildings closely aligned on both sides"
+    ],
+    "colors": [
+     "warm yellow light from lanterns",
+     "yellowish-brown building walls",
+     "dark blue night sky",
+     "green plants in pots"
+    ],
+    "counts": {
+     "lanterns": "many",
+     "potted plants": "many",
+     "buildings": "many"
+    },
+    "visible_effects": [
+     "warm glow from lanterns illuminating street",
+     "dark sky with distant lights",
+     "shadows cast by lanterns on buildings"
+    ],
+    "uncertain": [
+     "top of distant buildings",
+     "details of distant lights in sky"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:00",
+   "prompt_id": "S008",
+   "agent": "R",
+   "buoc": "gate_regate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Phố cổ Hội An\", \"en\": \"Hoi An ancient town\"}, \"subject_attributes\": [\"cổ\", \"ancient\"], \"supporting_objects\": [\"đèn lồng lụa\", \"silk lanterns\"], \"background_and_scene\": [\"về đêm\", \"at night\"], \"actions_and_relations\": [\"treo dọc tường\", \"along walls\"], \"colors\": [\"vàng\", \"ochre\"], \"visual_effects\": [\"lụa\"], \"time_weather_lighting\": [\"về đêm\", \"at night\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Phố cổ Hội An\", \"Hoi An ancient town\", \"đèn lồng lụa\", \"silk lanterns\", \"treo dọc tường vàng\", \"along ochre walls\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"ochre walls on the buildings\", \"brick walls on the buildings\", \"curved tiled roofs on the buildings\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"narrow alleyway between buildings\", \"string of hanging lanterns\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"paved walkway\", \"potted plants\", \"small shrubs\"], \"supporting_objects\": [\"wooden doors\", \"windows with shutters\", \"wall-mounted lanterns\"], \"background\": [\"darkening sky\", \"roofs of buildings\", \"distant lanterns\"], \"actions\": [\"lanterns emitting warm light\"], \"spatial_relations\": [\"lanterns hanging above walkway\", \"potted plants lining both sides\", \"buildings on either side of alleyway\"], \"colors\": [\"warm yellow from lanterns\", \"orange-brown walls\", \"dark blue sky\", \"green plants\"], \"counts\": {\"lanterns\": \"many\", \"potted plants\": \"many\", \"buildings\": \"two\"}, \"visible_effects\": [\"soft glow from lanterns\", \"shadows on walls\", \"moon visible in sky\"], \"uncertain\": [\"top of buildings\", \"end of alleyway\", \"details of distant lanterns\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"narrow street between buildings\", \"illuminated lanterns on both sides\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"potted plants along street edges\", \"stone pathway with rectangular tiles\"], \"supporting_objects\": [\"wooden doors with glass panels\", \"signboards attached to building walls\"], \"background\": [\"dark sky with distant lights\", \"buildings with tiled roofs on both sides\"], \"actions\": [\"lanterns emitting warm light\"], \"spatial_relations\": [\"lanterns hanging from eaves of buildings\", \"potted plants placed along street edges\", \"buildings closely aligned on both sides\"], \"colors\": [\"warm yellow light from lanterns\", \"yellowish-brown building walls\", \"dark blue night sky\", \"green plants in pots\"], \"counts\": {\"lanterns\": \"many\", \"potted plants\": \"many\", \"buildings\": \"many\"}, \"visible_effects\": [\"warm glow from lanterns illuminating street\", \"dark sky with distant lights\", \"shadows cast by lanterns on buildings\"], \"uncertain\": [\"top of distant buildings\", \"details of distant lights in sky\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "ochre walls on the buildings"
+    ],
+    "regressions": [
+     {
+      "what": "silk lanterns",
+      "severity": "severe"
+     },
+     {
+      "what": "lanterns along ochre walls",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "brick walls on the buildings",
+     "curved tiled roofs on the buildings"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:00",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ochre walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Walls are orange, not ochre."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:00",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ochre walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 9.0,
+    "evidence": "Buildings have ochre walls."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:00",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:00",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:00",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "buildings have curved tiled roofs"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:00",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Roofs are tiled but not curved."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:01",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I0_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "brick pathway, not walls"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "16:25:02",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I1_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "16:25:04",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I0_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "curved tiled roofs visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "16:25:05",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I1_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "roofs are tiled, but not curved"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "16:25:07",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I0_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"fire-resistant brick walls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "16:25:08",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I1_regate_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"fire-resistant brick walls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_ref/S008_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "brick walls visible, no fire test"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "16:25:08",
+   "prompt_id": "S008",
+   "agent": "GATE",
+   "buoc": "may_kiem_regate_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "silk lanterns",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "lanterns along ochre walls",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "GATE",
+   "buoc": "luat_regate_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "ochre walls on the buildings"
+    ],
+    "bang_action": [
+     {
+      "action": "ochre walls on the buildings",
+      "I0": 8.0,
+      "I1": 9.0,
+      "fixed": false,
+      "ev_I1": "Buildings have ochre walls."
+     },
+     {
+      "action": "brick walls on the buildings",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no brick walls visible"
+     },
+     {
+      "action": "curved tiled roofs on the buildings",
+      "I0": 10.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Roofs are tiled but not curved."
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "brick walls",
+      "I0": 5.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no brick walls visible"
+     },
+     {
+      "cue": "curved tiled roofs",
+      "I0": 10.0,
+      "I1": 8.0,
+      "fixed": false,
+      "ev_I1": "roofs are tiled, but not curved"
+     },
+     {
+      "cue": "fire-resistant brick walls",
+      "I0": 0.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "brick walls visible, no fire test"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "silk lanterns",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "lanterns along ochre walls",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.7624,
+     "sim_I1": 0.7592
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "I1_regate_text",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "narrow alleyway between buildings",
+     "string of hanging lanterns"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "paved walkway",
+     "potted plants"
+    ],
+    "supporting_objects": [
+     "wooden doors",
+     "windows with shutters",
+     "roofs with eaves"
+    ],
+    "background": [
+     "dark sky with moon",
+     "distant trees"
+    ],
+    "actions": [
+     "lanterns emitting warm light"
+    ],
+    "spatial_relations": [
+     "lanterns hanging above walkway",
+     "potted plants lining both sides",
+     "buildings on either side of alleyway"
+    ],
+    "colors": [
+     "warm orange and yellow lights",
+     "yellow and orange building walls",
+     "dark blue sky"
+    ],
+    "counts": {
+     "lanterns": "many",
+     "potted plants": "many",
+     "buildings": "two"
+    },
+    "visible_effects": [
+     "soft glow from lanterns",
+     "reflections on paved walkway"
+    ],
+    "uncertain": [
+     "top of buildings",
+     "ends of alleyway",
+     "details of distant trees"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "R",
+   "buoc": "gate_regate_text",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Phố cổ Hội An\", \"en\": \"Hoi An ancient town\"}, \"subject_attributes\": [\"cổ\", \"ancient\"], \"supporting_objects\": [\"đèn lồng lụa\", \"silk lanterns\"], \"background_and_scene\": [\"về đêm\", \"at night\"], \"actions_and_relations\": [\"treo dọc tường\", \"along walls\"], \"colors\": [\"vàng\", \"ochre\"], \"visual_effects\": [\"lụa\"], \"time_weather_lighting\": [\"về đêm\", \"at night\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Phố cổ Hội An\", \"Hoi An ancient town\", \"đèn lồng lụa\", \"silk lanterns\", \"treo dọc tường vàng\", \"along ochre walls\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"ochre walls on the buildings\", \"brick walls on the buildings\", \"curved tiled roofs on the buildings\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"narrow alleyway between buildings\", \"string of hanging lanterns\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"paved walkway\", \"potted plants\", \"small shrubs\"], \"supporting_objects\": [\"wooden doors\", \"windows with shutters\", \"wall-mounted lanterns\"], \"background\": [\"darkening sky\", \"roofs of buildings\", \"distant lanterns\"], \"actions\": [\"lanterns emitting warm light\"], \"spatial_relations\": [\"lanterns hanging above walkway\", \"potted plants lining both sides\", \"buildings on either side of alleyway\"], \"colors\": [\"warm yellow from lanterns\", \"orange-brown walls\", \"dark blue sky\", \"green plants\"], \"counts\": {\"lanterns\": \"many\", \"potted plants\": \"many\", \"buildings\": \"two\"}, \"visible_effects\": [\"soft glow from lanterns\", \"shadows on walls\", \"moon visible in sky\"], \"uncertain\": [\"top of buildings\", \"end of alleyway\", \"details of distant lanterns\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"narrow alleyway between buildings\", \"string of hanging lanterns\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"paved walkway\", \"potted plants\"], \"supporting_objects\": [\"wooden doors\", \"windows with shutters\", \"roofs with eaves\"], \"background\": [\"dark sky with moon\", \"distant trees\"], \"actions\": [\"lanterns emitting warm light\"], \"spatial_relations\": [\"lanterns hanging above walkway\", \"potted plants lining both sides\", \"buildings on either side of alleyway\"], \"colors\": [\"warm orange and yellow lights\", \"yellow and orange building walls\", \"dark blue sky\"], \"counts\": {\"lanterns\": \"many\", \"potted plants\": \"many\", \"buildings\": \"two\"}, \"visible_effects\": [\"soft glow from lanterns\", \"reflections on paved walkway\"], \"uncertain\": [\"top of buildings\", \"ends of alleyway\", \"details of distant trees\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "ochre walls on the buildings"
+    ],
+    "regressions": [
+     {
+      "what": "silk lanterns",
+      "severity": "severe"
+     },
+     {
+      "what": "lanterns along ochre walls",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "brick walls on the buildings",
+     "curved tiled roofs on the buildings"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ochre walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Walls are orange, not ochre."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ochre walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Walls are clearly ochre."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I0_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "buildings have curved tiled roofs"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "check_I1_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs on the buildings\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "buildings have curved tiled roofs"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:09",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I0_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "brick pathway, not walls"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:11",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I1_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"brick walls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "16:25:11",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I0_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "curved tiled roofs visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:12",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I1_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"curved tiled roofs\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "roofs are curved and tiled"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "16:25:12",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I0_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"fire-resistant brick walls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/B/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no brick walls visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:14",
+   "prompt_id": "S008",
+   "agent": "O",
+   "buoc": "cue_I1_regate_text",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"fire-resistant brick walls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S008/C_text/S008_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "brick walls visible, no fire test"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "16:25:14",
+   "prompt_id": "S008",
+   "agent": "GATE",
+   "buoc": "may_kiem_regate_text",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "silk lanterns",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "lanterns along ochre walls",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "16:25:14",
+   "prompt_id": "S008",
+   "agent": "GATE",
+   "buoc": "luat_regate_text",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "ochre walls on the buildings"
+    ],
+    "bang_action": [
+     {
+      "action": "ochre walls on the buildings",
+      "I0": 8.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "Walls are clearly ochre."
+     },
+     {
+      "action": "brick walls on the buildings",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no brick walls visible"
+     },
+     {
+      "action": "curved tiled roofs on the buildings",
+      "I0": 10.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "buildings have curved tiled roofs"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "brick walls",
+      "I0": 5.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no brick walls visible"
+     },
+     {
+      "cue": "curved tiled roofs",
+      "I0": 10.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "roofs are curved and tiled"
+     },
+     {
+      "cue": "fire-resistant brick walls",
+      "I0": 0.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "brick walls visible, no fire test"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "silk lanterns",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "lanterns along ochre walls",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.7624,
+     "sim_I1": 0.762
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

@@ -1,0 +1,805 @@
+{
+ "unit": {
+  "prompt_id": "S002",
+  "prompt_vi": "Người phụ nữ gánh hàng rong trên phố vào buổi sáng.",
+  "P_orig": "A woman carrying a shoulder pole of street goods along a street in the morning.",
+  "P_ct": "A woman carrying a shoulder pole of street goods along a street in the morning. In the early morning of a bustling Vietnamese market street, a woman carries a traditional Vietnamese street vending cart known as a \"gánh hàng rong\" (a balanced pole across her shoulders with robust, intricately woven bamboo baskets on either end) — a practice that has been a cornerstone of Vietnamese markets for centuries, reflecting the country’s cultural resilience and entrepreneurial spirit. The pole and baskets are made of lightweight and durable bamboo, a traditional material in Vietnam that ensures the cart is both strong and easy to handle. The baskets, resembling large woven shopping bags but more robust and intricately designed, are filled with fresh fruits and vegetables in vibrant colors and textures, such as ripe oranges, crisp lettuce, and fresh tomatoes. The woman carefully navigates the narrow pathway, maintaining her balance as she sets off to sell her wares for the day. The market is already alive with activity, vendors shouting prices and the clinking of metal containers, customers bargaining over the day’s fresh catch, creating a vibrant tapestry of sights, sounds, and scents like the aroma of freshly brewed coffee and the sight of colorful flowers. The \"gánh hàng rong\" not only serves as a means of livelihood for many Vietnamese but also preserves a rich cultural tradition that dates back generations, embodying the spirit of ingenuity and resilience that defines Vietnamese culture.",
+  "P1": "A woman carrying a shoulder pole of street goods along a street in the morning. In the early morning of a bustling Vietnamese market street, a woman carries a traditional Vietnamese street vending cart known as a \"gánh hàng rong\" (a balanced pole across her shoulders with robust, intricately woven bamboo baskets on either end) — a practice that has been a cornerstone of Vietnamese markets for centuries, reflecting the country’s cultural resilience and entrepreneurial spirit. The pole and baskets are made of lightweight and durable bamboo, a traditional material in Vietnam that ensures the cart is both strong and easy to handle. The baskets, resembling large woven shopping bags but more robust and intricately designed, are filled with fresh fruits and vegetables in vibrant colors and textures, such as ripe oranges, crisp lettuce, and fresh tomatoes. The woman carefully navigates the narrow pathway, maintaining her balance as she sets off to sell her wares for the day. The market is already alive with activity, vendors shouting prices and the clinking of metal containers, customers bargaining over the day’s fresh catch, creating a vibrant tapestry of sights, sounds, and scents like the aroma of freshly brewed coffee and the sight of colorful flowers. The \"gánh hàng rong\" not only serves as a means of livelihood for many Vietnamese but also preserves a rich cultural tradition that dates back generations, embodying the spirit of ingenuity and resilience that defines Vietnamese culture.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: street goods; along a street. Make these additions clearly visible:\n1. a bamboo pole resting across one shoulder with a basket hanging from each end.\n2. a narrow pathway in front of her.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Người phụ nữ",
+     "en": "A woman"
+    },
+    "subject_attributes": [
+     "gánh hàng rong",
+     "carrying a shoulder pole of street goods"
+    ],
+    "supporting_objects": [
+     "hàng rong",
+     "street goods"
+    ],
+    "background_and_scene": [
+     "trên phố",
+     "along a street"
+    ],
+    "actions_and_relations": [
+     "gánh",
+     "carrying"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [
+     "buổi sáng",
+     "in the morning"
+    ],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "gánh hàng rong",
+     "carrying a shoulder pole of street goods",
+     "trên phố",
+     "along a street",
+     "buổi sáng",
+     "in the morning"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [],
+    "conditional_cues": [],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "cái gánh có chiều dài từ 1 đến 1,5 mét",
+      "target_appearance_en": "the carrying pole is 1 to 1.5 meters in length",
+      "source_url": "https://en.wikipedia.org/wiki/Carrying_pole"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Gánh hàng rong hay còn gọi là lái buôn, con buôn, người đi chào hàng là một người bán hàng gánh lưu động và không cố định một chỗ.",
+     "Gánh hàng rong, theo luật pháp của nước Anh, được định nghĩa là: \"bất kỳ một người bán hàng rong, gánh hàng rong, tiểu thương, thợ hàn nồi, thợ đúc kim loại, thợ sửa ghế hay một người nào đó mà không có ngựa hay súc vật khác đi cùng hoặc kéo chở, đi bộ từ nơi này qua nơi khác để giao dịch buôn bán và đi từ thị trấn này tới thị trấn kia hoặc tới nhà người khác, mang theo để rao hàng hay bày bán bất kỳ đồ vật, sản phẩm hàng hóa nào một cách trực tiếp để được giao hàng và chở tới nơi, hoặc rao bán hay mời bán tay nghề thủ công.\"",
+     "The carrying pole has distinct advantages over the vending cart, the other main manual conveyance of goods in East Asia."
+    ],
+    "insufficient_evidence": [
+     "the appearance of the goods being carried",
+     "the appearance of the woman",
+     "identity_cues: 'cái gánh' — quote có thật nhưng không nói về cue",
+     "identity_cues: 'cái gánh' — quote có thật nhưng không nói về cue",
+     "conditional_cues: 'cái gánh' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "woman pushing cart",
+    "cart filled with produce"
+   ],
+   "clothing_and_appearance": [
+    "woman wearing conical hat",
+    "woman in dark clothing",
+    "man in white shirt",
+    "man in blue shirt"
+   ],
+   "foreground_objects": [
+    "wheels of cart",
+    "baskets of produce"
+   ],
+   "supporting_objects": [
+    "baskets on cart",
+    "motorcycle with rider",
+    "motorcycle with passenger"
+   ],
+   "background": [
+    "buildings with signs",
+    "overhead wires",
+    "green and blue tarps",
+    "people in distance"
+   ],
+   "actions": [
+    "woman pushing cart",
+    "motorcycle moving",
+    "people walking"
+   ],
+   "spatial_relations": [
+    "woman in front of cart",
+    "motorcycle behind cart",
+    "people to side of cart"
+   ],
+   "colors": [
+    "green tarps overhead",
+    "blue tarp overhead",
+    "orange and yellow fruits",
+    "green leafy vegetables",
+    "purple and white vegetables"
+   ],
+   "counts": {
+    "baskets": 6,
+    "motorcycles": 2,
+    "people": 5
+   },
+   "visible_effects": [
+    "shadows on ground",
+    "light reflecting off surfaces",
+    "smoke from motorcycle"
+   ],
+   "uncertain": [
+    "top of woman's head",
+    "details of distant signs",
+    "bottom of cart wheels"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "carrying a shoulder pole of street goods"
+   ],
+   "missing_cultural_identity": [
+    "the carrying pole is 1 to 1.5 meters in length"
+   ],
+   "contradictions": [
+    "woman pushing cart",
+    "wheels of cart",
+    "baskets on cart"
+   ],
+   "already_satisfied": [
+    "woman carrying",
+    "street",
+    "in the morning",
+    "street goods",
+    "baskets of produce",
+    "fresh fruits and vegetables",
+    "people in distance",
+    "buildings with signs"
+   ],
+   "uncertain_no_repair": [
+    "top of woman's head",
+    "details of distant signs",
+    "bottom of cart wheels"
+   ],
+   "repair_actions": [
+    "a bamboo pole resting across one shoulder with a basket hanging from each end",
+    "a conical hat on her head",
+    "a narrow pathway in front of her"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "a bamboo pole resting across one shoulder with a basket hanging from each end",
+   "a narrow pathway in front of her"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S002/01.png",
+   "/workspace/refs_new/reference_images_simple/selected/S002/02.jpg"
+  ],
+  "images": {
+   "A": "S002_sdxl_base_c0.png",
+   "B (I0)": "S002_sdxl_base_c0.png",
+   "C (I1)": "S002_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "15:32:14",
+   "prompt_id": "S002",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Người phụ nữ gánh hàng rong trên phố vào buổi sáng.\nPROMPT EN: A woman carrying a shoulder pole of street goods along a street in the morning.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Người phụ nữ",
+      "en": "A woman"
+     },
+     "subject_attributes": [
+      "gánh hàng rong",
+      "carrying a shoulder pole of street goods"
+     ],
+     "supporting_objects": [
+      "hàng rong",
+      "street goods"
+     ],
+     "background_and_scene": [
+      "trên phố",
+      "along a street"
+     ],
+     "actions_and_relations": [
+      "gánh",
+      "carrying"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [
+      "buổi sáng",
+      "in the morning"
+     ],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "gánh hàng rong",
+      "carrying a shoulder pole of street goods",
+      "trên phố",
+      "along a street",
+      "buổi sáng",
+      "in the morning"
+     ]
+    }
+   },
+   "giay": 8.3
+  },
+  {
+   "t": "15:32:37",
+   "prompt_id": "S002",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Người phụ nữ gánh hàng rong trên phố vào buổi sáng.\nPROMPT EN: A woman carrying a shoulder pole of street goods along a street in the morning.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Gánh hàng rong — https://vi.wikipedia.org/wiki/G%C3%A1nh_h%C3%A0ng_rong ===\nGánh hàng rong hay còn gọi là lái buôn, con buôn, người đi chào hàng là một người bán hàng gánh lưu động và không cố định một chỗ. Ở Anh, từ \"peddler\" dùng để chỉ những người lang thang đi bán rong từ nông thôn cho đến các thị trấn, làng quê nhỏ bé. Tại Luân Đôn, người ta dùng những từ chỉ cụ thể hơn là \"costermonger\" để chỉ người bán hàng rau quả. Từ nguyên và định nghĩa trong tiếng Anh Gánh hàng rong, theo luật pháp của nước Anh, được định nghĩa là: \"bất kỳ một người bán hàng rong, gánh hàng rong, tiểu thương, thợ hàn nồi, thợ đúc kim loại, thợ sửa ghế hay một người nào đó mà không có ngựa hay súc vật khác đi cùng hoặc kéo chở, đi bộ từ nơi này qua nơi khác để giao dịch buôn bán và đi từ thị trấn này tới thị trấn kia hoặc tới nhà người khác, mang theo để rao hàng hay bày bán bất kỳ đồ vật, sản phẩm hàng hóa nào một cách trực tiếp để được giao hàng và chở tới nơi, hoặc rao bán hay mời bán tay nghề thủ công.\" Xem thêm Người bán hàng rong Lái buôn Gánh hát Chú thích Tham khảo J.R. Station Chief tại trang Etymonline.com Tra từ \"Gánh hàng rong\" (Peddler) tại trang Etymonline.com Đọc thêm D.\n\n=== PASSAGE [en] Carrying pole — https://en.wikipedia.org/wiki/Carrying_pole ===\nA carrying pole, also called a shoulder pole or a milkmaid's yoke, is a yoke of wood or bamboo, used by people to carry a load. This piece of equipment is used in one of two basic ways: A single person balances the yoke over one shoulder, with an evenly distributed load being suspended from each end. Two people support the yoke by resting it on a shoulder, with the load suspended from the centre of the yoke. The individual carries the device by balancing the yoke upon one or both shoulders. The Western milkmaid's yoke is fitted over both shoulders. However, the East Asian type is carried on one shoulder. In ancient Greece, it was called asilla (ἄσιλλα) or anaphoron (ἀνάφορον) and was a wooden pole or yoke carried by a person, either across both shoulders or, more commonly, on one shoulder and used for transporting burdens. Types Canoe Many canoes include a thwart shaped like a yoke to aid in carrying the boat. The bamboo yoke is normally between 1 and 1.5 meters in length, and carried with the curved (outside surface) of the bamboo against the shoulder. The carrying pole has distinct advantages over the vending cart, the other main manual conveyance of goods in East Asia. The carrying pole can be transported within a motorized vehicle. Independent vendors are also often allowed to transport their carrying poles on intercity buses, and can be seen entering cities to sell their goods. Gallery See also Bindle – Sack stereotypically used by hobos Kanwar Yatra – Hindu pilgrimage to the Ganges River Picul – Traditional Asian unit of mass Litter (vehicle) – Human-powered wheelless vehicle for the transport of persons Travois – Load-dragging structure References External links A Chinese variant Newsreel film of man carrying children\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [],
+     "conditional_cues": [],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "cái gánh có chiều dài từ 1 đến 1,5 mét",
+       "target_appearance_en": "the carrying pole is 1 to 1.5 meters in length",
+       "source_url": "https://en.wikipedia.org/wiki/Carrying_pole"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Gánh hàng rong hay còn gọi là lái buôn, con buôn, người đi chào hàng là một người bán hàng gánh lưu động và không cố định một chỗ.",
+      "Gánh hàng rong, theo luật pháp của nước Anh, được định nghĩa là: \"bất kỳ một người bán hàng rong, gánh hàng rong, tiểu thương, thợ hàn nồi, thợ đúc kim loại, thợ sửa ghế hay một người nào đó mà không có ngựa hay súc vật khác đi cùng hoặc kéo chở, đi bộ từ nơi này qua nơi khác để giao dịch buôn bán và đi từ thị trấn này tới thị trấn kia hoặc tới nhà người khác, mang theo để rao hàng hay bày bán bất kỳ đồ vật, sản phẩm hàng hóa nào một cách trực tiếp để được giao hàng và chở tới nơi, hoặc rao bán hay mời bán tay nghề thủ công.\"",
+      "The carrying pole has distinct advantages over the vending cart, the other main manual conveyance of goods in East Asia."
+     ],
+     "insufficient_evidence": [
+      "the appearance of the goods being carried",
+      "the appearance of the woman",
+      "identity_cues: 'cái gánh' — quote có thật nhưng không nói về cue",
+      "identity_cues: 'cái gánh' — quote có thật nhưng không nói về cue",
+      "conditional_cues: 'cái gánh' — quote có thật nhưng không nói về cue"
+     ]
+    }
+   },
+   "giay": 22.5
+  },
+  {
+   "t": "15:32:37",
+   "prompt_id": "S002",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 0,
+    "giu_conditional": 0,
+    "loai": [
+     "identity_cues: 'cái gánh' — quote có thật nhưng không nói về cue",
+     "identity_cues: 'cái gánh' — quote có thật nhưng không nói về cue",
+     "conditional_cues: 'cái gánh' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:32:49",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/B/S002_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "woman pushing cart",
+     "cart filled with produce"
+    ],
+    "clothing_and_appearance": [
+     "woman wearing conical hat",
+     "woman in dark clothing",
+     "man in white shirt",
+     "man in blue shirt"
+    ],
+    "foreground_objects": [
+     "wheels of cart",
+     "baskets of produce"
+    ],
+    "supporting_objects": [
+     "baskets on cart",
+     "motorcycle with rider",
+     "motorcycle with passenger"
+    ],
+    "background": [
+     "buildings with signs",
+     "overhead wires",
+     "green and blue tarps",
+     "people in distance"
+    ],
+    "actions": [
+     "woman pushing cart",
+     "motorcycle moving",
+     "people walking"
+    ],
+    "spatial_relations": [
+     "woman in front of cart",
+     "motorcycle behind cart",
+     "people to side of cart"
+    ],
+    "colors": [
+     "green tarps overhead",
+     "blue tarp overhead",
+     "orange and yellow fruits",
+     "green leafy vegetables",
+     "purple and white vegetables"
+    ],
+    "counts": {
+     "baskets": 6,
+     "motorcycles": 2,
+     "people": 5
+    },
+    "visible_effects": [
+     "shadows on ground",
+     "light reflecting off surfaces",
+     "smoke from motorcycle"
+    ],
+    "uncertain": [
+     "top of woman's head",
+     "details of distant signs",
+     "bottom of cart wheels"
+    ]
+   },
+   "giay": 12.0
+  },
+  {
+   "t": "15:32:58",
+   "prompt_id": "S002",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A woman carrying a shoulder pole of street goods along a street in the morning.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nIn the early morning of a bustling Vietnamese market street, a woman carries a traditional Vietnamese street vending cart known as a \"gánh hàng rong\" (a balanced pole across her shoulders with robust, intricately woven bamboo baskets on either end) — a practice that has been a cornerstone of Vietnamese markets for centuries, reflecting the country’s cultural resilience and entrepreneurial spirit. The pole and baskets are made of lightweight and durable bamboo, a traditional material in Vietnam that ensures the cart is both strong and easy to handle. The baskets, resembling large woven shopping bags but more robust and intricately designed, are filled with fresh fruits and vegetables in vibrant colors and textures, such as ripe oranges, crisp lettuce, and fresh tomatoes. The woman carefully navigates the narrow pathway, maintaining her balance as she sets off to sell her wares for the day. The market is already alive with activity, vendors shouting prices and the clinking of metal containers, customers bargaining over the day’s fresh catch, creating a vibrant tapestry of sights, sounds, and scents like the aroma of freshly brewed coffee and the sight of colorful flowers. The \"gánh hàng rong\" not only serves as a means of livelihood for many Vietnamese but also preserves a rich cultural tradition that dates back generations, embodying the spirit of ingenuity and resilience that defines Vietnamese culture.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Người phụ nữ\", \"en\": \"A woman\"}, \"subject_attributes\": [\"gánh hàng rong\", \"carrying a shoulder pole of street goods\"], \"supporting_objects\": [\"hàng rong\", \"street goods\"], \"background_and_scene\": [\"trên phố\", \"along a street\"], \"actions_and_relations\": [\"gánh\", \"carrying\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [\"buổi sáng\", \"in the morning\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"gánh hàng rong\", \"carrying a shoulder pole of street goods\", \"trên phố\", \"along a street\", \"buổi sáng\", \"in the morning\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [], \"conditional_cues\": [], \"positive_disambiguators\": [{\"target_appearance_vi\": \"cái gánh có chiều dài từ 1 đến 1,5 mét\", \"target_appearance_en\": \"the carrying pole is 1 to 1.5 meters in length\", \"source_url\": \"https://en.wikipedia.org/wiki/Carrying_pole\"}], \"discarded_nonvisual_facts\": [\"Gánh hàng rong hay còn gọi là lái buôn, con buôn, người đi chào hàng là một người bán hàng gánh lưu động và không cố định một chỗ.\", \"Gánh hàng rong, theo luật pháp của nước Anh, được định nghĩa là: \\\"bất kỳ một người bán hàng rong, gánh hàng rong, tiểu thương, thợ hàn nồi, thợ đúc kim loại, thợ sửa ghế hay một người nào đó mà không có ngựa hay súc vật khác đi cùng hoặc kéo chở, đi bộ từ nơi này qua nơi khác để giao dịch buôn bán và đi từ thị trấn này tới thị trấn kia hoặc tới nhà người khác, mang theo để rao hàng hay bày bán bất kỳ đồ vật, sản phẩm hàng hóa nào một cách trực tiếp để được giao hàng và chở tới nơi, hoặc rao bán hay mời bán tay nghề thủ công.\\\"\", \"The carrying pole has distinct advantages over the vending cart, the other main manual conveyance of goods in East Asia.\"], \"insufficient_evidence\": [\"the appearance of the goods being carried\", \"the appearance of the woman\", \"identity_cues: 'cái gánh' — quote có thật nhưng không nói về cue\", \"identity_cues: 'cái gánh' — quote có thật nhưng không nói về cue\", \"conditional_cues: 'cái gánh' — quote có thật nhưng không nói về cue\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"woman pushing cart\", \"cart filled with produce\"], \"clothing_and_appearance\": [\"woman wearing conical hat\", \"woman in dark clothing\", \"man in white shirt\", \"man in blue shirt\"], \"foreground_objects\": [\"wheels of cart\", \"baskets of produce\"], \"supporting_objects\": [\"baskets on cart\", \"motorcycle with rider\", \"motorcycle with passenger\"], \"background\": [\"buildings with signs\", \"overhead wires\", \"green and blue tarps\", \"people in distance\"], \"actions\": [\"woman pushing cart\", \"motorcycle moving\", \"people walking\"], \"spatial_relations\": [\"woman in front of cart\", \"motorcycle behind cart\", \"people to side of cart\"], \"colors\": [\"green tarps overhead\", \"blue tarp overhead\", \"orange and yellow fruits\", \"green leafy vegetables\", \"purple and white vegetables\"], \"counts\": {\"baskets\": 6, \"motorcycles\": 2, \"people\": 5}, \"visible_effects\": [\"shadows on ground\", \"light reflecting off surfaces\", \"smoke from motorcycle\"], \"uncertain\": [\"top of woman's head\", \"details of distant signs\", \"bottom of cart wheels\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "carrying a shoulder pole of street goods"
+    ],
+    "missing_cultural_identity": [
+     "the carrying pole is 1 to 1.5 meters in length"
+    ],
+    "contradictions": [
+     "woman pushing cart",
+     "wheels of cart",
+     "baskets on cart"
+    ],
+    "already_satisfied": [
+     "woman carrying",
+     "street",
+     "in the morning",
+     "street goods",
+     "baskets of produce",
+     "fresh fruits and vegetables",
+     "people in distance",
+     "buildings with signs"
+    ],
+    "uncertain_no_repair": [
+     "top of woman's head",
+     "details of distant signs",
+     "bottom of cart wheels"
+    ],
+    "repair_actions": [
+     "a bamboo pole resting across one shoulder with a basket hanging from each end",
+     "a conical hat on her head",
+     "a narrow pathway in front of her"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 9.1
+  },
+  {
+   "t": "15:32:58",
+   "prompt_id": "S002",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a bamboo pole resting across one shoulder with a basket hanging from each end",
+     "a conical hat on her head",
+     "a narrow pathway in front of her"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:32:59",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a bamboo pole resting across one shoulder with a basket hanging from each end\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/B/S002_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "cart with baskets, no pole"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:33:00",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a conical hat on her head\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/B/S002_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Woman wearing conical hat."
+   },
+   "giay": 1.2
+  },
+  {
+   "t": "15:33:02",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a narrow pathway in front of her\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/B/S002_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "wide street, not narrow"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:33:02",
+   "prompt_id": "S002",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a bamboo pole resting across one shoulder with a basket hanging from each end",
+      0.0
+     ],
+     [
+      "a narrow pathway in front of her",
+      0.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "a conical hat on her head",
+      10.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:33:02",
+   "prompt_id": "S002",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A woman carrying a shoulder pole of street goods along a street in the morning. In the early morning of a bustling Vietnamese market street, a woman carries a traditional Vietnamese street vending cart known as a \"gánh hàng rong\" (a balanced pole across her shoulders with robust, intricately woven bamboo baskets on either end) — a practice that has been a cornerstone of Vietnamese markets for centuries, reflecting the country’s cultural resilience and entrepreneurial spirit. The pole and baskets are made of lightweight and durable bamboo, a traditional material in Vietnam that ensures the cart is both strong and easy to handle. The baskets, resembling large woven shopping bags but more robust and intricately designed, are filled with fresh fruits and vegetables in vibrant colors and textures, such as ripe oranges, crisp lettuce, and fresh tomatoes. The woman carefully navigates the narrow pathway, maintaining her balance as she sets off to sell her wares for the day. The market is already alive with activity, vendors shouting prices and the clinking of metal containers, customers bargaining over the day’s fresh catch, creating a vibrant tapestry of sights, sounds, and scents like the aroma of freshly brewed coffee and the sight of colorful flowers. The \"gánh hàng rong\" not only serves as a means of livelihood for many Vietnamese but also preserves a rich cultural tradition that dates back generations, embodying the spirit of ingenuity and resilience that defines Vietnamese culture.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: street goods; along a street. Make these additions clearly visible:\n1. a bamboo pole resting across one shoulder with a basket hanging from each end.\n2. a narrow pathway in front of her."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:33:32",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/C_ref/sdxl_base_ref/S002_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "person carrying two baskets",
+     "conical hat on person's head"
+    ],
+    "clothing_and_appearance": [
+     "red long-sleeved shirt",
+     "black pants",
+     "sandals on feet",
+     "face obscured by cloth"
+    ],
+    "foreground_objects": [
+     "basket filled with leafy greens",
+     "basket filled with root vegetables"
+    ],
+    "supporting_objects": [
+     "yoke across shoulders",
+     "poles connecting baskets to yoke"
+    ],
+    "background": [
+     "person walking away",
+     "green door with metal frame",
+     "weathered brick wall",
+     "stone pavement"
+    ],
+    "actions": [
+     "person walking forward",
+     "person carrying baskets"
+    ],
+    "spatial_relations": [
+     "baskets hanging from poles",
+     "person in front of green door",
+     "another person behind main subject"
+    ],
+    "colors": [
+     "red shirt",
+     "green leafy vegetables",
+     "tan root vegetables",
+     "beige conical hat",
+     "green door",
+     "gray stone pavement"
+    ],
+    "counts": {
+     "baskets": 2,
+     "people": 2,
+     "doors": 1
+    },
+    "visible_effects": [
+     "shadows on pavement",
+     "reflections on door"
+    ],
+    "uncertain": [
+     "top of conical hat",
+     "lower legs of person in background",
+     "right side of main subject's basket",
+     "details of weathered brick wall"
+    ]
+   },
+   "giay": 12.4
+  },
+  {
+   "t": "15:33:36",
+   "prompt_id": "S002",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Người phụ nữ\", \"en\": \"A woman\"}, \"subject_attributes\": [\"gánh hàng rong\", \"carrying a shoulder pole of street goods\"], \"supporting_objects\": [\"hàng rong\", \"street goods\"], \"background_and_scene\": [\"trên phố\", \"along a street\"], \"actions_and_relations\": [\"gánh\", \"carrying\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [\"buổi sáng\", \"in the morning\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"gánh hàng rong\", \"carrying a shoulder pole of street goods\", \"trên phố\", \"along a street\", \"buổi sáng\", \"in the morning\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a bamboo pole resting across one shoulder with a basket hanging from each end\", \"a narrow pathway in front of her\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"woman pushing cart\", \"cart filled with produce\"], \"clothing_and_appearance\": [\"woman wearing conical hat\", \"woman in dark clothing\", \"man in white shirt\", \"man in blue shirt\"], \"foreground_objects\": [\"wheels of cart\", \"baskets of produce\"], \"supporting_objects\": [\"baskets on cart\", \"motorcycle with rider\", \"motorcycle with passenger\"], \"background\": [\"buildings with signs\", \"overhead wires\", \"green and blue tarps\", \"people in distance\"], \"actions\": [\"woman pushing cart\", \"motorcycle moving\", \"people walking\"], \"spatial_relations\": [\"woman in front of cart\", \"motorcycle behind cart\", \"people to side of cart\"], \"colors\": [\"green tarps overhead\", \"blue tarp overhead\", \"orange and yellow fruits\", \"green leafy vegetables\", \"purple and white vegetables\"], \"counts\": {\"baskets\": 6, \"motorcycles\": 2, \"people\": 5}, \"visible_effects\": [\"shadows on ground\", \"light reflecting off surfaces\", \"smoke from motorcycle\"], \"uncertain\": [\"top of woman's head\", \"details of distant signs\", \"bottom of cart wheels\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"person carrying two baskets\", \"conical hat on person's head\"], \"clothing_and_appearance\": [\"red long-sleeved shirt\", \"black pants\", \"sandals on feet\", \"face obscured by cloth\"], \"foreground_objects\": [\"basket filled with leafy greens\", \"basket filled with root vegetables\"], \"supporting_objects\": [\"yoke across shoulders\", \"poles connecting baskets to yoke\"], \"background\": [\"person walking away\", \"green door with metal frame\", \"weathered brick wall\", \"stone pavement\"], \"actions\": [\"person walking forward\", \"person carrying baskets\"], \"spatial_relations\": [\"baskets hanging from poles\", \"person in front of green door\", \"another person behind main subject\"], \"colors\": [\"red shirt\", \"green leafy vegetables\", \"tan root vegetables\", \"beige conical hat\", \"green door\", \"gray stone pavement\"], \"counts\": {\"baskets\": 2, \"people\": 2, \"doors\": 1}, \"visible_effects\": [\"shadows on pavement\", \"reflections on door\"], \"uncertain\": [\"top of conical hat\", \"lower legs of person in background\", \"right side of main subject's basket\", \"details of weathered brick wall\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "a bamboo pole resting across one shoulder with a basket hanging from each end"
+    ],
+    "regressions": [
+     {
+      "what": "street goods",
+      "severity": "severe"
+     },
+     {
+      "what": "along a street",
+      "severity": "severe"
+     },
+     {
+      "what": "in the morning",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "a narrow pathway in front of her"
+    ]
+   },
+   "giay": 4.3
+  },
+  {
+   "t": "15:33:36",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a bamboo pole resting across one shoulder with a basket hanging from each end\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/B/S002_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "cart with baskets, no pole"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:33:38",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a bamboo pole resting across one shoulder with a basket hanging from each end\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/C_ref/sdxl_base_ref/S002_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Pole across shoulder, baskets on ends"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:33:38",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a narrow pathway in front of her\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/B/S002_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "wide street, not narrow"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:33:39",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a narrow pathway in front of her\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/C_ref/sdxl_base_ref/S002_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "wide open paved area"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:33:40",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"the carrying pole is 1 to 1.5 meters in length\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/B/S002_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "the carrying pole is not visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:33:42",
+   "prompt_id": "S002",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"the carrying pole is 1 to 1.5 meters in length\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S002/C_ref/sdxl_base_ref/S002_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Pole appears shorter than 1 meter."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:33:42",
+   "prompt_id": "S002",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [
+     [
+      "in the morning",
+      "không nhìn được"
+     ]
+    ],
+    "giu": [
+     [
+      "street goods",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "along a street",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:33:42",
+   "prompt_id": "S002",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [
+     "a bamboo pole resting across one shoulder with a basket hanging from each end"
+    ],
+    "fixed_llm": [
+     "a bamboo pole resting across one shoulder with a basket hanging from each end"
+    ],
+    "bang_action": [
+     {
+      "action": "a bamboo pole resting across one shoulder with a basket hanging from each end",
+      "I0": 0.0,
+      "I1": 8.0,
+      "fixed": true,
+      "ev_I1": "Pole across shoulder, baskets on ends"
+     },
+     {
+      "action": "a narrow pathway in front of her",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "wide open paved area"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "the carrying pole is 1 to 1.5 meters in length",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Pole appears shorter than 1 meter."
+     }
+    ],
+    "regressions": [
+     {
+      "what": "street goods",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "along a street",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I1",
+    "ly_do": "sửa được 1, không regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.7985,
+     "sim_I1": 0.8203
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

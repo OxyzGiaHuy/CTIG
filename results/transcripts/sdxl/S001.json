@@ -1,0 +1,953 @@
+{
+ "unit": {
+  "prompt_id": "S001",
+  "prompt_vi": "Một cô gái mặc áo dài trắng đứng trước cổng trường.",
+  "P_orig": "A young woman in a white ao dai standing at a school gate.",
+  "P_ct": "A young woman in a white ao dai standing at a school gate. A young woman in a white áo dài, a modern design called \"áo dài Le Mur,\" is standing at the entrance of a school on a sunny morning, preparing to attend a formal event. The áo dài is crafted from smooth, glossy silk with intricate patterns embroidered on the front and back panels. The close-fitting top features delicate button detailing, while the trousers are sleek and form-fitting, complementing the wearer’s silhouette. The school is adorned with Vietnamese flags and banners, creating a festive atmosphere.",
+  "P1": "A young woman in a white ao dai standing at a school gate. A young woman in a white áo dài, a modern design called \"áo dài Le Mur,\" is standing at the entrance of a school on a sunny morning, preparing to attend a formal event. The áo dài is crafted from smooth, glossy silk with intricate patterns embroidered on the front and back panels. The close-fitting top features, while the trousers are sleek and form-fitting, complementing the wearer’s silhouette. The school is adorned with Vietnamese flags and banners, creating a festive atmosphere.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: school gate; at a school gate. Make these additions clearly visible:\n1. two flaps on the ao dai: front flap and back flap.\n2. wide-legged trousers that reach the ankles.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "cô gái",
+     "en": "young woman"
+    },
+    "subject_attributes": [
+     "mặc áo dài trắng",
+     "in a white ao dai"
+    ],
+    "supporting_objects": [
+     "cổng trường",
+     "school gate"
+    ],
+    "background_and_scene": [
+     "trước cổng trường",
+     "at a school gate"
+    ],
+    "actions_and_relations": [
+     "đứng"
+    ],
+    "colors": [
+     "trắng",
+     "white"
+    ],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "áo dài",
+     "ao dai"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "áo dài",
+      "cue_en": "ao dai",
+      "visual_check_vi": "cúc áo dài thường từ cổ chéo sang vai rồi kéo xuống ngang hông",
+      "quote_vi": "Cúc áo dài thường từ cổ chéo sang vai rồi kéo xuống ngang hông.",
+      "source_url": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "áo dài",
+      "cue_en": "ao dai",
+      "visual_check_vi": "quần áo dài được may chấm gót chân, ống quần rộng",
+      "quote_vi": "Quần áo dài được may chấm gót chân, ống quần rộng.",
+      "source_url": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "áo dài có hai tà: tà trước và tà sau",
+      "target_appearance_en": "ao dai has two flaps: front flap and back flap",
+      "source_url": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+     },
+     {
+      "target_appearance_vi": "áo dài có cổ cao",
+      "target_appearance_en": "ao dai has a high collar",
+      "source_url": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Áo dài là một trang phục Việt Nam chủ yếu dành cho nữ giới, xuất hiện từ những năm 1930 do Le Mur Cát Tường cách tân theo hướng Tây hóa từ Áo ngũ thân.",
+     "Áo dài giống với shalwar kameez, kurta của các quốc gia theo văn hóa Ấn-Hồi như Ấn Độ, Pakistan vì đều là dạng trang phục gồm áo tay chẽn mặc bên ngoài quần dài.",
+     "Áo dài khi xưa may bằng vải cứng cáp, nay thường được may với vải mềm, rũ.",
+     "Màu sắc thông dụng nhất là màu trắng.",
+     "Áo dài Lemur (1934) Lemur Cát Tường vào những năm 1930 đã thực hiện một cải cách quan trọng trên chiếc áo ngũ thân để biến nó chỉ còn lại hai vạt trước và sau.",
+     "Áo dài Lemur có nhiều biến cải mà nhiều người thời đó cho là 'lai căng' thái quá, như áo may ráp vai, ráp tay phồng, cổ bồng hoặc cổ hở.",
+     "Áo dài Lemur mặc cho đúng mốt phải với quần xa tanh trắng, đi giày cao, một tay cắp ô và quàng vai thêm chiếc bóp đầm.",
+     "Áo dài Lemur được giới thiệu cho phụ nữ toàn quốc",
+     "Áo dài không hợp với phụ nữ Việt Nam đời sống mới"
+    ],
+    "insufficient_evidence": [
+     "Áo dài có màu gì",
+     "Áo dài có kiểu cổ nào",
+     "Áo dài có kiểu tà nào",
+     "Áo dài có kiểu thêu nào",
+     "Áo dài có kiểu quần nào",
+     "identity_cues: 'áo dài' — quote có thật nhưng không nói về cue",
+     "identity_cues: 'áo dài' — quote có thật nhưng không nói về cue",
+     "conditional_cues: 'áo dài' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "woman standing in front of gate"
+   ],
+   "clothing_and_appearance": [
+    "woman with dark hair in bun",
+    "woman wearing white long-sleeved top",
+    "top with floral embroidery on front",
+    "top with red bird embroidery on sleeve",
+    "woman wearing red lipstick",
+    "woman wearing earrings"
+   ],
+   "foreground_objects": [
+    "woman's hands clasped in front"
+   ],
+   "supporting_objects": [
+    "blue and gold decorative gate",
+    "white wall with red sign",
+    "potted green plant"
+   ],
+   "background": [
+    "blurred white wall",
+    "blurred potted green plant"
+   ],
+   "actions": [
+    "woman looking to the side",
+    "woman clasping hands"
+   ],
+   "spatial_relations": [
+    "woman in front of gate",
+    "plant to right of woman",
+    "sign on wall to right of woman"
+   ],
+   "colors": [
+    "white top",
+    "blue and gold gate",
+    "red lipstick",
+    "red and pink floral embroidery",
+    "red bird embroidery",
+    "green plant"
+   ],
+   "counts": {
+    "women": 1,
+    "gates": 1,
+    "plants": 1,
+    "signs": 1
+   },
+   "visible_effects": [
+    "soft lighting on woman's face",
+    "shadow of woman on gate"
+   ],
+   "uncertain": [
+    "top of woman's head",
+    "bottom of woman's top",
+    "details of sign on wall"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "a school gate"
+   ],
+   "missing_cultural_identity": [
+    "áo dài with a high collar",
+    "áo dài with two flaps: front flap and back flap",
+    "áo dài with trousers that are wide-legged and reach the ankles"
+   ],
+   "contradictions": [
+    "top with red bird embroidery on sleeve",
+    "top with floral embroidery on front"
+   ],
+   "already_satisfied": [
+    "a young woman",
+    "in a white ao dai",
+    "standing at a school gate",
+    "a woman with dark hair in bun",
+    "woman wearing white long-sleeved top",
+    "woman looking to the side",
+    "woman clasping hands",
+    "woman in front of gate"
+   ],
+   "uncertain_no_repair": [
+    "top of woman's head",
+    "bottom of woman's top",
+    "details of sign on wall"
+   ],
+   "repair_actions": [
+    "a high collar on the ao dai",
+    "two flaps on the ao dai: front flap and back flap",
+    "wide-legged trousers that reach the ankles"
+   ],
+   "drop_phrases": [
+    "delicate button detailing"
+   ]
+  },
+  "actions": [
+   "two flaps on the ao dai: front flap and back flap",
+   "wide-legged trousers that reach the ankles"
+  ],
+  "drop_phrases": [
+   "delicate button detailing"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S001/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S001/02.jpg"
+  ],
+  "images": {
+   "A": "S001_sdxl_base_c0.png",
+   "B (I0)": "S001_sdxl_base_c0.png",
+   "C (I1)": "S001_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "15:30:09",
+   "prompt_id": "S001",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Một cô gái mặc áo dài trắng đứng trước cổng trường.\nPROMPT EN: A young woman in a white ao dai standing at a school gate.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "cô gái",
+      "en": "young woman"
+     },
+     "subject_attributes": [
+      "mặc áo dài trắng",
+      "in a white ao dai"
+     ],
+     "supporting_objects": [
+      "cổng trường",
+      "school gate"
+     ],
+     "background_and_scene": [
+      "trước cổng trường",
+      "at a school gate"
+     ],
+     "actions_and_relations": [
+      "đứng"
+     ],
+     "colors": [
+      "trắng",
+      "white"
+     ],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "áo dài",
+      "ao dai"
+     ]
+    }
+   },
+   "giay": 7.3
+  },
+  {
+   "t": "15:30:50",
+   "prompt_id": "S001",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Một cô gái mặc áo dài trắng đứng trước cổng trường.\nPROMPT EN: A young woman in a white ao dai standing at a school gate.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Áo dài — https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i ===\nÁo dài là một trang phục Việt Nam chủ yếu dành cho nữ giới, xuất hiện từ những năm 1930 do Le Mur Cát Tường cách tân theo hướng Tây hóa từ Áo ngũ thân. Đặc điểm của trang phục này là kiểu áo tay chẽn, dáng áo bó, hai tà thẳng trước sau và hai bên. Các nhà thiết kế không áp dụng hoa văn truyền thống, phụ kiện trang sức truyền thống lên áo dài. Áo dài giống với shalwar kameez, kurta của các quốc gia theo văn hóa Ấn-Hồi như Ấn Độ, Pakistan vì đều là dạng trang phục gồm áo tay chẽn mặc bên ngoài quần dài. Cấu tạo áo dài Cổ áo cổ điển cao khoảng 4 đến 5 cm. Ngày nay, kiểu cổ áo dài được biến tấu khá đa dạng như kiểu cổ trái tim, cổ tròn, cổ chữ U, trên cổ áo thường được đính ngọc. Cúc áo dài thường từ cổ chéo sang vai rồi kéo xuống ngang hông. Từ eo, thân áo dài được xẻ làm hai tà, vị trí xẻ tà ở hai bên hông. Áo dài có hai tà: tà trước và tà sau. Ngày xưa tà trước bằng tà sau nhưng ngày nay đã có nhiều loại áo tà trước ngắn hơn tà sau. Trên tà áo trước thường được thêu những hoa văn hay những bài thơ. Chiếc áo dài được mặc với quần thay cho chiếc váy ngày xưa. Quần áo dài được may chấm gót chân, ống quần rộng. Áo dài khi xưa may bằng vải cứng cáp, nay thường được may với vải mềm, rũ. Màu sắc thông dụng nhất là màu trắng. Nhưng xu thế thời trang hiện nay thì chiếc quần áo dài có màu đi tông với màu của áo. Để phân biệt người miền Nam với người miền Bắc, vào năm 1744, Chúa Nguyễn Phúc Khoát ở Huế đã ban sắc lệnh rằng cả nam và nữ trong triều đình của mình đều phải mặc quần và áo dài có khuy ở phía trước. Theo ghi chép của Lê Quý Đôn trong sách \"Phủ biên tạp lục\" (ghi lại hầu hết những thông tin quan trọng về kinh tế, xã hội của Đàng Trong trong gần 200 năm), áo ngũ thân (hay nói đúng hơn là tiền thân của áo dài) do chúa Nguyễn Phúc Khoát sáng tạo dựa trên trang phục thời nhà Minh của Trung Quốc, bằng cách học cách chế tạo trang phục trong sách \"Tam tài đồ hội\" làm chuẩn. Áo ngũ thân có hai vạt áo may lại với nhau ở phía sau, hai vạt áo may lại với nhau ở phía trước, và một \"vạt áo nhỏ\" ẩn bên dưới vạt áo chính phía trước. Chiếc áo dường như có hai vạt áo với các đường xẻ ở cả hai bên, các đặc điểm được giữ nguyên trong áo dài sau này. So với áo dài hiện đại, vạt áo trước và sau rộng hơn nhiều, vừa vặn và ngắn hơn nhiều. Áo có cổ cao và được cài khuy theo cùng kiểu áo dài hiện đại. Áo dài tân thời Áo dài Lemur (1934) Lemur Cát Tường vào những năm 1930 đã thực hiện một cải cách quan trọng trên chiếc áo ngũ thân để biến nó chỉ còn lại hai vạt trước và sau. Vạt trước được họa sĩ nối dài chấm đất để tăng thêm dáng vẻ uyển chuyển trong bước đi đồng thời thân trên được may ôm sát theo những đường cong cơ thể người mặc tạo nên vẻ yêu kiều và gợi cảm rất độc đáo. Để tăng thêm vẻ nữ tính, hàng nút phía trước được dịch chuyển sang một chỗ mở áo dọc theo vai rồi chạy dọc theo một bên sườn, điểm chia hai tà áo trước - sau cũng trễ dưới eo độ 8 cm. Tuy nhiên, áo dài Le Mur có nhiều biến cải mà nhiều người thời đó cho là \"lai căng\" thái quá, như áo may ráp vai, ráp tay phồng, cổ bồng hoặc cổ hở. Thêm nữa áo Le Mur mặc cho đúng mốt phải với quần xa tanh trắng, đi giày cao, một tay cắp ô và quàng vai thêm chiếc bóp đầm. Theo sách Áo dài Lemur và bối cảnh Phong Hóa & Ngày Nay của tác giả Phạm Thảo Nguyên (do Khai Tâm và Nhà xuất bản Hồng Đức phát hành năm 2019 và tư liệu trong cuốn sách do Nguyễn Trọng Hiền, con trai họa sĩ Lemur Cát Tường sưu tầm và gìn giữ) thì trên báo Phong Hóa số 90 ra ngày 23 tháng 3 năm 1934, ông Cát Tường mạnh dạn đưa ra mẫu áo dài Lemur (\"Le Mur\" chính là cách dịch sang tiếng Pháp của Cát Tường) đầu tiên. Theo đó, khi phát hiện chiếc áo dài mà người phụ nữ mặc, ở trong lót áo yếm làm thân hình phẳng lì quá, họa sĩ tìm tới chủ hiệu Cự Chung chuyên sản xuất áo khoác, áo bơi ở phố Hàng Bông, đề nghị dệt thêm... Cũng trong năm 1935, họa sĩ Cát Tường đã thực hiện một chuyến đi xuyên Việt để giới thiệu cho phụ nữ toàn quốc chiếc áo dài tân thời Lemur. Áo dài không hợp với phụ nữ Việt Nam đời sống mới\".\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "áo dài",
+       "cue_en": "ao dai",
+       "visual_check_vi": "cúc áo dài thường từ cổ chéo sang vai rồi kéo xuống ngang hông",
+       "quote_vi": "Cúc áo dài thường từ cổ chéo sang vai rồi kéo xuống ngang hông.",
+       "source_url": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "áo dài",
+       "cue_en": "ao dai",
+       "visual_check_vi": "quần áo dài được may chấm gót chân, ống quần rộng",
+       "quote_vi": "Quần áo dài được may chấm gót chân, ống quần rộng.",
+       "source_url": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "áo dài có hai tà: tà trước và tà sau",
+       "target_appearance_en": "ao dai has two flaps: front flap and back flap",
+       "source_url": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+      },
+      {
+       "target_appearance_vi": "áo dài có cổ cao",
+       "target_appearance_en": "ao dai has a high collar",
+       "source_url": "https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Áo dài là một trang phục Việt Nam chủ yếu dành cho nữ giới, xuất hiện từ những năm 1930 do Le Mur Cát Tường cách tân theo hướng Tây hóa từ Áo ngũ thân.",
+      "Áo dài giống với shalwar kameez, kurta của các quốc gia theo văn hóa Ấn-Hồi như Ấn Độ, Pakistan vì đều là dạng trang phục gồm áo tay chẽn mặc bên ngoài quần dài.",
+      "Áo dài khi xưa may bằng vải cứng cáp, nay thường được may với vải mềm, rũ.",
+      "Màu sắc thông dụng nhất là màu trắng.",
+      "Áo dài Lemur (1934) Lemur Cát Tường vào những năm 1930 đã thực hiện một cải cách quan trọng trên chiếc áo ngũ thân để biến nó chỉ còn lại hai vạt trước và sau.",
+      "Áo dài Lemur có nhiều biến cải mà nhiều người thời đó cho là 'lai căng' thái quá, như áo may ráp vai, ráp tay phồng, cổ bồng hoặc cổ hở.",
+      "Áo dài Lemur mặc cho đúng mốt phải với quần xa tanh trắng, đi giày cao, một tay cắp ô và quàng vai thêm chiếc bóp đầm.",
+      "Áo dài Lemur được giới thiệu cho phụ nữ toàn quốc",
+      "Áo dài không hợp với phụ nữ Việt Nam đời sống mới"
+     ],
+     "insufficient_evidence": [
+      "Áo dài có màu gì",
+      "Áo dài có kiểu cổ nào",
+      "Áo dài có kiểu tà nào",
+      "Áo dài có kiểu thêu nào",
+      "Áo dài có kiểu quần nào",
+      "identity_cues: 'áo dài' — quote có thật nhưng không nói về cue",
+      "identity_cues: 'áo dài' — quote có thật nhưng không nói về cue",
+      "conditional_cues: 'áo dài' — quote có thật nhưng không nói về cue"
+     ]
+    }
+   },
+   "giay": 40.8
+  },
+  {
+   "t": "15:30:50",
+   "prompt_id": "S001",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 1,
+    "giu_conditional": 1,
+    "loai": [
+     "identity_cues: 'áo dài' — quote có thật nhưng không nói về cue",
+     "identity_cues: 'áo dài' — quote có thật nhưng không nói về cue",
+     "conditional_cues: 'áo dài' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:31:03",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/B/S001_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "woman standing in front of gate"
+    ],
+    "clothing_and_appearance": [
+     "woman with dark hair in bun",
+     "woman wearing white long-sleeved top",
+     "top with floral embroidery on front",
+     "top with red bird embroidery on sleeve",
+     "woman wearing red lipstick",
+     "woman wearing earrings"
+    ],
+    "foreground_objects": [
+     "woman's hands clasped in front"
+    ],
+    "supporting_objects": [
+     "blue and gold decorative gate",
+     "white wall with red sign",
+     "potted green plant"
+    ],
+    "background": [
+     "blurred white wall",
+     "blurred potted green plant"
+    ],
+    "actions": [
+     "woman looking to the side",
+     "woman clasping hands"
+    ],
+    "spatial_relations": [
+     "woman in front of gate",
+     "plant to right of woman",
+     "sign on wall to right of woman"
+    ],
+    "colors": [
+     "white top",
+     "blue and gold gate",
+     "red lipstick",
+     "red and pink floral embroidery",
+     "red bird embroidery",
+     "green plant"
+    ],
+    "counts": {
+     "women": 1,
+     "gates": 1,
+     "plants": 1,
+     "signs": 1
+    },
+    "visible_effects": [
+     "soft lighting on woman's face",
+     "shadow of woman on gate"
+    ],
+    "uncertain": [
+     "top of woman's head",
+     "bottom of woman's top",
+     "details of sign on wall"
+    ]
+   },
+   "giay": 13.0
+  },
+  {
+   "t": "15:31:13",
+   "prompt_id": "S001",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A young woman in a white ao dai standing at a school gate.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA young woman in a white áo dài, a modern design called \"áo dài Le Mur,\" is standing at the entrance of a school on a sunny morning, preparing to attend a formal event. The áo dài is crafted from smooth, glossy silk with intricate patterns embroidered on the front and back panels. The close-fitting top features delicate button detailing, while the trousers are sleek and form-fitting, complementing the wearer’s silhouette. The school is adorned with Vietnamese flags and banners, creating a festive atmosphere.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"cô gái\", \"en\": \"young woman\"}, \"subject_attributes\": [\"mặc áo dài trắng\", \"in a white ao dai\"], \"supporting_objects\": [\"cổng trường\", \"school gate\"], \"background_and_scene\": [\"trước cổng trường\", \"at a school gate\"], \"actions_and_relations\": [\"đứng\"], \"colors\": [\"trắng\", \"white\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"áo dài\", \"ao dai\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"áo dài\", \"cue_en\": \"ao dai\", \"visual_check_vi\": \"cúc áo dài thường từ cổ chéo sang vai rồi kéo xuống ngang hông\", \"quote_vi\": \"Cúc áo dài thường từ cổ chéo sang vai rồi kéo xuống ngang hông.\", \"source_url\": \"https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i\"}], \"conditional_cues\": [{\"cue_vi\": \"áo dài\", \"cue_en\": \"ao dai\", \"visual_check_vi\": \"quần áo dài được may chấm gót chân, ống quần rộng\", \"quote_vi\": \"Quần áo dài được may chấm gót chân, ống quần rộng.\", \"source_url\": \"https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"áo dài có hai tà: tà trước và tà sau\", \"target_appearance_en\": \"ao dai has two flaps: front flap and back flap\", \"source_url\": \"https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i\"}, {\"target_appearance_vi\": \"áo dài có cổ cao\", \"target_appearance_en\": \"ao dai has a high collar\", \"source_url\": \"https://vi.wikipedia.org/wiki/%C3%81o_d%C3%A0i\"}], \"discarded_nonvisual_facts\": [\"Áo dài là một trang phục Việt Nam chủ yếu dành cho nữ giới, xuất hiện từ những năm 1930 do Le Mur Cát Tường cách tân theo hướng Tây hóa từ Áo ngũ thân.\", \"Áo dài giống với shalwar kameez, kurta của các quốc gia theo văn hóa Ấn-Hồi như Ấn Độ, Pakistan vì đều là dạng trang phục gồm áo tay chẽn mặc bên ngoài quần dài.\", \"Áo dài khi xưa may bằng vải cứng cáp, nay thường được may với vải mềm, rũ.\", \"Màu sắc thông dụng nhất là màu trắng.\", \"Áo dài Lemur (1934) Lemur Cát Tường vào những năm 1930 đã thực hiện một cải cách quan trọng trên chiếc áo ngũ thân để biến nó chỉ còn lại hai vạt trước và sau.\", \"Áo dài Lemur có nhiều biến cải mà nhiều người thời đó cho là 'lai căng' thái quá, như áo may ráp vai, ráp tay phồng, cổ bồng hoặc cổ hở.\", \"Áo dài Lemur mặc cho đúng mốt phải với quần xa tanh trắng, đi giày cao, một tay cắp ô và quàng vai thêm chiếc bóp đầm.\", \"Áo dài Lemur được giới thiệu cho phụ nữ toàn quốc\", \"Áo dài không hợp với phụ nữ Việt Nam đời sống mới\"], \"insufficient_evidence\": [\"Áo dài có màu gì\", \"Áo dài có kiểu cổ nào\", \"Áo dài có kiểu tà nào\", \"Áo dài có kiểu thêu nào\", \"Áo dài có kiểu quần nào\", \"identity_cues: 'áo dài' — quote có thật nhưng không nói về cue\", \"identity_cues: 'áo dài' — quote có thật nhưng không nói về cue\", \"conditional_cues: 'áo dài' — quote có thật nhưng không nói về cue\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"woman standing in front of gate\"], \"clothing_and_appearance\": [\"woman with dark hair in bun\", \"woman wearing white long-sleeved top\", \"top with floral embroidery on front\", \"top with red bird embroidery on sleeve\", \"woman wearing red lipstick\", \"woman wearing earrings\"], \"foreground_objects\": [\"woman's hands clasped in front\"], \"supporting_objects\": [\"blue and gold decorative gate\", \"white wall with red sign\", \"potted green plant\"], \"background\": [\"blurred white wall\", \"blurred potted green plant\"], \"actions\": [\"woman looking to the side\", \"woman clasping hands\"], \"spatial_relations\": [\"woman in front of gate\", \"plant to right of woman\", \"sign on wall to right of woman\"], \"colors\": [\"white top\", \"blue and gold gate\", \"red lipstick\", \"red and pink floral embroidery\", \"red bird embroidery\", \"green plant\"], \"counts\": {\"women\": 1, \"gates\": 1, \"plants\": 1, \"signs\": 1}, \"visible_effects\": [\"soft lighting on woman's face\", \"shadow of woman on gate\"], \"uncertain\": [\"top of woman's head\", \"bottom of woman's top\", \"details of sign on wall\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "a school gate"
+    ],
+    "missing_cultural_identity": [
+     "áo dài with a high collar",
+     "áo dài with two flaps: front flap and back flap",
+     "áo dài with trousers that are wide-legged and reach the ankles"
+    ],
+    "contradictions": [
+     "top with red bird embroidery on sleeve",
+     "top with floral embroidery on front"
+    ],
+    "already_satisfied": [
+     "a young woman",
+     "in a white ao dai",
+     "standing at a school gate",
+     "a woman with dark hair in bun",
+     "woman wearing white long-sleeved top",
+     "woman looking to the side",
+     "woman clasping hands",
+     "woman in front of gate"
+    ],
+    "uncertain_no_repair": [
+     "top of woman's head",
+     "bottom of woman's top",
+     "details of sign on wall"
+    ],
+    "repair_actions": [
+     "a high collar on the ao dai",
+     "two flaps on the ao dai: front flap and back flap",
+     "wide-legged trousers that reach the ankles"
+    ],
+    "drop_phrases": [
+     "delicate button detailing"
+    ]
+   },
+   "giay": 10.7
+  },
+  {
+   "t": "15:31:13",
+   "prompt_id": "S001",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a high collar on the ao dai",
+     "two flaps on the ao dai: front flap and back flap",
+     "wide-legged trousers that reach the ankles"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "delicate button detailing"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:31:14",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a high collar on the ao dai\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/B/S001_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "high collar visible on dress"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:31:16",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"two flaps on the ao dai: front flap and back flap\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/B/S001_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no flaps visible"
+   },
+   "giay": 1.2
+  },
+  {
+   "t": "15:31:17",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"wide-legged trousers that reach the ankles\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/B/S001_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no trousers visible"
+   },
+   "giay": 1.2
+  },
+  {
+   "t": "15:31:17",
+   "prompt_id": "S001",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "two flaps on the ao dai: front flap and back flap",
+      0.0
+     ],
+     [
+      "wide-legged trousers that reach the ankles",
+      0.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "a high collar on the ao dai",
+      10.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:31:17",
+   "prompt_id": "S001",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A young woman in a white ao dai standing at a school gate. A young woman in a white áo dài, a modern design called \"áo dài Le Mur,\" is standing at the entrance of a school on a sunny morning, preparing to attend a formal event. The áo dài is crafted from smooth, glossy silk with intricate patterns embroidered on the front and back panels. The close-fitting top features, while the trousers are sleek and form-fitting, complementing the wearer’s silhouette. The school is adorned with Vietnamese flags and banners, creating a festive atmosphere.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: school gate; at a school gate. Make these additions clearly visible:\n1. two flaps on the ao dai: front flap and back flap.\n2. wide-legged trousers that reach the ankles."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:31:47",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/C_ref/sdxl_base_ref/S001_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "person standing outdoors",
+     "building with columns"
+    ],
+    "clothing_and_appearance": [
+     "long white dress",
+     "long dark hair",
+     "embroidered design on chest",
+     "smiling face"
+    ],
+    "foreground_objects": [
+     "bunch of flowers held by person"
+    ],
+    "supporting_objects": [
+     "tree branches overhead",
+     "pathway underfoot"
+    ],
+    "background": [
+     "multi-story building with columns",
+     "green trees",
+     "clear sky"
+    ],
+    "actions": [
+     "person holding flowers",
+     "person smiling"
+    ],
+    "spatial_relations": [
+     "person in front of building",
+     "flowers in front of person",
+     "tree branches above person"
+    ],
+    "colors": [
+     "white dress",
+     "green leaves",
+     "red and yellow flowers",
+     "yellow and red building accents"
+    ],
+    "counts": {
+     "flowers": 10,
+     "columns": 6,
+     "trees": 3
+    },
+    "visible_effects": [
+     "soft lighting",
+     "shadows on ground"
+    ],
+    "uncertain": [
+     "top of person's head",
+     "details of building interior",
+     "far right side of image"
+    ]
+   },
+   "giay": 10.2
+  },
+  {
+   "t": "15:31:55",
+   "prompt_id": "S001",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"cô gái\", \"en\": \"young woman\"}, \"subject_attributes\": [\"mặc áo dài trắng\", \"in a white ao dai\"], \"supporting_objects\": [\"cổng trường\", \"school gate\"], \"background_and_scene\": [\"trước cổng trường\", \"at a school gate\"], \"actions_and_relations\": [\"đứng\"], \"colors\": [\"trắng\", \"white\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"áo dài\", \"ao dai\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"two flaps on the ao dai: front flap and back flap\", \"wide-legged trousers that reach the ankles\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"woman standing in front of gate\"], \"clothing_and_appearance\": [\"woman with dark hair in bun\", \"woman wearing white long-sleeved top\", \"top with floral embroidery on front\", \"top with red bird embroidery on sleeve\", \"woman wearing red lipstick\", \"woman wearing earrings\"], \"foreground_objects\": [\"woman's hands clasped in front\"], \"supporting_objects\": [\"blue and gold decorative gate\", \"white wall with red sign\", \"potted green plant\"], \"background\": [\"blurred white wall\", \"blurred potted green plant\"], \"actions\": [\"woman looking to the side\", \"woman clasping hands\"], \"spatial_relations\": [\"woman in front of gate\", \"plant to right of woman\", \"sign on wall to right of woman\"], \"colors\": [\"white top\", \"blue and gold gate\", \"red lipstick\", \"red and pink floral embroidery\", \"red bird embroidery\", \"green plant\"], \"counts\": {\"women\": 1, \"gates\": 1, \"plants\": 1, \"signs\": 1}, \"visible_effects\": [\"soft lighting on woman's face\", \"shadow of woman on gate\"], \"uncertain\": [\"top of woman's head\", \"bottom of woman's top\", \"details of sign on wall\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"person standing outdoors\", \"building with columns\"], \"clothing_and_appearance\": [\"long white dress\", \"long dark hair\", \"embroidered design on chest\", \"smiling face\"], \"foreground_objects\": [\"bunch of flowers held by person\"], \"supporting_objects\": [\"tree branches overhead\", \"pathway underfoot\"], \"background\": [\"multi-story building with columns\", \"green trees\", \"clear sky\"], \"actions\": [\"person holding flowers\", \"person smiling\"], \"spatial_relations\": [\"person in front of building\", \"flowers in front of person\", \"tree branches above person\"], \"colors\": [\"white dress\", \"green leaves\", \"red and yellow flowers\", \"yellow and red building accents\"], \"counts\": {\"flowers\": 10, \"columns\": 6, \"trees\": 3}, \"visible_effects\": [\"soft lighting\", \"shadows on ground\"], \"uncertain\": [\"top of person's head\", \"details of building interior\", \"far right side of image\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "two flaps on the ao dai: front flap and back flap",
+     "wide-legged trousers that reach the ankles"
+    ],
+    "regressions": [
+     {
+      "what": "school gate",
+      "severity": "severe"
+     },
+     {
+      "what": "at a school gate",
+      "severity": "severe"
+     },
+     {
+      "what": "woman standing",
+      "severity": "minor"
+     }
+    ],
+    "unchanged_issues": [
+     "woman with dark hair",
+     "woman wearing white long-sleeved top",
+     "woman wearing red lipstick",
+     "woman wearing earrings",
+     "woman clasping hands",
+     "woman in front of gate",
+     "red and pink floral embroidery",
+     "red bird embroidery",
+     "top of woman's head",
+     "bottom of woman's top",
+     "details of sign on wall",
+     "soft lighting on woman's face",
+     "shadow of woman on gate"
+    ]
+   },
+   "giay": 8.1
+  },
+  {
+   "t": "15:31:55",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"two flaps on the ao dai: front flap and back flap\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/B/S001_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no flaps visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:31:56",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"two flaps on the ao dai: front flap and back flap\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/C_ref/sdxl_base_ref/S001_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "front flap visible, back flap not"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:31:56",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"wide-legged trousers that reach the ankles\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/B/S001_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no trousers visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:31:57",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"wide-legged trousers that reach the ankles\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/C_ref/sdxl_base_ref/S001_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "woman wearing a long dress"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:31:59",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ao dai\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/B/S001_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Woman wearing traditional long dress"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:32:00",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ao dai\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/C_ref/sdxl_base_ref/S001_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Woman wearing long white dress"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:32:01",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ao dai has two flaps: front flap and back flap\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/B/S001_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no flaps visible"
+   },
+   "giay": 1.2
+  },
+  {
+   "t": "15:32:02",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ao dai has two flaps: front flap and back flap\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/C_ref/sdxl_base_ref/S001_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no flaps visible"
+   },
+   "giay": 1.2
+  },
+  {
+   "t": "15:32:04",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ao dai has a high collar\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/B/S001_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "High collar visible on dress"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:32:05",
+   "prompt_id": "S001",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ao dai has a high collar\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S001/C_ref/sdxl_base_ref/S001_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "high collar visible on ao dai"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:32:05",
+   "prompt_id": "S001",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "school gate",
+      "severe"
+     ],
+     [
+      "at a school gate",
+      "severe"
+     ],
+     [
+      "woman standing",
+      "minor"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:32:06",
+   "prompt_id": "S001",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "two flaps on the ao dai: front flap and back flap",
+     "wide-legged trousers that reach the ankles"
+    ],
+    "bang_action": [
+     {
+      "action": "two flaps on the ao dai: front flap and back flap",
+      "I0": 0.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "front flap visible, back flap not"
+     },
+     {
+      "action": "wide-legged trousers that reach the ankles",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "woman wearing a long dress"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "ao dai",
+      "I0": 10.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "Woman wearing long white dress"
+     },
+     {
+      "cue": "ao dai has two flaps: front flap and back flap",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no flaps visible"
+     },
+     {
+      "cue": "ao dai has a high collar",
+      "I0": 10.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "high collar visible on ao dai"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "school gate",
+      "severity": "severe"
+     },
+     {
+      "what": "at a school gate",
+      "severity": "severe"
+     },
+     {
+      "what": "woman standing",
+      "severity": "minor"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "2 regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.6911,
+     "sim_I1": 0.7031
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

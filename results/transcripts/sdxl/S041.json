@@ -1,0 +1,951 @@
+{
+ "unit": {
+  "prompt_id": "S041",
+  "prompt_vi": "Chợ Tết ở làng quê Bắc Bộ, người mua bán cành đào.",
+  "P_orig": "A Tet market in a northern village with peach branches.",
+  "P_ct": "A Tet market in a northern village with peach branches. A Tết market in a northern Vietnamese village is bustling with activity, adorned with bright red banners and lanterns hanging from the stalls. The air is filled with the scent of incense and fresh flowers, particularly peach branches, which are traditional symbols of good fortune and happiness. Vendors offer a variety of goods, from traditional food items like bánh chưng to ornate decorations and clothing. The lively chatter and laughter of visitors, the sound of vendors calling out their wares, and the vibrant colors of the market create a unique and unforgettable experience that captures the spirit of Tết.",
+  "P1": "A Tet market in a northern village with peach branches. A Tết market in a northern Vietnamese village is bustling with activity, adorned with bright red banners and lanterns hanging from the stalls. The air is filled with the scent of incense and fresh flowers, particularly peach branches, which are traditional symbols of good fortune and happiness. Vendors offer a variety of goods, from traditional food items like bánh chưng to ornate decorations and clothing. The lively chatter and laughter of visitors, the sound of vendors calling out their wares, and the vibrant colors of the market create a unique and unforgettable experience that captures the spirit of Tết.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: peach branches; A Tet market in a northern village. Make these additions clearly visible:\n1. peach branches in baskets.\n2. bright red banners hanging from the stalls.\n3. incense smoke rising from the stalls.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Chợ Tết",
+     "en": "A Tet market"
+    },
+    "subject_attributes": [
+     "ở làng quê Bắc Bộ",
+     "in a northern village"
+    ],
+    "supporting_objects": [
+     "cành đào",
+     "peach branches"
+    ],
+    "background_and_scene": [
+     "Chợ Tết ở làng quê Bắc Bộ",
+     "A Tet market in a northern village"
+    ],
+    "actions_and_relations": [
+     "người mua bán cành đào"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Chợ Tết ở làng quê Bắc Bộ",
+     "người mua bán cành đào",
+     "A Tet market in a northern village with peach branches"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "chợ Tết",
+      "cue_en": "Tet market",
+      "visual_check_vi": "những phiên chợ có phiên họp chợ vào dịp Tết",
+      "quote_vi": "Chợ Tết là những phiên chợ có phiên họp chợ vào dịp Tết",
+      "source_url": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt"
+     },
+     {
+      "cue_vi": "cành đào",
+      "cue_en": "peach branches",
+      "visual_check_vi": "đổi tiền, bán và chở đào quất",
+      "quote_vi": "đổi tiền, bán và chở đào quất",
+      "source_url": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "chợ Tết ở làng quê Bắc Bộ",
+      "cue_en": "Tet market in a northern village",
+      "visual_check_vi": "chợ Tết vùng cao",
+      "quote_vi": "chợ Tết vùng cao",
+      "source_url": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "chợ Tết được diễn ra nhiều nơi từ các đô thị cho tới vùng nông thôn, đến các vùng núi rừng, vùng cao cho đến ở Hải ngoại",
+      "target_appearance_en": "Tet markets are held in many places from urban areas to rural areas, to mountainous and forested regions, and even overseas",
+      "source_url": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Chợ Tết là những phiên chợ có phiên họp chợ vào dịp Tết (trước tết từ 25 tháng Chạp cho đến 30 tháng Chạp), phục vụ cho nhu cầu mua sắm, chuẩn bị cho ngày Tết.",
+     "Chợ Tết xưa mang nhiều nét đẹp truyền thống của dân tộc Việt Nam.",
+     "Chợ Tết cũng để thỏa mãn một số nhu cầu mua sắm để thưởng ngoạn, để lễ bái như hoa tết, những loại trái cây, đặc biệt là dưa hấu và những loại trái có tên đem lại may mắn như mãng cầu, dừa, đu đủ, xoài,...",
+     "Chợ Tết rất hay tăng giá, có nơi giá thịt bò, thịt lợn, tôm,... Thậm chí, giá được tăng lên gần gấp đôi so với một tuần trước đó, người dân nếu không đi chợ sớm, mua nhanh tay thì đắt mà vẫn không chọn được đồ ngon!",
+     "Chợ Tết đặc sắc ở Việt Nam",
+     "Chợ Âm Dương ở Bắc Ninh",
+     "Chợ Lượn",
+     "Chợ Cưới ở Vĩnh Phúc",
+     "Chợ Tết vùng cao"
+    ],
+    "insufficient_evidence": [
+     "appearance of the market",
+     "appearance of the people",
+     "appearance of the peach branches"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "people in market",
+    "baskets of produce",
+    "red umbrellas overhead"
+   ],
+   "clothing_and_appearance": [
+    "various casual clothing",
+    "some wearing hats",
+    "some wearing aprons"
+   ],
+   "foreground_objects": [
+    "baskets of peaches",
+    "baskets of herbs",
+    "baskets of spices"
+   ],
+   "supporting_objects": [
+    "woven baskets",
+    "red lanterns",
+    "market stalls"
+   ],
+   "background": [
+    "crowded market scene",
+    "buildings with signs",
+    "people walking"
+   ],
+   "actions": [
+    "people handling produce",
+    "people examining goods",
+    "people walking around"
+   ],
+   "spatial_relations": [
+    "baskets in front of people",
+    "umbrellas above market",
+    "people scattered throughout"
+   ],
+   "colors": [
+    "red umbrellas and lanterns",
+    "green herbs",
+    "brown woven baskets",
+    "various colors of clothing"
+   ],
+   "counts": {
+    "baskets": "many",
+    "people": "many",
+    "umbrellas": "several",
+    "lanterns": "several"
+   },
+   "visible_effects": [
+    "shadows from umbrellas",
+    "natural lighting",
+    "busy market atmosphere"
+   ],
+   "uncertain": [
+    "top of umbrellas",
+    "far end of market",
+    "details of distant people"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "peach branches"
+   ],
+   "missing_cultural_identity": [
+    "bright red banners"
+   ],
+   "contradictions": [],
+   "already_satisfied": [
+    "A Tet market in a northern village",
+    "people buying and selling peach branches",
+    "baskets of peaches",
+    "market stalls",
+    "crowded market scene",
+    "people handling produce",
+    "people examining goods",
+    "people walking around",
+    "red lanterns"
+   ],
+   "uncertain_no_repair": [
+    "top of umbrellas",
+    "far end of market",
+    "details of distant people"
+   ],
+   "repair_actions": [
+    "peach branches in baskets",
+    "bright red banners hanging from the stalls",
+    "incense smoke rising from the stalls"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "peach branches in baskets",
+   "bright red banners hanging from the stalls",
+   "incense smoke rising from the stalls"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S041/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S041/02.png"
+  ],
+  "images": {
+   "A": "S041_sdxl_base_c0.png",
+   "B (I0)": "S041_sdxl_base_c0.png",
+   "C (I1)": "S041_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "19:18:44",
+   "prompt_id": "S041",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Chợ Tết ở làng quê Bắc Bộ, người mua bán cành đào.\nPROMPT EN: A Tet market in a northern village with peach branches.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Chợ Tết",
+      "en": "A Tet market"
+     },
+     "subject_attributes": [
+      "ở làng quê Bắc Bộ",
+      "in a northern village"
+     ],
+     "supporting_objects": [
+      "cành đào",
+      "peach branches"
+     ],
+     "background_and_scene": [
+      "Chợ Tết ở làng quê Bắc Bộ",
+      "A Tet market in a northern village"
+     ],
+     "actions_and_relations": [
+      "người mua bán cành đào"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Chợ Tết ở làng quê Bắc Bộ",
+      "người mua bán cành đào",
+      "A Tet market in a northern village with peach branches"
+     ]
+    }
+   },
+   "giay": 8.1
+  },
+  {
+   "t": "19:19:14",
+   "prompt_id": "S041",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Chợ Tết ở làng quê Bắc Bộ, người mua bán cành đào.\nPROMPT EN: A Tet market in a northern village with peach branches.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Chợ Tết — https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt ===\nChợ Tết là những phiên chợ có phiên họp chợ vào dịp Tết (trước tết từ 25 tháng Chạp cho đến 30 tháng Chạp), phục vụ cho nhu cầu mua sắm, chuẩn bị cho ngày Tết. Chợ Tết được diễn ra nhiều nơi từ các đô thị cho tới vùng nông thôn, đến các vùng núi rừng, vùng cao cho đến ở Hải ngoại. Một trong những phong tục vui Xuân của người Việt Nam là đi chợ Tết để cầu duyên, cầu tài lộc, mua may bán đắt. Chợ Tết xưa mang nhiều nét đẹp truyền thống của dân tộc Việt Nam. Đặc điểm Chợ Tết là nơi buôn bán nhiều mặt hàng, nhưng nhiều nhất vẫn là các mặt hàng phục vụ cho Tết Nguyên đán, như lá dong để gói bánh chưng, gạo nếp để gói bánh chưng hoặc nấu xôi, gà trống, các loại trái cây dùng để thờ cúng (ngũ quả) tổ tiên,... Vì tất cả những người buôn bán hầu như sẽ nghỉ bán hàng trong những ngày Tết, những ngày đầu năm mới sẽ không họp chợ, nên phải mua để dùng cho đến khi họp chợ trở lại đưa đến mức cầu rất cao. Người Việt có câu mồng bốn chợ ma, mồng ba chợ người nên chợ được họp phiên đầu năm là mồng ba tết (ngày 3 tháng 1 âm lịch). chợ Tết cũng để thỏa mãn một số nhu cầu mua sắm để thưởng ngoạn, để lễ bái như hoa tết, những loại trái cây, đặc biệt là dưa hấu và những loại trái có tên đem lại may mắn như mãng cầu, dừa, đu đủ, xoài,... Những loại chợ Tết đặc biệt cũng sẽ chấm dứt vào trước giờ Ngọ giao thừa. Vào những ngày này, các chợ sẽ bán suốt cả đêm, và đi chợ Tết vào buổi đêm là một trong những cái thú đặc biệt. Hiện nay, nhiều chợ Gốm đã được mở vào ngày giáp Tết để phục vụ người dân. Một điều đáng chú ý là chợ Tết rất hay tăng giá, có nơi giá thịt bò, thịt lợn, tôm,... Thậm chí, giá được tăng lên gần gấp đôi so với một tuần trước đó, người dân nếu không đi chợ sớm, mua nhanh tay thì đắt mà vẫn không chọn được đồ ngon! Đồng thời có nhiều hình thức chợ Tết trên mạng Internet và tiếp thị trực tuyến với các mặt hàng thực phẩm, thời trang, tiêu dùng, các dịch vụ như đổi tiền, bán và chở đào quất đều nhộn nhịp trên chợ tết trực tuyến (online) những ngày cận tết. Một số chợ Tết đặc sắc ở Việt Nam Ở Việt Nam, ngoài các chợ Tết truyền thống với mục đích kinh doanh thương mại thì có những chợ Tết đặc sắc như: Chợ Âm Dương ở Bắc Ninh (còn gọi là chợ Âm Phủ), chợ họp ở địa phận làng Ó, xã Võ Cường, thị xã Bắc Ninh. Với quan niệm người dương đi chợ với người âm, cùng mua may bán rủi, những người đi chợ không dám nói cười ồn ào, vì sợ hồn ma hoảng sợ, không dám thắp đèn vì sợ gà sẽ cất tiếng gáy, làm hồn ma tan tác... Sau khi tan chợ, những người đi chợ lại mời nhau uống nước, ăn trầu và hát quan họ Bắc Ninh. Người ta có thể tìm mua ở đây từ cái cày cái cuốc, đến các vận dụng nhỏ như đôi quang thúng, cái đòn gánh cùng trăm ngàn thứ vật dụng linh tinh khác. Người đi chợ không những để đi mua sắm mà còn du Xuân hái lộc, cầu duyên nợ, cầu sự may mắn, hanh thông. Chợ Lượn: Ngoài giêng, một số chợ thuộc các tỉnh Cao Bằng, Lạng Sơn, Bắc Kạn, Thái Nguyên, người Tày thường tổ chức hát lượn giao duyên, nên gọi là chợ Lượn. Chợ Cưới ở Vĩnh Phúc: Đây là chợ phiên đặc biệt của người dân tộc ở xã Tam Lộng, huyện Bình Xuyên, tỉnh Vĩnh Phúc, họp vào ngày 25 Tháng Chạp. Trai gái trong bản làng kéo tới đây rất đông, có cả bố mẹ hoặc ông bà đi theo để chứng kiến lời giao ước của họ. Chợ Tết vùng cao: Khi sáng sớm ở bản Mông, Dao, Thái...nhiều người đã xuống chợ. Người ngồi trên lưng ngựa dập dìu, họ tưng bừng kéo nhau đi chợ Tết. Ngày đã cạn cũng là lúc người ta lại chia nhau về các ngả mỗi người đều mua cho mình những gì còn thiếu để đón một cái Tết thật trọn vẹn. Người đàn bà Mông nọ vẫn không quên mua cho đám con trẻ vài nắm bỏng ngô trộn đường...Tất cả trong đáy mắt họ đều bừng lên những nét vui tươi,rộn rã...\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "chợ Tết",
+       "cue_en": "Tet market",
+       "visual_check_vi": "những phiên chợ có phiên họp chợ vào dịp Tết",
+       "quote_vi": "Chợ Tết là những phiên chợ có phiên họp chợ vào dịp Tết",
+       "source_url": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt"
+      },
+      {
+       "cue_vi": "cành đào",
+       "cue_en": "peach branches",
+       "visual_check_vi": "đổi tiền, bán và chở đào quất",
+       "quote_vi": "đổi tiền, bán và chở đào quất",
+       "source_url": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "chợ Tết ở làng quê Bắc Bộ",
+       "cue_en": "Tet market in a northern village",
+       "visual_check_vi": "chợ Tết vùng cao",
+       "quote_vi": "chợ Tết vùng cao",
+       "source_url": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "chợ Tết được diễn ra nhiều nơi từ các đô thị cho tới vùng nông thôn, đến các vùng núi rừng, vùng cao cho đến ở Hải ngoại",
+       "target_appearance_en": "Tet markets are held in many places from urban areas to rural areas, to mountainous and forested regions, and even overseas",
+       "source_url": "https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Chợ Tết là những phiên chợ có phiên họp chợ vào dịp Tết (trước tết từ 25 tháng Chạp cho đến 30 tháng Chạp), phục vụ cho nhu cầu mua sắm, chuẩn bị cho ngày Tết.",
+      "Chợ Tết xưa mang nhiều nét đẹp truyền thống của dân tộc Việt Nam.",
+      "Chợ Tết cũng để thỏa mãn một số nhu cầu mua sắm để thưởng ngoạn, để lễ bái như hoa tết, những loại trái cây, đặc biệt là dưa hấu và những loại trái có tên đem lại may mắn như mãng cầu, dừa, đu đủ, xoài,...",
+      "Chợ Tết rất hay tăng giá, có nơi giá thịt bò, thịt lợn, tôm,... Thậm chí, giá được tăng lên gần gấp đôi so với một tuần trước đó, người dân nếu không đi chợ sớm, mua nhanh tay thì đắt mà vẫn không chọn được đồ ngon!",
+      "Chợ Tết đặc sắc ở Việt Nam",
+      "Chợ Âm Dương ở Bắc Ninh",
+      "Chợ Lượn",
+      "Chợ Cưới ở Vĩnh Phúc",
+      "Chợ Tết vùng cao"
+     ],
+     "insufficient_evidence": [
+      "appearance of the market",
+      "appearance of the people",
+      "appearance of the peach branches"
+     ]
+    }
+   },
+   "giay": 29.8
+  },
+  {
+   "t": "19:19:14",
+   "prompt_id": "S041",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:19:27",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "people in market",
+     "baskets of produce",
+     "red umbrellas overhead"
+    ],
+    "clothing_and_appearance": [
+     "various casual clothing",
+     "some wearing hats",
+     "some wearing aprons"
+    ],
+    "foreground_objects": [
+     "baskets of peaches",
+     "baskets of herbs",
+     "baskets of spices"
+    ],
+    "supporting_objects": [
+     "woven baskets",
+     "red lanterns",
+     "market stalls"
+    ],
+    "background": [
+     "crowded market scene",
+     "buildings with signs",
+     "people walking"
+    ],
+    "actions": [
+     "people handling produce",
+     "people examining goods",
+     "people walking around"
+    ],
+    "spatial_relations": [
+     "baskets in front of people",
+     "umbrellas above market",
+     "people scattered throughout"
+    ],
+    "colors": [
+     "red umbrellas and lanterns",
+     "green herbs",
+     "brown woven baskets",
+     "various colors of clothing"
+    ],
+    "counts": {
+     "baskets": "many",
+     "people": "many",
+     "umbrellas": "several",
+     "lanterns": "several"
+    },
+    "visible_effects": [
+     "shadows from umbrellas",
+     "natural lighting",
+     "busy market atmosphere"
+    ],
+    "uncertain": [
+     "top of umbrellas",
+     "far end of market",
+     "details of distant people"
+    ]
+   },
+   "giay": 13.0
+  },
+  {
+   "t": "19:19:35",
+   "prompt_id": "S041",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A Tet market in a northern village with peach branches.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA Tết market in a northern Vietnamese village is bustling with activity, adorned with bright red banners and lanterns hanging from the stalls. The air is filled with the scent of incense and fresh flowers, particularly peach branches, which are traditional symbols of good fortune and happiness. Vendors offer a variety of goods, from traditional food items like bánh chưng to ornate decorations and clothing. The lively chatter and laughter of visitors, the sound of vendors calling out their wares, and the vibrant colors of the market create a unique and unforgettable experience that captures the spirit of Tết.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Chợ Tết\", \"en\": \"A Tet market\"}, \"subject_attributes\": [\"ở làng quê Bắc Bộ\", \"in a northern village\"], \"supporting_objects\": [\"cành đào\", \"peach branches\"], \"background_and_scene\": [\"Chợ Tết ở làng quê Bắc Bộ\", \"A Tet market in a northern village\"], \"actions_and_relations\": [\"người mua bán cành đào\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Chợ Tết ở làng quê Bắc Bộ\", \"người mua bán cành đào\", \"A Tet market in a northern village with peach branches\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"chợ Tết\", \"cue_en\": \"Tet market\", \"visual_check_vi\": \"những phiên chợ có phiên họp chợ vào dịp Tết\", \"quote_vi\": \"Chợ Tết là những phiên chợ có phiên họp chợ vào dịp Tết\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt\"}, {\"cue_vi\": \"cành đào\", \"cue_en\": \"peach branches\", \"visual_check_vi\": \"đổi tiền, bán và chở đào quất\", \"quote_vi\": \"đổi tiền, bán và chở đào quất\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt\"}], \"conditional_cues\": [{\"cue_vi\": \"chợ Tết ở làng quê Bắc Bộ\", \"cue_en\": \"Tet market in a northern village\", \"visual_check_vi\": \"chợ Tết vùng cao\", \"quote_vi\": \"chợ Tết vùng cao\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"chợ Tết được diễn ra nhiều nơi từ các đô thị cho tới vùng nông thôn, đến các vùng núi rừng, vùng cao cho đến ở Hải ngoại\", \"target_appearance_en\": \"Tet markets are held in many places from urban areas to rural areas, to mountainous and forested regions, and even overseas\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_T%E1%BA%BFt\"}], \"discarded_nonvisual_facts\": [\"Chợ Tết là những phiên chợ có phiên họp chợ vào dịp Tết (trước tết từ 25 tháng Chạp cho đến 30 tháng Chạp), phục vụ cho nhu cầu mua sắm, chuẩn bị cho ngày Tết.\", \"Chợ Tết xưa mang nhiều nét đẹp truyền thống của dân tộc Việt Nam.\", \"Chợ Tết cũng để thỏa mãn một số nhu cầu mua sắm để thưởng ngoạn, để lễ bái như hoa tết, những loại trái cây, đặc biệt là dưa hấu và những loại trái có tên đem lại may mắn như mãng cầu, dừa, đu đủ, xoài,...\", \"Chợ Tết rất hay tăng giá, có nơi giá thịt bò, thịt lợn, tôm,... Thậm chí, giá được tăng lên gần gấp đôi so với một tuần trước đó, người dân nếu không đi chợ sớm, mua nhanh tay thì đắt mà vẫn không chọn được đồ ngon!\", \"Chợ Tết đặc sắc ở Việt Nam\", \"Chợ Âm Dương ở Bắc Ninh\", \"Chợ Lượn\", \"Chợ Cưới ở Vĩnh Phúc\", \"Chợ Tết vùng cao\"], \"insufficient_evidence\": [\"appearance of the market\", \"appearance of the people\", \"appearance of the peach branches\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"people in market\", \"baskets of produce\", \"red umbrellas overhead\"], \"clothing_and_appearance\": [\"various casual clothing\", \"some wearing hats\", \"some wearing aprons\"], \"foreground_objects\": [\"baskets of peaches\", \"baskets of herbs\", \"baskets of spices\"], \"supporting_objects\": [\"woven baskets\", \"red lanterns\", \"market stalls\"], \"background\": [\"crowded market scene\", \"buildings with signs\", \"people walking\"], \"actions\": [\"people handling produce\", \"people examining goods\", \"people walking around\"], \"spatial_relations\": [\"baskets in front of people\", \"umbrellas above market\", \"people scattered throughout\"], \"colors\": [\"red umbrellas and lanterns\", \"green herbs\", \"brown woven baskets\", \"various colors of clothing\"], \"counts\": {\"baskets\": \"many\", \"people\": \"many\", \"umbrellas\": \"several\", \"lanterns\": \"several\"}, \"visible_effects\": [\"shadows from umbrellas\", \"natural lighting\", \"busy market atmosphere\"], \"uncertain\": [\"top of umbrellas\", \"far end of market\", \"details of distant people\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "peach branches"
+    ],
+    "missing_cultural_identity": [
+     "bright red banners"
+    ],
+    "contradictions": [],
+    "already_satisfied": [
+     "A Tet market in a northern village",
+     "people buying and selling peach branches",
+     "baskets of peaches",
+     "market stalls",
+     "crowded market scene",
+     "people handling produce",
+     "people examining goods",
+     "people walking around",
+     "red lanterns"
+    ],
+    "uncertain_no_repair": [
+     "top of umbrellas",
+     "far end of market",
+     "details of distant people"
+    ],
+    "repair_actions": [
+     "peach branches in baskets",
+     "bright red banners hanging from the stalls",
+     "incense smoke rising from the stalls"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 8.1
+  },
+  {
+   "t": "19:19:35",
+   "prompt_id": "S041",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "peach branches in baskets",
+     "bright red banners hanging from the stalls",
+     "incense smoke rising from the stalls"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:19:36",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"peach branches in baskets\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "peaches in baskets, no branches"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:19:38",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"bright red banners hanging from the stalls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "red banners visible, not bright"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:19:39",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"incense smoke rising from the stalls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no smoke visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:19:39",
+   "prompt_id": "S041",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "peach branches in baskets",
+      5.0
+     ],
+     [
+      "bright red banners hanging from the stalls",
+      5.0
+     ],
+     [
+      "incense smoke rising from the stalls",
+      0.0
+     ]
+    ],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:19:39",
+   "prompt_id": "S041",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A Tet market in a northern village with peach branches. A Tết market in a northern Vietnamese village is bustling with activity, adorned with bright red banners and lanterns hanging from the stalls. The air is filled with the scent of incense and fresh flowers, particularly peach branches, which are traditional symbols of good fortune and happiness. Vendors offer a variety of goods, from traditional food items like bánh chưng to ornate decorations and clothing. The lively chatter and laughter of visitors, the sound of vendors calling out their wares, and the vibrant colors of the market create a unique and unforgettable experience that captures the spirit of Tết.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: peach branches; A Tet market in a northern village. Make these additions clearly visible:\n1. peach branches in baskets.\n2. bright red banners hanging from the stalls.\n3. incense smoke rising from the stalls."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:20:04",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/C_ref/sdxl_base_ref/S041_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "woman holding large flower branches",
+     "man in background"
+    ],
+    "clothing_and_appearance": [
+     "woman wearing blue helmet, blue jacket, blue scarf",
+     "man wearing dark jacket, dark cap"
+    ],
+    "foreground_objects": [
+     "large flower branches with pink buds",
+     "basket filled with flower branches"
+    ],
+    "supporting_objects": [
+     "woman holding flower branches with both hands",
+     "man carrying a bag on shoulder"
+    ],
+    "background": [
+     "crowded street with many people",
+     "various flower arrangements and plants",
+     "buildings and structures in distance"
+    ],
+    "actions": [
+     "woman smiling, holding flowers",
+     "man walking away from camera"
+    ],
+    "spatial_relations": [
+     "woman in foreground, man in background",
+     "flower branches in front of woman's face",
+     "basket on ground near woman's feet"
+    ],
+    "colors": [
+     "pink flower buds",
+     "blue helmet and jacket",
+     "dark jacket and cap",
+     "green leaves on flowers"
+    ],
+    "counts": {
+     "people": 2,
+     "flower branches": 10,
+     "baskets": 1
+    },
+    "visible_effects": [
+     "soft light illuminating scene",
+     "blurred motion of people in background"
+    ],
+    "uncertain": [
+     "top of man's head",
+     "details of distant people and objects"
+    ]
+   },
+   "giay": 12.1
+  },
+  {
+   "t": "19:20:09",
+   "prompt_id": "S041",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Chợ Tết\", \"en\": \"A Tet market\"}, \"subject_attributes\": [\"ở làng quê Bắc Bộ\", \"in a northern village\"], \"supporting_objects\": [\"cành đào\", \"peach branches\"], \"background_and_scene\": [\"Chợ Tết ở làng quê Bắc Bộ\", \"A Tet market in a northern village\"], \"actions_and_relations\": [\"người mua bán cành đào\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Chợ Tết ở làng quê Bắc Bộ\", \"người mua bán cành đào\", \"A Tet market in a northern village with peach branches\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"peach branches in baskets\", \"bright red banners hanging from the stalls\", \"incense smoke rising from the stalls\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"people in market\", \"baskets of produce\", \"red umbrellas overhead\"], \"clothing_and_appearance\": [\"various casual clothing\", \"some wearing hats\", \"some wearing aprons\"], \"foreground_objects\": [\"baskets of peaches\", \"baskets of herbs\", \"baskets of spices\"], \"supporting_objects\": [\"woven baskets\", \"red lanterns\", \"market stalls\"], \"background\": [\"crowded market scene\", \"buildings with signs\", \"people walking\"], \"actions\": [\"people handling produce\", \"people examining goods\", \"people walking around\"], \"spatial_relations\": [\"baskets in front of people\", \"umbrellas above market\", \"people scattered throughout\"], \"colors\": [\"red umbrellas and lanterns\", \"green herbs\", \"brown woven baskets\", \"various colors of clothing\"], \"counts\": {\"baskets\": \"many\", \"people\": \"many\", \"umbrellas\": \"several\", \"lanterns\": \"several\"}, \"visible_effects\": [\"shadows from umbrellas\", \"natural lighting\", \"busy market atmosphere\"], \"uncertain\": [\"top of umbrellas\", \"far end of market\", \"details of distant people\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"woman holding large flower branches\", \"man in background\"], \"clothing_and_appearance\": [\"woman wearing blue helmet, blue jacket, blue scarf\", \"man wearing dark jacket, dark cap\"], \"foreground_objects\": [\"large flower branches with pink buds\", \"basket filled with flower branches\"], \"supporting_objects\": [\"woman holding flower branches with both hands\", \"man carrying a bag on shoulder\"], \"background\": [\"crowded street with many people\", \"various flower arrangements and plants\", \"buildings and structures in distance\"], \"actions\": [\"woman smiling, holding flowers\", \"man walking away from camera\"], \"spatial_relations\": [\"woman in foreground, man in background\", \"flower branches in front of woman's face\", \"basket on ground near woman's feet\"], \"colors\": [\"pink flower buds\", \"blue helmet and jacket\", \"dark jacket and cap\", \"green leaves on flowers\"], \"counts\": {\"people\": 2, \"flower branches\": 10, \"baskets\": 1}, \"visible_effects\": [\"soft light illuminating scene\", \"blurred motion of people in background\"], \"uncertain\": [\"top of man's head\", \"details of distant people and objects\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "regressions": [
+     {
+      "what": "A Tet market in a northern village",
+      "severity": "severe"
+     },
+     {
+      "what": "người mua bán cành đào",
+      "severity": "severe"
+     },
+     {
+      "what": "Chợ Tết ở làng quê Bắc Bộ",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "peach branches"
+    ]
+   },
+   "giay": 4.3
+  },
+  {
+   "t": "19:20:09",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"peach branches in baskets\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "peaches in baskets, no branches"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:20:10",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"peach branches in baskets\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/C_ref/sdxl_base_ref/S041_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "many branches with pink flowers in baskets"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:20:10",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"bright red banners hanging from the stalls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "red banners visible, not bright"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:20:12",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"bright red banners hanging from the stalls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/C_ref/sdxl_base_ref/S041_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no banners, only flowers"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:20:12",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"incense smoke rising from the stalls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no smoke visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:20:13",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"incense smoke rising from the stalls\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/C_ref/sdxl_base_ref/S041_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no smoke, no incense"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:20:14",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Tet market\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Many people, baskets of goods"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:20:16",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Tet market\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/C_ref/sdxl_base_ref/S041_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Flowers, basket, busy street"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:20:17",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"peach branches\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no branches, only peaches"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:20:19",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"peach branches\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/C_ref/sdxl_base_ref/S041_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "many pink blossoming branches"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:20:20",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Tet markets are held in many places from urban areas to rural areas, to mountainous and forested regions, and even overseas\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/B/sdxl_base/S041_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Market scene with people and produce"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:20:21",
+   "prompt_id": "S041",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Tet markets are held in many places from urban areas to rural areas, to mountainous and forested regions, and even overseas\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S041/C_ref/sdxl_base_ref/S041_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "woman holding flowers, market"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:20:21",
+   "prompt_id": "S041",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "A Tet market in a northern village",
+      "severe"
+     ],
+     [
+      "người mua bán cành đào",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "Chợ Tết ở làng quê Bắc Bộ",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:20:22",
+   "prompt_id": "S041",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [
+     "peach branches in baskets",
+     "[định danh] peach branches"
+    ],
+    "fixed_llm": [],
+    "bang_action": [
+     {
+      "action": "peach branches in baskets",
+      "I0": 5.0,
+      "I1": 8.0,
+      "fixed": true,
+      "ev_I1": "many branches with pink flowers in baskets"
+     },
+     {
+      "action": "bright red banners hanging from the stalls",
+      "I0": 5.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no banners, only flowers"
+     },
+     {
+      "action": "incense smoke rising from the stalls",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no smoke, no incense"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "Tet market",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Flowers, basket, busy street"
+     },
+     {
+      "cue": "peach branches",
+      "I0": 0.0,
+      "I1": 8.0,
+      "fixed": true,
+      "ev_I1": "many pink blossoming branches"
+     },
+     {
+      "cue": "Tet markets are held in many places from urban areas to rural areas, to mountainous and forested regions, and even overseas",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "woman holding flowers, market"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "A Tet market in a northern village",
+      "severity": "severe"
+     },
+     {
+      "what": "người mua bán cành đào",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "Chợ Tết ở làng quê Bắc Bộ",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "1 regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.819,
+     "sim_I1": 0.7407
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

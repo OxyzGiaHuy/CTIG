@@ -1,0 +1,811 @@
+{
+ "unit": {
+  "prompt_id": "S038",
+  "prompt_vi": "Những ụ muối trắng xếp thành hàng trên ruộng muối dưới nắng trưa.",
+  "P_orig": "White mounds of salt lined up in rows on a salt field under the midday sun.",
+  "P_ct": "White mounds of salt lined up in rows on a salt field under the midday sun. In coastal Vietnam, salt fields known as \"ruộng muối\" are vast expanses where salt is traditionally harvested under the scorching midday sun. White mounds of salt are neatly lined up in rows, reflecting the sun’s light in dazzling brilliance. The tradition of salt production, dating back to early dynastic periods, is integral to Vietnamese coastal communities, reflecting the country’s deep agricultural heritage and the importance of salt to its economy and cuisine. Salt workers meticulously harvest the precious crystals that flavor traditional dishes and support local communities.",
+  "P1": "White mounds of salt lined up in rows on a salt field under the midday sun. In coastal Vietnam, salt fields known as \"ruộng muối\" are vast expanses where salt is traditionally harvested under the scorching midday sun. White mounds of salt are neatly lined up in rows, reflecting the sun’s light in dazzling brilliance. The tradition of salt production, dating back to early dynastic periods, is integral to Vietnamese coastal communities, reflecting the country’s deep agricultural heritage and the importance of salt to its economy and cuisine. Salt workers meticulously harvest the precious crystals that flavor traditional dishes and support local communities.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: ruộng muối; salt field; midday sun. Make these additions clearly visible:\n1. A salt field with flat ground surface.\n2. Salt mounds with flat tops.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "ụ muối",
+     "en": "mounds of salt"
+    },
+    "subject_attributes": [
+     "trắng",
+     "white"
+    ],
+    "supporting_objects": [
+     "ruộng muối",
+     "salt field"
+    ],
+    "background_and_scene": [
+     "nắng trưa",
+     "midday sun"
+    ],
+    "actions_and_relations": [
+     "xếp thành hàng",
+     "lined up in rows"
+    ],
+    "colors": [
+     "trắng",
+     "white"
+    ],
+    "visual_effects": [],
+    "time_weather_lighting": [
+     "nắng trưa",
+     "midday sun"
+    ],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "ụ muối trắng",
+     "White mounds of salt",
+     "xếp thành hàng trên ruộng muối",
+     "lined up in rows on a salt field",
+     "nắng trưa",
+     "under the midday sun"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "ruộng muối",
+      "cue_en": "salt field",
+      "visual_check_vi": "khoảnh đất thấp và phẳng",
+      "quote_vi": "Ruộng muối là khoảnh đất thấp và phẳng dùng để khai thác muối từ nước biển hoặc nước mặn.",
+      "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "nắng ráo",
+      "cue_en": "dry sun",
+      "visual_check_vi": "nắng ráo",
+      "quote_vi": "Đợi khoảng năm ngày nắng ráo thì tháo nước mặn cho trút xuống sân dưới",
+      "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "muối màu trắng tinh",
+      "target_appearance_en": "salt that is pure white",
+      "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "kỹ thuật làm ruộng muối chỉ thực hiện được ở những nơi khí hậu ấm, và khô để lượng nước bốc hơi cao hơn vũ lượng",
+     "nhiệt độ cao, độ ẩm thấp và gió mạnh là ba yếu tố chính trong ngành thu hoạch ruộng muối",
+     "năng suất ruộng muối cổ truyền theo cách làm muối trên thì mỗi ô có thể sản xuất 500 kg muối/tháng",
+     "thuế muối và sản lượng Việt sử ghi là từ thời nhà Lý triều đình đã có lệnh thu thuế muối",
+     "sản lượng muối là hơn 106.000 tấn",
+     "tổng sản lượng là 275.428 tấn; ngành thủ công góp 171.755 tấn, số còn lại là muối công nghiệp",
+     "diện tích sản xuất muối tại Việt Nam vẫn liên tục giảm dần",
+     "nghề làm muối là nghề truyền thống, không khác biệt nhiều qua nhiều thế kỷ"
+    ],
+    "insufficient_evidence": [
+     "how the salt field is lined up in rows",
+     "how the salt mounds are lined up in rows",
+     "identity_cues: 'gò muối' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "pyramid shaped salt piles"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "pyramid shaped salt piles"
+   ],
+   "supporting_objects": [
+    "flat ground surface"
+   ],
+   "background": [
+    "more pyramid shaped salt piles"
+   ],
+   "actions": [],
+   "spatial_relations": [
+    "pyramids evenly spaced",
+    "pyramids on flat ground"
+   ],
+   "colors": [
+    "white pyramid tops",
+    "brown ground surface"
+   ],
+   "counts": {
+    "pyramids": "many"
+   },
+   "visible_effects": [
+    "shadows on pyramids"
+   ],
+   "uncertain": [
+    "top of pyramids",
+    "edges of ground surface"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "lined up in rows"
+   ],
+   "missing_cultural_identity": [
+    "salt field"
+   ],
+   "contradictions": [
+    "pyramid shaped salt piles"
+   ],
+   "already_satisfied": [
+    "white",
+    "many",
+    "flat ground surface",
+    "white pyramid tops",
+    "pyramids evenly spaced",
+    "pyramids on flat ground"
+   ],
+   "uncertain_no_repair": [
+    "top of pyramids",
+    "edges of ground surface"
+   ],
+   "repair_actions": [
+    "White mounds of salt lined up in rows on the flat ground surface",
+    "A salt field with flat ground surface",
+    "Salt mounds with flat tops"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "A salt field with flat ground surface",
+   "Salt mounds with flat tops"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S038/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S038/02.png"
+  ],
+  "images": {
+   "A": "S038_sdxl_base_c0.png",
+   "B (I0)": "S038_sdxl_base_c0.png",
+   "C (I1)": "S038_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "19:13:00",
+   "prompt_id": "S038",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Những ụ muối trắng xếp thành hàng trên ruộng muối dưới nắng trưa.\nPROMPT EN: White mounds of salt lined up in rows on a salt field under the midday sun.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "ụ muối",
+      "en": "mounds of salt"
+     },
+     "subject_attributes": [
+      "trắng",
+      "white"
+     ],
+     "supporting_objects": [
+      "ruộng muối",
+      "salt field"
+     ],
+     "background_and_scene": [
+      "nắng trưa",
+      "midday sun"
+     ],
+     "actions_and_relations": [
+      "xếp thành hàng",
+      "lined up in rows"
+     ],
+     "colors": [
+      "trắng",
+      "white"
+     ],
+     "visual_effects": [],
+     "time_weather_lighting": [
+      "nắng trưa",
+      "midday sun"
+     ],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "ụ muối trắng",
+      "White mounds of salt",
+      "xếp thành hàng trên ruộng muối",
+      "lined up in rows on a salt field",
+      "nắng trưa",
+      "under the midday sun"
+     ]
+    }
+   },
+   "giay": 9.3
+  },
+  {
+   "t": "19:13:27",
+   "prompt_id": "S038",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Những ụ muối trắng xếp thành hàng trên ruộng muối dưới nắng trưa.\nPROMPT EN: White mounds of salt lined up in rows on a salt field under the midday sun.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Ruộng muối — https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i ===\nRuộng muối là khoảnh đất thấp và phẳng dùng để khai thác muối từ nước biển hoặc nước mặn. Kỹ thuật làm ruộng muối chỉ thực hiện được ở những nơi khí hậu ấm, và khô để lượng nước bốc hơi cao hơn vũ lượng. Nhiệt độ cao, độ ẩm thấp và gió mạnh là ba yếu tố chính trong ngành thu hoạch ruộng muối. Cách làm muối ở Việt Nam Miền Trung và Nam Việt Nam Ở Việt Nam vùng ven biển miền Trung và miền Nam nghề làm muối dùng phương pháp phơi nước. Đó là ruộng muối. Khi làm muối thì tát nước từ đùng lên sân trên cho đầy. Ruộng trên là \"ruộng chịu\" dùng để tăng nồng độ nước muối. Đợi khoảng năm ngày nắng ráo thì tháo nước mặn cho trút xuống sân dưới, gọi là \"ruộng ăn\" nơi muối bắt đầu kết tinh. Mỗi khi sân dưới gần cạn nước vì nước bốc hơi thì lại châm thêm nước từ ruộng chịu ở trên xuống ruộng ăn ở dưới. Cứ châm liên tiếp năm ngày đến khoảng một tháng tùy theo độ ẩm không khí thì nước sẽ cạn và muối đóng thành hột. Người làm muối theo đó gạt muối lên, người Việt gọi là \"cào muối\" đánh thành gò cho khô thì xúc lên đem bán. Năng suất ruộng muối cổ truyền theo cách làm muối trên thì mỗi ô có thể sản xuất 500 kg muối/tháng. Miền Bắc Việt Nam Công thức làm muối bằng ruộng muối ở miền Bắc Việt Nam có phần khác, nặng phần công hơn, còn gọi là phương pháp phơi cát. Thay vì chỉ dùng ánh mặt trời làm nước bốc hơi, ruộng muối ở miền Bắc có công đoạn dùng cát mịn, đã sàng lọc kỹ, đem hòa nước biển vào cho thật ngấm nước mặn xong đem lớp cát đó, trải ra khoảnh đất phẳng, dùng nắng mặt trời phơi khô để muối kết tinh trên hạt cát. Diện tích phơi cát đây không hẳn là ruộng mà là sân rộng. Lợi điểm phơi cát là hạt cát hấp nhiệt nhanh hơn và có nhiều góc cạnh để bốc hơi hơn, trong khi mặt nước chỉ có một bề mỏng trên cùng hấp nhiệt. Tùy vào thời tiết người làm muối sẽ trải lớp cát dày hay mỏng rồi châm nước vào. Nếu quá khô vì nắng gắt mà ít nước thì muối sẽ ở dạng bột thay vì hột. Thùng nước này có độ mặn cao hơn nước biển, gọi là \"nước chạt\" sẽ đem đổ ra sân nhỏ gọi là ô kết tinh phơi cho đến khi nước chạt kết thành muối hột. Qua công đoạn 30 thùng nước chạt phơi khô sẽ thành 5 kg muối, phơi buổi sáng đến chiều thì thu hoạch được. Thuế muối và sản lượng Việt sử ghi là từ thời nhà Lý triều đình đã có lệnh thu thuế muối. Nhà Trần thì bắt phải nộp thuế muối bằng tiền chứ không còn nộp bằng sản vật nữa. Vào thời chúa Trịnh thì thu thuế cứ 5 phần muối thì phải nộp một. Ai buôn muối phải có thẻ do quan cấp cho. Sau vì thuế quá nặng nên phải đổi lại, cứ 50 mẫu ruộng muối phải nộp 40 hộc muối tương đương với 180 đồng một hộc (khoảng 0,1 lít). Nhà Nguyễn thì thuế mỗi mẫu ruộng muối là 6-10 phương, mỗi phương có thể quy ra là 4-5 tiền. Sang thời Pháp thuộc, muối là một trong mặt hàng độc quyền của nhà nước. Người sản xuất muối được trả một số tiền nhưng muối phải nộp toàn phần cho Sở Thương chánh địa phương đem cất vào kho. Con buôn muốn bán muối phải đóng tiền môn bài mới được lãnh muối từ kho đem bán ra ngoài. Theo quy định hiện nay, các sản phẩm muối được sản xuất từ nước biển, muối mỏ tự nhiên, muối tinh, muối i-ốt mà thành phần chính là Na-tri-clo-rua (NaCl) không thuộc đối tượng chịu thuế VAT. Sản lượng và cách tân Năm 1953 trước khi Việt Nam bị chia đôi thì sản lượng muối là hơn 106.000 tấn. Năm 2015 trên toàn quốc có 14.802 ha ruộng muối, trong số đó 10.890 ha là ruộng muối thủ công. Tổng sản lượng là 275.428 tấn; ngành thủ công góp 171.755 tấn, số còn lại là muối công nghiệp. Diện tích sản xuất muối tại Việt Nam vẫn liên tục giảm dần, năm 2017 đạt 13.158ha, năm 2018 với 13.074ha, năm 2019 với 12.494ha, năm 2021 là 11.393ha, năm 2022 là 11.009 ha. Nghề làm muối là nghề truyền thống, không khác biệt nhiều qua nhiều thế kỷ nhưng sang thế kỷ 21 một số khu vực đã lót mặt ruộng bằng bạt HDPE để giảm thiểu tạp chất khi muối thành phẩm, tạo ra muối màu trắng tinh, khác với muối màu ngà. Bạt plastic cũng hấp nhiệt mau hơn, tăng tốc độ kết tinh của muối. Phụ sản Ruộng muối ở một số địa phương vào thế kỷ 21 không hẳn là mục tiêu kinh tế chính.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "ruộng muối",
+       "cue_en": "salt field",
+       "visual_check_vi": "khoảnh đất thấp và phẳng",
+       "quote_vi": "Ruộng muối là khoảnh đất thấp và phẳng dùng để khai thác muối từ nước biển hoặc nước mặn.",
+       "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "nắng ráo",
+       "cue_en": "dry sun",
+       "visual_check_vi": "nắng ráo",
+       "quote_vi": "Đợi khoảng năm ngày nắng ráo thì tháo nước mặn cho trút xuống sân dưới",
+       "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "muối màu trắng tinh",
+       "target_appearance_en": "salt that is pure white",
+       "source_url": "https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "kỹ thuật làm ruộng muối chỉ thực hiện được ở những nơi khí hậu ấm, và khô để lượng nước bốc hơi cao hơn vũ lượng",
+      "nhiệt độ cao, độ ẩm thấp và gió mạnh là ba yếu tố chính trong ngành thu hoạch ruộng muối",
+      "năng suất ruộng muối cổ truyền theo cách làm muối trên thì mỗi ô có thể sản xuất 500 kg muối/tháng",
+      "thuế muối và sản lượng Việt sử ghi là từ thời nhà Lý triều đình đã có lệnh thu thuế muối",
+      "sản lượng muối là hơn 106.000 tấn",
+      "tổng sản lượng là 275.428 tấn; ngành thủ công góp 171.755 tấn, số còn lại là muối công nghiệp",
+      "diện tích sản xuất muối tại Việt Nam vẫn liên tục giảm dần",
+      "nghề làm muối là nghề truyền thống, không khác biệt nhiều qua nhiều thế kỷ"
+     ],
+     "insufficient_evidence": [
+      "how the salt field is lined up in rows",
+      "how the salt mounds are lined up in rows",
+      "identity_cues: 'gò muối' — quote có thật nhưng không nói về cue"
+     ]
+    }
+   },
+   "giay": 26.8
+  },
+  {
+   "t": "19:13:27",
+   "prompt_id": "S038",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 1,
+    "giu_conditional": 1,
+    "loai": [
+     "identity_cues: 'gò muối' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:13:33",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/B/sdxl_base/S038_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "pyramid shaped salt piles"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "pyramid shaped salt piles"
+    ],
+    "supporting_objects": [
+     "flat ground surface"
+    ],
+    "background": [
+     "more pyramid shaped salt piles"
+    ],
+    "actions": [],
+    "spatial_relations": [
+     "pyramids evenly spaced",
+     "pyramids on flat ground"
+    ],
+    "colors": [
+     "white pyramid tops",
+     "brown ground surface"
+    ],
+    "counts": {
+     "pyramids": "many"
+    },
+    "visible_effects": [
+     "shadows on pyramids"
+    ],
+    "uncertain": [
+     "top of pyramids",
+     "edges of ground surface"
+    ]
+   },
+   "giay": 6.6
+  },
+  {
+   "t": "19:13:40",
+   "prompt_id": "S038",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: White mounds of salt lined up in rows on a salt field under the midday sun.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nIn coastal Vietnam, salt fields known as \"ruộng muối\" are vast expanses where salt is traditionally harvested under the scorching midday sun. White mounds of salt are neatly lined up in rows, reflecting the sun’s light in dazzling brilliance. The tradition of salt production, dating back to early dynastic periods, is integral to Vietnamese coastal communities, reflecting the country’s deep agricultural heritage and the importance of salt to its economy and cuisine. Salt workers meticulously harvest the precious crystals that flavor traditional dishes and support local communities.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"ụ muối\", \"en\": \"mounds of salt\"}, \"subject_attributes\": [\"trắng\", \"white\"], \"supporting_objects\": [\"ruộng muối\", \"salt field\"], \"background_and_scene\": [\"nắng trưa\", \"midday sun\"], \"actions_and_relations\": [\"xếp thành hàng\", \"lined up in rows\"], \"colors\": [\"trắng\", \"white\"], \"visual_effects\": [], \"time_weather_lighting\": [\"nắng trưa\", \"midday sun\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"ụ muối trắng\", \"White mounds of salt\", \"xếp thành hàng trên ruộng muối\", \"lined up in rows on a salt field\", \"nắng trưa\", \"under the midday sun\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"ruộng muối\", \"cue_en\": \"salt field\", \"visual_check_vi\": \"khoảnh đất thấp và phẳng\", \"quote_vi\": \"Ruộng muối là khoảnh đất thấp và phẳng dùng để khai thác muối từ nước biển hoặc nước mặn.\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i\"}], \"conditional_cues\": [{\"cue_vi\": \"nắng ráo\", \"cue_en\": \"dry sun\", \"visual_check_vi\": \"nắng ráo\", \"quote_vi\": \"Đợi khoảng năm ngày nắng ráo thì tháo nước mặn cho trút xuống sân dưới\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"muối màu trắng tinh\", \"target_appearance_en\": \"salt that is pure white\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ru%E1%BB%99ng_mu%E1%BB%91i\"}], \"discarded_nonvisual_facts\": [\"kỹ thuật làm ruộng muối chỉ thực hiện được ở những nơi khí hậu ấm, và khô để lượng nước bốc hơi cao hơn vũ lượng\", \"nhiệt độ cao, độ ẩm thấp và gió mạnh là ba yếu tố chính trong ngành thu hoạch ruộng muối\", \"năng suất ruộng muối cổ truyền theo cách làm muối trên thì mỗi ô có thể sản xuất 500 kg muối/tháng\", \"thuế muối và sản lượng Việt sử ghi là từ thời nhà Lý triều đình đã có lệnh thu thuế muối\", \"sản lượng muối là hơn 106.000 tấn\", \"tổng sản lượng là 275.428 tấn; ngành thủ công góp 171.755 tấn, số còn lại là muối công nghiệp\", \"diện tích sản xuất muối tại Việt Nam vẫn liên tục giảm dần\", \"nghề làm muối là nghề truyền thống, không khác biệt nhiều qua nhiều thế kỷ\"], \"insufficient_evidence\": [\"how the salt field is lined up in rows\", \"how the salt mounds are lined up in rows\", \"identity_cues: 'gò muối' — quote có thật nhưng không nói về cue\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"pyramid shaped salt piles\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"pyramid shaped salt piles\"], \"supporting_objects\": [\"flat ground surface\"], \"background\": [\"more pyramid shaped salt piles\"], \"actions\": [], \"spatial_relations\": [\"pyramids evenly spaced\", \"pyramids on flat ground\"], \"colors\": [\"white pyramid tops\", \"brown ground surface\"], \"counts\": {\"pyramids\": \"many\"}, \"visible_effects\": [\"shadows on pyramids\"], \"uncertain\": [\"top of pyramids\", \"edges of ground surface\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "lined up in rows"
+    ],
+    "missing_cultural_identity": [
+     "salt field"
+    ],
+    "contradictions": [
+     "pyramid shaped salt piles"
+    ],
+    "already_satisfied": [
+     "white",
+     "many",
+     "flat ground surface",
+     "white pyramid tops",
+     "pyramids evenly spaced",
+     "pyramids on flat ground"
+    ],
+    "uncertain_no_repair": [
+     "top of pyramids",
+     "edges of ground surface"
+    ],
+    "repair_actions": [
+     "White mounds of salt lined up in rows on the flat ground surface",
+     "A salt field with flat ground surface",
+     "Salt mounds with flat tops"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 7.1
+  },
+  {
+   "t": "19:13:40",
+   "prompt_id": "S038",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "White mounds of salt lined up in rows on the flat ground surface",
+     "A salt field with flat ground surface",
+     "Salt mounds with flat tops"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:13:42",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"White mounds of salt lined up in rows on the flat ground surface\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/B/sdxl_base/S038_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 9.5,
+    "evidence": "White mounds in rows on flat ground"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:13:43",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A salt field with flat ground surface\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/B/sdxl_base/S038_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Surface is not flat, has mounds."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:13:45",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Salt mounds with flat tops\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/B/sdxl_base/S038_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Salt mounds with pointed tops"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:13:45",
+   "prompt_id": "S038",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "A salt field with flat ground surface",
+      5.0
+     ],
+     [
+      "Salt mounds with flat tops",
+      5.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "White mounds of salt lined up in rows on the flat ground surface",
+      9.5
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:13:45",
+   "prompt_id": "S038",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "White mounds of salt lined up in rows on a salt field under the midday sun. In coastal Vietnam, salt fields known as \"ruộng muối\" are vast expanses where salt is traditionally harvested under the scorching midday sun. White mounds of salt are neatly lined up in rows, reflecting the sun’s light in dazzling brilliance. The tradition of salt production, dating back to early dynastic periods, is integral to Vietnamese coastal communities, reflecting the country’s deep agricultural heritage and the importance of salt to its economy and cuisine. Salt workers meticulously harvest the precious crystals that flavor traditional dishes and support local communities.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: ruộng muối; salt field; midday sun. Make these additions clearly visible:\n1. A salt field with flat ground surface.\n2. Salt mounds with flat tops."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:14:07",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/C_ref/sdxl_base_ref/S038_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "white conical salt piles",
+     "shallow water surface"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "conical salt piles",
+     "shallow water reflections"
+    ],
+    "supporting_objects": [
+     "wooden structures in distance"
+    ],
+    "background": [
+     "mountain range",
+     "sky with clouds"
+    ],
+    "actions": [
+     "no visible actions"
+    ],
+    "spatial_relations": [
+     "salt piles in water",
+     "mountains behind salt piles",
+     "wooden structures behind salt piles"
+    ],
+    "colors": [
+     "white salt piles",
+     "blue mountains",
+     "blue sky",
+     "brown water"
+    ],
+    "counts": {
+     "salt_piles": "many",
+     "mountains": "multiple"
+    },
+    "visible_effects": [
+     "reflections in water",
+     "shadows on salt piles"
+    ],
+    "uncertain": [
+     "top of mountains",
+     "far right and left edges"
+    ]
+   },
+   "giay": 8.7
+  },
+  {
+   "t": "19:14:11",
+   "prompt_id": "S038",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"ụ muối\", \"en\": \"mounds of salt\"}, \"subject_attributes\": [\"trắng\", \"white\"], \"supporting_objects\": [\"ruộng muối\", \"salt field\"], \"background_and_scene\": [\"nắng trưa\", \"midday sun\"], \"actions_and_relations\": [\"xếp thành hàng\", \"lined up in rows\"], \"colors\": [\"trắng\", \"white\"], \"visual_effects\": [], \"time_weather_lighting\": [\"nắng trưa\", \"midday sun\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"ụ muối trắng\", \"White mounds of salt\", \"xếp thành hàng trên ruộng muối\", \"lined up in rows on a salt field\", \"nắng trưa\", \"under the midday sun\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"A salt field with flat ground surface\", \"Salt mounds with flat tops\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"pyramid shaped salt piles\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"pyramid shaped salt piles\"], \"supporting_objects\": [\"flat ground surface\"], \"background\": [\"more pyramid shaped salt piles\"], \"actions\": [], \"spatial_relations\": [\"pyramids evenly spaced\", \"pyramids on flat ground\"], \"colors\": [\"white pyramid tops\", \"brown ground surface\"], \"counts\": {\"pyramids\": \"many\"}, \"visible_effects\": [\"shadows on pyramids\"], \"uncertain\": [\"top of pyramids\", \"edges of ground surface\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"white conical salt piles\", \"shallow water surface\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"conical salt piles\", \"shallow water reflections\"], \"supporting_objects\": [\"wooden structures in distance\"], \"background\": [\"mountain range\", \"sky with clouds\"], \"actions\": [\"no visible actions\"], \"spatial_relations\": [\"salt piles in water\", \"mountains behind salt piles\", \"wooden structures behind salt piles\"], \"colors\": [\"white salt piles\", \"blue mountains\", \"blue sky\", \"brown water\"], \"counts\": {\"salt_piles\": \"many\", \"mountains\": \"multiple\"}, \"visible_effects\": [\"reflections in water\", \"shadows on salt piles\"], \"uncertain\": [\"top of mountains\", \"far right and left edges\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "regressions": [
+     {
+      "what": "flat ground surface",
+      "severity": "severe"
+     },
+     {
+      "what": "lined up in rows on a salt field",
+      "severity": "severe"
+     },
+     {
+      "what": "under the midday sun",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "white mounds of salt"
+    ]
+   },
+   "giay": 4.1
+  },
+  {
+   "t": "19:14:11",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A salt field with flat ground surface\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/B/sdxl_base/S038_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Surface is not flat, has mounds."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:14:12",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A salt field with flat ground surface\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/C_ref/sdxl_base_ref/S038_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Salt piles, not flat ground."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:14:12",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Salt mounds with flat tops\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/B/sdxl_base/S038_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Salt mounds with pointed tops"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:14:13",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Salt mounds with flat tops\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/C_ref/sdxl_base_ref/S038_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Salt mounds with rounded tops"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:14:15",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"salt field\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/B/sdxl_base/S038_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "pyramids of salt on field"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:14:16",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"salt field\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/C_ref/sdxl_base_ref/S038_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "many salt piles in water"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:14:18",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"salt that is pure white\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/B/sdxl_base/S038_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "salt is pure white"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:14:19",
+   "prompt_id": "S038",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"salt that is pure white\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S038/C_ref/sdxl_base_ref/S038_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "salt is pure white"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "19:14:19",
+   "prompt_id": "S038",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "flat ground surface",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "lined up in rows on a salt field",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "under the midday sun",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:14:20",
+   "prompt_id": "S038",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [],
+    "bang_action": [
+     {
+      "action": "A salt field with flat ground surface",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Salt piles, not flat ground."
+     },
+     {
+      "action": "Salt mounds with flat tops",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Salt mounds with rounded tops"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "salt field",
+      "I0": 10.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "many salt piles in water"
+     },
+     {
+      "cue": "salt that is pure white",
+      "I0": 10.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "salt is pure white"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "flat ground surface",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "lined up in rows on a salt field",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "under the midday sun",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.7122,
+     "sim_I1": 0.679
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

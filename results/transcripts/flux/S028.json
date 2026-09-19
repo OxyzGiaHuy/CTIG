@@ -1,0 +1,885 @@
+{
+ "unit": {
+  "prompt_id": "S028",
+  "prompt_vi": "Bánh tét khoanh tròn cắt ra bày trên lá chuối.",
+  "P_orig": "Sliced rounds of banh tet arranged on banana leaves.",
+  "P_ct": "Sliced rounds of banh tet arranged on banana leaves. A traditional Vietnamese rice cake, bánh tét, wrapped in banana leaves, is shown with a vibrant green exterior and a soft, slightly sticky interior. The cake is made with glutinous rice, mung beans, and pork, and is intricately prepared by soaking the rice and wrapping it in banana leaves. Once cooked, the leaves are peeled back to reveal layers of creamy mung beans and tender pork, creating a visually appealing and appetizing presentation. Slices of the cake are arranged on banana leaves for serving, capturing the essence of Vietnamese culinary traditions and cultural heritage.",
+  "P1": "Sliced rounds of banh tet arranged on banana leaves. A traditional Vietnamese rice cake, bánh tét, wrapped in banana leaves, is shown with a and a soft, slightly sticky interior. The cake is made with glutinous rice, mung beans, and pork, and is intricately prepared by soaking the rice and wrapping it in banana leaves. Once cooked, the leaves are peeled back to reveal layers of and, creating a visually appealing and appetizing presentation. Slices of the cake are arranged on banana leaves for serving, capturing the essence of Vietnamese culinary traditions and cultural heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: banana leaves. Make these additions clearly visible:\n1. Sliced rounds of banh tet arranged on banana leaves.\n2. A pair of banh tet tied together with a banana leaf spine.\n3. The cake is made round and even.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Bánh tét",
+     "en": "banh tet"
+    },
+    "subject_attributes": [
+     "khoanh tròn",
+     "cắt ra",
+     "sliced rounds"
+    ],
+    "supporting_objects": [
+     "lá chuối",
+     "banana leaves"
+    ],
+    "background_and_scene": [],
+    "actions_and_relations": [
+     "bày trên"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "bánh tét khoanh tròn cắt ra bày trên lá chuối",
+     "Sliced rounds of banh tet arranged on banana leaves"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "bánh tét",
+      "cue_en": "banh tet",
+      "visual_check_vi": "hình trụ dài",
+      "quote_vi": "Bánh tét có hình trụ dài",
+      "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+     },
+     {
+      "cue_vi": "lá chuối",
+      "cue_en": "banana leaf",
+      "visual_check_vi": "gói bằng lá chuối",
+      "quote_vi": "sử dụng lá chuối để gói",
+      "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "đòn bánh",
+      "cue_en": "banh tet pair",
+      "visual_check_vi": "hai đòn thường có một quai bánh chung bằng gân lá chuối tạo thành một cặp",
+      "quote_vi": "hai đòn thường có một quai bánh chung bằng gân lá chuối tạo thành một cặp",
+      "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "bánh được làm tròn đều",
+      "target_appearance_en": "the cake is made round and even",
+      "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "history, etymology, symbolism, taste, smell, sound"
+    ],
+    "insufficient_evidence": [
+     "color of the cake",
+     "color of the banana leaf",
+     "how the cake is tied"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "Cylindrical food items with green outer layer",
+    "Cross-sections of cylindrical food items"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "Four cross-sections of cylindrical food items"
+   ],
+   "supporting_objects": [
+    "Green leafy material wrapped around food items"
+   ],
+   "background": [
+    "Green leafy material",
+    "Wooden surface"
+   ],
+   "actions": [],
+   "spatial_relations": [
+    "Cross-sections in front of wrapped food items",
+    "Wrapped food items behind cross-sections"
+   ],
+   "colors": [
+    "Green outer layer of food items",
+    "Yellowish inner layer of food items",
+    "Pinkish circular pieces within food items"
+   ],
+   "counts": {
+    "cross-sections": 4,
+    "wrapped food items": 2
+   },
+   "visible_effects": [
+    "Reflections on green leafy material"
+   ],
+   "uncertain": [
+    "Top of wrapped food items",
+    "Left and right edges of leafy material"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "sliced rounds of banh tet arranged on banana leaves"
+   ],
+   "missing_cultural_identity": [
+    "hình trụ dài"
+   ],
+   "contradictions": [
+    "green outer layer of food items"
+   ],
+   "already_satisfied": [
+    "cross-sections of cylindrical food items",
+    "green leafy material wrapped around food items",
+    "cross-sections in front of wrapped food items",
+    "wrapped food items behind cross-sections"
+   ],
+   "uncertain_no_repair": [
+    "Top of wrapped food items",
+    "Left and right edges of leafy material"
+   ],
+   "repair_actions": [
+    "Sliced rounds of banh tet arranged on banana leaves",
+    "A pair of banh tet tied together with a banana leaf spine",
+    "The cake is made round and even"
+   ],
+   "drop_phrases": [
+    "vibrant green exterior",
+    "creamy mung beans",
+    "tender pork"
+   ]
+  },
+  "actions": [
+   "Sliced rounds of banh tet arranged on banana leaves",
+   "A pair of banh tet tied together with a banana leaf spine",
+   "The cake is made round and even"
+  ],
+  "drop_phrases": [
+   "vibrant green exterior",
+   "creamy mung beans",
+   "tender pork"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S028/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S028/02.jpg"
+  ],
+  "images": {
+   "A": "S028_flux_txt.png",
+   "B (I0)": "S028_flux_txt.png",
+   "C (I1)": "S028_flux_ref.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "20:33:21",
+   "prompt_id": "S028",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Bánh tét khoanh tròn cắt ra bày trên lá chuối.\nPROMPT EN: Sliced rounds of banh tet arranged on banana leaves.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Bánh tét",
+      "en": "banh tet"
+     },
+     "subject_attributes": [
+      "khoanh tròn",
+      "cắt ra",
+      "sliced rounds"
+     ],
+     "supporting_objects": [
+      "lá chuối",
+      "banana leaves"
+     ],
+     "background_and_scene": [],
+     "actions_and_relations": [
+      "bày trên"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "bánh tét khoanh tròn cắt ra bày trên lá chuối",
+      "Sliced rounds of banh tet arranged on banana leaves"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:33:21",
+   "prompt_id": "S028",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Bánh tét khoanh tròn cắt ra bày trên lá chuối.\nPROMPT EN: Sliced rounds of banh tet arranged on banana leaves.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Bánh tét — https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t ===\nBánh tét, có nơi gọi là bánh đòn, là một loại bánh trong ẩm thực của cả người Việt và một số dân tộc thiểu số ở miền Nam và miền Trung Việt Nam, là nét tương đồng của bánh chưng ở miền Bắc về nguyên liệu, cách nấu, chỉ khác về hình dáng và sử dụng lá chuối để gói thay vì lá dong, vì vậy nó cũng được sử dụng nhiều nhất trong dịp Tết Nguyên đán cổ truyền của dân tộc Việt Nam với vai trò không khác bánh chưng. Nhưng cũng có nhiều bánh tét nhân chuối hay đậu đen được làm hay là bán quanh năm. cũng có loại bánh tương tự có tên là bánh tày hoặc là bánh dài. Đây là loại bánh Tết thông dụng ở vùng cố đô Cổ Loa, Kinh Bắc, của các dân tộc thiểu số miền Bắc. Giáo sư Trần Quốc Vượng cho rằng bánh chưng cổ, nguyên thủy là hình tròn như bánh tét hay bánh tày còn bánh tét ra đời trong quá trình giao lưu văn hóa Việt-Chăm, người Việt tạo ra chiếc bánh Tét từ sự hình tượng hóa yếu tố Linga từ thần Siva người Chăm. Trong số quân lính có một người lính được vợ gửi cho món bánh làm từ gạo nếp, nhân đậu xanh, hình dạng như bánh tét ngày nay. Anh lính mang bánh mời vua Quang Trung. Vua ăn thấy ngon bèn hỏi thăm về loại bánh này. Anh lính kể bánh do người vợ ở quê nhà làm gửi cho. Mỗi lần ăn bánh, anh càng thương, càng nhớ vợ nhiều hơn. Anh mắc chứng đau bụng nhưng khi ăn bánh này thì lại không thấy đau nữa. Nghe câu chuyện cảm động của anh lính, vua bèn ra lệnh cho mọi người gói loại bánh này để ăn Tết và đặt tên là bánh Tết. Lâu ngày tên bánh biến thành bánh Tét. Bánh tét có hình trụ dài nên còn được gọi là đòn bánh, hai đòn thường có một quai bánh chung bằng gân lá chuối tạo thành một cặp. Người ta còn làm bánh không có nhân thịt để có thể để được lâu hơn hoặc ăn chay với nhân có thể là chuối chín. Bánh được đánh giá là gói khéo khi bánh được làm tròn đều, buộc chặt, nhân bánh nằm chính giữa, có nghệ nhân còn gói nhân khi cắt ra có hình tam giác. Bánh tét ngày Tết thường để lâu được vài ngày, được nấu vào đêm giao thừa để những ngày Tết có thể dùng để ăn với dưa món và thịt kho. Đây thường là bánh tét nhân mặn với thịt, mỡ và đậu xanh, và dùng cho nhiều người ăn. Ngoài ra, còn có bánh tét nhân ngọt với nhân chuối hoặc đậu xanh, loại to dùng cho nhiều người ăn hoặc loại nhỏ dùng cho một người ăn. Tên gọi Lê Tân trong bài Bánh tét Trà Vinh cho rằng: bánh tét tuy được làm và ăn quanh năm nhưng thường nhất vào dịp lễ hội, đặc biệt là tết cổ truyền. Vì vậy nên theo dân gian lưu truyền ngày xưa cứ tết đến người ta gói loại bánh này và gọi bằng tên \"bánh tết\", lâu dần đọc trại ra thành \"bánh tét\". Tuy nhiên, cũng trong tài liệu đã dẫn, tác giả còn cho biết tét là một hành động cắt bánh, tay phải cầm đầu dây khoanh tròn đòn bánh đã lột (vỏ), \"tét\" từng khoanh một đơm lên đĩa, và tên gọi \"bánh tét\" rất có thể còn xuất xứ từ cách thức cắt bánh. Nguyên liệu Nguyên liệu để gói bánh tét ngày Tết tương tự như dùng làm bánh chưng, bao gồm: gạo nếp, đậu xanh tách vỏ, thịt heo và một số gia vị tương tự để làm bánh chưng. Nhưng phổ biến và bán quanh năm là bánh tét ngọt (nhân chuối, thường là chuối xiêm) hay bánh tét chay (nhân đậu đen). Cá biệt có bánh tét thập cẩm với nhân gồm trứng muối, tôm khô, lạp xưởng, thịt giò, hột sen, nấm đông cô, đậu xanh. Cũng như bánh chưng, ngày nay nhiều khi người ta dùng dây nilông thay vì dây lạt. Riêng với vật liệu dây nilông dùng cột các loại bánh thì người tiêu dùng cần cẩn thận khi chọn sử dụng các loại bánh này. Quy trình thực hiện Gạo nếp trước khi gói bánh thường được ngâm trước vài tiếng, đãi sạch. Đậu xanh ngâm đãi sạch vỏ và thịt ba rọi xắt vuông dài làm nhân bánh (không ướp hành củ, tiêu bột như bánh chưng). Bánh làm xong được cho vào nồi cao (người ta hay dùng thùng phi cũ cắt nửa) vì phải để bánh dựng đứng, nấu bằng củi gộc đun sôi trong gần một buổi, bánh nhỏ nấu khoảng 3 giờ, bánh lớn nấu tới 5 tiếng mới chín. Khi mới bắt đầu đun nồi bánh phải đun to lửa cho sôi nước trong nồi một lúc sau đó rút bớt lửa để sôi liu riu suốt quá trình nấu bánh, độ nóng lan tỏa để bánh được chín đều. Khi nấu phần vỏ bánh sẽ bị hồ hóa.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "bánh tét",
+       "cue_en": "banh tet",
+       "visual_check_vi": "hình trụ dài",
+       "quote_vi": "Bánh tét có hình trụ dài",
+       "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+      },
+      {
+       "cue_vi": "lá chuối",
+       "cue_en": "banana leaf",
+       "visual_check_vi": "gói bằng lá chuối",
+       "quote_vi": "sử dụng lá chuối để gói",
+       "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "đòn bánh",
+       "cue_en": "banh tet pair",
+       "visual_check_vi": "hai đòn thường có một quai bánh chung bằng gân lá chuối tạo thành một cặp",
+       "quote_vi": "hai đòn thường có một quai bánh chung bằng gân lá chuối tạo thành một cặp",
+       "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "bánh được làm tròn đều",
+       "target_appearance_en": "the cake is made round and even",
+       "source_url": "https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "history, etymology, symbolism, taste, smell, sound"
+     ],
+     "insufficient_evidence": [
+      "color of the cake",
+      "color of the banana leaf",
+      "how the cake is tied"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:33:21",
+   "prompt_id": "S028",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:33:30",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "Cylindrical food items with green outer layer",
+     "Cross-sections of cylindrical food items"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "Four cross-sections of cylindrical food items"
+    ],
+    "supporting_objects": [
+     "Green leafy material wrapped around food items"
+    ],
+    "background": [
+     "Green leafy material",
+     "Wooden surface"
+    ],
+    "actions": [],
+    "spatial_relations": [
+     "Cross-sections in front of wrapped food items",
+     "Wrapped food items behind cross-sections"
+    ],
+    "colors": [
+     "Green outer layer of food items",
+     "Yellowish inner layer of food items",
+     "Pinkish circular pieces within food items"
+    ],
+    "counts": {
+     "cross-sections": 4,
+     "wrapped food items": 2
+    },
+    "visible_effects": [
+     "Reflections on green leafy material"
+    ],
+    "uncertain": [
+     "Top of wrapped food items",
+     "Left and right edges of leafy material"
+    ]
+   },
+   "giay": 9.0
+  },
+  {
+   "t": "20:33:38",
+   "prompt_id": "S028",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: Sliced rounds of banh tet arranged on banana leaves.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA traditional Vietnamese rice cake, bánh tét, wrapped in banana leaves, is shown with a vibrant green exterior and a soft, slightly sticky interior. The cake is made with glutinous rice, mung beans, and pork, and is intricately prepared by soaking the rice and wrapping it in banana leaves. Once cooked, the leaves are peeled back to reveal layers of creamy mung beans and tender pork, creating a visually appealing and appetizing presentation. Slices of the cake are arranged on banana leaves for serving, capturing the essence of Vietnamese culinary traditions and cultural heritage.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Bánh tét\", \"en\": \"banh tet\"}, \"subject_attributes\": [\"khoanh tròn\", \"cắt ra\", \"sliced rounds\"], \"supporting_objects\": [\"lá chuối\", \"banana leaves\"], \"background_and_scene\": [], \"actions_and_relations\": [\"bày trên\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"bánh tét khoanh tròn cắt ra bày trên lá chuối\", \"Sliced rounds of banh tet arranged on banana leaves\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"bánh tét\", \"cue_en\": \"banh tet\", \"visual_check_vi\": \"hình trụ dài\", \"quote_vi\": \"Bánh tét có hình trụ dài\", \"source_url\": \"https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t\"}, {\"cue_vi\": \"lá chuối\", \"cue_en\": \"banana leaf\", \"visual_check_vi\": \"gói bằng lá chuối\", \"quote_vi\": \"sử dụng lá chuối để gói\", \"source_url\": \"https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t\"}], \"conditional_cues\": [{\"cue_vi\": \"đòn bánh\", \"cue_en\": \"banh tet pair\", \"visual_check_vi\": \"hai đòn thường có một quai bánh chung bằng gân lá chuối tạo thành một cặp\", \"quote_vi\": \"hai đòn thường có một quai bánh chung bằng gân lá chuối tạo thành một cặp\", \"source_url\": \"https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"bánh được làm tròn đều\", \"target_appearance_en\": \"the cake is made round and even\", \"source_url\": \"https://vi.wikipedia.org/wiki/B%C3%A1nh_t%C3%A9t\"}], \"discarded_nonvisual_facts\": [\"history, etymology, symbolism, taste, smell, sound\"], \"insufficient_evidence\": [\"color of the cake\", \"color of the banana leaf\", \"how the cake is tied\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"Cylindrical food items with green outer layer\", \"Cross-sections of cylindrical food items\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"Four cross-sections of cylindrical food items\"], \"supporting_objects\": [\"Green leafy material wrapped around food items\"], \"background\": [\"Green leafy material\", \"Wooden surface\"], \"actions\": [], \"spatial_relations\": [\"Cross-sections in front of wrapped food items\", \"Wrapped food items behind cross-sections\"], \"colors\": [\"Green outer layer of food items\", \"Yellowish inner layer of food items\", \"Pinkish circular pieces within food items\"], \"counts\": {\"cross-sections\": 4, \"wrapped food items\": 2}, \"visible_effects\": [\"Reflections on green leafy material\"], \"uncertain\": [\"Top of wrapped food items\", \"Left and right edges of leafy material\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "sliced rounds of banh tet arranged on banana leaves"
+    ],
+    "missing_cultural_identity": [
+     "hình trụ dài"
+    ],
+    "contradictions": [
+     "green outer layer of food items"
+    ],
+    "already_satisfied": [
+     "cross-sections of cylindrical food items",
+     "green leafy material wrapped around food items",
+     "cross-sections in front of wrapped food items",
+     "wrapped food items behind cross-sections"
+    ],
+    "uncertain_no_repair": [
+     "Top of wrapped food items",
+     "Left and right edges of leafy material"
+    ],
+    "repair_actions": [
+     "Sliced rounds of banh tet arranged on banana leaves",
+     "A pair of banh tet tied together with a banana leaf spine",
+     "The cake is made round and even"
+    ],
+    "drop_phrases": [
+     "vibrant green exterior",
+     "creamy mung beans",
+     "tender pork"
+    ]
+   },
+   "giay": 8.5
+  },
+  {
+   "t": "20:33:38",
+   "prompt_id": "S028",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "Sliced rounds of banh tet arranged on banana leaves",
+     "A pair of banh tet tied together with a banana leaf spine",
+     "The cake is made round and even"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "vibrant green exterior",
+     "creamy mung beans",
+     "tender pork"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:33:39",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Sliced rounds of banh tet arranged on banana leaves\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Food in green leaf, sliced."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:33:41",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A pair of banh tet tied together with a banana leaf spine\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Banana leaf spine, rice cake"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:33:42",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"The cake is made round and even\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Cake is round but not even"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:33:42",
+   "prompt_id": "S028",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "Sliced rounds of banh tet arranged on banana leaves",
+      5.0
+     ],
+     [
+      "A pair of banh tet tied together with a banana leaf spine",
+      5.0
+     ],
+     [
+      "The cake is made round and even",
+      5.0
+     ]
+    ],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:33:42",
+   "prompt_id": "S028",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "Sliced rounds of banh tet arranged on banana leaves. A traditional Vietnamese rice cake, bánh tét, wrapped in banana leaves, is shown with a and a soft, slightly sticky interior. The cake is made with glutinous rice, mung beans, and pork, and is intricately prepared by soaking the rice and wrapping it in banana leaves. Once cooked, the leaves are peeled back to reveal layers of and, creating a visually appealing and appetizing presentation. Slices of the cake are arranged on banana leaves for serving, capturing the essence of Vietnamese culinary traditions and cultural heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: banana leaves. Make these additions clearly visible:\n1. Sliced rounds of banh tet arranged on banana leaves.\n2. A pair of banh tet tied together with a banana leaf spine.\n3. The cake is made round and even."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:34:24",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/C_ref/S028_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "Cylindrical food items sliced into rounds",
+     "Green leafy surface",
+     "Brown bowl with liquid contents"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "Four round slices of cylindrical food",
+     "Green leafy surface",
+     "Brown wooden tray"
+    ],
+    "supporting_objects": [
+     "Brown bowl with liquid contents",
+     "Additional cylindrical food items in background"
+    ],
+    "background": [
+     "Blurred green leaves",
+     "Dark wooden surface"
+    ],
+    "actions": [
+     "Food items sliced",
+     "Liquid in bowl appears still"
+    ],
+    "spatial_relations": [
+     "Four slices in foreground on leaf",
+     "Additional slices in background on brown bowl",
+     "Bowl with liquid to left of food slices"
+    ],
+    "colors": [
+     "Light brown food items",
+     "Dark green leafy surface",
+     "Brown wooden tray and bowl",
+     "Light green liquid in bowl"
+    ],
+    "counts": {
+     "food slices in foreground": 4,
+     "food slices in background": 4,
+     "bowls with liquid": 1
+    },
+    "visible_effects": [
+     "Glossy sheen on food items",
+     "Reflections on liquid surface"
+    ],
+    "uncertain": [
+     "Top parts of background food items",
+     "Left side of leafy surface",
+     "Right side of wooden surface"
+    ]
+   },
+   "giay": 11.8
+  },
+  {
+   "t": "20:34:29",
+   "prompt_id": "S028",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Bánh tét\", \"en\": \"banh tet\"}, \"subject_attributes\": [\"khoanh tròn\", \"cắt ra\", \"sliced rounds\"], \"supporting_objects\": [\"lá chuối\", \"banana leaves\"], \"background_and_scene\": [], \"actions_and_relations\": [\"bày trên\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"bánh tét khoanh tròn cắt ra bày trên lá chuối\", \"Sliced rounds of banh tet arranged on banana leaves\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"Sliced rounds of banh tet arranged on banana leaves\", \"A pair of banh tet tied together with a banana leaf spine\", \"The cake is made round and even\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"Cylindrical food items with green outer layer\", \"Cross-sections of cylindrical food items\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"Four cross-sections of cylindrical food items\"], \"supporting_objects\": [\"Green leafy material wrapped around food items\"], \"background\": [\"Green leafy material\", \"Wooden surface\"], \"actions\": [], \"spatial_relations\": [\"Cross-sections in front of wrapped food items\", \"Wrapped food items behind cross-sections\"], \"colors\": [\"Green outer layer of food items\", \"Yellowish inner layer of food items\", \"Pinkish circular pieces within food items\"], \"counts\": {\"cross-sections\": 4, \"wrapped food items\": 2}, \"visible_effects\": [\"Reflections on green leafy material\"], \"uncertain\": [\"Top of wrapped food items\", \"Left and right edges of leafy material\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"Cylindrical food items sliced into rounds\", \"Green leafy surface\", \"Brown bowl with liquid contents\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"Four round slices of cylindrical food\", \"Green leafy surface\", \"Brown wooden tray\"], \"supporting_objects\": [\"Brown bowl with liquid contents\", \"Additional cylindrical food items in background\"], \"background\": [\"Blurred green leaves\", \"Dark wooden surface\"], \"actions\": [\"Food items sliced\", \"Liquid in bowl appears still\"], \"spatial_relations\": [\"Four slices in foreground on leaf\", \"Additional slices in background on brown bowl\", \"Bowl with liquid to left of food slices\"], \"colors\": [\"Light brown food items\", \"Dark green leafy surface\", \"Brown wooden tray and bowl\", \"Light green liquid in bowl\"], \"counts\": {\"food slices in foreground\": 4, \"food slices in background\": 4, \"bowls with liquid\": 1}, \"visible_effects\": [\"Glossy sheen on food items\", \"Reflections on liquid surface\"], \"uncertain\": [\"Top parts of background food items\", \"Left side of leafy surface\", \"Right side of wooden surface\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "Sliced rounds of banh tet arranged on banana leaves"
+    ],
+    "regressions": [
+     {
+      "what": "The phrase 'bánh tét khoanh tròn cắt ra bày trên lá chuối'",
+      "severity": "severe"
+     },
+     {
+      "what": "The phrase 'Sliced rounds of banh tet arranged on banana leaves'",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "A pair of banh tet tied together with a banana leaf spine",
+     "The cake is made round and even"
+    ]
+   },
+   "giay": 5.4
+  },
+  {
+   "t": "20:34:29",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Sliced rounds of banh tet arranged on banana leaves\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Food in green leaf, sliced."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:34:30",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"Sliced rounds of banh tet arranged on banana leaves\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/C_ref/S028_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Sliced rounds on banana leaves"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:34:30",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A pair of banh tet tied together with a banana leaf spine\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Banana leaf spine, rice cake"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:34:32",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"A pair of banh tet tied together with a banana leaf spine\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/C_ref/S028_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Food wrapped in banana leaf."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:34:32",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"The cake is made round and even\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Cake is round but not even"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:34:33",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"The cake is made round and even\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/C_ref/S028_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Cake is round and even"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:34:35",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banh tet\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "green leaves, rice, sausage."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:34:36",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banh tet\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/C_ref/S028_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "round rice cakes, banana leaf"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:34:37",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banana leaf\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "green banana leaves visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:34:39",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"banana leaf\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/C_ref/S028_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "banana leaf visible under food"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:34:40",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"the cake is made round and even\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/B/S028_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "cake is round but not even"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:34:41",
+   "prompt_id": "S028",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"the cake is made round and even\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S028/C_ref/S028_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "cake is round and even"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:34:41",
+   "prompt_id": "S028",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [
+     [
+      "The phrase 'Sliced rounds of banh tet arranged on banana leaves'",
+      "mâu thuẫn với fixed"
+     ]
+    ],
+    "giu": [
+     [
+      "The phrase 'bánh tét khoanh tròn cắt ra bày trên lá chuối'",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:34:43",
+   "prompt_id": "S028",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [
+     "Sliced rounds of banh tet arranged on banana leaves",
+     "The cake is made round and even",
+     "[định danh] the cake is made round and even"
+    ],
+    "fixed_llm": [
+     "Sliced rounds of banh tet arranged on banana leaves"
+    ],
+    "bang_action": [
+     {
+      "action": "Sliced rounds of banh tet arranged on banana leaves",
+      "I0": 5.0,
+      "I1": 10.0,
+      "fixed": true,
+      "ev_I1": "Sliced rounds on banana leaves"
+     },
+     {
+      "action": "A pair of banh tet tied together with a banana leaf spine",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Food wrapped in banana leaf."
+     },
+     {
+      "action": "The cake is made round and even",
+      "I0": 5.0,
+      "I1": 10.0,
+      "fixed": true,
+      "ev_I1": "Cake is round and even"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "banh tet",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "round rice cakes, banana leaf"
+     },
+     {
+      "cue": "banana leaf",
+      "I0": 10.0,
+      "I1": 10.0,
+      "fixed": false,
+      "ev_I1": "banana leaf visible under food"
+     },
+     {
+      "cue": "the cake is made round and even",
+      "I0": 5.0,
+      "I1": 10.0,
+      "fixed": true,
+      "ev_I1": "cake is round and even"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "The phrase 'bánh tét khoanh tròn cắt ra bày trên lá chuối'",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I1",
+    "ly_do": "sửa được 3, không regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.6723,
+     "sim_I1": 0.6814
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

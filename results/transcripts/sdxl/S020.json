@@ -1,0 +1,932 @@
+{
+ "unit": {
+  "prompt_id": "S020",
+  "prompt_vi": "Thiếu nữ Bắc Bộ đội nón quai thao.",
+  "P_orig": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat.",
+  "P_ct": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat. A northern Vietnamese young woman is wearing a flat-brimmed quai thao hat, a traditional Vietnamese accessory often seen with elegant garments. This hat, distinguished by its intricate silver ornaments hanging from delicate silk strings around the brim, is originally worn by shamans and royal court ladies in the early 20th century. Today, the quai thao hat serves as a symbol of elegance and cultural heritage in modern Vietnamese society, with the silver ornaments symbolizing wealth and cultural identity. Unlike other traditional Vietnamese hats such as the conical nón lá used for farm work, the quai thao hat is prominently worn in specific cultural and religious ceremonies.",
+  "P1": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat. A northern Vietnamese young woman is wearing a flat-brimmed quai thao hat, a traditional Vietnamese accessory often seen with elegant garments. This hat, distinguished by its intricate silver ornaments hanging from delicate silk strings around the brim, is originally worn by shamans and royal court ladies in the early 20th century. Today, the quai thao hat serves as a symbol of elegance and cultural heritage in modern Vietnamese society, with the silver ornaments symbolizing wealth and cultural identity. Unlike other traditional Vietnamese hats such as the , the quai thao hat is prominently worn in specific cultural and religious ceremonies.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim.\n2. clearly visible: quai thao hat.\n3. clearly visible: ba tam hat.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Thiếu nữ Bắc Bộ",
+     "en": "A northern Vietnamese young woman"
+    },
+    "subject_attributes": [
+     "đội nón quai thao"
+    ],
+    "supporting_objects": [],
+    "background_and_scene": [],
+    "actions_and_relations": [],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "nón quai thao"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "nón quai thao",
+      "cue_en": "quai thao hat",
+      "visual_check_vi": "nón có đôi chùm chỉ thao",
+      "quote_vi": "kết vào vành nón đôi chùm chỉ thao sặc sỡ để làm duyên, là nón quai thao",
+      "source_url": "https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m"
+     },
+     {
+      "cue_vi": "nón ba tầm",
+      "cue_en": "ba tam hat",
+      "visual_check_vi": "nón có hình dạng như cái lọng hoặc tai nấm, đỉnh phẳng, đường kính nón khoảng 70–80 cm, vành cao 10–12 cm hoặc hơn",
+      "quote_vi": "có hình dạng như cái lọng hoặc tai nấm, đỉnh phẳng, đường kính nón khoảng 70–80 cm, vành cao 10–12 cm hoặc hơn",
+      "source_url": "https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "nón ba tầm",
+      "cue_en": "ba tam hat",
+      "visual_check_vi": "nón có một cái vành hình phễu gọi là khùa hoặc khua",
+      "quote_vi": "lòng nón đính một cái vành hình phễu gọi là khùa hoặc khua",
+      "source_url": "https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "nón ba tầm có dáng rộng hơn nón thúng, cong mềm mại hơn, vành tròn sâu và lòng sâu hơn",
+      "target_appearance_en": "ba tam hat is wider than thung hat, more softly curved, with a deeper round rim and deeper crown",
+      "source_url": "https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Nón Ba tầm là vật dụng thời trang hoặc che nắng mưa của nữ giới miền Bắc Việt Nam.",
+     "Vào thế kỷ XX, ba tầm ít được sử dụng hơn và thường chỉ xuất hiện trong các lễ hội.",
+     "Nón ba tầm đôi khi cũng gọi là nón thúng.",
+     "Nón nghệ cũng tương tự nón ba tầm, nhưng có vành nón được làm từ lá nghệ, có màu vàng sẫm, rất đẹp và bền.",
+     "Nón ba tầm được kết hợp kiểu dáng của các thứ nón dâu, ngoan xác và viên cơ."
+    ],
+    "insufficient_evidence": [
+     "Màu sắc của nón ba tầm",
+     "Màu sắc của đôi chùm chỉ thao"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "person with long dark hair",
+    "large conical hat"
+   ],
+   "clothing_and_appearance": [
+    "gray long-sleeve shirt",
+    "black skirt with decorative belt",
+    "long necklace with circular decorations",
+    "straight black hair",
+    "neutral facial expression"
+   ],
+   "foreground_objects": [
+    "person's hands near waist"
+   ],
+   "supporting_objects": [
+    "decorative belt with circular elements"
+   ],
+   "background": [
+    "blurred greenery",
+    "out-of-focus structures"
+   ],
+   "actions": [
+    "person standing still",
+    "person looking directly at camera"
+   ],
+   "spatial_relations": [
+    "hat above person's head",
+    "necklace hanging on shirt",
+    "person in front of greenery",
+    "belt around waist"
+   ],
+   "colors": [
+    "gray shirt",
+    "black hair and skirt",
+    "golden necklace and belt decorations",
+    "green background"
+   ],
+   "counts": {
+    "people": 1,
+    "large conical hats": 1,
+    "long necklaces": 1,
+    "decorative belts": 1
+   },
+   "visible_effects": [
+    "soft lighting on person",
+    "blurred background",
+    "sharp focus on person"
+   ],
+   "uncertain": [
+    "top of hat",
+    "lower part of skirt",
+    "background structures"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "flat-brimmed quai thao hat"
+   ],
+   "missing_cultural_identity": [
+    "intricate silver ornaments hanging from delicate silk strings around the brim"
+   ],
+   "contradictions": [
+    "large conical hat"
+   ],
+   "already_satisfied": [
+    "northern Vietnamese young woman",
+    "wearing a hat"
+   ],
+   "uncertain_no_repair": [
+    "top of hat",
+    "lower part of skirt",
+    "background structures"
+   ],
+   "repair_actions": [
+    "a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim",
+    "a long necklace with circular decorations hanging on the shirt",
+    "a decorative belt with circular elements around the waist"
+   ],
+   "drop_phrases": [
+    "conical nón lá",
+    "used for farm work"
+   ]
+  },
+  "actions": [
+   "a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim",
+   "clearly visible: quai thao hat",
+   "clearly visible: ba tam hat"
+  ],
+  "drop_phrases": [
+   "conical nón lá",
+   "used for farm work"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S020/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S020/02.jpg"
+  ],
+  "images": {
+   "A": "S020_sdxl_base_c0.png",
+   "B (I0)": "S020_sdxl_base_c0.png",
+   "C (I1)": "S020_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "18:29:22",
+   "prompt_id": "S020",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Thiếu nữ Bắc Bộ đội nón quai thao.\nPROMPT EN: A northern Vietnamese young woman wearing a flat-brimmed quai thao hat.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Thiếu nữ Bắc Bộ",
+      "en": "A northern Vietnamese young woman"
+     },
+     "subject_attributes": [
+      "đội nón quai thao"
+     ],
+     "supporting_objects": [],
+     "background_and_scene": [],
+     "actions_and_relations": [],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "nón quai thao"
+     ]
+    }
+   },
+   "giay": 5.1
+  },
+  {
+   "t": "18:29:48",
+   "prompt_id": "S020",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Thiếu nữ Bắc Bộ đội nón quai thao.\nPROMPT EN: A northern Vietnamese young woman wearing a flat-brimmed quai thao hat.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Ba tầm — https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m ===\nNón Ba tầm (chữ Nôm: 𥶄𠀧尋) là vật dụng thời trang hoặc che nắng mưa của nữ giới miền Bắc Việt Nam. Vào thế kỷ XX, ba tầm ít được sử dụng hơn và thường chỉ xuất hiện trong các lễ hội. Đặc trưng Nón ba tầm được lợp bằng lá cọ hoặc gồi, có hình dạng như cái lọng hoặc tai nấm, đỉnh phẳng, đường kính nón khoảng 70–80 cm, vành cao 10–12 cm hoặc hơn. Lòng nón đính một cái vành hình phễu gọi là khùa hoặc khua (摳) để gia cố nón trên đầu người sử dụng. Ngoài ra, người ta thường kết vào vành nón đôi chùm chỉ thao sặc sỡ để làm duyên, là nón quai thao (𥶄乖絛). Nón ba tầm đôi khi cũng gọi là nón thúng, nhưng nón thúng có dáng rộng hơn nón ba tầm, cong mềm mại hơn, vành tròn sâu và lòng sâu hơn. Nón nghệ cũng tương tự nón ba tầm, nhưng có vành nón được làm từ lá nghệ, có màu vàng sẫm, rất đẹp và bền. Sách Vũ trung tùy bút của Phạm Đình Hổ, nón ba tầm được kết hợp kiểu dáng của các thứ nón dâu, ngoan xác và viên cơ. Ngoan xác lạp (黿殼笠) (nón mền giải 蟹, Tam Giang lạp 三江笠) dùng cho người già thời Lê trung hưng,đã thất truyền cuối thế kỷ XVIII Toan bì lạp (酸皮笠) (nón vỏ bứa) dùng cho người nghèo,là nón giản lược làm cho thấp đi từ ngoan xác lạp.Thời Nguyễn,gọi là Thủy Thủ lạp Cổ Châu lạp (古洲笠) (hoặc nón Dâu) (Les chapeaux des brus) dùng cho họ hàng nhà quan mà cao tuổi, đàn ông,đàn bà, sĩ thứ trong kinh thành. Đỉnh nhọn và có vành phẳng đính đôi chùm chỉ thao. Viên cơ lạp (圓箕笠) xuất hiện ở miền Thanh Nghệ.Thời Lê, dùng cho quân sĩ khi cuộc Loạn kiêu binh với dáng cao,gần giống như cái nia thóc (kết cấu gần mũ quan Đại Thanh). Thời Nguyễn, giản lược thành nón nhỏ như nón thúng nhưng vát vuông góc,nhỏ hơn ba tầm gọi là nón nghệ (le chapeau de Nghệ-an) dành cho nữ. Nón thúng (mục đồng lạp, Chapeau en forme de panier) dùng cho nam nữ làm đồng có dáng vát thon vào so với nón nghệ Nhật dụng thường đàm và Đại Nam quốc ngữ có từ nhược lạp篛笠 Hình ảnh Tham khảo Nón tơi Lọng Liên kết ngoài Nón ba tầm, em xoay tròn tháng Giêng\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "nón quai thao",
+       "cue_en": "quai thao hat",
+       "visual_check_vi": "nón có đôi chùm chỉ thao",
+       "quote_vi": "kết vào vành nón đôi chùm chỉ thao sặc sỡ để làm duyên, là nón quai thao",
+       "source_url": "https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m"
+      },
+      {
+       "cue_vi": "nón ba tầm",
+       "cue_en": "ba tam hat",
+       "visual_check_vi": "nón có hình dạng như cái lọng hoặc tai nấm, đỉnh phẳng, đường kính nón khoảng 70–80 cm, vành cao 10–12 cm hoặc hơn",
+       "quote_vi": "có hình dạng như cái lọng hoặc tai nấm, đỉnh phẳng, đường kính nón khoảng 70–80 cm, vành cao 10–12 cm hoặc hơn",
+       "source_url": "https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "nón ba tầm",
+       "cue_en": "ba tam hat",
+       "visual_check_vi": "nón có một cái vành hình phễu gọi là khùa hoặc khua",
+       "quote_vi": "lòng nón đính một cái vành hình phễu gọi là khùa hoặc khua",
+       "source_url": "https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "nón ba tầm có dáng rộng hơn nón thúng, cong mềm mại hơn, vành tròn sâu và lòng sâu hơn",
+       "target_appearance_en": "ba tam hat is wider than thung hat, more softly curved, with a deeper round rim and deeper crown",
+       "source_url": "https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Nón Ba tầm là vật dụng thời trang hoặc che nắng mưa của nữ giới miền Bắc Việt Nam.",
+      "Vào thế kỷ XX, ba tầm ít được sử dụng hơn và thường chỉ xuất hiện trong các lễ hội.",
+      "Nón ba tầm đôi khi cũng gọi là nón thúng.",
+      "Nón nghệ cũng tương tự nón ba tầm, nhưng có vành nón được làm từ lá nghệ, có màu vàng sẫm, rất đẹp và bền.",
+      "Nón ba tầm được kết hợp kiểu dáng của các thứ nón dâu, ngoan xác và viên cơ."
+     ],
+     "insufficient_evidence": [
+      "Màu sắc của nón ba tầm",
+      "Màu sắc của đôi chùm chỉ thao"
+     ]
+    }
+   },
+   "giay": 26.5
+  },
+  {
+   "t": "18:29:48",
+   "prompt_id": "S020",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:30:00",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "person with long dark hair",
+     "large conical hat"
+    ],
+    "clothing_and_appearance": [
+     "gray long-sleeve shirt",
+     "black skirt with decorative belt",
+     "long necklace with circular decorations",
+     "straight black hair",
+     "neutral facial expression"
+    ],
+    "foreground_objects": [
+     "person's hands near waist"
+    ],
+    "supporting_objects": [
+     "decorative belt with circular elements"
+    ],
+    "background": [
+     "blurred greenery",
+     "out-of-focus structures"
+    ],
+    "actions": [
+     "person standing still",
+     "person looking directly at camera"
+    ],
+    "spatial_relations": [
+     "hat above person's head",
+     "necklace hanging on shirt",
+     "person in front of greenery",
+     "belt around waist"
+    ],
+    "colors": [
+     "gray shirt",
+     "black hair and skirt",
+     "golden necklace and belt decorations",
+     "green background"
+    ],
+    "counts": {
+     "people": 1,
+     "large conical hats": 1,
+     "long necklaces": 1,
+     "decorative belts": 1
+    },
+    "visible_effects": [
+     "soft lighting on person",
+     "blurred background",
+     "sharp focus on person"
+    ],
+    "uncertain": [
+     "top of hat",
+     "lower part of skirt",
+     "background structures"
+    ]
+   },
+   "giay": 11.8
+  },
+  {
+   "t": "18:30:08",
+   "prompt_id": "S020",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A northern Vietnamese young woman wearing a flat-brimmed quai thao hat.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA northern Vietnamese young woman is wearing a flat-brimmed quai thao hat, a traditional Vietnamese accessory often seen with elegant garments. This hat, distinguished by its intricate silver ornaments hanging from delicate silk strings around the brim, is originally worn by shamans and royal court ladies in the early 20th century. Today, the quai thao hat serves as a symbol of elegance and cultural heritage in modern Vietnamese society, with the silver ornaments symbolizing wealth and cultural identity. Unlike other traditional Vietnamese hats such as the conical nón lá used for farm work, the quai thao hat is prominently worn in specific cultural and religious ceremonies.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Thiếu nữ Bắc Bộ\", \"en\": \"A northern Vietnamese young woman\"}, \"subject_attributes\": [\"đội nón quai thao\"], \"supporting_objects\": [], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"nón quai thao\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"nón quai thao\", \"cue_en\": \"quai thao hat\", \"visual_check_vi\": \"nón có đôi chùm chỉ thao\", \"quote_vi\": \"kết vào vành nón đôi chùm chỉ thao sặc sỡ để làm duyên, là nón quai thao\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m\"}, {\"cue_vi\": \"nón ba tầm\", \"cue_en\": \"ba tam hat\", \"visual_check_vi\": \"nón có hình dạng như cái lọng hoặc tai nấm, đỉnh phẳng, đường kính nón khoảng 70–80 cm, vành cao 10–12 cm hoặc hơn\", \"quote_vi\": \"có hình dạng như cái lọng hoặc tai nấm, đỉnh phẳng, đường kính nón khoảng 70–80 cm, vành cao 10–12 cm hoặc hơn\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m\"}], \"conditional_cues\": [{\"cue_vi\": \"nón ba tầm\", \"cue_en\": \"ba tam hat\", \"visual_check_vi\": \"nón có một cái vành hình phễu gọi là khùa hoặc khua\", \"quote_vi\": \"lòng nón đính một cái vành hình phễu gọi là khùa hoặc khua\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"nón ba tầm có dáng rộng hơn nón thúng, cong mềm mại hơn, vành tròn sâu và lòng sâu hơn\", \"target_appearance_en\": \"ba tam hat is wider than thung hat, more softly curved, with a deeper round rim and deeper crown\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ba_t%E1%BA%A7m\"}], \"discarded_nonvisual_facts\": [\"Nón Ba tầm là vật dụng thời trang hoặc che nắng mưa của nữ giới miền Bắc Việt Nam.\", \"Vào thế kỷ XX, ba tầm ít được sử dụng hơn và thường chỉ xuất hiện trong các lễ hội.\", \"Nón ba tầm đôi khi cũng gọi là nón thúng.\", \"Nón nghệ cũng tương tự nón ba tầm, nhưng có vành nón được làm từ lá nghệ, có màu vàng sẫm, rất đẹp và bền.\", \"Nón ba tầm được kết hợp kiểu dáng của các thứ nón dâu, ngoan xác và viên cơ.\"], \"insufficient_evidence\": [\"Màu sắc của nón ba tầm\", \"Màu sắc của đôi chùm chỉ thao\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"person with long dark hair\", \"large conical hat\"], \"clothing_and_appearance\": [\"gray long-sleeve shirt\", \"black skirt with decorative belt\", \"long necklace with circular decorations\", \"straight black hair\", \"neutral facial expression\"], \"foreground_objects\": [\"person's hands near waist\"], \"supporting_objects\": [\"decorative belt with circular elements\"], \"background\": [\"blurred greenery\", \"out-of-focus structures\"], \"actions\": [\"person standing still\", \"person looking directly at camera\"], \"spatial_relations\": [\"hat above person's head\", \"necklace hanging on shirt\", \"person in front of greenery\", \"belt around waist\"], \"colors\": [\"gray shirt\", \"black hair and skirt\", \"golden necklace and belt decorations\", \"green background\"], \"counts\": {\"people\": 1, \"large conical hats\": 1, \"long necklaces\": 1, \"decorative belts\": 1}, \"visible_effects\": [\"soft lighting on person\", \"blurred background\", \"sharp focus on person\"], \"uncertain\": [\"top of hat\", \"lower part of skirt\", \"background structures\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "flat-brimmed quai thao hat"
+    ],
+    "missing_cultural_identity": [
+     "intricate silver ornaments hanging from delicate silk strings around the brim"
+    ],
+    "contradictions": [
+     "large conical hat"
+    ],
+    "already_satisfied": [
+     "northern Vietnamese young woman",
+     "wearing a hat"
+    ],
+    "uncertain_no_repair": [
+     "top of hat",
+     "lower part of skirt",
+     "background structures"
+    ],
+    "repair_actions": [
+     "a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim",
+     "a long necklace with circular decorations hanging on the shirt",
+     "a decorative belt with circular elements around the waist"
+    ],
+    "drop_phrases": [
+     "conical nón lá",
+     "used for farm work"
+    ]
+   },
+   "giay": 7.8
+  },
+  {
+   "t": "18:30:08",
+   "prompt_id": "S020",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim",
+     "a long necklace with circular decorations hanging on the shirt",
+     "a decorative belt with circular elements around the waist"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "conical nón lá",
+     "used for farm work"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:30:09",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "hat is flat-brimmed, no silver ornaments"
+   },
+   "giay": 1.6
+  },
+  {
+   "t": "18:30:11",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long necklace with circular decorations hanging on the shirt\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Long necklace with circular decorations"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:30:12",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a decorative belt with circular elements around the waist\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "belt with circular elements"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:30:13",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"quai thao hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0,
+    "evidence": "no hat visible"
+   },
+   "giay": 1.1
+  },
+  {
+   "t": "18:30:14",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ba tam hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0,
+    "evidence": "no text visible"
+   },
+   "giay": 1.1
+  },
+  {
+   "t": "18:30:14",
+   "prompt_id": "S020",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim",
+      5.0
+     ],
+     [
+      "clearly visible: quai thao hat",
+      null
+     ],
+     [
+      "clearly visible: ba tam hat",
+      null
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "a long necklace with circular decorations hanging on the shirt",
+      8.0
+     ],
+     [
+      "a decorative belt with circular elements around the waist",
+      8.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:30:14",
+   "prompt_id": "S020",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A northern Vietnamese young woman wearing a flat-brimmed quai thao hat. A northern Vietnamese young woman is wearing a flat-brimmed quai thao hat, a traditional Vietnamese accessory often seen with elegant garments. This hat, distinguished by its intricate silver ornaments hanging from delicate silk strings around the brim, is originally worn by shamans and royal court ladies in the early 20th century. Today, the quai thao hat serves as a symbol of elegance and cultural heritage in modern Vietnamese society, with the silver ornaments symbolizing wealth and cultural identity. Unlike other traditional Vietnamese hats such as the , the quai thao hat is prominently worn in specific cultural and religious ceremonies.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim.\n2. clearly visible: quai thao hat.\n3. clearly visible: ba tam hat."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:30:38",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/C_ref/sdxl_base_ref/S020_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "woman with long dark hair",
+     "large conical hat with red trim"
+    ],
+    "clothing_and_appearance": [
+     "maroon long-sleeved garment with white trim",
+     "red hair accessories",
+     "long dark hair in bun",
+     "smiling face"
+    ],
+    "foreground_objects": [
+     "yellow tassels hanging from hat"
+    ],
+    "supporting_objects": [
+     "white circular object attached to hat"
+    ],
+    "background": [
+     "blurred green foliage",
+     "outdoor setting"
+    ],
+    "actions": [
+     "woman smiling",
+     "hat slightly tilted"
+    ],
+    "spatial_relations": [
+     "hat covering most of woman's head",
+     "tassels hanging down from hat sides",
+     "woman in front of green background"
+    ],
+    "colors": [
+     "maroon garment",
+     "red hat trim and hair accessories",
+     "yellow tassels",
+     "white trim on garment",
+     "green background"
+    ],
+    "counts": {
+     "tassels": 2,
+     "white circular objects": 2
+    },
+    "visible_effects": [
+     "soft lighting on woman's face",
+     "blurred background"
+    ],
+    "uncertain": [
+     "top of hat and background details"
+    ]
+   },
+   "giay": 10.7
+  },
+  {
+   "t": "18:30:42",
+   "prompt_id": "S020",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Thiếu nữ Bắc Bộ\", \"en\": \"A northern Vietnamese young woman\"}, \"subject_attributes\": [\"đội nón quai thao\"], \"supporting_objects\": [], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"nón quai thao\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim\", \"clearly visible: quai thao hat\", \"clearly visible: ba tam hat\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"person with long dark hair\", \"large conical hat\"], \"clothing_and_appearance\": [\"gray long-sleeve shirt\", \"black skirt with decorative belt\", \"long necklace with circular decorations\", \"straight black hair\", \"neutral facial expression\"], \"foreground_objects\": [\"person's hands near waist\"], \"supporting_objects\": [\"decorative belt with circular elements\"], \"background\": [\"blurred greenery\", \"out-of-focus structures\"], \"actions\": [\"person standing still\", \"person looking directly at camera\"], \"spatial_relations\": [\"hat above person's head\", \"necklace hanging on shirt\", \"person in front of greenery\", \"belt around waist\"], \"colors\": [\"gray shirt\", \"black hair and skirt\", \"golden necklace and belt decorations\", \"green background\"], \"counts\": {\"people\": 1, \"large conical hats\": 1, \"long necklaces\": 1, \"decorative belts\": 1}, \"visible_effects\": [\"soft lighting on person\", \"blurred background\", \"sharp focus on person\"], \"uncertain\": [\"top of hat\", \"lower part of skirt\", \"background structures\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"woman with long dark hair\", \"large conical hat with red trim\"], \"clothing_and_appearance\": [\"maroon long-sleeved garment with white trim\", \"red hair accessories\", \"long dark hair in bun\", \"smiling face\"], \"foreground_objects\": [\"yellow tassels hanging from hat\"], \"supporting_objects\": [\"white circular object attached to hat\"], \"background\": [\"blurred green foliage\", \"outdoor setting\"], \"actions\": [\"woman smiling\", \"hat slightly tilted\"], \"spatial_relations\": [\"hat covering most of woman's head\", \"tassels hanging down from hat sides\", \"woman in front of green background\"], \"colors\": [\"maroon garment\", \"red hat trim and hair accessories\", \"yellow tassels\", \"white trim on garment\", \"green background\"], \"counts\": {\"tassels\": 2, \"white circular objects\": 2}, \"visible_effects\": [\"soft lighting on woman's face\", \"blurred background\"], \"uncertain\": [\"top of hat and background details\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "clearly visible: quai thao hat"
+    ],
+    "regressions": [
+     {
+      "what": "nón quai thao",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim",
+     "clearly visible: ba tam hat"
+    ]
+   },
+   "giay": 3.6
+  },
+  {
+   "t": "18:30:42",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "hat is flat-brimmed, no silver ornaments"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:30:43",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/C_ref/sdxl_base_ref/S020_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "hat has hanging ornaments, but not flat-brimmed"
+   },
+   "giay": 1.7
+  },
+  {
+   "t": "18:30:45",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: quai thao hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "no hat visible"
+   },
+   "giay": 1.1
+  },
+  {
+   "t": "18:30:46",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: quai thao hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/C_ref/sdxl_base_ref/S020_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5,
+    "evidence": "hat is visible, but not clearly"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "18:30:47",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: ba tam hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "no hat visible"
+   },
+   "giay": 1.1
+  },
+  {
+   "t": "18:30:48",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: ba tam hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/C_ref/sdxl_base_ref/S020_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5,
+    "evidence": "hat has three parts, but not ba tam style"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "18:30:48",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"quai thao hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0,
+    "evidence": "no hat visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:30:49",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"quai thao hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/C_ref/sdxl_base_ref/S020_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5,
+    "evidence": "woman in traditional dress"
+   },
+   "giay": 1.2
+  },
+  {
+   "t": "18:30:49",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ba tam hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0,
+    "evidence": "no text visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:30:51",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ba tam hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/C_ref/sdxl_base_ref/S020_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5,
+    "evidence": "woman in traditional dress"
+   },
+   "giay": 1.2
+  },
+  {
+   "t": "18:30:52",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ba tam hat is wider than thung hat, more softly curved, with a deeper round rim and deeper crown\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/B/sdxl_base/S020_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10.0,
+    "evidence": "Hat is wide, softly curved, deep round rim, deep crown."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "18:30:53",
+   "prompt_id": "S020",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"ba tam hat is wider than thung hat, more softly curved, with a deeper round rim and deeper crown\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S020/C_ref/sdxl_base_ref/S020_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "hat is wide, curved, deep."
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "18:30:53",
+   "prompt_id": "S020",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "nón quai thao",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:30:54",
+   "prompt_id": "S020",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "clearly visible: quai thao hat"
+    ],
+    "bang_action": [
+     {
+      "action": "a flat-brimmed hat with intricate silver ornaments hanging from delicate silk strings around the brim",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "hat has hanging ornaments, but not flat-brimmed"
+     },
+     {
+      "action": "clearly visible: quai thao hat",
+      "I0": null,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "hat is visible, but not clearly"
+     },
+     {
+      "action": "clearly visible: ba tam hat",
+      "I0": null,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "hat has three parts, but not ba tam style"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "quai thao hat",
+      "I0": null,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "woman in traditional dress"
+     },
+     {
+      "cue": "ba tam hat",
+      "I0": null,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "woman in traditional dress"
+     },
+     {
+      "cue": "ba tam hat is wider than thung hat, more softly curved, with a deeper round rim and deeper crown",
+      "I0": 10.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "hat is wide, curved, deep."
+     }
+    ],
+    "regressions": [
+     {
+      "what": "nón quai thao",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.599,
+     "sim_I1": 0.4756
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

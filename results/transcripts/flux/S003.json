@@ -1,0 +1,828 @@
+{
+ "unit": {
+  "prompt_id": "S003",
+  "prompt_vi": "Một tô phở bò nóng đặt trên bàn gỗ, khói bay lên.",
+  "P_orig": "A steaming bowl of beef pho on a wooden table.",
+  "P_ct": "A steaming bowl of beef pho on a wooden table. A steaming bowl of beef pho is set on a rustic wooden table, inviting diners with its clear, flavorful broth enriched with star anise, cinnamon, and cloves, along with wide rice noodles, tender slices of beef, and garnished with fresh basil, bean sprouts, and cilantro. The soft, chewy texture of the wide rice noodles contrasts beautifully with the tender beef, and the gentle sound of the broth bubbling adds to the sensory experience. Originating in the early 20th century as a street food in Nam Định, Vietnam, phở bò has become a beloved culinary tradition, cherished for its rich cultural heritage and the emotional connections it fosters among Vietnamese people. Unlike other noodle soups, phở bò's unique blend of flavors, herbs, and cultural significance sets it apart as a singular culinary experience, inviting patrons to savor both its taste and the stories it carries. Revised Total",
+  "P1": "A steaming bowl of beef pho on a wooden table. A steaming bowl of beef pho is set on a rustic wooden table, inviting diners with its clear, flavorful broth enriched with star anise, cinnamon, and cloves, along with wide rice noodles, tender slices of beef, and garnished with fresh basil, bean sprouts, and cilantro. The soft, chewy texture of the wide rice noodles contrasts beautifully with the tender beef, and the gentle sound of the broth bubbling adds to the sensory experience. Originating in the early 20th century as a street food in Nam Định, Vietnam, phở bò has become a beloved culinary tradition, cherished for its rich cultural heritage and the emotional connections it fosters among Vietnamese people. Unlike other noodle soups, phở bò's unique blend of flavors, herbs, and cultural significance sets it apart as a singular culinary experience, inviting patrons to savor both its taste and the stories it carries. Revised Total\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: wooden table. Make these additions clearly visible:\n1. a bowl of beef pho with clear broth on the wooden table.\n2. chopsticks and a spoon on the wooden table.\n3. green onions, shallots, and cilantro on top of the soup.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "tô phở bò nóng",
+     "en": "steaming bowl of beef pho"
+    },
+    "subject_attributes": [
+     "nóng",
+     "steaming"
+    ],
+    "supporting_objects": [
+     "bàn gỗ",
+     "wooden table"
+    ],
+    "background_and_scene": [],
+    "actions_and_relations": [
+     "khói bay lên"
+    ],
+    "colors": [],
+    "visual_effects": [
+     "khói bay lên"
+    ],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "tô phở bò nóng",
+     "bàn gỗ",
+     "khói bay lên",
+     "A steaming bowl of beef pho",
+     "on a wooden table"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [],
+    "conditional_cues": [
+     {
+      "cue_vi": "đũa, thìa, gia vị",
+      "cue_en": "chopsticks, spoon, condiments",
+      "visual_check_vi": "đũa, thìa, gia vị trên bàn",
+      "quote_vi": "trên đó có sẵn đũa, thìa và những gia vị kèm theo phở như: tương, chanh, nước mắm, ớt",
+      "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "phở có đầy đủ hành lá, hành củ và ngò",
+      "target_appearance_en": "phở has green onions, shallots, and cilantro",
+      "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "phở được thưởng thức khi còn nóng hổi",
+     "phở bò và phở gà đã chính thức ngự trị và song hành cùng nhau trong lòng ẩm thực Việt",
+     "phở ăn liền đã xuất khẩu đi 42 nước trên thế giới",
+     "phở được biết đến ở nhiều nơi trên thế giới",
+     "phở được chế biến từ xương ống bò kèm với các loại gia vị như quế, hồi, thảo quả nướng"
+    ],
+    "insufficient_evidence": [
+     "màu sắc của bát phở",
+     "màu sắc của đũa, thìa",
+     "màu sắc của gia vị",
+     "identity_cues: 'bát đá' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "Bowl of noodle soup",
+    "Steam rising from soup"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "Wooden table surface",
+    "Wooden plate under bowl"
+   ],
+   "supporting_objects": [
+    "Noodles in broth",
+    "Meat slices in broth",
+    "Green leafy herbs on top"
+   ],
+   "background": [
+    "Dark background",
+    "Blurred greenery in background"
+   ],
+   "actions": [
+    "Steam rising from hot soup"
+   ],
+   "spatial_relations": [
+    "Bowl on wooden plate",
+    "Noodles and meat in broth",
+    "Herbs on top of soup",
+    "Steam above bowl"
+   ],
+   "colors": [
+    "Light brown wooden table",
+    "White bowl",
+    "Light brown wooden plate",
+    "Light brown broth",
+    "White noodles",
+    "Light brown meat",
+    "Green herbs",
+    "Dark background"
+   ],
+   "counts": {
+    "bowls": 1,
+    "plates": 1,
+    "meat slices": 3,
+    "herb sprigs": 3
+   },
+   "visible_effects": [
+    "Steam rising from soup",
+    "Soft lighting on soup",
+    "Blurred background"
+   ],
+   "uncertain": [
+    "Top of steam",
+    "Edges of blurred greenery"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "steaming bowl of beef pho"
+   ],
+   "missing_cultural_identity": [],
+   "contradictions": [
+    "wooden plate under bowl",
+    "light brown broth"
+   ],
+   "already_satisfied": [
+    "steaming",
+    "wooden table",
+    "steam rising from soup",
+    "noodles in broth",
+    "meat slices in broth",
+    "green leafy herbs on top"
+   ],
+   "uncertain_no_repair": [
+    "top of steam",
+    "edges of blurred greenery"
+   ],
+   "repair_actions": [
+    "a bowl of beef pho with clear broth on the wooden table",
+    "chopsticks and a spoon on the wooden table",
+    "green onions, shallots, and cilantro on top of the soup"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "a bowl of beef pho with clear broth on the wooden table",
+   "chopsticks and a spoon on the wooden table",
+   "green onions, shallots, and cilantro on top of the soup"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S003/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S003/02.jpg"
+  ],
+  "images": {
+   "A": "S003_flux_txt.png",
+   "B (I0)": "S003_flux_txt.png",
+   "C (I1)": "S003_flux_ref.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "15:34:36",
+   "prompt_id": "S003",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Một tô phở bò nóng đặt trên bàn gỗ, khói bay lên.\nPROMPT EN: A steaming bowl of beef pho on a wooden table.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "tô phở bò nóng",
+      "en": "steaming bowl of beef pho"
+     },
+     "subject_attributes": [
+      "nóng",
+      "steaming"
+     ],
+     "supporting_objects": [
+      "bàn gỗ",
+      "wooden table"
+     ],
+     "background_and_scene": [],
+     "actions_and_relations": [
+      "khói bay lên"
+     ],
+     "colors": [],
+     "visual_effects": [
+      "khói bay lên"
+     ],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "tô phở bò nóng",
+      "bàn gỗ",
+      "khói bay lên",
+      "A steaming bowl of beef pho",
+      "on a wooden table"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:36:16",
+   "prompt_id": "S003",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Một tô phở bò nóng đặt trên bàn gỗ, khói bay lên.\nPROMPT EN: A steaming bowl of beef pho on a wooden table.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Phở — https://vi.wikipedia.org/wiki/Ph%E1%BB%9F ===\nNước dùng của phở bò thường được ninh từ xương ống bò kèm với các loại gia vị như quế, hồi, thảo quả nướng. Phở thường là phở bò hay phở gà, nhưng đôi khi cũng có những biến thể khác, đặc biệt là phở cuốn, phở sốt vang, phở khô, phở xào, phở chua, phở vịt ở Cao Bằng, và phở thịt quay ở các tỉnh miền núi phía Bắc, phở khô ở Gia Lai. Phở luôn được thưởng thức khi còn nóng hổi. Trong mục thực phẩm, cụm từ chữ Hán 玉酥餅 \"ngọc tô bính\" được chú thích bằng chữ Nôm là 𩛄普𤙭 \"bánh phở bò\". Bởi vậy, nhiều chủ quán phở bò đành phải đóng cửa vào hai ngày không có thịt bò trong tuần, tạo điều kiện cho phở gà phát triển. Từ sau năm 1939, hai món phở bò và phở gà đã chính thức ngự trị và song hành cùng nhau trong lòng ẩm thực Việt. Đối với bước chan nước phở vào tô mới lắm công phu vì nước ngon nhưng phải được chan vào đều trên mặt tô phở, xung quanh miếng thịt khi đó thịt vẫn chín nóng đều mà vẫn giữ màu xanh của hành lá, hành củ và ngò trên tô phở. Trước đây, chỉ có phở bò chín với đầy đủ \"chín-bắp-nạm-gầu\", về sau, thực khách chấp nhận cả phở tái, phở gà. Ngoài những kiểu chế biến truyền thống là phở chan nước dùng, ngày nay người ta còn tạo ra nhiều loại phở khác như phở cuốn, phở áp chảo, phở xào, phở bò viên sa tế... Có nguồn gốc từ phở truyền thống nhưng nhằm giữ được hương vị thơm ngon, độ nóng đến miếng cuối cùng của phở, các quán phở đã sử dụng những chiếc bát đá dày (thường có đai kim loại để tránh nứt vỡ) để đựng nước dùng phở, đun sôi sùng sục khi mang ra cho thực khách. Khi ăn, thực khách sẽ \"hóa thân\" thành đầu bếp, tự tay thả những nguyên liệu mình muốn vào bát nước dùng nóng hổi. Đến nay, phở ăn liền đã xuất khẩu đi 42 nước trên thế giới và chiếm tỉ trọng 10% hàng xuất khẩu của Acecook Việt Nam. Trên đôi quang gánh của họ, một bên là thùng hàng tự chế có đủ nguyên liệu để chế biến món phở và bát, đĩa, đũa, thìa; bên kia là nồi nước dùng đặt trên một bếp than. Quán phở Nam Định ở Hà Nội thường tương đối rộng rãi, bán đủ các biến thể phở bò (phở nước, phở xào, phở trộn, phở tái lăn), lại thêm cơm rang, mì xào. Phở bò tại Nam Định (nay là Ninh Bình) Phở bò Giao Cù là một món ăn phổ biến xuất xứ từ làng Giao Cù, xã Nam Đồng, tỉnh Ninh Bình. Có khá nhiều quán phở nổi danh ở Sài Gòn trước năm 1975: phở Công Lý, phở Tàu Bay (ông chủ tên thật là Phạm Đăng Nhàn), phở Tàu Thủy, phở Dậu (đường Nam Kỳ Khởi Nghĩa quận 3), phở Phú Gia (đường Lý Chính Thắng quận 3 chuyên phở hương vị bắc), phố phở Pasteur (đường chuyên bán phở bò), phố phở Hiền Vương (chuyên bán phở gà); phở Cao Vân (đường Mạc Đĩnh Chi, quận 1 của ông Trần Văn Phồn). Bột gạo được xay bằng tay, sau đó đem tráng và \"phơi\" ngay trên bếp. Hơn nữa, những bát phở Tráng Kìm sẽ luôn đầy ụ, nhiều thịt, nhiều bánh, nóng hổi và rất vừa miệng. Phở tại hải ngoại Những người Việt Nam vượt biên sau Chiến tranh Việt Nam và định cư ở các nước phương Tây đã làm cho phở được biết đến ở nhiều nơi trên thế giới. Riêng tại Hoa Kỳ, thống kê không chính thức năm 2005 cho biết doanh thu các cửa hàng phở Việt Nam trên toàn Hoa Kỳ lên tới khoảng 500 triệu USD một năm. Từ cửa hàng nhượng quyền đầu tiên ở Jakarta năm 2005, Phở 24 đã có mặt tại rất nhiều thành phố lớn trên thế giới như Seoul, Hồng Kông, London, Melbourne... Trong văn hóa đại chúng Văn hóa ăn phở Những quán phở Việt Nam vẫn giữ những thói quen là ít khi mang thực đơn cho khách hàng mà khách sẽ phải tự chọn loại phở gì (ví dụ: phở bò, phở gà...). Thông thường thì những bàn ăn được đánh số để phục vụ, trên đó có sẵn đũa, thìa và những gia vị kèm theo phở như: tương, chanh, nước mắm, ớt... Tham khảo Liên kết ngoài Pho (food) trên Encyclopædia Britannica Phở Hà Nội T.H 08 Tháng Tư 2013 lưu trữ 19/9/2016 'Săn' những thương hiệu phở nhất nhì Hà Nội Lưu trữ ngày 23 tháng 1 năm 2019 tại Wayback Machine báo Đất Việt 09/03/2012 08:39 Phở Việt trên đất Mỹ. VnExpress 9/12/2001 | 10:59 GMT+7 Phát hiện mới về phở (Bài 2): \"Giải phẫu\" một bát phở bò TS Vũ Thế Long báo Thể thao & Văn hóa 18/09/2009 14:15 Trăm năm phở Việt T.Q.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [],
+     "conditional_cues": [
+      {
+       "cue_vi": "đũa, thìa, gia vị",
+       "cue_en": "chopsticks, spoon, condiments",
+       "visual_check_vi": "đũa, thìa, gia vị trên bàn",
+       "quote_vi": "trên đó có sẵn đũa, thìa và những gia vị kèm theo phở như: tương, chanh, nước mắm, ớt",
+       "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "phở có đầy đủ hành lá, hành củ và ngò",
+       "target_appearance_en": "phở has green onions, shallots, and cilantro",
+       "source_url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%9F"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "phở được thưởng thức khi còn nóng hổi",
+      "phở bò và phở gà đã chính thức ngự trị và song hành cùng nhau trong lòng ẩm thực Việt",
+      "phở ăn liền đã xuất khẩu đi 42 nước trên thế giới",
+      "phở được biết đến ở nhiều nơi trên thế giới",
+      "phở được chế biến từ xương ống bò kèm với các loại gia vị như quế, hồi, thảo quả nướng"
+     ],
+     "insufficient_evidence": [
+      "màu sắc của bát phở",
+      "màu sắc của đũa, thìa",
+      "màu sắc của gia vị",
+      "identity_cues: 'bát đá' — quote có thật nhưng không nói về cue"
+     ]
+    }
+   },
+   "giay": 100.7
+  },
+  {
+   "t": "15:36:16",
+   "prompt_id": "S003",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 0,
+    "giu_conditional": 1,
+    "loai": [
+     "identity_cues: 'bát đá' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:36:28",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/B/S003_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "Bowl of noodle soup",
+     "Steam rising from soup"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "Wooden table surface",
+     "Wooden plate under bowl"
+    ],
+    "supporting_objects": [
+     "Noodles in broth",
+     "Meat slices in broth",
+     "Green leafy herbs on top"
+    ],
+    "background": [
+     "Dark background",
+     "Blurred greenery in background"
+    ],
+    "actions": [
+     "Steam rising from hot soup"
+    ],
+    "spatial_relations": [
+     "Bowl on wooden plate",
+     "Noodles and meat in broth",
+     "Herbs on top of soup",
+     "Steam above bowl"
+    ],
+    "colors": [
+     "Light brown wooden table",
+     "White bowl",
+     "Light brown wooden plate",
+     "Light brown broth",
+     "White noodles",
+     "Light brown meat",
+     "Green herbs",
+     "Dark background"
+    ],
+    "counts": {
+     "bowls": 1,
+     "plates": 1,
+     "meat slices": 3,
+     "herb sprigs": 3
+    },
+    "visible_effects": [
+     "Steam rising from soup",
+     "Soft lighting on soup",
+     "Blurred background"
+    ],
+    "uncertain": [
+     "Top of steam",
+     "Edges of blurred greenery"
+    ]
+   },
+   "giay": 11.3
+  },
+  {
+   "t": "15:36:35",
+   "prompt_id": "S003",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A steaming bowl of beef pho on a wooden table.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA steaming bowl of beef pho is set on a rustic wooden table, inviting diners with its clear, flavorful broth enriched with star anise, cinnamon, and cloves, along with wide rice noodles, tender slices of beef, and garnished with fresh basil, bean sprouts, and cilantro. The soft, chewy texture of the wide rice noodles contrasts beautifully with the tender beef, and the gentle sound of the broth bubbling adds to the sensory experience. Originating in the early 20th century as a street food in Nam Định, Vietnam, phở bò has become a beloved culinary tradition, cherished for its rich cultural heritage and the emotional connections it fosters among Vietnamese people. Unlike other noodle soups, phở bò's unique blend of flavors, herbs, and cultural significance sets it apart as a singular culinary experience, inviting patrons to savor both its taste and the stories it carries. Revised Total\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"tô phở bò nóng\", \"en\": \"steaming bowl of beef pho\"}, \"subject_attributes\": [\"nóng\", \"steaming\"], \"supporting_objects\": [\"bàn gỗ\", \"wooden table\"], \"background_and_scene\": [], \"actions_and_relations\": [\"khói bay lên\"], \"colors\": [], \"visual_effects\": [\"khói bay lên\"], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"tô phở bò nóng\", \"bàn gỗ\", \"khói bay lên\", \"A steaming bowl of beef pho\", \"on a wooden table\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [], \"conditional_cues\": [{\"cue_vi\": \"đũa, thìa, gia vị\", \"cue_en\": \"chopsticks, spoon, condiments\", \"visual_check_vi\": \"đũa, thìa, gia vị trên bàn\", \"quote_vi\": \"trên đó có sẵn đũa, thìa và những gia vị kèm theo phở như: tương, chanh, nước mắm, ớt\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ph%E1%BB%9F\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"phở có đầy đủ hành lá, hành củ và ngò\", \"target_appearance_en\": \"phở has green onions, shallots, and cilantro\", \"source_url\": \"https://vi.wikipedia.org/wiki/Ph%E1%BB%9F\"}], \"discarded_nonvisual_facts\": [\"phở được thưởng thức khi còn nóng hổi\", \"phở bò và phở gà đã chính thức ngự trị và song hành cùng nhau trong lòng ẩm thực Việt\", \"phở ăn liền đã xuất khẩu đi 42 nước trên thế giới\", \"phở được biết đến ở nhiều nơi trên thế giới\", \"phở được chế biến từ xương ống bò kèm với các loại gia vị như quế, hồi, thảo quả nướng\"], \"insufficient_evidence\": [\"màu sắc của bát phở\", \"màu sắc của đũa, thìa\", \"màu sắc của gia vị\", \"identity_cues: 'bát đá' — quote có thật nhưng không nói về cue\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"Bowl of noodle soup\", \"Steam rising from soup\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"Wooden table surface\", \"Wooden plate under bowl\"], \"supporting_objects\": [\"Noodles in broth\", \"Meat slices in broth\", \"Green leafy herbs on top\"], \"background\": [\"Dark background\", \"Blurred greenery in background\"], \"actions\": [\"Steam rising from hot soup\"], \"spatial_relations\": [\"Bowl on wooden plate\", \"Noodles and meat in broth\", \"Herbs on top of soup\", \"Steam above bowl\"], \"colors\": [\"Light brown wooden table\", \"White bowl\", \"Light brown wooden plate\", \"Light brown broth\", \"White noodles\", \"Light brown meat\", \"Green herbs\", \"Dark background\"], \"counts\": {\"bowls\": 1, \"plates\": 1, \"meat slices\": 3, \"herb sprigs\": 3}, \"visible_effects\": [\"Steam rising from soup\", \"Soft lighting on soup\", \"Blurred background\"], \"uncertain\": [\"Top of steam\", \"Edges of blurred greenery\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "steaming bowl of beef pho"
+    ],
+    "missing_cultural_identity": [],
+    "contradictions": [
+     "wooden plate under bowl",
+     "light brown broth"
+    ],
+    "already_satisfied": [
+     "steaming",
+     "wooden table",
+     "steam rising from soup",
+     "noodles in broth",
+     "meat slices in broth",
+     "green leafy herbs on top"
+    ],
+    "uncertain_no_repair": [
+     "top of steam",
+     "edges of blurred greenery"
+    ],
+    "repair_actions": [
+     "a bowl of beef pho with clear broth on the wooden table",
+     "chopsticks and a spoon on the wooden table",
+     "green onions, shallots, and cilantro on top of the soup"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 7.5
+  },
+  {
+   "t": "15:36:35",
+   "prompt_id": "S003",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a bowl of beef pho with clear broth on the wooden table",
+     "chopsticks and a spoon on the wooden table",
+     "green onions, shallots, and cilantro on top of the soup"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:36:36",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a bowl of beef pho with clear broth on the wooden table\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/B/S003_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "broth is not clear, beef visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:36:38",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"chopsticks and a spoon on the wooden table\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/B/S003_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no chopsticks or spoon"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:36:39",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"green onions, shallots, and cilantro on top of the soup\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/B/S003_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "no green onions or shallots"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:36:39",
+   "prompt_id": "S003",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a bowl of beef pho with clear broth on the wooden table",
+      5.0
+     ],
+     [
+      "chopsticks and a spoon on the wooden table",
+      0.0
+     ],
+     [
+      "green onions, shallots, and cilantro on top of the soup",
+      5.0
+     ]
+    ],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:36:39",
+   "prompt_id": "S003",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A steaming bowl of beef pho on a wooden table. A steaming bowl of beef pho is set on a rustic wooden table, inviting diners with its clear, flavorful broth enriched with star anise, cinnamon, and cloves, along with wide rice noodles, tender slices of beef, and garnished with fresh basil, bean sprouts, and cilantro. The soft, chewy texture of the wide rice noodles contrasts beautifully with the tender beef, and the gentle sound of the broth bubbling adds to the sensory experience. Originating in the early 20th century as a street food in Nam Định, Vietnam, phở bò has become a beloved culinary tradition, cherished for its rich cultural heritage and the emotional connections it fosters among Vietnamese people. Unlike other noodle soups, phở bò's unique blend of flavors, herbs, and cultural significance sets it apart as a singular culinary experience, inviting patrons to savor both its taste and the stories it carries. Revised Total\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: wooden table. Make these additions clearly visible:\n1. a bowl of beef pho with clear broth on the wooden table.\n2. chopsticks and a spoon on the wooden table.\n3. green onions, shallots, and cilantro on top of the soup."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:37:39",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/C_ref/S003_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "Bowl of soup with noodles",
+     "Steam rising from soup"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "Wooden tray under bowl",
+     "Metal tray under wooden tray"
+    ],
+    "supporting_objects": [
+     "Noodles in soup",
+     "Green herbs on top"
+    ],
+    "background": [
+     "Dark blurred background",
+     "Wooden table surface"
+    ],
+    "actions": [
+     "Steam rising from hot soup"
+    ],
+    "spatial_relations": [
+     "Bowl on top of wooden tray",
+     "Wooden tray on metal tray",
+     "Herbs on top of noodles"
+    ],
+    "colors": [
+     "Light brown bowl",
+     "Dark brown wooden tray",
+     "Silver metal tray",
+     "Green herbs",
+     "White noodles",
+     "Dark background"
+    ],
+    "counts": {
+     "bowls": 1,
+     "wooden trays": 1,
+     "metal trays": 1,
+     "types of herbs": 1
+    },
+    "visible_effects": [
+     "Steam rising from soup",
+     "Soft lighting on bowl",
+     "Blurred background"
+    ],
+    "uncertain": [
+     "Top of steam",
+     "Left edge of metal tray",
+     "Right edge of wooden table"
+    ]
+   },
+   "giay": 10.8
+  },
+  {
+   "t": "15:37:46",
+   "prompt_id": "S003",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"tô phở bò nóng\", \"en\": \"steaming bowl of beef pho\"}, \"subject_attributes\": [\"nóng\", \"steaming\"], \"supporting_objects\": [\"bàn gỗ\", \"wooden table\"], \"background_and_scene\": [], \"actions_and_relations\": [\"khói bay lên\"], \"colors\": [], \"visual_effects\": [\"khói bay lên\"], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"tô phở bò nóng\", \"bàn gỗ\", \"khói bay lên\", \"A steaming bowl of beef pho\", \"on a wooden table\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a bowl of beef pho with clear broth on the wooden table\", \"chopsticks and a spoon on the wooden table\", \"green onions, shallots, and cilantro on top of the soup\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"Bowl of noodle soup\", \"Steam rising from soup\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"Wooden table surface\", \"Wooden plate under bowl\"], \"supporting_objects\": [\"Noodles in broth\", \"Meat slices in broth\", \"Green leafy herbs on top\"], \"background\": [\"Dark background\", \"Blurred greenery in background\"], \"actions\": [\"Steam rising from hot soup\"], \"spatial_relations\": [\"Bowl on wooden plate\", \"Noodles and meat in broth\", \"Herbs on top of soup\", \"Steam above bowl\"], \"colors\": [\"Light brown wooden table\", \"White bowl\", \"Light brown wooden plate\", \"Light brown broth\", \"White noodles\", \"Light brown meat\", \"Green herbs\", \"Dark background\"], \"counts\": {\"bowls\": 1, \"plates\": 1, \"meat slices\": 3, \"herb sprigs\": 3}, \"visible_effects\": [\"Steam rising from soup\", \"Soft lighting on soup\", \"Blurred background\"], \"uncertain\": [\"Top of steam\", \"Edges of blurred greenery\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"Bowl of soup with noodles\", \"Steam rising from soup\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"Wooden tray under bowl\", \"Metal tray under wooden tray\"], \"supporting_objects\": [\"Noodles in soup\", \"Green herbs on top\"], \"background\": [\"Dark blurred background\", \"Wooden table surface\"], \"actions\": [\"Steam rising from hot soup\"], \"spatial_relations\": [\"Bowl on top of wooden tray\", \"Wooden tray on metal tray\", \"Herbs on top of noodles\"], \"colors\": [\"Light brown bowl\", \"Dark brown wooden tray\", \"Silver metal tray\", \"Green herbs\", \"White noodles\", \"Dark background\"], \"counts\": {\"bowls\": 1, \"wooden trays\": 1, \"metal trays\": 1, \"types of herbs\": 1}, \"visible_effects\": [\"Steam rising from soup\", \"Soft lighting on bowl\", \"Blurred background\"], \"uncertain\": [\"Top of steam\", \"Left edge of metal tray\", \"Right edge of wooden table\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "The broth is now clear",
+     "Chopsticks and a spoon are now on the wooden table",
+     "Green onions, shallots, and cilantro are now on top of the soup"
+    ],
+    "regressions": [
+     {
+      "what": "The wooden table is missing",
+      "severity": "severe"
+     },
+     {
+      "what": "The phrase 'A steaming bowl of beef pho' is missing",
+      "severity": "severe"
+     },
+     {
+      "what": "The phrase 'on a wooden table' is missing",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "Steam rising from the soup",
+     "The main entity 'tô phở bò nóng' is still present in Vietnamese",
+     "The phrase 'khói bay lên' is still present in Vietnamese"
+    ]
+   },
+   "giay": 7.3
+  },
+  {
+   "t": "15:37:46",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a bowl of beef pho with clear broth on the wooden table\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/B/S003_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "broth is not clear, beef visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:37:47",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a bowl of beef pho with clear broth on the wooden table\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/C_ref/S003_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "broth is not clear, beef visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:37:47",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"chopsticks and a spoon on the wooden table\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/B/S003_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no chopsticks or spoon"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:37:49",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"chopsticks and a spoon on the wooden table\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/C_ref/S003_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no chopsticks or spoon"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:37:49",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"green onions, shallots, and cilantro on top of the soup\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/B/S003_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "no green onions or shallots"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:37:50",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"green onions, shallots, and cilantro on top of the soup\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/C_ref/S003_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "green onions and cilantro on top"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:37:51",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"phở has green onions, shallots, and cilantro\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/B/S003_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "green leaves, noodles, broth"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:37:53",
+   "prompt_id": "S003",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"phở has green onions, shallots, and cilantro\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_flux_main/S003/C_ref/S003_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 7.0,
+    "evidence": "green onions and cilantro visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:37:53",
+   "prompt_id": "S003",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "The wooden table is missing",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "The phrase 'A steaming bowl of beef pho' is missing",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "The phrase 'on a wooden table' is missing",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:37:54",
+   "prompt_id": "S003",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "The broth is now clear",
+     "Chopsticks and a spoon are now on the wooden table",
+     "Green onions, shallots, and cilantro are now on top of the soup"
+    ],
+    "bang_action": [
+     {
+      "action": "a bowl of beef pho with clear broth on the wooden table",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "broth is not clear, beef visible"
+     },
+     {
+      "action": "chopsticks and a spoon on the wooden table",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no chopsticks or spoon"
+     },
+     {
+      "action": "green onions, shallots, and cilantro on top of the soup",
+      "I0": 5.0,
+      "I1": 7.0,
+      "fixed": false,
+      "ev_I1": "green onions and cilantro on top"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "phở has green onions, shallots, and cilantro",
+      "I0": 5.0,
+      "I1": 7.0,
+      "fixed": false,
+      "ev_I1": "green onions and cilantro visible"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "The wooden table is missing",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "The phrase 'A steaming bowl of beef pho' is missing",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "The phrase 'on a wooden table' is missing",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.8104,
+     "sim_I1": 0.8065
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

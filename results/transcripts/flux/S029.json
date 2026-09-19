@@ -1,0 +1,602 @@
+{
+ "unit": {
+  "prompt_id": "S029",
+  "prompt_vi": "Gói cốm bọc lá sen buộc rơm nếp.",
+  "P_orig": "A parcel of young green rice wrapped in lotus leaf tied with rice straw.",
+  "P_ct": "A parcel of young green rice wrapped in lotus leaf tied with rice straw. A traditional Vietnamese autumn delicacy, cốm, is shown in a light green color, crafted from young green rice kernels. The rice has been slowly roasted and gently pounded into thin, chewy sheets. It is often wrapped in a lotus leaf, which imparts a subtle floral aroma, and tied with rice straw. When unwrapped, cốm reveals its stunning light green color and delicate texture, ready to be enjoyed as a seasonal treat during the Mid-Autumn Festival and other cultural events.",
+  "P1": "A parcel of young green rice wrapped in lotus leaf tied with rice straw. A traditional Vietnamese autumn delicacy, cốm, is shown in a light green color, crafted from young green rice kernels. The rice has been slowly roasted and gently pounded into thin, chewy sheets. It is often wrapped in a lotus leaf, which imparts a subtle floral aroma, and tied with rice straw. When unwrapped, cốm reveals its stunning light green color and delicate texture, ready to be enjoyed as a seasonal treat during the Mid-Autumn Festival and other cultural events.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a lotus leaf wrapping the green rice bundle.\n2. rice straw tied around the bundle.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Gói cốm",
+     "en": "A parcel of young green rice"
+    },
+    "subject_attributes": [
+     "bọc lá sen",
+     "buộc rơm nếp",
+     "wrapped in lotus leaf",
+     "tied with rice straw"
+    ],
+    "supporting_objects": [],
+    "background_and_scene": [],
+    "actions_and_relations": [],
+    "colors": [
+     "green"
+    ],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Gói cốm bọc lá sen buộc rơm nếp",
+     "A parcel of young green rice wrapped in lotus leaf tied with rice straw"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [],
+    "conditional_cues": [],
+    "positive_disambiguators": [],
+    "insufficient_evidence": []
+   },
+   "_loi": [
+    "RuntimeError: Không lấy được JSON sau 3 lần: không parse được JSON từ: '```json\\n{\\n \"cultural_evidence\": {\\n  \"identity_cues\": [\\n   {\\n    \"cue_vi\": \"bọc lá sen\",\\n    \"cue_en\": \"wrapped in lotus leaf\",\\n    \"visual_check_vi\": \"có lá sen bao bọc bên ngoài\",\\n    \"quote_vi\": \"bọ'"
+   ]
+  },
+  "report_I0": {
+   "main_subjects": [
+    "green wrapped bundle",
+    "brown string tie"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "round brown plate"
+   ],
+   "supporting_objects": [],
+   "background": [
+    "dark green blurred surface"
+   ],
+   "actions": [],
+   "spatial_relations": [
+    "bundle on plate",
+    "string around bundle"
+   ],
+   "colors": [
+    "green bundle",
+    "brown string",
+    "brown plate",
+    "dark green background"
+   ],
+   "counts": {
+    "bundles": 1,
+    "strings": 1,
+    "plates": 1
+   },
+   "visible_effects": [
+    "blurred background",
+    "soft lighting"
+   ],
+   "uncertain": [
+    "top of bundle",
+    "bottom of plate"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "lotus leaf"
+   ],
+   "missing_cultural_identity": [],
+   "contradictions": [
+    "brown string tie"
+   ],
+   "already_satisfied": [
+    "green wrapped bundle",
+    "bundle on plate",
+    "string around bundle"
+   ],
+   "uncertain_no_repair": [
+    "top of bundle",
+    "bottom of plate"
+   ],
+   "repair_actions": [
+    "a lotus leaf wrapping the green rice bundle",
+    "rice straw tied around the bundle"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "a lotus leaf wrapping the green rice bundle",
+   "rice straw tied around the bundle"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S029/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S029/02.jpg"
+  ],
+  "images": {
+   "A": "S029_flux_txt.png",
+   "B (I0)": "S029_flux_txt.png",
+   "C (I1)": "S029_flux_ref.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "20:35:46",
+   "prompt_id": "S029",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Gói cốm bọc lá sen buộc rơm nếp.\nPROMPT EN: A parcel of young green rice wrapped in lotus leaf tied with rice straw.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Gói cốm",
+      "en": "A parcel of young green rice"
+     },
+     "subject_attributes": [
+      "bọc lá sen",
+      "buộc rơm nếp",
+      "wrapped in lotus leaf",
+      "tied with rice straw"
+     ],
+     "supporting_objects": [],
+     "background_and_scene": [],
+     "actions_and_relations": [],
+     "colors": [
+      "green"
+     ],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Gói cốm bọc lá sen buộc rơm nếp",
+      "A parcel of young green rice wrapped in lotus leaf tied with rice straw"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:40:02",
+   "prompt_id": "S029",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Gói cốm bọc lá sen buộc rơm nếp.\nPROMPT EN: A parcel of young green rice wrapped in lotus leaf tied with rice straw.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Cốm làng Vòng — https://vi.wikipedia.org/wiki/C%E1%BB%91m_l%C3%A0ng_V%C3%B2ng ===\nCốm làng Vòng là một đặc sản của ẩm thực Việt Nam, gắn với nghề làm cốm truyền thống của làng Vòng, nay thuộc phường Cầu Giấy, thành phố Hà Nội. Cốm làng Vòng từ lâu được xem là một trong những thức quà đặc trưng của mùa thu Hà Nội. Tuy nhiên, cùng với quá trình đô thị hóa, diện tích trồng lúa tại làng Vòng ngày càng thu hẹp, số hộ còn duy trì nghề làm cốm truyền thống cũng giảm đáng kể. Miếng Ngon Hà Nội., nghề làm cốm truyền thống chủ yếu tập trung tại hai thôn Vòng Hậu và Vòng Sở. Theo phương thức gói truyền thống, cốm thường được bọc trong hai lớp lá, gồm lớp lá ráy bên trong nhằm giữ độ ẩm và lớp lá sen bên ngoài để bảo vệ sản phẩm trong quá trình bảo quản và vận chuyển. Bên ngoài được buộc bằng rơm nếp khô. Truyền thống Cốm làng Vòng là một trong những đặc sản truyền thống của Hà Nội và được nhắc đến trong câu ca dao: Cốm Vòng, gạo tám Mễ Trì Tương Bần, húng Láng còn gì ngon hơn! Theo một truyền thuyết dân gian, nghề làm cốm ở làng Vòng hình thành từ một mùa mưa lớn xảy ra vào mùa thu cách đây hàng trăm năm. Từ cách chế biến này, người dân nhận thấy hạt lúa rang có hương vị đặc trưng và dần phát triển thành nghề làm cốm truyền thống. Theo thời gian, kỹ thuật chế biến được hoàn thiện qua nhiều thế hệ, tạo nên những đặc điểm riêng của cốm làng Vòng về màu sắc, độ dẻo và hương vị. Trong văn học Cốm làng Vòng là hình ảnh xuất hiện trong nhiều tác phẩm văn học viết về Hà Nội. Trong tập tùy bút Hà Nội ba sáu phố phường, nhà văn Thạch Lam đã dành chương Một thứ quà của lúa non: Cốm để miêu tả nguồn gốc, cách thưởng thức và giá trị văn hóa của cốm làng Vòng trong đời sống người Hà Nội. Ông viết: \"Cốm là thứ quà đặc biệt riêng của đất nước, là tinh hoa của những cánh đồng lúa bát ngát xanh, mang trong mình hương vị tất cả cái mộc mạc, giản dị và thanh khiết của đồng quê Việt Nam. Ai nghĩ đầu tiên dùng cốm để làm quà siêu tết? Hồng cốm tốt đôi ... Và không bao giờ có hai màu lại hòa hợp hơn nữa: màu xanh tươi của cốm như ngọc thạch quý, màu đỏ thắm của hồng như ngọc lựu già. Cốm không phải là thức quà của người vội; ăn cốm phải ăn từng chút ít, thong thả và ngẫm nghĩ. Lúc bấy giờ ta mới thấy thu lại cả trong hương vị ấy, cái mùi thơm phức của lúa mới, của hoa cỏ dại ven bờ: trong màu xanh của cốm, cái tươi mát của lá non, và trong chất ngọt của cốm, cái dịu dàng thanh đạm của loài thảo mộc. Thêm vào cái mùi hơi ngát của lá sen già, ướp lấy từng hạt cốm một, còn giữ lại cái ấm áp của những ngày mùa hạ trên hồ. Chúng ta có thể nói rằng trời sinh lá sen để bao bọc cốm, cũng như trời sinh cốm nằm ủ trong lá sen, chúng ta thấy hiện ra từng lá cốm, sạch sẽ và tinh khiết, không có mảy may chút bụi nào. Cốm để nguyên chất ăn bao giờ cũng ngon và nhiều vị. Tuy vậy, nhiều người ưa cái thứ cốm xào, thắng đường rất quánh. Như vậy tưởng mua bánh cốm mà ăn lại còn thú vị hơn. Ở Hà Nội, người ta còn làm một thứ chả cốm, nhưng cái thanh đạm của vị lúa không dễ ăn với cái béo tục của thịt, mỡ. Tôi thích hơn thứ chè cốm, nấu vừa đường và không đặc. Ít ra ở đây cốm cũng còn giữ được chút ít vị thơm và chất dẻo, và chè cốm ăn cũng mát và lạnh. Nhưng cũng chẳng có gì hơn là một lá cốm Vòng tươi sạch trong một chiếc lá sen mới hái về.\" Quy trình chế biến Cốm làng Vòng được làm từ lúa nếp non, thường là giống nếp hoa vàng, thu hoạch khi hạt lúa vừa chắc sữa. Trong quá trình rang, người làm cốm phải đảo đều tay và điều chỉnh nhiệt độ phù hợp để hạt lúa chín tới nhưng không bị khô hoặc cháy. Người làm cốm phải phối hợp nhịp nhàng giữa các công đoạn rang, giã và sàng nhằm giữ được màu xanh tự nhiên, độ dẻo và hương thơm đặc trưng của cốm. Thành phẩm thường được gói bằng lá ráy bên trong, bọc lá sen bên ngoài và buộc bằng rơm nếp khô trước khi đưa đến người tiêu dùng. Chú thích Liên kết ngoài Cốm Vòng - đặc sản Hà Nội \"Cốm Vòng ai bán, tôi mua!\" Nhớ cốm Vòng Lưu trữ ngày 1 tháng 2 năm 2014 tại Wayback Machine Lối nào cho cốm Vòng?\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "_loi": "RuntimeError: Không lấy được JSON sau 3 lần: không parse được JSON từ: '```json\\n{\\n \"cultural_evidence\": {\\n  \"identity_cues\": [\\n   {\\n    \"cue_vi\": \"bọc lá sen\",\\n    \"cue_en\": \"wrapped in lotus leaf\",\\n    \"visual_check_vi\": \"có lá sen bao bọc bên ngoài\",\\n    \"quote_vi\": \"bọ'"
+   },
+   "giay": 256.2
+  },
+  {
+   "t": "20:40:02",
+   "prompt_id": "S029",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 0,
+    "giu_conditional": 0,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:40:09",
+   "prompt_id": "S029",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S029/B/S029_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "green wrapped bundle",
+     "brown string tie"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "round brown plate"
+    ],
+    "supporting_objects": [],
+    "background": [
+     "dark green blurred surface"
+    ],
+    "actions": [],
+    "spatial_relations": [
+     "bundle on plate",
+     "string around bundle"
+    ],
+    "colors": [
+     "green bundle",
+     "brown string",
+     "brown plate",
+     "dark green background"
+    ],
+    "counts": {
+     "bundles": 1,
+     "strings": 1,
+     "plates": 1
+    },
+    "visible_effects": [
+     "blurred background",
+     "soft lighting"
+    ],
+    "uncertain": [
+     "top of bundle",
+     "bottom of plate"
+    ]
+   },
+   "giay": 7.1
+  },
+  {
+   "t": "20:40:14",
+   "prompt_id": "S029",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A parcel of young green rice wrapped in lotus leaf tied with rice straw.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA traditional Vietnamese autumn delicacy, cốm, is shown in a light green color, crafted from young green rice kernels. The rice has been slowly roasted and gently pounded into thin, chewy sheets. It is often wrapped in a lotus leaf, which imparts a subtle floral aroma, and tied with rice straw. When unwrapped, cốm reveals its stunning light green color and delicate texture, ready to be enjoyed as a seasonal treat during the Mid-Autumn Festival and other cultural events.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Gói cốm\", \"en\": \"A parcel of young green rice\"}, \"subject_attributes\": [\"bọc lá sen\", \"buộc rơm nếp\", \"wrapped in lotus leaf\", \"tied with rice straw\"], \"supporting_objects\": [], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [\"green\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Gói cốm bọc lá sen buộc rơm nếp\", \"A parcel of young green rice wrapped in lotus leaf tied with rice straw\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [], \"conditional_cues\": [], \"positive_disambiguators\": [], \"insufficient_evidence\": []}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"green wrapped bundle\", \"brown string tie\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"round brown plate\"], \"supporting_objects\": [], \"background\": [\"dark green blurred surface\"], \"actions\": [], \"spatial_relations\": [\"bundle on plate\", \"string around bundle\"], \"colors\": [\"green bundle\", \"brown string\", \"brown plate\", \"dark green background\"], \"counts\": {\"bundles\": 1, \"strings\": 1, \"plates\": 1}, \"visible_effects\": [\"blurred background\", \"soft lighting\"], \"uncertain\": [\"top of bundle\", \"bottom of plate\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "lotus leaf"
+    ],
+    "missing_cultural_identity": [],
+    "contradictions": [
+     "brown string tie"
+    ],
+    "already_satisfied": [
+     "green wrapped bundle",
+     "bundle on plate",
+     "string around bundle"
+    ],
+    "uncertain_no_repair": [
+     "top of bundle",
+     "bottom of plate"
+    ],
+    "repair_actions": [
+     "a lotus leaf wrapping the green rice bundle",
+     "rice straw tied around the bundle"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 5.2
+  },
+  {
+   "t": "20:40:14",
+   "prompt_id": "S029",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a lotus leaf wrapping the green rice bundle",
+     "rice straw tied around the bundle"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:40:16",
+   "prompt_id": "S029",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a lotus leaf wrapping the green rice bundle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S029/B/S029_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "green bundle, no rice visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:40:17",
+   "prompt_id": "S029",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"rice straw tied around the bundle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S029/B/S029_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "string tied around bundle"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:40:17",
+   "prompt_id": "S029",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a lotus leaf wrapping the green rice bundle",
+      5.0
+     ],
+     [
+      "rice straw tied around the bundle",
+      5.0
+     ]
+    ],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:40:17",
+   "prompt_id": "S029",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A parcel of young green rice wrapped in lotus leaf tied with rice straw. A traditional Vietnamese autumn delicacy, cốm, is shown in a light green color, crafted from young green rice kernels. The rice has been slowly roasted and gently pounded into thin, chewy sheets. It is often wrapped in a lotus leaf, which imparts a subtle floral aroma, and tied with rice straw. When unwrapped, cốm reveals its stunning light green color and delicate texture, ready to be enjoyed as a seasonal treat during the Mid-Autumn Festival and other cultural events.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a lotus leaf wrapping the green rice bundle.\n2. rice straw tied around the bundle."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:40:56",
+   "prompt_id": "S029",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S029/C_ref/S029_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "sliced fruit in bowl",
+     "large leaf under fruit"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "wooden bowl with fruit",
+     "large green leaf"
+    ],
+    "supporting_objects": [
+     "wooden table surface"
+    ],
+    "background": [
+     "blurred green plants",
+     "wooden surface"
+    ],
+    "actions": [],
+    "spatial_relations": [
+     "fruit inside bowl",
+     "leaf under fruit",
+     "plants behind bowl"
+    ],
+    "colors": [
+     "green fruit slices",
+     "green leaf",
+     "brown wooden bowl",
+     "brown wooden table"
+    ],
+    "counts": {
+     "fruit slices": 12,
+     "plants": 3
+    },
+    "visible_effects": [
+     "soft lighting on fruit",
+     "shadows under bowl"
+    ],
+    "uncertain": [
+     "top of plants",
+     "left side of table"
+    ]
+   },
+   "giay": 8.3
+  },
+  {
+   "t": "20:41:00",
+   "prompt_id": "S029",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Gói cốm\", \"en\": \"A parcel of young green rice\"}, \"subject_attributes\": [\"bọc lá sen\", \"buộc rơm nếp\", \"wrapped in lotus leaf\", \"tied with rice straw\"], \"supporting_objects\": [], \"background_and_scene\": [], \"actions_and_relations\": [], \"colors\": [\"green\"], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Gói cốm bọc lá sen buộc rơm nếp\", \"A parcel of young green rice wrapped in lotus leaf tied with rice straw\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a lotus leaf wrapping the green rice bundle\", \"rice straw tied around the bundle\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"green wrapped bundle\", \"brown string tie\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"round brown plate\"], \"supporting_objects\": [], \"background\": [\"dark green blurred surface\"], \"actions\": [], \"spatial_relations\": [\"bundle on plate\", \"string around bundle\"], \"colors\": [\"green bundle\", \"brown string\", \"brown plate\", \"dark green background\"], \"counts\": {\"bundles\": 1, \"strings\": 1, \"plates\": 1}, \"visible_effects\": [\"blurred background\", \"soft lighting\"], \"uncertain\": [\"top of bundle\", \"bottom of plate\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"sliced fruit in bowl\", \"large leaf under fruit\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"wooden bowl with fruit\", \"large green leaf\"], \"supporting_objects\": [\"wooden table surface\"], \"background\": [\"blurred green plants\", \"wooden surface\"], \"actions\": [], \"spatial_relations\": [\"fruit inside bowl\", \"leaf under fruit\", \"plants behind bowl\"], \"colors\": [\"green fruit slices\", \"green leaf\", \"brown wooden bowl\", \"brown wooden table\"], \"counts\": {\"fruit slices\": 12, \"plants\": 3}, \"visible_effects\": [\"soft lighting on fruit\", \"shadows under bowl\"], \"uncertain\": [\"top of plants\", \"left side of table\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "regressions": [
+     {
+      "what": "main entity",
+      "severity": "severe"
+     },
+     {
+      "what": "subject attributes",
+      "severity": "severe"
+     },
+     {
+      "what": "colors",
+      "severity": "minor"
+     },
+     {
+      "what": "must_preserve_verbatim",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": []
+   },
+   "giay": 4.2
+  },
+  {
+   "t": "20:41:00",
+   "prompt_id": "S029",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a lotus leaf wrapping the green rice bundle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S029/B/S029_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "green bundle, no rice visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:41:02",
+   "prompt_id": "S029",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a lotus leaf wrapping the green rice bundle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S029/C_ref/S029_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "green rice bundle on leaf"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:41:02",
+   "prompt_id": "S029",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"rice straw tied around the bundle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S029/B/S029_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "string tied around bundle"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:41:03",
+   "prompt_id": "S029",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"rice straw tied around the bundle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S029/C_ref/S029_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "bundle tied with straw"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:41:03",
+   "prompt_id": "S029",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "main entity",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "subject attributes",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "colors",
+      "minor"
+     ],
+     [
+      "must_preserve_verbatim",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:41:04",
+   "prompt_id": "S029",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [],
+    "bang_action": [
+     {
+      "action": "a lotus leaf wrapping the green rice bundle",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "green rice bundle on leaf"
+     },
+     {
+      "action": "rice straw tied around the bundle",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "bundle tied with straw"
+     }
+    ],
+    "bang_cue": [],
+    "regressions": [
+     {
+      "what": "main entity",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "subject attributes",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "colors",
+      "severity": "minor"
+     },
+     {
+      "what": "must_preserve_verbatim",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.6802,
+     "sim_I1": 0.7208
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

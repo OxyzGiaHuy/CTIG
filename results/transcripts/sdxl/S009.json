@@ -1,0 +1,960 @@
+{
+ "unit": {
+  "prompt_id": "S009",
+  "prompt_vi": "Nghệ sĩ chơi đàn bầu trên sân khấu nhỏ.",
+  "P_orig": "A musician playing the dan bau monochord on a small stage.",
+  "P_ct": "A musician playing the dan bau monochord on a small stage. A musician is performing on the đàn bầu, a unique Vietnamese monochord instrument, on a small, traditional stage adorned with intricate wooden carvings and colorful lanterns. The đàn bầu, also known as the \"gourd zither,\" features a long bamboo neck with a single string stretched over it and a large, intricately carved gourd resonator. As the musician’s fingers pluck the string, a distinctive and ethereal sound fills the air, captivating the audience and evoking a sense of cultural pride and nostalgia. This performance is part of a vibrant cultural festival celebrating the rich heritage and artistic expression of Vietnamese culture, emphasizing the đàn bầu's role as a symbol of traditional artistry and craftsmanship. Revised",
+  "P1": "A musician playing the dan bau monochord on a small stage. A musician is performing on the đàn bầu, a unique Vietnamese monochord instrument, on a small, traditional stage adorned with intricate wooden carvings and colorful lanterns. The đàn bầu, also known as the \",\" features a long bamboo neck with a single string stretched over it and a large, intricately carved gourd resonator. As the musician’s fingers pluck the string, a distinctive and ethereal sound fills the air, captivating the audience and evoking a sense of cultural pride and nostalgia. This performance is part of a vibrant cultural festival celebrating the rich heritage and artistic expression of Vietnamese culture, emphasizing the đàn bầu's role as a symbol of traditional artistry and craftsmanship. Revised\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: dan bau monochord; small stage. Make these additions clearly visible:\n1. a small wooden stage under the musician.\n2. a long bamboo neck on the dan bau.\n3. a large, intricately carved gourd resonator on the dan bau.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "nghệ sĩ",
+     "en": "musician"
+    },
+    "subject_attributes": [
+     "playing the dan bau monochord"
+    ],
+    "supporting_objects": [
+     "đàn bầu",
+     "dan bau monochord"
+    ],
+    "background_and_scene": [
+     "sân khấu nhỏ",
+     "small stage"
+    ],
+    "actions_and_relations": [
+     "playing"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "đàn bầu",
+     "dan bau monochord",
+     "small stage"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "hình dạng của đàn bầu",
+      "cue_en": "shape of the dan bau",
+      "visual_check_vi": "đàn bầu có hình dạng một ống tròn hoặc hình hộp chữ nhật",
+      "quote_vi": "Đàn bầu thường có hình dạng một ống tròn (bằng tre, bương, luồng) hoặc hình hộp chữ nhật",
+      "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+     },
+     {
+      "cue_vi": "cần đàn",
+      "cue_en": "the neck of the dan bau",
+      "visual_check_vi": "cần đàn làm bằng gỗ hoặc sừng",
+      "quote_vi": "cần dây làm bằng gỗ hoặc sừng",
+      "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "đàn thân tre",
+      "cue_en": "bamboo body",
+      "visual_check_vi": "mặt đàn là chỗ đã được lóc đi một phần cật thích hợp trên đoạn tre",
+      "quote_vi": "mặt đàn là chỗ đã được lóc đi một phần cật thích hợp trên đoạn tre",
+      "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+     },
+     {
+      "cue_vi": "đàn hộp gỗ",
+      "cue_en": "wooden box body",
+      "visual_check_vi": "đàn hộp gỗ là loại đàn cải tiến",
+      "quote_vi": "đàn hộp gỗ là loại đàn cải tiến",
+      "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "một miếng xương hoặc kim loại nhỏ gọi là ngựa đàn",
+      "target_appearance_en": "a small piece of bone or metal called the horse of the dan bau",
+      "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "lịch sử, nguồn gốc, ý nghĩa biểu tượng, âm thanh, cách chơi cơ bản, cách định âm chuẩn cho dây đàn"
+    ],
+    "insufficient_evidence": [
+     "màu sắc của đàn bầu, cách trang trí trên đàn bầu, cách trang trí trên sân khấu",
+     "identity_cues: 'cấu tạo của đàn bầu' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "person playing stringed instrument"
+   ],
+   "clothing_and_appearance": [
+    "person wearing long-sleeved robe",
+    "robe with blue and red sleeves",
+    "robe with intricate patterns",
+    "person with hair bun",
+    "hair bun with flower decorations"
+   ],
+   "foreground_objects": [
+    "wooden instrument with strings",
+    "instrument with carved wooden stand"
+   ],
+   "supporting_objects": [
+    "wooden platform under instrument"
+   ],
+   "background": [
+    "dark background with patterns",
+    "painted tree with flowers"
+   ],
+   "actions": [
+    "person plucking strings",
+    "person's hand moving over strings"
+   ],
+   "spatial_relations": [
+    "person seated behind instrument",
+    "instrument in front of person",
+    "person's hands on instrument strings",
+    "painted tree behind person"
+   ],
+   "colors": [
+    "blue and red robe",
+    "multicolored patterned robe",
+    "wooden instrument brown",
+    "dark background with red and green",
+    "flower decorations in hair"
+   ],
+   "counts": {
+    "people": 1,
+    "instruments": 1,
+    "flowers in hair": 3
+   },
+   "visible_effects": [
+    "soft lighting on person and instrument",
+    "shadows under instrument stand"
+   ],
+   "uncertain": [
+    "top of person's head",
+    "bottom of instrument stand",
+    "edges of background patterns"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "a small stage"
+   ],
+   "missing_cultural_identity": [
+    "the neck of the dan bau",
+    "shape of the dan bau"
+   ],
+   "contradictions": [],
+   "already_satisfied": [
+    "a musician",
+    "playing the dan bau monochord",
+    "a wooden instrument with strings",
+    "person plucking strings",
+    "person's hand moving over strings",
+    "person seated behind instrument",
+    "instrument in front of person",
+    "person's hands on instrument strings"
+   ],
+   "uncertain_no_repair": [
+    "top of person's head",
+    "bottom of instrument stand",
+    "edges of background patterns"
+   ],
+   "repair_actions": [
+    "a small wooden stage under the musician",
+    "a long bamboo neck on the dan bau",
+    "a large, intricately carved gourd resonator on the dan bau"
+   ],
+   "drop_phrases": [
+    "gourd zither"
+   ]
+  },
+  "actions": [
+   "a small wooden stage under the musician",
+   "a long bamboo neck on the dan bau",
+   "a large, intricately carved gourd resonator on the dan bau"
+  ],
+  "drop_phrases": [
+   "gourd zither"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S009/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S009/02.jpg"
+  ],
+  "images": {
+   "A": "S009_sdxl_base_c0.png",
+   "B (I0)": "S009_sdxl_base_c0.png",
+   "C (I1)": "S009_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "15:46:42",
+   "prompt_id": "S009",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Nghệ sĩ chơi đàn bầu trên sân khấu nhỏ.\nPROMPT EN: A musician playing the dan bau monochord on a small stage.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "nghệ sĩ",
+      "en": "musician"
+     },
+     "subject_attributes": [
+      "playing the dan bau monochord"
+     ],
+     "supporting_objects": [
+      "đàn bầu",
+      "dan bau monochord"
+     ],
+     "background_and_scene": [
+      "sân khấu nhỏ",
+      "small stage"
+     ],
+     "actions_and_relations": [
+      "playing"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "đàn bầu",
+      "dan bau monochord",
+      "small stage"
+     ]
+    }
+   },
+   "giay": 6.7
+  },
+  {
+   "t": "15:47:10",
+   "prompt_id": "S009",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Nghệ sĩ chơi đàn bầu trên sân khấu nhỏ.\nPROMPT EN: A musician playing the dan bau monochord on a small stage.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Đàn bầu — https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u ===\nĐàn bầu (chữ Nôm: 彈匏) hay độc huyền cầm (chữ Nho:獨弦琴, nghĩa là đàn một dây), là một loại nhạc cụ truyền thống của người Việt, thanh âm phát ra nhờ sử dụng que hay miếng gảy vào dây. Dựa theo cấu tạo của hộp cộng hưởng, đàn bầu chia hai loại là đàn thân tre và đàn hộp gỗ. Đàn bầu có mặt phổ biến ở các dàn nhạc cổ truyền dân tộc Việt Nam. Các nhạc sĩ Việt Nam đã biên soạn và chuyển soạn một số tác phẩm dạng concerto để nghệ sĩ sử dụng đàn bầu trình tấu cùng với dàn nhạc giao hưởng thính phòng như Vì Miền Nam, Ru con, Tình ca... Đàn bầu không chỉ được người Việt Nam ưa thích mà còn được nhiều khán-thính giả trên thế giới hâm mộ. Đàn bầu được du nhập tới Trung Quốc bởi tộc người Kinh di cư từ vùng Đồ Sơn, Hải Phòng sang vùng đất Tam đảo (trước đây thuộc Việt Nam, sau Công ước Pháp – Thanh 1887 vùng này thuộc Trung Quốc) từ khoảng 500 năm trước. Lịch sử Trong khi những ghi chép sớm nhất về đàn bầu có niên đại từ năm 1770, các học giả ước tính tuổi của đàn có thể hơn thế một nghìn năm. Một truyền thuyết phổ biến về sự khởi đầu của nó kể về một người phụ nữ mù chơi nó ở chợ để kiếm sống cho gia đình trong khi chồng cô ra trận. Cho dù câu chuyện này có dựa trên thực tế hay không, thì đàn bầu trong lịch sử vẫn được chơi bởi những nhạc công mù. Đàn bầu, chơi độc tấu, là trung tâm của âm nhạc dân gian Việt Nam, một thể loại ngày nay vẫn còn phổ biến trong nước. Với việc phát minh ra bộ thu từ tính, việc sử dụng đàn bầu đã lan sang các ban nhạc hòa tấu và cả nhạc pop và rock đương đại của châu Á. Giờ đây, các thiết bị điện tử được thiết kế cho guitar điện đôi khi được sử dụng với đàn bầu để mở rộng hơn nữa bảng âm sắc của nó. Mặt đàn là chỗ đã được lóc đi một phần cật thích hợp trên đoạn tre hoặc bương. Đàn hộp gỗ là loại đàn cải tiến, có tính năng ưu việt hơn, thường do các nghệ sĩ chuyên nghiệp sử dụng. Cấu tạo Đàn bầu thường có hình dạng một ống tròn (bằng tre, bương, luồng) hoặc hình hộp chữ nhật; một đầu to, một đầu vuốt nhỏ hơn một chút; thường có chiều dài khoảng 110 cm, đường kính hoặc bề ngang ở đầu to khoảng 12,5 cm, đầu nhỏ khoảng 9,5 cm; cao khoảng 10,5 cm. Trên mặt đầu to có một miếng xương hoặc kim loại nhỏ gọi là ngựa đàn. Trên mặt đầu nhỏ của đàn có một cần dây làm bằng gỗ hoặc sừng, được gọi là cần đàn hoặc vòi đàn. Cần đàn xuyên qua nửa đầu trái bầu khô hoặc tiện bằng gỗ theo hình dạng tương tự và cắm vào một lỗ trên mặt đầu nhỏ của vỏ đàn. Khi công nghệ điện tử ra đời, để tăng âm lượng tiếng đàn, người ta lắp một cuộn cảm ứng điện từ có lõi sắt non vào dưới mặt đàn giáp với dây ở phía đầu to để cảm ứng âm thanh truyền qua bộ dây đồng trục, đưa tín hiệu đến khuếch đại âm thanh qua máy tăng âm. Tính năng, tác dụng Đàn bầu có âm vực rộng tới 3 quãng tám. Nếu sử dụng âm thực với sự tác động kéo căng hay giảm dây của vòi đàn, âm vực của đàn bầu có thể vượt trên 3 quãng tám. Đàn bầu phù hợp với những giai điệu trữ tình, êm dịu, tuy nhiên những nghệ nhân xẩm có thể sử dụng nó để diễn những bài hát vui như xẩm xoan hoặc những ca khúc mới, giàu chất tươi tắn và khỏe mạnh. Ca dao Việt Nam có câu \"Đàn bầu ai gảy nấy nghe, làm thân con gái chớ nghe đàn bầu\" ý nói tiếng đàn dễ dàng thu hút được tình cảm người nghe. Trước đây đàn bầu giữ nhiệm vụ độc tấu hoặc đệm hát, tham gia những ban nhạc cổ truyền cùng với đàn nguyệt, đàn tam, nhị hay tỳ bà,... Nhiều nghệ nhân tài năng đã dùng tiếng đàn bầu mô phỏng giọng nói của cả ba miền Nam, miền Trung, miền Bắc và giọng nam, giọng nữ hoặc ngân nga như ngâm... Cách chơi cơ bản Cách định âm chuẩn cho dây đàn Người ta thường định âm cho đàn bầu theo dây buông có âm tự nhiên, nhưng có khi chỉnh theo từng bài bản. Trên 7 âm thanh này, với kỹ thuật tay trái như căng dây hoặc chùng dây thích hợp, người chơi đàn có thể tạo được rất nhiều âm thanh khác nữa. Que đàn được đặt trên 2 đốt ngón tay trỏ và giữa của bàn tay phải, còn đốt thứ nhất của ngón cái thì giữ que đàn, đầu nho nhỏ của que thường nhô ra khoảng 1,915 cm. Do đàn bầu không có phím nên những điểm nút được coi là cung phím của đàn bầu.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "hình dạng của đàn bầu",
+       "cue_en": "shape of the dan bau",
+       "visual_check_vi": "đàn bầu có hình dạng một ống tròn hoặc hình hộp chữ nhật",
+       "quote_vi": "Đàn bầu thường có hình dạng một ống tròn (bằng tre, bương, luồng) hoặc hình hộp chữ nhật",
+       "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+      },
+      {
+       "cue_vi": "cần đàn",
+       "cue_en": "the neck of the dan bau",
+       "visual_check_vi": "cần đàn làm bằng gỗ hoặc sừng",
+       "quote_vi": "cần dây làm bằng gỗ hoặc sừng",
+       "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "đàn thân tre",
+       "cue_en": "bamboo body",
+       "visual_check_vi": "mặt đàn là chỗ đã được lóc đi một phần cật thích hợp trên đoạn tre",
+       "quote_vi": "mặt đàn là chỗ đã được lóc đi một phần cật thích hợp trên đoạn tre",
+       "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+      },
+      {
+       "cue_vi": "đàn hộp gỗ",
+       "cue_en": "wooden box body",
+       "visual_check_vi": "đàn hộp gỗ là loại đàn cải tiến",
+       "quote_vi": "đàn hộp gỗ là loại đàn cải tiến",
+       "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "một miếng xương hoặc kim loại nhỏ gọi là ngựa đàn",
+       "target_appearance_en": "a small piece of bone or metal called the horse of the dan bau",
+       "source_url": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "lịch sử, nguồn gốc, ý nghĩa biểu tượng, âm thanh, cách chơi cơ bản, cách định âm chuẩn cho dây đàn"
+     ],
+     "insufficient_evidence": [
+      "màu sắc của đàn bầu, cách trang trí trên đàn bầu, cách trang trí trên sân khấu",
+      "identity_cues: 'cấu tạo của đàn bầu' — quote có thật nhưng không nói về cue"
+     ]
+    }
+   },
+   "giay": 28.0
+  },
+  {
+   "t": "15:47:10",
+   "prompt_id": "S009",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 2,
+    "loai": [
+     "identity_cues: 'cấu tạo của đàn bầu' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:47:22",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "person playing stringed instrument"
+    ],
+    "clothing_and_appearance": [
+     "person wearing long-sleeved robe",
+     "robe with blue and red sleeves",
+     "robe with intricate patterns",
+     "person with hair bun",
+     "hair bun with flower decorations"
+    ],
+    "foreground_objects": [
+     "wooden instrument with strings",
+     "instrument with carved wooden stand"
+    ],
+    "supporting_objects": [
+     "wooden platform under instrument"
+    ],
+    "background": [
+     "dark background with patterns",
+     "painted tree with flowers"
+    ],
+    "actions": [
+     "person plucking strings",
+     "person's hand moving over strings"
+    ],
+    "spatial_relations": [
+     "person seated behind instrument",
+     "instrument in front of person",
+     "person's hands on instrument strings",
+     "painted tree behind person"
+    ],
+    "colors": [
+     "blue and red robe",
+     "multicolored patterned robe",
+     "wooden instrument brown",
+     "dark background with red and green",
+     "flower decorations in hair"
+    ],
+    "counts": {
+     "people": 1,
+     "instruments": 1,
+     "flowers in hair": 3
+    },
+    "visible_effects": [
+     "soft lighting on person and instrument",
+     "shadows under instrument stand"
+    ],
+    "uncertain": [
+     "top of person's head",
+     "bottom of instrument stand",
+     "edges of background patterns"
+    ]
+   },
+   "giay": 11.7
+  },
+  {
+   "t": "15:47:30",
+   "prompt_id": "S009",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A musician playing the dan bau monochord on a small stage.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA musician is performing on the đàn bầu, a unique Vietnamese monochord instrument, on a small, traditional stage adorned with intricate wooden carvings and colorful lanterns. The đàn bầu, also known as the \"gourd zither,\" features a long bamboo neck with a single string stretched over it and a large, intricately carved gourd resonator. As the musician’s fingers pluck the string, a distinctive and ethereal sound fills the air, captivating the audience and evoking a sense of cultural pride and nostalgia. This performance is part of a vibrant cultural festival celebrating the rich heritage and artistic expression of Vietnamese culture, emphasizing the đàn bầu's role as a symbol of traditional artistry and craftsmanship. Revised\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"nghệ sĩ\", \"en\": \"musician\"}, \"subject_attributes\": [\"playing the dan bau monochord\"], \"supporting_objects\": [\"đàn bầu\", \"dan bau monochord\"], \"background_and_scene\": [\"sân khấu nhỏ\", \"small stage\"], \"actions_and_relations\": [\"playing\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"đàn bầu\", \"dan bau monochord\", \"small stage\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"hình dạng của đàn bầu\", \"cue_en\": \"shape of the dan bau\", \"visual_check_vi\": \"đàn bầu có hình dạng một ống tròn hoặc hình hộp chữ nhật\", \"quote_vi\": \"Đàn bầu thường có hình dạng một ống tròn (bằng tre, bương, luồng) hoặc hình hộp chữ nhật\", \"source_url\": \"https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u\"}, {\"cue_vi\": \"cần đàn\", \"cue_en\": \"the neck of the dan bau\", \"visual_check_vi\": \"cần đàn làm bằng gỗ hoặc sừng\", \"quote_vi\": \"cần dây làm bằng gỗ hoặc sừng\", \"source_url\": \"https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u\"}], \"conditional_cues\": [{\"cue_vi\": \"đàn thân tre\", \"cue_en\": \"bamboo body\", \"visual_check_vi\": \"mặt đàn là chỗ đã được lóc đi một phần cật thích hợp trên đoạn tre\", \"quote_vi\": \"mặt đàn là chỗ đã được lóc đi một phần cật thích hợp trên đoạn tre\", \"source_url\": \"https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u\"}, {\"cue_vi\": \"đàn hộp gỗ\", \"cue_en\": \"wooden box body\", \"visual_check_vi\": \"đàn hộp gỗ là loại đàn cải tiến\", \"quote_vi\": \"đàn hộp gỗ là loại đàn cải tiến\", \"source_url\": \"https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"một miếng xương hoặc kim loại nhỏ gọi là ngựa đàn\", \"target_appearance_en\": \"a small piece of bone or metal called the horse of the dan bau\", \"source_url\": \"https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_b%E1%BA%A7u\"}], \"discarded_nonvisual_facts\": [\"lịch sử, nguồn gốc, ý nghĩa biểu tượng, âm thanh, cách chơi cơ bản, cách định âm chuẩn cho dây đàn\"], \"insufficient_evidence\": [\"màu sắc của đàn bầu, cách trang trí trên đàn bầu, cách trang trí trên sân khấu\", \"identity_cues: 'cấu tạo của đàn bầu' — quote có thật nhưng không nói về cue\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"person playing stringed instrument\"], \"clothing_and_appearance\": [\"person wearing long-sleeved robe\", \"robe with blue and red sleeves\", \"robe with intricate patterns\", \"person with hair bun\", \"hair bun with flower decorations\"], \"foreground_objects\": [\"wooden instrument with strings\", \"instrument with carved wooden stand\"], \"supporting_objects\": [\"wooden platform under instrument\"], \"background\": [\"dark background with patterns\", \"painted tree with flowers\"], \"actions\": [\"person plucking strings\", \"person's hand moving over strings\"], \"spatial_relations\": [\"person seated behind instrument\", \"instrument in front of person\", \"person's hands on instrument strings\", \"painted tree behind person\"], \"colors\": [\"blue and red robe\", \"multicolored patterned robe\", \"wooden instrument brown\", \"dark background with red and green\", \"flower decorations in hair\"], \"counts\": {\"people\": 1, \"instruments\": 1, \"flowers in hair\": 3}, \"visible_effects\": [\"soft lighting on person and instrument\", \"shadows under instrument stand\"], \"uncertain\": [\"top of person's head\", \"bottom of instrument stand\", \"edges of background patterns\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "a small stage"
+    ],
+    "missing_cultural_identity": [
+     "the neck of the dan bau",
+     "shape of the dan bau"
+    ],
+    "contradictions": [],
+    "already_satisfied": [
+     "a musician",
+     "playing the dan bau monochord",
+     "a wooden instrument with strings",
+     "person plucking strings",
+     "person's hand moving over strings",
+     "person seated behind instrument",
+     "instrument in front of person",
+     "person's hands on instrument strings"
+    ],
+    "uncertain_no_repair": [
+     "top of person's head",
+     "bottom of instrument stand",
+     "edges of background patterns"
+    ],
+    "repair_actions": [
+     "a small wooden stage under the musician",
+     "a long bamboo neck on the dan bau",
+     "a large, intricately carved gourd resonator on the dan bau"
+    ],
+    "drop_phrases": [
+     "gourd zither"
+    ]
+   },
+   "giay": 8.4
+  },
+  {
+   "t": "15:47:30",
+   "prompt_id": "S009",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a small wooden stage under the musician",
+     "a long bamboo neck on the dan bau",
+     "a large, intricately carved gourd resonator on the dan bau"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "gourd zither"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:47:31",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a small wooden stage under the musician\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "wooden stage under musician"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:47:32",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long bamboo neck on the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no bamboo neck visible"
+   },
+   "giay": 1.2
+  },
+  {
+   "t": "15:47:34",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a large, intricately carved gourd resonator on the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "instrument has resonator, not gourd"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:47:34",
+   "prompt_id": "S009",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a small wooden stage under the musician",
+      5.0
+     ],
+     [
+      "a long bamboo neck on the dan bau",
+      0.0
+     ],
+     [
+      "a large, intricately carved gourd resonator on the dan bau",
+      5.0
+     ]
+    ],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:47:34",
+   "prompt_id": "S009",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A musician playing the dan bau monochord on a small stage. A musician is performing on the đàn bầu, a unique Vietnamese monochord instrument, on a small, traditional stage adorned with intricate wooden carvings and colorful lanterns. The đàn bầu, also known as the \",\" features a long bamboo neck with a single string stretched over it and a large, intricately carved gourd resonator. As the musician’s fingers pluck the string, a distinctive and ethereal sound fills the air, captivating the audience and evoking a sense of cultural pride and nostalgia. This performance is part of a vibrant cultural festival celebrating the rich heritage and artistic expression of Vietnamese culture, emphasizing the đàn bầu's role as a symbol of traditional artistry and craftsmanship. Revised\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: dan bau monochord; small stage. Make these additions clearly visible:\n1. a small wooden stage under the musician.\n2. a long bamboo neck on the dan bau.\n3. a large, intricately carved gourd resonator on the dan bau."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:48:02",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/C_ref/sdxl_base_ref/S009_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "two women playing stringed instruments",
+     "one woman smiling",
+     "one woman playing bamboo xylophone"
+    ],
+    "clothing_and_appearance": [
+     "white long-sleeved garments",
+     "colourful embroidered patterns on garments",
+     "hair tied up in buns",
+     "one woman with red hair accessory"
+    ],
+    "foreground_objects": [
+     "bamboo xylophone with beads hanging",
+     "two wooden stringed instruments"
+    ],
+    "supporting_objects": [
+     "strings on wooden instruments",
+     "keys on bamboo xylophone"
+    ],
+    "background": [
+     "blurred colourful stage backdrop",
+     "dark blue background with abstract patterns"
+    ],
+    "actions": [
+     "woman playing stringed instrument with both hands",
+     "woman striking keys on bamboo xylophone",
+     "woman smiling while playing instrument"
+    ],
+    "spatial_relations": [
+     "one woman in front of bamboo xylophone",
+     "one woman to the right of the first woman",
+     "two women side by side playing instruments"
+    ],
+    "colors": [
+     "white garments",
+     "multicoloured embroidery on garments",
+     "red hair accessory",
+     "brown wooden instruments",
+     "blue and green abstract background"
+    ],
+    "counts": {
+     "women": 2,
+     "stringed instruments": 2,
+     "bamboo xylophones": 1
+    },
+    "visible_effects": [
+     "blurred stage lights",
+     "motion blur on background patterns"
+    ],
+    "uncertain": [
+     "partial view of additional people",
+     "cut-off parts of instruments and garments"
+    ]
+   },
+   "giay": 12.8
+  },
+  {
+   "t": "15:48:07",
+   "prompt_id": "S009",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"nghệ sĩ\", \"en\": \"musician\"}, \"subject_attributes\": [\"playing the dan bau monochord\"], \"supporting_objects\": [\"đàn bầu\", \"dan bau monochord\"], \"background_and_scene\": [\"sân khấu nhỏ\", \"small stage\"], \"actions_and_relations\": [\"playing\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"đàn bầu\", \"dan bau monochord\", \"small stage\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a small wooden stage under the musician\", \"a long bamboo neck on the dan bau\", \"a large, intricately carved gourd resonator on the dan bau\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"person playing stringed instrument\"], \"clothing_and_appearance\": [\"person wearing long-sleeved robe\", \"robe with blue and red sleeves\", \"robe with intricate patterns\", \"person with hair bun\", \"hair bun with flower decorations\"], \"foreground_objects\": [\"wooden instrument with strings\", \"instrument with carved wooden stand\"], \"supporting_objects\": [\"wooden platform under instrument\"], \"background\": [\"dark background with patterns\", \"painted tree with flowers\"], \"actions\": [\"person plucking strings\", \"person's hand moving over strings\"], \"spatial_relations\": [\"person seated behind instrument\", \"instrument in front of person\", \"person's hands on instrument strings\", \"painted tree behind person\"], \"colors\": [\"blue and red robe\", \"multicolored patterned robe\", \"wooden instrument brown\", \"dark background with red and green\", \"flower decorations in hair\"], \"counts\": {\"people\": 1, \"instruments\": 1, \"flowers in hair\": 3}, \"visible_effects\": [\"soft lighting on person and instrument\", \"shadows under instrument stand\"], \"uncertain\": [\"top of person's head\", \"bottom of instrument stand\", \"edges of background patterns\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"two women playing stringed instruments\", \"one woman smiling\", \"one woman playing bamboo xylophone\"], \"clothing_and_appearance\": [\"white long-sleeved garments\", \"colourful embroidered patterns on garments\", \"hair tied up in buns\", \"one woman with red hair accessory\"], \"foreground_objects\": [\"bamboo xylophone with beads hanging\", \"two wooden stringed instruments\"], \"supporting_objects\": [\"strings on wooden instruments\", \"keys on bamboo xylophone\"], \"background\": [\"blurred colourful stage backdrop\", \"dark blue background with abstract patterns\"], \"actions\": [\"woman playing stringed instrument with both hands\", \"woman striking keys on bamboo xylophone\", \"woman smiling while playing instrument\"], \"spatial_relations\": [\"one woman in front of bamboo xylophone\", \"one woman to the right of the first woman\", \"two women side by side playing instruments\"], \"colors\": [\"white garments\", \"multicoloured embroidery on garments\", \"red hair accessory\", \"brown wooden instruments\", \"blue and green abstract background\"], \"counts\": {\"women\": 2, \"stringed instruments\": 2, \"bamboo xylophones\": 1}, \"visible_effects\": [\"blurred stage lights\", \"motion blur on background patterns\"], \"uncertain\": [\"partial view of additional people\", \"cut-off parts of instruments and garments\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "a long bamboo neck on the dan bau"
+    ],
+    "regressions": [
+     {
+      "what": "main entity",
+      "severity": "severe"
+     },
+     {
+      "what": "small stage",
+      "severity": "severe"
+     },
+     {
+      "what": "dan bau monochord",
+      "severity": "severe"
+     },
+     {
+      "what": "playing the dan bau monochord",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": []
+   },
+   "giay": 5.0
+  },
+  {
+   "t": "15:48:07",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a small wooden stage under the musician\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "wooden stage under musician"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:48:09",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a small wooden stage under the musician\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/C_ref/sdxl_base_ref/S009_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "wooden stage visible, not small"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:48:09",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long bamboo neck on the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no bamboo neck visible"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:48:10",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long bamboo neck on the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/C_ref/sdxl_base_ref/S009_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "long bamboo neck visible"
+   },
+   "giay": 1.0
+  },
+  {
+   "t": "15:48:10",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a large, intricately carved gourd resonator on the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "instrument has resonator, not gourd"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:48:11",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a large, intricately carved gourd resonator on the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/C_ref/sdxl_base_ref/S009_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "gourd resonator visible, not intricately carved"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "15:48:12",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"shape of the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "wrong instrument, no dan bau"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:48:13",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"shape of the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/C_ref/sdxl_base_ref/S009_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No dan bau visible."
+   },
+   "giay": 1.1
+  },
+  {
+   "t": "15:48:15",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"the neck of the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no neck visible, wrong instrument"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:48:16",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"the neck of the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/C_ref/sdxl_base_ref/S009_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no dan bau visible"
+   },
+   "giay": 1.1
+  },
+  {
+   "t": "15:48:17",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a small piece of bone or metal called the horse of the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/B/S009_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No bone or metal horse."
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:48:18",
+   "prompt_id": "S009",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a small piece of bone or metal called the horse of the dan bau\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S009/C_ref/sdxl_base_ref/S009_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "no bone or metal horse"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:48:18",
+   "prompt_id": "S009",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "main entity",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "small stage",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "dan bau monochord",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ],
+     [
+      "playing the dan bau monochord",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:48:19",
+   "prompt_id": "S009",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "a long bamboo neck on the dan bau"
+    ],
+    "bang_action": [
+     {
+      "action": "a small wooden stage under the musician",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "wooden stage visible, not small"
+     },
+     {
+      "action": "a long bamboo neck on the dan bau",
+      "I0": 0.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "long bamboo neck visible"
+     },
+     {
+      "action": "a large, intricately carved gourd resonator on the dan bau",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "gourd resonator visible, not intricately carved"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "shape of the dan bau",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "No dan bau visible."
+     },
+     {
+      "cue": "the neck of the dan bau",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no dan bau visible"
+     },
+     {
+      "cue": "a small piece of bone or metal called the horse of the dan bau",
+      "I0": 0.0,
+      "I1": null,
+      "fixed": false,
+      "ev_I1": "no bone or metal horse"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "main entity",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "small stage",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "dan bau monochord",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     },
+     {
+      "what": "playing the dan bau monochord",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.6362,
+     "sim_I1": 0.6896
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

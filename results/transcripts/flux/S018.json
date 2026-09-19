@@ -1,0 +1,1010 @@
+{
+ "unit": {
+  "prompt_id": "S018",
+  "prompt_vi": "Dàn cồng chiêng Tây Nguyên diễn quanh đống lửa.",
+  "P_orig": "A Central Highlands gong ensemble performing around a fire.",
+  "P_ct": "A Central Highlands gong ensemble performing around a fire. A Central Highlands gong ensemble performs around a crackling fire during the annual Gong Culture Festival, celebrating the rich spiritual and cultural heritage of the region. The gongs, each representing a sacred deity, emit a resonant melody that echoes through the mountainous landscape, symbolizing unity and community. The musicians, dressed in vibrant traditional attire, gather in a longhouse or stilt house, playing their gongs in a circular formation. The scene is a testament to an ancient tradition that dates back centuries, emphasizing the enduring importance of gong culture for the communities in the Central Highlands. The gong ensemble serves multiple purposes, including rites of passage, ancestral worship, and community bonding, reflecting the deep spiritual and cultural significance of gongs in the region. Just as the fire serves as the focal point for the community, the gong ensemble acts as the heart of the Central Highlands, uniting people from various ethnic groups such as the Rade, Jarai, Bahnar, Mạ, and Lạch in a shared cultural experience.",
+  "P1": "A Central Highlands gong ensemble performing around a fire. A Central Highlands gong ensemble performs around a crackling fire during the annual Gong Culture Festival, celebrating the rich spiritual and cultural heritage of the region. The gongs, each representing a sacred deity, emit a resonant melody that echoes through the mountainous landscape, symbolizing unity and community. The musicians, dressed in vibrant traditional attire, gather in a longhouse or stilt house, playing their gongs in a circular formation. The scene is a testament to an ancient tradition that dates back centuries, emphasizing the enduring importance of gong culture for the communities in the Central Highlands. The gong ensemble serves multiple purposes, including rites of passage, ancestral worship, and community bonding, reflecting the deep spiritual and cultural significance of gongs in the region. Just as the fire serves as the focal point for the community, the gong ensemble acts as the heart of the Central Highlands, uniting people from various ethnic groups such as the Rade, Jarai, Bahnar, Mạ, and Lạch in a shared cultural experience.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: a fire. Make these additions clearly visible:\n1. a Central Highlands gong ensemble performing around a fire.\n2. gongs with diameter from 20 cm to 120 cm.\n3. clearly visible: with or without a knob in the middle.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "dàn cồng chiêng Tây Nguyên",
+     "en": "A Central Highlands gong ensemble"
+    },
+    "subject_attributes": [
+     "dàn cồng chiêng Tây Nguyên",
+     "A Central Highlands gong ensemble"
+    ],
+    "supporting_objects": [
+     "đống lửa",
+     "a fire"
+    ],
+    "background_and_scene": [
+     "đống lửa",
+     "a fire"
+    ],
+    "actions_and_relations": [
+     "dàn cồng chiêng Tây Nguyên diễn quanh đống lửa",
+     "A Central Highlands gong ensemble performing around a fire"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "dàn cồng chiêng Tây Nguyên",
+     "A Central Highlands gong ensemble performing around a fire"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "có hoặc không có núm ở giữa",
+      "cue_en": "with or without a knob in the middle",
+      "visual_check_vi": "Kiểm tra xem cồng chiêng có núm ở giữa hay không.",
+      "quote_vi": "ở giữa có hoặc không có núm",
+      "source_url": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+     },
+     {
+      "cue_vi": "đường kính từ 20 cm đến 120 cm",
+      "cue_en": "diameter from 20 cm to 120 cm",
+      "visual_check_vi": "Kiểm tra đường kính của cồng chiêng.",
+      "quote_vi": "đường kính khoảng từ 20 cm lên đến 120 cm",
+      "source_url": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "được nam giới sử dụng",
+      "cue_en": "used by men",
+      "visual_check_vi": "Kiểm tra xem người chơi cồng chiêng là nam giới hay không.",
+      "quote_vi": "ở Tây Nguyên cồng chiêng chỉ nam giới được dùng",
+      "source_url": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "cồng chiêng có hình tròn và được làm từ hợp kim đồng",
+      "target_appearance_en": "gongs are round and made of bronze alloy",
+      "source_url": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Cồng chiêng là nhạc cụ thuộc bộ gõ bằng hợp kim đồng",
+     "Cồng chiêng càng to thì tiếng càng trầm, càng nhỏ thì tiếng càng cao",
+     "Cồng chiêng là nhạc khí gõ phổ biến đối với nhiều dân tộc ở Việt Nam",
+     "Sự hình thành nghệ thuật diễn xướng cồng chiêng độc đáo của các dân tộc vùng Tây Nguyên và miền núi phía Bắc",
+     "Cồng chiêng từ lâu đã gắn liền với văn hóa cổ truyền của nhiều dân tộc ở Việt Nam",
+     "Cách sử dụng cồng chiêng của từng dân tộc cũng vì thế khác nhau",
+     "Chiêng trong văn hóa người Kinh",
+     "Chiêng đồng cùng trống cái trở thành hai nhạc khí không thể thiếu trong không gian đình làng và đền thờ Việt",
+     "Các đình làng thường dùng chiêng núm kích thước từ 50 cm trở lên",
+     "Cồng chiêng gắn bó mật thiết với đời sống tín ngưỡng của người Tây Nguyên",
+     "Theo quan niệm của nhiều dân tộc Tây Nguyên, cồng chiêng là vật thiêng, là cầu nối giữa con người và thần linh",
+     "Họ tin rằng mỗi cái cồng, chiếc chiêng đều có thần linh trú ngụ",
+     "Trước khi sử dụng phải trải qua nhiều nghi lễ cúng tế khắt khe, và có những cấm kị tùy theo quan niệm mỗi dân tộc",
+     "Người ta còn gọi tên từng chiếc chiêng như con người",
+     "Văn hóa cồng chiêng Tây Nguyên đã phản ánh một xã hội ở cấp độ nguyên sơ nhất của con người",
+     "Nếu ở dân tộc Mường người đánh chiêng thường là nữ, thì ở Tây Nguyên cồng chiêng chỉ nam giới được dùng",
+     "Do tính cấp bách giữ gìn văn hóa cồng chiêng, các dân tộc dần dần vượt qua những quan niệm cũ để mọi người có thể cùng nhau tham gia bảo tồn di sản",
+     "Dẫn đầu là sự ra mắt đội cồng chiêng nữ đầu tiên tại Gia Lai - đội chiêng nữ làng Leng (Ba Na) năm 2013",
+     "Bà Đinh Thị Khóp, đội trưởng chia sẻ: 'Với tình yêu và trách nhiệm với văn hóa dân tộc mình, chúng tôi thuyết phục mọi người, già làng đồng ý cho phụ nữ đánh chiêng'",
+     "Nói về sự tham gia của phụ nữ trong diễn xướng cồng chiêng, già làng Jram 'rất vui vì dân làng mình đoàn kết, cùng nhau gìn giữ tiếng chiêng, tiếng trống của ông bà và thế hệ đi trước để lại'",
+     "Chính vì tính nguyên bản và cấp bách trong việc bảo tồn, lưu giữ, Không gian văn hóa cồng chiêng Tây Nguyên đã được UNESCO công nhận là Di sản",
+     "Nếu xem văn hóa cồng chiêng Đông Nam Á là một cây đại thụ thì văn hóa cồng chiêng Tây Nguyên chính là một phần cội rễ",
+     "Phát huy di sản này như thế nào, tương lai của cồng chiêng Tây Nguyên sẽ ra sao là một câu hỏi mà để trả lời phải cần thêm sự góp sức nhiệt tình của các nhà nghiên cứu, rộng hơn là của cả cộng đồng",
+     "Cồng chiêng trong không gian văn hóa miền núi phía Bắc",
+     "Âm thanh cồng chiêng đồng hành cùng nhiều phương diện đời sống văn hóa người Mường",
+     "Một dàn chiêng Mường đầy đủ lên đến 12 chiếc, tượng trưng cho 12 tháng trong năm",
+     "Một 'phường bùa' gồm 12 người sẽ được tập hợp lại, vừa gióng chiêng vừa đi sang từng gia đình để hát chúc Tết",
+     "Trước khi đánh Sắc bùa, người ta phải thực hiện nghi thức gọi chiêng dậy"
+    ],
+    "insufficient_evidence": [
+     "Màu sắc của cồng chiêng",
+     "Kiểu trang trí trên cồng chiêng",
+     "Vị trí của cồng chiêng trong dàn nhạc",
+     "identity_cues: 'hình tròn' — quote không nguyên văn trong bài / URL lạ",
+     "conditional_cues: 'được sử dụng trong các nghi lễ' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "group of people around fire",
+    "central person facing fire",
+    "people holding round objects"
+   ],
+   "clothing_and_appearance": [
+    "red and black patterned clothing",
+    "head coverings on most people",
+    "dark clothing on central person"
+   ],
+   "foreground_objects": [
+    "fire with visible flames",
+    "rocks surrounding fire",
+    "dirt ground"
+   ],
+   "supporting_objects": [
+    "round objects held by people",
+    "sticks held by some people"
+   ],
+   "background": [
+    "dark mountains in distance",
+    "thatched roof structure",
+    "night sky with faint stars"
+   ],
+   "actions": [
+    "people standing in circle",
+    "central person gesturing towards fire",
+    "people holding objects above shoulders"
+   ],
+   "spatial_relations": [
+    "people encircling central figure",
+    "fire at center of group",
+    "thatched structure behind group"
+   ],
+   "colors": [
+    "red and black clothing",
+    "orange fire",
+    "dark ground and mountains",
+    "blue night sky"
+   ],
+   "counts": {
+    "people": 12,
+    "round objects": 8,
+    "sticks": 4
+   },
+   "visible_effects": [
+    "smoke rising from fire",
+    "spark from fire",
+    "shadows cast by firelight"
+   ],
+   "uncertain": [
+    "top of mountains",
+    "details of distant structure",
+    "faces of people"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "A Central Highlands gong ensemble"
+   ],
+   "missing_cultural_identity": [
+    "with or without a knob in the middle",
+    "diameter from 20 cm to 120 cm"
+   ],
+   "contradictions": [
+    "sticks held by some people"
+   ],
+   "already_satisfied": [
+    "group of people around fire",
+    "central person facing fire",
+    "people holding round objects",
+    "fire with visible flames",
+    "rocks surrounding fire",
+    "dirt ground",
+    "dark mountains in distance",
+    "thatched roof structure",
+    "night sky with faint stars",
+    "people standing in circle",
+    "central person gesturing towards fire",
+    "people holding objects above shoulders",
+    "people encircling central figure",
+    "fire at center of group",
+    "thatched structure behind group",
+    "red and black clothing",
+    "orange fire",
+    "dark ground and mountains",
+    "blue night sky",
+    "smoke rising from fire",
+    "spark from fire",
+    "shadows cast by firelight"
+   ],
+   "uncertain_no_repair": [
+    "top of mountains",
+    "details of distant structure",
+    "faces of people"
+   ],
+   "repair_actions": [
+    "a Central Highlands gong ensemble performing around a fire",
+    "gongs with diameter from 20 cm to 120 cm"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "a Central Highlands gong ensemble performing around a fire",
+   "gongs with diameter from 20 cm to 120 cm",
+   "clearly visible: with or without a knob in the middle"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S018/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S018/02.jpg"
+  ],
+  "images": {
+   "A": "S018_flux_txt.png",
+   "B (I0)": "S018_flux_txt.png",
+   "C (I1)": "S018_flux_ref.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "20:04:19",
+   "prompt_id": "S018",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Dàn cồng chiêng Tây Nguyên diễn quanh đống lửa.\nPROMPT EN: A Central Highlands gong ensemble performing around a fire.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "dàn cồng chiêng Tây Nguyên",
+      "en": "A Central Highlands gong ensemble"
+     },
+     "subject_attributes": [
+      "dàn cồng chiêng Tây Nguyên",
+      "A Central Highlands gong ensemble"
+     ],
+     "supporting_objects": [
+      "đống lửa",
+      "a fire"
+     ],
+     "background_and_scene": [
+      "đống lửa",
+      "a fire"
+     ],
+     "actions_and_relations": [
+      "dàn cồng chiêng Tây Nguyên diễn quanh đống lửa",
+      "A Central Highlands gong ensemble performing around a fire"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "dàn cồng chiêng Tây Nguyên",
+      "A Central Highlands gong ensemble performing around a fire"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:04:19",
+   "prompt_id": "S018",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Dàn cồng chiêng Tây Nguyên diễn quanh đống lửa.\nPROMPT EN: A Central Highlands gong ensemble performing around a fire.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Cồng chiêng — https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng ===\nCồng chiêng là nhạc cụ thuộc bộ gõ bằng hợp kim đồng, hình tròn, ở giữa có hoặc không có núm, đường kính khoảng từ 20 cm lên đến 120 cm. Cồng chiêng càng to thì tiếng càng trầm, càng nhỏ thì tiếng càng cao. Cồng chiêng là nhạc khí gõ phổ biến đối với nhiều dân tộc ở Việt Nam. Sự hình thành nghệ thuật diễn xướng cồng chiêng độc đáo của các dân tộc vùng Tây Nguyên (Ê Đê, Gia Rai, Ba Na...) và miền núi phía Bắc (Mường, Thái, Thổ...) đã tạo nên những không gian văn hóa rất riêng. Tùy theo mỗi dân tộc họ lại có tên gọi và cách định danh khác biệt với cồng chiêng. Cồng chiêng và văn hóa dân gian Việt Nam Cồng chiêng từ lâu đã gắn liền với văn hóa cổ truyền của nhiều dân tộc ở Việt Nam, từ lễ nghi, phong tục đến tín ngưỡng dân gian. Cách sử dụng cồng chiêng của từng dân tộc cũng vì thế khác nhau. Chiêng trong văn hóa người Kinh Đối với đông đảo người Việt, tiếng chiêng, tiếng trống đã đi liền với muôn mặt đời sống tinh thần, từ những đám rước mỗi dịp hội làng đến những nghi lễ tế thánh, tế Thành hoàng... Chiêng đồng cùng trống cái trở thành hai nhạc khí không thể thiếu trong không gian đình làng và đền thờ Việt. Các đình làng thường dùng chiêng núm kích thước từ 50 cm trở lên. Văn hóa cồng chiêng Tây Nguyên Cồng chiêng gắn bó mật thiết với đời sống tín ngưỡng của người Tây Nguyên. Theo quan niệm của nhiều dân tộc Tây Nguyên, cồng chiêng là vật thiêng, là cầu nối giữa con người và thần linh (Yàng). Họ tin rằng mỗi cái cồng, chiếc chiêng đều có thần linh trú ngụ; trước khi sử dụng phải trải qua nhiều nghi lễ cúng tế khắt khe, và có những cấm kị tùy theo quan niệm mỗi dân tộc. Người ta còn gọi tên từng chiếc chiêng như con người: dân tộc Brâu gọi hai chiếc chiêng Tha là chiêng vợ, chiêng chồng; dân tộc Ê Đê gọi 6 chiêng dàn Jho là chiêng cha, chiêng mẹ, chiêng con... Có thể suy luận rằng, văn hóa cồng chiêng Tây Nguyên đã phản ánh một xã hội ở cấp độ nguyên sơ nhất của con người mà ở đó, cồng chiêng vẫn còn giữ được những đặc điểm tương đối nguyên bản, chưa phát triển thành một nhạc cụ dân gian hay nhạc cụ cung đình như những nước Đông Nam Á khác. Nếu ở dân tộc Mường người đánh chiêng thường là nữ, thì ở Tây Nguyên cồng chiêng chỉ nam giới được dùng. Tuy nhiên, do tính cấp bách giữ gìn văn hóa cồng chiêng, các dân tộc dần dần vượt qua những quan niệm cũ để mọi người có thể cùng nhau tham gia bảo tồn di sản. Dẫn đầu là sự ra mắt đội cồng chiêng nữ đầu tiên tại Gia Lai - đội chiêng nữ làng Leng (Ba Na) năm 2013. Bà Đinh Thị Khóp, đội trưởng chia sẻ: \"Với tình yêu và trách nhiệm với văn hóa dân tộc mình, chúng tôi thuyết phục mọi người, già làng đồng ý cho phụ nữ đánh chiêng\". Nói về sự tham gia của phụ nữ trong diễn xướng cồng chiêng, già làng Jram “rất vui vì dân làng mình đoàn kết, cùng nhau gìn giữ tiếng chiêng, tiếng trống của ông bà và thế hệ đi trước để lại”. Chính vì tính nguyên bản và cấp bách trong việc bảo tồn, lưu giữ, Không gian văn hóa cồng chiêng Tây Nguyên đã được UNESCO công nhận là Di sản. Nếu xem văn hóa cồng chiêng Đông Nam Á là một cây đại thụ thì văn hóa cồng chiêng Tây Nguyên chính là một phần cội rễ; đó là nơi khởi nguồn, phát xuất cho mọi mạch nguồn sáng tạo. Phát huy di sản này như thế nào, tương lai của cồng chiêng Tây Nguyên sẽ ra sao là một câu hỏi mà để trả lời phải cần thêm sự góp sức nhiệt tình của các nhà nghiên cứu, rộng hơn là của cả cộng đồng. Cồng chiêng trong không gian văn hóa miền núi phía Bắc Các dân tộc miền núi phía Bắc Việt Nam như Mường, Thái, Thổ, La Chí... cũng dùng cồng chiêng, từ vai trò là một phương tiện thông tin đến nhạc khí dùng trong các nghi lễ, lễ hội. Âm thanh cồng chiêng đồng hành cùng nhiều phương diện đời sống văn hóa người Mường, nổi bật nhất phải kể đến tục Sắc bùa vào dịp đầu năm. Một dàn chiêng Mường đầy đủ lên đến 12 chiếc, tượng trưng cho 12 tháng trong năm. Một \"phường bùa\" gồm 12 người sẽ được tập hợp lại, vừa gióng chiêng vừa đi sang từng gia đình để hát chúc Tết. Trước khi đánh Sắc bùa, người ta phải thực hiện nghi thức gọi chiêng dậy (zấyl chiêng).\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "có hoặc không có núm ở giữa",
+       "cue_en": "with or without a knob in the middle",
+       "visual_check_vi": "Kiểm tra xem cồng chiêng có núm ở giữa hay không.",
+       "quote_vi": "ở giữa có hoặc không có núm",
+       "source_url": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+      },
+      {
+       "cue_vi": "đường kính từ 20 cm đến 120 cm",
+       "cue_en": "diameter from 20 cm to 120 cm",
+       "visual_check_vi": "Kiểm tra đường kính của cồng chiêng.",
+       "quote_vi": "đường kính khoảng từ 20 cm lên đến 120 cm",
+       "source_url": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "được nam giới sử dụng",
+       "cue_en": "used by men",
+       "visual_check_vi": "Kiểm tra xem người chơi cồng chiêng là nam giới hay không.",
+       "quote_vi": "ở Tây Nguyên cồng chiêng chỉ nam giới được dùng",
+       "source_url": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "cồng chiêng có hình tròn và được làm từ hợp kim đồng",
+       "target_appearance_en": "gongs are round and made of bronze alloy",
+       "source_url": "https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Cồng chiêng là nhạc cụ thuộc bộ gõ bằng hợp kim đồng",
+      "Cồng chiêng càng to thì tiếng càng trầm, càng nhỏ thì tiếng càng cao",
+      "Cồng chiêng là nhạc khí gõ phổ biến đối với nhiều dân tộc ở Việt Nam",
+      "Sự hình thành nghệ thuật diễn xướng cồng chiêng độc đáo của các dân tộc vùng Tây Nguyên và miền núi phía Bắc",
+      "Cồng chiêng từ lâu đã gắn liền với văn hóa cổ truyền của nhiều dân tộc ở Việt Nam",
+      "Cách sử dụng cồng chiêng của từng dân tộc cũng vì thế khác nhau",
+      "Chiêng trong văn hóa người Kinh",
+      "Chiêng đồng cùng trống cái trở thành hai nhạc khí không thể thiếu trong không gian đình làng và đền thờ Việt",
+      "Các đình làng thường dùng chiêng núm kích thước từ 50 cm trở lên",
+      "Cồng chiêng gắn bó mật thiết với đời sống tín ngưỡng của người Tây Nguyên",
+      "Theo quan niệm của nhiều dân tộc Tây Nguyên, cồng chiêng là vật thiêng, là cầu nối giữa con người và thần linh",
+      "Họ tin rằng mỗi cái cồng, chiếc chiêng đều có thần linh trú ngụ",
+      "Trước khi sử dụng phải trải qua nhiều nghi lễ cúng tế khắt khe, và có những cấm kị tùy theo quan niệm mỗi dân tộc",
+      "Người ta còn gọi tên từng chiếc chiêng như con người",
+      "Văn hóa cồng chiêng Tây Nguyên đã phản ánh một xã hội ở cấp độ nguyên sơ nhất của con người",
+      "Nếu ở dân tộc Mường người đánh chiêng thường là nữ, thì ở Tây Nguyên cồng chiêng chỉ nam giới được dùng",
+      "Do tính cấp bách giữ gìn văn hóa cồng chiêng, các dân tộc dần dần vượt qua những quan niệm cũ để mọi người có thể cùng nhau tham gia bảo tồn di sản",
+      "Dẫn đầu là sự ra mắt đội cồng chiêng nữ đầu tiên tại Gia Lai - đội chiêng nữ làng Leng (Ba Na) năm 2013",
+      "Bà Đinh Thị Khóp, đội trưởng chia sẻ: 'Với tình yêu và trách nhiệm với văn hóa dân tộc mình, chúng tôi thuyết phục mọi người, già làng đồng ý cho phụ nữ đánh chiêng'",
+      "Nói về sự tham gia của phụ nữ trong diễn xướng cồng chiêng, già làng Jram 'rất vui vì dân làng mình đoàn kết, cùng nhau gìn giữ tiếng chiêng, tiếng trống của ông bà và thế hệ đi trước để lại'",
+      "Chính vì tính nguyên bản và cấp bách trong việc bảo tồn, lưu giữ, Không gian văn hóa cồng chiêng Tây Nguyên đã được UNESCO công nhận là Di sản",
+      "Nếu xem văn hóa cồng chiêng Đông Nam Á là một cây đại thụ thì văn hóa cồng chiêng Tây Nguyên chính là một phần cội rễ",
+      "Phát huy di sản này như thế nào, tương lai của cồng chiêng Tây Nguyên sẽ ra sao là một câu hỏi mà để trả lời phải cần thêm sự góp sức nhiệt tình của các nhà nghiên cứu, rộng hơn là của cả cộng đồng",
+      "Cồng chiêng trong không gian văn hóa miền núi phía Bắc",
+      "Âm thanh cồng chiêng đồng hành cùng nhiều phương diện đời sống văn hóa người Mường",
+      "Một dàn chiêng Mường đầy đủ lên đến 12 chiếc, tượng trưng cho 12 tháng trong năm",
+      "Một 'phường bùa' gồm 12 người sẽ được tập hợp lại, vừa gióng chiêng vừa đi sang từng gia đình để hát chúc Tết",
+      "Trước khi đánh Sắc bùa, người ta phải thực hiện nghi thức gọi chiêng dậy"
+     ],
+     "insufficient_evidence": [
+      "Màu sắc của cồng chiêng",
+      "Kiểu trang trí trên cồng chiêng",
+      "Vị trí của cồng chiêng trong dàn nhạc",
+      "identity_cues: 'hình tròn' — quote không nguyên văn trong bài / URL lạ",
+      "conditional_cues: 'được sử dụng trong các nghi lễ' — quote có thật nhưng không nói về cue"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:04:19",
+   "prompt_id": "S018",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 1,
+    "loai": [
+     "identity_cues: 'hình tròn' — quote không nguyên văn trong bài / URL lạ",
+     "conditional_cues: 'được sử dụng trong các nghi lễ' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:04:31",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "group of people around fire",
+     "central person facing fire",
+     "people holding round objects"
+    ],
+    "clothing_and_appearance": [
+     "red and black patterned clothing",
+     "head coverings on most people",
+     "dark clothing on central person"
+    ],
+    "foreground_objects": [
+     "fire with visible flames",
+     "rocks surrounding fire",
+     "dirt ground"
+    ],
+    "supporting_objects": [
+     "round objects held by people",
+     "sticks held by some people"
+    ],
+    "background": [
+     "dark mountains in distance",
+     "thatched roof structure",
+     "night sky with faint stars"
+    ],
+    "actions": [
+     "people standing in circle",
+     "central person gesturing towards fire",
+     "people holding objects above shoulders"
+    ],
+    "spatial_relations": [
+     "people encircling central figure",
+     "fire at center of group",
+     "thatched structure behind group"
+    ],
+    "colors": [
+     "red and black clothing",
+     "orange fire",
+     "dark ground and mountains",
+     "blue night sky"
+    ],
+    "counts": {
+     "people": 12,
+     "round objects": 8,
+     "sticks": 4
+    },
+    "visible_effects": [
+     "smoke rising from fire",
+     "spark from fire",
+     "shadows cast by firelight"
+    ],
+    "uncertain": [
+     "top of mountains",
+     "details of distant structure",
+     "faces of people"
+    ]
+   },
+   "giay": 12.4
+  },
+  {
+   "t": "20:05:23",
+   "prompt_id": "S018",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A Central Highlands gong ensemble performing around a fire.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA Central Highlands gong ensemble performs around a crackling fire during the annual Gong Culture Festival, celebrating the rich spiritual and cultural heritage of the region. The gongs, each representing a sacred deity, emit a resonant melody that echoes through the mountainous landscape, symbolizing unity and community. The musicians, dressed in vibrant traditional attire, gather in a longhouse or stilt house, playing their gongs in a circular formation. The scene is a testament to an ancient tradition that dates back centuries, emphasizing the enduring importance of gong culture for the communities in the Central Highlands. The gong ensemble serves multiple purposes, including rites of passage, ancestral worship, and community bonding, reflecting the deep spiritual and cultural significance of gongs in the region. Just as the fire serves as the focal point for the community, the gong ensemble acts as the heart of the Central Highlands, uniting people from various ethnic groups such as the Rade, Jarai, Bahnar, Mạ, and Lạch in a shared cultural experience.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"dàn cồng chiêng Tây Nguyên\", \"en\": \"A Central Highlands gong ensemble\"}, \"subject_attributes\": [\"dàn cồng chiêng Tây Nguyên\", \"A Central Highlands gong ensemble\"], \"supporting_objects\": [\"đống lửa\", \"a fire\"], \"background_and_scene\": [\"đống lửa\", \"a fire\"], \"actions_and_relations\": [\"dàn cồng chiêng Tây Nguyên diễn quanh đống lửa\", \"A Central Highlands gong ensemble performing around a fire\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"dàn cồng chiêng Tây Nguyên\", \"A Central Highlands gong ensemble performing around a fire\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"có hoặc không có núm ở giữa\", \"cue_en\": \"with or without a knob in the middle\", \"visual_check_vi\": \"Kiểm tra xem cồng chiêng có núm ở giữa hay không.\", \"quote_vi\": \"ở giữa có hoặc không có núm\", \"source_url\": \"https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng\"}, {\"cue_vi\": \"đường kính từ 20 cm đến 120 cm\", \"cue_en\": \"diameter from 20 cm to 120 cm\", \"visual_check_vi\": \"Kiểm tra đường kính của cồng chiêng.\", \"quote_vi\": \"đường kính khoảng từ 20 cm lên đến 120 cm\", \"source_url\": \"https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng\"}], \"conditional_cues\": [{\"cue_vi\": \"được nam giới sử dụng\", \"cue_en\": \"used by men\", \"visual_check_vi\": \"Kiểm tra xem người chơi cồng chiêng là nam giới hay không.\", \"quote_vi\": \"ở Tây Nguyên cồng chiêng chỉ nam giới được dùng\", \"source_url\": \"https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"cồng chiêng có hình tròn và được làm từ hợp kim đồng\", \"target_appearance_en\": \"gongs are round and made of bronze alloy\", \"source_url\": \"https://vi.wikipedia.org/wiki/C%E1%BB%93ng_chi%C3%AAng\"}], \"discarded_nonvisual_facts\": [\"Cồng chiêng là nhạc cụ thuộc bộ gõ bằng hợp kim đồng\", \"Cồng chiêng càng to thì tiếng càng trầm, càng nhỏ thì tiếng càng cao\", \"Cồng chiêng là nhạc khí gõ phổ biến đối với nhiều dân tộc ở Việt Nam\", \"Sự hình thành nghệ thuật diễn xướng cồng chiêng độc đáo của các dân tộc vùng Tây Nguyên và miền núi phía Bắc\", \"Cồng chiêng từ lâu đã gắn liền với văn hóa cổ truyền của nhiều dân tộc ở Việt Nam\", \"Cách sử dụng cồng chiêng của từng dân tộc cũng vì thế khác nhau\", \"Chiêng trong văn hóa người Kinh\", \"Chiêng đồng cùng trống cái trở thành hai nhạc khí không thể thiếu trong không gian đình làng và đền thờ Việt\", \"Các đình làng thường dùng chiêng núm kích thước từ 50 cm trở lên\", \"Cồng chiêng gắn bó mật thiết với đời sống tín ngưỡng của người Tây Nguyên\", \"Theo quan niệm của nhiều dân tộc Tây Nguyên, cồng chiêng là vật thiêng, là cầu nối giữa con người và thần linh\", \"Họ tin rằng mỗi cái cồng, chiếc chiêng đều có thần linh trú ngụ\", \"Trước khi sử dụng phải trải qua nhiều nghi lễ cúng tế khắt khe, và có những cấm kị tùy theo quan niệm mỗi dân tộc\", \"Người ta còn gọi tên từng chiếc chiêng như con người\", \"Văn hóa cồng chiêng Tây Nguyên đã phản ánh một xã hội ở cấp độ nguyên sơ nhất của con người\", \"Nếu ở dân tộc Mường người đánh chiêng thường là nữ, thì ở Tây Nguyên cồng chiêng chỉ nam giới được dùng\", \"Do tính cấp bách giữ gìn văn hóa cồng chiêng, các dân tộc dần dần vượt qua những quan niệm cũ để mọi người có thể cùng nhau tham gia bảo tồn di sản\", \"Dẫn đầu là sự ra mắt đội cồng chiêng nữ đầu tiên tại Gia Lai - đội chiêng nữ làng Leng (Ba Na) năm 2013\", \"Bà Đinh Thị Khóp, đội trưởng chia sẻ: 'Với tình yêu và trách nhiệm với văn hóa dân tộc mình, chúng tôi thuyết phục mọi người, già làng đồng ý cho phụ nữ đánh chiêng'\", \"Nói về sự tham gia của phụ nữ trong diễn xướng cồng chiêng, già làng Jram 'rất vui vì dân làng mình đoàn kết, cùng nhau gìn giữ tiếng chiêng, tiếng trống của ông bà và thế hệ đi trước để lại'\", \"Chính vì tính nguyên bản và cấp bách trong việc bảo tồn, lưu giữ, Không gian văn hóa cồng chiêng Tây Nguyên đã được UNESCO công nhận là Di sản\", \"Nếu xem văn hóa cồng chiêng Đông Nam Á là một cây đại thụ thì văn hóa cồng chiêng Tây Nguyên chính là một phần cội rễ\", \"Phát huy di sản này như thế nào, tương lai của cồng chiêng Tây Nguyên sẽ ra sao là một câu hỏi mà để trả lời phải cần thêm sự góp sức nhiệt tình của các nhà nghiên cứu, rộng hơn là của cả cộng đồng\", \"Cồng chiêng trong không gian văn hóa miền núi phía Bắc\", \"Âm thanh cồng chiêng đồng hành cùng nhiều phương diện đời sống văn hóa người Mường\", \"Một dàn chiêng Mường đầy đủ lên đến 12 chiếc, tượng trưng cho 12 tháng trong năm\", \"Một 'phường bùa' gồm 12 người sẽ được tập hợp lại, vừa gióng chiêng vừa đi sang từng gia đình để hát chúc Tết\", \"Trước khi đánh Sắc bùa, người ta phải thực hiện nghi thức gọi chiêng dậy\"], \"insufficient_evidence\": [\"Màu sắc của cồng chiêng\", \"Kiểu trang trí trên cồng chiêng\", \"Vị trí của cồng chiêng trong dàn nhạc\", \"identity_cues: 'hình tròn' — quote không nguyên văn trong bài / URL lạ\", \"conditional_cues: 'được sử dụng trong các nghi lễ' — quote có thật nhưng không nói về cue\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"group of people around fire\", \"central person facing fire\", \"people holding round objects\"], \"clothing_and_appearance\": [\"red and black patterned clothing\", \"head coverings on most people\", \"dark clothing on central person\"], \"foreground_objects\": [\"fire with visible flames\", \"rocks surrounding fire\", \"dirt ground\"], \"supporting_objects\": [\"round objects held by people\", \"sticks held by some people\"], \"background\": [\"dark mountains in distance\", \"thatched roof structure\", \"night sky with faint stars\"], \"actions\": [\"people standing in circle\", \"central person gesturing towards fire\", \"people holding objects above shoulders\"], \"spatial_relations\": [\"people encircling central figure\", \"fire at center of group\", \"thatched structure behind group\"], \"colors\": [\"red and black clothing\", \"orange fire\", \"dark ground and mountains\", \"blue night sky\"], \"counts\": {\"people\": 12, \"round objects\": 8, \"sticks\": 4}, \"visible_effects\": [\"smoke rising from fire\", \"spark from fire\", \"shadows cast by firelight\"], \"uncertain\": [\"top of mountains\", \"details of distant structure\", \"faces of people\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "A Central Highlands gong ensemble"
+    ],
+    "missing_cultural_identity": [
+     "with or without a knob in the middle",
+     "diameter from 20 cm to 120 cm"
+    ],
+    "contradictions": [
+     "sticks held by some people"
+    ],
+    "already_satisfied": [
+     "group of people around fire",
+     "central person facing fire",
+     "people holding round objects",
+     "fire with visible flames",
+     "rocks surrounding fire",
+     "dirt ground",
+     "dark mountains in distance",
+     "thatched roof structure",
+     "night sky with faint stars",
+     "people standing in circle",
+     "central person gesturing towards fire",
+     "people holding objects above shoulders",
+     "people encircling central figure",
+     "fire at center of group",
+     "thatched structure behind group",
+     "red and black clothing",
+     "orange fire",
+     "dark ground and mountains",
+     "blue night sky",
+     "smoke rising from fire",
+     "spark from fire",
+     "shadows cast by firelight"
+    ],
+    "uncertain_no_repair": [
+     "top of mountains",
+     "details of distant structure",
+     "faces of people"
+    ],
+    "repair_actions": [
+     "a Central Highlands gong ensemble performing around a fire",
+     "gongs with diameter from 20 cm to 120 cm"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 51.8
+  },
+  {
+   "t": "20:05:23",
+   "prompt_id": "S018",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a Central Highlands gong ensemble performing around a fire",
+     "gongs with diameter from 20 cm to 120 cm"
+    ],
+    "bo": [
+     "gongs with or without a knob in the middle"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:05:24",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a Central Highlands gong ensemble performing around a fire\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "people around fire, some with drums"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:05:26",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"gongs with diameter from 20 cm to 120 cm\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "gongs are visible, but sizes vary"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "20:05:27",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"with or without a knob in the middle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No knob visible."
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:05:27",
+   "prompt_id": "S018",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a Central Highlands gong ensemble performing around a fire",
+      5.0
+     ],
+     [
+      "gongs with diameter from 20 cm to 120 cm",
+      5.0
+     ],
+     [
+      "clearly visible: with or without a knob in the middle",
+      0.0
+     ]
+    ],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:05:27",
+   "prompt_id": "S018",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A Central Highlands gong ensemble performing around a fire. A Central Highlands gong ensemble performs around a crackling fire during the annual Gong Culture Festival, celebrating the rich spiritual and cultural heritage of the region. The gongs, each representing a sacred deity, emit a resonant melody that echoes through the mountainous landscape, symbolizing unity and community. The musicians, dressed in vibrant traditional attire, gather in a longhouse or stilt house, playing their gongs in a circular formation. The scene is a testament to an ancient tradition that dates back centuries, emphasizing the enduring importance of gong culture for the communities in the Central Highlands. The gong ensemble serves multiple purposes, including rites of passage, ancestral worship, and community bonding, reflecting the deep spiritual and cultural significance of gongs in the region. Just as the fire serves as the focal point for the community, the gong ensemble acts as the heart of the Central Highlands, uniting people from various ethnic groups such as the Rade, Jarai, Bahnar, Mạ, and Lạch in a shared cultural experience.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: a fire. Make these additions clearly visible:\n1. a Central Highlands gong ensemble performing around a fire.\n2. gongs with diameter from 20 cm to 120 cm.\n3. clearly visible: with or without a knob in the middle."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:06:11",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/C_ref/S018_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "group of people around fire",
+     "thatched roof huts",
+     "mountains in background"
+    ],
+    "clothing_and_appearance": [
+     "people wearing patterned skirts",
+     "people wearing sleeveless tops",
+     "people wearing headbands",
+     "people holding sticks with objects"
+    ],
+    "foreground_objects": [
+     "fire in center",
+     "people sitting on ground"
+    ],
+    "supporting_objects": [
+     "sticks with objects held by people",
+     "drums near huts"
+    ],
+    "background": [
+     "hilly landscape",
+     "thatched roof huts",
+     "mountains in distance",
+     "trees near huts"
+    ],
+    "actions": [
+     "people gathered around fire",
+     "people holding sticks with objects",
+     "fire burning brightly"
+    ],
+    "spatial_relations": [
+     "people surrounding central fire",
+     "huts behind people",
+     "mountains far in background",
+     "trees near huts"
+    ],
+    "colors": [
+     "warm orange from fire",
+     "dark blue of evening sky",
+     "patterned colors on clothing",
+     "earthy tones of huts and ground"
+    ],
+    "counts": {
+     "people": 12,
+     "huts": 4,
+     "drums": 2
+    },
+    "visible_effects": [
+     "smoke rising from fire",
+     "glow from fire illuminating people",
+     "shadows cast by fire"
+    ],
+    "uncertain": [
+     "top of mountains",
+     "details of distant landscape",
+     "objects on sticks held by people"
+    ]
+   },
+   "giay": 13.2
+  },
+  {
+   "t": "20:06:15",
+   "prompt_id": "S018",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"dàn cồng chiêng Tây Nguyên\", \"en\": \"A Central Highlands gong ensemble\"}, \"subject_attributes\": [\"dàn cồng chiêng Tây Nguyên\", \"A Central Highlands gong ensemble\"], \"supporting_objects\": [\"đống lửa\", \"a fire\"], \"background_and_scene\": [\"đống lửa\", \"a fire\"], \"actions_and_relations\": [\"dàn cồng chiêng Tây Nguyên diễn quanh đống lửa\", \"A Central Highlands gong ensemble performing around a fire\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"dàn cồng chiêng Tây Nguyên\", \"A Central Highlands gong ensemble performing around a fire\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a Central Highlands gong ensemble performing around a fire\", \"gongs with diameter from 20 cm to 120 cm\", \"clearly visible: with or without a knob in the middle\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"group of people around fire\", \"central person facing fire\", \"people holding round objects\"], \"clothing_and_appearance\": [\"red and black patterned clothing\", \"head coverings on most people\", \"dark clothing on central person\"], \"foreground_objects\": [\"fire with visible flames\", \"rocks surrounding fire\", \"dirt ground\"], \"supporting_objects\": [\"round objects held by people\", \"sticks held by some people\"], \"background\": [\"dark mountains in distance\", \"thatched roof structure\", \"night sky with faint stars\"], \"actions\": [\"people standing in circle\", \"central person gesturing towards fire\", \"people holding objects above shoulders\"], \"spatial_relations\": [\"people encircling central figure\", \"fire at center of group\", \"thatched structure behind group\"], \"colors\": [\"red and black clothing\", \"orange fire\", \"dark ground and mountains\", \"blue night sky\"], \"counts\": {\"people\": 12, \"round objects\": 8, \"sticks\": 4}, \"visible_effects\": [\"smoke rising from fire\", \"spark from fire\", \"shadows cast by firelight\"], \"uncertain\": [\"top of mountains\", \"details of distant structure\", \"faces of people\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"group of people around fire\", \"thatched roof huts\", \"mountains in background\"], \"clothing_and_appearance\": [\"people wearing patterned skirts\", \"people wearing sleeveless tops\", \"people wearing headbands\", \"people holding sticks with objects\"], \"foreground_objects\": [\"fire in center\", \"people sitting on ground\"], \"supporting_objects\": [\"sticks with objects held by people\", \"drums near huts\"], \"background\": [\"hilly landscape\", \"thatched roof huts\", \"mountains in distance\", \"trees near huts\"], \"actions\": [\"people gathered around fire\", \"people holding sticks with objects\", \"fire burning brightly\"], \"spatial_relations\": [\"people surrounding central fire\", \"huts behind people\", \"mountains far in background\", \"trees near huts\"], \"colors\": [\"warm orange from fire\", \"dark blue of evening sky\", \"patterned colors on clothing\", \"earthy tones of huts and ground\"], \"counts\": {\"people\": 12, \"huts\": 4, \"drums\": 2}, \"visible_effects\": [\"smoke rising from fire\", \"glow from fire illuminating people\", \"shadows cast by fire\"], \"uncertain\": [\"top of mountains\", \"details of distant landscape\", \"objects on sticks held by people\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "A Central Highlands gong ensemble performing around a fire",
+     "gongs with diameter from 20 cm to 120 cm"
+    ],
+    "regressions": [
+     {
+      "what": "A Central Highlands gong ensemble",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "a fire"
+    ]
+   },
+   "giay": 3.4
+  },
+  {
+   "t": "20:06:15",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a Central Highlands gong ensemble performing around a fire\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "people around fire, some with drums"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:06:16",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a Central Highlands gong ensemble performing around a fire\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/C_ref/S018_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "people around fire, no gongs"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:06:16",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"gongs with diameter from 20 cm to 120 cm\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "gongs are visible, but sizes vary"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:06:18",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"gongs with diameter from 20 cm to 120 cm\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/C_ref/S018_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "gongs visible, but sizes unclear"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:06:19",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: with or without a knob in the middle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no knob or similar object"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:06:20",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"clearly visible: with or without a knob in the middle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/C_ref/S018_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no knob visible"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:06:20",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"with or without a knob in the middle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No knob visible."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:06:22",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"with or without a knob in the middle\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/C_ref/S018_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No knob visible."
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:06:23",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"diameter from 20 cm to 120 cm\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "No round objects in view."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:06:24",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"diameter from 20 cm to 120 cm\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/C_ref/S018_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "no circles or diameters"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "20:06:26",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"gongs are round and made of bronze alloy\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/B/S018_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "round objects, not clear material"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:06:27",
+   "prompt_id": "S018",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"gongs are round and made of bronze alloy\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S018/C_ref/S018_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "gongs are round, material unclear"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:06:27",
+   "prompt_id": "S018",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "A Central Highlands gong ensemble",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:06:28",
+   "prompt_id": "S018",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "A Central Highlands gong ensemble performing around a fire",
+     "gongs with diameter from 20 cm to 120 cm"
+    ],
+    "bang_action": [
+     {
+      "action": "a Central Highlands gong ensemble performing around a fire",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "people around fire, no gongs"
+     },
+     {
+      "action": "gongs with diameter from 20 cm to 120 cm",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "gongs visible, but sizes unclear"
+     },
+     {
+      "action": "clearly visible: with or without a knob in the middle",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no knob visible"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "with or without a knob in the middle",
+      "I0": 0.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "No knob visible."
+     },
+     {
+      "cue": "diameter from 20 cm to 120 cm",
+      "I0": 0.0,
+      "I1": null,
+      "fixed": false,
+      "ev_I1": "no circles or diameters"
+     },
+     {
+      "cue": "gongs are round and made of bronze alloy",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "gongs are round, material unclear"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "A Central Highlands gong ensemble",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.7037,
+     "sim_I1": 0.6958
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

@@ -1,0 +1,808 @@
+{
+ "unit": {
+  "prompt_id": "S040",
+  "prompt_vi": "Người phụ nữ đội nón lá đứng bên bờ ruộng lúc chiều muộn.",
+  "P_orig": "A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon.",
+  "P_ct": "A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon. In the heart of rural Vietnam, a woman stands at the edge of a lush green rice field, wearing a traditional conical leaf hat known as a \"nón lá.\" This hat, crafted from intricately woven palm leaves, has been a symbol of resilience and hard work in Vietnamese agricultural life for centuries. As the sun begins to dip below the horizon, casting a warm golden light over the ripening rice stalks, the \"nón lá\" becomes a striking silhouette against the vibrant green backdrop. The hat’s textured weave and earthy tones blend seamlessly with the rustic charm of the scene, making it a quintessential image of rural Vietnamese life.",
+  "P1": "A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon. In the heart of rural Vietnam, a woman stands at the edge of a lush green rice field, wearing a traditional conical leaf hat known as a \"nón lá.\" This hat, crafted from intricately woven palm leaves, has been a symbol of resilience and hard work in Vietnamese agricultural life for centuries. As the sun begins to dip below the horizon, casting a warm golden light over the ripening rice stalks, the \"nón lá\" becomes a striking silhouette against the vibrant green backdrop. The hat’s textured weave and earthy tones blend seamlessly with the rustic charm of the scene, making it a quintessential image of rural Vietnamese life.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: bờ ruộng; edge of a rice field; lúc chiều muộn; in late afternoon. Make these additions clearly visible:\n1. a long dress with long sleeves.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Người phụ nữ",
+     "en": "A woman"
+    },
+    "subject_attributes": [
+     "đội nón lá",
+     "wearing a conical leaf hat"
+    ],
+    "supporting_objects": [
+     "bờ ruộng",
+     "edge of a rice field"
+    ],
+    "background_and_scene": [
+     "lúc chiều muộn",
+     "in late afternoon"
+    ],
+    "actions_and_relations": [
+     "đứng bên"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [
+     "lúc chiều muộn",
+     "in late afternoon"
+    ],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "nón lá",
+     "conical leaf hat",
+     "bờ ruộng",
+     "edge of a rice field",
+     "lúc chiều muộn",
+     "in late afternoon"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "nón lá",
+      "cue_en": "conical leaf hat",
+      "visual_check_vi": "nón làm từ lá",
+      "quote_vi": "Chiếc nón lá thường được đan bằng các loại lá khác nhau như: lá cọ, lá buông, rơm, tre, lá cối, lá hồ, lá dứa, lá dừa,...",
+      "source_url": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "nón ba tầm",
+      "cue_en": "ba tầm hat",
+      "visual_check_vi": "nón phổ biến ở miền Bắc Việt Nam",
+      "quote_vi": "nón ba tầm (loại nón này phổ biến ở miền Bắc Việt Nam)",
+      "source_url": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "nón có hình chóp",
+      "target_appearance_en": "hat with a pointed top",
+      "source_url": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Nón lá xuất hiện vào thế kỉ thứ XIII, thời nhà Trần.",
+     "Nón lá là biểu tượng của Việt Nam.",
+     "Nón lá được chạm khắc trên trống đồng Ngọc Lũ, thạp đồng Đào Thịnh vào khoảng 3000 - 2500 năm TCN.",
+     "Nón lá được xem là quà tặng đặc biệt cho du khách khi đến tham quan Việt Nam.",
+     "Nón lá gắn liền với đời sống tinh thần của nhân dân, với người phụ nữ Việt.",
+     "Nón lá thường đi liền với áo dài."
+    ],
+    "insufficient_evidence": [
+     "Màu sắc của nón lá",
+     "Kích thước của nón lá",
+     "Cách đan nón lá"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "person standing in field",
+    "large conical hat"
+   ],
+   "clothing_and_appearance": [
+    "long green garment",
+    "long dark hair",
+    "brown cloth wrapped around waist"
+   ],
+   "foreground_objects": [
+    "tall green plants",
+    "person's shadow on plants"
+   ],
+   "supporting_objects": [
+    "none visible"
+   ],
+   "background": [
+    "dense green foliage",
+    "bright sky with clouds"
+   ],
+   "actions": [
+    "person looking forward",
+    "person standing still"
+   ],
+   "spatial_relations": [
+    "person in front of plants",
+    "hat above person's face",
+    "plants surrounding person's legs"
+   ],
+   "colors": [
+    "green plants",
+    "green garment",
+    "brown cloth",
+    "dark hair",
+    "gray hat",
+    "bright sky"
+   ],
+   "counts": {
+    "people": 1,
+    "large hats": 1
+   },
+   "visible_effects": [
+    "sunlight creating lens flare",
+    "shadows on plants"
+   ],
+   "uncertain": [
+    "top of hat",
+    "person's feet",
+    "far right side of image"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "edge of a rice field"
+   ],
+   "missing_cultural_identity": [
+    "nón làm từ lá"
+   ],
+   "contradictions": [
+    "long green garment",
+    "brown cloth wrapped around waist"
+   ],
+   "already_satisfied": [
+    "A woman",
+    "wearing a conical leaf hat",
+    "stands",
+    "in late afternoon",
+    "lush green rice field",
+    "warm golden light",
+    "rustic charm of the scene"
+   ],
+   "uncertain_no_repair": [
+    "top of hat",
+    "person's feet",
+    "far right side of image"
+   ],
+   "repair_actions": [
+    "a rice field at the woman's feet",
+    "a conical leaf hat made of woven palm leaves",
+    "a long dress with long sleeves"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "a long dress with long sleeves"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S040/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S040/02.jpg"
+  ],
+  "images": {
+   "A": "S040_sdxl_base_c0.png",
+   "B (I0)": "S040_sdxl_base_c0.png",
+   "C (I1)": "S040_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "19:17:01",
+   "prompt_id": "S040",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Người phụ nữ đội nón lá đứng bên bờ ruộng lúc chiều muộn.\nPROMPT EN: A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Người phụ nữ",
+      "en": "A woman"
+     },
+     "subject_attributes": [
+      "đội nón lá",
+      "wearing a conical leaf hat"
+     ],
+     "supporting_objects": [
+      "bờ ruộng",
+      "edge of a rice field"
+     ],
+     "background_and_scene": [
+      "lúc chiều muộn",
+      "in late afternoon"
+     ],
+     "actions_and_relations": [
+      "đứng bên"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [
+      "lúc chiều muộn",
+      "in late afternoon"
+     ],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "nón lá",
+      "conical leaf hat",
+      "bờ ruộng",
+      "edge of a rice field",
+      "lúc chiều muộn",
+      "in late afternoon"
+     ]
+    }
+   },
+   "giay": 8.7
+  },
+  {
+   "t": "19:17:20",
+   "prompt_id": "S040",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Người phụ nữ đội nón lá đứng bên bờ ruộng lúc chiều muộn.\nPROMPT EN: A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Nón lá — https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1 ===\nNón, nón tơi hoặc nón lá là một vật dụng dùng để che nắng, che mưa, là một biểu tượng của Việt Nam Nón lá xuất hiện vào thế kỉ thứ XIII, thời nhà Trần. Từ xa xưa do nước ta chịu ảnh hưởng của khí hậu nhiệt đới gió mùa nóng ẩm và mưa nhiều, ông cha ta đã biết sáng chế ra chiếc nón lá. Dần dần, chiếc nón lá đã dần dần hiện diện như một vật dụng thiết yếu trong đời sống sinh hoạt hằng ngày. Hình ảnh tiền thân của chiếc nón lá đã được chạm khắc trên trống đồng Ngọc Lũ, thạp đồng Đào Thịnh vào khoảng 3000 - 2500 năm TCN. Đặc điểm Chiếc nón lá thường được đan bằng các loại lá khác nhau như: lá cọ, lá buông, rơm, tre, lá cối, lá hồ, lá dứa, lá dừa,... Để làm ra một chiếc nón lá người thợ thủ công lấy từng chiếc lá, làm cho phẳng rồi lấy kéo cắt chéo đầu trên, rồi lấy kim xâu chừng 24 đến 35 chiếc lá lại với nhau cho một lượt sau đó xếp đều trên khuôn nón. Người thợ đặt lá lên sườn nón rồi dùng dây cước với kim khâu để chằm nón thành hình chóp. Ở giữa nan thứ 3 và thứ 4 người thợ dùng chỉ đôi kết đối xứng 2 bên để buộc quai. Phân loại Nón lá có nhiều loại như nón ngựa hay nón Gò Găng (sản xuất ở Bình Định, làm bằng lá lụi, thường dùng khi đội đầu cưỡi ngựa); nón cụ (loại nón thường xuất hiện trong các đám cưới miền Nam Việt Nam); nón ba tầm (loại nón này phổ biến ở miền Bắc Việt Nam); nón bài thơ (ở Huế, là thứ nón lá trắng và mỏng có lộng, thêu hình hoặc một vài câu thơ); nón dấu (nón có chóp nhọn của lính thú thời phong kiến); nón rơm (nón làm bằng cọng rơm ép cứng); nón cời (loại nón xé te tua ở viền nón); nón gõ (nón làm bằng rơm, ghép cho lính thời phong kiến); nón lá sen (còn gọi là nón liên diệp); nón thúng (nón lá tròn bầu giống cái thúng, thành ngữ \"nón thúng quai thao\"); nón khua (nón của người hầu các quan lại thời phong kiến); nón chảo (nón mo tròn trên đầu như cái chảo úp),... Ngày nay nón lá cũng được xem là quà tặng đặc biệt cho du khách khi đến tham quan Việt Nam. Chiếc nón lá gắn liền với đời sống tinh thần của nhân dân, với người phụ nữ Việt. Trải dài mọi miền đất nước, hình ảnh nón lá luôn hiện diện, đó chính là nét đẹp, duyên dáng, là sự bình dị, mộc mạc của người phụ nữ Việt Nam. Nón lá thường đi liền với áo dài, tạo nên một vẻ đẹp rất bình dị, mộc mạc và ý nhị của người Việt Nam. Bảo quản Muốn nón lá được bền lâu thì nên đội khi trời nắng, ít đi mưa, tránh tác động mạnh tay làm méo nón. Trong nghệ thuật - văn hóa Trong nghệ thuật sân khấu, nón lá xuất hiện trong những tiết mục múa nón lá của các cô gái. Xem thêm Nón bài thơ : Nón bài thơ xứ Huế do nghệ nhân Bùi Quang Bặc sáng chế ra vào những năm 60, ngoài những nguyên liệu của nón lá, ông đã lấy giấy mỏng cắt thành những câu thơ, câu ca trữ tình, ép vào giữa hai lớp lá. Khi soi lên nắng, hiện lên những câu thơ chan chứa hồn người bên cạnh hình ngôi chùa Thiên Mụ hay phong cảnh núi Ngự sông Hương. Ba tầm Tham khảo Liên kết ngoài Nón Lưu trữ ngày 24 tháng 1 năm 2021 tại Wayback Machine trên Từ điển bách khoa Việt Nam Nón bài thơ Lưu trữ ngày 24 tháng 1 năm 2021 tại Wayback Machine trên Từ điển bách khoa Việt Nam Nón quai thao Lưu trữ ngày 28 tháng 1 năm 2022 tại Wayback Machine trên Từ điển bách khoa Việt Nam Vẽ nón lá Huế 2025-01-03 tại Nhịp sống trẻ trên Báo tuổi trẻ\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "nón lá",
+       "cue_en": "conical leaf hat",
+       "visual_check_vi": "nón làm từ lá",
+       "quote_vi": "Chiếc nón lá thường được đan bằng các loại lá khác nhau như: lá cọ, lá buông, rơm, tre, lá cối, lá hồ, lá dứa, lá dừa,...",
+       "source_url": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "nón ba tầm",
+       "cue_en": "ba tầm hat",
+       "visual_check_vi": "nón phổ biến ở miền Bắc Việt Nam",
+       "quote_vi": "nón ba tầm (loại nón này phổ biến ở miền Bắc Việt Nam)",
+       "source_url": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "nón có hình chóp",
+       "target_appearance_en": "hat with a pointed top",
+       "source_url": "https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Nón lá xuất hiện vào thế kỉ thứ XIII, thời nhà Trần.",
+      "Nón lá là biểu tượng của Việt Nam.",
+      "Nón lá được chạm khắc trên trống đồng Ngọc Lũ, thạp đồng Đào Thịnh vào khoảng 3000 - 2500 năm TCN.",
+      "Nón lá được xem là quà tặng đặc biệt cho du khách khi đến tham quan Việt Nam.",
+      "Nón lá gắn liền với đời sống tinh thần của nhân dân, với người phụ nữ Việt.",
+      "Nón lá thường đi liền với áo dài."
+     ],
+     "insufficient_evidence": [
+      "Màu sắc của nón lá",
+      "Kích thước của nón lá",
+      "Cách đan nón lá"
+     ]
+    }
+   },
+   "giay": 19.8
+  },
+  {
+   "t": "19:17:20",
+   "prompt_id": "S040",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 1,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:17:31",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/B/sdxl_base/S040_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "person standing in field",
+     "large conical hat"
+    ],
+    "clothing_and_appearance": [
+     "long green garment",
+     "long dark hair",
+     "brown cloth wrapped around waist"
+    ],
+    "foreground_objects": [
+     "tall green plants",
+     "person's shadow on plants"
+    ],
+    "supporting_objects": [
+     "none visible"
+    ],
+    "background": [
+     "dense green foliage",
+     "bright sky with clouds"
+    ],
+    "actions": [
+     "person looking forward",
+     "person standing still"
+    ],
+    "spatial_relations": [
+     "person in front of plants",
+     "hat above person's face",
+     "plants surrounding person's legs"
+    ],
+    "colors": [
+     "green plants",
+     "green garment",
+     "brown cloth",
+     "dark hair",
+     "gray hat",
+     "bright sky"
+    ],
+    "counts": {
+     "people": 1,
+     "large hats": 1
+    },
+    "visible_effects": [
+     "sunlight creating lens flare",
+     "shadows on plants"
+    ],
+    "uncertain": [
+     "top of hat",
+     "person's feet",
+     "far right side of image"
+    ]
+   },
+   "giay": 10.1
+  },
+  {
+   "t": "19:17:39",
+   "prompt_id": "S040",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nIn the heart of rural Vietnam, a woman stands at the edge of a lush green rice field, wearing a traditional conical leaf hat known as a \"nón lá.\" This hat, crafted from intricately woven palm leaves, has been a symbol of resilience and hard work in Vietnamese agricultural life for centuries. As the sun begins to dip below the horizon, casting a warm golden light over the ripening rice stalks, the \"nón lá\" becomes a striking silhouette against the vibrant green backdrop. The hat’s textured weave and earthy tones blend seamlessly with the rustic charm of the scene, making it a quintessential image of rural Vietnamese life.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Người phụ nữ\", \"en\": \"A woman\"}, \"subject_attributes\": [\"đội nón lá\", \"wearing a conical leaf hat\"], \"supporting_objects\": [\"bờ ruộng\", \"edge of a rice field\"], \"background_and_scene\": [\"lúc chiều muộn\", \"in late afternoon\"], \"actions_and_relations\": [\"đứng bên\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [\"lúc chiều muộn\", \"in late afternoon\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"nón lá\", \"conical leaf hat\", \"bờ ruộng\", \"edge of a rice field\", \"lúc chiều muộn\", \"in late afternoon\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"nón lá\", \"cue_en\": \"conical leaf hat\", \"visual_check_vi\": \"nón làm từ lá\", \"quote_vi\": \"Chiếc nón lá thường được đan bằng các loại lá khác nhau như: lá cọ, lá buông, rơm, tre, lá cối, lá hồ, lá dứa, lá dừa,...\", \"source_url\": \"https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1\"}], \"conditional_cues\": [{\"cue_vi\": \"nón ba tầm\", \"cue_en\": \"ba tầm hat\", \"visual_check_vi\": \"nón phổ biến ở miền Bắc Việt Nam\", \"quote_vi\": \"nón ba tầm (loại nón này phổ biến ở miền Bắc Việt Nam)\", \"source_url\": \"https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"nón có hình chóp\", \"target_appearance_en\": \"hat with a pointed top\", \"source_url\": \"https://vi.wikipedia.org/wiki/N%C3%B3n_l%C3%A1\"}], \"discarded_nonvisual_facts\": [\"Nón lá xuất hiện vào thế kỉ thứ XIII, thời nhà Trần.\", \"Nón lá là biểu tượng của Việt Nam.\", \"Nón lá được chạm khắc trên trống đồng Ngọc Lũ, thạp đồng Đào Thịnh vào khoảng 3000 - 2500 năm TCN.\", \"Nón lá được xem là quà tặng đặc biệt cho du khách khi đến tham quan Việt Nam.\", \"Nón lá gắn liền với đời sống tinh thần của nhân dân, với người phụ nữ Việt.\", \"Nón lá thường đi liền với áo dài.\"], \"insufficient_evidence\": [\"Màu sắc của nón lá\", \"Kích thước của nón lá\", \"Cách đan nón lá\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"person standing in field\", \"large conical hat\"], \"clothing_and_appearance\": [\"long green garment\", \"long dark hair\", \"brown cloth wrapped around waist\"], \"foreground_objects\": [\"tall green plants\", \"person's shadow on plants\"], \"supporting_objects\": [\"none visible\"], \"background\": [\"dense green foliage\", \"bright sky with clouds\"], \"actions\": [\"person looking forward\", \"person standing still\"], \"spatial_relations\": [\"person in front of plants\", \"hat above person's face\", \"plants surrounding person's legs\"], \"colors\": [\"green plants\", \"green garment\", \"brown cloth\", \"dark hair\", \"gray hat\", \"bright sky\"], \"counts\": {\"people\": 1, \"large hats\": 1}, \"visible_effects\": [\"sunlight creating lens flare\", \"shadows on plants\"], \"uncertain\": [\"top of hat\", \"person's feet\", \"far right side of image\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "edge of a rice field"
+    ],
+    "missing_cultural_identity": [
+     "nón làm từ lá"
+    ],
+    "contradictions": [
+     "long green garment",
+     "brown cloth wrapped around waist"
+    ],
+    "already_satisfied": [
+     "A woman",
+     "wearing a conical leaf hat",
+     "stands",
+     "in late afternoon",
+     "lush green rice field",
+     "warm golden light",
+     "rustic charm of the scene"
+    ],
+    "uncertain_no_repair": [
+     "top of hat",
+     "person's feet",
+     "far right side of image"
+    ],
+    "repair_actions": [
+     "a rice field at the woman's feet",
+     "a conical leaf hat made of woven palm leaves",
+     "a long dress with long sleeves"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 8.2
+  },
+  {
+   "t": "19:17:39",
+   "prompt_id": "S040",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a rice field at the woman's feet",
+     "a conical leaf hat made of woven palm leaves",
+     "a long dress with long sleeves"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:17:40",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a rice field at the woman's feet\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/B/sdxl_base/S040_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "woman standing in tall green rice"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:17:42",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a conical leaf hat made of woven palm leaves\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/B/sdxl_base/S040_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "hat is conical, woven, and leaf-like"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:17:43",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long dress with long sleeves\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/B/sdxl_base/S040_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "dress is long, sleeves are short"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "19:17:45",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"conical leaf hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/B/sdxl_base/S040_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Woman wearing conical leaf hat"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:17:45",
+   "prompt_id": "S040",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a long dress with long sleeves",
+      5.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "a rice field at the woman's feet",
+      10.0
+     ],
+     [
+      "a conical leaf hat made of woven palm leaves",
+      8.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:17:45",
+   "prompt_id": "S040",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A woman wearing a conical leaf hat stands at the edge of a rice field in late afternoon. In the heart of rural Vietnam, a woman stands at the edge of a lush green rice field, wearing a traditional conical leaf hat known as a \"nón lá.\" This hat, crafted from intricately woven palm leaves, has been a symbol of resilience and hard work in Vietnamese agricultural life for centuries. As the sun begins to dip below the horizon, casting a warm golden light over the ripening rice stalks, the \"nón lá\" becomes a striking silhouette against the vibrant green backdrop. The hat’s textured weave and earthy tones blend seamlessly with the rustic charm of the scene, making it a quintessential image of rural Vietnamese life.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: bờ ruộng; edge of a rice field; lúc chiều muộn; in late afternoon. Make these additions clearly visible:\n1. a long dress with long sleeves."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:18:08",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/C_ref/sdxl_base_ref/S040_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "person smiling",
+     "bundle of tall green plants"
+    ],
+    "clothing_and_appearance": [
+     "person wearing checkered long-sleeve shirt",
+     "person wearing wide-brimmed conical hat",
+     "person with long black hair"
+    ],
+    "foreground_objects": [
+     "bundle of tall green plants",
+     "green plants surrounding person"
+    ],
+    "supporting_objects": [
+     "wide-brimmed conical hat on person's head"
+    ],
+    "background": [
+     "green terraced fields",
+     "distant trees and hills"
+    ],
+    "actions": [
+     "person holding bundle of plants",
+     "person smiling at camera"
+    ],
+    "spatial_relations": [
+     "person standing in middle of green plants",
+     "bundle of plants in front of person",
+     "terraced fields behind person"
+    ],
+    "colors": [
+     "green plants and fields",
+     "gray checkered shirt",
+     "white and brown conical hat"
+    ],
+    "counts": {
+     "people": 1,
+     "bundles of plants": 1
+    },
+    "visible_effects": [
+     "bright sunlight illuminating scene",
+     "shadows cast by person and plants"
+    ],
+    "uncertain": [
+     "top of conical hat",
+     "far right edge of fields",
+     "bottom of person's legs"
+    ]
+   },
+   "giay": 11.0
+  },
+  {
+   "t": "19:18:12",
+   "prompt_id": "S040",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Người phụ nữ\", \"en\": \"A woman\"}, \"subject_attributes\": [\"đội nón lá\", \"wearing a conical leaf hat\"], \"supporting_objects\": [\"bờ ruộng\", \"edge of a rice field\"], \"background_and_scene\": [\"lúc chiều muộn\", \"in late afternoon\"], \"actions_and_relations\": [\"đứng bên\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [\"lúc chiều muộn\", \"in late afternoon\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"nón lá\", \"conical leaf hat\", \"bờ ruộng\", \"edge of a rice field\", \"lúc chiều muộn\", \"in late afternoon\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a long dress with long sleeves\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"person standing in field\", \"large conical hat\"], \"clothing_and_appearance\": [\"long green garment\", \"long dark hair\", \"brown cloth wrapped around waist\"], \"foreground_objects\": [\"tall green plants\", \"person's shadow on plants\"], \"supporting_objects\": [\"none visible\"], \"background\": [\"dense green foliage\", \"bright sky with clouds\"], \"actions\": [\"person looking forward\", \"person standing still\"], \"spatial_relations\": [\"person in front of plants\", \"hat above person's face\", \"plants surrounding person's legs\"], \"colors\": [\"green plants\", \"green garment\", \"brown cloth\", \"dark hair\", \"gray hat\", \"bright sky\"], \"counts\": {\"people\": 1, \"large hats\": 1}, \"visible_effects\": [\"sunlight creating lens flare\", \"shadows on plants\"], \"uncertain\": [\"top of hat\", \"person's feet\", \"far right side of image\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"person smiling\", \"bundle of tall green plants\"], \"clothing_and_appearance\": [\"person wearing checkered long-sleeve shirt\", \"person wearing wide-brimmed conical hat\", \"person with long black hair\"], \"foreground_objects\": [\"bundle of tall green plants\", \"green plants surrounding person\"], \"supporting_objects\": [\"wide-brimmed conical hat on person's head\"], \"background\": [\"green terraced fields\", \"distant trees and hills\"], \"actions\": [\"person holding bundle of plants\", \"person smiling at camera\"], \"spatial_relations\": [\"person standing in middle of green plants\", \"bundle of plants in front of person\", \"terraced fields behind person\"], \"colors\": [\"green plants and fields\", \"gray checkered shirt\", \"white and brown conical hat\"], \"counts\": {\"people\": 1, \"bundles of plants\": 1}, \"visible_effects\": [\"bright sunlight illuminating scene\", \"shadows cast by person and plants\"], \"uncertain\": [\"top of conical hat\", \"far right edge of fields\", \"bottom of person's legs\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "wide-brimmed conical hat on person's head"
+    ],
+    "regressions": [
+     {
+      "what": "edge of a rice field",
+      "severity": "severe"
+     },
+     {
+      "what": "in late afternoon",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "conical leaf hat"
+    ]
+   },
+   "giay": 3.5
+  },
+  {
+   "t": "19:18:12",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long dress with long sleeves\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/B/sdxl_base/S040_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "dress is long, sleeves are short"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:18:13",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a long dress with long sleeves\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/C_ref/sdxl_base_ref/S040_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "person wearing short-sleeve shirt"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:18:13",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"conical leaf hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/B/sdxl_base/S040_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Woman wearing conical leaf hat"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:18:15",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"conical leaf hat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/C_ref/sdxl_base_ref/S040_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "hat is conical, not leaf"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:18:16",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"hat with a pointed top\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/B/sdxl_base/S040_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "hat is broad and flat"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:18:17",
+   "prompt_id": "S040",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"hat with a pointed top\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S040/C_ref/sdxl_base_ref/S040_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "hat is broad, not pointed"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "19:18:17",
+   "prompt_id": "S040",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [
+     [
+      "in late afternoon",
+      "không nhìn được"
+     ]
+    ],
+    "giu": [
+     [
+      "edge of a rice field",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "19:18:18",
+   "prompt_id": "S040",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [],
+    "fixed_llm": [
+     "wide-brimmed conical hat on person's head"
+    ],
+    "bang_action": [
+     {
+      "action": "a long dress with long sleeves",
+      "I0": 5.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "person wearing short-sleeve shirt"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "conical leaf hat",
+      "I0": 10.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "hat is conical, not leaf"
+     },
+     {
+      "cue": "hat with a pointed top",
+      "I0": 0.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "hat is broad, not pointed"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "edge of a rice field",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "không sửa được lỗi nào",
+    "veto_anh_that": {
+     "sim_I0": 0.5969,
+     "sim_I1": 0.5538
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

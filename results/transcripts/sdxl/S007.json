@@ -1,0 +1,838 @@
+{
+ "unit": {
+  "prompt_id": "S007",
+  "prompt_vi": "Gác Khuê Văn Các ở Văn Miếu Quốc Tử Giám với hàng bia tiến sĩ trên lưng rùa đá.",
+  "P_orig": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.",
+  "P_ct": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles. The Văn Miếu - Quốc Tử Giám is Vietnam’s most important educational and cultural site, showcasing the nation's Confucian heritage and scholarly traditions. Founded in 1070, it served as the Imperial Academy until 1779, nurturing scholars and promoting intellectual and cultural growth. At its heart is the Khue Van Cac pavilion, known for its detailed carvings and vibrant colors, featuring dragons and phoenixes, symbols of power, longevity, and good fortune. Rows of doctoral stelae mounted on stone turtles surround the pavilion, commemorating the academic achievements of scholars who passed the imperial exams. The temple complex includes several pavilions, halls, and statues, each intricately designed to honor the value of learning and culture. Today, the temple remains a vital center for cultural and educational activities, hosting workshops, exhibitions, and educational seminars, playing a crucial role in preserving and promoting Vietnamese culture and heritage.",
+  "P1": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles. The Văn Miếu - Quốc Tử Giám is Vietnam’s most important educational and cultural site, showcasing the nation's Confucian heritage and scholarly traditions. Founded in 1070, it served as the Imperial Academy until 1779, nurturing scholars and promoting intellectual and cultural growth. At its heart is the Khue Van Cac pavilion, known for its detailed carvings and vibrant colors, featuring dragons and phoenixes, symbols of power, longevity, and good fortune. Rows of doctoral stelae mounted on stone turtles surround the pavilion, commemorating the academic achievements of scholars who passed the imperial exams. The temple complex includes several pavilions, halls, and statues, each intricately designed to honor the value of learning and culture. Today, the temple remains a vital center for cultural and educational activities, hosting workshops, exhibitions, and educational seminars, playing a crucial role in preserving and promoting Vietnamese culture and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rows of doctoral stelae on stone turtles; the Temple of Literature. Make these additions clearly visible:\n1. rows of doctoral stelae on stone turtles in front of the pavilion.\n2. stone turtles supporting the doctoral stelae.\n3. dragons and phoenixes on the pavilion.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Gác Khuê Văn Các",
+     "en": "Khue Van Cac pavilion"
+    },
+    "subject_attributes": [
+     "Gác Khuê Văn Các ở Văn Miếu Quốc Tử Giám",
+     "Khue Van Cac pavilion at the Temple of Literature"
+    ],
+    "supporting_objects": [
+     "hàng bia tiến sĩ trên lưng rùa đá",
+     "rows of doctoral stelae on stone turtles"
+    ],
+    "background_and_scene": [
+     "Văn Miếu Quốc Tử Giám",
+     "the Temple of Literature"
+    ],
+    "actions_and_relations": [],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "Gác Khuê Văn Các",
+     "Khue Van Cac pavilion",
+     "Văn Miếu Quốc Tử Giám",
+     "the Temple of Literature",
+     "hàng bia tiến sĩ trên lưng rùa đá",
+     "rows of doctoral stelae on stone turtles"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "bia tiến sĩ",
+      "cue_en": "doctoral stelae",
+      "visual_check_vi": "bia",
+      "quote_vi": "cho dựng bia của những người thi đỗ Tiến sĩ",
+      "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "Khuê Văn Các",
+      "cue_en": "Khue Van Cac pavilion",
+      "visual_check_vi": "Khuê Văn Các",
+      "quote_vi": "Tổng trấn Bắc Thành Nguyễn Văn Thành cho xây thêm Khuê Văn các bên cạnh giếng vuông.",
+      "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "bia tiến sĩ đặt trên lưng rùa đá",
+      "target_appearance_en": "doctoral stelae placed on stone turtles",
+      "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "Văn Miếu – Quốc Tử Giám là quần thể di tích đa dạng, phong phú hàng đầu của thành phố Hà Nội, nằm ở phía Nam kinh thành Thăng Long.",
+     "Văn miếu được xây dựng từ năm 1070, tức năm Thần Vũ thứ hai đời Lý Thánh Tông.",
+     "Năm 1076, Lý Nhân Tông cho lập trường Quốc Tử giám ở bên cạnh Văn miếu, có thể coi đây là trường đại học đầu tiên ở Việt Nam.",
+     "Năm 1484, Lê Thánh Tông cho dựng bia của những người thi đỗ Tiến sĩ từ khoa thi 1442 trở đi.",
+     "Năm 1762, Lê Hiển Tông cho sửa lại là Quốc Tử giám, cơ sở đào tạo và giáo dục cao cấp của triều đình.",
+     "Đời nhà Nguyễn, Quốc Tử giám lập tại Huế.",
+     "Năm 1802, vua Gia Long ấn định đây là Văn miếu Hà Nội."
+    ],
+    "insufficient_evidence": [
+     "the appearance of the Khue Van Cac pavilion",
+     "the appearance of the Temple of Literature",
+     "identity_cues: 'rùa đá' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "stone statues of mythical creatures",
+    "traditional building with ornate roof"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "stone statues of mythical creatures",
+    "stone platform with steps"
+   ],
+   "supporting_objects": [
+    "wooden logs supporting building",
+    "stone steps leading to building"
+   ],
+   "background": [
+    "traditional building with ornate roof",
+    "trees with green leaves"
+   ],
+   "actions": [],
+   "spatial_relations": [
+    "statues in front of building",
+    "steps leading up to building",
+    "trees behind building"
+   ],
+   "colors": [
+    "red building with gold accents",
+    "green roof with intricate details",
+    "gray stone statues",
+    "green leaves on trees"
+   ],
+   "counts": {
+    "statues": 24,
+    "building pillars": 8,
+    "building sections visible": 3
+   },
+   "visible_effects": [
+    "shadows cast by statues and building",
+    "light reflecting off building"
+   ],
+   "uncertain": [
+    "partial tree tops",
+    "partial building structure on right"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "rows of doctoral stelae on stone turtles"
+   ],
+   "missing_cultural_identity": [
+    "doctoral stelae"
+   ],
+   "contradictions": [
+    "wooden logs supporting building"
+   ],
+   "already_satisfied": [
+    "Khue Van Cac pavilion",
+    "the Temple of Literature",
+    "traditional building with ornate roof"
+   ],
+   "uncertain_no_repair": [
+    "partial tree tops",
+    "partial building structure on right"
+   ],
+   "repair_actions": [
+    "rows of doctoral stelae on stone turtles in front of the pavilion",
+    "stone turtles supporting the doctoral stelae",
+    "dragons and phoenixes on the pavilion"
+   ],
+   "drop_phrases": []
+  },
+  "actions": [
+   "rows of doctoral stelae on stone turtles in front of the pavilion",
+   "stone turtles supporting the doctoral stelae",
+   "dragons and phoenixes on the pavilion"
+  ],
+  "drop_phrases": [],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S007/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S007/02.jpg"
+  ],
+  "images": {
+   "A": "S007_sdxl_base_c0.png",
+   "B (I0)": "S007_sdxl_base_c0.png",
+   "C (I1)": "S007_sdxl_base_ref_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "15:43:13",
+   "prompt_id": "S007",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Gác Khuê Văn Các ở Văn Miếu Quốc Tử Giám với hàng bia tiến sĩ trên lưng rùa đá.\nPROMPT EN: Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Gác Khuê Văn Các",
+      "en": "Khue Van Cac pavilion"
+     },
+     "subject_attributes": [
+      "Gác Khuê Văn Các ở Văn Miếu Quốc Tử Giám",
+      "Khue Van Cac pavilion at the Temple of Literature"
+     ],
+     "supporting_objects": [
+      "hàng bia tiến sĩ trên lưng rùa đá",
+      "rows of doctoral stelae on stone turtles"
+     ],
+     "background_and_scene": [
+      "Văn Miếu Quốc Tử Giám",
+      "the Temple of Literature"
+     ],
+     "actions_and_relations": [],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "Gác Khuê Văn Các",
+      "Khue Van Cac pavilion",
+      "Văn Miếu Quốc Tử Giám",
+      "the Temple of Literature",
+      "hàng bia tiến sĩ trên lưng rùa đá",
+      "rows of doctoral stelae on stone turtles"
+     ]
+    }
+   },
+   "giay": 9.8
+  },
+  {
+   "t": "15:43:43",
+   "prompt_id": "S007",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Gác Khuê Văn Các ở Văn Miếu Quốc Tử Giám với hàng bia tiến sĩ trên lưng rùa đá.\nPROMPT EN: Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Văn Miếu – Quốc Tử Giám — https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m ===\nVăn Miếu – Quốc Tử Giám là quần thể di tích đa dạng, phong phú hàng đầu của thành phố Hà Nội, nằm ở phía Nam kinh thành Thăng Long. Quần thể kiến trúc Văn Miếu – Quốc Tử Giám bao gồm: hồ Văn, khu Văn Miếu – Quốc Tử Giám và vườn Giám, mà kiến trúc chủ thể là Văn miếu (chữ Hán: 文廟) - nơi thờ Khổng Tử, và Quốc tử giám (chữ Hán: 國子監) - trường đại học đầu tiên của Việt Nam. Khu Văn Miếu – Quốc Tử Giám có tường gạch vồ bao quanh, phía trong chia thành 5 lớp không gian với các kiến trúc khác nhau. Từ ngoài vào trong có các cổng lần lượt là: cổng Văn Miếu, Đại Trung, Khuê Văn các, Đại Thành và cổng Thái Học. Với hơn 700 năm hoạt động đã đào tạo hàng nghìn nhân tài cho đất nước. Ngày nay, Văn Miếu – Quốc Tử Giám là nơi tham quan của du khách trong và ngoài nước đồng thời cũng là nơi khen tặng cho học sinh xuất sắc và còn là nơi tổ chức hội thơ hàng năm vào ngày rằm tháng giêng. Lịch sử Văn miếu được xây dựng từ năm 1070, tức năm Thần Vũ thứ hai đời Lý Thánh Tông. Khoa học xã hội, Hà Nội, tập 1, tr.234 chép: \"Mùa thu tháng 10, làm Văn Miếu, đắp tượng, Khổng Tử, Chu Công và Tứ phối, vẽ tượng Thất thập nhị hiền, bốn mùa cúng tế. Hoàng thái tử đến đấy học.\" Như vậy Văn miếu ngoài chức năng thờ các bậc Tiên thánh, Tiên sư của đạo Nho, còn là một trường học Hoàng gia mà học trò đầu tiên là Thái tử Lý Càn Đức, con trai vua Lý Thánh Tông với Nguyên phi Ỷ Lan, lúc đó mới 5 tuổi, đến năm 1072 lên ngôi trở thành vua Lý Nhân Tông. Năm 1076, Lý Nhân Tông cho lập trường Quốc Tử giám ở bên cạnh Văn miếu, có thể coi đây là trường đại học đầu tiên ở Việt Nam. Ban đầu, trường chỉ dành riêng cho con vua và con các bậc đại quyền quý (nên gọi tên là Quốc tử). (Việt sử thông giám cương mục. lập nhà Quốc tử giám; tuyển trong các văn thần lấy những người có văn học, bổ vào đó\". Năm 1156, Lý Anh Tông cho sửa lại Văn miếu và chỉ thờ Khổng Tử. Năm 1253, vua Trần Thái Tông đổi Quốc Tử giám thành Quốc Học viện cho mở rộng và thu nhận cả con cái các nhà thường dân có sức học xuất sắc. Chức năng trường Quốc học ngày càng nổi bật hơn chức năng của một nơi tế lễ \"Quý Sửu năm thứ ba (1253)... Tháng 6 lập Quốc Học viện, tô tượng Khổng Tử, Chu công và Á Thánh, vẽ tượng 72 người hiền để thờ... Tháng 9 xuống chiếu cho các nho sĩ trong nước đến Quốc học viện giảng học tứ thư, lục kinh\" (ĐVSKTT). Lấy Phạm Ứng Thần giữ chức Thượng thư kiêm chức Đề điệu Quốc Tử viện để trông nom công việc học tập tại Quốc Tử giám\". Đời Trần Minh Tông, Chu Văn An được cử làm quan Quốc Tử giám Tư nghiệp (hiệu trưởng) và thầy dạy trực tiếp của các hoàng tử. Năm 1370 ông mất, được vua Trần Nghệ Tông cho thờ ở Văn miếu bên cạnh Khổng Tử. Vào năm 1484, Lê Thánh Tông cho dựng bia của những người thi đỗ Tiến sĩ từ khoa thi 1442 trở đi . Mỗi khoa, một tấm bia đặt trên lưng rùa. Không phải khoa thi nào tiến hành xong đều được khắc bia ngay, không phải bia đã dựng thì trường tồn, không hư hỏng, không mất mát. Năm 1762, Lê Hiển Tông cho sửa lại là Quốc Tử giám, cơ sở đào tạo và giáo dục cao cấp của triều đình. Đời nhà Nguyễn, Quốc Tử giám lập tại Huế. Năm 1802, vua Gia Long ấn định đây là Văn miếu Hà Nội. Tổng trấn Bắc Thành Nguyễn Văn Thành cho xây thêm Khuê Văn các bên cạnh giếng vuông. Như vậy vào đầu thời Nguyễn, Văn miếu Thăng Long đã một lần được sửa sang chỉ còn là Văn miếu của trấn Bắc Thành, sau đổi thành Văn Miếu Hà Nội. Còn Quốc Tử giám thì đổi thành học đường của phủ Hoài Đức và sau đó tại khu vực này xây đền Khải Thánh để thờ cha mẹ Khổng Tử. Ngày nay toàn bộ khu Thái Học được xây dựng với diện tích 1530 m² trên tổng diện tích 6150 m² gồm các công trình kiến trúc chính là Tiền đường, Hậu đường, Tả vu, Hữu vu, nhà chuông, nhà trống được mô phỏng theo kiến trúc truyền thống trên nền đất xưa của Quốc Tử giám. Kiến trúc Quốc Tử giám nằm ở phía Nam thành Thăng Long, xưa thuộc thôn Minh Giám, tổng Hữu Nghiêm, huyện Thọ Xương; thời Pháp thuộc cũng như nay thuộc khu vực trung tâm nội thành của thành phố Hà Nội. Đằng trước nhà Thái học dựng Văn miếu. Tầng trên có ba chữ 文廟門 (Văn miếu môn).\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "bia tiến sĩ",
+       "cue_en": "doctoral stelae",
+       "visual_check_vi": "bia",
+       "quote_vi": "cho dựng bia của những người thi đỗ Tiến sĩ",
+       "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "Khuê Văn Các",
+       "cue_en": "Khue Van Cac pavilion",
+       "visual_check_vi": "Khuê Văn Các",
+       "quote_vi": "Tổng trấn Bắc Thành Nguyễn Văn Thành cho xây thêm Khuê Văn các bên cạnh giếng vuông.",
+       "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "bia tiến sĩ đặt trên lưng rùa đá",
+       "target_appearance_en": "doctoral stelae placed on stone turtles",
+       "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "Văn Miếu – Quốc Tử Giám là quần thể di tích đa dạng, phong phú hàng đầu của thành phố Hà Nội, nằm ở phía Nam kinh thành Thăng Long.",
+      "Văn miếu được xây dựng từ năm 1070, tức năm Thần Vũ thứ hai đời Lý Thánh Tông.",
+      "Năm 1076, Lý Nhân Tông cho lập trường Quốc Tử giám ở bên cạnh Văn miếu, có thể coi đây là trường đại học đầu tiên ở Việt Nam.",
+      "Năm 1484, Lê Thánh Tông cho dựng bia của những người thi đỗ Tiến sĩ từ khoa thi 1442 trở đi.",
+      "Năm 1762, Lê Hiển Tông cho sửa lại là Quốc Tử giám, cơ sở đào tạo và giáo dục cao cấp của triều đình.",
+      "Đời nhà Nguyễn, Quốc Tử giám lập tại Huế.",
+      "Năm 1802, vua Gia Long ấn định đây là Văn miếu Hà Nội."
+     ],
+     "insufficient_evidence": [
+      "the appearance of the Khue Van Cac pavilion",
+      "the appearance of the Temple of Literature",
+      "identity_cues: 'rùa đá' — quote có thật nhưng không nói về cue"
+     ]
+    }
+   },
+   "giay": 29.3
+  },
+  {
+   "t": "15:43:43",
+   "prompt_id": "S007",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 1,
+    "giu_conditional": 1,
+    "loai": [
+     "identity_cues: 'rùa đá' — quote có thật nhưng không nói về cue"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:43:52",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/B/S007_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "stone statues of mythical creatures",
+     "traditional building with ornate roof"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "stone statues of mythical creatures",
+     "stone platform with steps"
+    ],
+    "supporting_objects": [
+     "wooden logs supporting building",
+     "stone steps leading to building"
+    ],
+    "background": [
+     "traditional building with ornate roof",
+     "trees with green leaves"
+    ],
+    "actions": [],
+    "spatial_relations": [
+     "statues in front of building",
+     "steps leading up to building",
+     "trees behind building"
+    ],
+    "colors": [
+     "red building with gold accents",
+     "green roof with intricate details",
+     "gray stone statues",
+     "green leaves on trees"
+    ],
+    "counts": {
+     "statues": 24,
+     "building pillars": 8,
+     "building sections visible": 3
+    },
+    "visible_effects": [
+     "shadows cast by statues and building",
+     "light reflecting off building"
+    ],
+    "uncertain": [
+     "partial tree tops",
+     "partial building structure on right"
+    ]
+   },
+   "giay": 9.4
+  },
+  {
+   "t": "15:43:59",
+   "prompt_id": "S007",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nThe Văn Miếu - Quốc Tử Giám is Vietnam’s most important educational and cultural site, showcasing the nation's Confucian heritage and scholarly traditions. Founded in 1070, it served as the Imperial Academy until 1779, nurturing scholars and promoting intellectual and cultural growth. At its heart is the Khue Van Cac pavilion, known for its detailed carvings and vibrant colors, featuring dragons and phoenixes, symbols of power, longevity, and good fortune. Rows of doctoral stelae mounted on stone turtles surround the pavilion, commemorating the academic achievements of scholars who passed the imperial exams. The temple complex includes several pavilions, halls, and statues, each intricately designed to honor the value of learning and culture. Today, the temple remains a vital center for cultural and educational activities, hosting workshops, exhibitions, and educational seminars, playing a crucial role in preserving and promoting Vietnamese culture and heritage.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Gác Khuê Văn Các\", \"en\": \"Khue Van Cac pavilion\"}, \"subject_attributes\": [\"Gác Khuê Văn Các ở Văn Miếu Quốc Tử Giám\", \"Khue Van Cac pavilion at the Temple of Literature\"], \"supporting_objects\": [\"hàng bia tiến sĩ trên lưng rùa đá\", \"rows of doctoral stelae on stone turtles\"], \"background_and_scene\": [\"Văn Miếu Quốc Tử Giám\", \"the Temple of Literature\"], \"actions_and_relations\": [], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Gác Khuê Văn Các\", \"Khue Van Cac pavilion\", \"Văn Miếu Quốc Tử Giám\", \"the Temple of Literature\", \"hàng bia tiến sĩ trên lưng rùa đá\", \"rows of doctoral stelae on stone turtles\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"bia tiến sĩ\", \"cue_en\": \"doctoral stelae\", \"visual_check_vi\": \"bia\", \"quote_vi\": \"cho dựng bia của những người thi đỗ Tiến sĩ\", \"source_url\": \"https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m\"}], \"conditional_cues\": [{\"cue_vi\": \"Khuê Văn Các\", \"cue_en\": \"Khue Van Cac pavilion\", \"visual_check_vi\": \"Khuê Văn Các\", \"quote_vi\": \"Tổng trấn Bắc Thành Nguyễn Văn Thành cho xây thêm Khuê Văn các bên cạnh giếng vuông.\", \"source_url\": \"https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"bia tiến sĩ đặt trên lưng rùa đá\", \"target_appearance_en\": \"doctoral stelae placed on stone turtles\", \"source_url\": \"https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m\"}], \"discarded_nonvisual_facts\": [\"Văn Miếu – Quốc Tử Giám là quần thể di tích đa dạng, phong phú hàng đầu của thành phố Hà Nội, nằm ở phía Nam kinh thành Thăng Long.\", \"Văn miếu được xây dựng từ năm 1070, tức năm Thần Vũ thứ hai đời Lý Thánh Tông.\", \"Năm 1076, Lý Nhân Tông cho lập trường Quốc Tử giám ở bên cạnh Văn miếu, có thể coi đây là trường đại học đầu tiên ở Việt Nam.\", \"Năm 1484, Lê Thánh Tông cho dựng bia của những người thi đỗ Tiến sĩ từ khoa thi 1442 trở đi.\", \"Năm 1762, Lê Hiển Tông cho sửa lại là Quốc Tử giám, cơ sở đào tạo và giáo dục cao cấp của triều đình.\", \"Đời nhà Nguyễn, Quốc Tử giám lập tại Huế.\", \"Năm 1802, vua Gia Long ấn định đây là Văn miếu Hà Nội.\"], \"insufficient_evidence\": [\"the appearance of the Khue Van Cac pavilion\", \"the appearance of the Temple of Literature\", \"identity_cues: 'rùa đá' — quote có thật nhưng không nói về cue\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"stone statues of mythical creatures\", \"traditional building with ornate roof\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"stone statues of mythical creatures\", \"stone platform with steps\"], \"supporting_objects\": [\"wooden logs supporting building\", \"stone steps leading to building\"], \"background\": [\"traditional building with ornate roof\", \"trees with green leaves\"], \"actions\": [], \"spatial_relations\": [\"statues in front of building\", \"steps leading up to building\", \"trees behind building\"], \"colors\": [\"red building with gold accents\", \"green roof with intricate details\", \"gray stone statues\", \"green leaves on trees\"], \"counts\": {\"statues\": 24, \"building pillars\": 8, \"building sections visible\": 3}, \"visible_effects\": [\"shadows cast by statues and building\", \"light reflecting off building\"], \"uncertain\": [\"partial tree tops\", \"partial building structure on right\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "rows of doctoral stelae on stone turtles"
+    ],
+    "missing_cultural_identity": [
+     "doctoral stelae"
+    ],
+    "contradictions": [
+     "wooden logs supporting building"
+    ],
+    "already_satisfied": [
+     "Khue Van Cac pavilion",
+     "the Temple of Literature",
+     "traditional building with ornate roof"
+    ],
+    "uncertain_no_repair": [
+     "partial tree tops",
+     "partial building structure on right"
+    ],
+    "repair_actions": [
+     "rows of doctoral stelae on stone turtles in front of the pavilion",
+     "stone turtles supporting the doctoral stelae",
+     "dragons and phoenixes on the pavilion"
+    ],
+    "drop_phrases": []
+   },
+   "giay": 7.1
+  },
+  {
+   "t": "15:43:59",
+   "prompt_id": "S007",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "rows of doctoral stelae on stone turtles in front of the pavilion",
+     "stone turtles supporting the doctoral stelae",
+     "dragons and phoenixes on the pavilion"
+    ],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:44:00",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"rows of doctoral stelae on stone turtles in front of the pavilion\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/B/S007_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "stone turtles in rows"
+   },
+   "giay": 1.3
+  },
+  {
+   "t": "15:44:02",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"stone turtles supporting the doctoral stelae\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/B/S007_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "stone turtles, no stelae"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:44:03",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"dragons and phoenixes on the pavilion\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/B/S007_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "many dragon statues, no phoenixes"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:44:03",
+   "prompt_id": "S007",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "rows of doctoral stelae on stone turtles in front of the pavilion",
+      5.0
+     ],
+     [
+      "stone turtles supporting the doctoral stelae",
+      5.0
+     ],
+     [
+      "dragons and phoenixes on the pavilion",
+      5.0
+     ]
+    ],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:44:03",
+   "prompt_id": "S007",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "Khue Van Cac pavilion at the Temple of Literature with rows of doctoral stelae on stone turtles. The Văn Miếu - Quốc Tử Giám is Vietnam’s most important educational and cultural site, showcasing the nation's Confucian heritage and scholarly traditions. Founded in 1070, it served as the Imperial Academy until 1779, nurturing scholars and promoting intellectual and cultural growth. At its heart is the Khue Van Cac pavilion, known for its detailed carvings and vibrant colors, featuring dragons and phoenixes, symbols of power, longevity, and good fortune. Rows of doctoral stelae mounted on stone turtles surround the pavilion, commemorating the academic achievements of scholars who passed the imperial exams. The temple complex includes several pavilions, halls, and statues, each intricately designed to honor the value of learning and culture. Today, the temple remains a vital center for cultural and educational activities, hosting workshops, exhibitions, and educational seminars, playing a crucial role in preserving and promoting Vietnamese culture and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: rows of doctoral stelae on stone turtles; the Temple of Literature. Make these additions clearly visible:\n1. rows of doctoral stelae on stone turtles in front of the pavilion.\n2. stone turtles supporting the doctoral stelae.\n3. dragons and phoenixes on the pavilion."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:44:38",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/C_ref/sdxl_base_ref/S007_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "multi-level structure with ornate roof",
+     "two people walking towards structure",
+     "one person standing near structure"
+    ],
+    "clothing_and_appearance": [
+     "dark clothing on walking individuals",
+     "light-colored head covering on one individual"
+    ],
+    "foreground_objects": [
+     "grass area in front of structure",
+     "stone pathway leading to structure"
+    ],
+    "supporting_objects": [
+     "stone pillars supporting structure",
+     "intricate carvings on stone base",
+     "wooden railings on upper level"
+    ],
+    "background": [
+     "dense green foliage surrounding structure",
+     "trees with visible branches and leaves"
+    ],
+    "actions": [
+     "individuals walking towards structure",
+     "person standing near structure entrance"
+    ],
+    "spatial_relations": [
+     "people positioned in front of structure",
+     "structure centrally located in image",
+     "trees surrounding the structure"
+    ],
+    "colors": [
+     "red wooden structure",
+     "gray stone base and pillars",
+     "green grass and foliage",
+     "dark clothing on individuals"
+    ],
+    "counts": {
+     "people": 3,
+     "main structure levels": 2,
+     "visible stone pillars": 4
+    },
+    "visible_effects": [
+     "shadows cast by structure and trees",
+     "natural lighting illuminating scene"
+    ],
+    "uncertain": [
+     "top of trees",
+     "details of carvings on far side",
+     "interior of structure"
+    ]
+   },
+   "giay": 11.9
+  },
+  {
+   "t": "15:44:41",
+   "prompt_id": "S007",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"Gác Khuê Văn Các\", \"en\": \"Khue Van Cac pavilion\"}, \"subject_attributes\": [\"Gác Khuê Văn Các ở Văn Miếu Quốc Tử Giám\", \"Khue Van Cac pavilion at the Temple of Literature\"], \"supporting_objects\": [\"hàng bia tiến sĩ trên lưng rùa đá\", \"rows of doctoral stelae on stone turtles\"], \"background_and_scene\": [\"Văn Miếu Quốc Tử Giám\", \"the Temple of Literature\"], \"actions_and_relations\": [], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"Gác Khuê Văn Các\", \"Khue Van Cac pavilion\", \"Văn Miếu Quốc Tử Giám\", \"the Temple of Literature\", \"hàng bia tiến sĩ trên lưng rùa đá\", \"rows of doctoral stelae on stone turtles\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"rows of doctoral stelae on stone turtles in front of the pavilion\", \"stone turtles supporting the doctoral stelae\", \"dragons and phoenixes on the pavilion\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"stone statues of mythical creatures\", \"traditional building with ornate roof\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"stone statues of mythical creatures\", \"stone platform with steps\"], \"supporting_objects\": [\"wooden logs supporting building\", \"stone steps leading to building\"], \"background\": [\"traditional building with ornate roof\", \"trees with green leaves\"], \"actions\": [], \"spatial_relations\": [\"statues in front of building\", \"steps leading up to building\", \"trees behind building\"], \"colors\": [\"red building with gold accents\", \"green roof with intricate details\", \"gray stone statues\", \"green leaves on trees\"], \"counts\": {\"statues\": 24, \"building pillars\": 8, \"building sections visible\": 3}, \"visible_effects\": [\"shadows cast by statues and building\", \"light reflecting off building\"], \"uncertain\": [\"partial tree tops\", \"partial building structure on right\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"multi-level structure with ornate roof\", \"two people walking towards structure\", \"one person standing near structure\"], \"clothing_and_appearance\": [\"dark clothing on walking individuals\", \"light-colored head covering on one individual\"], \"foreground_objects\": [\"grass area in front of structure\", \"stone pathway leading to structure\"], \"supporting_objects\": [\"stone pillars supporting structure\", \"intricate carvings on stone base\", \"wooden railings on upper level\"], \"background\": [\"dense green foliage surrounding structure\", \"trees with visible branches and leaves\"], \"actions\": [\"individuals walking towards structure\", \"person standing near structure entrance\"], \"spatial_relations\": [\"people positioned in front of structure\", \"structure centrally located in image\", \"trees surrounding the structure\"], \"colors\": [\"red wooden structure\", \"gray stone base and pillars\", \"green grass and foliage\", \"dark clothing on individuals\"], \"counts\": {\"people\": 3, \"main structure levels\": 2, \"visible stone pillars\": 4}, \"visible_effects\": [\"shadows cast by structure and trees\", \"natural lighting illuminating scene\"], \"uncertain\": [\"top of trees\", \"details of carvings on far side\", \"interior of structure\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "rows of doctoral stelae on stone turtles in front of the pavilion"
+    ],
+    "regressions": [
+     {
+      "what": "wooden logs supporting building",
+      "severity": "minor"
+     }
+    ],
+    "unchanged_issues": [
+     "stone turtles supporting the doctoral stelae",
+     "dragons and phoenixes on the pavilion"
+    ]
+   },
+   "giay": 3.5
+  },
+  {
+   "t": "15:44:41",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"rows of doctoral stelae on stone turtles in front of the pavilion\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/B/S007_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "stone turtles in rows"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:44:43",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"rows of doctoral stelae on stone turtles in front of the pavilion\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/C_ref/sdxl_base_ref/S007_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "no stelae or turtles visible"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:44:43",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"stone turtles supporting the doctoral stelae\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/B/S007_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "stone turtles, no stelae"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:44:44",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"stone turtles supporting the doctoral stelae\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/C_ref/sdxl_base_ref/S007_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "turtles on pillars, no stelae"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:44:44",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"dragons and phoenixes on the pavilion\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/B/S007_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "many dragon statues, no phoenixes"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:44:46",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"dragons and phoenixes on the pavilion\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/C_ref/sdxl_base_ref/S007_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "Dragons on pillars, phoenixes on roof."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "15:44:47",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"doctoral stelae\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/B/S007_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "stone carvings, temple, steps"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:44:48",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"doctoral stelae\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/C_ref/sdxl_base_ref/S007_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Stone carvings, but not stelae."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "15:44:50",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"doctoral stelae placed on stone turtles\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/B/S007_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "stone turtles present, no stelae"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:44:51",
+   "prompt_id": "S007",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"doctoral stelae placed on stone turtles\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/v4_sdxl_main/S007/C_ref/sdxl_base_ref/S007_sdxl_base_ref_c0.png"
+   ],
+   "response": {
+    "in_frame": false,
+    "score": 0.0,
+    "evidence": "No turtles or stelae visible."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "15:44:51",
+   "prompt_id": "S007",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [],
+    "giu": [
+     [
+      "wooden logs supporting building",
+      "minor"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "15:44:52",
+   "prompt_id": "S007",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [
+     "dragons and phoenixes on the pavilion"
+    ],
+    "fixed_llm": [
+     "rows of doctoral stelae on stone turtles in front of the pavilion"
+    ],
+    "bang_action": [
+     {
+      "action": "rows of doctoral stelae on stone turtles in front of the pavilion",
+      "I0": 5.0,
+      "I1": 0.0,
+      "fixed": false,
+      "ev_I1": "no stelae or turtles visible"
+     },
+     {
+      "action": "stone turtles supporting the doctoral stelae",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "turtles on pillars, no stelae"
+     },
+     {
+      "action": "dragons and phoenixes on the pavilion",
+      "I0": 5.0,
+      "I1": 8.0,
+      "fixed": true,
+      "ev_I1": "Dragons on pillars, phoenixes on roof."
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "doctoral stelae",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "Stone carvings, but not stelae."
+     },
+     {
+      "cue": "doctoral stelae placed on stone turtles",
+      "I0": 5.0,
+      "I1": null,
+      "fixed": false,
+      "ev_I1": "No turtles or stelae visible."
+     }
+    ],
+    "regressions": [
+     {
+      "what": "wooden logs supporting building",
+      "severity": "minor"
+     }
+    ],
+    "selection": "I1",
+    "ly_do": "sửa được 1, không regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.7399,
+     "sim_I1": 0.8203
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

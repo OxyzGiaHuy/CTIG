@@ -1,0 +1,831 @@
+{
+ "unit": {
+  "prompt_id": "S037",
+  "prompt_vi": "Buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.",
+  "P_orig": "Morning at a sidewalk coffee shop with customers on low plastic stools.",
+  "P_ct": "Morning at a sidewalk coffee shop with customers on low plastic stools. In the bustling streets of Vietnam, a typical morning finds a sidewalk coffee shop alive with activity. Customers perch on vivid blue plastic stools under vibrant red umbrellas, sipping steaming cups of aromatic coffee from delicate ceramic mugs. Simple yet cheerful decorations, such as colorful lanterns and lush green plants, adorn the makeshift tables, creating a lively and inviting atmosphere. The elderly find refuge and companionship here, while students gather to study and chat. These sidewalk cafes are integral to Vietnamese daily life, offering a space for people to socialize, work, and conduct business, uniquely embodying the essence of the city's vibrant culture and daily life.",
+  "P1": "Morning at a sidewalk coffee shop with customers on low plastic stools. In the bustling streets of Vietnam, a typical morning finds a sidewalk coffee shop alive with activity. Customers perch on under vibrant red umbrellas, sipping steaming cups of aromatic coffee from. Simple yet cheerful decorations, such as colorful lanterns and lush green plants, adorn the makeshift tables, creating a lively and inviting atmosphere. The elderly find refuge and companionship here, while students gather to study and chat. These sidewalk cafes are integral to Vietnamese daily life, offering a space for people to socialize, work, and conduct business, uniquely embodying the essence of the city's vibrant culture and daily life.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: customers; ghế nhựa thấp; low plastic stools; vỉa hè; sidewalk. Make these additions clearly visible:\n1. a small wooden chair under one person.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "quán cà phê vỉa hè",
+     "en": "sidewalk coffee shop"
+    },
+    "subject_attributes": [
+     "buổi sáng",
+     "morning"
+    ],
+    "supporting_objects": [
+     "khách",
+     "customers",
+     "ghế nhựa thấp",
+     "low plastic stools"
+    ],
+    "background_and_scene": [
+     "vỉa hè",
+     "sidewalk"
+    ],
+    "actions_and_relations": [
+     "khách ngồi"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [
+     "buổi sáng",
+     "morning"
+    ],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.",
+     "Morning at a sidewalk coffee shop with customers on low plastic stools."
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [],
+    "conditional_cues": [
+     {
+      "cue_vi": "ghế đẩu, ghế nhựa, ghế gỗ nhỏ",
+      "cue_en": "stools, plastic chairs, small wooden chairs",
+      "visual_check_vi": "có ghế đẩu, ghế nhựa, hoặc ghế gỗ nhỏ",
+      "quote_vi": "ghế đẩu, ghế nhựa, ghế gỗ nhỏ",
+      "source_url": "https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "thiết kế đơn giản",
+      "target_appearance_en": "simple design",
+      "source_url": "https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "quán cà phê vỉa hè đóng vai trò quan trọng trong cuộc sống đường phố ở các quốc gia như Tây Ban Nha, Pháp và Ý",
+     "quán cà phê vỉa hè phục vụ mọi tầng lớp xã hội với mức giá phải chăng, dễ tiếp cận",
+     "quán vỉa hè là nguồn thu nhập quan trọng của nhiều gia đình hoặc cá nhân kinh doanh nhỏ lẻ"
+    ],
+    "insufficient_evidence": [
+     "màu sắc của ghế và bàn",
+     "màu sắc của quán cà phê",
+     "identity_cues: 'bàn thấp' — quote không nguyên văn trong bài / URL lạ"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "Four people sitting around small table",
+    "Two red umbrellas above table",
+    "Street scene with motorbikes, pedestrians"
+   ],
+   "clothing_and_appearance": [
+    "Man in yellow long-sleeve shirt, dark pants",
+    "Man in blue jacket, dark pants",
+    "Man in pink long-sleeve shirt, glasses",
+    "Woman in red patterned top, dark pants",
+    "Short hair, bald heads, glasses"
+   ],
+   "foreground_objects": [
+    "Small round table with bowls, cups",
+    "Two blue plastic stools"
+   ],
+   "supporting_objects": [
+    "Red lanterns hanging from building",
+    "Potted plants near building",
+    "Motorbikes on street",
+    "Umbrellas on street"
+   ],
+   "background": [
+    "Building with windows, lanterns",
+    "Street with pedestrians, motorbikes",
+    "Trees, greenery"
+   ],
+   "actions": [
+    "People sitting, drinking, eating",
+    "Steam rising from cups",
+    "Motorbikes moving on street"
+   ],
+   "spatial_relations": [
+    "People under umbrellas, near building",
+    "Table between four people",
+    "Plants beside people",
+    "Motorbikes behind people",
+    "Lanterns above people"
+   ],
+   "colors": [
+    "Red umbrellas, lanterns",
+    "Blue stools",
+    "Yellow, blue, pink, red clothing",
+    "Green plants",
+    "Gray, black motorbikes"
+   ],
+   "counts": {
+    "people": 4,
+    "umbrellas": 2,
+    "lanterns": 2,
+    "stools": 2,
+    "motorbikes": 3,
+    "potted plants": 2
+   },
+   "visible_effects": [
+    "Steam from cups",
+    "Shadows on ground",
+    "Light from lanterns",
+    "Motion blur of motorbikes"
+   ],
+   "uncertain": [
+    "Top of umbrellas, lanterns",
+    "Far pedestrians, motorbikes",
+    "Interior of building",
+    "Text on lanterns"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [
+    "customers on low plastic stools"
+   ],
+   "missing_cultural_identity": [
+    "small wooden chairs"
+   ],
+   "contradictions": [],
+   "already_satisfied": [
+    "Morning at a sidewalk coffee shop",
+    "customers",
+    "low plastic stools",
+    "sidewalk",
+    "customers sitting",
+    "red umbrellas",
+    "steaming cups",
+    "ceramic mugs",
+    "colorful lanterns",
+    "lush green plants",
+    "elderly",
+    "students",
+    "sidewalk cafes",
+    "socialize",
+    "work",
+    "conduct business",
+    "vibrant culture",
+    "daily life"
+   ],
+   "uncertain_no_repair": [
+    "Top of umbrellas, lanterns",
+    "Far pedestrians, motorbikes",
+    "Interior of building",
+    "Text on lanterns"
+   ],
+   "repair_actions": [
+    "a low plastic stool under each person",
+    "a small wooden chair under one person",
+    "a simple design table between the four people"
+   ],
+   "drop_phrases": [
+    "vivid blue plastic stools",
+    "delicate ceramic mugs"
+   ]
+  },
+  "actions": [
+   "a small wooden chair under one person"
+  ],
+  "drop_phrases": [
+   "vivid blue plastic stools",
+   "delicate ceramic mugs"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S037/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S037/02.jpg"
+  ],
+  "images": {
+   "A": "S037_flux_txt.png",
+   "B (I0)": "S037_flux_txt.png",
+   "C (I1)": "S037_flux_ref.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "20:59:25",
+   "prompt_id": "S037",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.\nPROMPT EN: Morning at a sidewalk coffee shop with customers on low plastic stools.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "quán cà phê vỉa hè",
+      "en": "sidewalk coffee shop"
+     },
+     "subject_attributes": [
+      "buổi sáng",
+      "morning"
+     ],
+     "supporting_objects": [
+      "khách",
+      "customers",
+      "ghế nhựa thấp",
+      "low plastic stools"
+     ],
+     "background_and_scene": [
+      "vỉa hè",
+      "sidewalk"
+     ],
+     "actions_and_relations": [
+      "khách ngồi"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [
+      "buổi sáng",
+      "morning"
+     ],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.",
+      "Morning at a sidewalk coffee shop with customers on low plastic stools."
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:59:25",
+   "prompt_id": "S037",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.\nPROMPT EN: Morning at a sidewalk coffee shop with customers on low plastic stools.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Quán cà phê vỉa hè — https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8 ===\nQuán cà phê vỉa hè (Sidewalk cafe) hay cà phê lề đường hay còn gọi là cà phê bụi (Dust cafés) là một khu vực của một nhà hàng, quán cà phê hoặc quán bar đặt trên vỉa hè công cộng, hoặc một không gian ngoài trời tương đương, được thiết kế để khách hàng có thể dùng bữa ăn, uống nước hoặc thư giãn, ở Mỹ thì khu vực này chỉ được sử dụng để dành cho dịch vụ ăn uống. Quán cà phê vỉa hè rất phổ biến ở khắp châu Âu, đóng vai trò quan trọng trong cuộc sống đường phố ở các quốc gia như Tây Ban Nha, Pháp và Ý. Đặc điểm Quán cà phê vỉa hè có thể được bao quanh hoặc không bao quanh, quán trước được bao quanh bởi một cấu trúc một tầng và quán sau là một khu vực vỉa hè có bàn, ghế và lan can có thể tháo dỡ. Thiết kế quán đơn giản, thường sử dụng những chiếc ghế đẩu, ghế nhựa, ghế gỗ nhỏ hoặc bàn thấp, đôi khi chỉ là một chiếc xe đẩy, xe bán đồ ăn hoặc gánh hàng rong, không có kiến trúc phức tạp hay nội thất đắt tiền. Quán cà phê vỉa hè là mô hình kinh doanh linh hoạt, chi phí thấp và mang đậm tính cộng đồng. Khách hàng ngồi ở vị trí có thể dễ dàng quan sát mọi hoạt động của đường phố, tạo nên một trải nghiệm thị giác sống động và chân thực. Quán cà phê vỉa hè phục vụ mọi tầng lớp xã hội với mức giá phải chăng, dễ tiếp cận. Quán vỉa hè là nguồn thu nhập quan trọng của nhiều gia đình hoặc cá nhân kinh doanh nhỏ lẻ. Quy định của thành phố New York chỉ rõ những nơi vỉa hè được phép mở quán cà phê, cách xây dựng quán và những phần vỉa hè nào quán cà phê có thể được phép mở. Cho đến năm 2003, quá trình xin giấy phép mở quán cà phê vỉa hè liên quan đến rất nhiều cơ quan thành phố và thời gian chờ đợi rất lâu đến nỗi luật pháp thường xuyên bị vi phạm, với việc chủ nhà hàng cho rằng việc dựng quán cà phê vỉa hè và nộp phạt sau đó. \"sidewalk café\". \"Media development and public space: the legislating of social interaction\". How to Save Your Own Street, Dolphin Books, 1981 Brown, Carolyn (tháng 2 năm 1980). \"Sidewalk Cafés\".\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [],
+     "conditional_cues": [
+      {
+       "cue_vi": "ghế đẩu, ghế nhựa, ghế gỗ nhỏ",
+       "cue_en": "stools, plastic chairs, small wooden chairs",
+       "visual_check_vi": "có ghế đẩu, ghế nhựa, hoặc ghế gỗ nhỏ",
+       "quote_vi": "ghế đẩu, ghế nhựa, ghế gỗ nhỏ",
+       "source_url": "https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "thiết kế đơn giản",
+       "target_appearance_en": "simple design",
+       "source_url": "https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "quán cà phê vỉa hè đóng vai trò quan trọng trong cuộc sống đường phố ở các quốc gia như Tây Ban Nha, Pháp và Ý",
+      "quán cà phê vỉa hè phục vụ mọi tầng lớp xã hội với mức giá phải chăng, dễ tiếp cận",
+      "quán vỉa hè là nguồn thu nhập quan trọng của nhiều gia đình hoặc cá nhân kinh doanh nhỏ lẻ"
+     ],
+     "insufficient_evidence": [
+      "màu sắc của ghế và bàn",
+      "màu sắc của quán cà phê",
+      "identity_cues: 'bàn thấp' — quote không nguyên văn trong bài / URL lạ"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:59:25",
+   "prompt_id": "S037",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 0,
+    "giu_conditional": 1,
+    "loai": [
+     "identity_cues: 'bàn thấp' — quote không nguyên văn trong bài / URL lạ"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:59:43",
+   "prompt_id": "S037",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S037/B/S037_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "Four people sitting around small table",
+     "Two red umbrellas above table",
+     "Street scene with motorbikes, pedestrians"
+    ],
+    "clothing_and_appearance": [
+     "Man in yellow long-sleeve shirt, dark pants",
+     "Man in blue jacket, dark pants",
+     "Man in pink long-sleeve shirt, glasses",
+     "Woman in red patterned top, dark pants",
+     "Short hair, bald heads, glasses"
+    ],
+    "foreground_objects": [
+     "Small round table with bowls, cups",
+     "Two blue plastic stools"
+    ],
+    "supporting_objects": [
+     "Red lanterns hanging from building",
+     "Potted plants near building",
+     "Motorbikes on street",
+     "Umbrellas on street"
+    ],
+    "background": [
+     "Building with windows, lanterns",
+     "Street with pedestrians, motorbikes",
+     "Trees, greenery"
+    ],
+    "actions": [
+     "People sitting, drinking, eating",
+     "Steam rising from cups",
+     "Motorbikes moving on street"
+    ],
+    "spatial_relations": [
+     "People under umbrellas, near building",
+     "Table between four people",
+     "Plants beside people",
+     "Motorbikes behind people",
+     "Lanterns above people"
+    ],
+    "colors": [
+     "Red umbrellas, lanterns",
+     "Blue stools",
+     "Yellow, blue, pink, red clothing",
+     "Green plants",
+     "Gray, black motorbikes"
+    ],
+    "counts": {
+     "people": 4,
+     "umbrellas": 2,
+     "lanterns": 2,
+     "stools": 2,
+     "motorbikes": 3,
+     "potted plants": 2
+    },
+    "visible_effects": [
+     "Steam from cups",
+     "Shadows on ground",
+     "Light from lanterns",
+     "Motion blur of motorbikes"
+    ],
+    "uncertain": [
+     "Top of umbrellas, lanterns",
+     "Far pedestrians, motorbikes",
+     "Interior of building",
+     "Text on lanterns"
+    ]
+   },
+   "giay": 18.1
+  },
+  {
+   "t": "20:59:54",
+   "prompt_id": "S037",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: Morning at a sidewalk coffee shop with customers on low plastic stools.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nIn the bustling streets of Vietnam, a typical morning finds a sidewalk coffee shop alive with activity. Customers perch on vivid blue plastic stools under vibrant red umbrellas, sipping steaming cups of aromatic coffee from delicate ceramic mugs. Simple yet cheerful decorations, such as colorful lanterns and lush green plants, adorn the makeshift tables, creating a lively and inviting atmosphere. The elderly find refuge and companionship here, while students gather to study and chat. These sidewalk cafes are integral to Vietnamese daily life, offering a space for people to socialize, work, and conduct business, uniquely embodying the essence of the city's vibrant culture and daily life.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"quán cà phê vỉa hè\", \"en\": \"sidewalk coffee shop\"}, \"subject_attributes\": [\"buổi sáng\", \"morning\"], \"supporting_objects\": [\"khách\", \"customers\", \"ghế nhựa thấp\", \"low plastic stools\"], \"background_and_scene\": [\"vỉa hè\", \"sidewalk\"], \"actions_and_relations\": [\"khách ngồi\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [\"buổi sáng\", \"morning\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.\", \"Morning at a sidewalk coffee shop with customers on low plastic stools.\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [], \"conditional_cues\": [{\"cue_vi\": \"ghế đẩu, ghế nhựa, ghế gỗ nhỏ\", \"cue_en\": \"stools, plastic chairs, small wooden chairs\", \"visual_check_vi\": \"có ghế đẩu, ghế nhựa, hoặc ghế gỗ nhỏ\", \"quote_vi\": \"ghế đẩu, ghế nhựa, ghế gỗ nhỏ\", \"source_url\": \"https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"thiết kế đơn giản\", \"target_appearance_en\": \"simple design\", \"source_url\": \"https://vi.wikipedia.org/wiki/Qu%C3%A1n_c%C3%A0_ph%C3%AA_v%E1%BB%89a_h%C3%A8\"}], \"discarded_nonvisual_facts\": [\"quán cà phê vỉa hè đóng vai trò quan trọng trong cuộc sống đường phố ở các quốc gia như Tây Ban Nha, Pháp và Ý\", \"quán cà phê vỉa hè phục vụ mọi tầng lớp xã hội với mức giá phải chăng, dễ tiếp cận\", \"quán vỉa hè là nguồn thu nhập quan trọng của nhiều gia đình hoặc cá nhân kinh doanh nhỏ lẻ\"], \"insufficient_evidence\": [\"màu sắc của ghế và bàn\", \"màu sắc của quán cà phê\", \"identity_cues: 'bàn thấp' — quote không nguyên văn trong bài / URL lạ\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"Four people sitting around small table\", \"Two red umbrellas above table\", \"Street scene with motorbikes, pedestrians\"], \"clothing_and_appearance\": [\"Man in yellow long-sleeve shirt, dark pants\", \"Man in blue jacket, dark pants\", \"Man in pink long-sleeve shirt, glasses\", \"Woman in red patterned top, dark pants\", \"Short hair, bald heads, glasses\"], \"foreground_objects\": [\"Small round table with bowls, cups\", \"Two blue plastic stools\"], \"supporting_objects\": [\"Red lanterns hanging from building\", \"Potted plants near building\", \"Motorbikes on street\", \"Umbrellas on street\"], \"background\": [\"Building with windows, lanterns\", \"Street with pedestrians, motorbikes\", \"Trees, greenery\"], \"actions\": [\"People sitting, drinking, eating\", \"Steam rising from cups\", \"Motorbikes moving on street\"], \"spatial_relations\": [\"People under umbrellas, near building\", \"Table between four people\", \"Plants beside people\", \"Motorbikes behind people\", \"Lanterns above people\"], \"colors\": [\"Red umbrellas, lanterns\", \"Blue stools\", \"Yellow, blue, pink, red clothing\", \"Green plants\", \"Gray, black motorbikes\"], \"counts\": {\"people\": 4, \"umbrellas\": 2, \"lanterns\": 2, \"stools\": 2, \"motorbikes\": 3, \"potted plants\": 2}, \"visible_effects\": [\"Steam from cups\", \"Shadows on ground\", \"Light from lanterns\", \"Motion blur of motorbikes\"], \"uncertain\": [\"Top of umbrellas, lanterns\", \"Far pedestrians, motorbikes\", \"Interior of building\", \"Text on lanterns\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [
+     "customers on low plastic stools"
+    ],
+    "missing_cultural_identity": [
+     "small wooden chairs"
+    ],
+    "contradictions": [],
+    "already_satisfied": [
+     "Morning at a sidewalk coffee shop",
+     "customers",
+     "low plastic stools",
+     "sidewalk",
+     "customers sitting",
+     "red umbrellas",
+     "steaming cups",
+     "ceramic mugs",
+     "colorful lanterns",
+     "lush green plants",
+     "elderly",
+     "students",
+     "sidewalk cafes",
+     "socialize",
+     "work",
+     "conduct business",
+     "vibrant culture",
+     "daily life"
+    ],
+    "uncertain_no_repair": [
+     "Top of umbrellas, lanterns",
+     "Far pedestrians, motorbikes",
+     "Interior of building",
+     "Text on lanterns"
+    ],
+    "repair_actions": [
+     "a low plastic stool under each person",
+     "a small wooden chair under one person",
+     "a simple design table between the four people"
+    ],
+    "drop_phrases": [
+     "vivid blue plastic stools",
+     "delicate ceramic mugs"
+    ]
+   },
+   "giay": 10.7
+  },
+  {
+   "t": "20:59:54",
+   "prompt_id": "S037",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a low plastic stool under each person",
+     "a small wooden chair under one person",
+     "a simple design table between the four people"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "vivid blue plastic stools",
+     "delicate ceramic mugs"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:59:55",
+   "prompt_id": "S037",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a low plastic stool under each person\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S037/B/S037_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Four people, four blue stools."
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:59:57",
+   "prompt_id": "S037",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a small wooden chair under one person\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S037/B/S037_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "blue plastic stools, not wooden"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:59:58",
+   "prompt_id": "S037",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a simple design table between the four people\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S037/B/S037_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 8.0,
+    "evidence": "simple table, four people"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "20:59:58",
+   "prompt_id": "S037",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a small wooden chair under one person",
+      0.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "a low plastic stool under each person",
+      10.0
+     ],
+     [
+      "a simple design table between the four people",
+      8.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "20:59:58",
+   "prompt_id": "S037",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "Morning at a sidewalk coffee shop with customers on low plastic stools. In the bustling streets of Vietnam, a typical morning finds a sidewalk coffee shop alive with activity. Customers perch on under vibrant red umbrellas, sipping steaming cups of aromatic coffee from. Simple yet cheerful decorations, such as colorful lanterns and lush green plants, adorn the makeshift tables, creating a lively and inviting atmosphere. The elderly find refuge and companionship here, while students gather to study and chat. These sidewalk cafes are integral to Vietnamese daily life, offering a space for people to socialize, work, and conduct business, uniquely embodying the essence of the city's vibrant culture and daily life.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: customers; ghế nhựa thấp; low plastic stools; vỉa hè; sidewalk. Make these additions clearly visible:\n1. a small wooden chair under one person."
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:00:43",
+   "prompt_id": "S037",
+   "agent": "O",
+   "buoc": "I1",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S037/C_ref/S037_flux_ref.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "people sitting around table",
+     "red umbrella above table"
+    ],
+    "clothing_and_appearance": [
+     "striped short sleeve shirt",
+     "short sleeve shirt",
+     "shorts",
+     "glasses",
+     "short hair",
+     "long hair tied back"
+    ],
+    "foreground_objects": [
+     "table with food and drinks",
+     "stools around table",
+     "potted plants",
+     "red lanterns",
+     "red umbrella"
+    ],
+    "supporting_objects": [
+     "street with people walking",
+     "buildings with windows",
+     "trees with green leaves"
+    ],
+    "background": [
+     "crowded street scene",
+     "buildings along street",
+     "trees and greenery"
+    ],
+    "actions": [
+     "people eating and drinking",
+     "people conversing",
+     "people walking in background"
+    ],
+    "spatial_relations": [
+     "people seated under umbrella",
+     "table centered under umbrella",
+     "potted plants beside table",
+     "lanterns hanging above street",
+     "people walking behind seated group"
+    ],
+    "colors": [
+     "red umbrella",
+     "green leaves",
+     "various clothing colors",
+     "red lanterns",
+     "brown stools",
+     "red potted plants"
+    ],
+    "counts": {
+     "people": 10,
+     "lanterns": 10,
+     "stools": 5,
+     "potted plants": 3
+    },
+    "visible_effects": [
+     "shadows on ground",
+     "steam rising from food",
+     "reflections on table surface"
+    ],
+    "uncertain": [
+     "top of umbrella",
+     "far end of street",
+     "partial views of people",
+     "partial views of buildings"
+    ]
+   },
+   "giay": 14.7
+  },
+  {
+   "t": "21:00:50",
+   "prompt_id": "S037",
+   "agent": "R",
+   "buoc": "gate_C",
+   "system": "You compare two blind visual reports of two images (BEFORE and AFTER a repair) against the Prompt Preservation Card and the list of repair actions that were attempted.\nfixed: attempted repairs now evidenced in AFTER but not in BEFORE.\nregressions: ONLY items that the PROMPT PRESERVATION CARD requires, that were evidenced in BEFORE, and are missing or contradicted in AFTER. The BEFORE image is NOT the standard — the prompt is. Anything in BEFORE that the card does not ask for (a wrong object, a decoration, a background detail, a pose) may change or disappear freely and is NOT a regression. Severity 'severe' only when the main entity, a stated count, or a stated supporting object from the card is lost; otherwise 'minor'.\nBe conservative about fixed: if unsure, it is not fixed. JSON only.",
+   "user": "PROMPT PRESERVATION CARD (the only standard for regressions):\n{\"main_entity\": {\"vi\": \"quán cà phê vỉa hè\", \"en\": \"sidewalk coffee shop\"}, \"subject_attributes\": [\"buổi sáng\", \"morning\"], \"supporting_objects\": [\"khách\", \"customers\", \"ghế nhựa thấp\", \"low plastic stools\"], \"background_and_scene\": [\"vỉa hè\", \"sidewalk\"], \"actions_and_relations\": [\"khách ngồi\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [\"buổi sáng\", \"morning\"], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.\", \"Morning at a sidewalk coffee shop with customers on low plastic stools.\"]}\n\nREPAIR ACTIONS ATTEMPTED: [\"a small wooden chair under one person\"]\n\nBEFORE (I0) REPORT:\n{\"main_subjects\": [\"Four people sitting around small table\", \"Two red umbrellas above table\", \"Street scene with motorbikes, pedestrians\"], \"clothing_and_appearance\": [\"Man in yellow long-sleeve shirt, dark pants\", \"Man in blue jacket, dark pants\", \"Man in pink long-sleeve shirt, glasses\", \"Woman in red patterned top, dark pants\", \"Short hair, bald heads, glasses\"], \"foreground_objects\": [\"Small round table with bowls, cups\", \"Two blue plastic stools\"], \"supporting_objects\": [\"Red lanterns hanging from building\", \"Potted plants near building\", \"Motorbikes on street\", \"Umbrellas on street\"], \"background\": [\"Building with windows, lanterns\", \"Street with pedestrians, motorbikes\", \"Trees, greenery\"], \"actions\": [\"People sitting, drinking, eating\", \"Steam rising from cups\", \"Motorbikes moving on street\"], \"spatial_relations\": [\"People under umbrellas, near building\", \"Table between four people\", \"Plants beside people\", \"Motorbikes behind people\", \"Lanterns above people\"], \"colors\": [\"Red umbrellas, lanterns\", \"Blue stools\", \"Yellow, blue, pink, red clothing\", \"Green plants\", \"Gray, black motorbikes\"], \"counts\": {\"people\": 4, \"umbrellas\": 2, \"lanterns\": 2, \"stools\": 2, \"motorbikes\": 3, \"potted plants\": 2}, \"visible_effects\": [\"Steam from cups\", \"Shadows on ground\", \"Light from lanterns\", \"Motion blur of motorbikes\"], \"uncertain\": [\"Top of umbrellas, lanterns\", \"Far pedestrians, motorbikes\", \"Interior of building\", \"Text on lanterns\"]}\n\nAFTER (I1) REPORT:\n{\"main_subjects\": [\"people sitting around table\", \"red umbrella above table\"], \"clothing_and_appearance\": [\"striped short sleeve shirt\", \"short sleeve shirt\", \"shorts\", \"glasses\", \"short hair\", \"long hair tied back\"], \"foreground_objects\": [\"table with food and drinks\", \"stools around table\", \"potted plants\", \"red lanterns\", \"red umbrella\"], \"supporting_objects\": [\"street with people walking\", \"buildings with windows\", \"trees with green leaves\"], \"background\": [\"crowded street scene\", \"buildings along street\", \"trees and greenery\"], \"actions\": [\"people eating and drinking\", \"people conversing\", \"people walking in background\"], \"spatial_relations\": [\"people seated under umbrella\", \"table centered under umbrella\", \"potted plants beside table\", \"lanterns hanging above street\", \"people walking behind seated group\"], \"colors\": [\"red umbrella\", \"green leaves\", \"various clothing colors\", \"red lanterns\", \"brown stools\", \"red potted plants\"], \"counts\": {\"people\": 10, \"lanterns\": 10, \"stools\": 5, \"potted plants\": 3}, \"visible_effects\": [\"shadows on ground\", \"steam rising from food\", \"reflections on table surface\"], \"uncertain\": [\"top of umbrella\", \"far end of street\", \"partial views of people\", \"partial views of buildings\"]}\n\nReturn JSON.",
+   "images": [],
+   "response": {
+    "fixed": [
+     "small wooden chair under one person"
+    ],
+    "regressions": [
+     {
+      "what": "low plastic stools",
+      "severity": "severe"
+     },
+     {
+      "what": "count of customers",
+      "severity": "severe"
+     },
+     {
+      "what": "verbatim preservation of 'buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.'",
+      "severity": "severe"
+     },
+     {
+      "what": "verbatim preservation of 'Morning at a sidewalk coffee shop with customers on low plastic stools.'",
+      "severity": "severe"
+     }
+    ],
+    "unchanged_issues": [
+     "customers sitting",
+     "sidewalk",
+     "morning"
+    ]
+   },
+   "giay": 7.1
+  },
+  {
+   "t": "21:00:50",
+   "prompt_id": "S037",
+   "agent": "O",
+   "buoc": "check_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a small wooden chair under one person\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S037/B/S037_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "blue plastic stools, not wooden"
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:00:52",
+   "prompt_id": "S037",
+   "agent": "O",
+   "buoc": "check_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a small wooden chair under one person\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S037/C_ref/S037_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "small wooden chair under one person"
+   },
+   "giay": 1.4
+  },
+  {
+   "t": "21:00:53",
+   "prompt_id": "S037",
+   "agent": "O",
+   "buoc": "cue_I0_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"simple design\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S037/B/S037_flux_txt.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "Stools, table, umbrellas simple."
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "21:00:55",
+   "prompt_id": "S037",
+   "agent": "O",
+   "buoc": "cue_I1_C",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"simple design\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S037/C_ref/S037_flux_ref.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 5.0,
+    "evidence": "red umbrella, potted plants, lanterns"
+   },
+   "giay": 1.5
+  },
+  {
+   "t": "21:00:55",
+   "prompt_id": "S037",
+   "agent": "GATE",
+   "buoc": "may_kiem_C",
+   "system": "(luật máy: bỏ regression mâu thuẫn fixed / không nhìn được; hạ severe thiếu căn cứ)",
+   "user": "",
+   "images": [],
+   "response": {
+    "bo": [
+     [
+      "verbatim preservation of 'buổi sáng ở một quán cà phê vỉa hè, khách ngồi ghế nhựa thấp.'",
+      "không nhìn được"
+     ],
+     [
+      "verbatim preservation of 'Morning at a sidewalk coffee shop with customers on low plastic stools.'",
+      "không nhìn được"
+     ]
+    ],
+    "giu": [
+     [
+      "low plastic stools",
+      "severe"
+     ],
+     [
+      "count of customers",
+      "minor(hạ: không đủ căn cứ card/I0/I1)"
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:00:57",
+   "prompt_id": "S037",
+   "agent": "GATE",
+   "buoc": "luat_C",
+   "system": "(luật cổng, tính bằng máy)",
+   "user": "",
+   "images": [],
+   "response": {
+    "fixed": [
+     "a small wooden chair under one person"
+    ],
+    "fixed_llm": [
+     "small wooden chair under one person"
+    ],
+    "bang_action": [
+     {
+      "action": "a small wooden chair under one person",
+      "I0": 0.0,
+      "I1": 10.0,
+      "fixed": true,
+      "ev_I1": "small wooden chair under one person"
+     }
+    ],
+    "bang_cue": [
+     {
+      "cue": "simple design",
+      "I0": 5.0,
+      "I1": 5.0,
+      "fixed": false,
+      "ev_I1": "red umbrella, potted plants, lanterns"
+     }
+    ],
+    "regressions": [
+     {
+      "what": "low plastic stools",
+      "severity": "severe"
+     },
+     {
+      "what": "count of customers",
+      "severity": "minor(hạ: không đủ căn cứ card/I0/I1)"
+     }
+    ],
+    "selection": "I0",
+    "ly_do": "1 regression nghiêm trọng",
+    "veto_anh_that": {
+     "sim_I0": 0.6511,
+     "sim_I1": 0.6749
+    }
+   },
+   "giay": 0.0
+  }
+ ]
+}

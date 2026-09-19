@@ -1,0 +1,290 @@
+{
+ "unit": {
+  "prompt_id": "S044",
+  "prompt_vi": "Cành đào nở hoa cắm trong bình gốm ngày Tết.",
+  "P_orig": "A blossoming peach branch in a ceramic vase at Tet.",
+  "P_ct": "A blossoming peach branch in a ceramic vase at Tet. A blossoming peach branch, known as \"cành đào,\" is placed in a traditional ceramic vase in the main living room during Tet, the Vietnamese Lunar New Year. The delicate pink blossoms and fresh green leaves of the peach branch enhance the festive atmosphere, symbolizing new beginnings and good fortune for the coming year. The scent of the blossoms fills the air, adding to the sensory experience, while the vase, often intricately designed and colored in green or red, complements the branch's hues. This custom, believed to have originated during the Lê dynasty, is an integral part of Tet celebrations across Vietnam, symbolizing peace and prosperity.",
+  "P1": "A blossoming peach branch in a ceramic vase at Tet. A blossoming peach branch, known as \"cành đào,\" is placed in a traditional ceramic vase in the main living room during Tet, the Vietnamese Lunar New Year. The delicate pink blossoms and fresh green leaves of the peach branch enhance the festive atmosphere, symbolizing new beginnings and good fortune for the coming year. The scent of the blossoms fills the air, adding to the sensory experience, while the vase, often intricately designed and colored in green or red, complements the branch's hues. This custom, believed to have originated during the Lê dynasty, is an integral part of Tet celebrations across Vietnam, symbolizing peace and prosperity.",
+  "seed": 5000,
+  "model": "flux_dev",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Cành đào nở hoa",
+     "en": "A blossoming peach branch"
+    },
+    "subject_attributes": [
+     "nở hoa"
+    ],
+    "supporting_objects": [
+     "bình gốm"
+    ],
+    "background_and_scene": [
+     "ngày Tết"
+    ],
+    "actions_and_relations": [
+     "cắm trong"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "ngày Tết"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [],
+    "conditional_cues": [],
+    "positive_disambiguators": [],
+    "insufficient_evidence": []
+   },
+   "_loi": [
+    "RuntimeError: Không lấy được JSON sau 3 lần: không parse được JSON từ: '```json\\n{\\n \"cultural_evidence\": {\\n  \"identity_cues\": [\\n   {\\n    \"cue_vi\": \"cây đào\",\\n    \"cue_en\": \"peach tree\",\\n    \"visual_check_vi\": \"cây có hoa\",\\n    \"quote_vi\": \"Sắm cây đào và cây quất ở Bắc Bộ,'"
+   ]
+  },
+  "report_I0": {
+   "main_subjects": [
+    "flowering branches in vase"
+   ],
+   "clothing_and_appearance": [],
+   "foreground_objects": [
+    "green vase with red floral design"
+   ],
+   "supporting_objects": [
+    "wooden surface under vase"
+   ],
+   "background": [
+    "window with light curtains",
+    "wooden cabinet with mirror"
+   ],
+   "actions": [
+    "flowers blooming on branches"
+   ],
+   "spatial_relations": [
+    "vase on surface near window",
+    "branches extending from vase",
+    "mirror reflecting branches"
+   ],
+   "colors": [
+    "pink flower petals",
+    "green vase and leaves",
+    "red floral design on vase",
+    "wooden brown cabinet and surface"
+   ],
+   "counts": {
+    "flowers": "many",
+    "branches": "many",
+    "vases": "1",
+    "windows": "1",
+    "cabinets": "1"
+   },
+   "visible_effects": [
+    "soft light through window",
+    "reflection in mirror"
+   ],
+   "uncertain": [
+    "top of branches",
+    "bottom of surface",
+    "right side of cabinet"
+   ]
+  },
+  "gap": {
+   "_loi": "RuntimeError: Không lấy được JSON sau 3 lần: không parse được JSON từ: '{\\n \"missing_prompt_explicit\": [\\n  \"A blossoming peach branch\"\\n ],\\n \"missing_cultural_identity\": [\\n ],\\n \"contradictions\": [\\n ],\\n \"already_satisfied\": [\\n  \"a vase\",\\n  \"a ceramic vase\",\\n  \"a vase with re'",
+   "repair_actions": [],
+   "drop_phrases": []
+  },
+  "actions": [],
+  "drop_phrases": [],
+  "refs": [],
+  "images": {
+   "A": "S044_flux_txt.png",
+   "B (I0)": "S044_flux_txt.png",
+   "C (I1)": "S044_flux_txt.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "21:14:40",
+   "prompt_id": "S044",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Cành đào nở hoa cắm trong bình gốm ngày Tết.\nPROMPT EN: A blossoming peach branch in a ceramic vase at Tet.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Cành đào nở hoa",
+      "en": "A blossoming peach branch"
+     },
+     "subject_attributes": [
+      "nở hoa"
+     ],
+     "supporting_objects": [
+      "bình gốm"
+     ],
+     "background_and_scene": [
+      "ngày Tết"
+     ],
+     "actions_and_relations": [
+      "cắm trong"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "ngày Tết"
+     ]
+    }
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:18:57",
+   "prompt_id": "S044",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Cành đào nở hoa cắm trong bình gốm ngày Tết.\nPROMPT EN: A blossoming peach branch in a ceramic vase at Tet.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Đào — https://vi.wikipedia.org/wiki/%C4%90%C3%A0o_(th%E1%BB%B1c_v%E1%BA%ADt) ===\nQuả của nó có một hạt giống to được bao bọc trong một lớp vỏ gỗ cứng (gọi là \"hột\"), cùi thịt màu vàng hay ánh trắng, có mùi vị thơm ngon và lớp vỏ có lông tơ mềm như nhung. Sự đồng thuận lớn trong giới các nhà thực vật học ngày nay đã cho rằng nó có nguồn gốc từ Trung Quốc và được đưa vào Ba Tư cũng như khu vực Địa Trung Hải theo con đường tơ lụa vào khoảng thời gian ban đầu của lịch sử nhân loại, có lẽ vào khoảng thiên niên kỷ 2 TCN (Huxley và những người khác, 1992). Quả đào với cùi thịt trắng thông thường có vị rất ngọt và ít vị chua, trong khi loại có cùi thịt màu vàng thông thường có vị chua kèm theo vị ngọt, mặc dù điều này cũng có sự dao động lớn. Cả hai màu thông thường đều có các vệt đỏ trong lớp thịt của chúng. Loại đào cùi trắng, ít chua là phổ biến nhất tại Trung Quốc, Nhật Bản và các quốc gia châu Á xung quanh, trong khi người châu Âu và Bắc Mỹ ưa thích loại có cùi thịt màu vàng và có vị chua hơn. Tây Ban Nha, Ý, Thổ Nhĩ Kỳ và Hy Lạp, tất cả nằm trong khu vực Địa Trung Hải, cũng là những nhà sản xuất quan trọng của loại trái cây này. Trái đào màu trắng thường rất ngọt và ít có axit, trong khi trái đào màu vàng thường có vị chua kết hợp với vị ngọt, mặc dù điều này cũng có sự biến đổi. Trái đào màu trắng, ít axit, là loại phổ biến nhất tại Trung Quốc, Nhật Bản và các nước châu Á lân cận, trong khi người châu Âu và Bắc Mỹ thường ưa chuộng các giống đào màu vàng có vị chua. Ở một số vùng, các vườn đào thường được trồng lại sau 8 đến 10 năm, trong khi ở những vùng khác, cây có thể sản xuất trái tốt trong khoảng 20 đến 25 năm hoặc hơn, phụ thuộc vào sự kháng bệnh, sâu bệnh và thiệt hại mùa đông của chúng. Hóa thạch Hóa thạch của phần endocarp với đặc điểm giống hệt với những trái đào hiện đại đã được tìm thấy trong các tầng cuối thời kỳ Pliocene tại Kunming, có niên đại khoảng 2,6 triệu năm trước. Trong văn hóa Hoa đào là loài hoa biểu tượng của bang Delaware và quả đào là quả biểu tượng của bang Nam Carolina. Mặc dù Cosmo Kramer, một nhân vật trong Seinfeld, ăn quả đào Mackinaw, nhưng không có giống, thứ nào như thế tồn tại.\n\n=== PASSAGE [vi] Tết Nguyên Đán — https://vi.wikipedia.org/wiki/T%E1%BA%BFt_Nguy%C3%AAn_%C4%90%C3%A1n ===\nDo quy luật 3 năm nhuận một tháng của âm lịch nên ngày đầu năm của dịp Tết Nguyên đán không bao giờ trước ngày 21 tháng 1 Dương lịch và sau ngày 20 tháng 2 Dương lịch mà rơi vào giữa những ngày này. Toàn bộ dịp Tết Nguyên Đán hàng năm thường kéo dài trong khoảng 7 đến 8 ngày cuối năm cũ và 7 ngày đầu năm mới (23 tháng Chạp đến hết ngày 7 tháng Giêng). Tại Việt Nam trước ngày Tết còn có phong tục như \"cúng Táo Quân\" (23 tháng Chạp Âm lịch) và \"cúng Tất Niên\" (29 hoặc 30 tháng Chạp Âm lịch). Hàng năm, Tết được tổ chức vào ngày mùng 1 tháng Giêng âm lịch trên toàn nước Việt Nam và ở một vài nước khác có cộng đồng người Việt sinh sống. Sắm cây đào và cây quất ở Bắc Bộ, Bắc Trung Bộ , hay cây mai và dưa hấu ở Nam Trung Bộ và Nam Bộ được coi là sự chuẩn bị không thể thiếu trong những ngày giáp Tết. Sau đó, trong những ngày Tết, các gia đình sum họp bên nhau, cùng thăm hỏi người thân, dành những lời chúc mừng, mừng tuổi và thờ cúng tổ tiên. Hoạt động tín ngưỡng thờ cúng tổ tiên luôn được diễn ra trong những ngày Tết, kết hợp với các món ăn truyền thống như: mứt, hạt dưa và bánh chưng, bánh tét, dưa hành, giò lụa, giò xào,... là những món ăn không thể thiếu trong ngày Tết của người Việt. Từ nguyên \"Tiết Nguyên Đán\" trong 24 điểm \"Tiết khí\" (chữ Hán: 節氣) của Thời tiết phân chia theo lịch Mặt trăng (Nông lịch). Từ \"nguyên\" 元 trong \"Nguyên Đán\" 元旦 có nghĩa là sự khởi đầu hay là sơ khai và \"đán\" 旦 có nghĩa là buổi sáng sớm hay là bình minh. Nghĩa gốc của từ \"Nguyên Đán\" 元旦 là chỉ \"Buổi sáng đầu tiên/Ngày đầu tiên (tức ngày mồng một) của một năm Nông lịch\". Vì vậy mà có năm Việt Nam đón Tết cùng ngày với Trung Quốc, có năm lại đón Tết trước hoặc sau Trung Quốc. Phong tục này cũng lan sang các nước khác khi đón Tết. Do vậy, Tết Đoan ngọ vào ngày mùng 5 tháng 5 âm lịch rơi vào đúng giữa năm, tiết trời bắt đầu nắng nóng. Nhà Chu ưa sắc đỏ nên chọn tháng Tý, tức tháng mười một, làm tháng Tết.\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "_loi": "RuntimeError: Không lấy được JSON sau 3 lần: không parse được JSON từ: '```json\\n{\\n \"cultural_evidence\": {\\n  \"identity_cues\": [\\n   {\\n    \"cue_vi\": \"cây đào\",\\n    \"cue_en\": \"peach tree\",\\n    \"visual_check_vi\": \"cây có hoa\",\\n    \"quote_vi\": \"Sắm cây đào và cây quất ở Bắc Bộ,'"
+   },
+   "giay": 256.6
+  },
+  {
+   "t": "21:18:57",
+   "prompt_id": "S044",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 0,
+    "giu_conditional": 0,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:19:07",
+   "prompt_id": "S044",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_flux_20260918_1530/S044/B/S044_flux_txt.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "flowering branches in vase"
+    ],
+    "clothing_and_appearance": [],
+    "foreground_objects": [
+     "green vase with red floral design"
+    ],
+    "supporting_objects": [
+     "wooden surface under vase"
+    ],
+    "background": [
+     "window with light curtains",
+     "wooden cabinet with mirror"
+    ],
+    "actions": [
+     "flowers blooming on branches"
+    ],
+    "spatial_relations": [
+     "vase on surface near window",
+     "branches extending from vase",
+     "mirror reflecting branches"
+    ],
+    "colors": [
+     "pink flower petals",
+     "green vase and leaves",
+     "red floral design on vase",
+     "wooden brown cabinet and surface"
+    ],
+    "counts": {
+     "flowers": "many",
+     "branches": "many",
+     "vases": "1",
+     "windows": "1",
+     "cabinets": "1"
+    },
+    "visible_effects": [
+     "soft light through window",
+     "reflection in mirror"
+    ],
+    "uncertain": [
+     "top of branches",
+     "bottom of surface",
+     "right side of cabinet"
+    ]
+   },
+   "giay": 9.8
+  },
+  {
+   "t": "21:20:49",
+   "prompt_id": "S044",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A blossoming peach branch in a ceramic vase at Tet.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA blossoming peach branch, known as \"cành đào,\" is placed in a traditional ceramic vase in the main living room during Tet, the Vietnamese Lunar New Year. The delicate pink blossoms and fresh green leaves of the peach branch enhance the festive atmosphere, symbolizing new beginnings and good fortune for the coming year. The scent of the blossoms fills the air, adding to the sensory experience, while the vase, often intricately designed and colored in green or red, complements the branch's hues. This custom, believed to have originated during the Lê dynasty, is an integral part of Tet celebrations across Vietnam, symbolizing peace and prosperity.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Cành đào nở hoa\", \"en\": \"A blossoming peach branch\"}, \"subject_attributes\": [\"nở hoa\"], \"supporting_objects\": [\"bình gốm\"], \"background_and_scene\": [\"ngày Tết\"], \"actions_and_relations\": [\"cắm trong\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"ngày Tết\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [], \"conditional_cues\": [], \"positive_disambiguators\": [], \"insufficient_evidence\": []}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"flowering branches in vase\"], \"clothing_and_appearance\": [], \"foreground_objects\": [\"green vase with red floral design\"], \"supporting_objects\": [\"wooden surface under vase\"], \"background\": [\"window with light curtains\", \"wooden cabinet with mirror\"], \"actions\": [\"flowers blooming on branches\"], \"spatial_relations\": [\"vase on surface near window\", \"branches extending from vase\", \"mirror reflecting branches\"], \"colors\": [\"pink flower petals\", \"green vase and leaves\", \"red floral design on vase\", \"wooden brown cabinet and surface\"], \"counts\": {\"flowers\": \"many\", \"branches\": \"many\", \"vases\": \"1\", \"windows\": \"1\", \"cabinets\": \"1\"}, \"visible_effects\": [\"soft light through window\", \"reflection in mirror\"], \"uncertain\": [\"top of branches\", \"bottom of surface\", \"right side of cabinet\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "_loi": "RuntimeError: Không lấy được JSON sau 3 lần: không parse được JSON từ: '{\\n \"missing_prompt_explicit\": [\\n  \"A blossoming peach branch\"\\n ],\\n \"missing_cultural_identity\": [\\n ],\\n \"contradictions\": [\\n ],\\n \"already_satisfied\": [\\n  \"a vase\",\\n  \"a ceramic vase\",\\n  \"a vase with re'",
+    "repair_actions": [],
+    "drop_phrases": []
+   },
+   "giay": 102.4
+  },
+  {
+   "t": "21:20:49",
+   "prompt_id": "S044",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [],
+    "bo": [],
+    "drop_phrases": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:20:49",
+   "prompt_id": "S044",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [],
+    "bo_da_dat": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "21:20:49",
+   "prompt_id": "S044",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A blossoming peach branch in a ceramic vase at Tet. A blossoming peach branch, known as \"cành đào,\" is placed in a traditional ceramic vase in the main living room during Tet, the Vietnamese Lunar New Year. The delicate pink blossoms and fresh green leaves of the peach branch enhance the festive atmosphere, symbolizing new beginnings and good fortune for the coming year. The scent of the blossoms fills the air, adding to the sensory experience, while the vase, often intricately designed and colored in green or red, complements the branch's hues. This custom, believed to have originated during the Lê dynasty, is an integral part of Tet celebrations across Vietnam, symbolizing peace and prosperity."
+   },
+   "giay": 0.0
+  }
+ ]
+}

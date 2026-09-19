@@ -1,0 +1,649 @@
+{
+ "unit": {
+  "prompt_id": "S013",
+  "prompt_vi": "Xích lô chở khách qua đường phố.",
+  "P_orig": "A cyclo carrying a passenger along a street.",
+  "P_ct": "A cyclo carrying a passenger along a street. A cycle rickshaw, also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street, the passenger sits comfortably behind the driver, feeling the gentle breeze and the rhythmic clicking of the pedals. The driver skillfully navigates through narrow lanes and past vibrant colonial architecture, offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.",
+  "P1": "A cyclo carrying a passenger along a street. , also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street,, feeling the gentle breeze and the rhythmic clicking of the pedals., offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a seat for the passenger in front of the driver.",
+  "seed": 5000,
+  "model": "sdxl_base",
+  "cards": {
+   "prompt_preservation": {
+    "main_entity": {
+     "vi": "Xích lô",
+     "en": "A cyclo"
+    },
+    "subject_attributes": [
+     "chở khách"
+    ],
+    "supporting_objects": [
+     "khách"
+    ],
+    "background_and_scene": [
+     "đường phố"
+    ],
+    "actions_and_relations": [
+     "chở khách qua đường phố",
+     "carrying a passenger along a street"
+    ],
+    "colors": [],
+    "visual_effects": [],
+    "time_weather_lighting": [],
+    "counts": {},
+    "text_in_image": [],
+    "must_preserve_verbatim": [
+     "A cyclo carrying a passenger along a street"
+    ]
+   },
+   "cultural_evidence": {
+    "identity_cues": [
+     {
+      "cue_vi": "ba bánh",
+      "cue_en": "three wheels",
+      "visual_check_vi": "số lượng bánh xe",
+      "quote_vi": "thông thường xích lô có ba bánh",
+      "source_url": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+     },
+     {
+      "cue_vi": "người lái xe đạp phía sau",
+      "cue_en": "driver pedals from behind",
+      "visual_check_vi": "vị trí người lái xe",
+      "quote_vi": "người chạy xe xích lô thông thường đạp xe đằng sau phần chở khách",
+      "source_url": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+     }
+    ],
+    "conditional_cues": [
+     {
+      "cue_vi": "hành khách ngồi phía trước",
+      "cue_en": "passenger sits in front",
+      "visual_check_vi": "vị trí hành khách",
+      "quote_vi": "Cấu tạo chiếc xích lô bao giờ cũng dành chỗ cho hành khách ngồi phía trước",
+      "source_url": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+     }
+    ],
+    "positive_disambiguators": [
+     {
+      "target_appearance_vi": "có một hoặc hai ghế cho khách",
+      "target_appearance_en": "has one or two seats for passengers",
+      "source_url": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+     }
+    ],
+    "discarded_nonvisual_facts": [
+     "lịch sử hình thành",
+     "nguyên liệu làm xe",
+     "tên gọi",
+     "sự phát triển",
+     "sự sử dụng",
+     "quy định",
+     "động cơ",
+     "nhạc và phim",
+     "liên kết ngoài"
+    ],
+    "insufficient_evidence": [
+     "màu sắc",
+     "kích thước",
+     "chất liệu",
+     "thiết kế chi tiết"
+    ]
+   },
+   "_loi": []
+  },
+  "report_I0": {
+   "main_subjects": [
+    "three people on cycle rickshaw",
+    "two people seated in back",
+    "one person pedaling front"
+   ],
+   "clothing_and_appearance": [
+    "person in front wearing blue shirt",
+    "person in back left wearing pink shirt",
+    "person in back right wearing blue shirt",
+    "all people wearing light-colored pants",
+    "all people smiling"
+   ],
+   "foreground_objects": [
+    "large front wheel of rickshaw",
+    "smaller rear wheel of rickshaw"
+   ],
+   "supporting_objects": [
+    "cycle rickshaw frame",
+    "red canopy over seats",
+    "handlebars in front",
+    "pedals under person in front"
+   ],
+   "background": [
+    "blurred buildings",
+    "blurred pedestrians",
+    "blurred vehicles",
+    "green trees",
+    "overhead wires"
+   ],
+   "actions": [
+    "person pedaling rickshaw",
+    "people seated in back",
+    "people smiling"
+   ],
+   "spatial_relations": [
+    "person in front of two people",
+    "two people under red canopy",
+    "rickshaw on road",
+    "buildings behind rickshaw"
+   ],
+   "colors": [
+    "blue shirts",
+    "pink shirt",
+    "red canopy",
+    "green rickshaw frame",
+    "black rickshaw wheels",
+    "light-colored pants"
+   ],
+   "counts": {
+    "people": 3,
+    "wheels": 2,
+    "canopies": 1
+   },
+   "visible_effects": [
+    "motion blur of background",
+    "shadows on road",
+    "reflections on rickshaw frame"
+   ],
+   "uncertain": [
+    "top of canopy",
+    "feet of person in front",
+    "details of blurred background"
+   ]
+  },
+  "gap": {
+   "missing_prompt_explicit": [],
+   "missing_cultural_identity": [
+    "three wheels"
+   ],
+   "contradictions": [
+    "one person pedaling front"
+   ],
+   "already_satisfied": [
+    "A cyclo carrying a passenger along a street",
+    "two people seated in back",
+    "person in front wearing blue shirt",
+    "person in back left wearing pink shirt",
+    "person in back right wearing blue shirt",
+    "all people wearing light-colored pants",
+    "all people smiling",
+    "large front wheel of rickshaw",
+    "smaller rear wheel of rickshaw",
+    "cycle rickshaw frame",
+    "red canopy over seats",
+    "handlebars in front",
+    "pedals under person in front",
+    "blurred buildings",
+    "blurred pedestrians",
+    "blurred vehicles",
+    "green trees",
+    "overhead wires",
+    "person pedaling rickshaw",
+    "people seated in back",
+    "people smiling",
+    "person in front of two people",
+    "two people under red canopy",
+    "rickshaw on road",
+    "buildings behind rickshaw",
+    "blue shirts",
+    "pink shirt",
+    "red canopy",
+    "green rickshaw frame",
+    "black rickshaw wheels",
+    "light-colored pants",
+    "motion blur of background",
+    "shadows on road",
+    "reflections on rickshaw frame"
+   ],
+   "uncertain_no_repair": [
+    "top of canopy",
+    "feet of person in front",
+    "details of blurred background"
+   ],
+   "repair_actions": [
+    "a third wheel at the back of the cyclo",
+    "the driver pedaling from behind the passenger seat",
+    "a seat for the passenger in front of the driver"
+   ],
+   "drop_phrases": [
+    "a cycle rickshaw",
+    "the passenger sits comfortably behind the driver",
+    "the driver skillfully navigates through narrow lanes and past vibrant colonial architecture"
+   ]
+  },
+  "actions": [
+   "a seat for the passenger in front of the driver"
+  ],
+  "drop_phrases": [
+   "a cycle rickshaw",
+   "the passenger sits comfortably behind the driver",
+   "the driver skillfully navigates through narrow lanes and past vibrant colonial architecture"
+  ],
+  "refs": [
+   "/workspace/refs_new/reference_images_simple/selected/S013/01.jpg",
+   "/workspace/refs_new/reference_images_simple/selected/S013/02.webp"
+  ],
+  "images": {
+   "A": "S013_sdxl_base_c0.png",
+   "B (I0)": "S013_sdxl_base_c0.png",
+   "C (I1)": "S013_sdxl_base_c0.png"
+  }
+ },
+ "transcript": [
+  {
+   "t": "18:12:15",
+   "prompt_id": "S013",
+   "agent": "K",
+   "buoc": "card_preservation",
+   "system": "You are the Prompt Analyst. From the prompt ONLY, produce prompt_preservation: everything the prompt asks for, grouped. Keep meaning intact; the English wording in must_preserve_verbatim must be copied exactly. Needs no citation. JSON only.",
+   "user": "PROMPT VI: Xích lô chở khách qua đường phố.\nPROMPT EN: A cyclo carrying a passenger along a street.\n\nReturn prompt_preservation as JSON.",
+   "images": [],
+   "response": {
+    "prompt_preservation": {
+     "main_entity": {
+      "vi": "Xích lô",
+      "en": "A cyclo"
+     },
+     "subject_attributes": [
+      "chở khách"
+     ],
+     "supporting_objects": [
+      "khách"
+     ],
+     "background_and_scene": [
+      "đường phố"
+     ],
+     "actions_and_relations": [
+      "chở khách qua đường phố",
+      "carrying a passenger along a street"
+     ],
+     "colors": [],
+     "visual_effects": [],
+     "time_weather_lighting": [],
+     "counts": {},
+     "text_in_image": [],
+     "must_preserve_verbatim": [
+      "A cyclo carrying a passenger along a street"
+     ]
+    }
+   },
+   "giay": 13.1
+  },
+  {
+   "t": "18:12:55",
+   "prompt_id": "S013",
+   "agent": "K",
+   "buoc": "card_cultural",
+   "system": "You are the Prompt & Cultural Analyst for a Vietnamese cultural text-to-image system.\nYou produce TWO cards as one JSON object.\n\nCARD 1 — prompt_preservation: everything the prompt itself asks for, grouped. Take it ONLY from the prompt. Keep meaning intact. This card has the highest priority downstream. Needs no citation.\n\nCARD 2 — cultural_evidence: ONLY culturally identifying features that a camera can capture, taken ONLY from the Wikipedia passages given to you. Rules:\n- at most 3 identity_cues, at most 2 conditional_cues, at most 2 positive_disambiguators;\n- every identity_cue and conditional_cue must carry quote_vi: a VERBATIM sentence or phrase copied exactly from the Vietnamese passage, and source_url from the passage header;\n- if the passage does not clearly state a feature, do not invent it — list what you looked for under insufficient_evidence;\n- history, etymology, symbolism, taste, smell, sound go to discarded_nonvisual_facts;\n- a positive_disambiguator describes what the CORRECT object looks like where a look-alike would differ. Never describe the look-alike itself.\n- Never turn a prompt-specific detail (e.g. 'white') into a universal cultural feature.\n- Cues must describe the MAIN OBJECT's own appearance, or HOW it sits on the body (resting on one shoulder, worn over trousers, tied at the waist) when the source says so. Utensils, containers, serving temperature and preparation steps are not cues.\nAnswer in JSON only.",
+   "user": "PROMPT VI: Xích lô chở khách qua đường phố.\nPROMPT EN: A cyclo carrying a passenger along a street.\n\nWIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n=== PASSAGE [vi] Xích lô — https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4 ===\nXe xích lô (từ tiếng Pháp: cyclo) là một phương tiện giao thông sử dụng sức người, có 3 bánh dùng để vận chuyển khách hoặc hàng hóa, thường có một hoặc hai ghế cho khách và một chỗ cho người lái xe. Người lái xe cũng vận hành nó như xe đạp thường, một vài loại có mô tơ để giúp người lái đỡ tốn sức, nếu có gắn động cơ thì gọi là xích lô máy. Thông thường xích lô có ba bánh. Loại xe đạp kéo thùng chở khách đằng sau trở thành xích lô thường gọi là xe lôi, phổ biến ở miền Tây Nam Bộ. Người chạy xe xích lô thông thường đạp xe đằng sau phần chở khách; nhiều loại có người đạp xe đằng trước. Từ \"xích lô\" có gốc từ cyclo trong tiếng Pháp. Xích lô sử dụng nhiều ở châu Á, hiện nay nó phổ biến hơn xe kéo nhiều. Xích lô cũng được sử dụng tại một số thành phố ở châu Âu và Mỹ, thường để chở khách đi du lịch. Lịch sử hình thành Xe xích lô được cho là biến thân của xe kéo đã có từ thế kỷ 19. Theo nhà sử học Dương Trung Quốc, và cũng được kể lại bởi nhà báo Nguyễn Lưu, thì chiếc xích lô (cyclo) do một người Pháp miền Charente tên là Coupeaud phát minh ra vào năm 1939. Để quảng cáo cho phương tiện vận chuyển mới này, Coupeaud đã tổ chức một cuộc hành trình với chiếc xe chở khách chạy bằng 3 bánh từ Phnôm Pênh (thủ đô lớn nhất của Campuchia) tới Sài Gòn, với hai người đạp thuê đã thay phiên nhau đạp một mạch gần 200 km trong thời gian 17 giờ 23 phút. Số liệu thống kê cho biết, cuối năm 1939, Sài Gòn chỉ có 40 chiếc xích lô thì qua năm 1940, con số này đã là 200 chiếc. Từ đầu thập niên 1960, tại Sài gòn xuất hiện xe xích lô máy, với động cơ 2 thì và với những phụ tùng, linh kiện, động cơ của hãng xe mô tô Peugeot nhập từ Pháp, loại 125 phân khối, dùng xăng pha nhớt. Tuy nhiên theo soạn giả Tony Wheeler trong Chasing Rickshaws thì một loại xích lô (người đạp phía trước kéo hành khách ngồi phía sau) đã có mặt ở Singapore vào thập niên 1920. Trong khi đó kiểu xích lô người đạp phía sau, hành khách ngồi trước, thì năm 1936 đã xuất hiện ở Jakarta. Christopher Pym cũng ghi nhận là năm 1936 ở Nam Vang du nhập xe xích lô, nên sự việc ở Pháp năm 1939 chưa hẳn là \"phát minh\". Hiện nay, xe xích lô bị hạn chế sử dụng tại Việt Nam. Từ năm 2009, Hà Nội từng tổ chức hội nghị về quản lý hoạt động của xe xích lô trên địa bàn, và siết chặt quản lý đối với hoạt động xích lô, tiến tới việc xóa bỏ hoàn toàn loại xe này. Hiện nay, tại Hà Nội còn khoảng 300 xe xích lô thuộc 4 doanh nghiệp được cấp phép để phục vụ du lịch. Xe xích lô tại Malaysia thì gọi là Beca. Ở Malaysia người đạp và hành khách ngồi hai phía song song nhau. Tại Việt Nam và Campuchia lại khác: Cấu tạo chiếc xích lô bao giờ cũng dành chỗ cho hành khách ngồi phía trước; nhưng trong cấu tạo của xe lôi ở các tỉnh Nam Bộ thì trái lại. Loại xe 3 bánh chở khách có động cơ và mái che được gọi là xe lam, ở Thái Lan gọi là xe túc túc (tuk tuk). Hiện nay, tại châu Âu, vào mùa hè, có những xe taxi đạp ba bánh, thường do sinh viên làm hè thêm để phục vụ du khách, gọi là cycle rickshaw, bike taxi, velotaxi, pedicab,... Trong văn hóa Nhạc sĩ Võ Thiện Thanh có ca khúc \"Xích lô\" do Mỹ Tâm trình bày vào năm 2001, với những câu: Xích lô, ai không hay đắn đo Cứ lo trời nắng, cứ lo trời mưa, cứ lo toan thẫn thờ Một mình ngửa mặt nằm im ngắm sao trời Đèn đường bạn thân với đôi vai gầy... Phim Cyclo, phát hành vào năm 1995 bởi đạo diễn Việt kiều Trần Anh Hùng, về người lái xe xích lô. Xem thêm Xe người kéo Xe lôi Xe thổ mộ Xe lam Xe ôm Xe ba gác Chú thích Liên kết ngoài Quy định về quản lý hoạt động xe xích lô du lịch trên địa bàn Thành phố Hà Nội Xích lô Sài Gòn bây giờ về đâu? Liên kết đến thảo luận và hãng làm và thuê xích lô: Yahoo Group Pedicab Lưu trữ ngày 10 tháng 6 năm 2004 tại Wayback Machine Main Street Pedicabs PedalLine Bản mẫu:Xe\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.",
+   "images": [],
+   "response": {
+    "cultural_evidence": {
+     "identity_cues": [
+      {
+       "cue_vi": "ba bánh",
+       "cue_en": "three wheels",
+       "visual_check_vi": "số lượng bánh xe",
+       "quote_vi": "thông thường xích lô có ba bánh",
+       "source_url": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+      },
+      {
+       "cue_vi": "người lái xe đạp phía sau",
+       "cue_en": "driver pedals from behind",
+       "visual_check_vi": "vị trí người lái xe",
+       "quote_vi": "người chạy xe xích lô thông thường đạp xe đằng sau phần chở khách",
+       "source_url": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+      }
+     ],
+     "conditional_cues": [
+      {
+       "cue_vi": "hành khách ngồi phía trước",
+       "cue_en": "passenger sits in front",
+       "visual_check_vi": "vị trí hành khách",
+       "quote_vi": "Cấu tạo chiếc xích lô bao giờ cũng dành chỗ cho hành khách ngồi phía trước",
+       "source_url": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+      }
+     ],
+     "positive_disambiguators": [
+      {
+       "target_appearance_vi": "có một hoặc hai ghế cho khách",
+       "target_appearance_en": "has one or two seats for passengers",
+       "source_url": "https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4"
+      }
+     ],
+     "discarded_nonvisual_facts": [
+      "lịch sử hình thành",
+      "nguyên liệu làm xe",
+      "tên gọi",
+      "sự phát triển",
+      "sự sử dụng",
+      "quy định",
+      "động cơ",
+      "nhạc và phim",
+      "liên kết ngoài"
+     ],
+     "insufficient_evidence": [
+      "màu sắc",
+      "kích thước",
+      "chất liệu",
+      "thiết kế chi tiết"
+     ]
+    }
+   },
+   "giay": 39.9
+  },
+  {
+   "t": "18:12:55",
+   "prompt_id": "S013",
+   "agent": "K",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu_identity": 2,
+    "giu_conditional": 1,
+    "loai": []
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:13:25",
+   "prompt_id": "S013",
+   "agent": "O",
+   "buoc": "I0",
+   "system": "You are a Blind Visual Observer. You receive ONE photograph and nothing else. You do not know what it was supposed to show.\nReport EXHAUSTIVELY what is visible, in this order: 1 main subjects; 2 clothing and appearance; 3 foreground objects; 4 supporting objects; 5 background; 6 actions and spatial relations; 7 colours; 8 counts; 9 small effects such as smoke, steam, light, motion, reflections; 10 uncertain regions.\nRULES: describe only what a camera captured — shapes, materials, how parts join, counts, colours. Never say whether anything is correct, authentic or traditional. Never name a country, culture or ethnicity. Never guess at anything outside the frame; list cut-off parts under uncertain. Short noun phrases, 3-12 words each. JSON only.",
+   "user": "Describe this photograph. Return JSON.",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S013/B/sdxl_base/S013_sdxl_base_c0.png"
+   ],
+   "response": {
+    "main_subjects": [
+     "three people on cycle rickshaw",
+     "two people seated in back",
+     "one person pedaling front"
+    ],
+    "clothing_and_appearance": [
+     "person in front wearing blue shirt",
+     "person in back left wearing pink shirt",
+     "person in back right wearing blue shirt",
+     "all people wearing light-colored pants",
+     "all people smiling"
+    ],
+    "foreground_objects": [
+     "large front wheel of rickshaw",
+     "smaller rear wheel of rickshaw"
+    ],
+    "supporting_objects": [
+     "cycle rickshaw frame",
+     "red canopy over seats",
+     "handlebars in front",
+     "pedals under person in front"
+    ],
+    "background": [
+     "blurred buildings",
+     "blurred pedestrians",
+     "blurred vehicles",
+     "green trees",
+     "overhead wires"
+    ],
+    "actions": [
+     "person pedaling rickshaw",
+     "people seated in back",
+     "people smiling"
+    ],
+    "spatial_relations": [
+     "person in front of two people",
+     "two people under red canopy",
+     "rickshaw on road",
+     "buildings behind rickshaw"
+    ],
+    "colors": [
+     "blue shirts",
+     "pink shirt",
+     "red canopy",
+     "green rickshaw frame",
+     "black rickshaw wheels",
+     "light-colored pants"
+    ],
+    "counts": {
+     "people": 3,
+     "wheels": 2,
+     "canopies": 1
+    },
+    "visible_effects": [
+     "motion blur of background",
+     "shadows on road",
+     "reflections on rickshaw frame"
+    ],
+    "uncertain": [
+     "top of canopy",
+     "feet of person in front",
+     "details of blurred background"
+    ]
+   },
+   "giay": 30.1
+  },
+  {
+   "t": "18:13:59",
+   "prompt_id": "S013",
+   "agent": "R",
+   "buoc": "gap",
+   "system": "You are the Gap Analyzer & Prompt Refiner. You compare a blind visual report of a generated image against (a) the Prompt Preservation Card and (b) the Cultural Evidence Card.\nClassify: missing_prompt_explicit (asked by the prompt, not in the report); missing_cultural_identity (identity cue not evidenced in the report); contradictions (report shows something incompatible); already_satisfied; uncertain_no_repair (the report is unsure — do NOT repair these).\nPriority for repair: 1 details stated in the prompt; 2 supporting objects, background, relations; 3 identity cues; 4 conditional cues. At most 3 repair_actions.\nEach repair_action is ONE positive English instruction (max 18 words) describing exactly what should be visibly present, including WHERE on the body or scene it sits when that matters (e.g. 'a bamboo pole resting across one shoulder with a basket hanging from each end'). Never use negation (no/not/without/avoid). Never name the wrong object. Never change framing, camera angle, lighting or composition. Do not restate things already satisfied.\ndrop_phrases: copy VERBATIM any phrase from the EXPANSION TEXT (never from the original prompt) that contradicts the Cultural Evidence Card or pushes toward a look-alike object — e.g. a cut or garment term that belongs to another culture. Empty list if none. JSON only.",
+   "user": "ORIGINAL PROMPT: A cyclo carrying a passenger along a street.\n\nEXPANSION TEXT (added by Culture-TRIP, may be trimmed):\nA cycle rickshaw, also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street, the passenger sits comfortably behind the driver, feeling the gentle breeze and the rhythmic clicking of the pedals. The driver skillfully navigates through narrow lanes and past vibrant colonial architecture, offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.\n\nPROMPT PRESERVATION CARD:\n{\"main_entity\": {\"vi\": \"Xích lô\", \"en\": \"A cyclo\"}, \"subject_attributes\": [\"chở khách\"], \"supporting_objects\": [\"khách\"], \"background_and_scene\": [\"đường phố\"], \"actions_and_relations\": [\"chở khách qua đường phố\", \"carrying a passenger along a street\"], \"colors\": [], \"visual_effects\": [], \"time_weather_lighting\": [], \"counts\": {}, \"text_in_image\": [], \"must_preserve_verbatim\": [\"A cyclo carrying a passenger along a street\"]}\n\nCULTURAL EVIDENCE CARD:\n{\"identity_cues\": [{\"cue_vi\": \"ba bánh\", \"cue_en\": \"three wheels\", \"visual_check_vi\": \"số lượng bánh xe\", \"quote_vi\": \"thông thường xích lô có ba bánh\", \"source_url\": \"https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4\"}, {\"cue_vi\": \"người lái xe đạp phía sau\", \"cue_en\": \"driver pedals from behind\", \"visual_check_vi\": \"vị trí người lái xe\", \"quote_vi\": \"người chạy xe xích lô thông thường đạp xe đằng sau phần chở khách\", \"source_url\": \"https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4\"}], \"conditional_cues\": [{\"cue_vi\": \"hành khách ngồi phía trước\", \"cue_en\": \"passenger sits in front\", \"visual_check_vi\": \"vị trí hành khách\", \"quote_vi\": \"Cấu tạo chiếc xích lô bao giờ cũng dành chỗ cho hành khách ngồi phía trước\", \"source_url\": \"https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4\"}], \"positive_disambiguators\": [{\"target_appearance_vi\": \"có một hoặc hai ghế cho khách\", \"target_appearance_en\": \"has one or two seats for passengers\", \"source_url\": \"https://vi.wikipedia.org/wiki/X%C3%ADch_l%C3%B4\"}], \"discarded_nonvisual_facts\": [\"lịch sử hình thành\", \"nguyên liệu làm xe\", \"tên gọi\", \"sự phát triển\", \"sự sử dụng\", \"quy định\", \"động cơ\", \"nhạc và phim\", \"liên kết ngoài\"], \"insufficient_evidence\": [\"màu sắc\", \"kích thước\", \"chất liệu\", \"thiết kế chi tiết\"]}\n\nBLIND VISUAL REPORT OF THE IMAGE:\n{\"main_subjects\": [\"three people on cycle rickshaw\", \"two people seated in back\", \"one person pedaling front\"], \"clothing_and_appearance\": [\"person in front wearing blue shirt\", \"person in back left wearing pink shirt\", \"person in back right wearing blue shirt\", \"all people wearing light-colored pants\", \"all people smiling\"], \"foreground_objects\": [\"large front wheel of rickshaw\", \"smaller rear wheel of rickshaw\"], \"supporting_objects\": [\"cycle rickshaw frame\", \"red canopy over seats\", \"handlebars in front\", \"pedals under person in front\"], \"background\": [\"blurred buildings\", \"blurred pedestrians\", \"blurred vehicles\", \"green trees\", \"overhead wires\"], \"actions\": [\"person pedaling rickshaw\", \"people seated in back\", \"people smiling\"], \"spatial_relations\": [\"person in front of two people\", \"two people under red canopy\", \"rickshaw on road\", \"buildings behind rickshaw\"], \"colors\": [\"blue shirts\", \"pink shirt\", \"red canopy\", \"green rickshaw frame\", \"black rickshaw wheels\", \"light-colored pants\"], \"counts\": {\"people\": 3, \"wheels\": 2, \"canopies\": 1}, \"visible_effects\": [\"motion blur of background\", \"shadows on road\", \"reflections on rickshaw frame\"], \"uncertain\": [\"top of canopy\", \"feet of person in front\", \"details of blurred background\"]}\n\nReturn the gap analysis as JSON.",
+   "images": [],
+   "response": {
+    "missing_prompt_explicit": [],
+    "missing_cultural_identity": [
+     "three wheels"
+    ],
+    "contradictions": [
+     "one person pedaling front"
+    ],
+    "already_satisfied": [
+     "A cyclo carrying a passenger along a street",
+     "two people seated in back",
+     "person in front wearing blue shirt",
+     "person in back left wearing pink shirt",
+     "person in back right wearing blue shirt",
+     "all people wearing light-colored pants",
+     "all people smiling",
+     "large front wheel of rickshaw",
+     "smaller rear wheel of rickshaw",
+     "cycle rickshaw frame",
+     "red canopy over seats",
+     "handlebars in front",
+     "pedals under person in front",
+     "blurred buildings",
+     "blurred pedestrians",
+     "blurred vehicles",
+     "green trees",
+     "overhead wires",
+     "person pedaling rickshaw",
+     "people seated in back",
+     "people smiling",
+     "person in front of two people",
+     "two people under red canopy",
+     "rickshaw on road",
+     "buildings behind rickshaw",
+     "blue shirts",
+     "pink shirt",
+     "red canopy",
+     "green rickshaw frame",
+     "black rickshaw wheels",
+     "light-colored pants",
+     "motion blur of background",
+     "shadows on road",
+     "reflections on rickshaw frame"
+    ],
+    "uncertain_no_repair": [
+     "top of canopy",
+     "feet of person in front",
+     "details of blurred background"
+    ],
+    "repair_actions": [
+     "a third wheel at the back of the cyclo",
+     "the driver pedaling from behind the passenger seat",
+     "a seat for the passenger in front of the driver"
+    ],
+    "drop_phrases": [
+     "a cycle rickshaw",
+     "the passenger sits comfortably behind the driver",
+     "the driver skillfully navigates through narrow lanes and past vibrant colonial architecture"
+    ]
+   },
+   "giay": 34.3
+  },
+  {
+   "t": "18:13:59",
+   "prompt_id": "S013",
+   "agent": "R",
+   "buoc": "may_kiem",
+   "system": "(kiểm bằng máy: bỏ action có phủ định / khung hình; trần 3; drop_phrases phải nguyên văn trong phần mở rộng)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     "a third wheel at the back of the cyclo",
+     "the driver pedaling from behind the passenger seat",
+     "a seat for the passenger in front of the driver"
+    ],
+    "bo": [],
+    "drop_phrases": [
+     "a cycle rickshaw",
+     "the passenger sits comfortably behind the driver",
+     "the driver skillfully navigates through narrow lanes and past vibrant colonial architecture"
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:14:02",
+   "prompt_id": "S013",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a third wheel at the back of the cyclo\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S013/B/sdxl_base/S013_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "three wheels, back wheel visible"
+   },
+   "giay": 2.7
+  },
+  {
+   "t": "18:14:04",
+   "prompt_id": "S013",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"the driver pedaling from behind the passenger seat\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S013/B/sdxl_base/S013_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "Driver pedaling behind passenger seat."
+   },
+   "giay": 2.7
+  },
+  {
+   "t": "18:14:07",
+   "prompt_id": "S013",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"a seat for the passenger in front of the driver\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S013/B/sdxl_base/S013_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 0.0,
+    "evidence": "passenger behind driver"
+   },
+   "giay": 2.6
+  },
+  {
+   "t": "18:14:10",
+   "prompt_id": "S013",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"three wheels\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S013/B/sdxl_base/S013_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10.0,
+    "evidence": "three wheels visible"
+   },
+   "giay": 2.6
+  },
+  {
+   "t": "18:14:12",
+   "prompt_id": "S013",
+   "agent": "O",
+   "buoc": "pre_I0",
+   "system": "You rate how well ONE photograph matches ONE written statement. score 0-10: 10 exactly as described, 5 the thing is there but clearly differs, 0 nothing of the kind. If the part lies outside the picture set in_frame false and give no score. Never name a country or culture. evidence: what you see, max 15 words. JSON only.",
+   "user": "Statement: \"driver pedals from behind\"\nHow fully does this photograph match that statement?\nReturn JSON: {\"in_frame\": true|false, \"score\": 0-10, \"evidence\": \"..\"}",
+   "images": [
+    "/workspace/runs/kor_20260918_1349/S013/B/sdxl_base/S013_sdxl_base_c0.png"
+   ],
+   "response": {
+    "in_frame": true,
+    "score": 10,
+    "evidence": "driver pedals from behind"
+   },
+   "giay": 2.6
+  },
+  {
+   "t": "18:14:12",
+   "prompt_id": "S013",
+   "agent": "R",
+   "buoc": "may_kiem_I0",
+   "system": "(chấm action trên I0; bỏ mục đã >= 8; bù identity cue của K)",
+   "user": "",
+   "images": [],
+   "response": {
+    "giu": [
+     [
+      "a seat for the passenger in front of the driver",
+      0.0
+     ]
+    ],
+    "bo_da_dat": [
+     [
+      "a third wheel at the back of the cyclo",
+      10.0
+     ],
+     [
+      "the driver pedaling from behind the passenger seat",
+      10.0
+     ]
+    ]
+   },
+   "giay": 0.0
+  },
+  {
+   "t": "18:14:12",
+   "prompt_id": "S013",
+   "agent": "P1",
+   "buoc": "prompt",
+   "system": "(P1 = P_ct nguyên văn + preserve clause + action; không negative)",
+   "user": "",
+   "images": [],
+   "response": {
+    "P1": "A cyclo carrying a passenger along a street. , also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street,, feeling the gentle breeze and the rhythmic clicking of the pedals., offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a seat for the passenger in front of the driver."
+   },
+   "giay": 0.0
+  }
+ ]
+}

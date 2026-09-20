@@ -1,0 +1,1502 @@
+{
+ "SDXL-refs|S036|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "Traditional_Vietnamese_wedding"
+ },
+ "SDXL|S019|I1": {
+  "Vietnam": 3,
+  "China": 1,
+  "entity": "Tai_peoples"
+ },
+ "FLUX-refs|S027|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "noodle_soup"
+ },
+ "FLUX-refs|S013|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "cycle_rickshaw"
+ },
+ "SDXL|S002|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "peddler"
+ },
+ "FLUX-refs|S038|I1": {
+  "Vietnam": 2,
+  "China": 3,
+  "entity": "History_of_salt"
+ },
+ "FLUX|S009|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Đàn_tranh"
+ },
+ "SDXL-keep|S021|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Mid-Autumn_Festival"
+ },
+ "SDXL|S011|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Sichuan_opera"
+ },
+ "FLUX-refs|S012|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Vietnam"
+ },
+ "SDXL|S006|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "One_Pillar_Pagoda"
+ },
+ "FLUX|S029|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Nagasari"
+ },
+ "SDXL-keep|S001|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Áo_dài"
+ },
+ "FLUX-refs|S040|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Asian_conical_hat"
+ },
+ "FLUX|S020|I1": {
+  "Vietnam": 2,
+  "China": 4,
+  "entity": "Hanfu"
+ },
+ "FLUX-refs|S023|I1": {
+  "Vietnam": 2,
+  "China": 4,
+  "entity": "Kung hei fat choi"
+ },
+ "SDXL-keep|S024|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Vietnamese_iced_coffee"
+ },
+ "SDXL|S014|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Yuanyang_County,_Yunnan"
+ },
+ "SDXL|S024|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Vietnamese_iced_coffee"
+ },
+ "SDXL|S047|I1": {
+  "Vietnam": 2,
+  "China": 4,
+  "entity": "Hmong_people"
+ },
+ "SDXL-keep|S028|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_lá"
+ },
+ "SDXL-keep|S014|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Yuanyang_County,_Yunnan"
+ },
+ "SDXL-refs|S007|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "One_Pillar_Pagoda"
+ },
+ "SDXL|S036|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Traditional_Chinese_marriage"
+ },
+ "SDXL-keep|S002|I1": {
+  "Vietnam": 5,
+  "China": 4,
+  "entity": "peddler"
+ },
+ "SDXL-keep|S043|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "calligrapher"
+ },
+ "FLUX-refs|S031|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "List of hanfu"
+ },
+ "SDXL|S007|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "One_Pillar_Pagoda"
+ },
+ "SDXL-keep|S046|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Bến_Tre_Province"
+ },
+ "SDXL|S022|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "Lion_dance"
+ },
+ "SDXL-refs|S005|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_mì"
+ },
+ "FLUX|S001|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Áo_dài"
+ },
+ "SDXL-keep|S034|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Cố_Trạch_Temple"
+ },
+ "FLUX-refs|S032|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Music_of_China"
+ },
+ "FLUX-refs|S026|I1": {
+  "Vietnam": 3,
+  "China": 1,
+  "entity": "Sarmale"
+ },
+ "FLUX-keep|S017|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Perfume_Pagoda"
+ },
+ "FLUX-keep|S003|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "soup"
+ },
+ "SDXL-refs|S043|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "calligrapher"
+ },
+ "FLUX-keep|S023|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Tết"
+ },
+ "SDXL-refs|S024|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Vietnamese_iced_coffee"
+ },
+ "SDXL-keep|S040|I1": {
+  "Vietnam": 5,
+  "China": 3,
+  "entity": "Asian_conical_hat"
+ },
+ "FLUX|S027|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "noodle_soup"
+ },
+ "SDXL|S018|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Kuki_people"
+ },
+ "FLUX-keep|S047|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Hui_people"
+ },
+ "FLUX|S023|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Tết"
+ },
+ "FLUX|S035|I1": {
+  "Vietnam": 2,
+  "China": 3,
+  "entity": "bhikkhu"
+ },
+ "SDXL|S035|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "Veneration of the dead"
+ },
+ "SDXL|S001|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Áo_dài"
+ },
+ "SDXL-refs|S020|I1": {
+  "Vietnam": 3,
+  "China": 1,
+  "entity": "Tai_peoples"
+ },
+ "SDXL-keep|S008|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Hội_An"
+ },
+ "FLUX-refs|S001|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Áo_dài"
+ },
+ "FLUX|S044|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Prunus_japonica"
+ },
+ "SDXL-keep|S029|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Xôi"
+ },
+ "FLUX-keep|S025|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "popiah"
+ },
+ "SDXL-refs|S004|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_tẻ"
+ },
+ "FLUX-keep|S036|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "Tết"
+ },
+ "SDXL-refs|S025|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Gỏi_cuốn"
+ },
+ "SDXL-refs|S017|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Perfume_Pagoda"
+ },
+ "SDXL-keep|S030|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Áo_bà_ba"
+ },
+ "SDXL-keep|S045|I1": {
+  "Vietnam": 5,
+  "China": 3,
+  "entity": "Buddhism_in_Vietnam"
+ },
+ "FLUX-keep|S029|I1": {
+  "Vietnam": 2,
+  "China": 1,
+  "entity": "Nagasari"
+ },
+ "SDXL-keep|S036|I1": {
+  "Vietnam": 2,
+  "China": 5,
+  "entity": "Traditional_Chinese_marriage"
+ },
+ "SDXL-refs|S030|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Áo_bà_ba"
+ },
+ "SDXL-refs|S029|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Xôi"
+ },
+ "FLUX-refs|S035|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Rumi"
+ },
+ "SDXL-refs|S042|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Hạ_Long_Bay"
+ },
+ "FLUX-keep|S005|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_mì"
+ },
+ "SDXL-keep|S041|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Tết"
+ },
+ "FLUX|S045|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "fruit"
+ },
+ "FLUX-refs|S006|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "West_Lake"
+ },
+ "SDXL-refs|S022|I1": {
+  "Vietnam": 2,
+  "China": 5,
+  "entity": "Lion_dance"
+ },
+ "FLUX|S049|I1": {
+  "Vietnam": 1,
+  "China": 3,
+  "entity": "Hmong_people"
+ },
+ "FLUX-keep|S045|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Chinese_New_Year"
+ },
+ "SDXL-keep|S038|I1": {
+  "Vietnam": 3,
+  "China": 3,
+  "entity": "History_of_salt"
+ },
+ "FLUX-refs|S042|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Vietnam"
+ },
+ "SDXL-refs|S032|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "Đàn_tranh"
+ },
+ "FLUX-keep|S015|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Floating_market"
+ },
+ "FLUX|S015|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Floating_market"
+ },
+ "FLUX-keep|S028|I1": {
+  "Vietnam": 2,
+  "China": 1,
+  "entity": "Kue_kochi"
+ },
+ "SDXL-keep|S035|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "Veneration of the dead"
+ },
+ "SDXL|S005|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_mì"
+ },
+ "SDXL-keep|S022|I1": {
+  "Vietnam": 4,
+  "China": 5,
+  "entity": "Lion_dance"
+ },
+ "SDXL|S030|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Áo_bà_ba"
+ },
+ "SDXL-keep|S019|I1": {
+  "Vietnam": 2,
+  "China": 1,
+  "entity": "Tai_peoples"
+ },
+ "FLUX-keep|S031|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "List of hanfu"
+ },
+ "FLUX-keep|S035|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Rumi"
+ },
+ "SDXL-refs|S006|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "One_Pillar_Pagoda"
+ },
+ "FLUX-refs|S009|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Đàn_tranh"
+ },
+ "FLUX-refs|S030|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Vietnamese_people"
+ },
+ "SDXL|S028|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Puto_bumbóng"
+ },
+ "SDXL-keep|S018|I1": {
+  "Vietnam": 2,
+  "China": 1,
+  "entity": "Tai_peoples"
+ },
+ "SDXL-keep|S010|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Water_puppetry"
+ },
+ "SDXL-keep|S027|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Bún_bò_Huế"
+ },
+ "SDXL|S041|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Tết"
+ },
+ "SDXL-keep|S049|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Qing_dynasty"
+ },
+ "FLUX|S019|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Hui_people"
+ },
+ "FLUX-refs|S004|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Bánh_tẻ"
+ },
+ "SDXL|S020|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Manchu_people"
+ },
+ "SDXL-refs|S001|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Áo_dài"
+ },
+ "SDXL-keep|S048|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "potter's_wheel"
+ },
+ "FLUX-refs|S025|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Gỏi_cuốn"
+ },
+ "SDXL|S026|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Nem"
+ },
+ "SDXL|S027|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Bún_bò_Huế"
+ },
+ "SDXL-keep|S023|I1": {
+  "Vietnam": 5,
+  "China": 4,
+  "entity": "Tết"
+ },
+ "FLUX|S016|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Traditional_Thai_house"
+ },
+ "SDXL|S009|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Đàn_tứ"
+ },
+ "FLUX-keep|S037|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Old_Quarter,_Hanoi"
+ },
+ "SDXL-keep|S050|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "red_envelope"
+ },
+ "FLUX-keep|S050|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "red_envelope"
+ },
+ "SDXL-refs|S040|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Vietnamese_people"
+ },
+ "FLUX-keep|S030|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Áo_bà_ba"
+ },
+ "FLUX|S005|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_mì"
+ },
+ "FLUX-refs|S020|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Manchu_people"
+ },
+ "SDXL-keep|S011|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Sichuan_opera"
+ },
+ "FLUX|S031|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Áo_dài"
+ },
+ "FLUX|S037|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "sidewalk_cafe"
+ },
+ "FLUX-refs|S036|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "Chinese_New_Year"
+ },
+ "SDXL-keep|S026|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Món_cuốn"
+ },
+ "FLUX-refs|S002|I1": {
+  "Vietnam": 5,
+  "China": 4,
+  "entity": "peddler"
+ },
+ "FLUX|S041|I1": {
+  "Vietnam": 2,
+  "China": 4,
+  "entity": "Lunar_New_Year_Fair"
+ },
+ "SDXL-refs|S048|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "potter's_wheel"
+ },
+ "FLUX|S048|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "pottery"
+ },
+ "SDXL-refs|S045|I1": {
+  "Vietnam": 5,
+  "China": 3,
+  "entity": "Buddhism_in_Vietnam"
+ },
+ "SDXL|S010|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Water_puppetry"
+ },
+ "FLUX|S032|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Đàn_tranh"
+ },
+ "SDXL-refs|S010|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Water_puppetry"
+ },
+ "FLUX|S025|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Gỏi_cuốn"
+ },
+ "FLUX-keep|S010|I1": {
+  "Vietnam": 2,
+  "China": 4,
+  "entity": "Mid-Autumn_Festival"
+ },
+ "SDXL-refs|S041|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Tết"
+ },
+ "FLUX-refs|S024|I1": {
+  "Vietnam": 3,
+  "China": 2,
+  "entity": "iced_coffee"
+ },
+ "FLUX-refs|S043|I1": {
+  "Vietnam": 3,
+  "China": 2,
+  "entity": "batik"
+ },
+ "SDXL-keep|S012|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "waterman_(occupation)"
+ },
+ "SDXL|S045|I1": {
+  "Vietnam": 5,
+  "China": 3,
+  "entity": "Buddhism_in_Vietnam"
+ },
+ "FLUX|S007|I1": {
+  "Vietnam": 5,
+  "China": 3,
+  "entity": "Temple_of_Literature,_Hanoi"
+ },
+ "SDXL-keep|S017|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Culture_of_Vietnam"
+ },
+ "SDXL-keep|S039|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Po_Nagar"
+ },
+ "FLUX-refs|S044|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Prunus_japonica"
+ },
+ "FLUX|S043|I1": {
+  "Vietnam": 3,
+  "China": 3,
+  "entity": "lithography"
+ },
+ "FLUX|S038|I1": {
+  "Vietnam": 2,
+  "China": 3,
+  "entity": "History_of_salt"
+ },
+ "SDXL-keep|S015|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Floating_market"
+ },
+ "FLUX-refs|S021|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Mid-Autumn_Festival"
+ },
+ "FLUX-refs|S037|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Old_Quarter,_Hanoi"
+ },
+ "FLUX-keep|S013|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "cycle_rickshaw"
+ },
+ "FLUX-refs|S015|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Floating_market"
+ },
+ "FLUX-keep|S001|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Áo_dài"
+ },
+ "FLUX-keep|S002|I1": {
+  "Vietnam": 5,
+  "China": 4,
+  "entity": "peddler"
+ },
+ "FLUX-keep|S038|I1": {
+  "Vietnam": 2,
+  "China": 3,
+  "entity": "History_of_salt"
+ },
+ "SDXL-refs|S018|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Kuki_people"
+ },
+ "FLUX-keep|S046|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Water_supply_and_sanitation_in_Vietnam"
+ },
+ "SDXL|S043|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "calligrapher"
+ },
+ "FLUX-keep|S012|I1": {
+  "Vietnam": 2,
+  "China": 1,
+  "entity": "coracle"
+ },
+ "FLUX|S004|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_chưng"
+ },
+ "FLUX-keep|S006|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "West_Lake"
+ },
+ "SDXL-refs|S044|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Tết"
+ },
+ "SDXL-refs|S021|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Mid-Autumn_Festival"
+ },
+ "SDXL-keep|S005|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_mì"
+ },
+ "FLUX-keep|S016|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Embekka_Devalaya"
+ },
+ "FLUX-keep|S044|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Prunus_serrulata"
+ },
+ "SDXL-refs|S050|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "red_envelope"
+ },
+ "FLUX|S036|I1": {
+  "Vietnam": 2,
+  "China": 5,
+  "entity": "Traditional_Chinese_marriage"
+ },
+ "SDXL|S039|I1": {
+  "Vietnam": 3,
+  "China": 1,
+  "entity": "Lady_Po_Nagar"
+ },
+ "SDXL|S016|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Kampung_Laut_Mosque"
+ },
+ "FLUX-refs|S016|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Embekka_Devalaya"
+ },
+ "FLUX-refs|S003|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "beef_broth"
+ },
+ "SDXL-refs|S037|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Dai_pai_dong"
+ },
+ "FLUX|S040|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Asian_conical_hat"
+ },
+ "FLUX-refs|S014|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Longji"
+ },
+ "SDXL|S038|I1": {
+  "Vietnam": 2,
+  "China": 3,
+  "entity": "Salt evaporation pond"
+ },
+ "SDXL-refs|S013|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "cycle_rickshaw"
+ },
+ "SDXL-refs|S028|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_tét"
+ },
+ "SDXL|S021|I1": {
+  "Vietnam": 4,
+  "China": 5,
+  "entity": "Mid-Autumn_Festival"
+ },
+ "SDXL-refs|S009|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Music_of_China"
+ },
+ "SDXL|S015|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Floating_market"
+ },
+ "SDXL|S034|I1": {
+  "Vietnam": 2,
+  "China": 1,
+  "entity": "Điện Biên Phủ Victory Museum"
+ },
+ "SDXL|S037|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Lau_Dan"
+ },
+ "FLUX|S010|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Sichuan_opera"
+ },
+ "FLUX|S003|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "pho"
+ },
+ "FLUX-refs|S033|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Sichuan_opera"
+ },
+ "FLUX|S011|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Sichuan_opera"
+ },
+ "SDXL-refs|S008|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "Hội_An"
+ },
+ "SDXL|S048|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "pottery"
+ },
+ "SDXL|S031|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Quan_họ"
+ },
+ "FLUX-refs|S011|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Sichuan_opera"
+ },
+ "SDXL|S049|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Manchu_people"
+ },
+ "FLUX-keep|S026|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Món_cuốn"
+ },
+ "FLUX-keep|S040|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Agriculture_in_Sri_Lanka"
+ },
+ "SDXL-refs|S039|I1": {
+  "Vietnam": 3,
+  "China": 1,
+  "entity": "Lady_Po_Nagar"
+ },
+ "FLUX|S028|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Bánh_tét"
+ },
+ "FLUX|S050|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "red_envelope"
+ },
+ "FLUX-keep|S011|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Sichuan_opera"
+ },
+ "FLUX|S017|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Perfume_Pagoda"
+ },
+ "SDXL|S025|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Gỏi_cuốn"
+ },
+ "FLUX|S039|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Taung_Kalat"
+ },
+ "SDXL-refs|S047|I1": {
+  "Vietnam": 2,
+  "China": 4,
+  "entity": "Hmong_people"
+ },
+ "SDXL-refs|S046|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Bến_Tre_Province"
+ },
+ "SDXL|S004|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_tẻ"
+ },
+ "SDXL-keep|S007|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "One_Pillar_Pagoda"
+ },
+ "FLUX|S024|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Milk coffee"
+ },
+ "FLUX-keep|S048|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "potter's_wheel"
+ },
+ "SDXL-refs|S003|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "pho"
+ },
+ "FLUX|S033|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Sichuan_opera"
+ },
+ "FLUX-keep|S022|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "Lion_dance"
+ },
+ "SDXL-refs|S027|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Bún_bò_Huế"
+ },
+ "FLUX|S006|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Hangzhou"
+ },
+ "FLUX|S026|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Sarmale"
+ },
+ "FLUX-keep|S004|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "Bánh_lá"
+ },
+ "FLUX-refs|S022|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "Lion_dance"
+ },
+ "FLUX-keep|S042|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Vietnam"
+ },
+ "SDXL-keep|S004|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_tẻ"
+ },
+ "SDXL-keep|S047|I1": {
+  "Vietnam": 2,
+  "China": 4,
+  "entity": "Hmong_people"
+ },
+ "SDXL-refs|S011|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Sichuan_opera"
+ },
+ "FLUX-keep|S032|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "Đàn_tranh"
+ },
+ "SDXL-keep|S033|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Sichuan_opera"
+ },
+ "SDXL|S012|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "waterman_(occupation)"
+ },
+ "FLUX-keep|S021|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Mid-Autumn_Festival"
+ },
+ "SDXL|S042|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Hạ_Long_Bay"
+ },
+ "FLUX-keep|S049|I1": {
+  "Vietnam": 2,
+  "China": 3,
+  "entity": "Guangxi"
+ },
+ "FLUX-keep|S041|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Tết"
+ },
+ "FLUX-keep|S034|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Du_Fu_Thatched_Cottage"
+ },
+ "FLUX|S047|I1": {
+  "Vietnam": 1,
+  "China": 3,
+  "entity": "Mosuo"
+ },
+ "SDXL|S003|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "pho"
+ },
+ "SDXL|S029|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Xôi"
+ },
+ "FLUX|S018|I1": {
+  "Vietnam": 3,
+  "China": 3,
+  "entity": "Lahu_people"
+ },
+ "SDXL|S040|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Vietnamese_people"
+ },
+ "SDXL-keep|S009|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "Đàn_tranh"
+ },
+ "SDXL-keep|S025|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Món_cuốn"
+ },
+ "SDXL-keep|S020|I1": {
+  "Vietnam": 3,
+  "China": 1,
+  "entity": "Tai_peoples"
+ },
+ "FLUX-keep|S018|I1": {
+  "Vietnam": 3,
+  "China": 3,
+  "entity": "Lahu_people"
+ },
+ "FLUX-refs|S039|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Thatbyinnyu_Temple"
+ },
+ "SDXL|S050|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "red_envelope"
+ },
+ "SDXL-refs|S016|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Kampung_Laut_Mosque"
+ },
+ "SDXL-refs|S023|I1": {
+  "Vietnam": 5,
+  "China": 4,
+  "entity": "Tết"
+ },
+ "FLUX|S002|I1": {
+  "Vietnam": 5,
+  "China": 4,
+  "entity": "peddler"
+ },
+ "FLUX-keep|S014|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Yuanyang_County,_Yunnan"
+ },
+ "FLUX-keep|S024|I1": {
+  "Vietnam": 3,
+  "China": 2,
+  "entity": "iced_coffee"
+ },
+ "SDXL-refs|S049|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Qing_dynasty"
+ },
+ "FLUX-keep|S007|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "Temple_of_Literature,_Hanoi"
+ },
+ "FLUX-refs|S007|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Temple_of_Literature,_Hanoi"
+ },
+ "FLUX-refs|S005|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Bánh_mì"
+ },
+ "SDXL|S033|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Sichuan_opera"
+ },
+ "SDXL-keep|S037|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Lau_Dan"
+ },
+ "FLUX-keep|S019|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Hui_people"
+ },
+ "SDXL-refs|S033|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Sichuan_opera"
+ },
+ "SDXL-refs|S031|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Quan_họ"
+ },
+ "SDXL-keep|S013|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "cycle_rickshaw"
+ },
+ "FLUX|S034|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Du_Fu_Thatched_Cottage"
+ },
+ "FLUX|S008|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "hutong"
+ },
+ "SDXL-refs|S034|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Hai_Bà_Trưng_Temple"
+ },
+ "FLUX-refs|S041|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Lijiang"
+ },
+ "SDXL|S046|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Bến_Tre_Province"
+ },
+ "FLUX-refs|S018|I1": {
+  "Vietnam": 3,
+  "China": 3,
+  "entity": "Lahu_people"
+ },
+ "FLUX|S030|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Áo_bà_ba"
+ },
+ "SDXL-refs|S015|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Floating_market"
+ },
+ "SDXL-keep|S006|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Japanese Bridge"
+ },
+ "FLUX|S012|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "fisherman"
+ },
+ "FLUX-refs|S045|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "Chinese_New_Year"
+ },
+ "FLUX|S046|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "footbridge"
+ },
+ "SDXL|S008|I1": {
+  "Vietnam": 5,
+  "China": 3,
+  "entity": "Culture_of_Vietnam"
+ },
+ "FLUX-refs|S046|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Water_supply_and_sanitation_in_Vietnam"
+ },
+ "FLUX-refs|S029|I1": {
+  "Vietnam": 2,
+  "China": 1,
+  "entity": "Nagasari"
+ },
+ "FLUX-refs|S049|I1": {
+  "Vietnam": 1,
+  "China": 3,
+  "entity": "Hmong_people"
+ },
+ "FLUX-refs|S034|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Embekka_Devalaya"
+ },
+ "FLUX-refs|S008|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "hutong"
+ },
+ "FLUX-refs|S050|I1": {
+  "Vietnam": 3,
+  "China": 5,
+  "entity": "red_envelope"
+ },
+ "SDXL-refs|S014|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Yuanyang_County,_Yunnan"
+ },
+ "FLUX|S021|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "Star_lantern"
+ },
+ "SDXL-keep|S042|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Hạ_Long_Bay"
+ },
+ "FLUX-refs|S019|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Hui_people"
+ },
+ "FLUX-keep|S043|I1": {
+  "Vietnam": 3,
+  "China": 2,
+  "entity": "batik"
+ },
+ "FLUX-refs|S048|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "potter's_wheel"
+ },
+ "FLUX-refs|S010|I1": {
+  "Vietnam": 2,
+  "China": 4,
+  "entity": "Lantern_Festival"
+ },
+ "SDXL-refs|S002|I1": {
+  "Vietnam": 5,
+  "China": 4,
+  "entity": "peddler"
+ },
+ "SDXL|S023|I1": {
+  "Vietnam": 5,
+  "China": 4,
+  "entity": "Tết"
+ },
+ "SDXL-refs|S012|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "waterman_(occupation)"
+ },
+ "FLUX-refs|S017|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Perfume_Pagoda"
+ },
+ "FLUX|S013|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "tricycle"
+ },
+ "SDXL-keep|S003|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "pho"
+ },
+ "FLUX-keep|S027|I1": {
+  "Vietnam": 3,
+  "China": 4,
+  "entity": "noodle_soup"
+ },
+ "FLUX-keep|S033|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Sichuan_opera"
+ },
+ "FLUX-refs|S047|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Hui_people"
+ },
+ "SDXL-refs|S038|I1": {
+  "Vietnam": 3,
+  "China": 3,
+  "entity": "History_of_salt"
+ },
+ "SDXL-keep|S016|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Kampung_Laut_Mosque"
+ },
+ "FLUX|S022|I1": {
+  "Vietnam": 2,
+  "China": 5,
+  "entity": "Lion_dance"
+ },
+ "SDXL-refs|S035|I1": {
+  "Vietnam": 5,
+  "China": 4,
+  "entity": "Veneration of the dead"
+ },
+ "SDXL|S044|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "The_Plum_Blossom"
+ },
+ "FLUX-refs|S028|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Bánh_tét"
+ },
+ "SDXL|S013|I1": {
+  "Vietnam": 4,
+  "China": 4,
+  "entity": "cycle_rickshaw"
+ },
+ "SDXL-refs|S026|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Món_cuốn"
+ },
+ "SDXL-keep|S032|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "Đàn_tranh"
+ },
+ "FLUX|S014|I1": {
+  "Vietnam": 1,
+  "China": 5,
+  "entity": "Longji"
+ },
+ "FLUX-keep|S008|I1": {
+  "Vietnam": 2,
+  "China": 4,
+  "entity": "Jinli"
+ },
+ "FLUX-keep|S009|I1": {
+  "Vietnam": 5,
+  "China": 3,
+  "entity": "Đàn_bầu"
+ },
+ "SDXL|S032|I1": {
+  "Vietnam": 5,
+  "China": 2,
+  "entity": "Đàn_tranh"
+ },
+ "FLUX-keep|S020|I1": {
+  "Vietnam": 1,
+  "China": 4,
+  "entity": "Manchu_people"
+ },
+ "SDXL-keep|S031|I1": {
+  "Vietnam": 4,
+  "China": 1,
+  "entity": "Quan_họ"
+ },
+ "FLUX|S042|I1": {
+  "Vietnam": 5,
+  "China": 1,
+  "entity": "Vietnam"
+ },
+ "FLUX-keep|S039|I1": {
+  "Vietnam": 1,
+  "China": 1,
+  "entity": "Thatbyinnyu_Temple"
+ },
+ "SDXL|S017|I1": {
+  "Vietnam": 4,
+  "China": 2,
+  "entity": "List of traditional festivals in Vietnam"
+ },
+ "SDXL-refs|S019|I1": {
+  "Vietnam": 2,
+  "China": 1,
+  "entity": "Tai_peoples"
+ },
+ "SDXL-keep|S044|I1": {
+  "Vietnam": 4,
+  "China": 3,
+  "entity": "Tết"
+ }
+}

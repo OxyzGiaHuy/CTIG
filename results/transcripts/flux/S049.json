@@ -175,7 +175,7 @@
   "images": {
    "A": "S049_flux_txt.png",
    "B (I0)": "S049_flux_txt.png",
-   "C (I1)": "S049_flux_txt.png"
+   "C (I1)": "S049_flux_ref.png"
   }
  },
  "transcript": [

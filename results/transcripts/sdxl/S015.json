@@ -4,7 +4,7 @@
   "prompt_vi": "Chợ nổi sáng sớm, thuyền chở trái cây, cây bẹo treo mẫu hàng.",
   "P_orig": "A floating market at dawn, fruit boats with sample poles.",
   "P_ct": "A floating market at dawn, fruit boats with sample poles. At dawn, the Cái Răng Floating Market on the Cần Thơ River in Vietnam is bustling with activity. Fruit boats, each adorned with sample poles displaying a rainbow of fruits and vegetables, weave through the waterways like a vibrant bazaar on the river. The market, where vendors call out the freshness and variety of their goods, is not just a place of commerce but a lively social space where the community gathers to exchange goods, share stories, and maintain cultural traditions. The aroma of fresh produce, the vibrant colors of the fruits, and the sounds of cheerful chatter and business transactions create a lively atmosphere, reflecting the rich tapestry of Vietnamese life and heritage.",
-  "P1": "A floating market at dawn, fruit boats with sample poles. At dawn, the Cái Răng Floating Market on the Cần Thơ River in Vietnam is bustling with activity. Fruit boats, each adorned with, weave through the waterways like a vibrant bazaar on the river. The market, where vendors call out the freshness and variety of their goods, is not just a place of commerce but a lively social space where the community gathers to exchange goods, share stories, and maintain cultural traditions. The aroma of fresh produce, the vibrant colors of the fruits, and the sounds of cheerful chatter and business transactions create a lively atmosphere, reflecting the rich tapestry of Vietnamese life and heritage.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: fruit boats; A floating market at dawn. Make these additions clearly visible:\n1. sample poles with hanging goods on the fruit boats.\n2. a basket of produce hanging from each sample pole.",
+  "P1": "A floating market at dawn, fruit boats with sample poles. At dawn, the Cái Răng Floating Market on the Cần Thơ River in Vietnam is bustling with activity. Fruit boats, each adorned with sample poles displaying a rainbow of fruits and vegetables, weave through the waterways like a vibrant bazaar on the river. The market, where vendors call out the freshness and variety of their goods, is not just a place of commerce but a lively social space where the community gathers to exchange goods, share stories, and maintain cultural traditions. The aroma of fresh produce, the vibrant colors of the fruits, and the sounds of cheerful chatter and business transactions create a lively atmosphere, reflecting the rich tapestry of Vietnamese life and heritage.",
   "seed": 5000,
   "model": "sdxl_base",
   "cards": {
@@ -192,7 +192,7 @@
   "images": {
    "A": "S015_sdxl_base_c0.png",
    "B (I0)": "S015_sdxl_base_c0.png",
-   "C (I1)": "S015_sdxl_base_c0.png"
+   "C (I1)": "S015_sdxl_base_ref_c0.png"
   }
  },
  "transcript": [

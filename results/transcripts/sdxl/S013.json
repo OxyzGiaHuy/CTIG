@@ -4,7 +4,7 @@
   "prompt_vi": "Xích lô chở khách qua đường phố.",
   "P_orig": "A cyclo carrying a passenger along a street.",
   "P_ct": "A cyclo carrying a passenger along a street. A cycle rickshaw, also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street, the passenger sits comfortably behind the driver, feeling the gentle breeze and the rhythmic clicking of the pedals. The driver skillfully navigates through narrow lanes and past vibrant colonial architecture, offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.",
-  "P1": "A cyclo carrying a passenger along a street. , also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street,, feeling the gentle breeze and the rhythmic clicking of the pedals., offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Make these additions clearly visible:\n1. a seat for the passenger in front of the driver.",
+  "P1": "A cyclo carrying a passenger along a street. A cycle rickshaw, also known as a cyclo, is a human-powered tricycle designed to carry passengers on a for-hire basis. Originating in the early 20th century, the cyclo has become an integral part of Vietnamese cities, blending historical charm with modern urban life. As it moves along a busy street, the passenger sits comfortably behind the driver, feeling the gentle breeze and the rhythmic clicking of the pedals. The driver skillfully navigates through narrow lanes and past vibrant colonial architecture, offering a unique glimpse into the city's rich history and cultural heritage. Its slower pace allows passengers to absorb the rich history and cultural heritage of the city, making it a favored choice for both locals and tourists alike.",
   "seed": 5000,
   "model": "sdxl_base",
   "cards": {
@@ -228,7 +228,7 @@
   "images": {
    "A": "S013_sdxl_base_c0.png",
    "B (I0)": "S013_sdxl_base_c0.png",
-   "C (I1)": "S013_sdxl_base_c0.png"
+   "C (I1)": "S013_sdxl_base_ref_c0.png"
   }
  },
  "transcript": [

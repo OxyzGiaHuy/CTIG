@@ -10,17 +10,17 @@ def font(sz, bold=False):
     p = f"/usr/share/fonts/truetype/dejavu/DejaVuSans{'-Bold' if bold else ''}.ttf"; return ImageFont.truetype(p, sz) if Path(p).exists() else ImageFont.load_default()
 
 ap = argparse.ArgumentParser(); ap.add_argument("--ids", required=True); ap.add_argument("--results", default="results"); ap.add_argument("--prompts", default="data/prompts_simple.json")
-ap.add_argument("-o", required=True); ap.add_argument("--cell", type=int, default=512); ap.add_argument("--models", default="sdxl:SDXL 1.0,flux:FLUX.1-dev"); a = ap.parse_args()
+ap.add_argument("-o", required=True); ap.add_argument("--cell", type=int, default=512); ap.add_argument("--models", default="sdxl:SDXL 1.0,flux:FLUX.1-dev"); ap.add_argument("--font-scale", type=float, default=1.0, help="hệ số phóng chữ cột prompt (2.0 = gấp đôi)"); a = ap.parse_args()
 ids = a.ids.split(","); P = {p["id"]: p for p in json.loads(Path(a.prompts).read_text(encoding="utf-8"))}
 models = [m.split(":") for m in a.models.split(",")]; arms = [("A", "Original prompt"), ("I0", "Culture-TRIP ($I_0$)".replace("$I_0$", "I0")), ("I1", "SAVIER (ours, I1)")]
-k = a.cell / 256; cell, pad, gut = a.cell, int(8 * k), int(300 * k); head1, head2 = int(30 * k), int(26 * k); FS = int(12 * k); LH = int(16 * k)
+k = a.cell / 256; cell, pad, gut = a.cell, int(8 * k), int(300 * k * max(1.0, a.font_scale)); head1, head2 = int(30 * k), int(26 * k); FS = int(12 * k * a.font_scale); LH = int(16 * k * a.font_scale); FH = int(12 * k)
 ncol = len(models) * len(arms); W = gut + ncol * (cell + pad) + pad; H = head1 + head2 + len(ids) * (cell + pad) + pad
-im = Image.new("RGB", (W, H), "white"); d = ImageDraw.Draw(im); fb, fr = font(int(14 * k), True), font(FS)
+im = Image.new("RGB", (W, H), "white"); d = ImageDraw.Draw(im); fb, fr, fh = font(int(14 * k * a.font_scale), True), font(FS), font(FH)
 for mi, (mk, mlab) in enumerate(models):
     x0 = gut + mi * len(arms) * (cell + pad); x1 = x0 + len(arms) * (cell + pad) - pad
     d.text(((x0 + x1) // 2 - d.textlength(mlab, font=fb) // 2, int(6 * k)), mlab, font=fb, fill=(0, 0, 0)); d.line((x0, head1 - int(4 * k), x1, head1 - int(4 * k)), fill=(120, 120, 120), width=max(1, int(k)))
     for ai, (_, alab) in enumerate(arms):
-        x = x0 + ai * (cell + pad); d.text((x + (cell - d.textlength(alab, font=fr)) // 2, head1 + int(4 * k)), alab, font=fr, fill=(20, 20, 20))
+        x = x0 + ai * (cell + pad); d.text((x + (cell - d.textlength(alab, font=fh)) // 2, head1 + int(4 * k)), alab, font=fh, fill=(20, 20, 20))
 for r, pid in enumerate(ids):
     y = head1 + head2 + r * (cell + pad); pr = P[pid]; wrap = int(gut / (FS * 0.62))
     lines = [f"{pid}"] + textwrap.wrap("EN: " + pr["text_en"], wrap) + [""] + textwrap.wrap("VI: " + pr["text_vi"], wrap)

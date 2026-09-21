@@ -69,5 +69,9 @@ SAVIER total ($I_1$) & & \textbf{93.8$\pm$26.8} & \textbf{119.0$\pm$27.9} \\
 
 Agent times are generator-independent by construction (same Mistral backbone, same cards, same I0 seed protocol): C 53.4 vs 53.1 s,
 O 12.1 vs 11.0 s, R 13.8 vs 13.6 s across the two generators — a useful sanity check that the measurement isolates the agents.
-A follow-up with the Evidence-Card token cap lowered from 2200 to 1200 is reported in `bench_sdxl_k1200.md` (C latency is driven by
-output length hitting the cap, not by Wikipedia length: corr(C time, Wikipedia chars) = −0.04 over 50 prompts, median C = 30 s).
+**Curator latency is output-bound, not input-bound.** Over the 50 prompts, corr(C time, Wikipedia characters) = −0.04 (the
+input is capped at ~4.4k characters for every prompt); the long tail (S003 108 s, S044 257 s) comes from the LLM running to
+the 2200-token cap. Lowering the Evidence-Card cap to 1200 tokens (`--k-max-tokens 1200`, same 5 prompts × 3 repeats,
+`bench_sdxl_k1200.md`) gives **identical cards** (same identity/conditional/disambiguator cues and the same repair actions on
+all 15 units) with C = 45.8 ± 14.4 s (from 53.4 ± 28.1), agents 71.8 s, SAVIER total **86.6 ± 14.3 s** on SDXL. The cap does
+not change the method's output; it only trims degenerate continuations, so 1200 is the recommended default.

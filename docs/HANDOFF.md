@@ -1080,3 +1080,9 @@ SDXL nhưng sập trên FLUX. **Giữ bản hiện tại làm bản chính.** n 
 - Số chính (SAVIER sau fix): SDXL 0.694/69.6/15.2, CAIRE-VN 3.36; FLUX 0.767/67.3/14.2, CAIRE-VN 3.00. FLUX SAVIER − refs-only: ΔCAIRE-VN **+0.28 [+0.02, +0.56]** (hiệu số duy nhất có ý nghĩa 95%), ΔVQA +0.054, ΔVCFS +2.1, ΔCCR −2.7. SDXL: âm nhẹ mọi metric, không có ý nghĩa (ΔCAIRE-VN −0.28 [−0.58, 0.00]).
 - VQA SDXL giảm 0.725→0.694 sau fix (S012 0.97→0.01, S011 0.78→0.41): IP-Adapter kéo bố cục về ảnh thật ở prompt có hành động/bối cảnh; keep-only không cứu (dự phóng 0.697). Đề xuất chưa chạy (chờ user duyệt): (1) IP-Adapter theo lịch bước (scale 0 ở 30% bước đầu), (2) chọn ref theo CLIP(P0) trong candidates, (3) mask IP-Adapter theo vùng chủ thể. Model SDXL/IP-Adapter/OWL-ViT + refs đã tải sẵn trên máy.
 - SAVIER README: bảng chính + ablation + insight cập nhật theo số sau fix và CAIRE ablation. Máy vẫn đang thuê, GPU rảnh.
+
+## 2026-09-21 — máy đo thời gian (118.163.199.123:18455), xong 10:08 UTC
+- `run_kor.py`: đồng hồ theo giai đoạn (`thoi_gian`), `--no-diag`, `--k-max-tokens`, no-op sinh với ref. Bench sạch: 5 prompt × 3 lặp, mỗi lặp cache riêng (`configs/bench_r{1,2,3}.yaml`), S050 warm-up bỏ. Lần đầu (bench5) hỏng vì cache LLM → agent 0 s; đã chạy lại.
+- Kết quả `results/bench/README.md` (+LaTeX): SDXL agent 79.3 s (C 53.4/O 12.1/R 13.8), I1 14.5 s, tổng 93.8 s; FLUX agent 77.7 s, I1 41.3 s, tổng 119 s (< best-of-4 = 146 s). C không phụ thuộc độ dài wiki (corr −0.04), phụ thuộc output chạm trần token; trần 1200 cho card y hệt, C 45.8 s, tổng SDXL 86.6 s → nên đặt mặc định 1200.
+- Hình định tính: `results/figures/qual_6prompts_{256,512}.png` (S004,S010,S024,S034,S039,S042; A/I0/I1 × 2 model; cột prompt EN+VI) theo yêu cầu thầy (bỏ cột refs-only).
+- Máy có thể tắt. SD3.5: chỉ Large có IP-Adapter (InstantX); Medium không → nếu thêm generator thứ ba thì dùng Large (~2 h máy + ~1 h tích hợp).

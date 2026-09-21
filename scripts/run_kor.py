@@ -153,7 +153,7 @@ K_SCHEMA_B = {"type": "object", "properties": {"cultural_evidence": K_SCHEMA["pr
               "required": ["cultural_evidence"]}
 
 
-K_MAX_TOKENS = 2200   # trần token cho Evidence Card; --k-max-tokens ghi đè (bench: 1200)
+K_MAX_TOKENS = 1200   # trần token cho Evidence Card (mặc định mới); --k-max-tokens ghi đè
 
 
 def _khoi_wiki(wiki_pages, tu_khoa, tran=4000):
@@ -464,6 +464,43 @@ def cong_gate(agent, so_tay, pid, cards, rep0, rep1, actions, log, nhan="C", i0=
     return out
 
 
+_CONNECT = r"(?:with|and|or|of|a|an|the|known as|called|featuring|such as|like|including|in|on|at|by|for|from|to|as)"
+
+def don_cau(t: str) -> str:
+    """Dọn cú pháp sau khi xoá cụm: bỏ liên từ/giới từ mồ côi trước dấu câu, dấu lặp, ngoặc/ngoặc kép rỗng, khoảng trắng.
+    Lặp tới khi ổn định. Đây là sửa văn bản thuần, không thêm nội dung."""
+    prev = None
+    while prev != t:
+        prev = t
+        t = re.sub(r"\(\s*\)|\[\s*\]|\"\s*\"|'\s*'|“\s*”", "", t)
+        t = re.sub(r"[\"“]\s*[,;:.]*\s*[\"”]", "", t)                                  # '","' ngoặc kép chỉ chứa dấu
+        t = re.sub(r"\s*,\s*(?=[,.;:])", "", t)                                   # ",," ", ." ", ;"
+        t = re.sub(r"\b" + _CONNECT + r"\s*(?=[,.;:)\"”])", "", t, flags=re.I)  # "with," "and." "a called ,"
+        t = re.sub(r"\b" + _CONNECT + r"\s+" + _CONNECT + r"\s*(?=[,.;:])", "", t, flags=re.I)
+        t = re.sub(r"(?<=[,;:])\s*(?:\"|”)\s*(?=[,.;])", "", t)                 # ',",' -> ','
+        t = re.sub(r"\b(?:called|known as|such as|featuring|including|like)\s+(?=(?:is|are|was|were|has|have|stands|sits|standing|sitting|wearing|holding|with|and|in|on|at|while)\b)", "", t, flags=re.I)
+        t = re.sub(r"\s+([,.;:])", r"\1", t); t = re.sub(r"([,.;:])(?=[A-Za-z])", r"\1 ", t)
+        t = re.sub(r"\s{2,}", " ", t).strip()
+        t = re.sub(r"^[,;:.\s]+", "", t)
+    return t
+
+def xoa_cum(mo_rong: str, drop: list[str]) -> str:
+    """Xoá cụm Culture-TRIP nhiễu theo MỆNH ĐỀ: mở rộng cụm tới liên từ/giới từ đứng ngay trước nó ("known as", "with",
+    "such as", "and"...) rồi xoá, sau đó don_cau(). Chỉ đụng phần mở rộng, không đụng P0."""
+    for x in drop or []:
+        i = mo_rong.lower().find(x.lower())
+        if i < 0: continue
+        j = i + len(x)
+        m = re.search(r"(?:,\s*)?(?:\b(?:known as|called|such as|like|featuring|including|with|and|or|of|in|on|at)\s+)?(?:a|an|the)?\s*$", mo_rong[:i], flags=re.I)
+        if m and m.group(0).strip(): i = m.start()
+        mo_rong = mo_rong[:i] + " " + mo_rong[j:]
+    return don_cau(mo_rong)
+
+MALFORMED = re.compile(r"(,\s*,|\(\s*\)|\"\s*,|\ba called\b|\b(?:with|and|or|of|the|a|an|known as)\s*[,.;]|\s,\s|\b(?:called|known as|such as)\s+(?:is|are|was|were|standing|sitting)\b)")
+def loi_cu_phap(t: str) -> list[str]:
+    return [m.group(0).strip() for m in MALFORMED.finditer(t)]
+
+
 def dung_P1(p_ct: str, actions: list[str], card: dict | None = None, p0: str = "", drop: list[str] | None = None) -> str:
     """P1 = P_ct nguyên văn (P_orig đã nằm ở đầu) + preserve clause + <=3 action dương tính. Không negative.
 
@@ -475,12 +512,7 @@ def dung_P1(p_ct: str, actions: list[str], card: dict | None = None, p0: str = "
         return p_ct
     # Phẫu thuật phần mở rộng: P0 giữ nguyên văn ở đầu, chỉ cắt cụm trong phần Culture-TRIP viết thêm.
     if p0 and p_ct.startswith(p0) and drop:
-        mo_rong = p_ct[len(p0):]
-        for x in drop:
-            i = mo_rong.lower().find(x.lower())
-            if i >= 0:
-                mo_rong = mo_rong[:i] + mo_rong[i + len(x):]
-        p_ct = p0 + " " + " ".join(mo_rong.replace(" ,", ",").replace(" .", ".").split())
+        p_ct = p0 + " " + xoa_cum(p_ct[len(p0):], drop)          # xoá theo mệnh đề + dọn cú pháp (audit 21/09)
     ds = "\n".join(f"{i + 1}. {a.rstrip('.')}." for i, a in enumerate(actions))
     giu = []
     for k in ("supporting_objects", "background_and_scene"):
@@ -600,7 +632,7 @@ def main(argv=None):
                     help="giữ action khi điểm I0 <= ngưỡng này; 3 = chỉ giữ khi I0 rõ ràng KHÔNG có (nghiêm)")
     ap.add_argument("--no-expansion", action="store_true",
                     help="R không đọc phần mở rộng Culture-TRIP; P1 dựng từ P0 (không mang phần mở rộng)")
-    ap.add_argument("--k-max-tokens", type=int, default=2200, help="trần max_new_tokens của lời gọi Evidence Card (mặc định 2200)")
+    ap.add_argument("--k-max-tokens", type=int, default=1200, help="trần max_new_tokens của lời gọi Evidence Card (mặc định 1200; bench 21/09: card y hệt 2200, cắt đuôi lan man)")
     ap.add_argument("--per-entity", action="store_true", help="prompt phức: một Evidence Card cho mỗi thực thể (gold_entities), gộp lại")
     ap.add_argument("--no-diag", action="store_true", help="tắt các lời gọi chẩn đoán sau I1 (O·I1, cổng) — dùng khi đo thời gian")
     ap.add_argument("--p1-from", default="", help="JSON kế hoạch {pid: {P1_new}}: sinh I1 bằng P1_new + IP-Adapter, không gọi agent")
@@ -910,7 +942,9 @@ def main(argv=None):
                "model": a.model, "strength_i2i": a.strength, "images": anh, "so_lan_sinh": dem,
                "cards": cards, "report_I0": rep0, "gap": gap, "actions": actions,
                "gate_C": gate_C, "gate_text": gate_text, "gate_i2i": gate_i2i, "refs": refs, "thoi_gian": {k: round(v, 2) for k, v in tg.items()},
-               "drop_phrases": gap.get("drop_phrases") or []}
+               "drop_phrases": gap.get("drop_phrases") or [],
+               "evidence_card_ok": bool((cards.get("cultural_evidence") or {}).get("identity_cues") or (cards.get("cultural_evidence") or {}).get("conditional_cues") or (cards.get("cultural_evidence") or {}).get("positive_disambiguators")),
+               "curator_errors": cards.get("_loi") or [], "p1_malformed": loi_cu_phap(p1.split("\n\nPreserve")[0])}
         (out_dir / "kor.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
         tong.append(rec); hang.append((pid, anh, ghi))
         ve_luoi(hang, cot, run_dir / "kor_grid.png", nhan=NHAN, ten_hang={u["prompt_id"]: f"{u['prompt_id']}: {u['prompt_vi']}" for u in tong})

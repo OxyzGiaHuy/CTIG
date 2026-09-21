@@ -1,0 +1,294 @@
+{
+ "prompt_id": "C001",
+ "prompt_vi": "Ông đồ ngồi trên chiếu viết thư pháp bằng mực tàu lên giấy đỏ, phía sau là cổng Văn Miếu - Quốc Tử Giám.",
+ "P_orig": "An old Confucian scholar-calligrapher sits on a mat writing calligraphy in black ink on red paper, the gate of the Temple of Literature behind him.",
+ "P_ct": "An old Confucian scholar-calligrapher sits on a mat writing calligraphy in black ink on red paper, the gate of the Temple of Literature behind him. In the serene courtyard of the Văn Miếu - Quốc Tử Giám in Hanoi, Vietnam, an elderly Confucian scholar, known as an 'ông đồ', sits on a bamboo mat. Dressed in a long, flowing robe adorned with intricate embroidery unique to Vietnamese culture, he meticulously writes calligraphy on mulberry paper using a traditional brush. Surrounding him, blooming flowers and lush greenery create a tranquil backdrop. On his table, ancient calligraphy tools such as an ink stone, a water dropper, and a stack of brush pens are neatly arranged. The gentle rustle of leaves, the subtle scent of ink, and the rhythmic sound of the brush sweeping across the paper create a meditative atmosphere, inviting observers to appreciate the deep cultural and historical significance of the scholar's work. Just before the Tết Vietnamese New Year celebration, the courtyard transforms into a gathering place for calligraphists who write wishes in Chữ Hán, the classical script of Vietnam. These calligraphic works are given away as gifts or used as home decorations for special occasions, reflecting the importance of calligraphy in Vietnamese culture and its role in conveying good wishes and auspiciousness.",
+ "P1": "An old Confucian scholar-calligrapher sits on a mat writing calligraphy in black ink on red paper, the gate of the Temple of Literature behind him. In the serene courtyard of the Văn Miếu - Quốc Tử Giám in Hanoi, Vietnam, an elderly Confucian scholar, known as an 'ông đồ', sits on a bamboo mat. Dressed in a adorned with intricate embroidery unique to Vietnamese culture, he meticulously writes calligraphy on using a traditional brush. Surrounding him, blooming flowers and lush greenery create a tranquil backdrop. On his table, are neatly arranged. The gentle rustle of leaves, the subtle scent of ink, and the rhythmic sound of the brush sweeping across the paper create a meditative atmosphere, inviting observers to appreciate the deep cultural and historical significance of the scholar's work. Just before the Tết Vietnamese New Year celebration, the courtyard transforms into a gathering place for calligraphists who write wishes in Chữ Hán, the classical script of Vietnam. These calligraphic works are given away as gifts or used as home decorations for special occasions, reflecting the importance of calligraphy in Vietnamese culture and its role in conveying good wishes and auspiciousness.\n\nPreserve the current subject, composition, setting, colors, and all correctly rendered details. Keep clearly visible: mat; black ink; red paper; the gate of the Temple of Literature behind him. Make these additions clearly visible:\n1. a bamboo mat under the person.\n2. a black inkstick on the ground near the person.\n3. the gate of the Temple of Literature behind the person.",
+ "seed": 5000,
+ "cards": {
+  "prompt_preservation": {
+   "main_entity": {
+    "vi": "Ông đồ",
+    "en": "An old Confucian scholar-calligrapher"
+   },
+   "subject_attributes": [
+    "đồ ngồi trên chiếu",
+    "viết thư pháp bằng mực tàu lên giấy đỏ",
+    "sits on a mat",
+    "writing calligraphy in black ink on red paper"
+   ],
+   "supporting_objects": [
+    "mực tàu",
+    "giấy đỏ",
+    "mat",
+    "black ink",
+    "red paper"
+   ],
+   "background_and_scene": [
+    "phía sau là cổng Văn Miếu - Quốc Tử Giám",
+    "the gate of the Temple of Literature behind him"
+   ],
+   "actions_and_relations": [
+    "ngồi trên chiếu",
+    "viết thư pháp",
+    "sits on a mat",
+    "writing calligraphy"
+   ],
+   "colors": [
+    "mực tàu",
+    "giấy đỏ",
+    "black ink",
+    "red paper"
+   ],
+   "visual_effects": [],
+   "time_weather_lighting": [],
+   "counts": {},
+   "text_in_image": [],
+   "must_preserve_verbatim": [
+    "Ông đồ",
+    "đồ ngồi trên chiếu",
+    "viết thư pháp bằng mực tàu lên giấy đỏ",
+    "phía sau là cổng Văn Miếu - Quốc Tử Giám",
+    "An old Confucian scholar-calligrapher",
+    "sits on a mat",
+    "writing calligraphy in black ink on red paper",
+    "the gate of the Temple of Literature behind him"
+   ]
+  },
+  "cultural_evidence": {
+   "identity_cues": [
+    {
+     "cue_vi": "mực tàu",
+     "cue_en": "black inkstick",
+     "visual_check_vi": "một cây mực tàu",
+     "quote_vi": "Bày mực tàu giấy đỏ",
+     "source_url": "https://vi.wikipedia.org/wiki/%C3%94ng_%C4%91%E1%BB%93",
+     "entity": "ông đồ"
+    },
+    {
+     "cue_vi": "giấy đỏ",
+     "cue_en": "red paper",
+     "visual_check_vi": "một tờ giấy đỏ",
+     "quote_vi": "Bày mực tàu giấy đỏ",
+     "source_url": "https://vi.wikipedia.org/wiki/%C3%94ng_%C4%91%E1%BB%93",
+     "entity": "ông đồ"
+    },
+    {
+     "cue_vi": "mực tàu",
+     "cue_en": "ink stick",
+     "visual_check_vi": "một cây mực tàu",
+     "quote_vi": "Công cụ chính tạo nên thư pháp là bút và chất liệu lưu trữ văn tự, mà sau được hiểu gồm mực và giấy.",
+     "source_url": "https://vi.wikipedia.org/wiki/Th%C6%B0_ph%C3%A1p",
+     "entity": "thư pháp mực tàu"
+    },
+    {
+     "cue_vi": "cổng Văn Miếu",
+     "cue_en": "gate of the Temple of Literature",
+     "visual_check_vi": "cổng có tên là cổng Văn Miếu",
+     "quote_vi": "cổng Văn Miếu",
+     "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m",
+     "entity": "Văn Miếu - Quốc Tử Giám"
+    },
+    {
+     "cue_vi": "cổng Thái Học",
+     "cue_en": "Thai Hoc Gate",
+     "visual_check_vi": "cổng có tên là cổng Thái Học",
+     "quote_vi": "cổng Thái Học",
+     "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m",
+     "entity": "Văn Miếu - Quốc Tử Giám"
+    }
+   ],
+   "conditional_cues": [
+    {
+     "cue_vi": "đang viết thư pháp",
+     "cue_en": "writing calligraphy",
+     "visual_check_vi": "người đang viết thư pháp",
+     "quote_vi": "những ông đồ không có việc làm đã sinh sống bằng nghề viết chữ thuê",
+     "source_url": "https://vi.wikipedia.org/wiki/%C3%94ng_%C4%91%E1%BB%93",
+     "entity": "ông đồ"
+    },
+    {
+     "cue_vi": "bút",
+     "cue_en": "brush",
+     "visual_check_vi": "một cây bút",
+     "quote_vi": "Công cụ chính tạo nên thư pháp là bút và chất liệu lưu trữ văn tự, mà sau được hiểu gồm mực và giấy.",
+     "source_url": "https://vi.wikipedia.org/wiki/Th%C6%B0_ph%C3%A1p",
+     "entity": "thư pháp mực tàu"
+    },
+    {
+     "cue_vi": "tường gạch vồ bao quanh",
+     "cue_en": "surrounded by a brick wall",
+     "visual_check_vi": "có tường gạch vồ bao quanh",
+     "quote_vi": "Khu Văn Miếu – Quốc Tử Giám có tường gạch vồ bao quanh",
+     "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m",
+     "entity": "Văn Miếu - Quốc Tử Giám"
+    }
+   ],
+   "positive_disambiguators": [
+    {
+     "target_appearance_vi": "đang viết thư pháp",
+     "target_appearance_en": "writing calligraphy",
+     "source_url": "https://vi.wikipedia.org/wiki/%C3%94ng_%C4%91%E1%BB%93",
+     "entity": "ông đồ"
+    },
+    {
+     "target_appearance_vi": "một cây bút có lông mềm",
+     "target_appearance_en": "a brush with soft bristles",
+     "source_url": "https://vi.wikipedia.org/wiki/Th%C6%B0_ph%C3%A1p",
+     "entity": "thư pháp mực tàu"
+    },
+    {
+     "target_appearance_vi": "có nhiều cổng",
+     "target_appearance_en": "has many gates",
+     "source_url": "https://vi.wikipedia.org/wiki/V%C4%83n_Mi%E1%BA%BFu_%E2%80%93_Qu%E1%BB%91c_T%E1%BB%AD_Gi%C3%A1m",
+     "entity": "Văn Miếu - Quốc Tử Giám"
+    }
+   ],
+   "insufficient_evidence": [
+    "trang phục của ông đồ",
+    "màu sắc của trang phục",
+    "cách ngồi của ông đồ",
+    "the color of the ink stick",
+    "the color of the brush",
+    "the size of the paper",
+    "the appearance of the gates",
+    "identity_cues: 'giấy đỏ' — quote có thật nhưng không nói về cue"
+   ]
+  },
+  "_loi": []
+ },
+ "report_I0": {
+  "main_subjects": [
+   "person sitting on small stool",
+   "large tree trunk",
+   "large white paper on ground"
+  ],
+  "clothing_and_appearance": [
+   "person wearing dark blue robe",
+   "person wearing glasses",
+   "person holding red brush"
+  ],
+  "foreground_objects": [
+   "white paper with black writing",
+   "small red stool",
+   "red brush on ground",
+   "stack of papers on ground"
+  ],
+  "supporting_objects": [
+   "large tree trunk with stone base",
+   "small brown jar on ground",
+   "red building with tiled roof"
+  ],
+  "background": [
+   "red building with tiled roof",
+   "large tree with green leaves",
+   "gray sky with mist"
+  ],
+  "actions": [
+   "person writing on paper",
+   "person holding brush"
+  ],
+  "spatial_relations": [
+   "person sitting in front of tree",
+   "paper on ground in front of person",
+   "jar on ground near paper",
+   "stool under person",
+   "brush in person's hand"
+  ],
+  "colors": [
+   "dark blue robe",
+   "red brush and stool",
+   "white paper",
+   "black writing on paper",
+   "green leaves",
+   "red building",
+   "gray sky"
+  ],
+  "counts": {
+   "people": 1,
+   "trees": 1,
+   "brushes": 2,
+   "jars": 1,
+   "stools": 1
+  },
+  "visible_effects": [
+   "mist in background",
+   "shadows on ground",
+   "light reflecting off paper"
+  ],
+  "uncertain": [
+   "top of tree",
+   "far right side of building",
+   "bottom of person's robe",
+   "far left side of paper"
+  ]
+ },
+ "gap": {
+  "missing_prompt_explicit": [
+   "sits on a mat",
+   "writing calligraphy in black ink on red paper",
+   "the gate of the Temple of Literature behind him"
+  ],
+  "missing_cultural_identity": [
+   "black inkstick",
+   "red paper",
+   "cổng Văn Miếu",
+   "cổng Thái Học"
+  ],
+  "contradictions": [
+   "person sitting on small stool",
+   "white paper with black writing",
+   "white paper on ground",
+   "paper on ground in front of person",
+   "stack of papers on ground",
+   "person wearing dark blue robe",
+   "red brush",
+   "red brush on ground",
+   "brush in person's hand",
+   "large tree trunk",
+   "large tree with green leaves",
+   "person sitting in front of tree",
+   "small brown jar on ground",
+   "jar on ground near paper",
+   "red building with tiled roof"
+  ],
+  "already_satisfied": [
+   "person writing on paper",
+   "person holding brush"
+  ],
+  "uncertain_no_repair": [
+   "top of tree",
+   "far right side of building",
+   "bottom of person's robe",
+   "far left side of paper"
+  ],
+  "repair_actions": [
+   "a bamboo mat under the person",
+   "a black inkstick on the ground near the person",
+   "the gate of the Temple of Literature behind the person"
+  ],
+  "drop_phrases": [
+   "long, flowing robe",
+   "mulberry paper",
+   "ancient calligraphy tools such as an ink stone, a water dropper, and a stack of brush pens"
+  ]
+ },
+ "actions": [
+  "a bamboo mat under the person",
+  "a black inkstick on the ground near the person",
+  "the gate of the Temple of Literature behind the person"
+ ],
+ "drop_phrases": [
+  "long, flowing robe",
+  "mulberry paper",
+  "ancient calligraphy tools such as an ink stone, a water dropper, and a stack of brush pens"
+ ],
+ "thoi_gian": {
+  "gen_A": 10.57,
+  "gen_B": 4.53,
+  "agent_C": 82.38,
+  "agent_O": 14.25,
+  "agent_R": 21.38,
+  "gen_C": 21.39
+ }
+}

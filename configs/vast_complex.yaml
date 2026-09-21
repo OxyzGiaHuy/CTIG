@@ -1,0 +1,65 @@
+# Thí nghiệm ba nhánh (kế hoạch v2), máy A800 80 GB.
+#
+#   A.  prompt EN gốc                          -> SDXL -> ảnh
+#   B.  prompt EN -> Culture-TRIP -> prompt*    -> SDXL -> ảnh
+#   C.  = B, rồi ảnh đó đi qua Agentic Loop
+#
+# Ba nhánh CÙNG SEED, CÙNG MODEL NỀN, chỉ khác đúng một thứ mỗi bậc. Cách chạy:
+#   A: scripts/run_walkthrough.py --config configs/vast_arms.yaml --prompt-source original    --no-agents --run-name armA
+#   B: scripts/run_walkthrough.py --config configs/vast_arms.yaml --prompt-source culture_trip --no-agents --run-name armB
+#   C: scripts/run_loop_v2.py     --config configs/vast_arms.yaml --prompt-source culture_trip             --run-name armC
+#
+# Khác vast_a100.yaml ở bốn điểm, đều để hai nhánh A và B chỉ chênh nhau ở câu prompt:
+#   - một model nền duy nhất (sdxl_base#bare): không LoRA, không IP-Adapter, không cổng thực thể
+#   - render: bare  -> prompt_terms đúng bằng prompt_en, không chèn thuộc tính KB
+#   - n_candidates 1 + adaptive tắt + ensemble tắt -> mỗi nhánh đúng một ảnh, cùng seed
+#   - bộ prompt mới (S001–S050), không phải bộ p001 cũ
+
+prompts_path: data/prompts_complex.json
+runs_dir: /workspace/runs
+
+# Bộ chấm là Mistral, không phải Qwen: Qwen2.5-VL-7B trả danh sách khác biệt RỖNG HOÀN TOÀN ở câu hỏi
+# nhiều ảnh. Trước đây config vẫn ghi qwen_vl và phải nhớ truyền --set llm.backend=mistral_vl bằng tay.
+llm:        {backend: mistral_vl, model: mistralai/Mistral-Small-3.1-24B-Instruct-2503, device: "cuda:0", max_new_tokens: 700, temperature: 0.0, cache: true}
+perception: {backend: vlm_clip, clip_model: openai/clip-vit-base-patch32, device: "cuda:0"}
+judge:      {backend: clip, device: "cuda:0", offload: false}
+
+# Ảnh tham chiếu: chỉ vòng sửa (nhánh C) mới đụng tới; A và B chạy #bare nên không dùng.
+retrieval:  {backend: wiki, web_api: ddg, web_langs: [vi, en], download_images: false, extract: true,
+             ref_index: /workspace/runs/_cache/ref_index.npz, ref_index_min_sim: 0.26, ref_index_k: 6,
+             ref_dir: "/workspace/refs_new/reference_images_simple,/workspace/refs_new/reference_images_complex",
+             ref_dir_candidates: false}
+
+review:     {enabled: false}
+agents:     {enabled: true, summary: true, enrich_prompt: false, ref_filter: true, candidate_review: true,
+             k_candidates: 1, max_revisions: 3, reload_vlm: false, primary_model: sdxl_base, anchor: first}
+
+models:     [sdxl_base#bare]
+
+multigen:
+  enabled: true
+  device: "cuda:0"
+  cpu_offload: false
+  n_candidates: 1
+  max_side: 1024
+  itm: false
+  scheduler: dpmpp_2m_karras
+  long_prompt: true          # compel nối embedding: prompt Culture-TRIP dài hơn 77 token CLIP ở 46/47 prompt
+  ref_images: 2
+  ref_crop: true
+  ref_scale: 0.5
+  copy_threshold: 0.88
+  hires:     {enabled: false}
+  aesthetic: {enabled: false}
+  adaptive:  {enabled: false}
+  auto_ref:  {enabled: false}
+  ensemble: false
+  saturated_metrics: false
+  ref_detector: owlvit
+  # Giữ cả 3 model nền thường trú trên GPU (SDXL 10 + RealVis 10 + FLUX 32 = 52 GB trên card 80 GB).
+  # Đo được: sinh ảnh 38 s/prompt nhưng tổng 72 s, phần dôi là nạp lại từ đĩa cho TỪNG prompt.
+  keep_loaded: 3
+
+t2i:        {backend: sdxl, model: stabilityai/stable-diffusion-xl-base-1.0, render: bare,
+             device: "cuda:0", cpu_offload: false, width: 1024, height: 1024, steps: 30, guidance: 5.0,
+             n_candidates: 1, ip_adapter: false, init_negatives: true}

@@ -153,21 +153,51 @@ K_SCHEMA_B = {"type": "object", "properties": {"cultural_evidence": K_SCHEMA["pr
               "required": ["cultural_evidence"]}
 
 
-def agent_K(agent, so_tay, pid, prompt_vi, prompt_en, wiki_pages, log, tu_khoa=None):
+K_MAX_TOKENS = 2200   # trần token cho Evidence Card; --k-max-tokens ghi đè (bench: 1200)
+
+
+def _khoi_wiki(wiki_pages, tu_khoa, tran=4000):
+    """Ghép các bài Wikipedia đã CẮT quanh danh từ thực thể, tổng không quá `tran` ký tự, bài vi trước."""
+    phan = []
+    for pg in sorted(wiki_pages, key=lambda x: 0 if x["lang"] == "vi" else 1):
+        if tran <= 600: break
+        doan = cat_bai(pg["text"], tu_khoa or [], toi_da=tran)
+        phan.append(f"=== PASSAGE [{pg['lang']}] {pg['title']} — {pg['url']} ===\n{doan}"); tran -= len(doan)
+    return "\n\n".join(phan)
+
+
+def agent_K(agent, so_tay, pid, prompt_vi, prompt_en, wiki_pages, log, tu_khoa=None, per_entity=None):
     # Lời gọi 1: Preservation Card, chỉ từ prompt (ngắn, không thể cụt)
     ua = f"PROMPT VI: {prompt_vi}\nPROMPT EN: {prompt_en}\n\nReturn prompt_preservation as JSON."
     da = goi_text(agent, so_tay, pid, "K", "card_preservation", K_SYSTEM_A, ua, K_SCHEMA_A, max_new_tokens=700)
     # Lời gọi 2: Cultural Evidence Card, từ bài Wikipedia đã CẮT quanh danh từ thực thể
     # Trần 4k cho TỔNG các bài (S005 có vi + en, mỗi bài 4k -> 8,4k vào, JSON ra lại cụt). Bài vi trước.
-    tran = 4000; phan = []
-    for pg in sorted(wiki_pages, key=lambda x: 0 if x["lang"] == "vi" else 1):
-        if tran <= 600: break
-        doan = cat_bai(pg["text"], tu_khoa or [], toi_da=tran)
-        phan.append(f"=== PASSAGE [{pg['lang']}] {pg['title']} — {pg['url']} ===\n{doan}"); tran -= len(doan)
-    khoi = "\n\n".join(phan)
-    ub = (f"PROMPT VI: {prompt_vi}\nPROMPT EN: {prompt_en}\n\nWIKIPEDIA PASSAGES (the only allowed source "
-          f"for cultural cues):\n{khoi}\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.")
-    db = goi_text(agent, so_tay, pid, "K", "card_cultural", K_SYSTEM, ub, K_SCHEMA_B, max_new_tokens=2200)
+    if per_entity and len(per_entity) >= 2:
+        # Prompt phức: một lời gọi Evidence Card CHO MỖI thực thể (bài Wikipedia của thực thể đó, trần 2,5k),
+        # rồi gộp: <=2 identity, <=1 conditional, <=1 disambiguator mỗi thực thể; mỗi cue mang nhãn entity.
+        gop = {"identity_cues": [], "conditional_cues": [], "positive_disambiguators": [], "insufficient_evidence": []}
+        for ent in per_entity:
+            pgs = [p for p in wiki_pages if p.get("entity") == ent] or wiki_pages
+            khoi = _khoi_wiki(pgs, [ent] + [w for w in ent.split() if len(w) > 2], tran=2500)
+            ub = (f"PROMPT VI: {prompt_vi}\nPROMPT EN: {prompt_en}\n\nFOCUS ENTITY: {ent}\nReturn cues ONLY for this entity "
+                  f"(at most 2 identity_cues, 1 conditional_cue, 1 positive_disambiguator); set main_entity to it.\n\n"
+                  f"WIKIPEDIA PASSAGES (the only allowed source for cultural cues):\n{khoi}\n\n"
+                  f"Return cultural_evidence as JSON. quote_vi must be copied verbatim.")
+            dbe = goi_text(agent, so_tay, pid, "K", f"card_cultural[{ent}]", K_SYSTEM, ub, K_SCHEMA_B, max_new_tokens=K_MAX_TOKENS)
+            cee = dbe.get("cultural_evidence") or {}
+            for k, cap in (("identity_cues", 2), ("conditional_cues", 1), ("positive_disambiguators", 1)):
+                for c in (cee.get(k) or [])[:cap]:
+                    if isinstance(c, dict): c["entity"] = ent
+                    gop[k].append(c)
+            gop["insufficient_evidence"] += list(cee.get("insufficient_evidence") or [])
+            log(f"  [K·{ent}] identity {len((cee.get('identity_cues') or [])[:2])} · conditional {len((cee.get('conditional_cues') or [])[:1])}")
+        db = {"cultural_evidence": gop}; cap_id, cap_cond, cap_dis = 2 * len(per_entity), len(per_entity), len(per_entity)
+    else:
+        khoi = _khoi_wiki(wiki_pages, tu_khoa or [], tran=4000)
+        ub = (f"PROMPT VI: {prompt_vi}\nPROMPT EN: {prompt_en}\n\nWIKIPEDIA PASSAGES (the only allowed source "
+              f"for cultural cues):\n{khoi}\n\nReturn cultural_evidence as JSON. quote_vi must be copied verbatim.")
+        db = goi_text(agent, so_tay, pid, "K", "card_cultural", K_SYSTEM, ub, K_SCHEMA_B, max_new_tokens=K_MAX_TOKENS)
+        cap_id, cap_cond, cap_dis = 3, 2, 2
     d = {"prompt_preservation": da.get("prompt_preservation") or {}, "cultural_evidence": db.get("cultural_evidence") or {},
          "_loi": [x.get("_loi") for x in (da, db) if x.get("_loi")]}
     ce = d["cultural_evidence"]
@@ -190,8 +220,8 @@ def agent_K(agent, so_tay, pid, prompt_vi, prompt_en, wiki_pages, log, tu_khoa=N
                 loai.append(f"{k}: '{str(c.get('cue_vi'))[:50]}' — quote có thật nhưng không nói về cue")
             else:
                 loai.append(f"{k}: '{str(c.get('cue_vi'))[:50]}' — quote không nguyên văn trong bài / URL lạ")
-        ce[k] = giu[:3 if k == "identity_cues" else 2]
-    ce["positive_disambiguators"] = (ce.get("positive_disambiguators") or [])[:2]
+        ce[k] = giu[:cap_id if k == "identity_cues" else cap_cond]
+    ce["positive_disambiguators"] = (ce.get("positive_disambiguators") or [])[:cap_dis]
     ce["insufficient_evidence"] = (ce.get("insufficient_evidence") or []) + loai
     d["cultural_evidence"] = ce
     so_tay.ghi(pid, "K", "may_kiem", "(kiểm bằng máy: quote_vi phải nguyên văn trong bài vi)", "",
@@ -570,6 +600,8 @@ def main(argv=None):
                     help="giữ action khi điểm I0 <= ngưỡng này; 3 = chỉ giữ khi I0 rõ ràng KHÔNG có (nghiêm)")
     ap.add_argument("--no-expansion", action="store_true",
                     help="R không đọc phần mở rộng Culture-TRIP; P1 dựng từ P0 (không mang phần mở rộng)")
+    ap.add_argument("--k-max-tokens", type=int, default=2200, help="trần max_new_tokens của lời gọi Evidence Card (mặc định 2200)")
+    ap.add_argument("--per-entity", action="store_true", help="prompt phức: một Evidence Card cho mỗi thực thể (gold_entities), gộp lại")
     ap.add_argument("--no-diag", action="store_true", help="tắt các lời gọi chẩn đoán sau I1 (O·I1, cổng) — dùng khi đo thời gian")
     ap.add_argument("--p1-from", default="", help="JSON kế hoạch {pid: {P1_new}}: sinh I1 bằng P1_new + IP-Adapter, không gọi agent")
     ap.add_argument("--refs-only", action="store_true", help="ablation: I1 = P_ct + IP-Adapter, KHÔNG agent")
@@ -591,6 +623,7 @@ def main(argv=None):
     ap.add_argument("--method-name", default="CG-MAPR", help="tên phương pháp in trên lưới (Contract-Guided Multi-Agent Prompt Repair)")
     ap.add_argument("--set", action="append", default=[])
     a = ap.parse_args(argv)
+    global K_MAX_TOKENS; K_MAX_TOKENS = a.k_max_tokens
 
     ov: dict = {}
     set_dotted(ov, "t2i.render", "bare"); set_dotted(ov, "multigen.adaptive.enabled", "false")
@@ -752,7 +785,8 @@ def main(argv=None):
             ve_luoi(hang, cot, run_dir / "kor_grid.png", nhan=NHAN, ten_hang={u["prompt_id"]: f"{u['prompt_id']}: {u['prompt_vi']}" for u in tong})
             (run_dir / "kor.json").write_text(json.dumps({"don_vi": tong, "giao_tiep": so_tay.dong}, ensure_ascii=False, indent=1), encoding="utf-8")
             log(f"  [{rec['ablation']}] -> {i1}"); continue
-        _t0 = time.perf_counter(); cards = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log, tu_khoa=tu_khoa); tg["agent_C"] = time.perf_counter() - _t0
+        _t0 = time.perf_counter(); cards = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log, tu_khoa=tu_khoa,
+                                                    per_entity=(list(getattr(pr, "gold_entities", None) or []) if a.per_entity else None)); tg["agent_C"] = time.perf_counter() - _t0
         # ---- O: quan sát mù I0
         _t0 = time.perf_counter(); rep0 = agent_O(s.agent, so_tay, pid, i0, "I0", log); tg["agent_O"] = time.perf_counter() - _t0
         _t0 = time.perf_counter()

@@ -32,7 +32,44 @@ def extract_json(text: str) -> dict[str, Any]:
                     return obj
             except json.JSONDecodeError:
                 continue
+    fixed = repair_truncated(text)
+    if fixed is not None:
+        fixed["_truncated"] = True          # JSON bị cụt ở trần token, đã cứu phần tử hoàn chỉnh (audit 21/09)
+        return fixed
     raise JSONExtractError(f"không parse được JSON từ: {text[:200]!r}")
+
+
+def repair_truncated(text: str) -> dict[str, Any] | None:
+    """Cứu JSON bị cắt giữa chừng (hết max_new_tokens): lùi về dấu '}' đóng phần tử hoàn chỉnh gần cuối nhất,
+    bỏ dấu phẩy treo, đóng các ngoặc còn mở rồi parse. Trả None nếu không cứu được."""
+    start = text.find("{")
+    if start < 0:
+        return None
+    s = re.sub(r"```(?:json)?", "", text[start:])
+    ends = [m.start() for m in re.finditer(r"\}", s)]
+    for cut in reversed(ends[-60:]):
+        head = s[:cut + 1]
+        stack, in_str, esc = [], False, False
+        for ch in head:
+            if in_str:
+                if esc: esc = False
+                elif ch == "\\": esc = True
+                elif ch == '"': in_str = False
+                continue
+            if ch == '"': in_str = True
+            elif ch in "{[": stack.append("}" if ch == "{" else "]")
+            elif ch in "}]":
+                if stack: stack.pop()
+        if in_str:
+            continue
+        cand = _strip_trailing_commas(head.rstrip().rstrip(",")) + "".join(reversed(stack))
+        try:
+            obj = json.loads(cand)
+            if isinstance(obj, dict) and obj:
+                return obj
+        except json.JSONDecodeError:
+            continue
+    return None
 
 
 def _first_balanced(text: str) -> str:

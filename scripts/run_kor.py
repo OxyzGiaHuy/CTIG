@@ -570,6 +570,7 @@ def main(argv=None):
                     help="giữ action khi điểm I0 <= ngưỡng này; 3 = chỉ giữ khi I0 rõ ràng KHÔNG có (nghiêm)")
     ap.add_argument("--no-expansion", action="store_true",
                     help="R không đọc phần mở rộng Culture-TRIP; P1 dựng từ P0 (không mang phần mở rộng)")
+    ap.add_argument("--no-diag", action="store_true", help="tắt các lời gọi chẩn đoán sau I1 (O·I1, cổng) — dùng khi đo thời gian")
     ap.add_argument("--p1-from", default="", help="JSON kế hoạch {pid: {P1_new}}: sinh I1 bằng P1_new + IP-Adapter, không gọi agent")
     ap.add_argument("--refs-only", action="store_true", help="ablation: I1 = P_ct + IP-Adapter, KHÔNG agent")
     ap.add_argument("--reuse-from", default=None, help="chép A và I0 từ lô cũ cùng seed thay vì sinh lại (so sánh chính xác, nhanh hơn)")
@@ -660,8 +661,18 @@ def main(argv=None):
         gen0, _ = s.genspec()
         dem = {"A": 0, "B": 0, "C": 0, "C-text": 0, "C-i2i": 0}
 
+        def _sync():
+            try:
+                import torch; torch.cuda.synchronize()
+            except Exception:  # noqa: BLE001
+                pass
         def sinh(prompt, sub, nhanh, refs=None, seed=None):
-            dem[nhanh] += 1
+            dem[nhanh] += 1; _sync(); _t0 = time.perf_counter()
+            try:
+                return _sinh(prompt, sub, nhanh, refs, seed)
+            finally:
+                _sync(); tg[f"gen_{nhanh}"] = tg.get(f"gen_{nhanh}", 0.0) + time.perf_counter() - _t0
+        def _sinh(prompt, sub, nhanh, refs=None, seed=None):
             rf = refs or []
             if flux is not None:                       # đường FLUX tối giản: không multigen, không KB, không negative
                 return flux.sinh(prompt, a.seed if seed is None else seed,
@@ -687,6 +698,7 @@ def main(argv=None):
             out = g.generate(gs, s.spec()[0], s.kb, out_dir / sub)
             return out.candidates[0].path if out and out.candidates else None
 
+        tg = {}                                        # thời gian theo giai đoạn (giây), ghi vào rec["thoi_gian"]
         # ---- A và B (= I0)
         anh_A = i0 = None
         if a.reuse_from:
@@ -740,9 +752,10 @@ def main(argv=None):
             ve_luoi(hang, cot, run_dir / "kor_grid.png", nhan=NHAN, ten_hang={u["prompt_id"]: f"{u['prompt_id']}: {u['prompt_vi']}" for u in tong})
             (run_dir / "kor.json").write_text(json.dumps({"don_vi": tong, "giao_tiep": so_tay.dong}, ensure_ascii=False, indent=1), encoding="utf-8")
             log(f"  [{rec['ablation']}] -> {i1}"); continue
-        cards = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log, tu_khoa=tu_khoa)
+        _t0 = time.perf_counter(); cards = agent_K(s.agent, so_tay, pid, pr.text_vi, p_orig, wiki.get(pid, []), log, tu_khoa=tu_khoa); tg["agent_C"] = time.perf_counter() - _t0
         # ---- O: quan sát mù I0
-        rep0 = agent_O(s.agent, so_tay, pid, i0, "I0", log)
+        _t0 = time.perf_counter(); rep0 = agent_O(s.agent, so_tay, pid, i0, "I0", log); tg["agent_O"] = time.perf_counter() - _t0
+        _t0 = time.perf_counter()
         # ---- R: phân tích lỗ hổng -> action
         refs_chon, rep_ref = None, None
         if a.ref_select or a.diff_actions:
@@ -797,6 +810,7 @@ def main(argv=None):
         if bo_act:
             log(f"  [R] bỏ {len(bo_act)} action I0 đã đạt: {[a_[:40] for a_, _ in bo_act]}")
         # --no-expansion: P1 dựng từ P0, bỏ hẳn phần Culture-TRIP (A > B về VQAScore ở SDXL: phần mở rộng làm lệch prompt gốc)
+        tg["agent_R"] = time.perf_counter() - _t0                         # gồm gap + pre-score action trên I0
         p1 = dung_P1(p_orig if a.no_expansion else p_ct, actions, cards.get("prompt_preservation"), p0=p_orig, drop=gap.get("drop_phrases"))
         if gap.get("drop_phrases"):
             log(f"  [P1] cắt khỏi phần mở rộng: {gap['drop_phrases']}")
@@ -809,11 +823,8 @@ def main(argv=None):
         ghi = {"B (I0)": "= I0", "A": "prompt gốc"}
         gate_C = gate_i2i = gate_text = None
         if not actions:
-            log("  [C] no-op: R không có action hợp lệ -> I1 = I0")
-            anh["C (I1)"] = i0; ghi["C (I1)"] = "no-op (= I0)"
-            if a.i2i:
-                anh["C-i2i"] = i0; ghi["C-i2i"] = "no-op (= I0)"
-        else:
+            log("  [C] no-op: R không có action hợp lệ -> I1 = P_ct + IP-Adapter (không rơi về I0)")
+        if True:
             # ---- C: cùng seed, text2img, IP-Adapter trên ảnh thật đã cắt về chủ thể, prompt P1
             if refs_chon:
                 refs = list(refs_chon)
@@ -838,10 +849,10 @@ def main(argv=None):
                     log("  [!] C: KHÔNG thấy IP-Adapter trong ghi chú multigen -> ảnh thật không được gắn (khoá '#bare' xoá cờ +ref?)")
             except Exception:  # noqa: BLE001
                 pass
-            rep1 = agent_O(s.agent, so_tay, pid, i1, "I1", log) if i1 else {}
-            gate_C = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1, actions, log, "C", i0=i0, i1=i1, kiem=kiem) if i1 else None
+            rep1 = agent_O(s.agent, so_tay, pid, i1, "I1", log) if (i1 and not a.no_diag) else {}
+            gate_C = cong_gate(s.agent, so_tay, pid, cards, rep0, rep1, actions, log, "C", i0=i0, i1=i1, kiem=kiem) if (i1 and not a.no_diag) else None
             anh["C (I1)"] = i1 or i0
-            ghi["C (I1)"] = f"chọn {gate_C['selection']}" if gate_C else ("không có ảnh thật" if not refs else "sinh hỏng")
+            ghi["C (I1)"] = f"chọn {gate_C['selection']}" if gate_C else ("không có ảnh thật" if not refs else ("I1" if i1 else "sinh hỏng"))
             # ---- C-text (tuỳ chọn): cùng seed + P1, KHÔNG adapter — tách "chữ có đủ không" khỏi "adapter có phá không"
             gate_text = None
             if a.c_text:
@@ -864,7 +875,7 @@ def main(argv=None):
         rec = {"prompt_id": pid, "prompt_vi": pr.text_vi, "P_orig": p_orig, "P_ct": p_ct, "P1": p1, "seed": a.seed,
                "model": a.model, "strength_i2i": a.strength, "images": anh, "so_lan_sinh": dem,
                "cards": cards, "report_I0": rep0, "gap": gap, "actions": actions,
-               "gate_C": gate_C, "gate_text": gate_text, "gate_i2i": gate_i2i, "refs": refs if actions else [],
+               "gate_C": gate_C, "gate_text": gate_text, "gate_i2i": gate_i2i, "refs": refs, "thoi_gian": {k: round(v, 2) for k, v in tg.items()},
                "drop_phrases": gap.get("drop_phrases") or []}
         (out_dir / "kor.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
         tong.append(rec); hang.append((pid, anh, ghi))

@@ -1,0 +1,85 @@
+prompts_path: data/prompts_simple.json
+runs_dir: /workspace/runs
+llm:
+  backend: mistral_vl
+  model: mistralai/Mistral-Small-3.1-24B-Instruct-2503
+  device: cuda:0
+  max_new_tokens: 700
+  temperature: 0.0
+  cache: true
+perception:
+  backend: vlm_clip
+  clip_model: openai/clip-vit-base-patch32
+  device: cuda:0
+judge:
+  backend: clip
+  device: cuda:0
+  offload: false
+retrieval:
+  backend: wiki
+  web_api: ddg
+  web_langs:
+  - vi
+  - en
+  download_images: false
+  extract: true
+  ref_index: /workspace/runs/_cache/ref_index.npz
+  ref_index_min_sim: 0.26
+  ref_index_k: 6
+  ref_dir: /workspace/refs_new/reference_images_simple,/workspace/refs_new/reference_images_complex
+  ref_dir_candidates: false
+review:
+  enabled: false
+agents:
+  enabled: true
+  summary: true
+  enrich_prompt: false
+  ref_filter: true
+  candidate_review: true
+  k_candidates: 1
+  max_revisions: 3
+  reload_vlm: false
+  primary_model: sdxl_base
+  anchor: first
+models:
+- sdxl_base#bare
+multigen:
+  enabled: true
+  device: cuda:0
+  cpu_offload: false
+  n_candidates: 1
+  max_side: 1024
+  itm: false
+  scheduler: dpmpp_2m_karras
+  long_prompt: true
+  ref_images: 2
+  ref_crop: true
+  ref_scale: 0.5
+  copy_threshold: 0.88
+  hires:
+    enabled: false
+  aesthetic:
+    enabled: false
+  adaptive:
+    enabled: false
+  auto_ref:
+    enabled: false
+  ensemble: false
+  saturated_metrics: false
+  ref_detector: owlvit
+  keep_loaded: 3
+t2i:
+  backend: sdxl
+  model: stabilityai/stable-diffusion-xl-base-1.0
+  render: bare
+  device: cuda:0
+  cpu_offload: false
+  width: 1024
+  height: 1024
+  steps: 30
+  guidance: 5.0
+  n_candidates: 1
+  ip_adapter: false
+  init_negatives: true
+cache:
+  dir: /workspace/runs/_cache_bench_r2

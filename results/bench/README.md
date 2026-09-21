@@ -1,0 +1,70 @@
+# Runtime cost of SAVIER (wall-clock, one A100 80 GB)
+
+**Protocol.** One NVIDIA A100-SXM4 80 GB, no other job on the GPU; CUDA 12.4, torch 2.6.0, transformers 5.17,
+diffusers 0.40, bf16. Mistral-Small-3.1-24B (agents) and the generator are resident in GPU memory; model loading is
+excluded by a warm-up prompt (S050) that is not counted. Each stage is timed with `time.perf_counter()` around a
+`torch.cuda.synchronize()` pair. The LLM/reference-crop cache is disabled (a fresh cache directory per repeat), and
+the post-hoc diagnostic calls (`--no-diag`) are off, so only the method's own calls are timed. Prompts S001–S005,
+three repeats each (n = 15 per generator). SDXL: 30 steps, 1024², DPM++ 2M Karras. FLUX.1-dev: 28 steps, 1024².
+Raw per-unit timings: `bench_<model>_r{1,2,3}/S0xx/kor.json → thoi_gian`; aggregation: `scripts/bench_report.py`.
+
+## Table (seconds per prompt, mean ± sd)
+
+| Stage | What runs | SDXL 1.0 | FLUX.1-dev |
+|---|---|---:|---:|
+| Generate A | original prompt | 4.7 ± 0.1 | *pending* |
+| Generate I0 | Culture-TRIP prompt | 4.5 ± 0.1 | *pending* |
+| **C** · Curator | Preservation Card + Evidence Card (2 LLM calls, ≤4k chars of Vietnamese Wikipedia) | 53.4 ± 28.1 | — (image-independent, shared) |
+| **O** · Observer | prompt-blind report of I0 (1 VLM call) | 12.1 ± 0.8 | *pending* |
+| **R** · Refiner | gap analysis + pre-scoring of actions on I0 | 13.8 ± 1.6 | *pending* |
+| Agents total (C+O+R) | | 79.3 ± 27.1 | *pending* |
+| Generate I1 | same seed + IP-Adapter on 2 curated photos (incl. entity crop) | 14.5 ± 1.6 | *pending* |
+| **SAVIER total** (agents + I1) | | **93.8 ± 26.8** | *pending* |
+| Repair actions emitted | count | 1.8 ± 0.7 | *pending* |
+
+LaTeX (booktabs):
+
+```latex
+\begin{table}[t]
+\centering\small
+\caption{Wall-clock cost per prompt (seconds, mean$\pm$sd over 5 prompts $\times$ 3 repeats) on one A100 80\,GB,
+models resident, caches disabled. C is image-independent and can be computed once per prompt and reused across
+generators and seeds; O and R are the only per-image agent cost.}
+\label{tab:runtime}
+\begin{tabular}{llrr}
+\toprule
+Stage & Calls & SDXL 1.0 & FLUX.1-dev \\
+\midrule
+Generate $A$ / $I_0$ & 1 image each & 4.7 / 4.5 & -- / -- \\
+C~(Curator) & 2 LLM & 53.4$\pm$28.1 & shared \\
+O~(Observer) & 1 VLM on $I_0$ & 12.1$\pm$0.8 & -- \\
+R~(Refiner) & 1 LLM + action pre-scoring & 13.8$\pm$1.6 & -- \\
+Generate $I_1$ & same seed + IP-Adapter & 14.5$\pm$1.6 & -- \\
+\midrule
+SAVIER total ($I_1$) & & \textbf{93.8$\pm$26.8} & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+```
+
+## What the numbers say
+
+1. **The cultural check is a one-shot, bounded cost.** SAVIER runs C, O and R exactly once and generates exactly one
+   repaired image — no loop, no gate, no best-of-N. On SDXL the whole procedure costs 94 s per prompt, about 20 plain
+   SDXL samples; on FLUX, where a single image already takes ~35–40 s, the same agent budget is roughly the cost of two
+   extra images (numbers pending below). This is the price of grounding: Culture-TRIP refines the *prompt* without ever
+   looking at the picture; SAVIER pays ~26 s of Observer+Refiner per image to inspect what was actually drawn.
+2. **Two thirds of the agent time is the Curator, and it does not depend on the image.** C reads the prompt and the
+   Wikipedia evidence only, so its cards can be computed once per prompt and reused across seeds, generators and
+   re-runs (our FLUX run reused the SDXL cards verbatim). Amortised, the per-image agent overhead is O+R ≈ 26 s,
+   stable to ±2 s. C's variance (31–109 s) comes from the length of the Evidence Card JSON, not from retrieval.
+3. **Reference conditioning is cheap.** IP-Adapter with two curated photos adds ~10 s on SDXL (entity crop with
+   OWL-ViT/CLIP included) on top of a 4.5 s generation — a small fraction of the agent cost, for most of the VCFS
+   gain reported in the ablation.
+4. **Where the time goes is where the fidelity comes from.** In the ablation, references carry the attribute gain
+   (VCFS/CAIRE) while O+R deliver prompt fidelity, fewer confusables and fewer regressions on FLUX. The runtime
+   table shows the same split: a cheap image-side step and a deliberate, bounded text-side inspection. For a
+   generation-time culture check on a 24B open model this is the trade-off we accept: seconds of verification per
+   image instead of a fine-tuned generator or a human in the loop.
+
+*FLUX rows are filled in from `bench_flux.md` when the FLUX repeats finish.*

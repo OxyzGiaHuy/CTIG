@@ -1095,3 +1095,4 @@ SDXL nhưng sập trên FLUX. **Giữ bản hiện tại làm bản chính.** n 
 - Tiêu đề run-in Mục 2 và 3.2 đổi sang macro `\runin` (không khoảng trắng dọc), lấy lại khoảng 7 dòng để khôi phục câu minh bạch của bản nộp và 3 trích dẫn. Bài đầy đúng 11 trang.
 - Ảnh trong hình định tính của bài phải lấy từ `SAVIER/results` (final2). `CTIG/results` và `results/flat` đang là bộ ảnh sau đợt sửa 21/09 (final3), không khớp số trong bài.
 - Reference-only chỉ nằm trong văn bản (kể bằng khoảng tin cậy), theo yêu cầu của thầy.
+- 24/10 (tiếp): Mục 5 cũng đổi sang `\runin` (13 tiêu đề run-in, một kiểu). Thêm câu số liệu contract (150 yêu cầu chấm, 6 có điều kiện, 115 nét dễ nhầm, 55 URL) và ý "một lần sinh lại có thể không đủ khi I0 sai nặng". Đoạn FID và câu khoảng trống Related Work không vừa 11 trang. Sửa lỗi bản tracked: dấu cách đầu `\add{}` bị `\textcolor` nuốt.
